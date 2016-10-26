@@ -1,5 +1,86 @@
 <img src="vxd-logo.gif" width="215" height="84" />
-## Introduction: What is VXL?
+
+
+## Introduction: What is VXD?
+
+VXD (the Vision-something-Development libraries) is a collection of development/experimental
+C++ libraries for computer vision and image understanding based on [VXL](http://vxl.sourceforge.net).
+It is a collection of code that builds against VXL but doesn't contain VXL.
+
+VXL (the Vision-something-Libraries) is a collection of C++ libraries designed
+for computer vision research and implementation.  VXL is kept lean and stable by
+to be used by a host of companies, universities, and other libraries, so VXD has
+been created to cater for less stable, more experimental code based on VXL and
+closely mirroring its layout.
+
+The idea is to release large (and possibly clunky) computer vision systems in
+VXD, which can slowly mature to one day make it into VXL or even VXL core. Some
+"big" code by nature don't even have to ever make it to VXL strict standards or
+granularity, but can still be very useful.
+
+The idea came up because most research and industry labs having internal code
+that use VXL do not have an intermediate, common and more laidback open source
+step prior to pushing code to lean VXL. So VXD is to be a common repository that
+can be seen as closely coordinated with VXL and that can keep up (at least
+partially) with VXL changes and be built on official dashboards. 
+
+VXD is stratified into core, development libraries, contrib, and so on. 
+The VXD team maintains at least basic libraries conforming to the latest vxl at
+all times. VXD is easier to contribute to, and is less strict (thus messier)
+than VXL in terms of code stability.
+
+
+## Workflows
+
+A typical setup will have three VXL codebases:  VXL, VXD and an internal version
+(eg, LEMSVXL at Brown).
+
+In VXL, we have things like vgl, vnl etc.  in VXL/contrib/brl/bbas there are
+things such as bnl for contributions to vnl.  The internal / closed-source
+version of bnl is called dbnl in LEMSVXL.
+
+In VXD we should have something in between for, say, vnl development changes
+that are open-sourced. Since the internal libs at Brown already prepend a 'd',
+as in 'dbnl', I was thinking that VXD should instead *append* a 'd', like
+'bnld'.
+
+So the process of placing code would be threefold:
+
+1) VXL: core/vnl and contrib/bbas/bnl for stable additions from Brown
+2) VXD: basic/bnld for less stable additions from Brown, open sourced
+3) Closed-sourced code improving bnl (as in LEMSVXL): basic/dbnl
+
+This naming convention is important as we want to keep many versions of the same
+library around, one in VXL, one in VXD and another one inside the lab. Is this
+too confusing? It will take some work to do this, so please let me know.
+
+The idea is that VXD can build at the same time as VXL and private VXL-dependent libraries from other companies/universities, without conflict, even if this means some code duplication (each library version having potentially similar code but a different maturity level). So it would be a parallel hierarchy as much as possible, with different naming.
+
+To begin with, VXD will only have libraries that actually have public code that is not ready or reviewed for VXL-quality yet. In other words, empty development libraries will not be mirrored in VXD. This will be decided on a case by case basis. If we have development code to be open sourced, we create the *d libraries as needed.
+
+I'm thinking about appending a *d to only the last path/library name. For instance:
+vxl/contrib/brl/bbas/libname would map to vxd/contrib/brl/bbas/libnamed (same lib, ending with a *d) as possible. 
+vxl/contrib/gel/vsol would map to vxd/contrib/gel/vsold
+
+Includes for vxd/contrib/gel/vsold would look like
+
+#include <vsold/vsold_some_class.h>
+
+In CMake, we'd have
+
+include_directories( ${VXD_GEL_INCLUDE_DIR} )
+
+
+We should strive to to make it always consistent with VXL while apending a 'd' to the lib names. This is a good idea since it is a tiny but good initial step towards making internal private code available in VXL: you first name it and place it properly, following the VXL hierarchy, then you mature the code and one day it may make it to the corresponding folder in VXL. As easy as it may sound, some developers will find it a lot of work to have to rename/properly place their internal library prior to open-sourcing it in VXD. Making a new library name and path correspond to a hypothetical place in VXL in a clear way would be the first requirement to place code in VXD.
+
+### Misc. Workflow Remarks
+
+- VXL, VXD and the internal VXL-related libraries usually conform to VXL's philosophy and
+  coding standards, including CMake, but are by no means limited to VXL. Many use other third
+  party computer vision libraries such as OpenCV, Boost, etc.
+
+
+## What is VXL?
 VXL (the Vision-something-Libraries) is a collection of C++ libraries designed for computer vision research and implementation. It was created from TargetJr and the IUE with the aim of making a light, fast and consistent system. VXL is written in ANSI/ISO C++ and is designed to be portable over many platforms. The core libraries in VXL are:
 
 - vnl (numerics): Numerical containers and algorithms. e.g. matrices, vectors, decompositions, optimisers.
