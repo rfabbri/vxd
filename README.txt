@@ -36,23 +36,64 @@ stability.
 A typical setup will have three VXL codebases:  VXL, VXD and an internal
 version, which we refer to as VXInt in this discussion (e.g., LEMSVXL at Brown).
 
-### Basics of VXL Layering
+### Basics of VXL layering
 
-In VXL, we have basically two levels of code maturity:
+In VXL, we have basically two top levels of code maturity:
 
 1. core: for very stable code of wide interest. Examples: core/vgl, core/vnl
 2. contrib: for less stable or more specialized code (but still stable).
   Examples: contrib/brl or "Brown Libraries" for Brown University contributions,
-  contrib/gel or "General Electrics Libraries", etc.
+  contrib/gel or "General Electrics Libraries", etc. 
+  
 
 Both core and contrib have been very closely maintained by the community using
 high standards, while keeping it as lean as possible,
 to reduce maintenance burden and to serve as a reliable basis for other software systems.
 
-From the VXL website: Each core library is lightweight, and can be used without
+Moreover (from the VXL website): Each core library is lightweight, and can be used without
 reference to the other core libraries. Similarly, the non-core libraries don't
 depend on more than absolutely necessary, so you can compile and link just the
 libraries you really need.
+
+Within each top layer, there are other layering rules.
+
+Within core, we have this figure from the VXL book:
+
+```	
+Level:   0         1         2          3
+         vcl       vbl       vnl_algo   v*l (eg, contrib)
+                   vnl       vil_algo
+                   vil       vgl_algo
+                   vgl       v*l_io
+                   vul
+                   vsl
+```
+Libraries in one layer may not call their siblings, even if this means code copying.
+In practice, the above layering rules is served as reference for more
+complex libraries outside core, for which one doesn't always have to be so
+strict, say, about level 3 contrib libraries calling their siblings. 
+
+Code in contrib/ is usually intended to one day be part of core, and is
+roughly laid out for this purpose. To be promoted to core is a tendency used as an
+organizing principle, even if this almost never happens. 
+
+
+### VXL layering outside core
+
+Let us examine the example of contrib/brl.  It is a set of libraries inside VXL designed by Brown University
+researchers to hold open source versions of their research code.
+BRL is itself layered similar to VXL, but each library has a 'b' prefix:
+
+1. brl/bbas: basic libraries, analogous to vxl/core
+2. brl/b\* : higher level libraries 
+
+```	
+BRL Level:   1         2          3
+             bil       bil
+             bvgl      bvgl_algo
+                       b*l_io
+```
+
 
 ### Mirrored Layers across VXL, VXD and Internal Code
 
