@@ -325,4 +325,4 @@ http://Multiview-3d-Drawing.sf.net
 
 -->
 
-# Discolaimer: VXD is under development
+# Disclaimer: VXD is under development
