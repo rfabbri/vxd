@@ -81,21 +81,59 @@ organizing principle, even if this almost never happens.
 ### VXL layering outside core
 
 Let us examine the example of contrib/brl.  It is a set of libraries inside VXL designed by Brown University
-researchers to hold open source versions of their research code.
+researchers to hold open source versions of their research code. 
 BRL is itself layered similar to VXL, but each library has a 'b' prefix:
 
-1. brl/bbas: basic libraries, analogous to vxl/core
-2. brl/b\* : higher level libraries 
+1. brl/bbas: basic libraries, analogous to vxl/core (eg, bil, bvgl)
+2. brl/b\* : higher level libraries  (eg, brl/bseg/sdet for edge detection)
 
 ```	
-BRL Level:   1         2          3
-             bil       bil
-             bvgl      bvgl_algo
-                       b*l_io
+Sublayers of BRL under VXL Level 3:   3.1             3.2              3.3          3.4
+                                      bbas/bil       bbas/bil        seg/sdet     seg/sdet/algo
+                                      bbas/bvgl      bbas/bvgl_algo   b*l         b*l_pro
+                                      bbas/b*l_io    bbas/b*l_io
+                                      bbas/b*l_pro
 ```
+For instance, whenever someone adds something in to bvgl, and it matures, it may
+be moved to core/vgl.
 
+In practice, in the more complex world of contrib/,
+libraries within the same layer may sometimes call siblings in the same layer.
+As a rule of thumb, lower layers must not depend on higher layers to compile.
+The rule relaxes as you go up the layers.
+
+This translates in the following compile workflow:
+
+- Configure VXL using CMake
+- Don't build everything, but only what you need. Start by typing 'make' to
+  build only the higher level libraries you need. For instance, if I only needed edge
+  detection, I'd only type make inside 'brl/sdet'
+- If compile fails, just backtrack along the layers. First build the lowest
+  level libraries you need, then move on to compiling the higher ones:
+  - Build core. If that fails, say, in vgl, first build vgl without vgl\_algo.
+    I do this by building vgl/tests, which won't depend on vgl/algo, then I move
+    to vgl_algo.
+  - If core builds, then go to brl/bbas and type 'make'. If that doesn't work, 
+  backtrack within that. If it works, then go to seg/sdet. Proceed in the same way.
+
+This process of isolating higher level bugs from lower level ones, enabling you
+to build code in stages, is enabled by the layering strategy of VXL.
+
+contrib/ libraries follow the same general idea, although each may have their idiosyncrasies.
+
+##### Examples:
+
+Can brl/bbas/bvgl call oxl/vdgl? No. 
+
+Can brl/bbas/bvgl\_algo call oxl/vdgl? Usually, yes. People won't think much
+about layers here; an '\*\_algo' library can depend on anything, if no cycle happens.
 
 ### Mirrored Layers across VXL, VXD and Internal Code
+
+How can we organize external code along the layering principles of VXL?
+Beyond VXL, there is layering within VXD, and layering within the internal
+library of a team, say, "VXInt". Within each of these there may be different policies,
+but the basic idea remains the same as described above.
 
 In VXL/contrib/brl/bbas, for instance, there are things such as bnl for contributions to vnl.  
 
