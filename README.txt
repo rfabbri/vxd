@@ -9,7 +9,7 @@ It is a collection of code that builds against VXL but doesn't contain VXL.
 
 VXL (the Vision-something-Libraries) is a collection of C++ libraries designed
 for computer vision research and implementation.  VXL is kept lean and stable by
-to be used by a host of companies, universities, and other libraries, so VXD has
+the community, to be used by several companies, universities, and other libraries, so VXD has
 been created to cater for less stable, more experimental code based on VXL and
 closely mirroring its layout.
 
