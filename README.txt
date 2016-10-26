@@ -24,19 +24,41 @@ step prior to pushing code to lean VXL. So VXD is to be a common repository that
 can be seen as closely coordinated with VXL and that can keep up (at least
 partially) with VXL changes and be built on official dashboards. 
 
-VXD is stratified into core, development libraries, contrib, and so on. 
-The VXD team maintains at least basic libraries conforming to the latest vxl at
-all times. VXD is easier to contribute to, and is less strict (thus messier)
-than VXL in terms of code stability.
+VXD is stratified into core/basic, larger development libraries, contrib folder
+with multiple people and/or entities, and so on.  The VXD team maintains at
+least basic libraries conforming to the latest vxl at all times. VXD is easier
+to contribute to, and is less strict (thus messier) than VXL in terms of code
+stability.
 
 
 ## Workflows
 
-A typical setup will have three VXL codebases:  VXL, VXD and an internal version
-(eg, LEMSVXL at Brown).
+A typical setup will have three VXL codebases:  VXL, VXD and an internal
+version, which we refer to as VXInt in this discussion (e.g., LEMSVXL at Brown).
 
-In VXL, we have things like vgl, vnl etc.  in VXL/contrib/brl/bbas there are
-things such as bnl for contributions to vnl.  The internal / closed-source
+### Basics of VXL Layering
+
+In VXL, we have basically two levels of code maturity:
+
+1. core: for very stable code of wide interest. Examples: core/vgl, core/vnl
+2. contrib: for less stable or more specialized code (but still stable).
+  Examples: contrib/brl or "Brown Libraries" for Brown University contributions,
+  contrib/gel or "General Electrics Libraries", etc.
+
+Both core and contrib have been very closely maintained by the community using
+high standards, while keeping it as lean as possible,
+to reduce maintenance burden and to serve as a reliable basis for other software systems.
+
+From the VXL website: Each core library is lightweight, and can be used without
+reference to the other core libraries. Similarly, the non-core libraries don't
+depend on more than absolutely necessary, so you can compile and link just the
+libraries you really need.
+
+### Mirrored Layers across VXL, VXD and Internal Code
+
+In VXL/contrib/brl/bbas, for instance, there are things such as bnl for contributions to vnl.  
+
+The internal / closed-source
 version of bnl is called dbnl in LEMSVXL.
 
 In VXD we should have something in between for, say, vnl development changes
