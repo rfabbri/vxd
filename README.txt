@@ -79,7 +79,7 @@ If you think you have found a bug, or if you have an installation or build probl
 
 
 
-
+<!--
 
 
 
@@ -323,3 +323,6 @@ format for your own projects with blender:
 Images and explanations of this ground truth are provided in:
 http://Multiview-3d-Drawing.sf.net
 
+-->
+
+# Discolaimer: VXD is under development
