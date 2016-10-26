@@ -34,7 +34,9 @@ stability.
 ## Workflows
 
 A typical setup will have three VXL codebases:  VXL, VXD and an internal
-version, which we refer to as VXInt in this discussion (e.g., LEMSVXL at Brown).
+version, which we refer to as "Internal" in this discussion (e.g., LEMSVXL at Brown).
+The workflow and organization of these libraries follow from the basic layering
+principles of VXL, reviewed below.
 
 ### Basics of VXL layering
 
@@ -128,51 +130,67 @@ Can brl/bbas/bvgl call oxl/vdgl? No.
 Can brl/bbas/bvgl\_algo call oxl/vdgl? Usually, yes. People won't think much
 about layers here; an '\*\_algo' library can depend on anything, if no cycle happens.
 
-### Mirrored Layers across VXL, VXD and Internal Code
+### Layers across VXL, VXD and internal code
 
-How can we organize external code along the layering principles of VXL?
+How can we organize external code to maximize consistency with VXL?
 Beyond VXL, there is layering within VXD, and layering within the internal
-library of a team, say, "VXInt". Within each of these there may be different policies,
-but the basic idea remains the same as described above.
+library of a team, referred here as "Internal". Within each of these there may be different policies,
+but the basic idea remains the same as described above. We give an example of a
+team as Brown University, but this could serve as any other team working with
+VXL.
 
-In VXL/contrib/brl/bbas, for instance, there are things such as bnl for contributions to vnl.  
+In VXL/contrib/brl/bbas, for instance, there is bnl for contributions to vnl.  
+Teams may have an internal or closed-source version of bnl, which is called dbnl
+in the case of LEMSVXL, Brown's internal library.
 
-The internal / closed-source
-version of bnl is called dbnl in LEMSVXL.
+In VXD we have something in between for, say, vnl development changes that are
+open-sourced. Since the internal libs at Brown already prepend a 'd', as in
+'dbnl', VXD *appends* a 'd', like 'bnld'.
 
-In VXD we should have something in between for, say, vnl development changes
-that are open-sourced. Since the internal libs at Brown already prepend a 'd',
-as in 'dbnl', I was thinking that VXD should instead *append* a 'd', like
-'bnld'.
+So the process of placing code would be along three highest level layers
+(inter-repository):
 
-So the process of placing code would be threefold:
-
-1) VXL: core/vnl and contrib/bbas/bnl for stable additions from Brown
-2) VXD: basic/bnld for less stable additions from Brown, open sourced
-3) Closed-sourced code improving bnl (as in LEMSVXL): basic/dbnl
+1. VXL: core/vnl for stable vnl, and contrib/bbas/bnl for stable additions from Brown
+2. VXD: basic/bnld for less stable additions from Brown, open sourced
+3. Closed-sourced code improving bnl (as in LEMSVXL): basic/dbnl
 
 This naming convention is important as we want to keep many versions of the same
-library around, one in VXL, one in VXD and another one inside the lab. Is this
-too confusing? It will take some work to do this, so please let me know.
+library around and compiling, one in VXL, one in VXD and another one in Internal.
+The idea is that VXD can build at the same time as VXL and private VXL-dependent
+libraries from other companies/universities, without conflict, even if this
+means some code duplication (each library version having potentially similar
+code but a different maturity level). So it is a parallel hierarchy as
+much as possible, with different naming.
 
-The idea is that VXD can build at the same time as VXL and private VXL-dependent libraries from other companies/universities, without conflict, even if this means some code duplication (each library version having potentially similar code but a different maturity level). So it would be a parallel hierarchy as much as possible, with different naming.
+VXD will only have libraries that actually have public code that
+is not ready or reviewed for VXL-quality yet. If we have development code to be
+open sourced, we create the \*d libraries as needed. 
 
-To begin with, VXD will only have libraries that actually have public code that is not ready or reviewed for VXL-quality yet. In other words, empty development libraries will not be mirrored in VXD. This will be decided on a case by case basis. If we have development code to be open sourced, we create the *d libraries as needed.
-
-I'm thinking about appending a *d to only the last path/library name. For instance:
-vxl/contrib/brl/bbas/libname would map to vxd/contrib/brl/bbas/libnamed (same lib, ending with a *d) as possible. 
+As a general rule, VXD appends a \*d to only the last path/library name. For instance:
+vxl/contrib/brl/bbas/libname would map to vxd/contrib/brl/bbas/libnamed (same lib, ending with a \*d) as possible. 
 vxl/contrib/gel/vsol would map to vxd/contrib/gel/vsold
 
 Includes for vxd/contrib/gel/vsold would look like
-
+```
 #include <vsold/vsold_some_class.h>
+```
 
 In CMake, we'd have
-
+```
 include_directories( ${VXD_GEL_INCLUDE_DIR} )
+```
 
-
-We should strive to to make it always consistent with VXL while apending a 'd' to the lib names. This is a good idea since it is a tiny but good initial step towards making internal private code available in VXL: you first name it and place it properly, following the VXL hierarchy, then you mature the code and one day it may make it to the corresponding folder in VXL. As easy as it may sound, some developers will find it a lot of work to have to rename/properly place their internal library prior to open-sourcing it in VXD. Making a new library name and path correspond to a hypothetical place in VXL in a clear way would be the first requirement to place code in VXD.
+We strive to to make it always consistent with VXL while apending a 'd'
+to the lib names. This is a good idea since it is a tiny but good initial step
+towards making internal private code available in VXL: you first name it and
+place it properly, following the VXL hierarchy and principles, then you mature
+the code and one day it may make it to the corresponding folder in VXL. As easy
+as it may sound, some developers will find it a lot of work to have to
+rename/properly place their internal library prior to open-sourcing it in VXD.
+Making a new library name and path correspond to a hypothetical place in VXL in
+a clear way is the first requirement to place code in the main part of VXD, while there are
+secondary folders for incubating non-conforming code and for storing obsolete
+code that may be useful.
 
 ### Misc. Workflow Remarks
 
