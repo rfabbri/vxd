@@ -233,7 +233,7 @@ non-conforming code and for storing obsolete code that may be useful.
   coding standards, including CMake, but are by no means limited to VXL. Many use other third
   party computer vision libraries such as OpenCV, Boost, etc.
 
-### Migrading code across the separate layers and repositories
+### Migrating code across the separate layers and repositories
 
 All is well under the sun, until code starts being modified in one version of a
 library and gets out of sync with the others. Moving code from one layer (or
