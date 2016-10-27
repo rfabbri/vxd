@@ -109,7 +109,7 @@ This translates in the following compile workflow:
 - Configure VXL using CMake
 - Don't build everything, but only what you need. Start by typing 'make' to
   build only the higher level libraries you need. For instance, if I only needed edge
-  detection, I'd only type make inside 'brl/sdet'
+  detection, I'd only type 'make' inside 'brl/sdet'
 - If compile fails, just backtrack along the layers. First build the lowest
   level libraries you need, then move on to compiling the higher ones:
   - Build core. If that fails, say, in vgl, first build vgl without vgl\_algo.
@@ -139,13 +139,33 @@ but the basic idea remains the same as described above. We give an example of a
 team as Brown University, but this could serve as any other team working with
 VXL.
 
-In VXL/contrib/brl/bbas, for instance, there is bnl for contributions to vnl.  
-Teams may have an internal or closed-source version of bnl, which is called dbnl
+In VXL/contrib/brl/bbas, for instance, there is BNL for contributions to VNL.  
+Teams may have, in turn, an internal or closed-source version of BNL, which is called DBNL
 in the case of LEMSVXL, Brown's internal library.
 
-In VXD we have something in between for, say, vnl development changes that are
-open-sourced. Since the internal libs at Brown already prepend a 'd', as in
-'dbnl', VXD *appends* a 'd', like 'bnld'.
+In VXD, the team may wish to publish something in between. For instance, VXD
+may contain VNL development changes that are open-sourced, but under a more
+laidback policy than VXL (more so than BNL and VNL), and at the same time
+slightly more strict than the Internal repositories for which anything is valid
+(after all, open-sourcing by itself is a step towards higher quality).
+
+Since the internal libs at Brown already prepend a 'd', as in 'dbnl', VXD
+*appends* a 'd', like 'bnld'.  As a general rule, VXD appends a \*d to only the
+last path/library name. For instance: vxl/contrib/brl/bbas/libname would map to
+vxd/contrib/brl/bbas/libnamed (same lib, ending with a \*d) as possible.
+vxl/contrib/gel/vsol would map to vxd/contrib/gel/vsold, etc.
+VXD will only have libraries that actually have public code that
+is not ready or reviewed for VXL-quality yet. If we have development code to be
+open sourced, we create the \*d libraries as needed. 
+
+The layering for VNL variants would look like:
+
+| Overall Layer  | Sub layer                 |  Sub layer      | Sub layer  | Path reflecting layers
+| -------------- | ------------------------- | --------------- | ---------  | ----------------------
+| VXL            | core                      | vnl             | vnl\_algo  | vxl/core/vnl/
+| VXL contrib    | BRL/bbas                  | bnl             | bnl\_algo  | vxl/contrib/brl/bbas/bnl/
+| VXD contrib    | BRL/bbas                  | bnld            | bnld\_algo | vxd/contrib/brl/bbas/bnld/
+| Internal       | BRL/basic (team-specific) | dbnl            | dbnl\_algo | internal/basic/dbnl/
 
 So the process of placing code would be along three highest level layers
 (inter-repository):
@@ -161,14 +181,6 @@ libraries from other companies/universities, without conflict, even if this
 means some code duplication (each library version having potentially similar
 code but a different maturity level). So it is a parallel hierarchy as
 much as possible, with different naming.
-
-VXD will only have libraries that actually have public code that
-is not ready or reviewed for VXL-quality yet. If we have development code to be
-open sourced, we create the \*d libraries as needed. 
-
-As a general rule, VXD appends a \*d to only the last path/library name. For instance:
-vxl/contrib/brl/bbas/libname would map to vxd/contrib/brl/bbas/libnamed (same lib, ending with a \*d) as possible. 
-vxl/contrib/gel/vsol would map to vxd/contrib/gel/vsold
 
 Includes for vxd/contrib/gel/vsold would look like
 ```
