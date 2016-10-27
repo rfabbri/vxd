@@ -133,7 +133,7 @@ Can brl/bbas/bvgl call oxl/vdgl? No.
 Can brl/bbas/bvgl\_algo call oxl/vdgl? Usually, yes. People won't think much
 about layers here; an '\*\_algo' library can depend on anything, if no cycle happens.
 
-### Layers across VXL, VXD and internal code
+### Layers across repositories: VXL, VXD and internal code
 
 How can we organize external code to maximize consistency with VXL?
 Beyond VXL, there is layering within VXD, and layering within the internal
@@ -149,11 +149,11 @@ in the case of LEMSVXL, Brown's internal library.
 In VXD, the team may wish to publish something in between. For instance, VXD
 may contain VNL development changes that are open-sourced, but under a more
 laidback policy than VXL (more so than BNL and VNL), and at the same time
-slightly more strict than the Internal repositories for which anything is valid
+slightly more strict or standardized than the Internal repositories for which anything is valid
 (after all, open-sourcing by itself is a step towards higher quality).
 
 Since the internal libs at Brown already prepend a 'd', as in 'dbnl', VXD
-*appends* a 'd', like 'bnld'.  As a general rule, VXD appends a \*d to only the
+*appends* a 'd', like 'bnld' and 'vnld'.  As a general rule, VXD appends a \*d to only the
 last path/library name. For instance: vxl/contrib/brl/bbas/libname would map to
 vxd/contrib/brl/bbas/libnamed (same lib, ending with a \*d) as possible.
 vxl/contrib/gel/vsol would map to vxd/contrib/gel/vsold, etc.
@@ -167,8 +167,16 @@ The layering for VNL variants may look like (from lower to higher layers):
 | -------------- | ------------------------- | ----------- | ---------  | ----------------------
 | VXL            | core                      | vnl         | vnl\_algo  | vxl/core/vnl/
 | VXL contrib    | BRL/bbas                  | bnl         | bnl\_algo  | vxl/contrib/brl/bbas/bnl/
+| VXD            | core                      | vnld        | vnld\_algo | vxd/core/vxd/vnld/
 | VXD contrib    | BRL/bbas                  | bnld        | bnld\_algo | vxd/contrib/brl/bbas/bnld/
 | Internal       | BRL/basic (team-specific) | dbnl        | dbnl\_algo | internal/basic/dbnl/
+
+The difference between vxd/core/vxd/vnld/ and vxd/contrib/brl/bbas/bnld/ could
+be that bnld is team-specific, while vnld is common code. But vnld doesn't have
+to exist, if only team-specific code is needed. Whether it is useful to have a
+common vnld will depend on whether we want a subset of the code to be
+independently compilable and linkable. Layering is only needed to tame
+different levels of development intensity, isolating potential mistakes.
 
 Note that an internal app may use any library, or all vnl variants simultaneously.
 The VXD and Internal trees should be constructed as if VXL, VXD and Internal
