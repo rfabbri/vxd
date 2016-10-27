@@ -275,9 +275,10 @@ A solution of copying code around and keeping track of changes by hand seems to
 be the only one available, taking advantage of layered organization to make the
 problem more well defined. Still, it is a manual solution.
 
-#### Example case
+#### Example case: small scale
+
 At Brown we have a state of the art edge detector and contour grouper as basis for many
-systems. It is an example of small scale code across VXL layers, representative
+systems. It is an example of small/medium scale code across VXL layers, representative
 of many situations. Larger scale systems stress these considerations and will be
 analyzed in the next section.
 
@@ -323,52 +324,24 @@ versions of the edge extraction technology:
 - GUI and I/O: Processes in dbdet/pro for sdet are added in LEMSVXL, so that a
   LEMSVXL GUI can have both dbdet and sdet versions, the latter being suffixed
   with 'vxl'.  In order to avoid rewriting visualizers / tableaux renderers for
-  sdet_edgemap and other structures, the VXL version of the processes will
-  convert the structures to dbdet versions. That is, we will not create sdet
-  versions of dbdet_edgemap_storage, dbdet_sel_storage, dbdet_edgemap_tableau,
-  etc, for now.
+  sdet\_edgemap and other structures, the VXL version of the processes will
+  *convert* the structures to dbdet versions on the fly. That is, we will not
+  create sdet versions of dbdet_edgemap_storage, dbdet_sel_storage,
+  dbdet_edgemap_tableau, etc, for now.
 
-- We encourage new users to use the more stable sdet library unless there is
-  significant experimental functionality in dbdet to be used.
+- The team encourages new users to use the more stable sdet library
+  unless there is significant experimental functionality in dbdet to be used.
+  However, in practice everyone with access to the internal repository has just used
+  dbdet.
 
-The main changes we have carried out are outlined as follows
-
-- We have implemented minor improvements to the available third order
-  edge detector in sdet using recent changes from dbdet.
-  - These improvements did not change the functionality of the edge detector,
-  as shown by an automated test to compare the sdet and dbdet versions in
-  dbdet/algo/test_edgemap
-  - Such test documents the API differences:
-    - the dbdet edge detector API is just a function call
-    - the sdet one is a class with separate parameters, which was there in sdet
-      aready and we also think it works best and is more extensible.
-  - The only internal difference between the sdet and dbdet edge detectors is
-    that the sdet edge detector returns a vector of vdgl_edgels, in which the
-    orientation is represented by an angle. The symbolic edge linker requires an
-    edge map which uses sdet_edgel (equal to dbdet_edgel) which stores
-orientation as
-    tan(angle). So currently one has to convert between the two prior to
-    applying the symbolic edge linker.  We are thinking about changing this to
-    be uniform as well, to avoid slow conversions. Perhaps default to sdet_edgel
-    and have a conversion function to vdgl_edgel? Not sure.
-
-- The symbolic edge linker has been ported as-is
-  - the new sdet API is the same as the dbdet one, as can beseen from these
-    identical tests: dbdet/algo/tests/test_sel.cxx and sel/tests/test_sel.cxx
-  - some useful pre and post-processing that was present in the
-symbolic edge linker
-    process from dbdet/pro were put inside a dbpro-independent class
-    sdet_symbolic_edge_linker class.
-  - certain internal depencencies to lems that was generally useful were
+- The main changes between sdet and dbdet have carried out by hand, eg, analyzing
+API differences and inserting appropriate research changes from dbdet in a case
+by case fashion.
+- some useful pre and post-processing that was present in the symbolic edge linker
+  process from dbdet/pro were put inside a dbpro-independent class sdet_symbolic_edge_linker class.
+- certain internal depencencies to lems that was generally useful were
     promoted  to VXL, namely:
     - brl/bbas/bvgl/bvgl_param_curve, bvgl_eulerspiral, bvgl_biarc
-
-Minor changes
-- dbdet_sel_base_CFTG_algo.cxx's content were merged into dbdet_sel_base.cxx,
-  insetad of creating sdet_sel_base_CFTG_algo. Perhaps Caio could comment on
-  this choice.
-- a few functions were implemented in-place on the .h instead of the .cxx
-
 
 ##### Some considerations
 
@@ -414,6 +387,10 @@ Here are some of the issues with a VXL programming environment, from experience.
 - Git branching is also a big discipline problem, where code diverges and each
   person doesn't sync their branches and end up with incompatible programming
   environments, only sharing a similar culture but out of sync.
+
+#### Example case: large scale
+
+
 
 #### Todo
 
