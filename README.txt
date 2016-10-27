@@ -149,11 +149,11 @@ In VXL/contrib/brl/bbas, for instance, there is BNL for contributions to VNL.
 Teams may have, in turn, an internal or closed-source version of BNL, which is called DBNL
 in the case of LEMSVXL, Brown's internal library.
 
-In VXD, the team may wish to publish something in between. For instance, VXD
+In VXD, the team may wish to publish somethings in between. For instance, VXD
 may contain VNL development changes that are open-sourced, but under a more
 laidback policy than VXL (more so than BNL and VNL), and at the same time
 slightly more strict or standardized than the Internal repositories for which anything is valid
-(after all, open-sourcing by itself is a step towards higher quality).
+(after all, open-sourcing by itself is a big step towards higher quality).
 
 Since the internal libs at Brown already prepend a 'd', as in 'dbnl', VXD
 *appends* a 'd', like 'bnld' and 'vnld'.  As a general rule, VXD appends a \*d to only the
@@ -174,17 +174,19 @@ The layering for VNL variants may look like (from lower to higher layers):
 | VXD contrib    | BRL/bbas                  | bnld        | bnld\_algo | vxd/contrib/brl/bbas/bnld/
 | Internal       | BRL/basic (team-specific) | dbnl        | dbnl\_algo | internal/basic/dbnl/
 
-The difference between vxd/core/vxd/vnld/ and vxd/contrib/brl/bbas/bnld/ could
-be that bnld is team-specific, while vnld is common code. But vnld doesn't have
-to exist, if only team-specific code is needed. Whether it is useful to have a
-common vnld will depend on whether we want a subset of the code to be
-independently compilable and linkable. Layering is only needed to tame
-different levels of development intensity, isolating potential mistakes.
+One sensible way to differentiate between vxd/core/vxd/vnld/ and vxd/contrib/brl/bbas/bnld/ 
+is to designate bnld for team-specific changes, while vnld is more commonly
+developed code. But vnld doesn't have to exist, if only team-specific code is
+needed. Whether it is useful to have a common vnld will depend on whether we
+want a subset of the code to be independently compilable and linkable. Layering
+is only needed to tame different levels of development intensity, isolating
+potential mistakes and management overhead.
 
 Note that an internal app may use any library, or all vnl variants simultaneously.
-The VXD and Internal trees should be constructed as if VXL, VXD and Internal
+The VXD and Internal trees are to be constructed as if VXL, VXD and Internal
 were co-existing in the same file tree, without conflict, except that in reality we have
-three separately managed repositories.
+three separately managed repositories. Of course this rule can also be relaxed for more
+unstable portions of VXD and Internal code.
 
 As another example, the layering for contrib/gel/vsol (which does not exist in
 Core in any form, but variants exist in many contrib folders) may look like:
@@ -198,12 +200,14 @@ Core in any form, but variants exist in many contrib folders) may look like:
 | Internal       | BRL/basic (team-specific) | dbsol       | dbsol\_algo | internal/basic/dbnl/
 
 In this case, VXD splits contributions to VSOL into two possible layers: vxd/gel/vsold and brl/bbas/bsold.
-In practice, vsold may not exist, unless the GE team itself wanted its own vsol development library in VXD.
-If only the Brown team is publishing development changes to VSOL, then only bsold may exist.
+In practice, vsold may not exist, unless any of these occur: either the GE team
+itself wanted its own vsol development library in VXD, or the VXD team wants to
+use contrib/gel/vsold as a common library to start merging all teams vsol
+changes. If only the Brown team is publishing development changes to VSOL, then only bsold will likely exist.
 But the Brown team may also want to push code directly to VXL, bypassing the bsold folder.
 VXD enters the picture only if pushing directly to VXL is less convenient.
 
-So the process of placing code would be along three inter-repository layers
+So the process of placing VNL-related code would be along three repository layers.
 
 1. VXL: core/vnl for stable vnl, and contrib/bbas/bnl for stable additions from Brown
 2. VXD: BRL/bbas/bnld for less stable additions from Brown, open sourced
@@ -217,17 +221,6 @@ means some code duplication (each library version having potentially similar
 code but a different maturity level). So it is a parallel hierarchy as
 much as possible, with different naming.  
 
-
-Includes for vxd/contrib/gel/vsold would look like
-```
-#include <vsold/vsold_some_class.h>
-```
-
-In CMake, we'd have
-```
-include_directories( ${VXD_GEL_INCLUDE_DIR} )
-```
-
 We strive to to make everything in VXD always consistent with VXL while
 apending a 'd' to the lib names. This is a good idea since it is a tiny but
 good initial step towards making internal private code available in VXL: you
@@ -237,6 +230,20 @@ corresponding folder in VXL. Making a new library name and path correspond to a
 hypothetical place in VXL in a clear way is the first requirement to place code
 in the main part of VXD, while there are secondary folders designated for incubating
 non-conforming code and for storing obsolete code that may be useful.
+
+Includes for both vxl vsol and vxd vsold can be done, and would look like
+```
+#include <vsol/vsol_some_class.h>
+#include <vsold/vsold_some_class.h>
+```
+
+In CMake, we'd have
+```
+include_directories( ${VXL_GEL_INCLUDE_DIR} )
+include_directories( ${VXD_GEL_INCLUDE_DIR} )
+```
+
+There are no conflicts, even if both libraries are loosely maintained and duplicate a lot of code.
 
 ### Misc. Workflow Remarks
 
