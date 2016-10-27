@@ -254,10 +254,24 @@ There are no conflicts, even if both libraries are loosely maintained and duplic
 ### Migrating code across the separate layers and repositories
 
 All is well under the sun, until code starts being modified in one version of a
-library and gets out of sync with the others. Moving code from one layer (or
-any sub-layering) to a more strict layer is called "promoting" code, and is key 
-in the VXL approach to code quality and maintenance.
+library and gets out of sync with the others. Not to mention that each
+repository can have multiple git branches in addition to layers.
 
+#### Can we improve the following scenario?
+
+_"Here, try our new vision system, all you have to do is use VXL branch D, VXD
+branch X and Internal branch Y, do a back flip, set all these CMake variables
+exactly as I say, and use the same operating system, with the same installed
+libraries. To make your VXL-based code available to us, there's this little
+README in VXD..."_
+
+Syncronizing code is crucial in order to work collaboratively at different levels, 
+as well as for consolidating versions done by a single person for higher quality
+and scalability. Moving code from one layer (or any sub-layering) to a more
+strict layer is called "promoting" code, and is key in the VXL approach to code
+quality and maintenance.  Git helps merging between branches, although this can
+get messy if care is not taken. However, Git does not automate syncing between
+layers across different repositories, although it helps organize things.
 Questions arise:
 
 1. How are we to keep track of code changes in a feasible way, if separate
