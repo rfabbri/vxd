@@ -107,23 +107,23 @@ be moved to core/vgl.
 In practice, in the more complex world of contrib/,
 libraries within the same layer may sometimes call siblings in the same layer.
 As a rule of thumb, lower layers must not depend on higher layers to compile.
-The rule relaxes as you go up the layers.
+The rules relax as you go up the layers, in practice.
 
-This translates in the following compile workflow:
+This translates in to the following compile workflow:
 
 - Configure VXL using CMake
 - Don't build everything, but only what you need. Start by typing 'make' to
   build only the higher level libraries you need. For instance, if I only needed edge
   detection, I'd only type 'make' inside 'brl/sdet'
-- If compile fails, just backtrack along the layers. First build the lowest
-  level libraries you need, then move on to compiling the higher ones:
+- If compile fails, just backtrack along the layers. First get the lowest
+  level libraries you need to build, then move on to compiling the higher ones:
   - Build core. If that fails, say, in vgl, first build vgl without vgl\_algo.
-    I do this by building vgl/tests, which won't depend on vgl/algo, then I move
+    You can do this by building vgl/tests, which won't depend on vgl/algo, then move
     to vgl_algo.
   - If core builds, then go to brl/bbas and type 'make'. If that doesn't work, 
   backtrack within that. If it works, then go to seg/sdet. Proceed in the same way.
 
-This process of isolating higher level bugs from lower level ones, enabling you
+This process of isolating higher level bugs and changes from lower level ones, enabling you
 to build code in stages, is enabled by the layering strategy of VXL.
 
 contrib/ libraries follow the same general idea, although each may have their idiosyncrasies.
@@ -133,7 +133,8 @@ contrib/ libraries follow the same general idea, although each may have their id
 Can brl/bbas/bvgl call oxl/vdgl? No. 
 
 Can brl/bbas/bvgl\_algo call oxl/vdgl? Usually, yes. People won't think much
-about layers here; an '\*\_algo' library can depend on anything, if no cycle happens.
+about layers here; they work as if an '\*\_algo' library can depend on anything, if
+no cycle happens. In later stages of development people get more selective.
 
 ### Layers across repositories: VXL, VXD and internal code
 
