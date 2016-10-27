@@ -343,6 +343,17 @@ by case fashion.
     promoted  to VXL, namely:
     - brl/bbas/bvgl/bvgl_param_curve, bvgl_eulerspiral, bvgl_biarc
 
+#### Example case: large scale
+
+Does the manual strategy used by the above team scale to larger systems?
+
+If there is a large system in a private repository, can we feasibly track
+changes back and forth between the public and private versions?
+Is the benefit of open sourcing only to make a huge effort to publish code so
+others can use, but the team itself doesn't use it, but only tracks it? The team
+has now two code bases to maintain, even if the changes are incremental and easy
+to merge by hand.
+
 ##### Some considerations
 
 Here are some of the issues with a VXL programming environment, from experience.
@@ -387,8 +398,6 @@ Here are some of the issues with a VXL programming environment, from experience.
 - Git branching is also a big discipline problem, where code diverges and each
   person doesn't sync their branches and end up with incompatible programming
   environments, only sharing a similar culture but out of sync.
-
-#### Example case: large scale
 
 
 
