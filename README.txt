@@ -31,12 +31,15 @@ to contribute to, and is less strict (thus messier) than VXL in terms of code
 stability.
 
 
-## Workflows
+## Developer Workflows
 
 A typical setup will have three VXL codebases:  VXL, VXD and an internal
 version, which we refer to as "Internal" in this discussion (e.g., LEMSVXL at Brown).
 The workflow and organization of these libraries follow from the basic layering
-principles of VXL, reviewed below.
+principles of VXL, reviewed below. 
+
+This section is not required to compile and use VXD.
+Only developers, contributors and maintainers should read this.
 
 ### Basics of VXL layering
 
@@ -134,10 +137,10 @@ about layers here; an '\*\_algo' library can depend on anything, if no cycle hap
 
 How can we organize external code to maximize consistency with VXL?
 Beyond VXL, there is layering within VXD, and layering within the internal
-library of a team, referred here as "Internal". Within each of these there may be different policies,
-but the basic idea remains the same as described above. We give an example of a
-team as Brown University, but this could serve as any other team working with
-VXL.
+library collection of a team, referred here as "Internal". Within each of these
+there may be different policies, but the basic idea remains the same as
+described above. We give an example of a team as Brown University, but this
+could serve as any other team working with VXL.
 
 In VXL/contrib/brl/bbas, for instance, there is BNL for contributions to VNL.  
 Teams may have, in turn, an internal or closed-source version of BNL, which is called DBNL
@@ -158,21 +161,42 @@ VXD will only have libraries that actually have public code that
 is not ready or reviewed for VXL-quality yet. If we have development code to be
 open sourced, we create the \*d libraries as needed. 
 
-The layering for VNL variants would look like:
+The layering for VNL variants may look like (from lower to higher layers):
 
-| Overall Layer  | Sub layer                 |  Sub layer      | Sub layer  | Path reflecting layers
-| -------------- | ------------------------- | --------------- | ---------  | ----------------------
-| VXL            | core                      | vnl             | vnl\_algo  | vxl/core/vnl/
-| VXL contrib    | BRL/bbas                  | bnl             | bnl\_algo  | vxl/contrib/brl/bbas/bnl/
-| VXD contrib    | BRL/bbas                  | bnld            | bnld\_algo | vxd/contrib/brl/bbas/bnld/
-| Internal       | BRL/basic (team-specific) | dbnl            | dbnl\_algo | internal/basic/dbnl/
+| Overall Layer  | Sub layer                 |  Sub layer  | Sub layer  | Path reflecting all layers
+| -------------- | ------------------------- | ----------- | ---------  | ----------------------
+| VXL            | core                      | vnl         | vnl\_algo  | vxl/core/vnl/
+| VXL contrib    | BRL/bbas                  | bnl         | bnl\_algo  | vxl/contrib/brl/bbas/bnl/
+| VXD contrib    | BRL/bbas                  | bnld        | bnld\_algo | vxd/contrib/brl/bbas/bnld/
+| Internal       | BRL/basic (team-specific) | dbnl        | dbnl\_algo | internal/basic/dbnl/
 
-So the process of placing code would be along three highest level layers
-(inter-repository):
+Note that an internal app may use any library, or all vnl variants simultaneously.
+The VXD and Internal trees should be constructed as if VXL, VXD and Internal
+were co-existing in the same file tree, without conflict, except that in reality we have
+three separately managed repositories.
+
+As another example, the layering for contrib/gel/vsol (which does not exist in
+Core in any form, but variants exist in many contrib folders) may look like:
+
+| Overall Layer  | Sub layer                 |  Sub layer  | Sub layer   | Path reflecting all layers
+| -------------- | ------------------------- | ----------- | ---------   | ----------------------
+| VXL contrib    | GEL                       | vsol        |  -none-     | vxl/contrib/gel/vsol/
+| VXL contrib    | BRL                       | bsol        |  -none-     | vxl/contrib/brl/bbas/bsol/
+| VXD contrib    | GEL                       | vsold       |  -none-     | vxd/contrib/gel/vsold/
+| VXD contrib    | BRL/bbas                  | bsold       | bsold\_algo | vxd/contrib/brl/bbas/bsold/
+| Internal       | BRL/basic (team-specific) | dbsol       | dbsol\_algo | internal/basic/dbnl/
+
+In this case, VXD splits contributions to VSOL into two possible layers: vxd/gel/vsold and brl/bbas/bsold.
+In practice, vsold may not exist, unless the GE team itself wanted its own vsol development library in VXD.
+If only the Brown team is publishing development changes to VSOL, then only bsold may exist.
+But the Brown team may also want to push code directly to VXL, bypassing the bsold folder.
+VXD enters the picture only if pushing directly to VXL is less convenient.
+
+So the process of placing code would be along three inter-repository layers
 
 1. VXL: core/vnl for stable vnl, and contrib/bbas/bnl for stable additions from Brown
-2. VXD: basic/bnld for less stable additions from Brown, open sourced
-3. Closed-sourced code improving bnl (as in LEMSVXL): basic/dbnl
+2. VXD: BRL/bbas/bnld for less stable additions from Brown, open sourced
+3. Closed-sourced code improving bnl (as in LEMSVXL): basic/dbnl or anything, really.
 
 This naming convention is important as we want to keep many versions of the same
 library around and compiling, one in VXL, one in VXD and another one in Internal.
@@ -180,7 +204,8 @@ The idea is that VXD can build at the same time as VXL and private VXL-dependent
 libraries from other companies/universities, without conflict, even if this
 means some code duplication (each library version having potentially similar
 code but a different maturity level). So it is a parallel hierarchy as
-much as possible, with different naming.
+much as possible, with different naming.  
+
 
 Includes for vxd/contrib/gel/vsold would look like
 ```
@@ -192,23 +217,209 @@ In CMake, we'd have
 include_directories( ${VXD_GEL_INCLUDE_DIR} )
 ```
 
-We strive to to make it always consistent with VXL while apending a 'd'
-to the lib names. This is a good idea since it is a tiny but good initial step
-towards making internal private code available in VXL: you first name it and
-place it properly, following the VXL hierarchy and principles, then you mature
-the code and one day it may make it to the corresponding folder in VXL. As easy
-as it may sound, some developers will find it a lot of work to have to
-rename/properly place their internal library prior to open-sourcing it in VXD.
-Making a new library name and path correspond to a hypothetical place in VXL in
-a clear way is the first requirement to place code in the main part of VXD, while there are
-secondary folders for incubating non-conforming code and for storing obsolete
-code that may be useful.
+We strive to to make everything in VXD always consistent with VXL while
+apending a 'd' to the lib names. This is a good idea since it is a tiny but
+good initial step towards making internal private code available in VXL: you
+first name it and place it properly, following the VXL hierarchy and
+principles, then you mature the code and one day it may make it to the
+corresponding folder in VXL. Making a new library name and path correspond to a
+hypothetical place in VXL in a clear way is the first requirement to place code
+in the main part of VXD, while there are secondary folders designated for incubating
+non-conforming code and for storing obsolete code that may be useful.
 
 ### Misc. Workflow Remarks
 
 - VXL, VXD and the internal VXL-related libraries usually conform to VXL's philosophy and
   coding standards, including CMake, but are by no means limited to VXL. Many use other third
   party computer vision libraries such as OpenCV, Boost, etc.
+
+### Migrading code across the separate layers and repositories
+
+All is well under the sun, until code starts being modified in one version of a
+library and gets out of sync with the others. Moving code from one layer (or
+any sub-layering) to a more strict layer is called "promoting" code, and is key 
+in the VXL approach to code quality and maintenance.
+
+Questions arise:
+
+1. How are we to keep track of code changes in a feasible way, if separate
+  repositories are not under a single Git repository for tracking different
+  libraries (eg, vnl, bnl, bnld, dbnl, etc)?
+
+2. If code gets promoted from a certain layer to a more strict layer, 
+  across different repositories, is history lost (git log)?  Should we migrate history?
+
+3. Should we delete code from the original layers when promoting it? Or should we keep multiple instances around?
+
+4. When starting a new project or new changes, where do we work from? Do we alter all layers in parallel?
+   Do we create a branch off VXL and work off that? Do we create a branch off VXD and work off that? 
+   Do we fork VXL, fork VXD? Or do we create a private repository?
+
+5. Suppose you are working on a new vision system, in an Internal repository.
+   You then decide to publish your changes in VXD, and then some stable subset of
+   these changes gets promoted to VXL.  You now have versions of your system in
+   all three repositories, Internal, VXD, and VXL.  Where are you going to work
+   from? If your code in VXD is largely redundant with what you have in
+   Internal, and has been slightly improved to VXL standards, should you
+   abandon Internal forever and work off a private branch in VXD?
+
+   Should you choose to stay with Internal, code starts diverging.  Then you
+   have to track and merge changes back and forth VXD and Internal by hand,
+   since they will have different names and are under different repositories.
+   Say goodbye to the wonders of Git. Is this feasible?
+
+6. I/O compatibility between, eg, vnl, bnl, bnld, dbnl? GUI rendering
+   compatibility? Is this necessary?
+
+A solution of copying code around and keeping track of changes by hand seems to
+be the only one available, taking advantage of layered organization to make the
+problem more well defined. Still, it is a manual solution.
+
+#### Example case
+At Brown we have a state of the art edge detector and contour grouper as basis for many
+systems. It is an example of small scale code across VXL layers, representative
+of many situations. Larger scale systems stress these considerations and will be
+analyzed in the next section.
+
+This is currently in VXL and LEMSVXL (Brown's Internal repository):
+
+vxl/contrib/brl/bseg/sdet
+
+lemsvxl/seg/dbdet
+
+The version in VXL changes from LEMSVXL up to june 2014.  After publishing
+these changes in VXL, the team decided to keep performing experimental research
+changes in the private LEMSVXL, keeping the VXL version only for the usable changes.
+Meanwhile, the VXL team has hardened the corresponding VXL code by fixing warnings
+and improving overall code quality.
+
+Changes between two codes are manually tracked.
+
+Do they get tracked? The answer is, rarely. In practice, if a major research change in the internal repository
+becomes usable enough, one has to manually port it back to the public VXL code, while changing the names etc.
+This is is seldom done, but may be feasible if a team is very actively working on a feature, and is worried about pushing code out. But the team has to maintain two code bases and the really active one, which everyone would want to work on and maintain, remains private.
+
+The team at Brown has propose the following policy to maintain the private LEMS (dbdet) and the public VXL (sdet)
+versions of the edge extraction technology:
+
+- Both sdet and dbdet will diverge in the future. The interested parties manage
+  this as follows:
+  - Improvements made to sdet are typically of the incremental kind which may
+    introduce cleanups and API improvements. By monitoring these changes in git
+    we can backport them to dbdet manually, when needed. (One must be really
+    interested in the code for this to work)
+  - Improvements made to dbdet are typically experimental, so by monitoring
+    the internal code we know when something new works well and should
+    be promoted to sdet
+  - Both of these situations require a closely monitored and hand-crafted
+    maintanence approach which is only made feasible since the stable sdet code
+    is useful on its own (even if the cross-merging of changes doesn't get
+    carried out); these are not two git branches but are separate repositories
+    tracking similar code.
+  - cross-library tests in dbdet/algo/tests compare the sdet and dbdet
+    versions of the code, so we can detect significant changes and API
+    compatibility.
+
+- GUI and I/O: Processes in dbdet/pro for sdet are added in LEMSVXL, so that a
+  LEMSVXL GUI can have both dbdet and sdet versions, the latter being suffixed
+  with 'vxl'.  In order to avoid rewriting visualizers / tableaux renderers for
+  sdet_edgemap and other structures, the VXL version of the processes will
+  convert the structures to dbdet versions. That is, we will not create sdet
+  versions of dbdet_edgemap_storage, dbdet_sel_storage, dbdet_edgemap_tableau,
+  etc, for now.
+
+- We encourage new users to use the more stable sdet library unless there is
+  significant experimental functionality in dbdet to be used.
+
+The main changes we have carried out are outlined as follows
+
+- We have implemented minor improvements to the available third order
+  edge detector in sdet using recent changes from dbdet.
+  - These improvements did not change the functionality of the edge detector,
+  as shown by an automated test to compare the sdet and dbdet versions in
+  dbdet/algo/test_edgemap
+  - Such test documents the API differences:
+    - the dbdet edge detector API is just a function call
+    - the sdet one is a class with separate parameters, which was there in sdet
+      aready and we also think it works best and is more extensible.
+  - The only internal difference between the sdet and dbdet edge detectors is
+    that the sdet edge detector returns a vector of vdgl_edgels, in which the
+    orientation is represented by an angle. The symbolic edge linker requires an
+    edge map which uses sdet_edgel (equal to dbdet_edgel) which stores
+orientation as
+    tan(angle). So currently one has to convert between the two prior to
+    applying the symbolic edge linker.  We are thinking about changing this to
+    be uniform as well, to avoid slow conversions. Perhaps default to sdet_edgel
+    and have a conversion function to vdgl_edgel? Not sure.
+
+- The symbolic edge linker has been ported as-is
+  - the new sdet API is the same as the dbdet one, as can beseen from these
+    identical tests: dbdet/algo/tests/test_sel.cxx and sel/tests/test_sel.cxx
+  - some useful pre and post-processing that was present in the
+symbolic edge linker
+    process from dbdet/pro were put inside a dbpro-independent class
+    sdet_symbolic_edge_linker class.
+  - certain internal depencencies to lems that was generally useful were
+    promoted  to VXL, namely:
+    - brl/bbas/bvgl/bvgl_param_curve, bvgl_eulerspiral, bvgl_biarc
+
+Minor changes
+- dbdet_sel_base_CFTG_algo.cxx's content were merged into dbdet_sel_base.cxx,
+  insetad of creating sdet_sel_base_CFTG_algo. Perhaps Caio could comment on
+  this choice.
+- a few functions were implemented in-place on the .h instead of the .cxx
+
+
+##### Some considerations
+
+Here are some of the issues with a VXL programming environment, from experience.
+
+- What are the potential problems with VXL? Dependencies? Having your code
+  mingled with many other libraries? In a large system I don't see a way out,
+  and at least VXL is layered.
+
+- Building stand-alone code for sharing: working on a VXL contrib
+  library is pretty stand alone for a developer.  If we need to build binaries,
+  just work with VXL to improve this aspect. Otherwise lots of common build
+  infrastructure will have to be coded again and again.  But both VXL and a
+  completely stand alone edge linking C++ library can coexist, though manually
+  maintained.  After all, its all C++ and the effort of writing one way or
+  another does not surpass the real difficulty which is coming up with good
+  methods anyways.
+
+- We want our code to scale up. In the real world the edge detector/linker will
+  be only one vision module in many. The code needs to be well organized and
+  follow certain good programming practices to be able to scale and be part of
+  much bigger vision systems. The situation with an internal repository based on
+  VXL often looks messy with a lot of dependencies, but that's just we having to
+  adapt, *not* throw away our core technology which actually helps us
+  scale, but build on it.
+
+- VXL is C++ with CMake which is a leading industry standard to get
+  your C++ code to build and compile in other platforms. Leveraging this
+  existing infrastructure helps your code also build in other platforms,
+  plus the VXL community helps in solving compile bugs etc. No large-scale vision
+  code will be easy to compile.
+
+- If you use the VXL philosophy the right way, it will only benefit you and make
+  things easier to compile and share. Not everything needs to be in C++/VXL,
+  but only core technology. The rest is probably more effectively developed in
+  Matlab, Scilab, etc.
+
+- Some internal groups end up having multiple versions of VXL around, because
+  they don't keep up with the main VXL.  Code sharing becomes a hard
+  process. The issue, however, is a matter of discipline and having active
+  team members to make internal code build against VXL master.
+
+- Git branching is also a big discipline problem, where code diverges and each
+  person doesn't sync their branches and end up with incompatible programming
+  environments, only sharing a similar culture but out of sync.
+
+#### Todo
+
+Some things to think about
+
+- How do people actually manage changes across multiple Git repositories? Do we really have to do it all by hand?
 
 
 ## What is VXL?
