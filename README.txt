@@ -4,7 +4,7 @@
 ## Introduction: What is VXD?
 
 VXD (the Vision-something-Development libraries) is a collection of development/experimental
-C++ libraries for computer vision and image understanding based on [VXL](http://vxl.sourceforge.net).
+C++ libraries for computer vision based on [VXL](http://vxl.sourceforge.net).
 It is a collection of code that builds against VXL but doesn't contain VXL.
 
 VXL (the Vision-something-Libraries) is a collection of C++ libraries designed
@@ -20,9 +20,11 @@ granularity, but can still be very useful.
 
 The idea came up because most research and industry labs having internal code
 that use VXL do not have an intermediate, common and more laidback open source
-step prior to pushing code to lean VXL. So VXD is to be a common repository that
+step prior to pushing code to lean VXL. 
+
+VXD is to be a common repository that
 can be seen as closely coordinated with VXL and that can keep up (at least
-partially) with VXL changes and be built on official dashboards. 
+partially) with VXL changes and be built on official dashboards.
 
 VXD is stratified into core/basic, larger development libraries, contrib folder
 with multiple people and/or entities, and so on.  The VXD team maintains at
@@ -87,19 +89,19 @@ organizing principle, even if this almost never happens.
 
 Let us examine the example of contrib/brl.  It is a set of libraries inside VXL designed by Brown University
 researchers to hold open source versions of their research code. 
-BRL is itself layered similar to VXL, but each library has a 'b' prefix:
+BRL is itself recursively layered similarly to VXL core, but each library has a 'b' prefix:
 
-1. brl/bbas: basic libraries, analogous to vxl/core (eg, bil, bvgl)
-2. brl/b\* : higher level libraries  (eg, brl/bseg/sdet for edge detection)
+1. brl/bbas: basic libraries, analogous to vxl/core (e.g., bil, bvgl)
+2. other brl/b\* : higher level libraries  (eg, brl/bseg/sdet for edge detection)
 
 ```	
-Sublayers of BRL under VXL Level 3:   3.1             3.2              3.3          3.4
-                                      bbas/bil       bbas/bil        seg/sdet     seg/sdet/algo
-                                      bbas/bvgl      bbas/bvgl_algo   b*l         b*l_pro
+Sublayers of BRL under VXL Level 3:   3.1             3.2              3.3         3.4
+                                      bbas/bil       bbas/bil_algo    seg/sdet   seg/sdet/algo
+                                      bbas/bvgl      bbas/bvgl_algo   b*l        b*l_pro
                                       bbas/b*l_io    bbas/b*l_io
                                       bbas/b*l_pro
 ```
-For instance, whenever someone adds something in to bvgl, and it matures, it may
+For instance, whenever someone adds something to bvgl, and it matures, it may
 be moved to core/vgl.
 
 In practice, in the more complex world of contrib/,
