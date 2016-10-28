@@ -182,11 +182,13 @@ want a subset of the code to be independently compilable and linkable. Layering
 is only needed to tame different levels of development intensity, isolating
 potential mistakes and management overhead.
 
-Note that an internal app may use any library, or all vnl variants simultaneously.
-The VXD and Internal trees are to be constructed as if VXL, VXD and Internal
-were co-existing in the same file tree, without conflict, except that in reality we have
-three separately managed repositories. Of course this rule can also be relaxed for more
-unstable portions of VXD and Internal code.
+Note that an internal app may use any library, or all vnl variants
+simultaneously.  The VXD and Internal trees are to be constructed as if VXL, VXD
+and Internal were co-existing in the same file tree, without conflict, except
+that in reality we have three separately managed repositories.  VXD could be
+thought as a folder under VXL, ie,  vxl/contrib/vxd, but managed in a separate
+repository and recursively having similar structure as VXL.  These rules
+can also be relaxed for more unstable portions of VXD and Internal code.
 
 As another example, the layering for contrib/gel/vsol (which does not exist in
 Core in any form, but variants exist in many contrib folders) may look like:
@@ -207,7 +209,7 @@ changes. If only the Brown team is publishing development changes to VSOL, then 
 But the Brown team may also want to push code directly to VXL, bypassing the bsold folder.
 VXD enters the picture only if pushing directly to VXL is less convenient.
 
-So the process of placing VNL-related code would be along three repository layers.
+So the process of placing VNL-related code, for instance, would be along three repository layers.
 
 1. VXL: core/vnl for stable vnl, and contrib/bbas/bnl for stable additions from Brown
 2. VXD: BRL/bbas/bnld for less stable additions from Brown, open sourced
@@ -219,7 +221,7 @@ The idea is that VXD can build at the same time as VXL and private VXL-dependent
 libraries from other companies/universities, without conflict, even if this
 means some code duplication (each library version having potentially similar
 code but a different maturity level). So it is a parallel hierarchy as
-much as possible, with different naming.  
+much as possible, with different naming. 
 
 We strive to to make everything in VXD always consistent with VXL while
 apending a 'd' to the lib names. This is a good idea since it is a tiny but
@@ -231,7 +233,7 @@ hypothetical place in VXL in a clear way is the first requirement to place code
 in the main part of VXD, while there are secondary folders designated for incubating
 non-conforming code and for storing obsolete code that may be useful.
 
-Includes for both vxl vsol and vxd vsold can be done, and would look like
+Includes for both vxl vsol and vxd vsold can be done simultaneously, and would look like
 ```
 #include <vsol/vsol_some_class.h>
 #include <vsold/vsold_some_class.h>
@@ -272,6 +274,9 @@ strict layer is called "promoting" code, and is key in the VXL approach to code
 quality and maintenance.  Git helps merging between branches, although this can
 get messy if care is not taken. However, Git does not automate syncing between
 layers across different repositories, although it helps organize things.
+Each team must have discipline to sync their code against various level of
+common branches and repositories, and to remove any duplicates.
+
 Questions arise:
 
 1. How are we to keep track of code changes in a feasible way, if separate
@@ -281,7 +286,8 @@ Questions arise:
 2. If code gets promoted from a certain layer to a more strict layer, 
   across different repositories, is history lost (git log)?  Should we migrate history?
 
-3. Should we delete code from the original layers when promoting it? Or should we keep multiple instances around?
+3. Should we delete code from the original layers or repositories when promoting
+   or merging? Or should we keep multiple instances around in some cases?
 
 4. When starting a new project or new changes, where do we work from? Do we alter all layers in parallel?
    Do we create a branch off VXL and work off that? Do we create a branch off VXD and work off that? 
@@ -295,17 +301,18 @@ Questions arise:
    Internal, and has been slightly improved to VXL standards, should you
    abandon Internal forever and work off a private branch in VXD?
 
-   Should you choose to stay with Internal, code starts diverging.  Then you
-   have to track and merge changes back and forth VXD and Internal by hand,
-   since they will have different names and are under different repositories.
-   Say goodbye to the wonders of Git. Is this feasible?
+   Should you choose to stay with Internal, say, for management purposes, code
+   starts diverging.  Then you have to track and merge changes back and forth
+   VXD and Internal by hand, since they will have different names and are under
+   different repositories.  Say goodbye to the wonders of Git. Is this feasible?
 
-6. I/O compatibility between, eg, vnl, bnl, bnld, dbnl? GUI rendering
-   compatibility? Is this necessary?
+6. I/O compatibility between VXL, VXD and Internal variants, eg, vnl, bnl, bnld,
+   dbnl? GUI rendering compatibility? Is this necessary?
 
-A solution of copying code around and keeping track of changes by hand seems to
-be the only one available, taking advantage of layered organization to make the
-problem more well defined. Still, it is a manual solution.
+A solution of copying code around, cleaning up duplicate code, and keeping track of
+changes by hand seems to be the only one available, taking advantage of layered
+organization to make the problem more well defined. Still, it is fundamentally a manual
+solution.
 
 #### Example case: small scale
 
