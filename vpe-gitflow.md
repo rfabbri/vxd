@@ -55,33 +55,43 @@ We're in VPE, and want to add VXD and VXL
 When VPE is checked out, VXL's remote is not there. Add it if you want to
 push/pull directly without passing through VPE
 
-git remote add ...
+  git remote add ...
 
 ## Making changes to VXL/VXD within VPE
 
 
 Edit vxl/ normally
 
-#eg:  echo '// test' >> vxl/CMakeLists.txt   # an existing VXL file is edited
+  # eg:  echo '// test' >> vxl/CMakeLists.txt   # an existing VXL file is edited
 
-# if we want that change to be backported to VXL, we prepend TO VXL:
-git ci -am "TO VXL: cmakelists"
+  # if we want that change to be backported to VXL, we prepend TO VXL:
+  git ci -am "FROM VPE: cmakelists"  # this message shows up on upstream
 
-Keep doing other commits to anywhere in the tree.
-When backporting, we have to cherry-pick when the original team
-has made free commits anywhere in the tree.
-If you yourself are working on the tree, and separate your commits to
-vxl/ and vxd/ folders in separate branches merged to your master,
-this becomes a merge instead of cherrypicking.
+Keep doing other commits to anywhere in the tree.  When backporting, we have to
+cherry-pick when the original team has made free commits anywhere in the tree.
+If you yourself are working on the tree, and separate your commits to vxl/ and
+vxd/ folders in separate branches merged to your master, this becomes a merge
+instead of cherrypicking.
 
-  git checkout -b vxl_backport vxl_master
-  git cherry-pick -x master
-  git cherry-pick -x master~3 # for example
+  git checkout vxl_master
+  # usually works: 
+  git cherry-pick -x --strategy=subtree master
+  #
+  # check if that generates a commit with the wrong prefix, if so,
+  # undo the commit by resetting HEAD and use:
+  # git cherry-pick -x --strategy=subtree -Xsubtree=vxl/ master
+
+  # --strategy=subtree (-s means something else in cherry-pick) also helps to make sure
+  # changes outside of the subtree (elsewhere in container code) will get quietly
+  # ignored. 
+
+  # if merging, use the same strategies.
+  #
   # the -x in these commands annotate the commit message with the SHA1 of VPE
   # Use the following to make sure files outside of the subtree (elsewhere in container code) 
   # will get quietly ignored. This may be useful when cherypicking a rename, since move is rm+add
-  git cherry-pick -x --strategy=subtree master^ 
-  git push
+
+  git push vxl HEAD:master
 
 ### Original example on which the above is based, showing the kinds of edits
   git push
@@ -123,6 +133,7 @@ It’s just a directory in your repo. A good ol’ git rm will do.
 https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging
 https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec#.sjbirxm4y
 https://saintgimp.org/author/saintgimp/
+http://paste.ubuntu.com/11732805/
 
 # TODO
 - always upgrade git. use > 2
