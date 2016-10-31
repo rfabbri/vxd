@@ -5,9 +5,14 @@
 
 VXD (the Vision-something-Development libraries) is a collection of development/experimental
 C++ libraries for computer vision based on [VXL](http://vxl.sourceforge.net).
-It is a collection of code that builds against VXL but doesn't contain VXL;
-it does come with a reference copy of VXL, to make things simpler, such as
-distributing code and tracking changes across both projects.
+
+VXD is a collection of code that builds against VXL but doesn't contain VXL.
+However, a higher level repository is maintained alongside this project, called
+[VPE](http://github.com/rfabbri/vpe) (Vision Programming Environment), which
+comes with reference copies of VXL and VXD, making things simpler for
+common use cases, distributing your project codebase and for tracking changes
+across VXL and VXD simultaneously. The average user can just work off [VPE] as a toplevel
+project, but one can always use VXD and VXL as separate git repositories.
 
 VXL (the Vision-something-Libraries) is a collection of C++ libraries designed
 for computer vision research and implementation.  VXL is kept lean and stable by
@@ -519,5 +524,19 @@ If you are using the multiview curve stereo code, please cite
   year      = {2016}
 }
 ```
+## What is VXL?
+VXL (the Vision-something-Libraries) is a collection of C++ libraries designed for computer vision research and implementation. It was created from TargetJr and the IUE with the aim of making a light, fast and consistent system. VXL is written in ANSI/ISO C++ and is designed to be portable over many platforms. The core libraries in VXL are:
+
+- vnl (numerics): Numerical containers and algorithms. e.g. matrices, vectors, decompositions, optimisers.
+- vil (imaging): Loading, saving and manipulating images in many common file formats, including very large images.
+- vgl (geometry): Geometry for points, curves and other elementary objects in 1, 2 or 3 dimensions.
+- vsl (streaming I/O), vbl (basic templates), vul (utilities): Miscellaneous platform-independent functionality.
+
+As well as the core libraries, there are libraries covering numerical algorithms, image processing, co-ordinate systems, camera geometry, stereo, video manipulation, structure recovery from motion, probability modelling, GUI design, classification, robust estimation, feature tracking, topology, structure manipulation, 3d imaging, and much more.
+
+Each core library is lightweight, and can be used without reference to the other core libraries. Similarly, the non-core libraries don't depend on more than absolutely necessary, so you can compile and link just the libraries you really need.
+
+For more details, see the [VXL website](http://vxl.sf.net)
+
 
 # Disclaimer: VXD is under development. The stable part is kept in VXL.
