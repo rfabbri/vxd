@@ -13,18 +13,18 @@ We're in VPE, and want to add VXD and VXL
 
     git remote add vxl ../remotes/vxl
     git fetch vxl
-    git read-tree --prefix=vxl -u vxl/master # an alternative would be -u vxl_master
+    git read-tree --prefix=vxl -u vxl/master # an alternative would be -u vxl-master
     git commit -m "Added vxl subtree in vxl/"
-    git checkout -b vxl_master vxl/master  # keeps vxl history across git clones
-    git push origin vxl_master
+    git checkout -b vxl-master vxl/master  # keeps vxl history across git clones
+    git push origin vxl-master
 
 ## Adding VXD to VPE
     git remote add vxd ../remotes/vxd
     git fetch vxd
     git read-tree --prefix=vxd -u vxd/master
     git commit -m "Added vxd subtree in vxd/"
-    git checkout -b vxd_master vxd/master  # keeps vxd history across git clones
-    git push origin vxl_master
+    git checkout -b vxd-master vxd/master  # keeps vxd history across git clones
+    git push origin vxl-master
 
 ## Pulling in changes from VXL
 
@@ -33,10 +33,10 @@ We're in VPE, and want to add VXD and VXL
     # git merge -X subtree=vxl/ vxl/master  # if the above goes crazy
     # git merge -s subtree --squash vxl/master # this will not join, untraceable
     # git commit -m "FROM VXL: update"
-    git checkout vxl_master  # just to make it point to the right place
+    git checkout vxl-master  # just to make it point to the right place
     git merge vxl/master
     git checkout master
-    git push origin vxl_master
+    git push origin vxl-master
 
 ## Pulling in changes from VXD
 
@@ -45,10 +45,10 @@ We're in VPE, and want to add VXD and VXL
     # git merge -X subtree=vxd/ vxd/master  # if the above goes crazy
     # git merge -s subtree --squash vxd/master # this will not join, untraceable
     # git commit -m "FROM VXD: update"
-    git checkout vxd_master  # just to make it point to the right place
+    git checkout vxd-master  # just to make it point to the right place
     git merge vxd/master
     git checkout master
-    git push origin vxd_master
+    git push origin vxd-master
 
 ## Checked out VPE fresh, made changes to VXL, Push upstream to VXL
 
@@ -73,7 +73,7 @@ If you yourself are working on the tree, and separate your commits to vxl/ and
 vxd/ folders in separate branches merged to your master, this becomes a merge
 instead of cherrypicking.
 
-    git checkout vxl_master
+    git checkout vxl-master
     # usually works: 
     git cherry-pick -x --strategy=subtree master
     #
@@ -91,6 +91,7 @@ instead of cherrypicking.
     # Use the following to make sure files outside of the subtree (elsewhere in container code) 
     # will get quietly ignored. This may be useful when cherypicking a rename, since move is rm+add
 
+    git push  # to push the vxl-master branch
     git push vxl HEAD:master
 
 ### Original example on which the above is based, showing the kinds of edits
@@ -107,10 +108,15 @@ instead of cherrypicking.
 
 ## VXL/VXD -> VPE file move within VPE
 
-Instead of a git mv, we'll be first deleting then creating.
-Using git follow, does that pan out?
+    Works, just integrate the commit to VXL/VXD as the above directions for making
+    any other type of change.
+
+    History tracing:
 
 ## VXD -> VXL file move within VPE
+    Works, just integrate the commit to VXD and VXD as the above directions for making
+    any other type of change.
+
 
 ## VPE -> VXL/VXD file move within VPE
 
@@ -130,12 +136,15 @@ It’s just a directory in your repo. A good ol’ git rm will do.
 
 # Links
 
-https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging
-https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec#.sjbirxm4y
-https://saintgimp.org/author/saintgimp/
-http://paste.ubuntu.com/11732805/
+- https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging
+- https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec#.sjbirxm4y
+- https://saintgimp.org/author/saintgimp/
+- http://paste.ubuntu.com/11732805/
 
 # TODO
 - always upgrade git. use > 2
 - vpe: my folder is full of crap, clone again.
-- problem 1: history of subtree not visible with git log
+
+# Caveats
+- problem 1: history of subtree not visible with git log. This is under
+  development by the Git team for `git log --follow`.
