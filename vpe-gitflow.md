@@ -1,8 +1,11 @@
-# Adding subtrees
+# Some ideas to make it easier to work on shared VXL + VXD + internal Project
+
+
+# Idea: shareable super repository VPE by adding subtrees
 
 We're in VPE, and want to add VXD and VXL
 
-## Adding plugin example
+## Adding plugin example from [2], for reference
 
     git remote add plugin ../remotes/plugin
     git fetch plugin
@@ -75,11 +78,15 @@ instead of cherrypicking.
 
     git checkout vxl-master
     # usually works: 
-    git cherry-pick -x --strategy=subtree master
-    #
+    # git cherry-pick -x --strategy=subtree master
+    # safer and more consistent:
+    git cherry-pick -x --strategy=subtree -Xsubtree=vxl/ master
+
     # check if that generates a commit with the wrong prefix, if so,
     # undo the commit by resetting HEAD and use:
     # git cherry-pick -x --strategy=subtree -Xsubtree=vxl/ master
+
+    # use '-e' flag to cherry-pick to edit the commit message befor passing upstream
 
     # --strategy=subtree (-s means something else in cherry-pick) also helps to make sure
     # changes outside of the subtree (elsewhere in container code) will get quietly
@@ -95,7 +102,6 @@ instead of cherrypicking.
     git push vxl HEAD:master
 
 ### Original example on which the above is based, showing the kinds of edits
-    git push
     echo '// Now super fast' >> vendor/plugins/demo/lib/index.js
     git ci -am "[To backport] Faster plugin"
     date >> main-file-1
@@ -113,16 +119,20 @@ instead of cherrypicking.
 
     History tracing:
 
-## VXD -> VXL file move within VPE
-    Works, just integrate the commit to VXD and VXD as the above directions for making
+## VPE -> VXL/VXD file move within VPE
+    Works, just integrate the commit to VXD as the above directions for making
     any other type of change.
 
+    History tracing:
 
-## VPE -> VXL/VXD file move within VPE
+## VXD -> VXL file move within VPE
+    Works, just integrate the commit to VXD and VXL as the above directions for making
+    any other type of change.
 
+    History tracing:
   
 
-# Remove VXD or any subtree
+## Remove VXD or any subtree
 
 It’s just a directory in your repo. A good ol’ git rm will do.
 
@@ -134,17 +144,52 @@ It’s just a directory in your repo. A good ol’ git rm will do.
     git gc  # repo still huge
     git gc --prune=now --aggressive  # till, 103M!
 
-# Links
 
-- https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging
-- https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec#.sjbirxm4y
-- https://saintgimp.org/author/saintgimp/
-- http://paste.ubuntu.com/11732805/
+## History lookup
 
-# TODO
+    git log --follow filename
+
+This will show all logs, including renames and moves. It doesn't work
+across subtrees, but is being fixed by the Git team [5].
+
+    git log -- '*filename'          # from the toplevel
+
+This views each commit that touched a file whose name ends with filename. It
+won't follow actual renames, and may show false positive if you have several
+files with the same basename [1].
+
+## Links
+
+[1] https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging
+[2] https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec#.sjbirxm4y
+[3] https://saintgimp.org/author/saintgimp/
+[4] http://paste.ubuntu.com/11732805/
+[5] http://stackoverflow.com/questions/10918244/git-subtree-without-squash-view-log/40349121#40349121
+
+## TODO
 - always upgrade git. use > 2
 - vpe: my folder is full of crap, clone again.
 
-# Caveats
+## Caveats
 - problem 1: history of subtree not visible with git log. This is under
   development by the Git team for `git log --follow`.
+
+# VPE repository as scripts over regular Git
+A script that builds the VPE environment for a beginner or collaborator.
+
+- creates everything in a toplevel vpe/ folder
+- pulls in all repos, including recommended utility ones (utils-macambira and boost sources if need be)
+- mkdir all bin 
+- does an apt-get or port install for common packages
+- install common sh aliases and git aliases
+- moves between repos are history-tracked only by being disciplined and including the
+  origin SHA1 in every cherrypick or merge
+- have a bin/ or scripts/ subfolder for scripts
+- to share your dev environment:
+  - integrate and push to master in each, or:
+  - push each to a separate branch in person's github for each
+  - write in the vpe-build script or config file the corresponding branches
+  - send the script to the person.
+
+Advantages
+- current people keep working as is, just adding VXD to the loop
