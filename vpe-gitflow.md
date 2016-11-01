@@ -1,5 +1,11 @@
 # Some ideas to make it easier to work on shared VXL + VXD + internal Project
 
+We call the superproject VPE: Vision Programming Environment.
+It would be a way of working in tandem, to try to make some things easier for
+people that use and modify both VXL and VXD at the source level.
+
+Here are some concrete ideas and Git experiments on how it could work out.
+
 
 # Idea: shareable super repository VPE by adding subtrees
 
@@ -193,3 +199,35 @@ A script that builds the VPE environment for a beginner or collaborator.
 
 Advantages
 - current people keep working as is, just adding VXD to the loop
+
+# Submodules
+They seem weird and cumbersome, and no cross-history.
+Why do people use them, eg, in libreoffice?
+
+# Subtree variant
+This follows link [5]'s alternative in the response.
+
+## Adding vxl to vpe
+
+    git init
+    > deleteme.txt
+    git add .
+    git commit -m 'initial dummy commit'
+
+    git remote add -f vxl ../remotes/vxl
+    # tested with git 2.10
+    git merge --allow-unrelated-histories vxl/master
+
+    git rm deleteme.txt
+    git commit -m 'cleaning up initial file'
+    mkdir vxl
+    git mv `ls|grep -v vxl` vxl
+    git commit -m 'moved vxl to vxl/ folder'
+
+    # do the same for vxd
+    git remote add -f vxd ../remotes/vxd
+    # tested with git 2.10
+    git merge --allow-unrelated-histories vxd/master
+    mkdir vxd
+    git mv `ls|grep -v vxd` vxd
+    git commit -m 'moved vxd to vxd/ folder'
