@@ -79,8 +79,8 @@ Edit vxl/ normally
 Keep doing other commits to anywhere in the tree.  When backporting, we have to
 cherry-pick when the original team has made free commits anywhere in the tree.
 If you yourself are working on the tree, and separate your commits to vxl/ and
-vxd/ folders in separate branches merged to your master, this becomes a merge
-instead of cherrypicking.
+vxd/ folders in separate branches merged to your master, this becomes a rebase
+instead of cherrypicking (see similar approach 2 below).
 
     git checkout vxl-master
     # usually works: 
@@ -89,10 +89,9 @@ instead of cherrypicking.
     git cherry-pick -x --strategy=subtree -Xsubtree=vxl/ master
 
     # check if that generates a commit with the wrong prefix, if so,
-    # undo the commit by resetting HEAD and use:
-    # git cherry-pick -x --strategy=subtree -Xsubtree=vxl/ master
+    # undo the commit by resetting HEAD and give up.
 
-    # use '-e' flag to cherry-pick to edit the commit message befor passing upstream
+    # use '-e' flag to cherry-pick to edit the commit message before passing upstream
 
     # --strategy=subtree (-s means something else in cherry-pick) also helps to make sure
     # changes outside of the subtree (elsewhere in container code) will get quietly
@@ -157,6 +156,7 @@ It’s just a directory in your repo. A good ol’ git rm will do.
 
 This will show all logs, including renames and moves. It doesn't work
 across subtrees, but is being fixed by the Git team [5].
+If you use the subtree variant below, it works a bit better.
 
     git log -- '*filename'          # from the toplevel
 
@@ -234,12 +234,12 @@ This follows link [5]'s alternative in the response.
 
     # histories look perfect
 
-## Merging changes from vxl/vxd, keeping it up to date
+## Pulling in changes from VXL/VXD
 
     # do it in steps to make sure whats going on
     git fetch vxl
     git checkout -b optional-branch  # useful if you're fetching non-master branch
-    git merge -s optional-branch-to-merge -Xsubtree=vxl vxl/master    # vxl/anybranch
+    git merge -s recursive optional-branch-to-merge -Xsubtree=vxl vxl/master    # vxl/anybranch
     git checkout master
     git merge feature-in-progress
 
@@ -248,6 +248,36 @@ This follows link [5]'s alternative in the response.
     git merge -s recursive -Xsubtree=vxl vxl/master
 
 ## Updating the remote
+    git fetch vxl
+    git checkout -b vxl-integration vxl/master
+    # merge changes from master using subtree
+    git cherry-pick -x --strategy=subtree -Xsubtree=vxl/ master
 
-## Caveats
-- git log --follow doesn't work for sub folders to trace down to the orig repo
+    # Or, if you organized your VXL commits directly into eg vxl-integration, just rebase
+
+    git branch master-reb master # master or any other branch tip to rebase
+    git rebase -s subtree -Xsubtree=vxl --onto vxl-integration feature-in-progress master-reb
+    git checkout vxl-integration
+    git merge master-reb
+    git push  # to push the vxl-master branch to toplevel VPE
+    git push vxl HEAD:master
+    git branch -D master-reb
+
+    Rebase is nice, since rebasing interactively means that you have a chance to
+    edit the commits which are rebased (inserting move-related info such as the
+    origin sha1 etc). You can reorder the commits, and you can
+    remove them (weeding out bad or otherwise unwanted patches).
+
+### Conclusion
+  - same as before
+
+## Conclusion
+
+The 
+
+- Caveat: git log --follow doesn't work for sub folders to trace down to the orig repo
+
+- mere users only push to main repo, but will never ever push directly to the
+  subrepos, unless they are advanced users. this may be a good thing, as
+  day-to-day workflow gets centralized and synced a lot easier (one repo) than
+  before.
