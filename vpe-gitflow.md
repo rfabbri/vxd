@@ -207,7 +207,7 @@ Why do people use them, eg, in libreoffice?
 # Subtree variant
 This follows link [5]'s alternative in the response.
 
-## Adding vxl to vpe
+## Adding vxl/vxd to vpe
 
     git init
     > deleteme.txt
@@ -229,5 +229,25 @@ This follows link [5]'s alternative in the response.
     # tested with git 2.10
     git merge --allow-unrelated-histories vxd/master
     mkdir vxd
-    git mv `ls|grep -v vxd` vxd
+    git mv `ls|grep -v vxd | grep -v vxl` vxd
     git commit -m 'moved vxd to vxd/ folder'
+
+    # histories look perfect
+
+## Merging changes from vxl/vxd, keeping it up to date
+
+    # do it in steps to make sure whats going on
+    git fetch vxl
+    git checkout -b optional-branch  # useful if you're fetching non-master branch
+    git merge -s optional-branch-to-merge -Xsubtree=vxl vxl/master    # vxl/anybranch
+    git checkout master
+    git merge feature-in-progress
+
+    # you could also just merge directly!
+    git fetch
+    git merge -s recursive -Xsubtree=vxl vxl/master
+
+## Updating the remote
+
+## Caveats
+- git log --follow doesn't work for sub folders to trace down to the orig repo
