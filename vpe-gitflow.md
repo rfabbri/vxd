@@ -29,10 +29,11 @@ TL;DL : the conclusion is that:
   the same state in vxl/ and vxd/. Also, moving stuff across VPE/VXL/VXD doesn't
   really get tracked. Submodules are a monster whose overhead may pay off for
   projects requiring a huge number of repos for the developer to work on.
-- Subtrees almost work, but still have problems with history which breaks
-  regular git workflow. You simply can't even see the history inside vxl/ or
-  vxd/ from vpe. But subtrees seem to be nice in that you can merge and track
-  changes across the projects. This is very cool.
+- Subtrees almost work at the small scale of VPE, but still have problems with
+  history which breaks regular git workflow. You simply can't even see the
+  history inside vxl/ or vxd/ from vpe. But subtrees seem to be nice in that you
+  can merge and track changes across the projects, and use regular git in the
+  vast majority of useful cases. This is very cool.
 - Android repo tool doesn't have good documentation, and seems to demand that
   all sub repos be pulled from the same remote. It does bring some good ideas,
   such as having a manifest repository for meta-information of what repositories
@@ -246,6 +247,14 @@ Something very much along the lines of https://github.com/github/scripts-to-rule
 
 Advantages
 - current people keep working as is, just adding VXD to the loop
+  
+Locking commits and branches for sub-projects for sharing
+  - separate repositories can achieve this by:
+    - setting up a post-commit hook to write the commit SHA of the submodules to
+      the parent repo. (basically, the .gitmodules is the actual good thing, to
+      let users know what the maintainer is using).
+    - the maintainer could have a script: mark-as-build, to populate a file with
+      the id of the commit of the dependant repos plus the remote and branches being used (ouch).
 
 # Submodules
 - well supported
@@ -267,12 +276,6 @@ Advantages
 - advantage: for advanced users it may provide a good way to share code in a
   predictable way, locking the subprojects to the commits that people are
   working at the moment.
-  - separate repositories can achieve this by:
-    - setting up a post-commit hook to write the commit SHA of the submodules to
-      the parent repo. (basically, the .gitmodules is the actual good thing, to
-      let users know what the maintainer is using).
-    - the maintainer could have a script: mark-as-build, to populate a file with
-      the id of the commit of the dependant repos plus the remote and branches being used (ouch).
 
 
 
@@ -406,11 +409,7 @@ This follows link [5]'s alternative in the response.
     remove them (weeding out bad or otherwise unwanted patches).
 
 ### Conclusion
-  - same as before
-
-## Conclusion
-
-The 
+- same as before
 
 - Caveat: git log --follow doesn't work for sub folders to trace down to the orig repo
 
@@ -438,7 +437,7 @@ For VPE, submodules are not attractive since:
 
 # Android Repo tool
 
-
+- barely any reliable doc on the web for the VPE case
 
 # Links
 
