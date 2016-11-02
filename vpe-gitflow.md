@@ -14,6 +14,7 @@ most VXD developers would have:
 Here are some concrete ideas and Git experiments on how it could work out.
 
 TL;DL : the conclusion is that:
+
 - Our own scripting of a unified environment would work best
 - In practice, the principle of always having the working repos synced to master
   is the new equivalent of making a tarball release. Striving to sync to master
@@ -39,8 +40,95 @@ TL;DL : the conclusion is that:
   such as having a manifest repository for meta-information of what repositories
   and branches the project uses/used for vxl/vxd etc at a particular commit.
 
+# Requirements
 
-# Idea: shareable super repository VPE by adding subtrees
+## VPE
+### Basic usage (99% of the time)
+  Edit pattern
+
+  - heavy edits to VXD
+  - small edits or tweaks to VXL
+
+  Share pattern
+  
+  - VXD edits and pushes done in agreed upon feature branches (curve-cues),
+    merged often into master
+  - less often: VXL small edits shared on VXL feature branches on a peer remote
+    which is not the official one
+
+  New collab working with the team needs to know
+  - remote and feature branch to work in VXD
+  - corresponding remote and patch branch to work in VXL
+
+### Fairly common
+  - Integrate to VXD master done by more experienced/more active peer
+
+### Very rare
+  - Integrate to VXL master done by more experienced/more active peer
+  
+# Internal/ LEMS
+
+### Basic usage (99% of the time)
+  Edit pattern
+
+  - heavy edits to Internal
+  - moderate edits to VXD
+  - small edits or tweaks to VXL
+
+  Share pattern
+  
+  - Internal edits and pushes done in agreed upon feature branches (new-sfm-system),
+    merged often into master
+  - VXD edits and pushes done in agreed upon feature branches (edge-improvement)
+  - less often: VXL small edits shared on VXL feature branches on a peer remote
+    which is not the official one (github/rfabbri branch compile-fix)
+  - when some good feature is pushed, a pull request/email is sent
+    - this fails when: 
+
+    - Say vxl and vxd got an update of a few commits. You pulled in the updates,
+      but no other person in the team did. 
+    - At this point, everyone has an old vxl/ and vxd/ 
+    - You make an edit to Internal, commit, tested and push.
+        - case 1: you did send a pull request (rarely rappens in rapid Internal dev)
+        - case 2: you did not tell all your peers about this push. After all, it
+          was only a few commits.
+    - If someone else updates, they may get a compile or unforeseen errors,
+      because your Internal commits were tested against a slightly older vxl.
+    - They may see the compile error was due to VXL, and go in and update VXL.
+      But VXD is slightly off, too..
+    
+    Everyone run these risks in day to day programming.
+    - VXD will be moderately high developed. So it will be out of sync
+      constantly, because people mostly uses git pull from Internal.
+
+  New collab working with the team needs to know
+
+  To bootstrap
+  - remote and feature branch to work in Internal
+  - remote and feature branch to work in VXD
+  - corresponding remote and patch branch to work in VXL
+  - extras (for new person):
+      - establishing src/bin layouts
+      - what other libs and system packages to install
+      - what project-specific setup and utilities to install (aliases, mymake, switchpath, etc)
+
+  To keep up (assuming he stopped for a while and didn't receive all pull requests)
+  - git fetch each Internal
+  - figure out from peers what are the branches they're working with
+  - git update the branch
+
+
+
+### Fairly common
+  - Integrate to Internal master done quite often (people tend integrate and push to
+    master in my experience, when they take ownership of the repo)
+  - Integrate to VXD master done by more experienced/more active peer
+
+### Very rare
+  - Integrate to VXL master done by more experienced/more active peer
+  
+
+# Subtrees: shareable super repository VPE by adding subtrees
 
 We're in VPE, and want to add VXD and VXL
 
