@@ -164,24 +164,13 @@ This views each commit that touched a file whose name ends with filename. It
 won't follow actual renames, and may show false positive if you have several
 files with the same basename [1].
 
-## Links
-
-[1] https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging
-[2] https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec#.sjbirxm4y
-[3] https://saintgimp.org/author/saintgimp/
-[4] http://paste.ubuntu.com/11732805/
-[5] http://stackoverflow.com/questions/10918244/git-subtree-without-squash-view-log/40349121#40349121
-
-## TODO
-- always upgrade git. use > 2
-- vpe: my folder is full of crap, clone again.
-
 ## Caveats
 - problem 1: history of subtree not visible with git log. This is under
   development by the Git team for `git log --follow`.
 
 # VPE repository as scripts over regular Git
 A script that builds the VPE environment for a beginner or collaborator.
+Something very much along the lines of https://github.com/github/scripts-to-rule-them-all
 
 - creates everything in a toplevel vpe/ folder
 - pulls in all repos, including recommended utility ones (utils-macambira and boost sources if need be)
@@ -281,3 +270,34 @@ The
   subrepos, unless they are advanced users. this may be a good thing, as
   day-to-day workflow gets centralized and synced a lot easier (one repo) than
   before.
+
+# Submodules
+
+Submodules differ from subtrees:
+- submodules are separate git repositories inside a a bigger one, yet are not
+  managed as usual git repositories within the bigger one. 
+  - git log works nicely, with separate histories for each
+- subtrees look more like a subfolder uniformly managed by git, but with tiny annoying quirks
+
+- for submodules, collaborators won't automatically see updates to submodules—if
+  you update a submodule, you may need to remind your colleagues to run git
+  submodule update or they will likely see odd behavior.
+
+
+For VPE, submodules are not attractive since:
+- people's usual git workflow is broken
+- commits made to sub projects may be lost.
+
+# Links
+
+[1] https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging
+[2] https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec#.sjbirxm4y
+[3] https://saintgimp.org/author/saintgimp/
+[4] http://paste.ubuntu.com/11732805/ (tested, didn't work)
+[5] http://stackoverflow.com/questions/10918244/git-subtree-without-squash-view-log/40349121#40349121
+
+# TODO
+- always upgrade git. use > 2
+- vpe: my folder is full of crap, clone again.
+
+
