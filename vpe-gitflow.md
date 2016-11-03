@@ -36,7 +36,7 @@ TL;DL : the conclusion is that:
   can merge and track changes across the projects, and use regular git in the
   vast majority of useful cases. This is very cool.
 - Android repo tool doesn't have good documentation, and seems to demand that
-  all sub repos be pulled from the same remote. It does bring some good ideas,
+  all sub repos be pulled from the same remote. It does bring some interesting ideas,
   such as having a manifest repository for meta-information of what repositories
   and branches the project uses/used for vxl/vxd etc at a particular commit.
 
@@ -99,7 +99,7 @@ TL;DL : the conclusion is that:
     
     Everyone run these risks in day to day programming.
     - VXD will be moderately high developed. So it will be out of sync
-      constantly, because people mostly uses git pull from Internal.
+      constantly, because people mostly use git pull from Internal.
 
   New collab working with the team needs to know
 
@@ -538,5 +538,3 @@ For VPE, submodules are not attractive since:
 # TODO
 - always upgrade git. use > 2
 - vpe: my folder is full of crap, clone again.
-
-

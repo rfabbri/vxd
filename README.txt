@@ -10,8 +10,8 @@ VXD is a collection of code that builds against VXL but doesn't contain VXL.
 However, a higher level repository is maintained alongside this project, called
 [VPE](http://github.com/rfabbri/vpe) (Vision Programming Environment), which
 comes with reference copies of VXL and VXD, making things simpler for
-common use cases, distributing your project codebase and for tracking changes
-across VXL and VXD simultaneously. The average user can just work off [VPE] as a toplevel
+common use cases, such as distributing your project codebase and for tracking changes
+across VXL and VXD simultaneously. The average user can just work off VPE as a toplevel
 project, but one can always use VXD and VXL as separate git repositories.
 
 VXL (the Vision-something-Libraries) is a collection of C++ libraries designed
@@ -286,40 +286,53 @@ common branches and repositories, and to remove any duplicates.
 
 Questions arise:
 
-1. How are we to keep track of code changes in a feasible way, if separate
-  repositories are not under a single Git repository for tracking different
-  libraries (eg, vnl, bnl, bnld, dbnl, etc)?
+1. **Layers across different repositories:** How are we to keep track of
+   code changes in a feasible way, if separate repositories are not under a
+   single Git repository? How do we track variants of the same library (eg, vnl,
+   bnl, bnld, dbnl, etc)?
 
-2. If code gets promoted from a certain layer to a more strict layer, 
-  across different repositories, is history lost (git log)?  Should we migrate history?
+2. **History across different repositories:** If code gets promoted from a certain layer
+   to a more strict layer, across different repositories, is history lost (git
+   log)?  Should we migrate history?
 
-3. Should we delete code from the original layers or repositories when promoting
+3. **Cleanup after Promoting:** Should we delete code from the original layers or repositories when promoting
    or merging? Or should we keep multiple instances around in some cases?
 
-4. When starting a new project or new changes, where do we work from? Do we alter all layers in parallel?
-   Do we create a branch off VXL and work off that? Do we create a branch off VXD and work off that? 
-   Do we fork VXL, fork VXD? Or do we create a private repository?
+4. **Where to work from:** When starting a new project, making new changes, where do
+   we work from? Layering offers a guide for each library change, but, overall, we
+   have to pick where to develop the project from. Do we create branches of VXL
+   and work off that? Do we create a branch off VXD and work off that? Or do we
+   create a private repository dependent on VXD and VXL? Do we use VXL and VXD
+   as git submodules, or track them separately?
 
-5. Suppose you are working on a new vision system, in an Internal repository.
-   You then decide to publish your changes in VXD, and then some stable subset of
-   these changes gets promoted to VXL.  You now have versions of your system in
-   all three repositories, Internal, VXD, and VXL.  Where are you going to work
-   from? If your code in VXD is largely redundant with what you have in
-   Internal, and has been slightly improved to VXL standards, should you
-   abandon Internal forever and work off a private branch in VXD?
+5. **Maintaining variants of code across repositories:** Suppose you are working
+   on a new vision system, in an Internal repository.  You then decide to
+   publish your changes in VXD, and then some stable subset of these changes
+   gets promoted to VXL.  You now have versions of your system in all three
+   repositories, Internal, VXD, and VXL.  Where are you going to work from? If
+   your code in VXD is largely redundant with what you have in Internal, and has
+   been slightly improved to VXL standards, should you abandon Internal forever
+   and work off a private branch in VXD?
 
-   Should you choose to stay with Internal, say, for management purposes, code
-   starts diverging.  Then you have to track and merge changes back and forth
-   VXD and Internal by hand, since they will have different names and are under
-   different repositories.  Say goodbye to the wonders of Git. Is this feasible?
+   Should you choose to stay with Internal, say, for management purposes. Then
+   the vision system code that has a largely redundant public and private
+   version starts diverging.  Then you have to track and merge changes back and
+   forth VXD and Internal by hand, since they will have different names and are
+   under different repositories.  Say goodbye to the wonders of Git. Is this
+   feasible?
 
-6. I/O compatibility between VXL, VXD and Internal variants, eg, vnl, bnl, bnld,
-   dbnl? GUI rendering compatibility? Is this necessary?
+6. **I/O compatibility across repos:** should I/O be compatible between VXL, VXD
+   and Internal variants, eg, vnl, bnl, bnld, dbnl? GUI rendering compatibility?
+   Is this necessary?
 
-A solution of copying code around, cleaning up duplicate code, and keeping track of
-changes by hand seems to be the only one available, taking advantage of layered
-organization to make the problem more well defined. Still, it is fundamentally a manual
-solution.
+A solution of copying code around, cleaning up duplicate code, and keeping track
+of changes by hand seems to be the only one available, taking advantage of
+layered organization to make the problem more well defined. Still, it is
+fundamentally a manual solution.
+
+Some ideas on having a development environment repository to help keep
+everything in place for a team are given in [VPE orVision Programming
+Environment)](http://github.com/rfabbri/vpe).
 
 #### Example case: small scale
 
