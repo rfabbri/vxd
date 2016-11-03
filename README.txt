@@ -269,7 +269,7 @@ repository can have multiple git branches in addition to layers.
 #### Can we improve the following scenario?
 
 _"Here, try our new vision system, all you have to do is use VXL branch D, VXD
-branch X and Internal branch Y, do a back flip, set all these CMake variables
+branch X and Internal branch Y, set all these CMake variables
 exactly as I say, and use the same operating system, with the same installed
 libraries. To make your VXL-based code available to us, there's this little
 README in VXD..."_
@@ -456,7 +456,7 @@ Here are some of the issues with a VXL programming environment, from experience.
   code in C++ will be easy to compile. If you want users to download and run your code,
   you need to package it for each system. This is not java.
 
-- **Too much C++** If you use the VXL philosophy the right way, it
+- **Not an issue: Too much C++** If you use the VXL philosophy the right way, it
   will only benefit you and make things easier to compile and share. Not
   everything needs to be in C++/VXL, but only core technology. The rest is
   probably more effectively developed in Matlab, Scilab, etc.
@@ -470,38 +470,6 @@ Here are some of the issues with a VXL programming environment, from experience.
   diverges and each person doesn't sync their branches and end up with
   incompatible programming environments, only sharing a similar culture but out
   of sync.
-
-
-
-#### Ideas / To-Do
-
-Some things to think about
-
-- How do people actually manage changes across multiple Git repositories? Do we really have to do it all by hand?
-- A team could have the user download a script to automate cloning all the
-  repositories. 
-- There could be a tool that tracks code that was moved across Git repositories.
-  It could have some minimal functionality:
-  - If you tag a move/git tree surgery by including in the commit of the
-    destination repo the original repo SHA1, it could automatically detect code
-    branching intra repository, or at least mark on the original repository code
-    that has gone to another repository and where. A tool such as this must already exist!
-  - There should be something like 'git mv' across repositories, which
-    automatically does the surgery of the history, even though this might not
-    always be desired when moving code from Internal to a public one.
-
-- In the future, VXD could be a sub module of VXL, and VXL would have a CMAKE
-  flag BULD_VXD which is off by default.
-  - VXD bundling VXL as a submodule
-
-- The internal repositories cannot be bundled as a submodule, obviously, but at
-  least they don't need VXL and VXD path; they just have a VXL path which can b
-  updated.
-  - It could include VXD as a submodule or subtree. It might be a good idea
-    since it will be moving code back and forth when promoting.
-
-- [Google and Facebook are working on scaling up Mercurial and making it available.](https://www.wired.com/2015/09/google-2-billion-lines-codeand-one-place/) Perhaps we are outgrowing Git, and just have to wait to do things right.
-
 
 ## Download and install
 

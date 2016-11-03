@@ -535,6 +535,26 @@ For VPE, submodules are not attractive since:
 [4] http://paste.ubuntu.com/11732805/ (tested, didn't work)
 [5] http://stackoverflow.com/questions/10918244/git-subtree-without-squash-view-log/40349121#40349121
 
-# TODO
+# Guidelines
 - always upgrade git. use > 2
-- vpe: my folder is full of crap, clone again.
+
+# Ideas
+Some things to think about
+
+- How do people actually manage changes across multiple Git repositories? Do we really have to do it all by hand?
+- There could be a tool that tracks code that was moved across Git repositories.
+  It could have some minimal functionality:
+  - If you tag a move/git tree surgery by including in the commit of the
+    destination repo the original repo SHA1, it could automatically detect code
+    branching intra repository, or at least mark on the original repository code
+    that has gone to another repository and where. A tool such as this must already exist!
+  - There should be something like `git mv` across repositories, which
+    automatically does the surgery of the history, even though this might not
+    always be desired when moving code from Internal to a public one.
+
+- In the future, VXD could be a sub module of VXL, and VXL would have a CMAKE
+  flag BULD_VXD which is off by default.
+  - VXD bundling VXL as a submodule
+
+- [Google and Facebook are working on scaling up Mercurial and making it available.](https://www.wired.com/2015/09/google-2-billion-lines-codeand-one-place/) Perhaps we are outgrowing Git, and just have to wait to do things right.
+
