@@ -1,4 +1,4 @@
-# Some ideas to make it easier to work on shared VXL + VXD + internal Project
+# Ideas to make it easier to work on VXL + VXD + internal Project
 
 We call the superproject VPE: Vision Programming Environment.
 It would be a way of working in tandem, to try to make some things easier for
@@ -6,7 +6,8 @@ people that use and modify both VXL and VXD at the source level.
 
 The basic idea would be that the super repo would replicate a repo hierarchy
 most VXD developers would have:
-    VPE
+
+    vpe
       vxl
       vxd
       scripts
@@ -16,26 +17,27 @@ Here are some concrete ideas and Git experiments on how it could work out.
 TL;DL : the conclusion is that:
 
 - Our own scripting of a unified environment would work best
-- In practice, the principle of always having the working repos synced to master
-  is the new equivalent of making a tarball release. Striving to sync to master
-  is much simpler than trying to share branches, though this may be needed for
-  hacks and work arounds. Strive to fix 'master'! its a lot easier and imensely
-  more useful than studying heavy strategies for propagating patches around.
-- Submodules complicate the regular git workflow when we want to hack into the
-  submodule.  It is well-defined, but requires a great deal of training. If
-  people wouldn't hack into vxl all that much, and stay with top level changes,
-  then it could work. But most people will hack away both vxl and vxd, and can't
-  affor to lose changes. Submodules have some good ideas, though, such as
-  vpe/ locking specific commits in vxl/ and vxd/ so that people that pull VPE get
-  the same state in vxl/ and vxd/. Also, moving stuff across VPE/VXL/VXD doesn't
-  really get tracked. Submodules are a monster whose overhead may pay off for
-  projects requiring a huge number of repos for the developer to work on.
-- Subtrees almost work at the small scale of VPE, but still have problems with
+- **Main principle of good collaboration: keep in sync.** In practice, the principle of
+  always having the working repos synced to master (and getting all layers
+  promoted) is the new equivalent of making a tarball release. Striving to sync
+  to master is much simpler than trying to share branches, though this may be
+  needed for hacks and work arounds. Strive to fix 'master'! its a lot easier
+  and imensely more useful than heavy strategies for propagating patches around.
+- **Subtrees almost work** at the small scale of VPE, but still have problems with
   history which breaks regular git workflow. You simply can't even see the
   history inside vxl/ or vxd/ from vpe. But subtrees seem to be nice in that you
   can merge and track changes across the projects, and use regular git in the
   vast majority of useful cases. This is very cool.
-- Android repo tool doesn't have good documentation, and seems to demand that
+- **Submodules complicate the regular git workflow** when we want to hack into the
+  submodule.  It is well-defined, but requires a great deal of training. If
+  people wouldn't hack into vxl all that much, and stay with top level changes,
+  then it could work. But most people will hack away both vxl and vxd, and can't
+  afford to lose changes. Submodules have some good ideas, though, such as
+  vpe/ locking specific commits in vxl/ and vxd/ so that people that pull VPE get
+  the same state in vxl/ and vxd/. Also, moving stuff across VPE/VXL/VXD doesn't
+  really get tracked. Submodules are a monster whose overhead may pay off for
+  projects requiring a huge number of repos for the developer to work on.
+- **Android repo tool doesn't have good documentation**, and seems to demand that
   all sub repos be pulled from the same remote. It does bring some interesting ideas,
   such as having a manifest repository for meta-information of what repositories
   and branches the project uses/used for vxl/vxd etc at a particular commit.
@@ -128,7 +130,7 @@ TL;DL : the conclusion is that:
   - Integrate to VXL master done by more experienced/more active peer
   
 
-# Subtrees: shareable super repository VPE by adding subtrees
+# Subtrees for VPE
 
 We're in VPE, and want to add VXD and VXL
 
@@ -344,95 +346,7 @@ Locking commits and branches for sub-projects for sharing
     - the maintainer could have a script: mark-as-build, to populate a file with
       the id of the commit of the dependant repos plus the remote and branches being used (ouch).
 
-# Submodules
-- well supported
-- bad: all users need to learn a lot of submodule lingo
-- good: if the repo maintainer updates the sub-repos and pushes, users are
-  locked to that sub-repo version.
-  - If your peers do a mere git pull, it will pull-in the work VXL.
-  - If your peers update vxl, everyone gets vxl
-  - In that way, vxl is updated equally for everyone in the team,
-  instead of each pulling a different vxl master. You sync to the team repo,
-  rather than to the vxl team repo.
-  (? can we track multiple versions of vxl?)
-- in the simple use case of only editing and pushing to the container repo,
-  naive users may not be aware vxl/ folders are not separate git repos
-- basically the workflow has no base case for simple usage. It is always going
-  to be complex
-- advantage: much more well-defined and well-maintaned than subtrees if you
-  know the lingo
-- advantage: for advanced users it may provide a good way to share code in a
-  predictable way, locking the subprojects to the commits that people are
-  working at the moment.
-
-
-
-##  Pulling in changes from VPE
-
-    git spull   # alias or script. reminds me of the scripted superrepo approach
-
-    git pull
-    git submodule update     # always.. massive danger if you don’t, as 
-                             # your next container commit will regress the submodule
-
-#### If the submodule url changed, everyone has to:
-    git pull
-    git submodule sync
-    git submodule update     # always.. massive danger if you don’t, as 
-                             # your next container commit will regress the submodule
-
-Spull alias cover all cases:
-
-    git config --global alias.spull '!git pull && git submodule sync --recursive && git submodule update --init --recursive'
-
-##  Pulling in changes from VXL/VXD
-
-    cd vxl
-    git fetch
-    git merge origin/master
-    cd .. 
-    git diff --submodule 
-    # you can see that the submodule was updated and get a list of commits that were added to it. 
-
-    git commit -am
-    git push
-   
-
-## Updating VXL/VXD within VPE
-
-    # first, make sure update submodule master to remote master,
-    # or, more generally, that you have a branch tracking the submodule
-
-    cd vxl
-
-    git status      # it will show detached state
-    git checkout vxl-master     # if it doesn't exist, create it
-    git merge origin/master
-
-    # if you don't want to use that branch, create any other, as long as you are
-    # inside the submodule, branches will be local.
-
-    # Now make your changes and commit normally, within vxl/
-    git push origin vxl-master
-
-    cd ..
-
-    # Part 2:  update VPE's repo to see if we have other branches or our own
-    # vxl-master updated in VPE's repo
-    git submodule update --remote --merge
-
-    # If you forget the --rebase or --merge, Git will just update the submodule
-    # to whatever is on the server and reset your project to a detached HEAD state.
-    # Then you have to checkout vxl-master again and redo the work
-
-    # on the toplevel, you won't use git push, but first
-    git push --recurse-submodules=check
-
-    
-
-
-
-# Subtree variant
+# Subtree variant for VPE
 This follows link [5]'s alternative in the response.
 
 ## Adding vxl/vxd to vpe
@@ -506,7 +420,27 @@ This follows link [5]'s alternative in the response.
   day-to-day workflow gets centralized and synced a lot easier (one repo) than
   before.
 
-# Submodules
+
+# Submodules for VPE
+- well supported
+- bad: all users need to learn a lot of submodule lingo
+- good: if the repo maintainer updates the sub-repos and pushes, users are
+  locked to that sub-repo version.
+  - If your peers do a mere git pull, it will pull-in the work VXL.
+  - If your peers update vxl, everyone gets vxl
+  - In that way, vxl is updated equally for everyone in the team,
+  instead of each pulling a different vxl master. You sync to the team repo,
+  rather than to the vxl team repo.
+  (? can we track multiple versions of vxl?)
+- in the simple use case of only editing and pushing to the container repo,
+  naive users may not be aware vxl/ folders are not separate git repos
+- basically the workflow has no base case for simple usage. It is always going
+  to be complex
+- advantage: much more well-defined and well-maintaned than subtrees if you
+  know the lingo
+- advantage: for advanced users it may provide a good way to share code in a
+  predictable way, locking the subprojects to the commits that people are
+  working at the moment.
 
 Submodules differ from subtrees:
 - submodules are separate git repositories inside a a bigger one, yet are not
@@ -523,6 +457,69 @@ For VPE, submodules are not attractive since:
 - people's usual git workflow is broken
 - commits made to sub projects may be lost.
 
+
+##  Pulling in changes from VPE
+
+    git spull   # alias or script. reminds me of the scripted superrepo approach
+
+    git pull
+    git submodule update     # always.. massive danger if you don’t, as 
+                             # your next container commit will regress the submodule
+
+#### If the submodule url changed, everyone has to:
+    git pull
+    git submodule sync
+    git submodule update     # always.. massive danger if you don’t, as 
+                             # your next container commit will regress the submodule
+
+Spull alias cover all cases:
+
+    git config --global alias.spull '!git pull && git submodule sync --recursive && git submodule update --init --recursive'
+
+##  Pulling in changes from VXL/VXD
+
+    cd vxl
+    git fetch
+    git merge origin/master
+    cd .. 
+    git diff --submodule 
+    # you can see that the submodule was updated and get a list of commits that were added to it. 
+
+    git commit -am
+    git push
+   
+
+## Updating VXL/VXD within VPE
+
+    # first, make sure update submodule master to remote master,
+    # or, more generally, that you have a branch tracking the submodule
+
+    cd vxl
+
+    git status      # it will show detached state
+    git checkout vxl-master     # if it doesn't exist, create it
+    git merge origin/master
+
+    # if you don't want to use that branch, create any other, as long as you are
+    # inside the submodule, branches will be local.
+
+    # Now make your changes and commit normally, within vxl/
+    git push origin vxl-master
+
+    cd ..
+
+    # Part 2:  update VPE's repo to see if we have other branches or our own
+    # vxl-master updated in VPE's repo
+    git submodule update --remote --merge
+
+    # If you forget the --rebase or --merge, Git will just update the submodule
+    # to whatever is on the server and reset your project to a detached HEAD state.
+    # Then you have to checkout vxl-master again and redo the work
+
+    # on the toplevel, you won't use git push, but first
+    git push --recurse-submodules=check
+
+    
 # Android Repo tool
 
 - barely any reliable doc on the web for the VPE case
