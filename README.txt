@@ -332,37 +332,40 @@ fundamentally a manual solution.
 
 Some ideas on having a development environment repository to help keep
 everything in place for a team are given in [VPE orVision Programming
-Environment)](http://github.com/rfabbri/vpe).
+Environment)](http://github.com/rfabbri/vpe). 
 
 #### Example case: small scale
 
 At Brown we have a state of the art edge detector and contour grouper as basis for many
 systems. It is an example of small/medium scale code across VXL layers, representative
-of many situations. Larger scale systems stress these considerations and will be
-analyzed in the next section.
+of many situations. Larger scale systems stress these considerations to another
+level, and will be analyzed in the next section.
 
-This is currently in VXL and LEMSVXL (Brown's Internal repository):
+This is currently in both VXL and LEMSVXL (Brown's Internal repository):
 
-vxl/contrib/brl/bseg/sdet
+    vxl/contrib/brl/bseg/sdet
+    lemsvxl/seg/dbdet
 
-lemsvxl/seg/dbdet
-
-The version in VXL changes from LEMSVXL up to june 2014.  After publishing
+The version in VXL has changes from LEMSVXL up to june 2014.  After publishing
 these changes in VXL, the team decided to keep performing experimental research
-changes in the private LEMSVXL, keeping the VXL version only for the usable changes.
-Meanwhile, the VXL team has hardened the corresponding VXL code by fixing warnings
-and improving overall code quality.
+changes in the private LEMSVXL, keeping the VXL version only for widely usable
+code. Meanwhile, the VXL team has hardened the corresponding VXL code by fixing
+warnings and improving overall code quality.
 
 Changes between two codes are manually tracked.
 
-Do they get tracked? The answer is, rarely. In practice, if a major research change in the internal repository
-becomes usable enough, one has to manually port it back to the public VXL code, while changing the names etc.
-This is is seldom done, but may be feasible if a team is very actively working on a feature, and is worried about pushing code out. But the team has to maintain two code bases and the really active one, which everyone would want to work on and maintain, remains private.
+Do they actually get tracked? The answer is, rarely. In practice, if a major
+research change in the internal repository becomes usable enough, one has to
+manually port it back to the public VXL code, while changing the names etc.
+This is seldom done, but may be feasible if a team is very actively working
+on a feature, and really cares about pushing code out. But the team has to
+maintain two code bases and the really active one, which everyone would want to
+work on and maintain, remains private.
 
-The team at Brown has propose the following policy to maintain the private LEMS (dbdet) and the public VXL (sdet)
-versions of the edge extraction technology:
+The team at Brown has proposed the following policy to maintain the private LEMS
+(dbdet) and the public VXL (sdet) versions of the edge extraction technology:
 
-- Both sdet and dbdet will diverge in the future. The interested parties manage
+- As sdet and dbdet diverge in the future, the interested parties manage
   this as follows:
   - Improvements made to sdet are typically of the incremental kind which may
     introduce cleanups and API improvements. By monitoring these changes in git
@@ -377,10 +380,10 @@ versions of the edge extraction technology:
     carried out); these are not two git branches but are separate repositories
     tracking similar code.
   - cross-library tests in dbdet/algo/tests compare the sdet and dbdet
-    versions of the code, so we can detect significant changes and API
+    versions of the code, so the team can detect significant changes and API
     compatibility.
 
-- GUI and I/O: Processes in dbdet/pro for sdet are added in LEMSVXL, so that a
+- **GUI and I/O:** Processes in dbdet/pro for sdet are added in LEMSVXL, so that a
   LEMSVXL GUI can have both dbdet and sdet versions, the latter being suffixed
   with 'vxl'.  In order to avoid rewriting visualizers / tableaux renderers for
   sdet\_edgemap and other structures, the VXL version of the processes will
@@ -389,9 +392,9 @@ versions of the edge extraction technology:
   dbdet_edgemap_tableau, etc, for now.
 
 - The team encourages new users to use the more stable sdet library
-  unless there is significant experimental functionality in dbdet to be used.
-  However, in practice everyone with access to the internal repository has just used
-  dbdet.
+  unless there is significant experimental functionality in dbdet to be used
+  (and there is).  However, in practice everyone with access to the internal
+  repository has just used dbdet.
 
 - The main changes between sdet and dbdet have carried out by hand, eg, analyzing
 API differences and inserting appropriate research changes from dbdet in a case
@@ -402,61 +405,71 @@ by case fashion.
     promoted  to VXL, namely:
     - brl/bbas/bvgl/bvgl_param_curve, bvgl_eulerspiral, bvgl_biarc
 
+Guidelines
+- **Cleanup and harden the original code**: When promoting code, try to remove whats left
+  behind and update the original codebase to use as much as possible of the new
+  code. That way you minimize the parts of the original code that can diverge,
+  and it keeps benefiting from a hardened basis.
+- **Sync to master frequently**: Syncing to master is today's equivalent of
+  making a release. You should strive to keep all builds clean against the
+  master branches of all involved repositories.
+
 #### Example case: large scale
 
 Does the manual strategy used by the above team scale to larger systems?
 
 If there is a large system in a private repository, can we feasibly track
 changes back and forth between the public and private versions?
-Is the benefit of open sourcing only to make a huge effort to publish code so
-others can use, but the team itself doesn't use it, but only tracks it? The team
-has now two code bases to maintain, even if the changes are incremental and easy
-to merge by hand.
+  - Guideline: manually annotate your move commits with the source and
+    destination SHA1, in all repositories.
+  - Using a super-repo [VPE] may help.
 
 ##### Some considerations
 
 Here are some of the issues with a VXL programming environment, from experience.
 
-- What are the potential problems with VXL? Dependencies? Having your code
-  mingled with many other libraries? In a large system I don't see a way out,
-  and at least VXL is layered.
+- *What are the potential problems with VXL or C++ programming in general?*
+    - *Dependencies?* Having your code mingled with other libraries and
+      repositories which get out of sync with our peers? 
 
-- Building stand-alone code for sharing: working on a VXL contrib
-  library is pretty stand alone for a developer.  If we need to build binaries,
-  just work with VXL to improve this aspect. Otherwise lots of common build
-  infrastructure will have to be coded again and again.  But both VXL and a
-  completely stand alone edge linking C++ library can coexist, though manually
+- **Building stand-alone code for sharing:** If we need to build binaries,
+  just work with the VXL team to improve this aspect, since thi is common
+  build infrastructure.  But both VXL and
+  a completely stand alone edge linking C++ library can coexist, though manually
   maintained.  After all, its all C++ and the effort of writing one way or
-  another does not surpass the real difficulty which is coming up with good
-  methods anyways.
+  another does not surpass the real difficulty which is the project itself.
 
-- We want our code to scale up. In the real world the edge detector/linker will
-  be only one vision module in many. The code needs to be well organized and
-  follow certain good programming practices to be able to scale and be part of
-  much bigger vision systems. The situation with an internal repository based on
-  VXL often looks messy with a lot of dependencies, but that's just we having to
-  adapt, *not* throw away our core technology which actually helps us
-  scale, but build on it.
+- **Not an issue: VXL helps scaling up vision systems.** In the real world the edge
+  detector/linker will be only one vision module among many. The code needs to
+  be well organized and follow good programming practices to be able to scale
+  and be part of much bigger vision systems. Programming on an internal
+  repository based on VXL often looks messy to average developers, demanding
+  tracking of dependencies which quickly get out of sync with their peers. But this
+  problem does not mean they should give up VXL programming and
+  throw away the core technology which actually helps their code scale, but
+  they should build on it and tackle the real problems.
 
-- VXL is C++ with CMake which is a leading industry standard to get
+- **Not an issue: Build/Compile** VXL is C++ with CMake which is a leading industry standard to get
   your C++ code to build and compile in other platforms. Leveraging this
   existing infrastructure helps your code also build in other platforms,
   plus the VXL community helps in solving compile bugs etc. No large-scale vision
-  code will be easy to compile.
+  code in C++ will be easy to compile. If you want users to download and run your code,
+  you need to package it for each system. This is not java.
 
-- If you use the VXL philosophy the right way, it will only benefit you and make
-  things easier to compile and share. Not everything needs to be in C++/VXL,
-  but only core technology. The rest is probably more effectively developed in
-  Matlab, Scilab, etc.
+- **Too much C++** If you use the VXL philosophy the right way, it
+  will only benefit you and make things easier to compile and share. Not
+  everything needs to be in C++/VXL, but only core technology. The rest is
+  probably more effectively developed in Matlab, Scilab, etc.
 
-- Some internal groups end up having multiple versions of VXL around, because
+- **Repositories of sync** Some internal groups end up having multiple versions of VXL around, because
   they don't keep up with the main VXL.  Code sharing becomes a hard
   process. The issue, however, is a matter of discipline and having active
   team members to make internal code build against VXL master.
 
-- Git branching is also a big discipline problem, where code diverges and each
-  person doesn't sync their branches and end up with incompatible programming
-  environments, only sharing a similar culture but out of sync.
+- **Git branching** Git branching is also a big discipline problem, where code
+  diverges and each person doesn't sync their branches and end up with
+  incompatible programming environments, only sharing a similar culture but out
+  of sync.
 
 
 
