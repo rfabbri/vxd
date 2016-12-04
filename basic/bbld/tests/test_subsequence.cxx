@@ -1,5 +1,5 @@
 #include <testlib/testlib_test.h>
-#include <dbbl/dbbl_subsequence.h>
+#include <bbld/bbld_subsequence.h>
 #include <vcl_functional.h>
 
 class is_less_than_zero : public vcl_unary_function<unsigned, bool> {
@@ -42,10 +42,10 @@ MAIN( test_subsequence )
   is_negative_truth[2] = false;
   is_negative_truth[3] = true;
 
-  dbbl_subsequence_set ss;
-  dbbl_subsequence orig_seq(0, n.size()); 
+  bbld_subsequence_set ss;
+  bbld_subsequence orig_seq(0, n.size()); 
   orig_seq.set_orig_id(169);  //< any id to represent n
-  dbbl_contiguous_partition(orig_seq, is_less_than_zero(n), &ss);
+  bbld_contiguous_partition(orig_seq, is_less_than_zero(n), &ss);
 
   vcl_cout << "num subsequences " << ss.num_subsequences() << vcl_endl;
   TEST("num subsequences", ss.num_subsequences(), num_subsequences_gt);
