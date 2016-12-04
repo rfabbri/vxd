@@ -2,7 +2,7 @@ set (HAS_BOIL "NO")
 if (BUILD_BOIL)
 
   # Find Coin3D - Open Inventor
-  include( ${LEMS_CMAKE_DIR}/Modules/FindCoin.cmake )
+  include( ${VXD_CMAKE_DIR}/Modules/FindCoin.cmake )
   
   if (COIN_FOUND)
     include_directories( ${COIN_INCLUDE_DIR} )

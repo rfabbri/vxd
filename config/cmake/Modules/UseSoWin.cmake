@@ -4,7 +4,7 @@ set (HAS_SOWIN "NO")
 if (USE_SOWIN)
 
   # Find the SoWin library
-  include( ${LEMS_CMAKE_DIR}/Modules/FindSoWin.cmake )
+  include( ${VXD_CMAKE_DIR}/Modules/FindSoWin.cmake )
   
   if (SOWIN_FOUND)
     include_directories( ${COIN_INCLUDE_DIR} )

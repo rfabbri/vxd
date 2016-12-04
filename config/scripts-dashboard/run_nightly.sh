@@ -1,10 +1,10 @@
 #!/bin/sh
 LOGFILE=/homelocal/isa/Desktop/dashboard.log
-cd /projects/dashboards/lemsvxl/
-rm -r /projects/dashboards/lemsvxl/bin-nightly
-mkdir /projects/dashboards/lemsvxl/bin-nightly
-echo "---------- Building lemsvxl Nightly ----------" >> $LOGFILE
+cd /projects/dashboards/vxd/
+rm -r /projects/dashboards/vxd/bin-nightly
+mkdir /projects/dashboards/vxd/bin-nightly
+echo "---------- Building vxd Nightly ----------" >> $LOGFILE
 echo "---------- " `date` " ----------" >> $LOGFILE
-cd /projects/dashboards/lemsvxl/scripts
-ctest -V -S lemsvxl_nightly.cmake >> $LOGFILE
+cd /projects/dashboards/vxd/scripts
+ctest -V -S vxd_nightly.cmake >> $LOGFILE
 echo "----------  Done ----------" >> $LOGFILE

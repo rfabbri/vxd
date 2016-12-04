@@ -1,7 +1,7 @@
 # This is config/cmake/Modules/UseVTK.cmake
 # Package: vtk 5.0 
 # date  : July 7, 2006
-# author: Nhon Trinh (ntrinh@lems.brown.edu)
+# vaguely based on original code by author: Nhon Trinh
 
 
 # Find and load the VTK configuration.

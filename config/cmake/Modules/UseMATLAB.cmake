@@ -2,7 +2,7 @@ set (HAS_MATLAB "NO")
 if (BUILD_MATLAB)
 
   # Find the MATLAB library
-  include( ${LEMS_CMAKE_DIR}/Modules/FindMatlab.cmake )
+  include( ${VXD_CMAKE_DIR}/Modules/FindMatlab.cmake )
  if(MATLAB_INCLUDE_DIR)
   if(MATLAB_LIBRARY_PATH) 
    if(NOT HAS_MATLAB)

@@ -1,15 +1,15 @@
-# lemsvxlsrc/config/cmake/Modules/LEMSConfig.cmake.in
+# vxd/config/cmake/Modules/VXDConfig.cmake.in
 #   also configured by CMake to
-# @lems_BINARY_DIR@/LEMSConfig.cmake
+# @vxd_BINARY_DIR@/VXDConfig.cmake
 #
-# This CMake module is configured by LEMS VXL's build process to export
+# This CMake module is configured by VXD's build process to export
 # the project settings for use by client projects.  A client project may
-# find LEMS and include this module using the FIND_PACKAGE command:
+# find VXD and include this module using the FIND_PACKAGE command:
 #
-#  find_package(LEMS)
+#  find_package(VXD)
 #
-# After this command executes, projects may test LEMS_FOUND for whether
-# LEMS has been found.  If so, the settings listed below in this file
+# After this command executes, projects may test VXD_FOUND for whether
+# VXD has been found.  If so, the settings listed below in this file
 # have been loaded and are available for use.
 #
 
@@ -17,27 +17,27 @@
 include("@VXL_DIR@/VXLConfig.cmake")
 
 # The build settings file.
-set(LEMS_BUILD_SETTINGS_FILE "@LEMS_BUILD_SETTINGS_FILE@")
+set(VXD_BUILD_SETTINGS_FILE "@VXD_BUILD_SETTINGS_FILE@")
 
-# The LEMS library dependencies.
-if(NOT LEMS_NO_LIBRARY_DEPENDS)
-  include("@LEMS_LIBRARY_DEPENDS_FILE@")
-endif(NOT LEMS_NO_LIBRARY_DEPENDS)
+# The VXD library dependencies.
+if(NOT VXD_NO_LIBRARY_DEPENDS)
+  include("@VXD_LIBRARY_DEPENDS_FILE@")
+endif(NOT VXD_NO_LIBRARY_DEPENDS)
 
-# The LEMS and VXL library directories.
+# The VXD and VXL library directories.
 set(VXL_LIBRARY_DIR "@VXL_LIBRARY_DIR@")
-set(LEMS_LIBRARY_DIR "@LIBRARY_OUTPUT_PATH@")
+set(VXD_LIBRARY_DIR "@LIBRARY_OUTPUT_PATH@")
 
 
-# LEMS Paths
-set(LEMS_BASIC_INCLUDE_DIR "@lems_SOURCE_DIR@/basic")
-set(LEMS_CONTRIB_INCLUDE_DIR "@lems_SOURCE_DIR@/contrib")
-set(LEMS_BREYE_INCLUDE_DIR "@lems_SOURCE_DIR@/breye")
-set(LEMS_MVG_INCLUDE_DIR "@lems_SOURCE_DIR@/brcv/mvg")
-set(LEMS_REC_INCLUDE_DIR "@lems_SOURCE_DIR@/brcv/rec")
-set(LEMS_SEG_INCLUDE_DIR "@lems_SOURCE_DIR@/brcv/seg")
-set(LEMS_SHP_INCLUDE_DIR "@lems_SOURCE_DIR@/brcv/shp")
-set(LEMS_TRK_INCLUDE_DIR "@lems_SOURCE_DIR@/brcv/trk")
+# VXD Paths
+set(VXD_BASIC_INCLUDE_DIR "@vxd_SOURCE_DIR@/basic")
+set(VXD_CONTRIB_INCLUDE_DIR "@vxd_SOURCE_DIR@/contrib")
+set(VXD_BREYE_INCLUDE_DIR "@vxd_SOURCE_DIR@/breye")
+set(VXD_MVG_INCLUDE_DIR "@vxd_SOURCE_DIR@/brcv/mvg")
+set(VXD_REC_INCLUDE_DIR "@vxd_SOURCE_DIR@/brcv/rec")
+set(VXD_SEG_INCLUDE_DIR "@vxd_SOURCE_DIR@/brcv/seg")
+set(VXD_SHP_INCLUDE_DIR "@vxd_SOURCE_DIR@/brcv/shp")
+set(VXD_TRK_INCLUDE_DIR "@vxd_SOURCE_DIR@/brcv/trk")
 
 
 # VXL Configuration options.
@@ -105,10 +105,10 @@ set(VXL_CONVERSIONS_INCLUDE_DIR "@VXL_CONVERSIONS_INCLUDE_DIR@")
 
 
 
-# LEMS Configuration options.
-set(LEMS_BUILD_SHARED_LIBS "@BUILD_SHARED_LIBS@")
-set(LEMS_BUILD_TESTS "@BUILD_TESTS@")
-set(LEMS_BUILD_EXAMPLES "@BUILD_EXAMPLES@")
+# VXD Configuration options.
+set(VXD_BUILD_SHARED_LIBS "@BUILD_SHARED_LIBS@")
+set(VXD_BUILD_TESTS "@BUILD_TESTS@")
+set(VXD_BUILD_EXAMPLES "@BUILD_EXAMPLES@")
 
 
 
