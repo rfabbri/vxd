@@ -1,4 +1,7 @@
-
+# VXD
+#
+# For now, you can communicate at the VXL maintainers list
+#   vxl-maintainers@lists.sf.net
 cmake_minimum_required(VERSION 2.8.9 FATAL_ERROR)
 
 # Set policies for cmake
@@ -34,82 +37,15 @@ else (VXL_FOUND)
 endif(VXL_FOUND)
 
 # CMake support directory.
-set(LEMS_CMAKE_DIR ${lems_SOURCE_DIR}/config/cmake)
+set(VXD_CMAKE_DIR ${vxd_SOURCE_DIR}/config/cmake)
 
-# Brown 3rd Party Libraries
-add_subdirectory( db3p )
-
-# Brown Vision Algorithms
-option(BUILD_ALGO "Build Depreciated Algorithms" NO)
-if(BUILD_ALGO)
-  add_subdirectory( algo )
-endif(BUILD_ALGO)
-
-# Basic Utility Libraries
+# Basic Utility Libraries (that we are unsure will make to vxl/core)
 add_subdirectory( basic ) 
- 
-# Brown Computer Vision Libraries
-add_subdirectory( brcv )
-
-# Brown Eyes Code
-option(BUILD_BREYE "Build Brown Eyes" NO)
-if(BUILD_BREYE)
-  add_subdirectory( breye )
-endif(BUILD_BREYE)
-
-# Brown Eyes Code
-option(BUILD_BREYE1 "Build Old Brown Eyes" YES)
-if(BUILD_BREYE1)
-  add_subdirectory( breye1 )
-endif(BUILD_BREYE1)
-
-#Apps
-option(BUILD_APPS "Build Apps" NO)
-if(BUILD_APPS)
-  add_subdirectory( apps )
-endif(BUILD_APPS)
-
-option(BUILD_PLAYLAND "Build the personal testing area" NO)
-if(BUILD_PLAYLAND)
-  add_subdirectory( playland )
-endif(BUILD_PLAYLAND)
-
-if( DART_ROOT )
-  option(BUILD_CONTRIB "Build the contrib development area" YES)
-else( DART_ROOT )
-  option(BUILD_CONTRIB "Build the contrib development area" NO)
-endif( DART_ROOT )
-if(BUILD_CONTRIB)
-  add_subdirectory( contrib )
-endif(BUILD_CONTRIB)
 
 if(VXL_FOUND)
-
   # This is required on some platforms because various libraries
   # include OpenGL indirectly even when it is not used
   include_directories( ${VXL_VGUI_INCLUDE_DIR} )
-
-  #update vxl/config/Modules/NewCMakeModules folder to get the following
-  include( ${VXL_CMAKE_DIR}/NewCMake/FindDirectShow.cmake )
-
-  if(DIRECTSHOW_FOUND)
-    include_directories(${DIRECTSHOW_INCLUDE_DIR})
-    add_definitions(-DHAS_DSHOW)
-    # For Euresys Multicam Driver's DirectShow source filter.
-    # - should I put this in a Module of it's own?
-    #include( ${MODULE_PATH}/NewCMake/FindDirectShow_ESF.cmake )
-    find_path(DIRECTSHOW_ESF_INCLUDE_DIR ESFilter.h
-      "C:/Program Files/Euresys/MultiCam/Include"
-      DOC "What is the path where the file ESFilter.h can be found"
-    )
-    if(DIRECTSHOW_ESF_INCLUDE_DIR)
-      set(DIRECTSHOW_ESF_FOUND "YES")
-    endif(DIRECTSHOW_ESF_INCLUDE_DIR)
-    if(DIRECTSHOW_ESF_FOUND)
-      include_directories(${DIRECTSHOW_ESF_INCLUDE_DIR})
-      add_definitions(-DHAS_DSHOW_ESF)
-    endif(DIRECTSHOW_ESF_FOUND)
-  endif(DIRECTSHOW_FOUND)
 
   option(USE_Boost "Use Boost libraries" NO)
   if ( USE_Boost )
@@ -118,18 +54,7 @@ if(VXL_FOUND)
   else ( USE_Boost )
     set( Boost_FOUND FALSE )
   endif( USE_Boost )
-  
-  #required by dbul library
-  include( ${LEMS_CMAKE_DIR}/Modules/UseOctave.cmake )
-
 endif(VXL_FOUND)
-
-
-if(NOT BUILD_BROWN_INTERLEAVED)
-  # This SUBDIRS command must be the last SUBDIRS command in this file
-  add_subdirectory( config/cmake/export )
-endif(NOT BUILD_BROWN_INTERLEAVED)
-
 
 # adds a test for Endianness and a global variable that should be useful for file format programming -MM
 include(TestBigEndian)
