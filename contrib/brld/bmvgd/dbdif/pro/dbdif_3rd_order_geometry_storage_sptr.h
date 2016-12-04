@@ -1,0 +1,9 @@
+#ifndef dbdif_3rd_order_geometry_storage_sptr_h
+#define dbdif_3rd_order_geometry_storage_sptr_h
+
+#include <bpro1/bpro1_storage_sptr.h>
+
+class dbdif_3rd_order_geometry_storage;
+typedef bpro1_storage_sptr_t<dbdif_3rd_order_geometry_storage> dbdif_3rd_order_geometry_storage_sptr;
+
+#endif // dbdif_3rd_order_geometry_storage_sptr_h

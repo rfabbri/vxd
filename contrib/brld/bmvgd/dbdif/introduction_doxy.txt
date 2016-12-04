@@ -1,0 +1,25 @@
+// The following text is included in the main documentation page by doxygen
+/*! \mainpage dbdif : Brown Multiview Differential Geometry Library
+*
+* \section introduction Introduction
+** 
+* This library implements methods for multiview differential geometry of curves
+* as in the paper:
+*
+* R. Fabbri, B. B. Kimia, "High-Order Differential geometry of Curves for
+* Multiview Reconstruction and Matching", EMMCVPR 2005, Lecture Notes in
+* Computer Science, 3757, pp. 645-660, 2005.
+*
+* The file algo/tests/test_diff_geometry.cxx contains a detailed example on how
+* to use the code. Tests are provided with and without intrinsic parameters.  If
+* you are dealing with intrinsic parameters, it is more convenient to look at
+* the block of code that considers this situation.  However, many people prefer
+* to pre-calibrate their cameras and only consider rotations and translations,
+* in which case the code without intrinsic parameters can be used.
+* 
+* \todo Clean up and redesign the library, and rename the old one as dbdif1
+*
+* \todo The methods in dbdif_util are not all needed, and can be moved to an
+* utilities library.
+*
+*/
