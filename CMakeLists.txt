@@ -39,8 +39,7 @@ endif(VXL_FOUND)
 # CMake support directory.
 set(VXD_CMAKE_DIR ${vxd_SOURCE_DIR}/config/cmake)
 
-# Basic Utility Libraries (that we are unsure will make to vxl/core)
-add_subdirectory( basic ) 
+add_subdirectory(contrib) 
 
 if(VXL_FOUND)
   # This is required on some platforms because various libraries
