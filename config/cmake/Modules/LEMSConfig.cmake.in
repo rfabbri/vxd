@@ -1,0 +1,115 @@
+# lemsvxlsrc/config/cmake/Modules/LEMSConfig.cmake.in
+#   also configured by CMake to
+# @lems_BINARY_DIR@/LEMSConfig.cmake
+#
+# This CMake module is configured by LEMS VXL's build process to export
+# the project settings for use by client projects.  A client project may
+# find LEMS and include this module using the FIND_PACKAGE command:
+#
+#  find_package(LEMS)
+#
+# After this command executes, projects may test LEMS_FOUND for whether
+# LEMS has been found.  If so, the settings listed below in this file
+# have been loaded and are available for use.
+#
+
+# Include the configuration for VXL
+include("@VXL_DIR@/VXLConfig.cmake")
+
+# The build settings file.
+set(LEMS_BUILD_SETTINGS_FILE "@LEMS_BUILD_SETTINGS_FILE@")
+
+# The LEMS library dependencies.
+if(NOT LEMS_NO_LIBRARY_DEPENDS)
+  include("@LEMS_LIBRARY_DEPENDS_FILE@")
+endif(NOT LEMS_NO_LIBRARY_DEPENDS)
+
+# The LEMS and VXL library directories.
+set(VXL_LIBRARY_DIR "@VXL_LIBRARY_DIR@")
+set(LEMS_LIBRARY_DIR "@LIBRARY_OUTPUT_PATH@")
+
+
+# LEMS Paths
+set(LEMS_BASIC_INCLUDE_DIR "@lems_SOURCE_DIR@/basic")
+set(LEMS_CONTRIB_INCLUDE_DIR "@lems_SOURCE_DIR@/contrib")
+set(LEMS_BREYE_INCLUDE_DIR "@lems_SOURCE_DIR@/breye")
+set(LEMS_MVG_INCLUDE_DIR "@lems_SOURCE_DIR@/brcv/mvg")
+set(LEMS_REC_INCLUDE_DIR "@lems_SOURCE_DIR@/brcv/rec")
+set(LEMS_SEG_INCLUDE_DIR "@lems_SOURCE_DIR@/brcv/seg")
+set(LEMS_SHP_INCLUDE_DIR "@lems_SOURCE_DIR@/brcv/shp")
+set(LEMS_TRK_INCLUDE_DIR "@lems_SOURCE_DIR@/brcv/trk")
+
+
+# VXL Configuration options.
+set(VXL_BUILD_SHARED_LIBS "@VXL_BUILD_SHARED_LIBS@")
+set(VXL_BUILD_TESTS "@VXL_BUILD_TESTS@")
+set(VXL_BUILD_EXAMPLES "@VXL_BUILD_EXAMPLES@")
+
+# VXL has many parts that are optional, depending on selections made
+# when building.  The stanzas below give a consistent (though
+# pedantic) interface to each part.  Clients use these settings to
+# determine whether a part was built (_FOUND), where its headers are
+# located (_INCLUDE_DIR) and in some cases what libraries must be
+# linked to use the part (_LIBRARIES).  Most client projects will
+# likely still refer to vcl by hard-wired "vcl" instead of using the
+# variable VXL_VCL_LIBRARIES, but it is there just in case.
+
+set(VXL_VCL_FOUND "YES" ) # VXL vcl is always FOUND.  It is not optional.
+set(VXL_VCL_INCLUDE_DIR "@VXL_VCL_INCLUDE_DIR@")
+set(VXL_VCL_LIBRARIES "vcl")
+
+set(VXL_CORE_FOUND "YES" ) # VXL core is always FOUND.  It is not optional.
+set(VXL_CORE_INCLUDE_DIR "@VXL_CORE_INCLUDE_DIR@")
+# VXL core has many libraries
+
+set(VXL_VGUI_FOUND "@VXL_VGUI_FOUND@")
+set(VXL_VGUI_INCLUDE_DIR "@VXL_VGUI_INCLUDE_DIR@")
+set(VXL_VGUI_LIBRARIES "vgui")
+
+set(VXL_CONTRIB_FOUND "@VXL_CONTRIB_FOUND@")
+# VXL contrib has subdirectories handled independently below
+# VXL contrib has many libraries
+
+set(VXL_BRL_FOUND "@VXL_BRL_FOUND@")
+set(VXL_BRL_INCLUDE_DIR "@VXL_BRL_INCLUDE_DIR@")
+# VXL BRL has many libraries
+
+set(VXL_GEL_FOUND "@VXL_GEL_FOUND@")
+set(VXL_GEL_INCLUDE_DIR "@VXL_GEL_INCLUDE_DIR@")
+# VXL GEL has many libraries
+
+set(VXL_MUL_FOUND "@VXL_MUL_FOUND@")
+set(VXL_MUL_INCLUDE_DIR "@VXL_MUL_INCLUDE_DIR@")
+# VXL MUL has many libraries
+
+set(VXL_OUL_FOUND "@VXL_OUL_FOUND@")
+set(VXL_OUL_INCLUDE_DIR "@VXL_OUL_INCLUDE_DIR@")
+# VXL OUL has many libraries
+
+set(VXL_OXL_FOUND "@VXL_OXL_FOUND@")
+set(VXL_OXL_INCLUDE_DIR "@VXL_OXL_INCLUDE_DIR@")
+# VXL OXL has many libraries
+
+set(VXL_RPL_FOUND "@VXL_RPL_FOUND@")
+set(VXL_RPL_INCLUDE_DIR "@VXL_RPL_INCLUDE_DIR@")
+# VXL RPL has many libraries
+
+set(VXL_TBL_FOUND "@VXL_TBL_FOUND@")
+set(VXL_TBL_INCLUDE_DIR "@VXL_TBL_INCLUDE_DIR@")
+# VXL TBL has many libraries
+
+set(VXL_CONVERSIONS_FOUND "@VXL_CONVERSIONS_FOUND@")
+set(VXL_CONVERSIONS_INCLUDE_DIR "@VXL_CONVERSIONS_INCLUDE_DIR@")
+# VXL CONVERSIONS has no libraries
+
+
+
+
+# LEMS Configuration options.
+set(LEMS_BUILD_SHARED_LIBS "@BUILD_SHARED_LIBS@")
+set(LEMS_BUILD_TESTS "@BUILD_TESTS@")
+set(LEMS_BUILD_EXAMPLES "@BUILD_EXAMPLES@")
+
+
+
+

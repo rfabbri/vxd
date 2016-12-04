@@ -1,0 +1,1 @@
+find . -name '*.old' -type f | xargs rm
