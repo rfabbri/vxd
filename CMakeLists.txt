@@ -24,7 +24,7 @@ project(vxd)
 
 set (LIBRARY_OUTPUT_PATH ${vxd_BINARY_DIR}/lib CACHE PATH "Single output directory for building all libraries.")
 
-find_package(VXL)
+find_package(VXL PATHS "../vxl-bin")
 if (VXL_FOUND)
   # include the standard stuff, such as Dart test
   set(VXL_PROVIDE_STANDARD_OPTIONS 1)
