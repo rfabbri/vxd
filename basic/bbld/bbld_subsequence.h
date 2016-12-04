@@ -1,6 +1,6 @@
-// This is dbbl_curve_subsets.h
-#ifndef dbbl_subsequence_h
-#define dbbl_subsequence_h
+// This is bbld_curve_subsets.h
+#ifndef bbld_subsequence_h
+#define bbld_subsequence_h
 //:
 //\file
 //\brief Utilities to represent sets of sub-sequences, similar to boost's ranges
@@ -26,15 +26,15 @@
 // associated utilities. Each subsequence also provides an id that can be used
 // to refer to the parent sequence.
 //
-class dbbl_subsequence {
+class bbld_subsequence {
 public:
-  dbbl_subsequence(unsigned ini, unsigned end) { set(ini, end); }
-  dbbl_subsequence(unsigned ini, unsigned end, unsigned orig_id) 
+  bbld_subsequence(unsigned ini, unsigned end) { set(ini, end); }
+  bbld_subsequence(unsigned ini, unsigned end, unsigned orig_id) 
   { set(ini, end); set_orig_id(orig_id);}
-  dbbl_subsequence(unsigned ini, unsigned end, unsigned orig_id, unsigned int_id)
+  bbld_subsequence(unsigned ini, unsigned end, unsigned orig_id, unsigned int_id)
   { set(ini, end); set_orig_id(orig_id); set_int_id(int_id); }
 
-  dbbl_subsequence() {}
+  bbld_subsequence() {}
 
   void set(unsigned ini, unsigned end) 
     {assert (ini < end); ini_ = ini; end_ = end; }
@@ -66,7 +66,7 @@ private:
 // that all vectors in w are contained in v, and all vectors w[i] is a subset of
 // some v[k].
 //
-class dbbl_subsequence_set {
+class bbld_subsequence_set {
 public:
 
   //: reserve a number of subsequences
@@ -75,16 +75,16 @@ public:
   //: \param[in] i : index of the new subsequence into this set of subsequences
   //  \param[in] original_id : index of the parent sequence into the original
   //  set of sequences
-  void set_subsequence(unsigned i, const dbbl_subsequence &s) 
+  void set_subsequence(unsigned i, const bbld_subsequence &s) 
   { ss_[i] = s;}
 
-  void push_back(const dbbl_subsequence &s) 
+  void push_back(const bbld_subsequence &s) 
   { ss_.push_back(s);}
 
-  const dbbl_subsequence &subsequence(unsigned i) const 
+  const bbld_subsequence &subsequence(unsigned i) const 
   { assert (i < num_subsequences()); return ss_[i]; }
 
-  const dbbl_subsequence &operator [] (unsigned i) const 
+  const bbld_subsequence &operator [] (unsigned i) const 
   { assert (i < num_subsequences()); return ss_[i]; }
 
   unsigned num_subsequences() const { return ss_.size(); }
@@ -97,24 +97,24 @@ public:
     return t;
   }
 
-  void trim_memory() { vcl_vector<dbbl_subsequence >(ss_).swap(ss_); }
+  void trim_memory() { vcl_vector<bbld_subsequence >(ss_).swap(ss_); }
 
 private:
   //: s_[i] = (id, ini, end), where id is an index into v as in the above
   // example, and v[id][ini], v[id][ini+1], ..., v[id][end] is the subsequence,
-  vcl_vector<dbbl_subsequence > ss_;
+  vcl_vector<bbld_subsequence > ss_;
 };
 
 //: param[in] a: a subsequence set from the original set O to an intermediary one I
 //  param[in] b: a subsequence set from an intermediate set I to a final one F
 //  param[out] b: a subsequence set from the original set O to the final one F
-inline void compose_subsequences(const dbbl_subsequence_set &a, dbbl_subsequence_set *b)
+inline void compose_subsequences(const bbld_subsequence_set &a, bbld_subsequence_set *b)
 {
   for (unsigned i=0; i < b->num_subsequences(); ++i) {
-    const dbbl_subsequence &b_subseq = b->subsequence(i);
-    const dbbl_subsequence &a_subseq = a.subsequence(b_subseq.orig_id());
+    const bbld_subsequence &b_subseq = b->subsequence(i);
+    const bbld_subsequence &a_subseq = a.subsequence(b_subseq.orig_id());
 
-    dbbl_subsequence ss(a_subseq.ini() + b_subseq.ini(), 
+    bbld_subsequence ss(a_subseq.ini() + b_subseq.ini(), 
                       a_subseq.ini() + b_subseq.end());
 
     ss.set_orig_id(a_subseq.orig_id());
@@ -129,7 +129,7 @@ inline void compose_subsequences(const dbbl_subsequence_set &a, dbbl_subsequence
 template <typename T> void 
 consolidate_subsequences(
     const vcl_vector<T> &seq,
-    dbbl_subsequence_set s_ids,
+    bbld_subsequence_set s_ids,
     vcl_vector<T> *ss_ptr
     )
 {
@@ -138,7 +138,7 @@ consolidate_subsequences(
 
   ss.resize(s_ids.num_subsequences());
   for (unsigned i=0; i < s_ids.num_subsequences(); ++i) {
-    const dbbl_subsequence &ss_id = s_ids.subsequence(i);
+    const bbld_subsequence &ss_id = s_ids.subsequence(i);
 
     ss[i].reserve(ss_id.size());
     for (unsigned p = ss_id.ini(); p < ss_id.end(); ++p)
@@ -150,7 +150,7 @@ consolidate_subsequences(
 inline void 
 consolidate_subsequences(
     const vcl_vector<vsol_polyline_2d_sptr> &seq,
-    dbbl_subsequence_set s_ids,
+    bbld_subsequence_set s_ids,
     vcl_vector<vsol_polyline_2d_sptr> *ss_ptr
     )
 {
@@ -161,7 +161,7 @@ consolidate_subsequences(
   for (unsigned i=0; i < s_ids.num_subsequences(); ++i) {
     vcl_vector<vsol_point_2d_sptr> subcurve;
 
-    const dbbl_subsequence &ss_id = s_ids.subsequence(i);
+    const bbld_subsequence &ss_id = s_ids.subsequence(i);
 
     subcurve.reserve(ss_id.size());
     for (unsigned p = ss_id.ini(); p < ss_id.end(); ++p)
@@ -180,10 +180,10 @@ consolidate_subsequences(
 // \param[out] ss : the set of subsequences of orig, but with ss[i].orig_id ==
 // orig.orig_id();
 template <typename Predicate_T> void
-dbbl_contiguous_partition(
-    const dbbl_subsequence &orig, const Predicate_T &cond, dbbl_subsequence_set *ss_ptr)
+bbld_contiguous_partition(
+    const bbld_subsequence &orig, const Predicate_T &cond, bbld_subsequence_set *ss_ptr)
 {
-  dbbl_subsequence_set &ss = *ss_ptr;
+  bbld_subsequence_set &ss = *ss_ptr;
   bool prev_cond = cond(orig.ini());
   unsigned ini = orig.ini();
   unsigned n_elements = orig.size();
@@ -192,13 +192,13 @@ dbbl_contiguous_partition(
   unsigned end = orig.ini() + 1;
   for (;  end != orig.end();  ++end) {
     if (cond(end) != prev_cond) {
-      ss.push_back(dbbl_subsequence(ini, end, orig.orig_id()));
+      ss.push_back(bbld_subsequence(ini, end, orig.orig_id()));
       ini = end; 
       prev_cond = cond(end);
     }
   }
-  ss.push_back(dbbl_subsequence(ini, end, orig.orig_id()));
+  ss.push_back(bbld_subsequence(ini, end, orig.orig_id()));
   ss.trim_memory();
 }
 
-#endif // dbbl_subsequence_h
+#endif // bbld_subsequence_h
