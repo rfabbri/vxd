@@ -13,7 +13,7 @@
 
 #include <vsol/vsol_point_2d.h>
 
-#include <dbdif/dbdif_camera.h>
+#include <bdifd/bdifd_camera.h>
 
 
 
@@ -102,7 +102,7 @@ MAIN( test_camera )
 
   vpgl_perspective_camera<double> Pcam (K, transl, rot);
 
-  dbdif_camera exp_cam;
+  bdifd_camera exp_cam;
 
   exp_cam.set_p(Pcam);
 

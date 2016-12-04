@@ -1,6 +1,6 @@
-// This is dbdif_util.h
-#ifndef dbdif_util_h
-#define dbdif_util_h
+// This is bdifd_util.h
+#ifndef bdifd_util_h
+#define bdifd_util_h
 //:
 //\file
 //\brief General utilities (probably to be moved into some vxl libs)
@@ -20,12 +20,12 @@
 #include <vsol/vsol_point_2d_sptr.h>
 
 // These are mere shortcuts, not even new types
-#define dbdif_vector_3d vnl_vector_fixed<double,3>
-#define dbdif_vector_2d vnl_vector_fixed<double,2>
+#define bdifd_vector_3d vnl_vector_fixed<double,3>
+#define bdifd_vector_2d vnl_vector_fixed<double,2>
 
 #define remainder_div_2pi(x) ((x) - ((int)((x)/(2*vnl_math::pi)))*(x) )
 
-vgl_homg_point_2d<double> dbdif_epipolar_point_transfer( 
+vgl_homg_point_2d<double> bdifd_epipolar_point_transfer( 
       const vgl_homg_point_2d<double> &p1, 
       const vgl_homg_point_2d<double> &p2, 
       const vpgl_fundamental_matrix<double> &f13,
@@ -33,18 +33,18 @@ vgl_homg_point_2d<double> dbdif_epipolar_point_transfer(
 
 
 inline vgl_homg_line_2d<double>
-dbdif_normal_correspondence_line(
+bdifd_normal_correspondence_line(
   const vcl_vector<vsol_point_2d_sptr>  &con,
   unsigned k
     );
 
 
-#define dbdif_tolerance 1e-7
+#define bdifd_tolerance 1e-7
 #define MW_ROUND(X)        ((int)((X)+0.5))
 
-class dbdif_util {
+class bdifd_util {
 public:
-  static bool near_zero(double x) { return vcl_fabs(x) < dbdif_tolerance; }
+  static bool near_zero(double x) { return vcl_fabs(x) < bdifd_tolerance; }
   static bool near_zero(double x,double tol) { return vcl_fabs(x) < tol; }
 
   //: Given two angles in the range [0, 2pi) representing the direction of a unit vector
@@ -69,24 +69,24 @@ public:
 
 
   //: angle between two unit vectors
-  static inline double angle_unit(const dbdif_vector_3d &t1, const dbdif_vector_3d &t2);
+  static inline double angle_unit(const bdifd_vector_3d &t1, const bdifd_vector_3d &t2);
 };
 
 
 //: smallest angle between two unit vectors
-inline double dbdif_util::angle_unit(const dbdif_vector_3d &t1, const dbdif_vector_3d &t2)
+inline double bdifd_util::angle_unit(const bdifd_vector_3d &t1, const bdifd_vector_3d &t2)
 {
   return vcl_acos(clump_to_acos(dot_product(t1,t2)));
 }
 
-inline double dbdif_util::angle_difference(double angle1, double angle2) 
+inline double bdifd_util::angle_difference(double angle1, double angle2) 
 { 
    double dt_angle = vcl_fabs(angle1 - angle2);
    return (dt_angle > vnl_math::pi)? (2*vnl_math::pi - dt_angle) : dt_angle;
 }
 
 //: user must ensure vector is not empty
-inline double dbdif_util::median(const vcl_vector<double> &v)
+inline double bdifd_util::median(const vcl_vector<double> &v)
 {
   vcl_vector<double> v_sorted = v;
 
@@ -107,7 +107,7 @@ inline double dbdif_util::median(const vcl_vector<double> &v)
 }
 
 //: user must ensure vector is not empty
-template <class T> double dbdif_util::max(const vcl_vector<T> &v, unsigned &idx)
+template <class T> double bdifd_util::max(const vcl_vector<T> &v, unsigned &idx)
 {
   idx = 0;
   T maxval = v[0];
@@ -121,7 +121,7 @@ template <class T> double dbdif_util::max(const vcl_vector<T> &v, unsigned &idx)
 }
 
 //: user must ensure vector is not empty
-inline double dbdif_util::mean(const vcl_vector<double> &v)
+inline double bdifd_util::mean(const vcl_vector<double> &v)
 {
   double meanval = 0.0;
   for (unsigned i=0; i < v.size(); ++i) {
@@ -133,7 +133,7 @@ inline double dbdif_util::mean(const vcl_vector<double> &v)
 }
 
 //: user must ensure vector is not empty
-inline double dbdif_util::min(const vcl_vector<double> &v, unsigned &idx)
+inline double bdifd_util::min(const vcl_vector<double> &v, unsigned &idx)
 {
 idx = 0;
 double minval = v[0];
@@ -146,7 +146,7 @@ for (unsigned i=1; i < v.size(); ++i) {
 return minval;
 }
 
-inline double dbdif_util::clump_to_acos(double x)
+inline double bdifd_util::clump_to_acos(double x)
 { 
   if (x > 1.0 || x < -1.0) {
     assert(vcl_fabs(vcl_fabs(x)-1) < 1e-5);
@@ -159,7 +159,7 @@ inline double dbdif_util::clump_to_acos(double x)
 }
 
 //: Copied from dbdet_sel1.h
-inline double dbdif_util::
+inline double bdifd_util::
 angle0To2Pi (double angle)
 {
   double a;
@@ -185,17 +185,17 @@ angle0To2Pi (double angle)
 }
 
 inline vgl_homg_line_2d<double>
-dbdif_normal_correspondence_line(
+bdifd_normal_correspondence_line(
   const vcl_vector<vsol_point_2d_sptr>  &con,
   unsigned k
     )
 {
 
-  dbdif_vector_2d p0;
+  bdifd_vector_2d p0;
   
   p0[0] = con[k]->x();
   p0[1] = con[k]->y();
-  dbdif_vector_2d n;
+  bdifd_vector_2d n;
 
   if (k < con.size()-1) {
     n[0] = con[k]->x()-con[k+1]->x();
@@ -210,7 +210,7 @@ dbdif_normal_correspondence_line(
   return vgl_homg_line_2d<double> (n[0],n[1],d);
 }
 
-inline vnl_vector_fixed<double,3> dbdif_util::
+inline vnl_vector_fixed<double,3> bdifd_util::
 vgl_to_vnl(const vgl_point_3d<double> &p)
 {
   return vnl_vector_fixed<double,3> (p.x(),p.y(),p.z());
@@ -218,4 +218,4 @@ vgl_to_vnl(const vgl_point_3d<double> &p)
 
 
 
-#endif // dbdif_util_h
+#endif // bdifd_util_h

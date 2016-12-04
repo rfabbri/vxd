@@ -1,6 +1,6 @@
-// This is dbdif_data.h
-#ifndef dbdif_data_h
-#define dbdif_data_h
+// This is bdifd_data.h
+#ifndef bdifd_data_h
+#define bdifd_data_h
 //:
 //\file
 //\brief Functions to create multiview datasets 
@@ -8,63 +8,63 @@
 //\date Sat May 13 18:41:53 EDT 2006
 //
 
-#include <dbdif/dbdif_camera.h>
+#include <bdifd/bdifd_camera.h>
 #include <vsol/vsol_line_2d_sptr.h>
 
-class dbdif_rig;
+class bdifd_rig;
 
 //: Defines some multiview differential-geometric synthetic data and utilities
-class dbdif_data {
+class bdifd_data {
   public:
 
   static void
   project_into_cams(
-      const vcl_vector<dbdif_3rd_order_point_3d> &crv3d, 
-      const vcl_vector<dbdif_camera> &cam,
-      vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > &xi //:< image coordinates
+      const vcl_vector<bdifd_3rd_order_point_3d> &crv3d, 
+      const vcl_vector<bdifd_camera> &cam,
+      vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > &xi //:< image coordinates
       );
 
   static void 
   project_into_cams(
-      const vcl_vector<dbdif_3rd_order_point_3d> &crv3d, 
-      const vcl_vector<dbdif_camera> &cam,
+      const vcl_vector<bdifd_3rd_order_point_3d> &crv3d, 
+      const vcl_vector<bdifd_camera> &cam,
       vcl_vector<vcl_vector<vsol_point_2d_sptr> > &xi //:< image coordinates
       );
 
   static void 
   project_into_cams_without_epitangency(
-      const vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d,
-      const vcl_vector<dbdif_camera> &cam,
-      vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > &crv2d_gt,
+      const vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d,
+      const vcl_vector<bdifd_camera> &cam,
+      vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > &crv2d_gt,
       double epipolar_angle_thresh);
 
   static void
-  space_curves_ctspheres( vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d );
+  space_curves_ctspheres( vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d );
 
   static void
-  space_curves_olympus_turntable( vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d);
+  space_curves_olympus_turntable( vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d);
 
   static void 
-  space_curves_digicam_turntable_sandbox( vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d);
+  space_curves_digicam_turntable_sandbox( vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d);
 
   static void space_curves_digicam_turntable_medium_sized(
-    vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d
+    vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d
     );
 
   static void 
-  space_curves_ctspheres_old( vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d );
+  space_curves_ctspheres_old( vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d );
 
   static void 
   project_into_cams(
-      const vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d,
-      const vcl_vector<dbdif_camera> &cam,
-      vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > &crv2d_gt);
+      const vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d,
+      const vcl_vector<bdifd_camera> &cam,
+      vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > &crv2d_gt);
 
   static void 
   max_err_reproj_perturb(
-      const vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > &crv2d_gt_,
-      const vcl_vector<dbdif_camera> &cam_,
-      const dbdif_rig &rig,
+      const vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > &crv2d_gt_,
+      const vcl_vector<bdifd_camera> &cam_,
+      const bdifd_rig &rig,
       double &err_pos,
       double &err_t,
       double &err_k,
@@ -78,9 +78,9 @@ class dbdif_data {
 
   static void 
   err_reproj_perturb(
-      const vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > &crv2d_gt_,
-      const vcl_vector<dbdif_camera> &cam_,
-      const dbdif_rig &rig,
+      const vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > &crv2d_gt_,
+      const vcl_vector<bdifd_camera> &cam_,
+      const bdifd_rig &rig,
       vcl_vector<double> &err_pos_sq,
       vcl_vector<double> &err_t,
       vcl_vector<double> &err_k,
@@ -91,7 +91,7 @@ class dbdif_data {
   //---------------------------------------------------------------------------
   static void get_lines(
       vcl_vector<vsol_line_2d_sptr> &lines,
-      const vcl_vector<dbdif_3rd_order_point_2d> &C_subpixel,
+      const vcl_vector<bdifd_3rd_order_point_2d> &C_subpixel,
       bool do_perturb=false,
       double pert_pos=0.0,
       double pert_tan=0.0
@@ -101,7 +101,7 @@ class dbdif_data {
   get_circle_edgels(
       double radius, 
       vcl_vector<vsol_line_2d_sptr> &lines,
-      vcl_vector<dbdif_3rd_order_point_2d> &C_subpixel,
+      vcl_vector<bdifd_3rd_order_point_2d> &C_subpixel,
       bool do_perturb=false,
       double pert_pos=0.1,
       double pert_tan=10
@@ -111,14 +111,14 @@ class dbdif_data {
       double ra, 
       double rb, 
       vcl_vector<vsol_line_2d_sptr> &lines,
-      vcl_vector<dbdif_3rd_order_point_2d> &C_subpixel,
+      vcl_vector<bdifd_3rd_order_point_2d> &C_subpixel,
       bool do_perturb,
       double pert_pos,
       double pert_tan
       );
 
   static vgl_point_3d<double> 
-  get_point_crv3d(const vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d, unsigned i);
+  get_point_crv3d(const vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d, unsigned i);
 
   //---------------------------------------------------------------------------
   // Utilities to output traditional point dataset (no differential geometry)
@@ -132,7 +132,7 @@ class dbdif_data {
 };
 
 //: Class dealing with a turntable camera configuration.
-class dbdif_turntable {
+class bdifd_turntable {
 public:
   //- function to set the turntable params
 
@@ -160,5 +160,5 @@ public:
 
 };
 
-#endif // dbdif_data_h
+#endif // bdifd_data_h
 

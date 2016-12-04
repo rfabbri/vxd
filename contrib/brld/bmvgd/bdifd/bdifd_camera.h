@@ -1,6 +1,6 @@
-// This is dbdif_camera.h
-#ifndef dbdif_camera_h
-#define dbdif_camera_h
+// This is bdifd_camera.h
+#ifndef bdifd_camera_h
+#define bdifd_camera_h
 //:
 //\file
 //\brief Explicit camera as in my paper
@@ -9,65 +9,65 @@
 //
 
 #include <vpgl/vpgl_perspective_camera.h>
-#include <dbdif/dbdif_util.h>
-#include <dbdif/dbdif_frenet.h>
+#include <bdifd/bdifd_util.h>
+#include <bdifd/bdifd_frenet.h>
 
 //: Explicit camera elements, obtained from a projection matrix. This class has
 // methods for projecting 1st, 2nd, and 3rd order differential measures, and
 // most of the other geometrical tools relating to a single view. 
 //
-// \remarks For reconstruction using more than one camera, cf. dbdif_rig class.
+// \remarks For reconstruction using more than one camera, cf. bdifd_rig class.
 //
 //
-class dbdif_camera {
+class bdifd_camera {
 public:
-  dbdif_camera()
+  bdifd_camera()
      : unit_x(1,0,0), unit_y(0,1,0), unit_z(0,0,1) {}
 
   void set_p(const vpgl_perspective_camera<double> &Prj)
   { Pr_ = Prj; compute_explicit_params(); }
 
   //: Take care: Gama is relative vector, ie, Curve - c
-  dbdif_vector_3d project(const dbdif_vector_3d &Gama) const
+  bdifd_vector_3d project(const bdifd_vector_3d &Gama) const
   { return Gama/dot_product(Gama,F); }
 
-  dbdif_vector_2d project_to_image(const dbdif_vector_3d &Gama) const;
+  bdifd_vector_2d project_to_image(const bdifd_vector_3d &Gama) const;
 
-  dbdif_3rd_order_point_2d project_to_image(const dbdif_3rd_order_point_3d &p3d, bool *stat) const;
+  bdifd_3rd_order_point_2d project_to_image(const bdifd_3rd_order_point_3d &p3d, bool *stat) const;
 
   //: \todo consistent interfaces for each order.
   bool project_1st_order_to_image(
-      const dbdif_1st_order_point_3d &p3d, 
-      dbdif_1st_order_point_2d *pimg_ptr) const;
+      const bdifd_1st_order_point_3d &p3d, 
+      bdifd_1st_order_point_2d *pimg_ptr) const;
 
   //: converts from image u,v coordinates to world coordinates
-  inline void get_gama(double u, double v, dbdif_vector_3d *gama) const;
+  inline void get_gama(double u, double v, bdifd_vector_3d *gama) const;
 
   //: ratio of speeds of space and image curve; can be interpreted as the 
   // speed of image curve wrt. arclenght of space curve
-  double speed(const dbdif_1st_order_point_3d &Frm) const
+  double speed(const bdifd_1st_order_point_3d &Frm) const
   { return speed(Frm,dot_product(Frm.Gama - c,F)); }
 
   //: ratio of speeds of space and image curve; can be interpreted as the 
   // speed of image curve wrt. arclenght of space curve.
-  double speed(const dbdif_1st_order_point_3d &Frm, double lambda) const
+  double speed(const bdifd_1st_order_point_3d &Frm, double lambda) const
   { return ( Frm.T - dot_product(Frm.T,F)*project(Frm.Gama - c) ).two_norm()/lambda; }
 
   //: Derivative of speed of image curve wrt. arclenght of space curve
-  double tangential_accel(const dbdif_2nd_order_point_3d *Frm, 
-      double lambda, double lambda_dot, double g, const dbdif_vector_3d &t) const;
+  double tangential_accel(const bdifd_2nd_order_point_3d *Frm, 
+      double lambda, double lambda_dot, double g, const bdifd_vector_3d &t) const;
 
   //: project 3D T, given gama. User must normalize result to get unit tangent.
-  void project_t(const dbdif_vector_3d &T, const dbdif_vector_3d &gama, dbdif_vector_3d *t) const
+  void project_t(const bdifd_vector_3d &T, const bdifd_vector_3d &gama, bdifd_vector_3d *t) const
   { *t = T - dot_product(T,F)*gama; }
 
   //: project 2nd order measures
-  bool project_k(const dbdif_2nd_order_point_3d &Frame, dbdif_2nd_order_point_2d *frame1) const;
+  bool project_k(const bdifd_2nd_order_point_3d &Frame, bdifd_2nd_order_point_2d *frame1) const;
 
   //: project 2nd order measures
-  bool project_k(const dbdif_2nd_order_point_3d &Frame, dbdif_2nd_order_point_2d *frame1, double *plambda) const;
+  bool project_k(const bdifd_2nd_order_point_3d &Frame, bdifd_2nd_order_point_2d *frame1, double *plambda) const;
   
-  bool project_3rd(const dbdif_3rd_order_point_3d &Frame, dbdif_3rd_order_point_2d *frame1) const;
+  bool project_3rd(const bdifd_3rd_order_point_3d &Frame, bdifd_3rd_order_point_2d *frame1) const;
 
   //: for unit vectors
   inline void 
@@ -79,17 +79,17 @@ public:
 
   //: world 3D to camera 3D
   inline void 
-  world_to_cam_vector(const dbdif_vector_3d &v_world, dbdif_vector_3d *v_cam) const;
+  world_to_cam_vector(const bdifd_vector_3d &v_world, bdifd_vector_3d *v_cam) const;
 
   inline void
-  world_to_img(const dbdif_1st_order_point_2d *p_w, dbdif_1st_order_point_2d *p_img) const;
+  world_to_img(const bdifd_1st_order_point_2d *p_w, bdifd_1st_order_point_2d *p_img) const;
 
   inline void
-  img_to_world(const dbdif_3rd_order_point_2d *p_img, dbdif_3rd_order_point_2d *p_w) const;
+  img_to_world(const bdifd_3rd_order_point_2d *p_img, bdifd_3rd_order_point_2d *p_w) const;
 
   inline void 
   img_to_world( vgl_point_2d<double> &pt, double theta_img, double k_img, 
-      double kdot_img, dbdif_3rd_order_point_2d *p_w) const;
+      double kdot_img, bdifd_3rd_order_point_2d *p_w) const;
 
   // DATA ----------------------------------------------------------------------
 
@@ -105,7 +105,7 @@ public:
 
   vnl_matrix_fixed<double,3,3> Rot, Rot_t;
 
-  dbdif_vector_3d
+  bdifd_vector_3d
     c,
     b1_base_e,b2_base_e,b3_base_e,
     F;
@@ -121,7 +121,7 @@ public:
   double focal_length;
 
   // Utility:
-  dbdif_vector_3d unit_x, unit_y, unit_z;
+  bdifd_vector_3d unit_x, unit_y, unit_z;
 
   //: use this whenever Pr change
   void compute_explicit_params();
@@ -129,10 +129,10 @@ public:
   void print(vcl_ostream &os=vcl_cout) const;
 };
 
-inline void dbdif_camera::
+inline void bdifd_camera::
 img_to_world_vector(double img_x, double img_y, vnl_vector_fixed<double, 3> *t_world) const
 {
-   dbdif_vector_3d t_cam;
+   bdifd_vector_3d t_cam;
 
    t_cam[0] = img_x/k_a_ + k_inv_01_*img_y;   //:< take off streching;
    t_cam[1] = img_y/k_b_;
@@ -141,14 +141,14 @@ img_to_world_vector(double img_x, double img_y, vnl_vector_fixed<double, 3> *t_w
    t_world->normalize();
 }
 
-inline void dbdif_camera::
+inline void bdifd_camera::
 world_to_img_vector(const vnl_vector_fixed<double, 3> &v_world, double *img_x, double *img_y) const
 {
-   dbdif_vector_3d v_cam;
+   bdifd_vector_3d v_cam;
 
    v_cam = Rot * v_world;
 
-   assert(dbdif_util::near_zero(v_cam[2],1e-5));
+   assert(bdifd_util::near_zero(v_cam[2],1e-5));
 
    *img_x = v_cam[0]*k_a_ + K_(0,1)*v_cam[1];
    *img_y = v_cam[1]*k_b_;
@@ -157,18 +157,18 @@ world_to_img_vector(const vnl_vector_fixed<double, 3> &v_world, double *img_x, d
    *img_y /= len;
 }
 
-inline void dbdif_camera::
-world_to_cam_vector(const dbdif_vector_3d &v_world, dbdif_vector_3d *v_cam) const
+inline void bdifd_camera::
+world_to_cam_vector(const bdifd_vector_3d &v_world, bdifd_vector_3d *v_cam) const
 {
    *v_cam = Rot * v_world;
 
-   assert(dbdif_util::near_zero((*v_cam)[2],1e-5));
+   assert(bdifd_util::near_zero((*v_cam)[2],1e-5));
 }
 
 
 //: from image 2D internal coordinates to 3D camera coordinates
-inline void dbdif_camera::
-get_gama(double u, double v,dbdif_vector_3d *gama) const
+inline void bdifd_camera::
+get_gama(double u, double v,bdifd_vector_3d *gama) const
 {
   double yn = (v - K_(1,2))/k_b_;
   double xn = (u - K_(0,2) - K_(0,1)*yn)/k_a_;
@@ -182,12 +182,12 @@ get_gama(double u, double v,dbdif_vector_3d *gama) const
 //\param[in] theta : angle of the tangent vector (as returned by atan2). From 0
 //to 2pi is what I use but -pi to pi should work too
 //
-inline void dbdif_camera::
+inline void bdifd_camera::
 img_to_world( 
     vgl_point_2d<double> &pt, double theta_img, double k_img, 
-    double kdot_img, dbdif_3rd_order_point_2d *p_w) const
+    double kdot_img, bdifd_3rd_order_point_2d *p_w) const
 {
-  dbdif_3rd_order_point_2d p_img;
+  bdifd_3rd_order_point_2d p_img;
 
   p_img.gama[0] = pt.x();
   p_img.gama[1] = pt.y();
@@ -205,14 +205,14 @@ img_to_world(
   img_to_world(&p_img, p_w);
 }
 
-inline void dbdif_camera::
-img_to_world(const dbdif_3rd_order_point_2d *p_img, dbdif_3rd_order_point_2d *p_w) const
+inline void bdifd_camera::
+img_to_world(const bdifd_3rd_order_point_2d *p_img, bdifd_3rd_order_point_2d *p_w) const
 {
   get_gama(p_img->gama[0], p_img->gama[1], &(p_w->gama));
 
-  dbdif_vector_2d t_img(p_img->t[0], p_img->t[1]);
+  bdifd_vector_2d t_img(p_img->t[0], p_img->t[1]);
 
-  dbdif_vector_2d n_img(p_img->n[0], p_img->n[1]);
+  bdifd_vector_2d n_img(p_img->n[0], p_img->n[1]);
 
 
   vnl_matrix_fixed<double,2,2> Kinv;
@@ -225,19 +225,19 @@ img_to_world(const dbdif_3rd_order_point_2d *p_img, dbdif_3rd_order_point_2d *p_
   // - formulas for getting k,kdot in world units, i.e. normalized image (unit focal
   // length plus removing effect of skew)
 
-  dbdif_vector_2d tcam_2, ncam_2; //:< 
+  bdifd_vector_2d tcam_2, ncam_2; //:< 
 
-  bool stat = dbdif_frenet::linear_transform(n_img, t_img, p_img->k, p_img->kdot, &(p_w->k), &(p_w->kdot),
+  bool stat = bdifd_frenet::linear_transform(n_img, t_img, p_img->k, p_img->kdot, &(p_w->k), &(p_w->kdot),
       &tcam_2, &ncam_2, Kinv);
-//  if (!dbdif_util::near_zero((Rot_t*tcam_2 - p_w->t).two_norm(), 1e-8))
+//  if (!bdifd_util::near_zero((Rot_t*tcam_2 - p_w->t).two_norm(), 1e-8))
 //    vcl_cout << "Linear transform invalid in img to world\n";
 
-  dbdif_vector_3d tcam_3;
+  bdifd_vector_3d tcam_3;
   tcam_3[0] = tcam_2[0];
   tcam_3[1] = tcam_2[1];
   tcam_3[2] = 0;
 
-  dbdif_vector_3d ncam_3;
+  bdifd_vector_3d ncam_3;
   ncam_3[0] = ncam_2[0];
   ncam_3[1] = ncam_2[1];
   ncam_3[2] = 0;
@@ -259,8 +259,8 @@ img_to_world(const dbdif_3rd_order_point_2d *p_img, dbdif_3rd_order_point_2d *p_
   p_w->valid = p_w->valid && p_img->valid && stat;
 
 #ifndef NDEBUG
-  if (!dbdif_util::near_zero(dot_product(p_w->n, p_w->t),1e-6)) {
-    if (dbdif_util::near_zero(dot_product(p_img->t, p_img->n),1e-6)) {
+  if (!bdifd_util::near_zero(dot_product(p_w->n, p_w->t),1e-6)) {
+    if (bdifd_util::near_zero(dot_product(p_img->t, p_img->n),1e-6)) {
       vcl_cout << "PAU EM img_to_world_vector! " << dot_product(p_w->n, p_w->t) <<"\n";
     } else {
       vcl_cout << "Spurious input in img_to_world_vector\n";
@@ -274,7 +274,7 @@ img_to_world(const dbdif_3rd_order_point_2d *p_img, dbdif_3rd_order_point_2d *p_
 //: Convert differential measures from 2D normalized image plane coordinates to 2D 
 // final image coordinates
 //inline void
-//world_to_img(const dbdif_1st_order_point_2d *pw, dbdif_1st_order_point_2d *p_img)
+//world_to_img(const bdifd_1st_order_point_2d *pw, bdifd_1st_order_point_2d *p_img)
 //{
 //  p_img->gama = pw;
 //}
@@ -282,5 +282,5 @@ img_to_world(const dbdif_3rd_order_point_2d *p_img, dbdif_3rd_order_point_2d *p_
 
 
 
-#endif // dbdif_camera_h
+#endif // bdifd_camera_h
 

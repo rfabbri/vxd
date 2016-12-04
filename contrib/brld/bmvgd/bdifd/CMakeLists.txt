@@ -1,22 +1,22 @@
-# This is brcv/mvg/dbdif/CMakeLists.txt
+# This is brcv/mvg/bdifd/CMakeLists.txt
 # Brown Multiview Differential Geometry Library
 
 include_directories(${VXL_GEL_INCLUDE_DIR} )
 include_directories(${VXL_GEL_INCLUDE_DIR}/mrc )
 
 
-set(dbdif_sources
-dbdif_analytic.cxx dbdif_analytic.h
-dbdif_camera.cxx dbdif_camera.h dbdif_frenet.h 
-dbdif_rig.cxx dbdif_rig.h
-dbdif_util.cxx dbdif_util.h
+set(bdifd_sources
+bdifd_analytic.cxx bdifd_analytic.h
+bdifd_camera.cxx bdifd_camera.h bdifd_frenet.h 
+bdifd_rig.cxx bdifd_rig.h
+bdifd_util.cxx bdifd_util.h
 )
 
-aux_source_directory(Templates dbdif_sources)
+aux_source_directory(Templates bdifd_sources)
 
-add_library(dbdif ${dbdif_sources})
+add_library(bdifd ${bdifd_sources})
 
-target_link_libraries(dbdif vpgl vsol)
+target_link_libraries(bdifd vpgl vsol)
 
 # Algorithms Library
 add_subdirectory(algo)

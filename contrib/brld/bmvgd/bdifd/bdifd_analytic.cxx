@@ -1,20 +1,20 @@
-#include "dbdif_analytic.h"
+#include "bdifd_analytic.h"
 #include <vnl/vnl_cross.h>
 #include <vnl/vnl_random.h>
 #include <vnl/vnl_rotation_matrix.h>
 
 //: Shorthand without the tangent.
-void dbdif_analytic::
+void bdifd_analytic::
 sphere_occluding_contour(
     double rho,
-    const dbdif_vector_3d &s0,
-    const dbdif_vector_3d &c,
-    vcl_vector<dbdif_vector_3d> &Gamma,
-    dbdif_vector_3d &Gamma_center,
+    const bdifd_vector_3d &s0,
+    const bdifd_vector_3d &c,
+    vcl_vector<bdifd_vector_3d> &Gamma,
+    bdifd_vector_3d &Gamma_center,
     double &Gamma_radius
     )
 {
-  vcl_vector<dbdif_3rd_order_point_3d> crv3d;
+  vcl_vector<bdifd_3rd_order_point_3d> crv3d;
   sphere_occluding_contour(rho, s0, c, crv3d, Gamma_center, Gamma_radius);
   Gamma.resize(crv3d.size());
   for (unsigned i=0; i < crv3d.size(); ++i)
@@ -30,17 +30,17 @@ sphere_occluding_contour(
 // \param[out] crv3d - the 1st order geometry of the 3D curve. The higher order
 // terms are ignored.
 //
-void dbdif_analytic::
+void bdifd_analytic::
 sphere_occluding_contour(
     double rho,
-    const dbdif_vector_3d &s0,
-    const dbdif_vector_3d &c,
-    vcl_vector<dbdif_3rd_order_point_3d> &crv3d,
-    dbdif_vector_3d &Gamma_center,
+    const bdifd_vector_3d &s0,
+    const bdifd_vector_3d &c,
+    vcl_vector<bdifd_3rd_order_point_3d> &crv3d,
+    bdifd_vector_3d &Gamma_center,
     double &Gamma_radius
     )
 {
-  dbdif_vector_3d nn = s0 - c;
+  bdifd_vector_3d nn = s0 - c;
 
   // choose the largest of the coordinates; make sure it is suff. greater than
   // zero.
@@ -56,7 +56,7 @@ sphere_occluding_contour(
   if ( vcl_fabs(nn(2)) > vcl_fabs(nn(i_big)) )
     i_big = 2;
 
-  if (dbdif_util::near_zero(nn(i_big),tol)) {
+  if (bdifd_util::near_zero(nn(i_big),tol)) {
     vcl_cout << "Error: camera center too close to sphere center\n";
   }
 
@@ -87,7 +87,7 @@ sphere_occluding_contour(
   nn.normalize();
 
   // Define u,v orthonormal basis to the plane of the 3D circle
-  dbdif_vector_3d u,v,vrad;
+  bdifd_vector_3d u,v,vrad;
   u(i_o1)  = 1;
   u(i_o2)  = 0;
   u(i_big) = -nn(i_o1)/nn(i_big);
@@ -99,7 +99,7 @@ sphere_occluding_contour(
   // Gamma_center, Gamma_radius, and nn a normal to the circle plane
   for (unsigned k=0; k < ntheta; ++k) {
     double theta = k*dtheta;
-    dbdif_vector_3d vrad;
+    bdifd_vector_3d vrad;
 
     double c = vcl_cos(theta);
     double s = vcl_sin(theta);
@@ -117,15 +117,15 @@ sphere_occluding_contour(
 // \param[out] curve 3D Curve geometry for each theta value parameters
 // \param[out] t The actual vector of parameter values (in radians)
 // \param[in] t_initial, step, range: values in degrees
-void dbdif_analytic::
+void bdifd_analytic::
 circle_curve(
     double radius,
-    vcl_vector<dbdif_3rd_order_point_3d> &C, 
+    vcl_vector<bdifd_3rd_order_point_3d> &C, 
     vcl_vector<double> &t,
     double t_initial, double step, double range
     )
 {
-  const dbdif_vector_3d translation(0,0,0);
+  const bdifd_vector_3d translation(0,0,0);
 
   circle_curve(radius, translation, C, t, t_initial, step, range);
 }
@@ -135,11 +135,11 @@ circle_curve(
 // \param[out] curve 3D Curve geometry for each theta value parameters
 // \param[out] t The actual vector of parameter values (in radians)
 // \param[in] t_initial, step, range: values in _degrees_
-void dbdif_analytic::
+void bdifd_analytic::
 circle_curve(
     double radius,
-    const dbdif_vector_3d &translation,
-    vcl_vector<dbdif_3rd_order_point_3d> &C, 
+    const bdifd_vector_3d &translation,
+    vcl_vector<bdifd_3rd_order_point_3d> &C, 
     vcl_vector<double> &t,
     double t_initial, double step, double range
     )
@@ -155,7 +155,7 @@ circle_curve(
     assert (i < t.size());
      t[i] = (theta/180.0)*vnl_math::pi;
 
-     dbdif_3rd_order_point_3d &Frame = C[i];
+     bdifd_3rd_order_point_3d &Frame = C[i];
 
      Frame.Gama[0] = radius*cos(t[i])+ translation[0];
      Frame.Gama[1] = radius*sin(t[i])+ translation[1];
@@ -194,11 +194,11 @@ circle_curve(
 // \param[out] curve 3D Curve geometry for each theta value parameters
 // \param[out] t The actual vector of parameter values (in radians)
 // \param[in] t_initial, step, range: values in _degrees_
-void dbdif_analytic::
+void bdifd_analytic::
 circle_curve(
     double radius,
-    const dbdif_vector_2d &translation,
-    vcl_vector<dbdif_3rd_order_point_2d> &C, 
+    const bdifd_vector_2d &translation,
+    vcl_vector<bdifd_3rd_order_point_2d> &C, 
     vcl_vector<double> &t,
     double t_initial, double step, double range
     )
@@ -213,7 +213,7 @@ circle_curve(
   for (i=0; theta<=range+t_initial && i < t.size(); theta+=step) {
      t[i] = (theta/180.0)*vnl_math::pi;
 
-     dbdif_3rd_order_point_2d &frame = C[i];
+     bdifd_3rd_order_point_2d &frame = C[i];
 
      frame.gama[0] = radius*cos(t[i])+ translation[0];
      frame.gama[1] = radius*sin(t[i])+ translation[1];
@@ -249,12 +249,12 @@ circle_curve(
 // \param[out] curve 3D Curve geometry for each theta value parameters
 // \param[out] t The actual vector of parameter values (in radians)
 // \param[in] t_initial, step, range: values in _degrees_
-void dbdif_analytic::
+void bdifd_analytic::
 ellipse(
     double a,
     double b,
-    const dbdif_vector_2d &translation,
-    vcl_vector<dbdif_3rd_order_point_2d> &C, 
+    const bdifd_vector_2d &translation,
+    vcl_vector<bdifd_3rd_order_point_2d> &C, 
     vcl_vector<double> &t,
     double t_initial, double step, double range
     )
@@ -277,7 +277,7 @@ ellipse(
      double cost2 = cost*cost;
      double g = vcl_sqrt(a2*sint*sint + b2*cost2);
 
-     dbdif_3rd_order_point_2d &frame = C[i];
+     bdifd_3rd_order_point_2d &frame = C[i];
 
      frame.gama[0] = a*cost+ translation[0];
      frame.gama[1] = b*sint+ translation[1];
@@ -316,18 +316,18 @@ ellipse(
 
 }
 
-void dbdif_analytic::
+void bdifd_analytic::
 ellipse(
     double a,
     double b,
-    const dbdif_vector_3d &translation,
-    vcl_vector<dbdif_3rd_order_point_3d> &C, 
+    const bdifd_vector_3d &translation,
+    vcl_vector<bdifd_3rd_order_point_3d> &C, 
     vcl_vector<double> &t,
     double t_initial, double step, double range
     )
 {
-  dbdif_vector_2d translation_2(0,0);
-  vcl_vector<dbdif_3rd_order_point_2d> c2d; 
+  bdifd_vector_2d translation_2(0,0);
+  vcl_vector<bdifd_3rd_order_point_2d> c2d; 
 
   ellipse(a, b, translation_2, c2d, t, t_initial, step, range);
   C.resize(c2d.size());
@@ -341,7 +341,7 @@ ellipse(
     C[i].T[1] = c2d[i].t[1];
     C[i].T[2] = 0;
 
-    dbdif_vector_3d Ntmp;
+    bdifd_vector_3d Ntmp;
     Ntmp[0] = c2d[i].n[0];
     Ntmp[1] = c2d[i].n[1];
     Ntmp[2] = 0;
@@ -361,11 +361,11 @@ ellipse(
 // \param[out] curve 3D Curve geometry for each theta value parameters
 // \param[out] t The actual vector of parameter values (in radians)
 // \param[in] t_initial, step, range: values in degrees
-void dbdif_analytic::
+void bdifd_analytic::
 helix_curve(
     double radius, double alpha,
-    dbdif_vector_3d &translation,
-    vcl_vector<dbdif_3rd_order_point_3d> &C, 
+    bdifd_vector_3d &translation,
+    vcl_vector<bdifd_3rd_order_point_3d> &C, 
     vcl_vector<double> &t,
     double t_initial, double step, double range
     )
@@ -383,7 +383,7 @@ helix_curve(
     assert (i < t.size());
      t[i] = (theta/180.0)*vnl_math::pi;
 
-     dbdif_3rd_order_point_3d &Frame = C[i];
+     bdifd_3rd_order_point_3d &Frame = C[i];
 
      Frame.Gama[0] = radius*cos(t[i])      + translation[0];
      Frame.Gama[1] = radius*sin(t[i])      + translation[1];
@@ -423,11 +423,11 @@ helix_curve(
 // \param[out] curve 3D Curve geometry for each theta value parameters
 // \param[out] t The actual vector of parameter values (in radians)
 // \param[in] t_initial, step, range: values in degrees
-void dbdif_analytic::
+void bdifd_analytic::
 space_curve1(
     double radius, 
-    dbdif_vector_3d &translation,
-    vcl_vector<dbdif_3rd_order_point_3d> &C, 
+    bdifd_vector_3d &translation,
+    vcl_vector<bdifd_3rd_order_point_3d> &C, 
     vcl_vector<double> &t,
     double t_initial, double step, double range
     )
@@ -441,7 +441,7 @@ space_curve1(
   for (i=0; theta<range; theta+=step, ++i) {      assert (i < t.size());
      t[i] = (theta/180.0)*vnl_math::pi;
 
-     dbdif_3rd_order_point_3d &Frame = C[i];
+     bdifd_3rd_order_point_3d &Frame = C[i];
 
      //: Cache computations --------------------
      double cos_t = cos(t[i]); double cos_2t = cos(2*t[i]); 
@@ -465,7 +465,7 @@ space_curve1(
 
      Frame.K = sqrt(0.48e2 * vcl_pow(vcl_cos(t[i]), 0.4e1) - 0.48e2 * vcl_pow(vcl_cos(t[i]), 0.2e1) + 0.17e2) * vcl_pow(0.16e2 * vcl_pow(vcl_cos(t[i]), 0.2e1) + 0.1e1 - 0.16e2 * vcl_pow(vcl_cos(t[i]), 0.4e1), -0.3e1 / 0.2e1) / radius;
 
-     dbdif_vector_3d Nrm;
+     bdifd_vector_3d Nrm;
 
      Nrm[0] = -0.1e1 / Frame.K * (0.17e2 + 0.16e2 * vcl_pow(vcl_cos(t[i]), 0.4e1) - 0.32e2 * vcl_pow(vcl_cos(t[i]), 0.2e1)) * vcl_cos(t[i]) / radius / (0.224e3 * vcl_pow(vcl_cos(t[i]), 0.4e1) + 0.32e2 * vcl_pow(vcl_cos(t[i]), 0.2e1) - 0.512e3 * vcl_pow(vcl_cos(t[i]), 0.6e1) + 0.1e1 + 0.256e3 * vcl_pow(vcl_cos(t[i]), 0.8e1)); 
 
@@ -492,11 +492,11 @@ space_curve1(
 }
 
 // Given point and direction, and t_final
-void dbdif_analytic::
+void bdifd_analytic::
 line(
-    dbdif_vector_3d &translation,
-    dbdif_vector_3d &direction,
-    vcl_vector<dbdif_3rd_order_point_3d> &C, 
+    bdifd_vector_3d &translation,
+    bdifd_vector_3d &direction,
+    vcl_vector<bdifd_3rd_order_point_3d> &C, 
     vcl_vector<double> &t,
     double t_final, double step
     )
@@ -511,7 +511,7 @@ line(
   for (i=0; lambda<=t_final; lambda+=step) {
     assert (i < t.size());
 
-    dbdif_3rd_order_point_3d &Frame = C[i];
+    bdifd_3rd_order_point_3d &Frame = C[i];
 
     Frame.Gama = lambda*direction + translation;
 
@@ -550,10 +550,10 @@ d_sqr(double x1, double y1, double x2, double y2)
 //: Make sure that, for consecutive points, 0.5 <= dist <= sqrt(2).
 // It only enforces 0.5 <= dist, but occurrence of dist <= sqrt(2) is only signaled.
 // \return true if all points are bellow a distance of sqrt(2)
-bool dbdif_analytic::
+bool bdifd_analytic::
 limit_distance(
-    const vcl_vector<dbdif_3rd_order_point_2d> &C, 
-    vcl_vector<dbdif_3rd_order_point_2d> &C_limited)
+    const vcl_vector<bdifd_3rd_order_point_2d> &C, 
+    vcl_vector<bdifd_3rd_order_point_2d> &C_limited)
 {
   bool retval=true;
   C_limited.reserve(C.size());
@@ -573,14 +573,14 @@ limit_distance(
 static vnl_random myrand;
 
 //: Perturb each datapoint randomly in all directions
-double dbdif_analytic::
+double bdifd_analytic::
 perturb( double coord, double dp)
 {
   return coord + myrand.drand64(-dp,dp);
 }
 
 //: Perturb each datapoint randomly in all directions
-void dbdif_analytic::
+void bdifd_analytic::
 perturb( vgl_vector_2d<double> &t, double dt)
 {
   dt = myrand.drand64(-dt,dt);
@@ -592,8 +592,8 @@ perturb( vgl_vector_2d<double> &t, double dt)
 }
 
 //: rotate all points around specified  axis, by angle theta equal to \|axis\|
-void dbdif_analytic::
-rotate( vcl_vector<dbdif_3rd_order_point_3d> &c, const dbdif_vector_3d &axis)
+void bdifd_analytic::
+rotate( vcl_vector<bdifd_3rd_order_point_3d> &c, const bdifd_vector_3d &axis)
 {
   vnl_matrix<double> R(3,3);
 
@@ -607,8 +607,8 @@ rotate( vcl_vector<dbdif_3rd_order_point_3d> &c, const dbdif_vector_3d &axis)
   }
 }
 
-void dbdif_analytic::
-translate( vcl_vector<dbdif_3rd_order_point_3d> &c, const dbdif_vector_3d &transl)
+void bdifd_analytic::
+translate( vcl_vector<bdifd_3rd_order_point_3d> &c, const bdifd_vector_3d &transl)
 {
   for (unsigned  i=0; i < c.size(); ++i) {
     c[i].Gama = c[i].Gama + transl;

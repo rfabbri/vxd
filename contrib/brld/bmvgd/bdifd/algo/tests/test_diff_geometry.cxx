@@ -10,16 +10,16 @@
 #include <vcl_vector.h>
 #include <vcl_algorithm.h>
 #include <vnl/vnl_double_3x3.h>
-#include <dbdif/dbdif_util.h>
-#include <dbdif/dbdif_camera.h>
-#include <dbdif/dbdif_rig.h>
-#include <dbdif/dbdif_analytic.h>
-#include <dbdif/algo/dbdif_data.h>
+#include <bdifd/bdifd_util.h>
+#include <bdifd/bdifd_camera.h>
+#include <bdifd/bdifd_rig.h>
+#include <bdifd/bdifd_analytic.h>
+#include <bdifd/algo/bdifd_data.h>
 
 static const double tolerance=vcl_numeric_limits<double>::epsilon()*100;
 
 static void test_ellipse_differential_geometry();
-static void test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d);
+static void test_project_reconstruct(vcl_vector<bdifd_camera> &cam_, vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d);
 
 //: tests multiview projection + reconstruction of differential geometry
 MAIN( test_diff_geometry )
@@ -30,12 +30,12 @@ MAIN( test_diff_geometry )
   test_ellipse_differential_geometry();
 
   //: ideal cams
-  vcl_vector<dbdif_camera> cam_gt_;
+  vcl_vector<bdifd_camera> cam_gt_;
   unsigned nviews_=3;
   cam_gt_.resize(nviews_);
 
   //: perturbed cams
-  //  vcl_vector<dbdif_camera> cam_;
+  //  vcl_vector<bdifd_camera> cam_;
   //  cam_.resize(nviews_);
 
   /*
@@ -55,21 +55,21 @@ MAIN( test_diff_geometry )
   double x_max_scaled = 500;
 
   vnl_double_3x3 Kmatrix;
-  dbdif_turntable::internal_calib_olympus(Kmatrix, x_max_scaled, crop_origin_x_, crop_origin_y_);
+  bdifd_turntable::internal_calib_olympus(Kmatrix, x_max_scaled, crop_origin_x_, crop_origin_y_);
 
   vpgl_calibration_matrix<double> K(Kmatrix);
 
   vpgl_perspective_camera<double> *P;
 
-  P = dbdif_turntable::camera_olympus(0, K);
+  P = bdifd_turntable::camera_olympus(0, K);
   cam_gt_[0].set_p(*P);
-  P = dbdif_turntable::camera_olympus(5, K);
+  P = bdifd_turntable::camera_olympus(5, K);
   cam_gt_[1].set_p(*P);
-  P = dbdif_turntable::camera_olympus(60, K);
+  P = bdifd_turntable::camera_olympus(60, K);
   cam_gt_[2].set_p(*P);
 
-  vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > crv3d;
-  dbdif_data::space_curves_olympus_turntable( crv3d );
+  vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > crv3d;
+  bdifd_data::space_curves_olympus_turntable( crv3d );
 
   //  mywritev(vcl_string("dat/synth_data3d_rec.dat"), C_rec);
 
@@ -80,14 +80,14 @@ MAIN( test_diff_geometry )
 }
 
 void 
-test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d)
+test_project_reconstruct(vcl_vector<bdifd_camera> &cam_, vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d)
 {
 
   unsigned nviews_=cam_.size();
   { // Test without intrinsics (do everything in world coordinates)
-        vcl_vector< vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > > crv2d_gt_;
+        vcl_vector< vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > > crv2d_gt_;
     
-      //  dbdif_data::project_into_cams(crv3d, cam_, crv2d_gt_);
+      //  bdifd_data::project_into_cams(crv3d, cam_, crv2d_gt_);
 
         crv2d_gt_.resize(nviews_);
         for (unsigned i=0; i < nviews_; ++i) { // nviews
@@ -101,9 +101,9 @@ test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<d
           }
         }
         
-        vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > C_rec;
+        vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > C_rec;
 
-        dbdif_rig rig(cam_[0].Pr_,cam_[1].Pr_);
+        bdifd_rig rig(cam_[0].Pr_,cam_[1].Pr_);
 
         C_rec.resize(crv2d_gt_[0].size());
         for (unsigned  ic=0; ic < crv2d_gt_[0].size(); ++ic) {
@@ -113,7 +113,7 @@ test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<d
               C_rec[ic][i].valid = false;
             } else {
 
-              dbdif_3rd_order_point_2d p1_w, p2_w;
+              bdifd_3rd_order_point_2d p1_w, p2_w;
 
               p1_w = crv2d_gt_[0][ic][i];
               p2_w = crv2d_gt_[1][ic][i];
@@ -166,7 +166,7 @@ test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<d
             if (err_k_current < min_err_k[ic]) {
               min_err_k[ic] = err_k_current;
 
-              dbdif_vector_3d t_world; dbdif_vector_3d gama_world;
+              bdifd_vector_3d t_world; bdifd_vector_3d gama_world;
               t_world    = crv2d_gt_[0][ic][i].t;
               gama_world = crv2d_gt_[0][ic][i].gama;
 
@@ -176,7 +176,7 @@ test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<d
             if (err_k_current > max_err_k[ic]) {
               max_err_k[ic] = err_k_current;
 
-              dbdif_vector_3d t_world; dbdif_vector_3d gama_world;
+              bdifd_vector_3d t_world; bdifd_vector_3d gama_world;
               t_world    = crv2d_gt_[0][ic][i].t;
               gama_world = crv2d_gt_[0][ic][i].gama;
 
@@ -184,7 +184,7 @@ test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<d
               max_err_speed[ic] = cam_[0].speed(crv3d[ic][i], dot_product(crv3d[ic][i].Gama - cam_[0].c,cam_[0].F));
             }
 
-            if (!dbdif_util::near_zero(C_rec[ic][i].K)) {
+            if (!bdifd_util::near_zero(C_rec[ic][i].K)) {
               ++nvalid2;
               err_n[ic]    += (C_rec[ic][i].N - crv3d[ic][i].N).two_norm();
               err_b[ic]    += (C_rec[ic][i].B - crv3d[ic][i].B).two_norm();
@@ -194,14 +194,14 @@ test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<d
               if (err_tau_current > max_err_tau[ic]) {
                 max_err_tau[ic] = err_tau_current;
 
-                dbdif_vector_3d t_world; dbdif_vector_3d gama_world;
+                bdifd_vector_3d t_world; bdifd_vector_3d gama_world;
                 t_world    = crv2d_gt_[0][ic][i].t;
                 gama_world = crv2d_gt_[0][ic][i].gama;
 
                 max_err_tau_angle[ic] = rig.angle_with_epipolar_plane(t_world, gama_world);
               }
             } else {
-              if (!dbdif_util::near_zero(C_rec[ic][i].Kdot) || !dbdif_util::near_zero(C_rec[ic][i].Tau)) {
+              if (!bdifd_util::near_zero(C_rec[ic][i].Kdot) || !bdifd_util::near_zero(C_rec[ic][i].Tau)) {
                 TEST("Kdot and Tau !=0 while K = 0",0,1);
                 vcl_cout << "Kdot: " << C_rec[ic][i].Kdot << " Tau: " << C_rec[ic][i].Tau << vcl_endl;
               }
@@ -253,8 +253,8 @@ test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<d
 
   { // Test with intrinsics
 
-    vcl_vector< vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > > crv2d_gt_;
-      //  dbdif_data::project_into_cams(crv3d, cam_, crv2d_gt_);
+    vcl_vector< vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > > crv2d_gt_;
+      //  bdifd_data::project_into_cams(crv3d, cam_, crv2d_gt_);
 
         vcl_cout << "Projecting curves (with intrinsics) \n";
         crv2d_gt_.resize(nviews_);
@@ -272,9 +272,9 @@ test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<d
 
         vcl_cout << "Reconstructing curves (with intrinsics) \n";
 
-        vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > C_rec;
+        vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > C_rec;
 
-        dbdif_rig rig(cam_[0].Pr_,cam_[1].Pr_);
+        bdifd_rig rig(cam_[0].Pr_,cam_[1].Pr_);
 
         C_rec.resize(crv2d_gt_[0].size());
         for (unsigned  ic=0; ic < crv2d_gt_[0].size(); ++ic) {
@@ -284,7 +284,7 @@ test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<d
               C_rec[ic][i].valid = false;
             } else {
 
-              dbdif_3rd_order_point_2d p1_w, p2_w;
+              bdifd_3rd_order_point_2d p1_w, p2_w;
 
               rig.cam[0].img_to_world(&(crv2d_gt_[0][ic][i]),&p1_w);
               rig.cam[1].img_to_world(&(crv2d_gt_[1][ic][i]),&p2_w);
@@ -335,7 +335,7 @@ test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<d
             if (err_k_current < min_err_k[ic]) {
               min_err_k[ic] = err_k_current;
 
-              dbdif_vector_3d t_world; dbdif_vector_3d gama_world;
+              bdifd_vector_3d t_world; bdifd_vector_3d gama_world;
               cam_[0].img_to_world_vector(crv2d_gt_[0][ic][i].t[0],crv2d_gt_[0][ic][i].t[1], &t_world);
               cam_[0].get_gama(crv2d_gt_[0][ic][i].gama[0],crv2d_gt_[0][ic][i].gama[1], &gama_world);
 
@@ -344,14 +344,14 @@ test_project_reconstruct(vcl_vector<dbdif_camera> &cam_, vcl_vector<vcl_vector<d
             if (err_k_current > max_err_k[ic]) {
               max_err_k[ic] = err_k_current;
 
-              dbdif_vector_3d t_world; dbdif_vector_3d gama_world;
+              bdifd_vector_3d t_world; bdifd_vector_3d gama_world;
               cam_[0].img_to_world_vector(crv2d_gt_[0][ic][i].t[0],crv2d_gt_[0][ic][i].t[1], &t_world);
               cam_[0].get_gama(crv2d_gt_[0][ic][i].gama[0],crv2d_gt_[0][ic][i].gama[1], &gama_world);
 
               max_err_k_angle[ic] = rig.angle_with_epipolar_plane(t_world, gama_world);
             }
 
-            if (!dbdif_util::near_zero(C_rec[ic][i].K)) {
+            if (!bdifd_util::near_zero(C_rec[ic][i].K)) {
               ++nvalid2;
               err_n[ic]    += (C_rec[ic][i].N - crv3d[ic][i].N).two_norm();
               err_b[ic]    += (C_rec[ic][i].B - crv3d[ic][i].B).two_norm();
@@ -412,14 +412,14 @@ test_ellipse_differential_geometry()
   for (unsigned i_cv=0; i_cv < cv.size(); ++i_cv) {
     long double b=2945.29, a=2895.22, c=cv[i_cv];
 
-    vcl_vector<dbdif_3rd_order_point_2d > p;
-    dbdif_vector_2d translation(0,0);
+    vcl_vector<bdifd_3rd_order_point_2d > p;
+    bdifd_vector_2d translation(0,0);
     vcl_vector<double> v_theta;
-    dbdif_analytic::circle_curve( 1, translation, p, v_theta, 0., 5., 90.);
+    bdifd_analytic::circle_curve( 1, translation, p, v_theta, 0., 5., 90.);
 
     vcl_vector<double> v_theta_2;
-    vcl_vector<dbdif_3rd_order_point_2d > ell;
-    dbdif_analytic::ellipse(a,b, translation, ell, v_theta_2, 0., 5., 90.);
+    vcl_vector<bdifd_3rd_order_point_2d > ell;
+    bdifd_analytic::ellipse(a,b, translation, ell, v_theta_2, 0., 5., 90.);
 
     assert(v_theta.size() == v_theta_2.size());
     /*
@@ -441,21 +441,21 @@ test_ellipse_differential_geometry()
     Linv(1,1) = 1./b;
     Linv(1,0) = 0;
 
-    //  assert(dbdif_util::near_zero( (L*L_inv).two_norm()) );
+    //  assert(bdifd_util::near_zero( (L*L_inv).two_norm()) );
     for (unsigned i=0; i < p.size(); ++i) {
       vcl_cout << "Sample point idx: " << i << " angle: " << v_theta[i]*(180.0/vnl_math::pi) << "(deg)" << vcl_endl;
       // - linear transform p[i]
       // - compare k and kdot with values listed bellow
 
       // 1) transform gama, t, n
-      dbdif_3rd_order_point_2d qq;
+      bdifd_3rd_order_point_2d qq;
 
-      dbdif_vector_2d pp_gama2;
+      bdifd_vector_2d pp_gama2;
 
       pp_gama2[0] = p[i].gama[0];
       pp_gama2[1] = p[i].gama[1];
 
-      dbdif_vector_2d qq_gama2;
+      bdifd_vector_2d qq_gama2;
       qq_gama2 = L*(pp_gama2);
 
       qq.gama[0] = qq_gama2[0];
@@ -463,19 +463,19 @@ test_ellipse_differential_geometry()
       qq.gama[2] = 0;
 
       if (c == 0)
-        TEST("Ellipse == linear tr", dbdif_util::near_zero((qq.gama - ell[i].gama).two_norm()),true);
+        TEST("Ellipse == linear tr", bdifd_util::near_zero((qq.gama - ell[i].gama).two_norm()),true);
 
-      dbdif_vector_2d pp_n_2;
+      bdifd_vector_2d pp_n_2;
       pp_n_2[0] = p[i].n[0];
       pp_n_2[1] = p[i].n[1];
 
-      dbdif_vector_2d pp_t_2;
+      bdifd_vector_2d pp_t_2;
       pp_t_2[0] = p[i].t[0];
       pp_t_2[1] = p[i].t[1];
 
-      dbdif_vector_2d qq_t_2;
-      dbdif_vector_2d qq_n_2;
-      bool stat = dbdif_frenet::linear_transform(pp_n_2, pp_t_2, p[i].k, p[i].kdot, &(qq.k), &(qq.kdot), &(qq_t_2), &(qq_n_2), L);
+      bdifd_vector_2d qq_t_2;
+      bdifd_vector_2d qq_n_2;
+      bool stat = bdifd_frenet::linear_transform(pp_n_2, pp_t_2, p[i].k, p[i].kdot, &(qq.k), &(qq.kdot), &(qq_t_2), &(qq_n_2), L);
       if (!stat)
         qq.valid = false;
 
@@ -489,9 +489,9 @@ test_ellipse_differential_geometry()
 
 
       if (c == 0) {
-        TEST("Ellipse_T == linear tr T", dbdif_util::near_zero((qq.t - ell[i].t).two_norm()),true);
-        TEST("Ellipse_N == linear tr N", dbdif_util::near_zero((qq.n - ell[i].n).two_norm()),true);
-        if (!dbdif_util::near_zero((qq.n - ell[i].n).two_norm()))
+        TEST("Ellipse_T == linear tr T", bdifd_util::near_zero((qq.t - ell[i].t).two_norm()),true);
+        TEST("Ellipse_N == linear tr N", bdifd_util::near_zero((qq.n - ell[i].n).two_norm()),true);
+        if (!bdifd_util::near_zero((qq.n - ell[i].n).two_norm()))
           vcl_cout << "Ellipse n: " << ell[i].n << "   transf n: " << qq.n << vcl_endl;
       }
 
@@ -499,14 +499,14 @@ test_ellipse_differential_geometry()
 
       // now get back
 
-      dbdif_3rd_order_point_2d rr;
+      bdifd_3rd_order_point_2d rr;
 
-      dbdif_vector_2d rr_t_2, rr_n_2;
+      bdifd_vector_2d rr_t_2, rr_n_2;
 
-      bool stat_rr = dbdif_frenet::linear_transform(qq_n_2, qq_t_2, qq.k, qq.kdot, &(rr.k), &(rr.kdot), &(rr_t_2), &(rr_n_2), Linv);
+      bool stat_rr = bdifd_frenet::linear_transform(qq_n_2, qq_t_2, qq.k, qq.kdot, &(rr.k), &(rr.kdot), &(rr_t_2), &(rr_n_2), Linv);
 
-      TEST("linear_transform inversion", qq.valid && stat_rr && !dbdif_util::near_zero(p[i].k- rr.k, 1e-7), false);
-      if (qq.valid && stat_rr && !dbdif_util::near_zero(p[i].k- rr.k, 1e-7))  {
+      TEST("linear_transform inversion", qq.valid && stat_rr && !bdifd_util::near_zero(p[i].k- rr.k, 1e-7), false);
+      if (qq.valid && stat_rr && !bdifd_util::near_zero(p[i].k- rr.k, 1e-7))  {
         vcl_cout << "INVERSION TEST: FAIL!  k_orig: " << p[i].k << " k_inverted: " << rr.k << vcl_endl;
       } 
 
@@ -663,14 +663,14 @@ test_ellipse_differential_geometry()
         TEST_NEAR("linear_transform Kdot Transf Equals Analytic", (long double)(qq.kdot), kdot_q, 1e-8);
       }
 
-      if (qq.valid && !dbdif_util::near_zero((long double)(qq.k)- k_q, 1e-7))  {
+      if (qq.valid && !bdifd_util::near_zero((long double)(qq.k)- k_q, 1e-7))  {
         vcl_cout << "Not equal! k_maple: " << k_q << " k_linear: " << qq.k << vcl_endl;
       } 
 
       // Another test: use the inverse transform on the value from maple, and see what
       // we get.
 
-      bool stat_maple = dbdif_frenet::linear_transform(qq_n_2, qq_t_2, k_q, qq.kdot, &(rr.k), &(rr.kdot), &(rr_t_2), &(rr_n_2), Linv);
+      bool stat_maple = bdifd_frenet::linear_transform(qq_n_2, qq_t_2, k_q, qq.kdot, &(rr.k), &(rr.kdot), &(rr_t_2), &(rr_n_2), Linv);
 
         TEST_NEAR("linear_transform Maple inversion", rr.k, p[i].k, 1e-6);
 
@@ -679,7 +679,7 @@ test_ellipse_differential_geometry()
       else 
         vcl_cout << "Invalid!\n";
 
-      if (qq.valid && stat_rr && !dbdif_util::near_zero(p[i].k- rr.k, 1e-7))  {
+      if (qq.valid && stat_rr && !bdifd_util::near_zero(p[i].k- rr.k, 1e-7))  {
         vcl_cout << "INVERSION TEST: FAIL!  k_orig: " << p[i].k << " k_inverted: " << rr.k << vcl_endl;
       }
     }

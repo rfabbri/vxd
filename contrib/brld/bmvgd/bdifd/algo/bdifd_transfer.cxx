@@ -1,4 +1,4 @@
-#include "dbdif_transfer.h"
+#include "bdifd_transfer.h"
 
 
 //: Given two point-tangents with a tangential error band, compute a point-tangent and tangential
@@ -15,15 +15,15 @@
 // \return false if there were any degeneracies detected in the computation.
 //
 // \seealso my notes from May 15 2008 B
-bool dbdif_transfer::
+bool bdifd_transfer::
 transfer_tangent_band(
-    const dbdif_1st_order_point_2d &p0, 
-    const dbdif_1st_order_point_2d &p1, 
+    const bdifd_1st_order_point_2d &p0, 
+    const bdifd_1st_order_point_2d &p1, 
     double t_err,
     double *theta_min_reproj,
     double *theta_max_reproj,
-    const dbdif_camera &cam, 
-    const dbdif_rig &rig)
+    const bdifd_camera &cam, 
+    const bdifd_rig &rig)
 {
 
   // determine 4 possible combinations in 3D
@@ -31,31 +31,31 @@ transfer_tangent_band(
   double c = vcl_cos(t_err);
   double s = vcl_sin(t_err);
   
-  dbdif_vector_3d t0_min (c*p0.t[0] + s*p0.t[1], -s*p0.t[0] + c*p0.t[1], 0);
-  dbdif_vector_3d t0_max (c*p0.t[0] - s*p0.t[1], s*p0.t[0] + c*p0.t[1], 0);
+  bdifd_vector_3d t0_min (c*p0.t[0] + s*p0.t[1], -s*p0.t[0] + c*p0.t[1], 0);
+  bdifd_vector_3d t0_max (c*p0.t[0] - s*p0.t[1], s*p0.t[0] + c*p0.t[1], 0);
 
-  dbdif_vector_3d t1_min (c*p1.t[0] + s*p1.t[1], -s*p1.t[0] + c*p1.t[1], 0);
-  dbdif_vector_3d t1_max (c*p1.t[0] - s*p1.t[1], s*p1.t[0] + c*p1.t[1], 0);
+  bdifd_vector_3d t1_min (c*p1.t[0] + s*p1.t[1], -s*p1.t[0] + c*p1.t[1], 0);
+  bdifd_vector_3d t1_max (c*p1.t[0] - s*p1.t[1], s*p1.t[0] + c*p1.t[1], 0);
 
-  dbdif_3rd_order_point_2d p_t_0_min = p0; 
+  bdifd_3rd_order_point_2d p_t_0_min = p0; 
   p_t_0_min.t = t0_min;
 
-  dbdif_3rd_order_point_2d p_t_1_min = p1; 
+  bdifd_3rd_order_point_2d p_t_1_min = p1; 
   p_t_1_min.t = t1_min;
 
-  dbdif_3rd_order_point_2d p_t_0_max = p0; 
+  bdifd_3rd_order_point_2d p_t_0_max = p0; 
   p_t_0_max.t = t0_max;
 
-  dbdif_3rd_order_point_2d p_t_1_max = p1; 
+  bdifd_3rd_order_point_2d p_t_1_max = p1; 
   p_t_1_max.t = t1_max;
 
-  dbdif_3rd_order_point_2d p0_mw3 = p0; 
-  dbdif_3rd_order_point_2d p1_mw3 = p1; 
+  bdifd_3rd_order_point_2d p0_mw3 = p0; 
+  bdifd_3rd_order_point_2d p1_mw3 = p1; 
 
 
-  dbdif_3rd_order_point_3d Prec;
+  bdifd_3rd_order_point_3d Prec;
 
-  dbdif_3rd_order_point_2d 
+  bdifd_3rd_order_point_2d 
     p_reproj_mm,
     p_reproj_mp,
     p_reproj_pm,
@@ -78,7 +78,7 @@ transfer_tangent_band(
 
   // - After the above process, we end up with set of correspondents; get the hull
 
-  dbdif_vector_3d tmid(p_reproj_mid.t), tmid_perp(-tmid[1],tmid[0],0);
+  bdifd_vector_3d tmid(p_reproj_mid.t), tmid_perp(-tmid[1],tmid[0],0);
 
   // orient to match tmid direction
   if ( dot_product(p_reproj_mm.t,tmid) < 0)
@@ -96,7 +96,7 @@ transfer_tangent_band(
 
   double smin,smax;
   smin = smax = dot_product(p_reproj_mm.t,tmid_perp);
-  dbdif_vector_3d *tmin, *tmax;
+  bdifd_vector_3d *tmin, *tmax;
 
   tmin = tmax = &(p_reproj_mm.t);
 
@@ -133,10 +133,10 @@ transfer_tangent_band(
   if (smin*smax > 0) {
       if (smin < 0) {
         tmax = &(tmid);
-        tmid = dbdif_vector_3d (c*tmid[0] - s*tmid[1], s*tmid[0] + c*tmid[1], 0);
+        tmid = bdifd_vector_3d (c*tmid[0] - s*tmid[1], s*tmid[0] + c*tmid[1], 0);
       } else {
         tmin = &(tmid);
-        tmid = dbdif_vector_3d(c*tmid[0] + s*tmid[1], -s*tmid[0] + c*tmid[1], 0);
+        tmid = bdifd_vector_3d(c*tmid[0] + s*tmid[1], -s*tmid[0] + c*tmid[1], 0);
       }
   }
 
@@ -167,7 +167,7 @@ transfer_tangent_band(
 //
 // such that theta_min_b in [0,pi)  range and theta_max_b in [theta_min,theta_min+pi)  range.
 //
-bool dbdif_transfer::
+bool bdifd_transfer::
 intersect_tangent_band(
     double tx_a, double ty_a, double t_err_a, 
     double theta_min_b, double theta_max_b, 

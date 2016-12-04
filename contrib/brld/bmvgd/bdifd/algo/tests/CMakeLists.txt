@@ -1,6 +1,6 @@
-# This is brcv/mvg/dbdif/algo/tests/CMakeLists.txt
+# This is brcv/mvg/bdifd/algo/tests/CMakeLists.txt
 
-add_executable (dbdif_algo_test_all
+add_executable (bdifd_algo_test_all
    # Driver source and utilities
    test_driver.cxx
 
@@ -8,10 +8,10 @@ add_executable (dbdif_algo_test_all
    test_diff_geometry.cxx
 )
 
-target_link_libraries( dbdif_algo_test_all dbdif_algo testlib )
+target_link_libraries( bdifd_algo_test_all bdifd_algo testlib )
 
-add_test( dbdif_algo_test_diff_geometry dbdif_algo_test_all test_diff_geometry )
+add_test( bdifd_algo_test_diff_geometry bdifd_algo_test_all test_diff_geometry )
 
-add_executable( dbdif_algo_test_include test_include.cxx )
+add_executable( bdifd_algo_test_include test_include.cxx )
 
-target_link_libraries( dbdif_algo_test_include dbdif_algo )
+target_link_libraries( bdifd_algo_test_include bdifd_algo )

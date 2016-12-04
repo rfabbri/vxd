@@ -1,6 +1,6 @@
-// This is dbdif_transfer.h
-#ifndef dbdif_transfer_h
-#define dbdif_transfer_h
+// This is bdifd_transfer.h
+#ifndef bdifd_transfer_h
+#define bdifd_transfer_h
 //:
 //\file
 //\brief Methods for image-based reprojection/transfer
@@ -8,10 +8,10 @@
 //\date 05/15/2008 07:22:40 AM EDT
 //
 
-#include <dbdif/dbdif_rig.h>
+#include <bdifd/bdifd_rig.h>
 
 // Methods supporting image-based reprojection/transfer of differential-geometric invariants
-class dbdif_transfer {
+class bdifd_transfer {
 public:
   
   //: 
@@ -20,14 +20,14 @@ public:
   // \param[out] Prec: reconstructed point from triangulating p1 and p2
   static bool 
     transfer_by_reconstruct_and_reproject ( 
-    const dbdif_3rd_order_point_2d &p1, 
-    const dbdif_3rd_order_point_2d &p2, 
-    dbdif_3rd_order_point_2d &p3_reproj, 
-    dbdif_3rd_order_point_3d &Prec,
-    const dbdif_camera &cam3,
-    const dbdif_rig &rig )
+    const bdifd_3rd_order_point_2d &p1, 
+    const bdifd_3rd_order_point_2d &p2, 
+    bdifd_3rd_order_point_2d &p3_reproj, 
+    bdifd_3rd_order_point_3d &Prec,
+    const bdifd_camera &cam3,
+    const bdifd_rig &rig )
   {
-    dbdif_3rd_order_point_2d p1_w, p2_w;
+    bdifd_3rd_order_point_2d p1_w, p2_w;
 
     // get hold of Prec
 
@@ -47,14 +47,14 @@ public:
     const vsol_point_2d_sptr &pt_img1, 
     const vsol_point_2d_sptr &pt_img2, 
     vgl_point_2d<double> &pt_img3, 
-    const dbdif_camera &cam3, 
-    const dbdif_rig &rig )
+    const bdifd_camera &cam3, 
+    const bdifd_rig &rig )
   {
-    dbdif_vector_3d P; 
+    bdifd_vector_3d P; 
 
     rig.reconstruct_point_lsqr(pt_img1,pt_img2,&P);
 
-    dbdif_vector_2d p_aux;
+    bdifd_vector_2d p_aux;
     p_aux = cam3.project_to_image(P);
     pt_img3.set(p_aux[0],p_aux[1]);
     return true;
@@ -63,13 +63,13 @@ public:
 
   static bool 
   transfer_tangent_band(
-      const dbdif_1st_order_point_2d &p0, 
-      const dbdif_1st_order_point_2d &p1, 
+      const bdifd_1st_order_point_2d &p0, 
+      const bdifd_1st_order_point_2d &p1, 
       double t_err,
       double *theta_min_reproj,
       double *theta_max_reproj,
-      const dbdif_camera &cam, 
-      const dbdif_rig &rig);
+      const bdifd_camera &cam, 
+      const bdifd_rig &rig);
   
   //: only for sectors within [0, vnl_math::pi]
   static bool 
@@ -119,5 +119,5 @@ public:
 
 };
 
-#endif // dbdif_transfer_h
+#endif // bdifd_transfer_h
 

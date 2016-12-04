@@ -1,4 +1,4 @@
-#include "dbdif_util.h"
+#include "bdifd_util.h"
 
 #include <vsol/vsol_point_2d.h>
 #include <vcl_cstring.h>
@@ -11,7 +11,7 @@
 // the epipolar lines l13 and l23 on the 3rd image, returning p3.
 // \todo move to vpgl/algo
 vgl_homg_point_2d<double>
-dbdif_epipolar_point_transfer( 
+bdifd_epipolar_point_transfer( 
       const vgl_homg_point_2d<double> &p1, 
       const vgl_homg_point_2d<double> &p2, 
       const vpgl_fundamental_matrix<double> &f13,
@@ -43,7 +43,7 @@ reconstruct_pt_tangents(
       )
       */
 
-/* Doing dbdif_rig ...
+/* Doing bdifd_rig ...
 bool
 reconstruct_pt_tangents(
       // Input:

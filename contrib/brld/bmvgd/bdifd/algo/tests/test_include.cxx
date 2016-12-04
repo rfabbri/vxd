@@ -1,4 +1,4 @@
-#include<dbdif/algo/dbdif_data.h>
-#include<dbdif/algo/dbdif_transfer.h>
+#include<bdifd/algo/bdifd_data.h>
+#include<bdifd/algo/bdifd_transfer.h>
 
 int main() { return 0; }

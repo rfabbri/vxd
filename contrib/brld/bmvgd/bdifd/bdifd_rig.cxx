@@ -1,28 +1,28 @@
-#include "dbdif_rig.h"
+#include "bdifd_rig.h"
 
 #include <vnl/algo/vnl_svd.h>
 
-dbdif_rig::
-dbdif_rig(const vpgl_perspective_camera <double> &P1, const vpgl_perspective_camera <double> &P2)
+bdifd_rig::
+bdifd_rig(const vpgl_perspective_camera <double> &P1, const vpgl_perspective_camera <double> &P2)
      : cam(2)
 {
   cam[0].set_p(P1), cam[1].set_p(P2);
   compute_extra_info();
 }
 
-void dbdif_rig::
+void bdifd_rig::
 compute_extra_info()
 {
   f12.set_matrix(cam[0].Pr_, cam[1].Pr_);
 }
 
-double dbdif_rig::
+double bdifd_rig::
 reconstruct_point_lsqr(
    const vsol_point_2d_sptr &xi1, const vsol_point_2d_sptr &xi2,
-   dbdif_vector_3d *Cpt_v) const
+   bdifd_vector_3d *Cpt_v) const
 {
   // convert to world coordinates
-  dbdif_vector_3d gamma1, gamma2;
+  bdifd_vector_3d gamma1, gamma2;
 
   cam[0].get_gama(xi1->x(), xi1->y(), &gamma1);
   cam[1].get_gama(xi2->x(), xi2->y(), &gamma2);
@@ -31,11 +31,11 @@ reconstruct_point_lsqr(
 }
 
 //: returns error norm, ie, minimum distance btw the backprojection rays
-double dbdif_rig::
+double bdifd_rig::
 reconstruct_point_lsqr(
-      const dbdif_vector_3d &gama1,
-      const dbdif_vector_3d &gama2,
-      dbdif_vector_3d *Cpt_v) const
+      const bdifd_vector_3d &gama1,
+      const bdifd_vector_3d &gama2,
+      bdifd_vector_3d *Cpt_v) const
 {
    // global: vnl_matrix_fixed<double,3,2> A;
  
@@ -54,16 +54,16 @@ reconstruct_point_lsqr(
 
 //: input is a vector of points in image coordinates
 // Curve 1 has to be the same size as crv 2.
-void dbdif_rig::
+void bdifd_rig::
 reconstruct_3d_curve(
-  vcl_vector<dbdif_vector_3d> *Crv3d,
+  vcl_vector<bdifd_vector_3d> *Crv3d,
   const vcl_vector<vsol_point_2d_sptr> &crv1, 
   const vcl_vector<vsol_point_2d_sptr> &crv2)
 {
   assert(crv1.size() == crv2.size());
 
   // convert to world coordinates
-  vcl_vector<dbdif_vector_3d> crv1_v, crv2_v;
+  vcl_vector<bdifd_vector_3d> crv1_v, crv2_v;
 
   crv1_v.resize(crv1.size()); crv2_v.resize(crv1.size());
 
@@ -76,11 +76,11 @@ reconstruct_3d_curve(
 }
 
 //: input is a vector of image points in 3D world coordinates
-void dbdif_rig::
+void bdifd_rig::
 reconstruct_3d_curve(
-  vcl_vector<dbdif_vector_3d> *Crv3d,
-  const vcl_vector<dbdif_vector_3d> &crv1, 
-  const vcl_vector<dbdif_vector_3d> &crv2)
+  vcl_vector<bdifd_vector_3d> *Crv3d,
+  const vcl_vector<bdifd_vector_3d> &crv1, 
+  const vcl_vector<bdifd_vector_3d> &crv2)
 {
   assert(crv1.size() == crv2.size());
   Crv3d->resize(crv1.size());
@@ -90,18 +90,18 @@ reconstruct_3d_curve(
   }
 }
 
-void dbdif_rig::
+void bdifd_rig::
 reconstruct_tangent(
-      const dbdif_vector_3d &gama1,
-      const dbdif_vector_3d &gama2,
+      const bdifd_vector_3d &gama1,
+      const bdifd_vector_3d &gama2,
       const vgl_vector_2d<double> &t1_img,
       const vgl_vector_2d<double> &t2_img,
-      dbdif_vector_3d *T_rec) const
+      bdifd_vector_3d *T_rec) const
 {
-   dbdif_vector_3d t1_world;
+   bdifd_vector_3d t1_world;
    cam[0].img_to_world_vector(t1_img.x(),t1_img.y(), &t1_world);
 
-   dbdif_vector_3d t2_world;
+   bdifd_vector_3d t2_world;
    cam[1].img_to_world_vector(t2_img.x(),t2_img.y(), &t2_world);
 
    reconstruct_tangent(gama1,gama2,t1_world,t2_world,T_rec);
@@ -111,11 +111,11 @@ reconstruct_tangent(
 static bool ran_dbg_=false;
 #endif
 
-void dbdif_rig::
+void bdifd_rig::
 reconstruct_1st_order(
-  const dbdif_1st_order_point_2d &fr1, 
-  const dbdif_1st_order_point_2d &fr2,
-  dbdif_1st_order_point_3d *Fr) const
+  const bdifd_1st_order_point_2d &fr1, 
+  const bdifd_1st_order_point_2d &fr2,
+  bdifd_1st_order_point_3d *Fr) const
 {
   // TODO use optimal Euclidean reconstruction here
   double err = reconstruct_point_lsqr(fr1.gama, fr2.gama, &(Fr->Gama));
@@ -148,11 +148,11 @@ reconstruct_1st_order(
   g2_ = cam[1].speed(*Fr,lambda2);
 }
 
-void dbdif_rig::
+void bdifd_rig::
 reconstruct_2nd_order(
-    const dbdif_2nd_order_point_2d &fr1, 
-    const dbdif_2nd_order_point_2d &fr2,
-    dbdif_2nd_order_point_3d *Fr) const
+    const bdifd_2nd_order_point_2d &fr1, 
+    const bdifd_2nd_order_point_2d &fr2,
+    bdifd_2nd_order_point_3d *Fr) const
 {
   reconstruct_1st_order(fr1, fr2, Fr);
 
@@ -162,7 +162,7 @@ reconstruct_2nd_order(
   U1_ = vnl_cross_3d(fr1.gama,fr1.t);
   U2_ = vnl_cross_3d(fr2.gama,fr2.t);
 
-  dbdif_vector_3d Const;
+  bdifd_vector_3d Const;
 
   n_dot_U1_ = dot_product(fr1.n,U1_);
   n_dot_U2_ = dot_product(fr2.n,U2_);
@@ -178,13 +178,13 @@ reconstruct_2nd_order(
   Coefs_(2,0) = Fr->T(0);  Coefs_(2,1) = Fr->T(1);  Coefs_(2,2) = Fr->T(2);
 
   vnl_svd<double> svd(Coefs_);
-  dbdif_vector_3d NK;
+  bdifd_vector_3d NK;
   NK = svd.solve(Const);
 
   double residual = (Coefs_*NK - Const).two_norm();
 
 #ifndef NDEBUG
-  if ( !dbdif_util::near_zero(residual, 1e-8) ) {
+  if ( !bdifd_util::near_zero(residual, 1e-8) ) {
     vcl_cout << "Imprecision in normal reconstruction!\n";
   }
 #endif
@@ -192,15 +192,15 @@ reconstruct_2nd_order(
   Fr->K = NK.two_norm();
   Fr->set_normal(NK);
 
-//  if ( !dbdif_util::near_zero(Fr->K,1e-15) )
+//  if ( !bdifd_util::near_zero(Fr->K,1e-15) )
   //: else leave any finite value on the normal; it is undefined
 }
 
-void dbdif_rig::
+void bdifd_rig::
 reconstruct_3rd_order(
-    const dbdif_3rd_order_point_2d &fr1, 
-    const dbdif_3rd_order_point_2d &fr2,
-    dbdif_3rd_order_point_3d *Fr) const
+    const bdifd_3rd_order_point_2d &fr1, 
+    const bdifd_3rd_order_point_2d &fr2,
+    bdifd_3rd_order_point_3d *Fr) const
 {
   reconstruct_2nd_order(fr1,fr2,Fr);
 
@@ -218,7 +218,7 @@ reconstruct_3rd_order(
   g2_prime = cam[1].tangential_accel(Fr,lambda_[1],lambda2_dot,g2_,fr2.t);
 
   // compute non-homogeneous term in system
-  dbdif_vector_3d Const;
+  bdifd_vector_3d Const;
   Const[0]  = 3*g1g1_*fr1.k*lambda1_dot;
   Const[0] += lambda_[0]*( 3*g1_*g1_prime*fr1.k + g1g1_*g1_*fr1.kdot);
   Const[0] *= dot_product(fr1.n,U1_);
@@ -231,7 +231,7 @@ reconstruct_3rd_order(
   
   // solve
   vnl_svd<double> svd(Coefs_);
-  dbdif_vector_3d V;
+  bdifd_vector_3d V;
   V = svd.solve(Const);
   Fr->Kdot = dot_product(V,Fr->N);
   Fr->Tau  = dot_product(V,Fr->B) / Fr->K;
@@ -254,17 +254,17 @@ reconstruct_3rd_order(
 // \param[out] Cpt_v reconstructed point in world coordinates relative to world
 // origin
 //
-bool dbdif_rig::
+bool bdifd_rig::
 reconstruct_occluding_contour_point(
-      const dbdif_vector_3d &gamma,
-      const dbdif_vector_3d &gamma_s,
-      dbdif_vector_3d delta_gamma_t,
-      dbdif_vector_3d *Cpt_v)
+      const bdifd_vector_3d &gamma,
+      const bdifd_vector_3d &gamma_s,
+      bdifd_vector_3d delta_gamma_t,
+      bdifd_vector_3d *Cpt_v)
 {
   lambda_.set_size(1);
 
   //: straightforward tangent estimation:
-  dbdif_vector_3d delta_c = cam[1].c - cam[0].c;
+  bdifd_vector_3d delta_c = cam[1].c - cam[0].c;
   double delta_c_norm = delta_c.two_norm();
   delta_c /= delta_c_norm;
 
@@ -274,7 +274,7 @@ reconstruct_occluding_contour_point(
 
   double factor = delta_c_norm / delta_gamma_t_norm;
 
-  dbdif_vector_3d N = vnl_cross_3d(gamma,gamma_s); // Actually any multiple will do
+  bdifd_vector_3d N = vnl_cross_3d(gamma,gamma_s); // Actually any multiple will do
 
 
   N.normalize();
@@ -287,21 +287,21 @@ reconstruct_occluding_contour_point(
   *Cpt_v = lambda_(0)*gamma + cam[0].c;
 
   //: Frontier points. 
-  if (dbdif_util::near_zero(numerator,tol)) {
+  if (bdifd_util::near_zero(numerator,tol)) {
   //    vcl_cout << "Frontier point detected; c_t\\cdot\\N: ";
     return false;
   }
 
-  if (dbdif_util::near_zero(lambda_(0)) || dbdif_util::near_zero(1.0/lambda_(0))) {
+  if (bdifd_util::near_zero(lambda_(0)) || bdifd_util::near_zero(1.0/lambda_(0))) {
     vcl_cout << "WARNING: Invalid depth" << vcl_endl;
 
-    if (dbdif_util::near_zero(factor,tol) || dbdif_util::near_zero(1.0/factor,tol))
+    if (bdifd_util::near_zero(factor,tol) || bdifd_util::near_zero(1.0/factor,tol))
       vcl_cout << "Factor leads to zero or infinite depth\n";
 
-    if (dbdif_util::near_zero(numerator,tol))
+    if (bdifd_util::near_zero(numerator,tol))
       vcl_cout << "Numerator near zero; ";
 
-    if (dbdif_util::near_zero(denominator,tol)) {
+    if (bdifd_util::near_zero(denominator,tol)) {
       vcl_cout << "Denominator near zero:\n";
       vcl_cout << "denom:  " << denominator
         << " numer: " << numerator  << vcl_endl
@@ -317,13 +317,13 @@ reconstruct_occluding_contour_point(
   return true;
 }
 
-bool dbdif_rig::
+bool bdifd_rig::
 reconstruct_occluding_contour_point(
-      const dbdif_vector_3d &gamma,
-      const dbdif_vector_3d &gamma_s,
-      dbdif_vector_3d delta_gamma_t,
-      dbdif_vector_3d *Cpt_v,
-      dbdif_vector_3d delta_c)
+      const bdifd_vector_3d &gamma,
+      const bdifd_vector_3d &gamma_s,
+      bdifd_vector_3d delta_gamma_t,
+      bdifd_vector_3d *Cpt_v,
+      bdifd_vector_3d delta_c)
 {
   lambda_.set_size(1);
 
@@ -335,7 +335,7 @@ reconstruct_occluding_contour_point(
 
   double factor = delta_c_norm / delta_gamma_t_norm;
 
-  dbdif_vector_3d N = vnl_cross_3d(gamma,gamma_s); // Actually any multiple will do
+  bdifd_vector_3d N = vnl_cross_3d(gamma,gamma_s); // Actually any multiple will do
 
 
   N.normalize();
@@ -348,21 +348,21 @@ reconstruct_occluding_contour_point(
   *Cpt_v = lambda_(0)*gamma + cam[0].c;
 
   //: Frontier points. 
-  if (dbdif_util::near_zero(numerator,tol)) {
+  if (bdifd_util::near_zero(numerator,tol)) {
   //    vcl_cout << "Frontier point detected; c_t\\cdot\\N: ";
     return false;
   }
 
-  if (dbdif_util::near_zero(lambda_(0)) || dbdif_util::near_zero(1.0/lambda_(0))) {
+  if (bdifd_util::near_zero(lambda_(0)) || bdifd_util::near_zero(1.0/lambda_(0))) {
     vcl_cout << "WARNING: Invalid depth" << vcl_endl;
 
-    if (dbdif_util::near_zero(factor,tol) || dbdif_util::near_zero(1.0/factor,tol))
+    if (bdifd_util::near_zero(factor,tol) || bdifd_util::near_zero(1.0/factor,tol))
       vcl_cout << "Factor leads to zero or infinite depth\n";
 
-    if (dbdif_util::near_zero(numerator,tol))
+    if (bdifd_util::near_zero(numerator,tol))
       vcl_cout << "Numerator near zero; ";
 
-    if (dbdif_util::near_zero(denominator,tol)) {
+    if (bdifd_util::near_zero(denominator,tol)) {
       vcl_cout << "Denominator near zero:\n";
       vcl_cout << "denom:  " << denominator
         << " numer: " << numerator  << vcl_endl
@@ -380,9 +380,9 @@ reconstruct_occluding_contour_point(
 
 //: input are vectors of matching image points in 2D image coordinates
 //
-void dbdif_rig::
+void bdifd_rig::
 reconstruct_3d_occluding_contour(
-  vcl_vector<dbdif_vector_3d> *Crv3d,
+  vcl_vector<bdifd_vector_3d> *Crv3d,
   vcl_vector<bool> &valid,
   const vcl_vector<vsol_point_2d_sptr> &crv1, 
   const vcl_vector<vsol_point_2d_sptr> &crv2)
@@ -390,7 +390,7 @@ reconstruct_3d_occluding_contour(
   assert(crv1.size() == crv2.size());
 
   // convert to world coordinates
-  vcl_vector<dbdif_vector_3d> crv1_v, crv2_v;
+  vcl_vector<bdifd_vector_3d> crv1_v, crv2_v;
 
   crv1_v.resize(crv1.size()); crv2_v.resize(crv1.size());
 
@@ -402,19 +402,19 @@ reconstruct_3d_occluding_contour(
   reconstruct_3d_occluding_contour(Crv3d,valid,crv1_v,crv2_v);
 }
 
-void dbdif_rig::
+void bdifd_rig::
 reconstruct_3d_occluding_contour(
-  vcl_vector<dbdif_vector_3d> *Crv3d,
+  vcl_vector<bdifd_vector_3d> *Crv3d,
   vcl_vector<bool> &valid,
   const vcl_vector<vsol_point_2d_sptr> &crv1, 
   const vcl_vector<vsol_point_2d_sptr> &crv2,
-  const dbdif_vector_3d &dC
+  const bdifd_vector_3d &dC
   )
 {
   assert(crv1.size() == crv2.size());
 
   // convert to world coordinates
-  vcl_vector<dbdif_vector_3d> crv1_v, crv2_v;
+  vcl_vector<bdifd_vector_3d> crv1_v, crv2_v;
 
   crv1_v.resize(crv1.size()); crv2_v.resize(crv1.size());
 
@@ -436,12 +436,12 @@ reconstruct_3d_occluding_contour(
 //                        valid[i] indicates whether point[i] in crv1 has valid
 //                        match in crv2.
 //
-void dbdif_rig::
+void bdifd_rig::
 reconstruct_3d_occluding_contour(
-  vcl_vector<dbdif_vector_3d> *Crv3d,
+  vcl_vector<bdifd_vector_3d> *Crv3d,
   vcl_vector<bool> &valid,
-  const vcl_vector<dbdif_vector_3d> &crv1, 
-  const vcl_vector<dbdif_vector_3d> &crv2)
+  const vcl_vector<bdifd_vector_3d> &crv1, 
+  const vcl_vector<bdifd_vector_3d> &crv2)
 {
   assert(crv1.size() == crv2.size());
   Crv3d->resize(crv1.size());
@@ -451,9 +451,9 @@ reconstruct_3d_occluding_contour(
   //: Our numerical method, for now, is upwind (kind of dumb)
   for (unsigned i=0; i<crv1.size()-1; ++i) {
     if (valid[i]) {
-      dbdif_vector_3d gamma   = crv1[i];
-      dbdif_vector_3d gamma_s = crv1[i+1] - crv1[i];
-      dbdif_vector_3d gamma_t = crv2[i]   - crv1[i];
+      bdifd_vector_3d gamma   = crv1[i];
+      bdifd_vector_3d gamma_s = crv1[i+1] - crv1[i];
+      bdifd_vector_3d gamma_t = crv2[i]   - crv1[i];
 
       valid[i] = reconstruct_occluding_contour_point( gamma, gamma_s, gamma_t, &((*Crv3d)[i]) );
     }
@@ -461,9 +461,9 @@ reconstruct_3d_occluding_contour(
 
   unsigned i = crv1.size()-1;
   if (valid[i]) {
-      dbdif_vector_3d gamma   = crv1[i];
-      dbdif_vector_3d gamma_s = crv1[i] - crv1[i-1];
-      dbdif_vector_3d gamma_t = crv2[i]   - crv1[i];
+      bdifd_vector_3d gamma   = crv1[i];
+      bdifd_vector_3d gamma_s = crv1[i] - crv1[i-1];
+      bdifd_vector_3d gamma_t = crv2[i]   - crv1[i];
 
       valid[i] = reconstruct_occluding_contour_point( gamma, gamma_s, gamma_t, &((*Crv3d)[i]) );
   }
@@ -480,13 +480,13 @@ reconstruct_3d_occluding_contour(
 //                        match in crv2.
 // \param[in] dC : estimate of tangent vector (or delta C) to camera path
 //
-void dbdif_rig::
+void bdifd_rig::
 reconstruct_3d_occluding_contour(
-  vcl_vector<dbdif_vector_3d> *Crv3d,
+  vcl_vector<bdifd_vector_3d> *Crv3d,
   vcl_vector<bool> &valid,
-  const vcl_vector<dbdif_vector_3d> &crv1, 
-  const vcl_vector<dbdif_vector_3d> &crv2,
-  const dbdif_vector_3d &dC
+  const vcl_vector<bdifd_vector_3d> &crv1, 
+  const vcl_vector<bdifd_vector_3d> &crv2,
+  const bdifd_vector_3d &dC
   )
 {
   assert(crv1.size() == crv2.size());
@@ -497,9 +497,9 @@ reconstruct_3d_occluding_contour(
   //: Our numerical method, for now, is upwind (kind of dumb)
   for (unsigned i=0; i<crv1.size()-1; ++i) {
     if (valid[i]) {
-      dbdif_vector_3d gamma   = crv1[i];
-      dbdif_vector_3d gamma_s = crv1[i+1] - crv1[i];
-      dbdif_vector_3d gamma_t = crv2[i]   - crv1[i];
+      bdifd_vector_3d gamma   = crv1[i];
+      bdifd_vector_3d gamma_s = crv1[i+1] - crv1[i];
+      bdifd_vector_3d gamma_t = crv2[i]   - crv1[i];
 
       valid[i] = reconstruct_occluding_contour_point( gamma, gamma_s, gamma_t, &((*Crv3d)[i]), dC);
     }
@@ -507,46 +507,46 @@ reconstruct_3d_occluding_contour(
 
   unsigned i = crv1.size()-1;
   if (valid[i]) {
-      dbdif_vector_3d gamma   = crv1[i];
-      dbdif_vector_3d gamma_s = crv1[i] - crv1[i-1];
-      dbdif_vector_3d gamma_t = crv2[i]   - crv1[i];
+      bdifd_vector_3d gamma   = crv1[i];
+      bdifd_vector_3d gamma_s = crv1[i] - crv1[i-1];
+      bdifd_vector_3d gamma_t = crv2[i]   - crv1[i];
 
       valid[i] = reconstruct_occluding_contour_point( gamma, gamma_s, gamma_t, &((*Crv3d)[i]), dC );
   }
 }
 
-double dbdif_rig::
-angle_with_epipolar_plane(const dbdif_vector_3d &v_world, const dbdif_vector_3d &gama) const
+double bdifd_rig::
+angle_with_epipolar_plane(const bdifd_vector_3d &v_world, const bdifd_vector_3d &gama) const
 {
-  dbdif_vector_3d Nep = vnl_cross_3d((cam[0].c - cam[1].c), gama);
+  bdifd_vector_3d Nep = vnl_cross_3d((cam[0].c - cam[1].c), gama);
   
-  assert(!dbdif_util::near_zero(Nep.two_norm()) &&
-      dbdif_util::near_zero(cam[0].F.two_norm()-1,1e-5) && 
-      !dbdif_util::near_zero(v_world.two_norm()));
+  assert(!bdifd_util::near_zero(Nep.two_norm()) &&
+      bdifd_util::near_zero(cam[0].F.two_norm()-1,1e-5) && 
+      !bdifd_util::near_zero(v_world.two_norm()));
 
-  return vcl_acos(dbdif_util::clump_to_acos(dot_product(v_world,Nep)/(v_world.two_norm()*Nep.two_norm())));
+  return vcl_acos(bdifd_util::clump_to_acos(dot_product(v_world,Nep)/(v_world.two_norm()*Nep.two_norm())));
 }
 
-double dbdif_rig:: 
+double bdifd_rig:: 
 angle_with_epipolar_line(
-      const dbdif_vector_3d &v_img, 
-      const dbdif_vector_3d &pos_img, 
+      const bdifd_vector_3d &v_img, 
+      const bdifd_vector_3d &pos_img, 
       const vpgl_fundamental_matrix<double> &F)
 {
-  dbdif_vector_2d epi_line_v;
+  bdifd_vector_2d epi_line_v;
   // - get direction of epipolar line through v_img
 
   vgl_homg_line_2d<double> ep_l = 
-  dbdif_rig::l_epipolar_line(
+  bdifd_rig::l_epipolar_line(
       F, vgl_homg_point_2d<double>(pos_img[0],pos_img[1]) );
 
-  assert(!dbdif_util::near_zero(ep_l.c()));
+  assert(!bdifd_util::near_zero(ep_l.c()));
 
   epi_line_v[0] = ep_l.a()/ep_l.c();
   epi_line_v[1] = ep_l.b()/ep_l.c();
 
   double epipolar_angle = 
-    vcl_acos(dbdif_util::clump_to_acos( (epi_line_v[0]*v_img[0] + epi_line_v[1]*v_img[1])/(v_img.two_norm()*epi_line_v.two_norm()) ));
+    vcl_acos(bdifd_util::clump_to_acos( (epi_line_v[0]*v_img[0] + epi_line_v[1]*v_img[1])/(v_img.two_norm()*epi_line_v.two_norm()) ));
 
   if (epipolar_angle > vnl_math::pi/2.0)
     epipolar_angle = vnl_math::pi - epipolar_angle;
@@ -558,7 +558,7 @@ angle_with_epipolar_line(
 // image, given fundamental matrix from left to right image. Zisserman 2nd
 // edition p. 247
 //
-vgl_homg_line_2d<double> dbdif_rig::
+vgl_homg_line_2d<double> bdifd_rig::
 l_epipolar_line(
     const vpgl_fundamental_matrix<double> &F, 
     const vgl_homg_line_2d<double> &ep_r)
@@ -587,7 +587,7 @@ l_epipolar_line(
 //: Compute epipolar line in left image from a point in the left
 // image, given fundamental matrix from left to right image. 
 //
-vgl_homg_line_2d<double> dbdif_rig::
+vgl_homg_line_2d<double> bdifd_rig::
 l_epipolar_line(
     const vpgl_fundamental_matrix<double> &F, 
     const vgl_homg_point_2d<double>& pl

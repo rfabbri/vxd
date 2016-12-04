@@ -1,15 +1,15 @@
-#include <dbdif/dbdif_util.h>
-#include <dbdif/dbdif_analytic.h>
-#include <dbdif/dbdif_rig.h>
-#include "dbdif_data.h"
+#include <bdifd/bdifd_util.h>
+#include <bdifd/bdifd_analytic.h>
+#include <bdifd/bdifd_rig.h>
+#include "bdifd_data.h"
 #include <vcl_algorithm.h>
 #include <vsol/vsol_line_2d.h>
 
-void dbdif_data::
+void bdifd_data::
 max_err_reproj_perturb(
-    const vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > &crv2d_gt_,
-    const vcl_vector<dbdif_camera> &cam_,
-    const dbdif_rig &rig,
+    const vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > &crv2d_gt_,
+    const vcl_vector<bdifd_camera> &cam_,
+    const bdifd_rig &rig,
     double &err_pos,
     double &err_t,
     double &err_k,
@@ -32,16 +32,16 @@ max_err_reproj_perturb(
 
   unsigned idx;
 
-  err_pos = vcl_sqrt(dbdif_util::max(err_pos_sq_v,idx));
+  err_pos = vcl_sqrt(bdifd_util::max(err_pos_sq_v,idx));
   i_pos   = valid_idx[idx];
 
-  err_t = dbdif_util::max(err_t_v,idx);
+  err_t = bdifd_util::max(err_t_v,idx);
   i_t = valid_idx[idx];
 
-  err_k = dbdif_util::max(err_k_v,idx);
+  err_k = bdifd_util::max(err_k_v,idx);
   i_k = valid_idx[idx];
 
-  err_kdot = dbdif_util::max(err_kdot_v,idx);
+  err_kdot = bdifd_util::max(err_kdot_v,idx);
   i_kdot = valid_idx[idx];
 
   nvalid = valid_idx.size();
@@ -54,11 +54,11 @@ max_err_reproj_perturb(
 // For example, err_pos_sq[i] is the positional reprojection error of the
 // correspondence crv2d_gt_[:][valid_idx[i]].
 //
-void dbdif_data::
+void bdifd_data::
 err_reproj_perturb(
-    const vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > &crv2d_gt_,
-    const vcl_vector<dbdif_camera> &cam_,
-    const dbdif_rig &rig,
+    const vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > &crv2d_gt_,
+    const vcl_vector<bdifd_camera> &cam_,
+    const bdifd_rig &rig,
     vcl_vector<double> &err_pos_sq,
     vcl_vector<double> &err_t,
     vcl_vector<double> &err_k,
@@ -77,32 +77,32 @@ err_reproj_perturb(
 
   for (unsigned i=0; i < crv2d_gt_[0].size(); ++i) {
     // get hold of p1, theta1, k1, kdot1
-    const dbdif_3rd_order_point_2d &p1 = crv2d_gt_[0][i];
+    const bdifd_3rd_order_point_2d &p1 = crv2d_gt_[0][i];
 
     // get hold of p2, theta2, k2, kdot2
-    const dbdif_3rd_order_point_2d &p2 = crv2d_gt_[1][i];
-    dbdif_3rd_order_point_2d p1_w, p2_w;
-    dbdif_3rd_order_point_3d Prec;
+    const bdifd_3rd_order_point_2d &p2 = crv2d_gt_[1][i];
+    bdifd_3rd_order_point_2d p1_w, p2_w;
+    bdifd_3rd_order_point_3d Prec;
     rig.cam[0].img_to_world(&p1,&p1_w);
     rig.cam[1].img_to_world(&p2,&p2_w);
 
     rig.reconstruct_3rd_order(p1_w, p2_w, &Prec);
 
     bool valid;
-    dbdif_3rd_order_point_2d p_rec_reproj = cam_[2].project_to_image(Prec,&valid);
+    bdifd_3rd_order_point_2d p_rec_reproj = cam_[2].project_to_image(Prec,&valid);
 
-    double epipolar_angle = dbdif_rig::angle_with_epipolar_line(p1.t,p1.gama,rig.f12);
+    double epipolar_angle = bdifd_rig::angle_with_epipolar_line(p1.t,p1.gama,rig.f12);
       
     if (valid && epipolar_angle > epipolar_angle_thresh) {
       valid_idx.push_back(i);
 
-      dbdif_3rd_order_point_2d p3 = crv2d_gt_[2][i];
+      bdifd_3rd_order_point_2d p3 = crv2d_gt_[2][i];
 
       double dx = p_rec_reproj.gama[0] - p3.gama[0];
       double dy = p_rec_reproj.gama[1] - p3.gama[1];
       err_pos_sq.push_back(dx*dx + dy*dy);
 
-      double dtheta = vcl_acos(dbdif_util::clump_to_acos( p_rec_reproj.t[0]*p3.t[0] + p_rec_reproj.t[1]*p3.t[1] ));
+      double dtheta = vcl_acos(bdifd_util::clump_to_acos( p_rec_reproj.t[0]*p3.t[0] + p_rec_reproj.t[1]*p3.t[1] ));
       err_t.push_back(dtheta);
       
       double dk = vcl_fabs(p_rec_reproj.k - p3.k);
@@ -116,10 +116,10 @@ err_reproj_perturb(
 
 //: given a vector of 3rd order point 3d, it projects each point into the
 //cameras and returns a vector containing a vector of points for each view
-void dbdif_data::
+void bdifd_data::
 project_into_cams(
-    const vcl_vector<dbdif_3rd_order_point_3d> &crv3d, 
-    const vcl_vector<dbdif_camera> &cam,
+    const vcl_vector<bdifd_3rd_order_point_3d> &crv3d, 
+    const vcl_vector<bdifd_camera> &cam,
     vcl_vector<vcl_vector<vsol_point_2d_sptr> > &xi //:< image coordinates
     ) 
 {
@@ -131,7 +131,7 @@ project_into_cams(
 
     for (unsigned i=0; i<crv3d.size(); ++i) {
       // - get image coordinates
-      dbdif_vector_2d p_aux;
+      bdifd_vector_2d p_aux;
       p_aux = cam[k].project_to_image(crv3d[i].Gama);
       xi[k][i] = new vsol_point_2d(p_aux[0], p_aux[1]);
     }
@@ -139,11 +139,11 @@ project_into_cams(
 }
 
 //: Project a set of space curves into different cameras
-void dbdif_data::
+void bdifd_data::
 project_into_cams(
-    const vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d,
-    const vcl_vector<dbdif_camera> &cam,
-    vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > &crv2d_gt)
+    const vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d,
+    const vcl_vector<bdifd_camera> &cam,
+    vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > &crv2d_gt)
 {
   unsigned nviews=cam.size();
   unsigned npts=0;
@@ -166,24 +166,24 @@ project_into_cams(
 }
 
 //: Project a set of space curves into different cameras
-void dbdif_data::
+void bdifd_data::
 project_into_cams_without_epitangency(
-    const vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d,
-    const vcl_vector<dbdif_camera> &cam,
-    vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > &crv2d,
+    const vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d,
+    const vcl_vector<bdifd_camera> &cam,
+    vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > &crv2d,
     double epipolar_angle_thresh)
 {
-  vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > crv2d_gt_complete;
+  vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > crv2d_gt_complete;
 
   project_into_cams(crv3d, cam, crv2d_gt_complete);
 
   crv2d.resize(crv2d_gt_complete.size());
 
-  dbdif_rig rig(cam[0].Pr_, cam[1].Pr_);
+  bdifd_rig rig(cam[0].Pr_, cam[1].Pr_);
   for (unsigned i=0; i < crv2d_gt_complete[0].size(); ++i) {
-    const dbdif_3rd_order_point_2d &p1 = crv2d_gt_complete[0][i];
+    const bdifd_3rd_order_point_2d &p1 = crv2d_gt_complete[0][i];
 
-    double epipolar_angle = dbdif_rig::angle_with_epipolar_line(p1.t,p1.gama,rig.f12);
+    double epipolar_angle = bdifd_rig::angle_with_epipolar_line(p1.t,p1.gama,rig.f12);
 
     if (epipolar_angle > epipolar_angle_thresh) {
       for (unsigned iv=0; iv < cam.size(); ++iv) {
@@ -193,11 +193,11 @@ project_into_cams_without_epitangency(
   }
 }
 
-void dbdif_data::
+void bdifd_data::
 project_into_cams(
-    const vcl_vector<dbdif_3rd_order_point_3d> &crv3d, 
-    const vcl_vector<dbdif_camera> &cam,
-    vcl_vector<vcl_vector<dbdif_3rd_order_point_2d> > &xi //:< image coordinates
+    const vcl_vector<bdifd_3rd_order_point_3d> &crv3d, 
+    const vcl_vector<bdifd_camera> &cam,
+    vcl_vector<vcl_vector<bdifd_3rd_order_point_2d> > &xi //:< image coordinates
     ) 
 {
   unsigned nviews=cam.size();
@@ -214,9 +214,9 @@ project_into_cams(
   }
 }
 
-void dbdif_data::
+void bdifd_data::
 space_curves_ctspheres_old(
-    vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d
+    vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d
     )
 {
   static const unsigned number_of_curves=7;
@@ -225,42 +225,42 @@ space_curves_ctspheres_old(
 
   vcl_vector<double> theta;
 
-  dbdif_vector_3d translation(-11,-5,0);
+  bdifd_vector_3d translation(-11,-5,0);
 
-  dbdif_analytic::circle_curve( 1, translation, crv3d[0], theta, -89, 1, 175);
-  dbdif_analytic::circle_curve( 1, translation, crv3d[1], theta, 89, 1, 175);
+  bdifd_analytic::circle_curve( 1, translation, crv3d[0], theta, -89, 1, 175);
+  bdifd_analytic::circle_curve( 1, translation, crv3d[1], theta, 89, 1, 175);
 
-  translation = dbdif_vector_3d(-8,-4,0);
-  dbdif_analytic::circle_curve( 0.5, translation, crv3d[2], theta, 90, 1, 359);
+  translation = bdifd_vector_3d(-8,-4,0);
+  bdifd_analytic::circle_curve( 0.5, translation, crv3d[2], theta, 90, 1, 359);
 
-//  dbdif_analytic::circle_curve( 5, translation, crv3d_2, theta,
+//  bdifd_analytic::circle_curve( 5, translation, crv3d_2, theta,
 //      120, 0.10, 120);
 
-  translation = dbdif_vector_3d (-9,-3,0);
-  dbdif_analytic:: helix_curve( 0.2, 4, translation,crv3d[3], theta, 0, 1, 360*5);
+  translation = bdifd_vector_3d (-9,-3,0);
+  bdifd_analytic:: helix_curve( 0.2, 4, translation,crv3d[3], theta, 0, 1, 360*5);
 
-  translation = dbdif_vector_3d (-12,-2.5, 15);
-  dbdif_analytic::circle_curve( 1.5, translation, crv3d[4], theta, 90, 1, 359);
+  translation = bdifd_vector_3d (-12,-2.5, 15);
+  bdifd_analytic::circle_curve( 1.5, translation, crv3d[4], theta, 90, 1, 359);
 
-  translation = dbdif_vector_3d (0,0,0);
-  dbdif_vector_3d direction(1,1, 10);
-  dbdif_analytic::line(translation, direction, crv3d[5], theta, 10, 0.01);
+  translation = bdifd_vector_3d (0,0,0);
+  bdifd_vector_3d direction(1,1, 10);
+  bdifd_analytic::line(translation, direction, crv3d[5], theta, 10, 0.01);
 
-  translation = dbdif_vector_3d (-5.82,-5,-20);
-  direction = dbdif_vector_3d (0,1, 3);
-  dbdif_analytic::line(translation, direction, crv3d[6], theta, 30, 0.1);
+  translation = bdifd_vector_3d (-5.82,-5,-20);
+  direction = bdifd_vector_3d (0,1, 3);
+  bdifd_analytic::line(translation, direction, crv3d[6], theta, 30, 0.1);
 }
 
-void dbdif_data::
+void bdifd_data::
 space_curves_ctspheres(
-    vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d
+    vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d
     )
 {
   vcl_vector<double> theta;
-  dbdif_vector_3d translation;
-  dbdif_vector_3d direction;
-  vcl_vector<dbdif_3rd_order_point_3d > crv_tmp;
-  dbdif_vector_3d axis;
+  bdifd_vector_3d translation;
+  bdifd_vector_3d direction;
+  vcl_vector<bdifd_3rd_order_point_3d > crv_tmp;
+  bdifd_vector_3d axis;
   double angle;
 
 
@@ -281,268 +281,268 @@ space_curves_ctspheres(
 //  double stepsize_curve1=5;
 
   { // Basic shapes to define volume where curves are to be drawn
-    translation = dbdif_vector_3d (0,0,0);
-    direction = dbdif_vector_3d (0,1, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    translation = bdifd_vector_3d (0,0,0);
+    direction = bdifd_vector_3d (0,1, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (1,0, 0);
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation - dbdif_vector_3d(2e-5,2e-5,2e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation - bdifd_vector_3d(2e-5,2e-5,2e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    dbdif_analytic::circle_curve( 1, translation, crv_tmp, theta, 0, stepsize_circle, 360);
+    bdifd_analytic::circle_curve( 1, translation, crv_tmp, theta, 0, stepsize_circle, 360);
     crv3d.push_back(crv_tmp); crv_tmp.clear();
 
     
-    dbdif_vector_3d t_cube = dbdif_vector_3d(-l/2,-l/2,-l/2);
+    bdifd_vector_3d t_cube = bdifd_vector_3d(-l/2,-l/2,-l/2);
     translation = translation + t_cube;
     //: Cube
-    direction = dbdif_vector_3d (1,0, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,1, 0);
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,1, 0);
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation - dbdif_vector_3d(2e-5,2e-5,2e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    // ----
-    translation = dbdif_vector_3d (l,0,0)+t_cube;
-
-    direction = dbdif_vector_3d (0,1, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation - bdifd_vector_3d(2e-5,2e-5,2e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     // ----
-    translation = dbdif_vector_3d (0,l,0) + t_cube;
+    translation = bdifd_vector_3d (l,0,0)+t_cube;
 
-    direction = dbdif_vector_3d (1,0, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,1, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    // ----
-    translation = dbdif_vector_3d (0,0,l) + t_cube;
-
-    direction = dbdif_vector_3d (1,0, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    direction = dbdif_vector_3d (0,1, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     // ----
-    translation = dbdif_vector_3d (l,l,l) + t_cube;
+    translation = bdifd_vector_3d (0,l,0) + t_cube;
 
-    direction = dbdif_vector_3d (-1,0, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    direction = dbdif_vector_3d (0,-1, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    translation = translation - dbdif_vector_3d(2e-5,2e-5,2e-5);
-    direction = dbdif_vector_3d (0,0, -1);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    // ----
+    translation = bdifd_vector_3d (0,0,l) + t_cube;
+
+    direction = bdifd_vector_3d (1,0, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    direction = bdifd_vector_3d (0,1, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    // ----
+    translation = bdifd_vector_3d (l,l,l) + t_cube;
+
+    direction = bdifd_vector_3d (-1,0, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    direction = bdifd_vector_3d (0,-1, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    translation = translation - bdifd_vector_3d(2e-5,2e-5,2e-5);
+    direction = bdifd_vector_3d (0,0, -1);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
   }
 
-  translation = dbdif_vector_3d (6,6,-2)*un;
-  direction = dbdif_vector_3d(5,5, 9)*un;
-  dbdif_analytic::line(translation, direction, crv_tmp, theta, 10*un, stepsize_lines);
+  translation = bdifd_vector_3d (6,6,-2)*un;
+  direction = bdifd_vector_3d(5,5, 9)*un;
+  bdifd_analytic::line(translation, direction, crv_tmp, theta, 10*un, stepsize_lines);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (-5.82,-5,-9)*un;
-  direction = dbdif_vector_3d (0,1, 3)*un;
-  dbdif_analytic::line(translation, direction, crv_tmp, theta, 15*un, stepsize_lines);
+  translation = bdifd_vector_3d (-5.82,-5,-9)*un;
+  direction = bdifd_vector_3d (0,1, 3)*un;
+  bdifd_analytic::line(translation, direction, crv_tmp, theta, 15*un, stepsize_lines);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d(-6,-2,0)*un;
-  dbdif_analytic::circle_curve( 0.5*un, translation, crv_tmp, theta, 90, stepsize_circle, 360);
+  translation = bdifd_vector_3d(-6,-2,0)*un;
+  bdifd_analytic::circle_curve( 0.5*un, translation, crv_tmp, theta, 90, stepsize_circle, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
 
-  translation = dbdif_vector_3d (5,2.5, 9)*un;
-  dbdif_analytic::circle_curve( 1.5*un, translation, crv_tmp, theta, 90, stepsize_circle, 360);
+  translation = bdifd_vector_3d (5,2.5, 9)*un;
+  bdifd_analytic::circle_curve( 1.5*un, translation, crv_tmp, theta, 90, stepsize_circle, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   {
-  translation = dbdif_vector_3d(8,-5,0)*un;
+  translation = bdifd_vector_3d(8,-5,0)*un;
 
-  dbdif_analytic::circle_curve( 1*un, translation, crv_tmp, theta, -89, stepsize_circle, 175);
+  bdifd_analytic::circle_curve( 1*un, translation, crv_tmp, theta, -89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  dbdif_analytic::circle_curve( 1*un, translation, crv_tmp, theta, 89, stepsize_circle, 175);
+  bdifd_analytic::circle_curve( 1*un, translation, crv_tmp, theta, 89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   }
 
-  translation = dbdif_vector_3d(7,7,5)*un;
-  dbdif_analytic::circle_curve( 2*un, translation, crv_tmp, theta, -89, stepsize_circle, 175);
+  translation = bdifd_vector_3d(7,7,5)*un;
+  bdifd_analytic::circle_curve( 2*un, translation, crv_tmp, theta, -89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d(7,6.7,-5)*un;
-  dbdif_analytic::circle_curve( 1.9*un, translation, crv_tmp, theta, 89, stepsize_circle, 175);
+  translation = bdifd_vector_3d(7,6.7,-5)*un;
+  bdifd_analytic::circle_curve( 1.9*un, translation, crv_tmp, theta, 89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::circle_curve( 3*un, translation, crv_tmp, theta, 60, stepsize_circle, 120);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::circle_curve( 3*un, translation, crv_tmp, theta, 60, stepsize_circle, 120);
   angle = vnl_math::pi/4;
-  axis  = dbdif_vector_3d(1,1,0);
+  axis  = bdifd_vector_3d(1,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,-7,3)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,-7,3)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   // Ellipses
-  translation = dbdif_vector_3d (-6,-6,-7)*un;
-  dbdif_analytic::ellipse(un, 4*un,translation, crv_tmp, theta, 60, stepsize_ellipse, 120);
+  translation = bdifd_vector_3d (-6,-6,-7)*un;
+  bdifd_analytic::ellipse(un, 4*un,translation, crv_tmp, theta, 60, stepsize_ellipse, 120);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (9,0,-3)*un;
-  dbdif_analytic::ellipse(un, 4*un,translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
+  translation = bdifd_vector_3d (9,0,-3)*un;
+  bdifd_analytic::ellipse(un, 4*un,translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(3*un, un, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(3*un, un, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(0,1,0);
+  axis  = bdifd_vector_3d(0,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(7,-4,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(7,-4,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(3*un, un, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(3*un, un, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(0,1,0);
+  axis  = bdifd_vector_3d(0,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(7,-4,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(7,-4,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(un, 0.5*un, translation, crv_tmp, theta, 0, stepsize_ellipse, 280);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(un, 0.5*un, translation, crv_tmp, theta, 0, stepsize_ellipse, 280);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,1,1);
+  axis  = bdifd_vector_3d(1,1,1);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-8,6,+8)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-8,6,+8)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(4*un, un, translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(4*un, un, translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,-1,0);
+  axis  = bdifd_vector_3d(1,-1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,8,+5)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,8,+5)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   // Helices
-  translation = dbdif_vector_3d (-9,-9,0)*un;
-  dbdif_analytic:: helix_curve( 0.5*un, 1.8*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
+  translation = bdifd_vector_3d (-9,-9,0)*un;
+  bdifd_analytic:: helix_curve( 0.5*un, 1.8*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   
   angle = vnl_math::pi/2;
-  axis  = dbdif_vector_3d(1,0,0)*angle;
-  translation = dbdif_vector_3d (5,10,5)*un;
-  dbdif_analytic:: helix_curve( un, un/2, translation,crv_tmp, theta, 0, stepsize_helix, 360*10);
-  dbdif_analytic::rotate(crv_tmp,axis);
+  axis  = bdifd_vector_3d(1,0,0)*angle;
+  translation = bdifd_vector_3d (5,10,5)*un;
+  bdifd_analytic:: helix_curve( un, un/2, translation,crv_tmp, theta, 0, stepsize_helix, 360*10);
+  bdifd_analytic::rotate(crv_tmp,axis);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   angle = vnl_math::pi/2;
-  axis  = dbdif_vector_3d(1,-1,-1);
+  axis  = bdifd_vector_3d(1,-1,-1);
   axis.normalize();
   axis = axis*angle;
-  translation = dbdif_vector_3d(0,0,0)*un;
-  dbdif_analytic::helix_curve(0.5*un, 3*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(5,5,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  translation = bdifd_vector_3d(0,0,0)*un;
+  bdifd_analytic::helix_curve(0.5*un, 3*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(5,5,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   angle = vnl_math::pi/4;
-  axis  = dbdif_vector_3d(1,1,0);
+  axis  = bdifd_vector_3d(1,1,0);
   axis.normalize();
   axis = axis*angle;
-  translation = dbdif_vector_3d(0,0,0)*un;
-  dbdif_analytic::helix_curve(un, 1.8*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*7);
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,-3,-7)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  translation = bdifd_vector_3d(0,0,0)*un;
+  bdifd_analytic::helix_curve(un, 1.8*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*7);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,-3,-7)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   // Space curve 1
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::space_curve1( 2*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::space_curve1( 2*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-//  translation = dbdif_vector_3d (-3,5,-5)*un;
-//  dbdif_analytic::space_curve1( 4*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
+//  translation = bdifd_vector_3d (-3,5,-5)*un;
+//  bdifd_analytic::space_curve1( 4*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
 //  crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (-5,-5,12)*un;
-  dbdif_analytic::space_curve1( 10*un, translation, crv_tmp, theta, 60, stepsize_curve1, 120);
+  translation = bdifd_vector_3d (-5,-5,12)*un;
+  bdifd_analytic::space_curve1( 10*un, translation, crv_tmp, theta, 60, stepsize_curve1, 120);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::space_curve1( 5*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::space_curve1( 5*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,1,-1);
+  axis  = bdifd_vector_3d(1,1,-1);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
+  bdifd_analytic::rotate(crv_tmp,axis);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
 }
 
 //: there are additions of small values to "translations"; these are to avoid
 //degenerate cases where we output two exactly equal 3D points. 
-void dbdif_data::
+void bdifd_data::
 space_curves_olympus_turntable(
-    vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d
+    vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d
     )
 {
   vcl_vector<double> theta;
-  dbdif_vector_3d translation;
-  dbdif_vector_3d direction;
-  vcl_vector<dbdif_3rd_order_point_3d > crv_tmp;
-  dbdif_vector_3d axis;
+  bdifd_vector_3d translation;
+  bdifd_vector_3d direction;
+  vcl_vector<bdifd_3rd_order_point_3d > crv_tmp;
+  bdifd_vector_3d axis;
   double angle;
 
   double l=80; //:< length of cube
@@ -563,170 +563,170 @@ space_curves_olympus_turntable(
   double stepsize_curve1=0.6;
 
   { // Basic shapes to define volume where curves are to be drawn
-    translation = dbdif_vector_3d (0,0,0);
-    direction = dbdif_vector_3d (0,1, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    translation = bdifd_vector_3d (0,0,0);
+    direction = bdifd_vector_3d (0,1, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (1,0, 0);
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation - dbdif_vector_3d(2e-5,2e-5,2e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation - bdifd_vector_3d(2e-5,2e-5,2e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     radius = 1.0;
     stepsize_circle = stepsize_circle_arclength/radius;
     stepsize_circle *= 180.0/vnl_math::pi;
-    translation = translation + dbdif_vector_3d(1e-5,5e-5,1e-5);
-    dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 0, stepsize_circle, 360);
+    translation = translation + bdifd_vector_3d(1e-5,5e-5,1e-5);
+    bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 0, stepsize_circle, 360);
     crv3d.push_back(crv_tmp); crv_tmp.clear();
 
     
-    dbdif_vector_3d t_cube = dbdif_vector_3d(-l/2,-l/2,-l/2);
+    bdifd_vector_3d t_cube = bdifd_vector_3d(-l/2,-l/2,-l/2);
     translation = translation + t_cube;
     //: Cube
-    direction = dbdif_vector_3d (1,0, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,1, 0);
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,1, 0);
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation - dbdif_vector_3d(2e-5,2e-5,2e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    // ----
-    translation = dbdif_vector_3d (l,0,0)+t_cube;
-
-    direction = dbdif_vector_3d (0,1, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation + dbdif_vector_3d(1e-6,1e-5,1e-6);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation - bdifd_vector_3d(2e-5,2e-5,2e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     // ----
-    translation = dbdif_vector_3d (0,l,0) + t_cube;
+    translation = bdifd_vector_3d (l,0,0)+t_cube;
 
-    direction = dbdif_vector_3d (1,0, 0);
-    translation = translation + dbdif_vector_3d(2e-5,7e-6,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,1, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation + dbdif_vector_3d(2e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    // ----
-    translation = dbdif_vector_3d (0,0,l) + t_cube;
-
-    direction = dbdif_vector_3d (1,0, 0);
-    translation = translation + dbdif_vector_3d(4e-6,1e-5,0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    direction = dbdif_vector_3d (0,1, 0);
-    translation = translation + dbdif_vector_3d(1e-5,2e-6,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation + bdifd_vector_3d(1e-6,1e-5,1e-6);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     // ----
-    translation = dbdif_vector_3d (l,l,l) + t_cube;
+    translation = bdifd_vector_3d (0,l,0) + t_cube;
 
-    direction = dbdif_vector_3d (-1,0, 0);
-    translation = translation + dbdif_vector_3d(4e-6,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    translation = translation + bdifd_vector_3d(2e-5,7e-6,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,-1, 0);
-    translation = translation + dbdif_vector_3d(4e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation + bdifd_vector_3d(2e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, -1);
-    translation = translation - dbdif_vector_3d(5e-4,2e-5,2e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    // ----
+    translation = bdifd_vector_3d (0,0,l) + t_cube;
+
+    direction = bdifd_vector_3d (1,0, 0);
+    translation = translation + bdifd_vector_3d(4e-6,1e-5,0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    direction = bdifd_vector_3d (0,1, 0);
+    translation = translation + bdifd_vector_3d(1e-5,2e-6,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    // ----
+    translation = bdifd_vector_3d (l,l,l) + t_cube;
+
+    direction = bdifd_vector_3d (-1,0, 0);
+    translation = translation + bdifd_vector_3d(4e-6,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    direction = bdifd_vector_3d (0,-1, 0);
+    translation = translation + bdifd_vector_3d(4e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    direction = bdifd_vector_3d (0,0, -1);
+    translation = translation - bdifd_vector_3d(5e-4,2e-5,2e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
   }
 
-  translation = dbdif_vector_3d (6,6,-2)*un;
-  direction = dbdif_vector_3d(5,5, 9)*un;
-  dbdif_analytic::line(translation, direction, crv_tmp, theta, 10*un, stepsize_lines);
+  translation = bdifd_vector_3d (6,6,-2)*un;
+  direction = bdifd_vector_3d(5,5, 9)*un;
+  bdifd_analytic::line(translation, direction, crv_tmp, theta, 10*un, stepsize_lines);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (-5.82,-5,-9)*un;
-  direction = dbdif_vector_3d (0,1, 3)*un;
-  dbdif_analytic::line(translation, direction, crv_tmp, theta, 15*un, stepsize_lines);
+  translation = bdifd_vector_3d (-5.82,-5,-9)*un;
+  direction = bdifd_vector_3d (0,1, 3)*un;
+  bdifd_analytic::line(translation, direction, crv_tmp, theta, 15*un, stepsize_lines);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   radius = 0.5*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d(-6,-2,0)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
+  translation = bdifd_vector_3d(-6,-2,0)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
 
   radius = 1.5*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (5,2.5, 9)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
+  translation = bdifd_vector_3d (5,2.5, 9)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   {
-  translation = dbdif_vector_3d(8,-5,0)*un;
+  translation = bdifd_vector_3d(8,-5,0)*un;
 
   radius = 1*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   radius = 1*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   }
 
   radius = 2*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d(7,7,5)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
+  translation = bdifd_vector_3d(7,7,5)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   radius = 1.9*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d(7,6.7,-5)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
+  translation = bdifd_vector_3d(7,6.7,-5)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   radius = 3*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 60, stepsize_circle, 120);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 60, stepsize_circle, 120);
   angle = vnl_math::pi/4;
-  axis  = dbdif_vector_3d(1,1,0);
+  axis  = bdifd_vector_3d(1,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,-7,3)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,-7,3)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   // Ellipses
@@ -734,148 +734,148 @@ space_curves_olympus_turntable(
   rb = 4*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (-6,-6,-7)*un;
-  dbdif_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 60, stepsize_ellipse, 120);
+  translation = bdifd_vector_3d (-6,-6,-7)*un;
+  bdifd_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 60, stepsize_ellipse, 120);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   ra = un;
   rb = 4*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (9,0,-3)*un;
-  dbdif_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
+  translation = bdifd_vector_3d (9,0,-3)*un;
+  bdifd_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   ra = un;
   rb = 4*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(0,1,0);
+  axis  = bdifd_vector_3d(0,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(7,-4,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(7,-4,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   ra = 3*un;
   rb = un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(0,1,0);
+  axis  = bdifd_vector_3d(0,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(7,-4,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(7,-4,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   ra = un;
   rb = 0.5*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 280);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 280);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,1,1);
+  axis  = bdifd_vector_3d(1,1,1);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-8,6,+8)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-8,6,+8)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   ra = 4*un;
   rb = un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,-1,0);
+  axis  = bdifd_vector_3d(1,-1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,8,+5)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,8,+5)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   // Helices
-  translation = dbdif_vector_3d (-9,-9,0)*un;
-  dbdif_analytic:: helix_curve( 0.5*un, 2*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
+  translation = bdifd_vector_3d (-9,-9,0)*un;
+  bdifd_analytic:: helix_curve( 0.5*un, 2*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   angle = vnl_math::pi/2;
-  axis  = dbdif_vector_3d(1,0,0)*angle;
-  translation = dbdif_vector_3d (5,10,5)*un;
-  dbdif_analytic:: helix_curve( un, un/1.5, translation,crv_tmp, theta, 0, stepsize_helix, 360*10);
-  dbdif_analytic::rotate(crv_tmp,axis);
+  axis  = bdifd_vector_3d(1,0,0)*angle;
+  translation = bdifd_vector_3d (5,10,5)*un;
+  bdifd_analytic:: helix_curve( un, un/1.5, translation,crv_tmp, theta, 0, stepsize_helix, 360*10);
+  bdifd_analytic::rotate(crv_tmp,axis);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   angle = vnl_math::pi/2;
-  axis  = dbdif_vector_3d(1,-1,-1);
+  axis  = bdifd_vector_3d(1,-1,-1);
   axis.normalize();
   axis = axis*angle;
-  translation = dbdif_vector_3d(0,0,0)*un;
-  dbdif_analytic::helix_curve(0.5*un, 6*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(5,5,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  translation = bdifd_vector_3d(0,0,0)*un;
+  bdifd_analytic::helix_curve(0.5*un, 6*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(5,5,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   angle = vnl_math::pi/4;
-  axis  = dbdif_vector_3d(1,1,0);
+  axis  = bdifd_vector_3d(1,1,0);
   axis.normalize();
   axis = axis*angle;
-  translation = dbdif_vector_3d(0,0,0)*un;
-  dbdif_analytic::helix_curve(un, 2.5*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*7);
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,-3,-7)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  translation = bdifd_vector_3d(0,0,0)*un;
+  bdifd_analytic::helix_curve(un, 2.5*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*7);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,-3,-7)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   // Space curve 1
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::space_curve1( 2*un, translation, crv_tmp, theta, 0, 3*stepsize_curve1, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::space_curve1( 2*un, translation, crv_tmp, theta, 0, 3*stepsize_curve1, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (-3,5,-5)*un;
-  translation = translation + dbdif_vector_3d(4e-6,1e-5,3e-5);
-  dbdif_analytic::space_curve1( 4*un, translation, crv_tmp, theta, 0, 2*stepsize_curve1, 359);
+  translation = bdifd_vector_3d (-3,5,-5)*un;
+  translation = translation + bdifd_vector_3d(4e-6,1e-5,3e-5);
+  bdifd_analytic::space_curve1( 4*un, translation, crv_tmp, theta, 0, 2*stepsize_curve1, 359);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (-5,-5,12)*un;
-  dbdif_analytic::space_curve1( 10*un, translation, crv_tmp, theta, 60, stepsize_curve1, 120);
+  translation = bdifd_vector_3d (-5,-5,12)*un;
+  bdifd_analytic::space_curve1( 10*un, translation, crv_tmp, theta, 60, stepsize_curve1, 120);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::space_curve1( 5*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::space_curve1( 5*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,1,-1);
+  axis  = bdifd_vector_3d(1,1,-1);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
+  bdifd_analytic::rotate(crv_tmp,axis);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 }
 
 //: there are additions of small values to "translations"; these are to try to avoid
 //degenerate cases where we output two exactly equal 3D points. 
-void dbdif_data::
+void bdifd_data::
 space_curves_digicam_turntable_sandbox(
-    vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d
+    vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d
     )
 {
   vcl_vector<double> theta;
-  dbdif_vector_3d translation;
-  dbdif_vector_3d direction;
-  vcl_vector<dbdif_3rd_order_point_3d > crv_tmp;
-  dbdif_vector_3d axis;
+  bdifd_vector_3d translation;
+  bdifd_vector_3d direction;
+  vcl_vector<bdifd_3rd_order_point_3d > crv_tmp;
+  bdifd_vector_3d axis;
   double angle;
 
 
@@ -900,119 +900,119 @@ space_curves_digicam_turntable_sandbox(
 
 
   { // Basic shapes to define volume where curves are to be drawn
-    translation = dbdif_vector_3d (0,0,0);
+    translation = bdifd_vector_3d (0,0,0);
   /*
-    direction = dbdif_vector_3d (0,1, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    direction = bdifd_vector_3d (0,1, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
 
-    direction = dbdif_vector_3d (1,0, 0);
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation - dbdif_vector_3d(2e-5,2e-5,2e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation - bdifd_vector_3d(2e-5,2e-5,2e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     radius = 1.0;
     stepsize_circle = stepsize_circle_arclength/radius;
     stepsize_circle *= 180.0/vnl_math::pi;
-    translation = translation + dbdif_vector_3d(1e-5,5e-5,1e-5);
-    dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 0, stepsize_circle, 360);
+    translation = translation + bdifd_vector_3d(1e-5,5e-5,1e-5);
+    bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 0, stepsize_circle, 360);
     crv3d.push_back(crv_tmp); crv_tmp.clear();
 
     
     */
-    dbdif_vector_3d t_cube = dbdif_vector_3d(-l/2,-l/2,-l/2);
+    bdifd_vector_3d t_cube = bdifd_vector_3d(-l/2,-l/2,-l/2);
     /*
     translation = translation + t_cube;
     //: Cube
-    direction = dbdif_vector_3d (1,0, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,1, 0);
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,1, 0);
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation - dbdif_vector_3d(2e-5,2e-5,2e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    // ----
-    translation = dbdif_vector_3d (l,0,0)+t_cube;
-
-    direction = dbdif_vector_3d (0,1, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation + dbdif_vector_3d(1e-6,1e-5,1e-6);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation - bdifd_vector_3d(2e-5,2e-5,2e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     // ----
-    translation = dbdif_vector_3d (0,l,0) + t_cube;
+    translation = bdifd_vector_3d (l,0,0)+t_cube;
 
-    direction = dbdif_vector_3d (1,0, 0);
-    translation = translation + dbdif_vector_3d(2e-5,7e-6,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,1, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation + dbdif_vector_3d(2e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation + bdifd_vector_3d(1e-6,1e-5,1e-6);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    // ----
+    translation = bdifd_vector_3d (0,l,0) + t_cube;
+
+    direction = bdifd_vector_3d (1,0, 0);
+    translation = translation + bdifd_vector_3d(2e-5,7e-6,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation + bdifd_vector_3d(2e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     // ----
     */
-    translation = dbdif_vector_3d (0,0,l) + t_cube;
+    translation = bdifd_vector_3d (0,0,l) + t_cube;
 
-    direction = dbdif_vector_3d (1,0, 0);
-    translation = translation + dbdif_vector_3d(4e-6,1e-5,0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    translation = translation + bdifd_vector_3d(4e-6,1e-5,0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     /*
-    direction = dbdif_vector_3d (0,1, 0);
-    translation = translation + dbdif_vector_3d(1e-5,2e-6,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,1, 0);
+    translation = translation + bdifd_vector_3d(1e-5,2e-6,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     // ----
-    translation = dbdif_vector_3d (l,l,l) + t_cube;
+    translation = bdifd_vector_3d (l,l,l) + t_cube;
 
-    direction = dbdif_vector_3d (-1,0, 0);
-    translation = translation + dbdif_vector_3d(4e-6,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (-1,0, 0);
+    translation = translation + bdifd_vector_3d(4e-6,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,-1, 0);
-    translation = translation + dbdif_vector_3d(4e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,-1, 0);
+    translation = translation + bdifd_vector_3d(4e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, -1);
-    translation = translation - dbdif_vector_3d(5e-4,2e-5,2e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, -1);
+    translation = translation - bdifd_vector_3d(5e-4,2e-5,2e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
     */
   }
 
   /*
-  translation = dbdif_vector_3d (6,6,-2)*un;
-  direction = dbdif_vector_3d(5,5, 9)*un;
-  dbdif_analytic::line(translation, direction, crv_tmp, theta, 10*un, stepsize_lines);
+  translation = bdifd_vector_3d (6,6,-2)*un;
+  direction = bdifd_vector_3d(5,5, 9)*un;
+  bdifd_analytic::line(translation, direction, crv_tmp, theta, 10*un, stepsize_lines);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (-5.82,-5,-9)*un;
-  direction = dbdif_vector_3d (0,1, 3)*un;
-  dbdif_analytic::line(translation, direction, crv_tmp, theta, 15*un, stepsize_lines);
+  translation = bdifd_vector_3d (-5.82,-5,-9)*un;
+  direction = bdifd_vector_3d (0,1, 3)*un;
+  bdifd_analytic::line(translation, direction, crv_tmp, theta, 15*un, stepsize_lines);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
@@ -1020,9 +1020,9 @@ space_curves_digicam_turntable_sandbox(
   radius = 0.5*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d(-6,-2,0)*un;
-//  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 90);
+  translation = bdifd_vector_3d(-6,-2,0)*un;
+//  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 90);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
@@ -1031,54 +1031,54 @@ space_curves_digicam_turntable_sandbox(
   radius = 1.5*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (5,2.5, 9)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
+  translation = bdifd_vector_3d (5,2.5, 9)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
   /*
   {
-  translation = dbdif_vector_3d(8,-5,0)*un;
+  translation = bdifd_vector_3d(8,-5,0)*un;
 
   radius = 1*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   radius = 1*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   }
 
   radius = 2*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d(7,7,5)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
+  translation = bdifd_vector_3d(7,7,5)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   radius = 1.9*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d(7,6.7,-5)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
+  translation = bdifd_vector_3d(7,6.7,-5)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   radius = 3*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 60, stepsize_circle, 120);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 60, stepsize_circle, 120);
   angle = vnl_math::pi/4;
-  axis  = dbdif_vector_3d(1,1,0);
+  axis  = bdifd_vector_3d(1,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,-7,3)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,-7,3)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
@@ -1087,8 +1087,8 @@ space_curves_digicam_turntable_sandbox(
   rb = 4*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (-6,-6,-7)*un;
-  dbdif_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 60, stepsize_ellipse, 120);
+  translation = bdifd_vector_3d (-6,-6,-7)*un;
+  bdifd_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 60, stepsize_ellipse, 120);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   /*
@@ -1096,53 +1096,53 @@ space_curves_digicam_turntable_sandbox(
   rb = 4*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (9,0,-3)*un;
-  dbdif_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
+  translation = bdifd_vector_3d (9,0,-3)*un;
+  bdifd_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   ra = un;
   rb = 4*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(0,1,0);
+  axis  = bdifd_vector_3d(0,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(7,-4,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(7,-4,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   ra = 3*un;
   rb = un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(0,1,0);
+  axis  = bdifd_vector_3d(0,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(7,-4,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(7,-4,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   ra = un;
   rb = 0.5*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 280);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 280);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,1,1);
+  axis  = bdifd_vector_3d(1,1,1);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-8,6,+8)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-8,6,+8)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
@@ -1150,90 +1150,90 @@ space_curves_digicam_turntable_sandbox(
   rb = un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,-1,0);
+  axis  = bdifd_vector_3d(1,-1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,8,+5)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,8,+5)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   /*
 
   // Helices
-  translation = dbdif_vector_3d (-9,-9,0)*un;
-  dbdif_analytic:: helix_curve( 0.5*un, 2*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
+  translation = bdifd_vector_3d (-9,-9,0)*un;
+  bdifd_analytic:: helix_curve( 0.5*un, 2*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   angle = vnl_math::pi/2;
-  axis  = dbdif_vector_3d(1,0,0)*angle;
-  translation = dbdif_vector_3d (5,10,5)*un;
-  dbdif_analytic:: helix_curve( un, un/1.5, translation,crv_tmp, theta, 0, stepsize_helix, 360*10);
-  dbdif_analytic::rotate(crv_tmp,axis);
+  axis  = bdifd_vector_3d(1,0,0)*angle;
+  translation = bdifd_vector_3d (5,10,5)*un;
+  bdifd_analytic:: helix_curve( un, un/1.5, translation,crv_tmp, theta, 0, stepsize_helix, 360*10);
+  bdifd_analytic::rotate(crv_tmp,axis);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   angle = vnl_math::pi/2;
-  axis  = dbdif_vector_3d(1,-1,-1);
+  axis  = bdifd_vector_3d(1,-1,-1);
   axis.normalize();
   axis = axis*angle;
-  translation = dbdif_vector_3d(0,0,0)*un;
-  dbdif_analytic::helix_curve(0.5*un, 6*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(5,5,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  translation = bdifd_vector_3d(0,0,0)*un;
+  bdifd_analytic::helix_curve(0.5*un, 6*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(5,5,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   angle = vnl_math::pi/4;
-  axis  = dbdif_vector_3d(1,1,0);
+  axis  = bdifd_vector_3d(1,1,0);
   axis.normalize();
   axis = axis*angle;
-  translation = dbdif_vector_3d(0,0,0)*un;
-  dbdif_analytic::helix_curve(un, 2.5*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*7);
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,-3,-7)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  translation = bdifd_vector_3d(0,0,0)*un;
+  bdifd_analytic::helix_curve(un, 2.5*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*7);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,-3,-7)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   // Space curve 1
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::space_curve1( 2*un, translation, crv_tmp, theta, 0, 3*stepsize_curve1, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::space_curve1( 2*un, translation, crv_tmp, theta, 0, 3*stepsize_curve1, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (-3,5,-5)*un;
-  translation = translation + dbdif_vector_3d(4e-6,1e-5,3e-5);
-  dbdif_analytic::space_curve1( 4*un, translation, crv_tmp, theta, 0, 2*stepsize_curve1, 359);
+  translation = bdifd_vector_3d (-3,5,-5)*un;
+  translation = translation + bdifd_vector_3d(4e-6,1e-5,3e-5);
+  bdifd_analytic::space_curve1( 4*un, translation, crv_tmp, theta, 0, 2*stepsize_curve1, 359);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (-5,-5,12)*un;
-  dbdif_analytic::space_curve1( 10*un, translation, crv_tmp, theta, 60, stepsize_curve1, 120);
+  translation = bdifd_vector_3d (-5,-5,12)*un;
+  bdifd_analytic::space_curve1( 10*un, translation, crv_tmp, theta, 60, stepsize_curve1, 120);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::space_curve1( 5*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::space_curve1( 5*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,1,-1);
+  axis  = bdifd_vector_3d(1,1,-1);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
+  bdifd_analytic::rotate(crv_tmp,axis);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 }
 
 //: there are additions of small values to "translations"; these are to avoid
 //degenerate cases where we output two exactly equal 3D points. 
-void dbdif_data::
+void bdifd_data::
 space_curves_digicam_turntable_medium_sized(
-    vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d
+    vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d
     )
 {
   vcl_vector<double> theta;
-  dbdif_vector_3d translation;
-  dbdif_vector_3d direction;
-  vcl_vector<dbdif_3rd_order_point_3d > crv_tmp;
-  dbdif_vector_3d axis;
+  bdifd_vector_3d translation;
+  bdifd_vector_3d direction;
+  vcl_vector<bdifd_3rd_order_point_3d > crv_tmp;
+  bdifd_vector_3d axis;
   double angle;
 
 
@@ -1259,120 +1259,120 @@ space_curves_digicam_turntable_medium_sized(
 
   /*
   { // Basic shapes to define volume where curves are to be drawn
-    translation = dbdif_vector_3d (0,0,0);
-    direction = dbdif_vector_3d (0,1, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    translation = bdifd_vector_3d (0,0,0);
+    direction = bdifd_vector_3d (0,1, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (1,0, 0);
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation - dbdif_vector_3d(2e-5,2e-5,2e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation - bdifd_vector_3d(2e-5,2e-5,2e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, 1, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     radius = 1.0;
     stepsize_circle = stepsize_circle_arclength/radius;
     stepsize_circle *= 180.0/vnl_math::pi;
-    translation = translation + dbdif_vector_3d(1e-5,5e-5,1e-5);
-    dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 0, stepsize_circle, 360);
+    translation = translation + bdifd_vector_3d(1e-5,5e-5,1e-5);
+    bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 0, stepsize_circle, 360);
     crv3d.push_back(crv_tmp); crv_tmp.clear();
 
     
-    dbdif_vector_3d t_cube = dbdif_vector_3d(-l/2,-l/2,-l/2);
+    bdifd_vector_3d t_cube = bdifd_vector_3d(-l/2,-l/2,-l/2);
     translation = translation + t_cube;
     //: Cube
-    direction = dbdif_vector_3d (1,0, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,1, 0);
-    translation = translation + dbdif_vector_3d(1e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,1, 0);
+    translation = translation + bdifd_vector_3d(1e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation - dbdif_vector_3d(2e-5,2e-5,2e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    // ----
-    translation = dbdif_vector_3d (l,0,0)+t_cube;
-
-    direction = dbdif_vector_3d (0,1, 0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation + dbdif_vector_3d(1e-6,1e-5,1e-6);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation - bdifd_vector_3d(2e-5,2e-5,2e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     // ----
-    translation = dbdif_vector_3d (0,l,0) + t_cube;
+    translation = bdifd_vector_3d (l,0,0)+t_cube;
 
-    direction = dbdif_vector_3d (1,0, 0);
-    translation = translation + dbdif_vector_3d(2e-5,7e-6,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,1, 0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, 1);
-    translation = translation + dbdif_vector_3d(2e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    // ----
-    translation = dbdif_vector_3d (0,0,l) + t_cube;
-
-    direction = dbdif_vector_3d (1,0, 0);
-    translation = translation + dbdif_vector_3d(4e-6,1e-5,0);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
-    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
-
-    direction = dbdif_vector_3d (0,1, 0);
-    translation = translation + dbdif_vector_3d(1e-5,2e-6,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation + bdifd_vector_3d(1e-6,1e-5,1e-6);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
     // ----
-    translation = dbdif_vector_3d (l,l,l) + t_cube;
+    translation = bdifd_vector_3d (0,l,0) + t_cube;
 
-    direction = dbdif_vector_3d (-1,0, 0);
-    translation = translation + dbdif_vector_3d(4e-6,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (1,0, 0);
+    translation = translation + bdifd_vector_3d(2e-5,7e-6,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,-1, 0);
-    translation = translation + dbdif_vector_3d(4e-5,1e-5,1e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    direction = bdifd_vector_3d (0,0, 1);
+    translation = translation + bdifd_vector_3d(2e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
 
-    direction = dbdif_vector_3d (0,0, -1);
-    translation = translation - dbdif_vector_3d(5e-4,2e-5,2e-5);
-    dbdif_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    // ----
+    translation = bdifd_vector_3d (0,0,l) + t_cube;
+
+    direction = bdifd_vector_3d (1,0, 0);
+    translation = translation + bdifd_vector_3d(4e-6,1e-5,0);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    direction = bdifd_vector_3d (0,1, 0);
+    translation = translation + bdifd_vector_3d(1e-5,2e-6,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    // ----
+    translation = bdifd_vector_3d (l,l,l) + t_cube;
+
+    direction = bdifd_vector_3d (-1,0, 0);
+    translation = translation + bdifd_vector_3d(4e-6,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    direction = bdifd_vector_3d (0,-1, 0);
+    translation = translation + bdifd_vector_3d(4e-5,1e-5,1e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
+    crv3d.push_back(crv_tmp); crv_tmp.clear(); 
+
+    direction = bdifd_vector_3d (0,0, -1);
+    translation = translation - bdifd_vector_3d(5e-4,2e-5,2e-5);
+    bdifd_analytic::line(translation, direction, crv_tmp, theta, l, stepsize_lines);
     crv3d.push_back(crv_tmp); crv_tmp.clear(); 
   }
 
-  translation = dbdif_vector_3d (6,6,-2)*un;
-  direction = dbdif_vector_3d(5,5, 9)*un;
-  dbdif_analytic::line(translation, direction, crv_tmp, theta, 10*un, stepsize_lines);
+  translation = bdifd_vector_3d (6,6,-2)*un;
+  direction = bdifd_vector_3d(5,5, 9)*un;
+  bdifd_analytic::line(translation, direction, crv_tmp, theta, 10*un, stepsize_lines);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   */
-  translation = dbdif_vector_3d (-5.82,-5,-9)*un;
-  direction = dbdif_vector_3d (0,1, 3)*un;
-  dbdif_analytic::line(translation, direction, crv_tmp, theta, 15*un, stepsize_lines);
+  translation = bdifd_vector_3d (-5.82,-5,-9)*un;
+  direction = bdifd_vector_3d (0,1, 3)*un;
+  bdifd_analytic::line(translation, direction, crv_tmp, theta, 15*un, stepsize_lines);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   radius = 0.5*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d(-6,-2,0)*un;
-//  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 90);
+  translation = bdifd_vector_3d(-6,-2,0)*un;
+//  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 90);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
 
@@ -1380,54 +1380,54 @@ space_curves_digicam_turntable_medium_sized(
   radius = 1.5*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (5,2.5, 9)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
+  translation = bdifd_vector_3d (5,2.5, 9)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 90, stepsize_circle, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
   /*
   {
-  translation = dbdif_vector_3d(8,-5,0)*un;
+  translation = bdifd_vector_3d(8,-5,0)*un;
 
   radius = 1*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   radius = 1*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   }
 
   radius = 2*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d(7,7,5)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
+  translation = bdifd_vector_3d(7,7,5)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, -89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   radius = 1.9*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d(7,6.7,-5)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
+  translation = bdifd_vector_3d(7,6.7,-5)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 89, stepsize_circle, 175);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   radius = 3*un;
   stepsize_circle = stepsize_circle_arclength/radius;
   stepsize_circle *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::circle_curve( radius, translation, crv_tmp, theta, 60, stepsize_circle, 120);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::circle_curve( radius, translation, crv_tmp, theta, 60, stepsize_circle, 120);
   angle = vnl_math::pi/4;
-  axis  = dbdif_vector_3d(1,1,0);
+  axis  = bdifd_vector_3d(1,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,-7,3)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,-7,3)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
@@ -1436,8 +1436,8 @@ space_curves_digicam_turntable_medium_sized(
   rb = 4*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (-6,-6,-7)*un;
-  dbdif_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 60, stepsize_ellipse, 120);
+  translation = bdifd_vector_3d (-6,-6,-7)*un;
+  bdifd_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 60, stepsize_ellipse, 120);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   /*
@@ -1445,38 +1445,38 @@ space_curves_digicam_turntable_medium_sized(
   rb = 4*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (9,0,-3)*un;
-  dbdif_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
+  translation = bdifd_vector_3d (9,0,-3)*un;
+  bdifd_analytic::ellipse(ra, rb,translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   ra = un;
   rb = 4*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(0,1,0);
+  axis  = bdifd_vector_3d(0,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(7,-4,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(7,-4,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   ra = 3*un;
   rb = un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 30, stepsize_ellipse, 180);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(0,1,0);
+  axis  = bdifd_vector_3d(0,1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(7,-4,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(7,-4,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
@@ -1485,15 +1485,15 @@ space_curves_digicam_turntable_medium_sized(
   rb = 0.5*un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 280);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 280);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,1,1);
+  axis  = bdifd_vector_3d(1,1,1);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-8,6,+8)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-8,6,+8)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
@@ -1501,80 +1501,80 @@ space_curves_digicam_turntable_medium_sized(
   rb = un;
   stepsize_ellipse = stepsize_ellipse_arclength/vcl_max(ra,rb);
   stepsize_ellipse *= 180.0/vnl_math::pi;
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::ellipse(ra, rb, translation, crv_tmp, theta, 0, stepsize_ellipse, 360);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,-1,0);
+  axis  = bdifd_vector_3d(1,-1,0);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,8,+5)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,8,+5)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   /*
   // Helices
-  translation = dbdif_vector_3d (-9,-9,0)*un;
-  dbdif_analytic:: helix_curve( 0.5*un, 2*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
+  translation = bdifd_vector_3d (-9,-9,0)*un;
+  bdifd_analytic:: helix_curve( 0.5*un, 2*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
   /*
   angle = vnl_math::pi/2;
-  axis  = dbdif_vector_3d(1,0,0)*angle;
-  translation = dbdif_vector_3d (5,10,5)*un;
-  dbdif_analytic:: helix_curve( un, un/1.5, translation,crv_tmp, theta, 0, stepsize_helix, 360*10);
-  dbdif_analytic::rotate(crv_tmp,axis);
+  axis  = bdifd_vector_3d(1,0,0)*angle;
+  translation = bdifd_vector_3d (5,10,5)*un;
+  bdifd_analytic:: helix_curve( un, un/1.5, translation,crv_tmp, theta, 0, stepsize_helix, 360*10);
+  bdifd_analytic::rotate(crv_tmp,axis);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
   angle = vnl_math::pi/2;
-  axis  = dbdif_vector_3d(1,-1,-1);
+  axis  = bdifd_vector_3d(1,-1,-1);
   axis.normalize();
   axis = axis*angle;
-  translation = dbdif_vector_3d(0,0,0)*un;
-  dbdif_analytic::helix_curve(0.5*un, 6*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(5,5,-10)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  translation = bdifd_vector_3d(0,0,0)*un;
+  bdifd_analytic::helix_curve(0.5*un, 6*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*5);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(5,5,-10)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
   /*
   angle = vnl_math::pi/4;
-  axis  = dbdif_vector_3d(1,1,0);
+  axis  = bdifd_vector_3d(1,1,0);
   axis.normalize();
   axis = axis*angle;
-  translation = dbdif_vector_3d(0,0,0)*un;
-  dbdif_analytic::helix_curve(un, 2.5*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*7);
-  dbdif_analytic::rotate(crv_tmp,axis);
-  translation = dbdif_vector_3d(-5,-3,-7)*un;
-  dbdif_analytic::translate(crv_tmp,translation);
+  translation = bdifd_vector_3d(0,0,0)*un;
+  bdifd_analytic::helix_curve(un, 2.5*un, translation,crv_tmp, theta, 0, stepsize_helix, 360*7);
+  bdifd_analytic::rotate(crv_tmp,axis);
+  translation = bdifd_vector_3d(-5,-3,-7)*un;
+  bdifd_analytic::translate(crv_tmp,translation);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
   // Space curve 1
   /*
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::space_curve1( 2*un, translation, crv_tmp, theta, 0, 3*stepsize_curve1, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::space_curve1( 2*un, translation, crv_tmp, theta, 0, 3*stepsize_curve1, 360);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
   */
 
-//  translation = dbdif_vector_3d (-3,5,-5)*un;
-//  translation = translation + dbdif_vector_3d(4e-6,1e-5,3e-5);
-//  dbdif_analytic::space_curve1( 4*un, translation, crv_tmp, theta, 0, 2*stepsize_curve1, 359);
+//  translation = bdifd_vector_3d (-3,5,-5)*un;
+//  translation = translation + bdifd_vector_3d(4e-6,1e-5,3e-5);
+//  bdifd_analytic::space_curve1( 4*un, translation, crv_tmp, theta, 0, 2*stepsize_curve1, 359);
 //  crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (-5,-5,12)*un;
-  dbdif_analytic::space_curve1( 10*un, translation, crv_tmp, theta, 60, stepsize_curve1, 120);
+  translation = bdifd_vector_3d (-5,-5,12)*un;
+  bdifd_analytic::space_curve1( 10*un, translation, crv_tmp, theta, 60, stepsize_curve1, 120);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 
-  translation = dbdif_vector_3d (0,0,0)*un;
-  dbdif_analytic::space_curve1( 5*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
+  translation = bdifd_vector_3d (0,0,0)*un;
+  bdifd_analytic::space_curve1( 5*un, translation, crv_tmp, theta, 0, stepsize_curve1, 360);
   angle = vnl_math::pi/3;
-  axis  = dbdif_vector_3d(1,1,-1);
+  axis  = bdifd_vector_3d(1,1,-1);
   axis.normalize();
   axis = axis*angle;
-  dbdif_analytic::rotate(crv_tmp,axis);
+  bdifd_analytic::rotate(crv_tmp,axis);
   crv3d.push_back(crv_tmp); crv_tmp.clear();
 }
 
@@ -1582,7 +1582,7 @@ space_curves_digicam_turntable_medium_sized(
 
 // To see how the system is modeled, check out my notes "Rewriting Geometry jan
 // 11"
-vpgl_perspective_camera<double> * dbdif_turntable::
+vpgl_perspective_camera<double> * bdifd_turntable::
 camera_ctspheres(
     unsigned frm_index,
     const vpgl_calibration_matrix<double> &K)
@@ -1628,7 +1628,7 @@ camera_ctspheres(
 // \param[out] m : internal 3x3 calibration matrix
 // \param[in] x_max_scaled: number of columns of image; currently aspect ratio
 // is equal to the original CT Sphere data's aspect ratio (4000x2096)
-void dbdif_turntable::
+void bdifd_turntable::
 internal_calib_ctspheres(vnl_double_3x3 &m, double x_max_scaled)
 {
 
@@ -1672,7 +1672,7 @@ internal_calib_ctspheres(vnl_double_3x3 &m, double x_max_scaled)
 
 
 //: From david statue dataset 02-26-2006; Calib_Results.mat + base_extrinsics_rect.mat
-void dbdif_turntable::
+void bdifd_turntable::
 internal_calib_olympus(vnl_double_3x3 &m, double x_max_scaled, unsigned  crop_x, unsigned  crop_y)
 {
 //  double const nx = 4000.0; /* number of cols (artifact 2)*/
@@ -1715,14 +1715,14 @@ internal_calib_olympus(vnl_double_3x3 &m, double x_max_scaled, unsigned  crop_x,
 }
 
 //: \param[in] theta : rotation angle in degrees
-vpgl_perspective_camera<double> * dbdif_turntable::
+vpgl_perspective_camera<double> * bdifd_turntable::
 camera_olympus(
     double theta,
     const vpgl_calibration_matrix<double> &K)
 {
 
   double camera_to_object = 1.128036301860739e+03;
-  dbdif_vector_3d Tckk = camera_to_object * dbdif_vector_3d(0, 0.12722239600987, 0.99187421680045);
+  bdifd_vector_3d Tckk = camera_to_object * bdifd_vector_3d(0, 0.12722239600987, 0.99187421680045);
 
   double roll = -3.961405930732378e-15;
   double pitch = -3.02282467212289;
@@ -1806,21 +1806,21 @@ camera_olympus(
   vnl_double_3x3 R_world_to_cam2 =  Rckk * R_W0_to_Wtheta;
 
 
-  dbdif_vector_3d C2_in_world = - Rot_theta * Rckk.transpose() * Tckk;
+  bdifd_vector_3d C2_in_world = - Rot_theta * Rckk.transpose() * Tckk;
 
   vgl_point_3d<double> C2_in_world_vgl(C2_in_world[0], C2_in_world[1], C2_in_world[2]);
 
-  vgl_h_matrix_3d<double> Rhmg(R_world_to_cam2,dbdif_vector_3d(0,0,0));
+  vgl_h_matrix_3d<double> Rhmg(R_world_to_cam2,bdifd_vector_3d(0,0,0));
 
   return new vpgl_perspective_camera<double>(K, C2_in_world_vgl, vgl_rotation_3d<double>(Rhmg));
 }
 
-//: convert from vcl_vector<dbdif_3rd_order_point_2d> 
+//: convert from vcl_vector<bdifd_3rd_order_point_2d> 
 // to vcl_vector<vsol_line_2d_sptr>  and perturb if wanted
-void dbdif_data::
+void bdifd_data::
 get_lines(
     vcl_vector<vsol_line_2d_sptr> &lines,
-    const vcl_vector<dbdif_3rd_order_point_2d> &C_subpixel,
+    const vcl_vector<bdifd_3rd_order_point_2d> &C_subpixel,
     bool do_perturb,
     double pert_pos,
     double pert_tan
@@ -1832,9 +1832,9 @@ get_lines(
     vsol_point_2d_sptr middle = new vsol_point_2d(C_subpixel[i].gama[0], C_subpixel[i].gama[1]);
 
     if (do_perturb) {
-      middle->set_x(dbdif_analytic::perturb(middle->x(),pert_pos));
-      middle->set_y(dbdif_analytic::perturb(middle->y(),pert_pos));
-      dbdif_analytic::perturb(tan, pert_tan);
+      middle->set_x(bdifd_analytic::perturb(middle->x(),pert_pos));
+      middle->set_y(bdifd_analytic::perturb(middle->y(),pert_pos));
+      bdifd_analytic::perturb(tan, pert_tan);
     }
     vsol_line_2d_sptr line = new vsol_line_2d(tan,middle);
     lines[i] = line;
@@ -1843,18 +1843,18 @@ get_lines(
 
 //: \param[in] dpos : how much to perturb position
 //: \param[in] dtan : how much to perturb orientation (deg)
-void dbdif_data::
+void bdifd_data::
 get_circle_edgels(
     double radius, 
     vcl_vector<vsol_line_2d_sptr> &lines,
-    vcl_vector<dbdif_3rd_order_point_2d> &C_subpixel,
+    vcl_vector<bdifd_3rd_order_point_2d> &C_subpixel,
     bool do_perturb,
     double pert_pos,
     double pert_tan
     )
 {
   // transl. big enough so all coordinates are positive
-  dbdif_vector_2d translation(radius,radius);
+  bdifd_vector_2d translation(radius,radius);
 
   double dtheta = (vcl_asin(vcl_sqrt(2.)/(2.*radius)) );
 
@@ -1865,30 +1865,30 @@ get_circle_edgels(
   }
 
   vcl_vector<double> theta;
-  vcl_vector<dbdif_3rd_order_point_2d> C;
-  dbdif_analytic::circle_curve( radius, translation, C, theta, 0, dtheta, 360);
+  vcl_vector<bdifd_3rd_order_point_2d> C;
+  bdifd_analytic::circle_curve( radius, translation, C, theta, 0, dtheta, 360);
 
-  dbdif_analytic::limit_distance(C, C_subpixel);
+  bdifd_analytic::limit_distance(C, C_subpixel);
 
-  dbdif_data::get_lines(lines, C_subpixel, do_perturb, pert_pos, pert_tan);
+  bdifd_data::get_lines(lines, C_subpixel, do_perturb, pert_pos, pert_tan);
 }
 
 
 //: \param[in] dpos : how much to perturb position
 //: \param[in] dtan : how much to perturb orientation (deg)
-void dbdif_data::
+void bdifd_data::
 get_ellipse_edgels(
     double ra, 
     double rb, 
     vcl_vector<vsol_line_2d_sptr> &lines,
-    vcl_vector<dbdif_3rd_order_point_2d> &C_subpixel,
+    vcl_vector<bdifd_3rd_order_point_2d> &C_subpixel,
     bool do_perturb,
     double pert_pos,
     double pert_tan
     )
 {
   // transl. big enough so all coordinates are positive
-  dbdif_vector_2d translation(ra,rb);
+  bdifd_vector_2d translation(ra,rb);
 
   double dtheta = (vcl_asin(vcl_sqrt(2.)/(2.*vcl_max(ra,rb))) );
   dtheta /= 10.0; // XXX
@@ -1900,18 +1900,18 @@ get_ellipse_edgels(
   }
 
   vcl_vector<double> theta;
-  vcl_vector<dbdif_3rd_order_point_2d> C;
-  dbdif_analytic::ellipse(ra, rb, translation, C, theta, 0, dtheta, 360);
+  vcl_vector<bdifd_3rd_order_point_2d> C;
+  bdifd_analytic::ellipse(ra, rb, translation, C, theta, 0, dtheta, 360);
 
   vcl_cout << "Before limit distance: " << C.size() << vcl_endl;
-  dbdif_analytic::limit_distance(C, C_subpixel);
+  bdifd_analytic::limit_distance(C, C_subpixel);
   vcl_cout << "After limit distance: " << C_subpixel.size() << vcl_endl;
 
-  dbdif_data::get_lines(lines, C_subpixel, do_perturb, pert_pos, pert_tan);
+  bdifd_data::get_lines(lines, C_subpixel, do_perturb, pert_pos, pert_tan);
 }
 
-vgl_point_3d<double> dbdif_data::
-get_point_crv3d(const vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d, unsigned i)
+vgl_point_3d<double> bdifd_data::
+get_point_crv3d(const vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > &crv3d, unsigned i)
 {
 
   unsigned idx=0;
@@ -1939,7 +1939,7 @@ get_point_crv3d(const vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > &crv3d, 
 //
 // \param[in] view_angles : the angle of each view, in degrees.
 //
-void dbdif_data::
+void bdifd_data::
 get_digital_camera_point_dataset(
     vcl_vector<vpgl_perspective_camera<double> > *pcams, 
     vcl_vector<vcl_vector<vgl_point_2d<double> > > *pimage_pts, 
@@ -1957,20 +1957,20 @@ get_digital_camera_point_dataset(
   double x_max_scaled = 500;
 
   vnl_double_3x3 Kmatrix;
-  dbdif_turntable::internal_calib_olympus(Kmatrix, x_max_scaled, crop_origin_x, crop_origin_y);
+  bdifd_turntable::internal_calib_olympus(Kmatrix, x_max_scaled, crop_origin_x, crop_origin_y);
   vpgl_calibration_matrix<double> K(Kmatrix);
 
   for (unsigned v=0; v < view_angles.size(); ++v) {
     vpgl_perspective_camera<double> *P;
-    P = dbdif_turntable::camera_olympus(view_angles[v], K);
+    P = bdifd_turntable::camera_olympus(view_angles[v], K);
     cams.push_back(*P);
     delete P;
   }
 
   // Extracts list of 3D point positions
   {
-  vcl_vector<vcl_vector<dbdif_3rd_order_point_3d> > crv3d;
-  dbdif_data::space_curves_olympus_turntable( crv3d );
+  vcl_vector<vcl_vector<bdifd_3rd_order_point_3d> > crv3d;
+  bdifd_data::space_curves_olympus_turntable( crv3d );
 
 
   unsigned npts = 0;

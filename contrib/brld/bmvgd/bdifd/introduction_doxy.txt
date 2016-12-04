@@ -1,5 +1,5 @@
 // The following text is included in the main documentation page by doxygen
-/*! \mainpage dbdif : Brown Multiview Differential Geometry Library
+/*! \mainpage bdifd : Brown Multiview Differential Geometry Library
 *
 * \section introduction Introduction
 ** 
@@ -17,9 +17,9 @@
 * to pre-calibrate their cameras and only consider rotations and translations,
 * in which case the code without intrinsic parameters can be used.
 * 
-* \todo Clean up and redesign the library, and rename the old one as dbdif1
+* \todo Clean up and redesign the library, and rename the old one as bdifd1
 *
-* \todo The methods in dbdif_util are not all needed, and can be moved to an
+* \todo The methods in bdifd_util are not all needed, and can be moved to an
 * utilities library.
 *
 */

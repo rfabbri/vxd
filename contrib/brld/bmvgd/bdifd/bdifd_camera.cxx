@@ -1,6 +1,6 @@
-#include "dbdif_camera.h"
+#include "bdifd_camera.h"
 
-void dbdif_camera::
+void bdifd_camera::
 compute_explicit_params()
 {
   // Cache calib matrix as vnl_matrix
@@ -42,8 +42,8 @@ compute_explicit_params()
 }
 
 
-dbdif_vector_2d  dbdif_camera::
-project_to_image(const dbdif_vector_3d &Gamma) const
+bdifd_vector_2d  bdifd_camera::
+project_to_image(const bdifd_vector_3d &Gamma) const
 { 
 
   vgl_homg_point_3d<double> point3d(Gamma(0),Gamma(1), Gamma(2));
@@ -51,11 +51,11 @@ project_to_image(const dbdif_vector_3d &Gamma) const
   vgl_homg_point_2d<double> point2d = Pr_.project(point3d);
 
   if (point2d.ideal(1e-10)) {
-    vcl_cout << "Warning: dbdif_camera::project_to_image : infinite projection\n";
+    vcl_cout << "Warning: bdifd_camera::project_to_image : infinite projection\n";
     vcl_cout << "         point3d: " << point3d << "; point2d: " << point2d << vcl_endl;
   }
 
-  dbdif_vector_2d p2dv;
+  bdifd_vector_2d p2dv;
 
   p2dv[0] = point2d.x()/point2d.w();
   p2dv[1] = point2d.y()/point2d.w();
@@ -63,15 +63,15 @@ project_to_image(const dbdif_vector_3d &Gamma) const
   return p2dv;
 }
 
-bool dbdif_camera::
+bool bdifd_camera::
 project_1st_order_to_image(
-    const dbdif_1st_order_point_3d &p3d, 
-    dbdif_1st_order_point_2d *pimg_ptr) const
+    const bdifd_1st_order_point_3d &p3d, 
+    bdifd_1st_order_point_2d *pimg_ptr) const
 {
-  dbdif_1st_order_point_2d &pimg = *pimg_ptr;
+  bdifd_1st_order_point_2d &pimg = *pimg_ptr;
 
   // FIXME, hack, just running 3rd order code and using only 1st order results
-  dbdif_3rd_order_point_3d Prec;
+  bdifd_3rd_order_point_3d Prec;
 
   Prec.Gama = p3d.Gama;
   Prec.T = p3d.T;
@@ -87,36 +87,36 @@ project_1st_order_to_image(
 //\param[out] stat : false if some geometrical degeneracy occurred. In this
 //case, differential-geometric results are undefined.
 //
-dbdif_3rd_order_point_2d dbdif_camera::
-project_to_image(const dbdif_3rd_order_point_3d &p3d, bool *stat) const
+bdifd_3rd_order_point_2d bdifd_camera::
+project_to_image(const bdifd_3rd_order_point_3d &p3d, bool *stat) const
 {
   *stat=true;
 
-  dbdif_3rd_order_point_2d pimg;
+  bdifd_3rd_order_point_2d pimg;
 
   //: Project point
-  dbdif_vector_2d uv = project_to_image(p3d.Gama);
+  bdifd_vector_2d uv = project_to_image(p3d.Gama);
 
   pimg.gama[0] = uv[0];
   pimg.gama[1] = uv[1];
   pimg.gama[2] = 0;
 
   //: Project tangent + normal
-  dbdif_3rd_order_point_2d pw; //:< normalized image plane geometry in world coordinates
+  bdifd_3rd_order_point_2d pw; //:< normalized image plane geometry in world coordinates
 
   *stat = project_3rd(p3d, &pw);
 
   pimg.valid = pw.valid;
 
-  dbdif_vector_3d t_pcam;
+  bdifd_vector_3d t_pcam;
   world_to_cam_vector(pw.t, &t_pcam);
 
-  dbdif_vector_3d n_pcam_3dconv;
+  bdifd_vector_3d n_pcam_3dconv;
   world_to_cam_vector(pw.n, &n_pcam_3dconv);
 
   // sign: we now have 3rd component 0, so we transition to 2D convention of n being
   // anti-cw rotation:
-  dbdif_vector_3d n_pcam;
+  bdifd_vector_3d n_pcam;
   n_pcam[0] = -t_pcam[1];
   n_pcam[1] =  t_pcam[0];
   n_pcam[2] =  0;
@@ -130,16 +130,16 @@ project_to_image(const dbdif_3rd_order_point_3d &p3d, bool *stat) const
   }
 
 #ifndef NDEBUG
-  if (!dbdif_util::near_zero(dot_product(n_pcam, t_pcam),1e-6))
-    if (dbdif_util::near_zero(dot_product(pw.n, pw.t),1e-6))
+  if (!bdifd_util::near_zero(dot_product(n_pcam, t_pcam),1e-6))
+    if (bdifd_util::near_zero(dot_product(pw.n, pw.t),1e-6))
       vcl_cout << ">>> Pau em WORLD TO CAM vector! " << dot_product(pw.n, pw.t) <<"\n";
 #endif
 
-  dbdif_vector_2d t_pcam_2; 
+  bdifd_vector_2d t_pcam_2; 
   t_pcam_2[0] = t_pcam[0];
   t_pcam_2[1] = t_pcam[1];
 
-  dbdif_vector_2d n_pcam_2; 
+  bdifd_vector_2d n_pcam_2; 
   n_pcam_2[0] = n_pcam[0];
   n_pcam_2[1] = n_pcam[1];
 
@@ -151,12 +151,12 @@ project_to_image(const dbdif_3rd_order_point_3d &p3d, bool *stat) const
   L(1,1) = K_(1,1);
   L(1,0) = 0;
 
-  dbdif_vector_2d timg_2, nimg_2;
+  bdifd_vector_2d timg_2, nimg_2;
 
-  bool ret = dbdif_frenet::linear_transform(n_pcam_2, t_pcam_2, k_pcam, kdot_pcam, &(pimg.k), &(pimg.kdot),
+  bool ret = bdifd_frenet::linear_transform(n_pcam_2, t_pcam_2, k_pcam, kdot_pcam, &(pimg.k), &(pimg.kdot),
       &timg_2, &nimg_2, L);
 
-//  if (!dbdif_util::near_zero((Rot*timg_2 - pimg.t).two_norm(), 1e-8))
+//  if (!bdifd_util::near_zero((Rot*timg_2 - pimg.t).two_norm(), 1e-8))
 //    vcl_cout << "Linear transform invalid in project to image\n";
 
   *stat = *stat && ret;
@@ -175,30 +175,30 @@ project_to_image(const dbdif_3rd_order_point_3d &p3d, bool *stat) const
 
 //: project 3D 2nd order intrinsics into image1 
 // 2d frame1 is still in world coodinates
-bool dbdif_camera::
-project_k(const dbdif_2nd_order_point_3d &Frame, dbdif_2nd_order_point_2d *frame1) const
+bool bdifd_camera::
+project_k(const bdifd_2nd_order_point_3d &Frame, bdifd_2nd_order_point_2d *frame1) const
 {
   double lambda_dummy;
   return project_k(Frame, frame1, &lambda_dummy);
 }
 
-bool dbdif_camera::
-project_k(const dbdif_2nd_order_point_3d &Frame, dbdif_2nd_order_point_2d *frame1, double *plambda) const
+bool bdifd_camera::
+project_k(const bdifd_2nd_order_point_3d &Frame, bdifd_2nd_order_point_2d *frame1, double *plambda) const
 {
   bool retval=true;
   // Compute gama
 
-  dbdif_vector_3d Gama_i = Frame.Gama - c;
+  bdifd_vector_3d Gama_i = Frame.Gama - c;
 
   double lambda = *plambda = dot_product(Gama_i,F);
-  if (dbdif_util::near_zero(lambda,1e-8)) {
+  if (bdifd_util::near_zero(lambda,1e-8)) {
     frame1->valid = false;
     retval = false;
   }
   frame1->gama = Gama_i/lambda;
 
   double g = speed(Frame,lambda);
-  if (dbdif_util::near_zero(g,1e-8)) {
+  if (bdifd_util::near_zero(g,1e-8)) {
     frame1->valid = false;
     retval=false;
   }
@@ -209,12 +209,12 @@ project_k(const dbdif_2nd_order_point_3d &Frame, dbdif_2nd_order_point_2d *frame
   frame1->n = vnl_cross_3d(frame1->t,F);
 
 #ifndef NDEBUG
-  if (!dbdif_util::near_zero(dot_product(frame1->n,frame1->t))) {
+  if (!bdifd_util::near_zero(dot_product(frame1->n,frame1->t))) {
     vcl_cerr << "Cross product imprecision\n";
   }
 #endif
 
-  if (dbdif_util::near_zero(g*g*lambda,1e-8)) {
+  if (bdifd_util::near_zero(g*g*lambda,1e-8)) {
     frame1->valid = false;
     retval=false;
   }
@@ -235,8 +235,8 @@ project_k(const dbdif_2nd_order_point_3d &Frame, dbdif_2nd_order_point_2d *frame
 }
 
 //: Derivative of speed of image curve wrt. arclenght of space curve
-double dbdif_camera::
-tangential_accel(const dbdif_2nd_order_point_3d *Frm, double lambda, double lambda_dot, double g, const dbdif_vector_3d &t) const
+double bdifd_camera::
+tangential_accel(const bdifd_2nd_order_point_3d *Frm, double lambda, double lambda_dot, double g, const bdifd_vector_3d &t) const
 {
   double dg;
 
@@ -249,8 +249,8 @@ tangential_accel(const dbdif_2nd_order_point_3d *Frm, double lambda, double lamb
 }
 
 //: project 3rd order measures. Result is still in world coordinates & units
-bool dbdif_camera::
-project_3rd(const dbdif_3rd_order_point_3d &Fr, dbdif_3rd_order_point_2d *frame1) const
+bool bdifd_camera::
+project_3rd(const bdifd_3rd_order_point_3d &Fr, bdifd_3rd_order_point_2d *frame1) const
 {
   bool retval=true;
   double lambda;
@@ -269,15 +269,15 @@ project_3rd(const dbdif_3rd_order_point_3d &Fr, dbdif_3rd_order_point_2d *frame1
   double lambda_dot = dot_product(Fr.T,F);
   double gprime = tangential_accel(&Fr,lambda, lambda_dot,g,frame1->t);
 
-  dbdif_vector_3d U = vnl_cross_3d(frame1->gama,frame1->t);
-  dbdif_vector_3d V = Fr.Kdot * Fr.N  +  Fr.K * Fr.Tau * Fr.B;
+  bdifd_vector_3d U = vnl_cross_3d(frame1->gama,frame1->t);
+  bdifd_vector_3d V = Fr.Kdot * Fr.N  +  Fr.K * Fr.Tau * Fr.B;
   frame1->kdot   = dot_product(V,U);
   frame1->kdot  /= lambda*g*g*g*dot_product(frame1->n,U);
   frame1->kdot  -= 3*frame1->k*( lambda_dot/(lambda*g)  + gprime/(g*g));
   return retval;
 }
 
-void dbdif_camera::
+void bdifd_camera::
 print(vcl_ostream &os) const
 {
 //  os << Pr;

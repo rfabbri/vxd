@@ -1,16 +1,16 @@
-// This is brcv/seg/dbdet/pro/dbdif_edgel_data_process.cxx
+// This is brcv/seg/dbdet/pro/bdifd_edgel_data_process.cxx
 
 //:
 // \file
 
-#include "dbdif_edgel_data_process.h"
-#include <dbdif/dbdif_analytic.h>
-#include <dbdif/algo/dbdif_data.h>
+#include "bdifd_edgel_data_process.h"
+#include <bdifd/bdifd_analytic.h>
+#include <bdifd/algo/bdifd_data.h>
 
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage_sptr.h>
 
-#include <dbdif/pro/dbdif_3rd_order_geometry_storage.h>
+#include <bdifd/pro/bdifd_3rd_order_geometry_storage.h>
 
 #include <vcl_vector.h>
 #include <vcl_string.h>
@@ -21,7 +21,7 @@
 #include <vsol/vsol_line_2d_sptr.h>
 
 //: Constructor
-dbdif_edgel_data_process::dbdif_edgel_data_process()
+bdifd_edgel_data_process::bdifd_edgel_data_process()
 {
   if( 
       !parameters()->add( "Circle?"   , "-circle" , true ) ||
@@ -39,22 +39,22 @@ dbdif_edgel_data_process::dbdif_edgel_data_process()
 
 
 //: Destructor
-dbdif_edgel_data_process::~dbdif_edgel_data_process()
+bdifd_edgel_data_process::~bdifd_edgel_data_process()
 {
 }
 
 
 //: Clone the process
 bpro1_process*
-dbdif_edgel_data_process::clone() const
+bdifd_edgel_data_process::clone() const
 {
-  return new dbdif_edgel_data_process(*this);
+  return new bdifd_edgel_data_process(*this);
 }
 
 
 //: Return the name of this process
 vcl_string
-dbdif_edgel_data_process::name()
+bdifd_edgel_data_process::name()
 {
   return "Edgel Test Data";
 }
@@ -62,7 +62,7 @@ dbdif_edgel_data_process::name()
 
 //: Return the number of input frame for this process
 int
-dbdif_edgel_data_process::input_frames()
+bdifd_edgel_data_process::input_frames()
 {
   return 1;
 }
@@ -70,14 +70,14 @@ dbdif_edgel_data_process::input_frames()
 
 //: Return the number of output frames for this process
 int
-dbdif_edgel_data_process::output_frames()
+bdifd_edgel_data_process::output_frames()
 {
   return 1;
 }
 
 
 //: Provide a vector of required input types
-vcl_vector< vcl_string > dbdif_edgel_data_process::get_input_type()
+vcl_vector< vcl_string > bdifd_edgel_data_process::get_input_type()
 {
   vcl_vector< vcl_string > to_return;
   return to_return;
@@ -85,7 +85,7 @@ vcl_vector< vcl_string > dbdif_edgel_data_process::get_input_type()
 
 
 //: Provide a vector of output types
-vcl_vector< vcl_string > dbdif_edgel_data_process::get_output_type()
+vcl_vector< vcl_string > bdifd_edgel_data_process::get_output_type()
 {
   vcl_vector<vcl_string > to_return;
   to_return.push_back( "vsol2D" );
@@ -96,11 +96,11 @@ vcl_vector< vcl_string > dbdif_edgel_data_process::get_output_type()
 
 //: Execute the process
 bool
-dbdif_edgel_data_process::execute()
+bdifd_edgel_data_process::execute()
 {
   clear_output();
 
-  vcl_vector<dbdif_3rd_order_point_2d> C_subpixel;
+  vcl_vector<bdifd_3rd_order_point_2d> C_subpixel;
   vcl_vector<vsol_line_2d_sptr> lines;
 
   //get the parameters
@@ -121,14 +121,14 @@ dbdif_edgel_data_process::execute()
     double radius;
     parameters()->get_value( "-radius", radius);
 
-    dbdif_data::get_circle_edgels(radius, lines, C_subpixel, do_perturb, dpos, dtan);
+    bdifd_data::get_circle_edgels(radius, lines, C_subpixel, do_perturb, dpos, dtan);
 
   } else if (do_ellipse) {
     double ra, rb;
     parameters()->get_value( "-a", ra);
     parameters()->get_value( "-b", rb);
     
-    dbdif_data::get_ellipse_edgels(ra, rb, lines, C_subpixel, do_perturb, dpos, dtan);
+    bdifd_data::get_ellipse_edgels(ra, rb, lines, C_subpixel, do_perturb, dpos, dtan);
   }
 
   
@@ -147,7 +147,7 @@ dbdif_edgel_data_process::execute()
 
 
     // create the output storage class
-    dbdif_3rd_order_geometry_storage_sptr output_gt = dbdif_3rd_order_geometry_storage_new();
+    bdifd_3rd_order_geometry_storage_sptr output_gt = bdifd_3rd_order_geometry_storage_new();
     output_gt->set_c(C_subpixel);
     output_data_[0].push_back(output_gt);
   
@@ -155,7 +155,7 @@ dbdif_edgel_data_process::execute()
 }
 
 bool
-dbdif_edgel_data_process::finish()
+bdifd_edgel_data_process::finish()
 {
   return true;
 }
