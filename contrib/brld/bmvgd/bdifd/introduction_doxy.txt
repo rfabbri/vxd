@@ -4,7 +4,21 @@
 * \section introduction Introduction
 ** 
 * This library implements methods for multiview differential geometry of curves
-* as in the paper:
+* as in the papers:
+*
+* @article{Fabbri:Kimia:IJCV2016,
+*  title={Multiview Differential Geometry of Curves},
+*  author={Fabbri, Ricardo and Kimia, Benjamin B},
+*  journal={International Journal of Computer Vision},
+*  pages={1--23},
+*  year={2016},
+*  volume = {117},
+*  doi="10.1007/s11263-016-0912-7",
+*  url="http://dx.doi.org/10.1007/s11263-016-0912-7",
+*  publisher={Springer}
+* }
+*
+* And
 *
 * R. Fabbri, B. B. Kimia, "High-Order Differential geometry of Curves for
 * Multiview Reconstruction and Matching", EMMCVPR 2005, Lecture Notes in

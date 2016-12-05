@@ -1,7 +1,12 @@
 //:
-//\file Tests differential-geometric formulas as in the paper:
+//\file Tests differential-geometric formulas as in the papers:
+//
+// "Multiview Differential Geometry of Curves", Ricardo Fabbri and Benjamin
+// Kimia IJCV'2016
+//
 // "High-Order Differential geometry of Curves for Multiview Reconstruction 
 // and Matching", Ricardo Fabbri & Benjamin Kimia, EMMCVPR'05
+//
 //
 //\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri.github.io)
 //

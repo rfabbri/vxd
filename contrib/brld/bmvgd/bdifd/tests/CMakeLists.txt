@@ -1,4 +1,4 @@
-# This is brcv/mvg/bdifd/tests/CMakeLists.txt
+# This is brld/bmvgd/bdifd/tests/CMakeLists.txt
 
 add_executable ( bdifd_test_all
    # Driver source and utilities
