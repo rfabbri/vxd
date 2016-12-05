@@ -18,7 +18,18 @@ if(POLICY CMP0033)
   # and https://github.com/vxl/vxl/pull/122
   cmake_policy(SET CMP0033 OLD)
 endif()
-# TODO perhaps copy over the remaining ones from vxl
+# Use @rpath on OS X
+if( POLICY CMP0042 )
+  cmake_policy(SET CMP0042 NEW)
+endif()
+# Honor visibility properties for all target
+if( POLICY CMP0063 )
+  cmake_policy(SET CMP0063 NEW)
+endif()
+# Honor visibility properties for static libraries
+if( POLICY CMP0063 )
+  cmake_policy(SET CMP0063 NEW)
+endif()
 
 project(vxd)
 
