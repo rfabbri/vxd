@@ -1,0 +1,19 @@
+// The following text is included in the main documentation page by doxygen
+/*! \mainpage vidpro1 : Video Processing Library
+* This library provides a generic framework for applying video processing algorithms.
+*
+* \section vidpro1_overview Overview
+*
+* The vidpro1_process_manager is responsible for managing the flow of data to and from
+* arbitrary video processing algorithms.  The vidpro1_repository is responsible for
+* storing and managing all of the data used as input to or output from a video process.
+* Data within the repository is stored as collections of smart pointers to 
+* bpro1_storage objects.  The bpro1_storage class is an abstract base class for 
+* derived storage classes that may store any type of data.  The bpro1_process class
+* is an abstract base class for derived process classes that execute various algorithms
+* Thus, a bpro1_storage class is a wrapper around your data structures while a
+* bpro1_process is a wrapper around your algorithm.  Additional parameters to a
+* process are managed by the bpro1_parameters class. 
+*
+*
+*/
