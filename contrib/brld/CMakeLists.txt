@@ -30,3 +30,11 @@ add_subdirectory(bbasd)
 
 # brown multiview geometry (development version)
 add_subdirectory(bmvgd)
+
+# Old Brown Process Library 1 (development version)
+add_subdirectory(bpro1d)
+
+# Old Video Process Library 1 (development version)
+#add_subdirectory(vidpro1d)
+
+
