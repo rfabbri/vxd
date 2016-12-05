@@ -1,9 +1,9 @@
 #ifndef bdifd_3rd_order_geometry_storage_sptr_h
 #define bdifd_3rd_order_geometry_storage_sptr_h
 
-#include <bpro1/bpro1_storage_sptr.h>
+#include <bpro1d/bpro1d_storage_sptr.h>
 
 class bdifd_3rd_order_geometry_storage;
-typedef bpro1_storage_sptr_t<bdifd_3rd_order_geometry_storage> bdifd_3rd_order_geometry_storage_sptr;
+typedef bpro1d_storage_sptr_t<bdifd_3rd_order_geometry_storage> bdifd_3rd_order_geometry_storage_sptr;
 
 #endif // bdifd_3rd_order_geometry_storage_sptr_h
