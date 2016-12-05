@@ -8,8 +8,7 @@
 //
 //  A process is an object that wraps an algorithm to create
 //  standardized interface.
-// \author
-//   J.L. Mundy
+// \author Based on original code by J.L. Mundy
 //
 // \verbatim
 //  Modifications:

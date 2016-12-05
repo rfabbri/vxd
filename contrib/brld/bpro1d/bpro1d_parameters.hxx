@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Templated code for bpro1d parameters.
-// \author Matt Leotta, (mleotta@lems.brown.edu)
+// \author Based on original code by Matt Leotta
 // \date 7/2/2004
 
 

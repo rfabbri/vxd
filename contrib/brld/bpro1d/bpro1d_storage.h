@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief The base storage class
-// \author Mark Johnson (mrj@lems.brown.edu)
+// \author Based on original code by Mark Johnson
 // \date 7/15/03
 //
 //

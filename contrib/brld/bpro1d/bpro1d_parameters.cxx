@@ -1,4 +1,4 @@
-// This is brl/bpro1d/bpro1d_parameters.cxx
+// This is brld/bpro1d/bpro1d_parameters.cxx
 
 //:
 // \file

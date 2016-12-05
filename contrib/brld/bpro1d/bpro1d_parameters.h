@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief classes to represent parameters to bpro1d processes
-// \author Matt Leotta, (mleotta@lems.brown.edu)
+// \author based on original code by Matt Leotta
 // \date 7/1/2004
 //
 //

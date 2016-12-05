@@ -1,5 +1,5 @@
 // The following text is included in the main documentation page by doxygen
-/*! \mainpage bpro1d : Brown Process Library
+/*! \mainpage bpro1d : Brown Process Library (VXD development version)
 * This library provides a set of base classes for process, storage, and parameters object.
 *
 * \section bpro1d_overview Overview
