@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief The bvis1_add_menu 
-// \author Mark Johnson (mrj)
+// \author based on original code by Mark Johnson (mrj)
 // \date Fri Aug  8 10:33:39 EDT 2003
 //
 // This menu is designed to house menu actions that are 

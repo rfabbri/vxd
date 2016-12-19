@@ -7,7 +7,7 @@
 // \brief Computes VD edges on each video frame
 //
 // \author
-//   J.L. Mundy
+//   Based on original code by J.L. Mundy
 //
 // \verbatim
 //  Modifications:

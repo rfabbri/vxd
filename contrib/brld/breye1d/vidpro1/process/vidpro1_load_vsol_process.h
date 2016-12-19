@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process for loading vsols storages in binary format
-// \author Ricardo Fabbri
+// \author Ricardo Fabbri (rfabbri.github.io)
 // \date Fri Apr 28 2006
 //
 // \verbatim

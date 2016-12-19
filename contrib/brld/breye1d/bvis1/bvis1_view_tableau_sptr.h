@@ -3,7 +3,7 @@
 #define bvis1_view_tableau_sptr_h_
 //:
 // \file
-// \author Matt Leotta
+// \author Based on original cde by Matt Leotta
 // \date   10/13/04
 // \brief  Smart-pointer to a bvis1_view_tableau
 

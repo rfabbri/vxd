@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Process that computes absolute difference between frames
-// \author Vishal Jain (vj@lems.brown.edu)
+// \author based on original code by Vishal Jain
 // \date 11/11/03
 //
 // \verbatim

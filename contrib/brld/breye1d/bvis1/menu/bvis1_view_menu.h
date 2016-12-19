@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief The bvis1_video_menu 
-// \author Amir Tamrakar
+// \author based on original code by Amir Tamrakar
 // \date April 21, 2004
 //
 // This menu contains all the menus related to creating and managing multiple views of the data

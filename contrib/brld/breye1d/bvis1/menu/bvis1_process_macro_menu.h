@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief The bvis1_process_macro_menu 
-// \author Amir Tamrakar
+// \author based on original code by Amir Tamrakar
 // \date Nov 4, 2003
 //
 // \verbatim

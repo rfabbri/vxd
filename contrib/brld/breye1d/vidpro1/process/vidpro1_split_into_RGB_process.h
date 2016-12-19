@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Process that splits an RGB image into separate color channel images
-// \author Amir Tamrakar
+// \author Based on original code by Amir Tamrakar
 // \date 01/22/06
 //
 // \verbatim

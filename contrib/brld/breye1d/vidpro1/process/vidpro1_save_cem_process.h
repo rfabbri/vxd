@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process for saving geometry as .CEM contour files from the current frame
-// \author Amir Tamrakar
+// \author Based on original code by Amir Tamrakar
 // \date 06/06/04
 //
 // Note: It only saves contour type geometry, i.e., vsol2D_curve type and ignores the others

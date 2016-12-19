@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Process that converts an RGB image to a CIE-Lab image
-// \author Amir Tamrakar
+// \author Based on original code by Amir Tamrakar
 // \date 01/29/07
 //
 // \verbatim

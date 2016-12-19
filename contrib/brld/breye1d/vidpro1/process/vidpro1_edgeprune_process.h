@@ -6,7 +6,7 @@
 // \file
 // \brief Prune vtol or vsol contours (e.g. edge contours)
 //
-// \author Ozge C Ozcanli (ozge@lems.brown.edu)
+// \author based on original code by Ozge C Ozcanli
 // \date 05/13/04
 //
 // \verbatim

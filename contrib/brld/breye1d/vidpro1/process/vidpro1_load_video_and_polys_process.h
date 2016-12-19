@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief A process for loading a video into a series of frames together with segmented polygons in each frame
-// \author Ozge Can Ozcanli
+// \author Based on original code by Ozge Can Ozcanli
 // \date 2/1/06
 //
 // \verbatim

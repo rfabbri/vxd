@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process that averages (co-addition) a sequence of frames
-// \author J. L. Mundy 
+// \author based on original code by J. L. Mundy 
 // \date June 30, 2005
 //
 // \verbatim

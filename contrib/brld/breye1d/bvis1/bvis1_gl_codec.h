@@ -3,7 +3,7 @@
 #define bvis1_gl_codec_h
 //:
 // \file
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by Matt Leotta
 // \date 4/27/04
 //
 // \verbatim

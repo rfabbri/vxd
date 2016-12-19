@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief A process for saving a video into a series of frames
-// \author Vishal Jain
+// \author Based on original code by Vishal Jain
 // \date 04/23/05
 //
 // \verbatim

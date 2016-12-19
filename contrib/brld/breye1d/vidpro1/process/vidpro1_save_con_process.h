@@ -6,7 +6,7 @@
 // \file
 // \brief A process for saving geometry as .CON contour files from the current frame
 //        Exactly same as save_cem process
-// \author Ozge Can Ozcanli
+// \author Based on original code by Ozge Can Ozcanli
 // \date 07/07/04
 //
 // Note: It only saves contour type geometry, i.e., vsol2D_curve type and ignores the others

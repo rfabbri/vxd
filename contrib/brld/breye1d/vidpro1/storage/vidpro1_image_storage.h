@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief The vidpro1 storage class for an image
-// \author Mark Johnson (mrj@lems.brown.edu)
+// \author Based on original code by Mark Johnson
 // \date 7/15/03
 //
 //

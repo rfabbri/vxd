@@ -8,7 +8,7 @@
 // \brief A process for loading a sequence of images, given the folder containing
 //        the images and a file containing the list of image names (each line in
 //        the file contains the name of one image)
-// \author Nhon Trinh
+// \author Based on original code by Nhon Trinh
 // \date Sep 11, 2008
 //
 // \verbatim

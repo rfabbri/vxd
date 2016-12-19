@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Process that computes kl features and tracks them
-// \author Vishal Jain(vj@lems.brown.edu)
+// \author Based on original code by Vishal Jain
 // \date 11/11/03
 //
 // \verbatim

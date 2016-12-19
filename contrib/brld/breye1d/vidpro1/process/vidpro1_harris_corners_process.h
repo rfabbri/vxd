@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process that computes Harris Corners
-// \author Mark Johnson (mrj@lems.brown.edu)
+// \author  Based on original code by Mark Johnson
 // \date 7/21/03
 //
 // \verbatim

@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process for saving geometry as a .PS image from the current frame
-// \author Ozge Can Ozcanli
+// \author Based on original code by Ozge Can Ozcanli
 // \date 06/18/04
 //
 // Note: It only saves contour type geometry, i.e., vsol2D_curve type and ignores the others

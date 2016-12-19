@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Macros for use in a main function.
-// \author Matt Leotta, (mleotta@lems.brown.edu)
+// \author Bsased on original code by Matt Leotta
 // \date 2/4/04
 //
 // See examples\bvis1_brown_eyes_main.cxx

@@ -6,7 +6,7 @@
 // \file
 // \brief A class for mapping attributes to a style for display
 
-// \author J.L. Mundy
+// \author Based on original code by J.L. Mundy
 // \date November 7, 2005
 //
 // \verbatim

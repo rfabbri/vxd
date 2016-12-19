@@ -6,7 +6,7 @@
 // \file
 // \brief This file defines the displayer class that is responsible
 //        for generating a tableau out of vidpro1_vtol_storage_sptr.
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by Matt Leotta
 // \date 2/02/04 
 //
 // \verbatim

@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief A process for loading a .EDG file into the current frame
-// \author Amir Tamrakar
+// \author  Based on original code by Amir Tamrakar
 // \date 06/06/04
 //
 //

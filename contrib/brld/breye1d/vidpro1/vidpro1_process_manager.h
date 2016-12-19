@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief This file defines a class that manages processes run on a video
-// \author Amir Tamrakar
+// \author Based on original code by Amir Tamrakar
 // \date 10/27/03
 //
 // \verbatim

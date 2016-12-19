@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief A process for loading a video into a series of frames
-// \author Matt Leotta
+// \author  Based on original code by Matt Leotta
 // \date 1/27/04
 //
 // \verbatim

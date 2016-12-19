@@ -7,7 +7,7 @@
 // \brief This file defines the abstract base class for bvis1 displayers.
 //        A displayer takes a bpro1_storage_sptr and creates the appropriate
 //        vgui_tableau_sptr for display.
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by Matt Leotta
 // \date 10/30/03 
 //
 // \verbatim

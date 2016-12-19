@@ -1,6 +1,5 @@
 /*************************************************************************
- *    NAME: Mark Johnson
- *    USER: mrj
+ *    Based on original code by Mark Johnson (mrj)
  *    FILE: bvis1_brown_eyes_menu.cxx
  *    DATE: Thu Jul 17 14:25:19 2003
  *************************************************************************/

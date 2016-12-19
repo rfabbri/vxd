@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Process that computes horn_schunck optical flow image between frames
-// \author J.L. Mundy
+// \author Based on original code by  J.L. Mundy
 // \date June 28, 2005
 //
 // \verbatim

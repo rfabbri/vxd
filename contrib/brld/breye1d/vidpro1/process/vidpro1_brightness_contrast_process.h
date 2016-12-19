@@ -9,7 +9,7 @@
 //  A generic video processor that is called from the live_video_manager
 //  to carry out algorithms on the live video frames.
 // \author
-//   J.L. Mundy
+//   based on original code by J.L. Mundy
 //
 // \verbatim
 //  Modifications:

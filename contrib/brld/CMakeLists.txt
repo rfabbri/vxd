@@ -23,19 +23,13 @@ set( BRLD_INSTALL_INCLUDE_DIR
 # This is identical to BRLD_CMAKE_DIR.  Perhaps we should eliminate BRLD_MODULE_PATH?
 #set( BRLD_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/bmodsd )
 
-include_directories( ${BRLD_INCLUDE_DIR} )
+include_directories(${BRLD_INCLUDE_DIR})
 
 # basic services package (basic stuff that may not readily aspire to be in vxl/core)
 add_subdirectory(bbasd)
 
 # brown multiview geometry (development version)
 add_subdirectory(bmvgd)
-
-# Old Brown Process Library 1 (development version)
-add_subdirectory(bpro1)
-
-# Old Video Process Library 1 (development version)
-add_subdirectory(vidpro1)
 
 option(BUILD_BREYE1 "Build Old Brown Eyes" YES)
 if(BUILD_BREYE1)

@@ -7,7 +7,7 @@
 // \brief This file defines a class that stores smart pointers 
 //        to various types of data associated with the frames
 //        of a video sequence.
-// \author Mark Johnson (mrj)
+// \author Based on original code by Mark Johnson (mrj)
 // \date 7/15/03
 //
 // \verbatim

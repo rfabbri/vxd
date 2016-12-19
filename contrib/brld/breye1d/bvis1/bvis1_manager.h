@@ -5,12 +5,12 @@
 //:
 // \file
 // \brief This file defines a class that acts as a gui manager.
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by Matt Leotta
 // \date 10/30/03
 //
 // \verbatim
 //  Modifications
-//  \author Ozge Can Ozcanli (ozge@lems.brown.edu) added get_views() method
+//  \author Ozge Can Ozcanli added get_views() method
 //  \date 06/27/05 
 // \endverbatim
 

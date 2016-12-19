@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Process that converts RGB image to IHS image
-// \author Amir Tamrakar
+// \author Based on original code by Amir Tamrakar
 // \date 10/31/05
 //
 // \verbatim

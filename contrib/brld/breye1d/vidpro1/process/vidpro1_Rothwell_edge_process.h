@@ -6,7 +6,7 @@
 // \file
 // \brief Computes Rothwell-Mundy edges on each video frame
 //
-// \author Amir Tamrakar
+// \author Based on original code by Amir Tamrakar
 // \date 03/29/06
 //
 // \verbatim

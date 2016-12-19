@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief The bvis1_add_menu 
-// \author Mark Johnson (mrj)
+// \author Based on original code by Mark Johnson (mrj)
 // \date Thu Jul 17 14:41:27 EDT 2003
 //
 // \verbatim

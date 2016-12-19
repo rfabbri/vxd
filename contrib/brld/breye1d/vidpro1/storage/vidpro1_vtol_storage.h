@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief The vidpro1 storage class for vtol objects
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by Matt Leotta
 // \date 1/30/04
 //
 //

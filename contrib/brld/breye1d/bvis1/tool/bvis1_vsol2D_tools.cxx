@@ -1,6 +1,5 @@
 /*************************************************************************
- *    NAME: Mark Johnson
- *    USER: mrj
+ *    NAME: based on original code by Mark Johnson (mrj)
  *    FILE: bvis1_vsol2D_tools.cxx
  *    DATE: Thu Aug 14 15:33:32 2003
  *************************************************************************/

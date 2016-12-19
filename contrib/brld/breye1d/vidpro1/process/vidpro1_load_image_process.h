@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process for loading an image into a frame
-// \author Amir Tamrakar
+// \author  Based on original code by Amir Tamrakar
 // \date 06/06/04
 //
 // \verbatim

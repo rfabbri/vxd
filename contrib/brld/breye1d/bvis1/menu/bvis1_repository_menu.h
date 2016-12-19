@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief The bvis1_repository_menu 
-// \author Amir Tamrakar
+// \author based on original code by Amir Tamrakar
 // \date April 21, 2004
 //
 // This menu contains all menus to manage the repository

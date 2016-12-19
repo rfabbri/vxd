@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief This file defines vgui_command classes for bvis
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by Matt Leotta
 // \date 2/09/04
 //
 // Each class in this file is derived from vgui_command and

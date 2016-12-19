@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Tools that find correspondence between views
-// \author Matt Leotta, (mleotta@lems.brown.edu)
+// \author based on original code by Matt Leotta
 // \date 8/6/04
 //
 //

@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process that smooths each image with a Gaussian filter
-// \author Mark Johnson (mrj@lems.brown.edu)
+// \author Based on original code by Mark Johnson
 // \date 8/27/03
 //
 // \verbatim

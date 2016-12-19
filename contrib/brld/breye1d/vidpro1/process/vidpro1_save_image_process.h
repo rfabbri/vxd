@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief A process for saving an image
-// \author Matt Leotta
+// \author Based on original code by Matt Leotta
 // \date 5/5/05
 //
 // \verbatim

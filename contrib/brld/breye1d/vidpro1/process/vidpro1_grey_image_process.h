@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Process that converts an image into grey-scale
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by Matt Leotta
 // \date 12/16/03
 //
 // \verbatim

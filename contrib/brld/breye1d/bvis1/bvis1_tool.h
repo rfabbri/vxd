@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief To debug the scurve computations from shock edges 
-// \author Mark Johnson (mrj)
+// \author Based on original code by Mark Johnson (mrj)
 // \date Thu Aug 14 13:39:20 EDT 2003
 //
 // \verbatim

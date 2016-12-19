@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Tools that work on any soview object
-// \author Matt Leotta, (mleotta@lems.brown.edu)
+// \author Based on original code by Matt Leotta
 // \date 2/6/04
 //
 // This file contains bvis1_translate_tool

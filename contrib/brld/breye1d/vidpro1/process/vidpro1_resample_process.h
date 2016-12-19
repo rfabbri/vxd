@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process that resamples an image
-// \author Matt Leotta
+// \author Based on original code by  Matt Leotta
 // \date 8/26/05
 //
 // \verbatim

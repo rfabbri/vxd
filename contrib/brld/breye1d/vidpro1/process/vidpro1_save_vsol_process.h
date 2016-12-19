@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process for saving vsols storages in binary format
-// \author Ricardo Fabbri
+// \author Ricardo Fabbri (rfabbri.github.io)
 // \date Fri Apr 28 12:22:38 EDT 2006
 //
 // \verbatim

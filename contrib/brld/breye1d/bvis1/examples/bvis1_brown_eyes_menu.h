@@ -1,5 +1,5 @@
 /**************************************************************/
-/*  Name: Mark Johnson (mrj)
+/*  Name: Based on original code by Mark Johnson (mrj)
 //  File: bvis1_brown_eyes_menu.h
 //  Asgn: bvis
 //  Date: Thu Jul 17 14:25:11 EDT 2003

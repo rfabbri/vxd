@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief  Tableau at the root of each view of the data in bvis
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by Matt Leotta
 // \date 10/13/04
 //
 //  Contains classes: bvis1_view_tableau  bvis1_view_tableau_new

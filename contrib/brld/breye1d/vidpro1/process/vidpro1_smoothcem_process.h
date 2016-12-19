@@ -6,7 +6,7 @@
 // \file
 // \brief Process that takes a vsol2D storage class as input and outputs a vsol2D  storage class.
 //        Edges are smoothed by the specified sigma.
-// \author  Ozge C Ozcanli (ozge@lems.brown.edu)
+// \author Based on original code by Ozge C Ozcanli
 // \date 07/10/04
 //
 // \verbatim

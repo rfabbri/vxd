@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process that computes the gradient of an image
-// \author Amir Tamrakar
+// \author Based on original code by Amir Tamrakar
 // \date 09/26/06
 //
 // \verbatim

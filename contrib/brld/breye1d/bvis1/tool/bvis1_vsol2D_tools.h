@@ -1,5 +1,5 @@
 /**************************************************************/
-/*  Name: Mark Johnson (mrj)
+/*  Name: based on original code by Mark Johnson (mrj)
 //  File: bvis1_vsol2D_tools.h
 //  Asgn: bvis
 //  Date: Thu Aug 14 15:24:53 EDT 2003
