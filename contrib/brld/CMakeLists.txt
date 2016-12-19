@@ -39,7 +39,5 @@ add_subdirectory(vidpro1)
 
 option(BUILD_BREYE1 "Build Old Brown Eyes" YES)
 if(BUILD_BREYE1)
-  add_subdirectory( breye1 )
+  add_subdirectory(breye1d)
 endif(BUILD_BREYE1)
-
-

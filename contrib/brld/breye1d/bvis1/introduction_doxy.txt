@@ -1,0 +1,28 @@
+// The following text is included in the main documentation page by doxygen
+/*! \mainpage bvis1 : Brown Visualizer Library
+* This library provides a GUI frontend to the vidpro1 library using vgui.
+*
+* \section bvis1_overview Overview
+*
+* The bvis1 library provides the framework for building a GUI frontend
+* to vidpro.  Brown Eyes is a specific application (found in the examples
+* subdirectory) that uses this framework to include all available classes
+* in vidpro1 and bvis.  The design of bvis1 allows for the creation of 
+* new GUI applications using a custom set of processes, tools, and menus
+* with minimal effort.
+*
+* The bvis1_manager uses vgui to create views of the vidpro1_repository and
+* handles interactions with the data.  The manager uses a bvis1_displayer
+* object to convert each bpro1_storage object in the repository into a 
+* vgui_tableau for viewing.  Each storage class containing viewable data
+* must have a corresponding class derived from the abstract base class
+* bvis1_displayer.  The manager allows for multiple views into the
+* repository by dividing the rendering area into a grid (see 
+* vgui_grid_tableau).  Within each grid cell a bvis1_view_tableau 
+* maintains properties of the current view.  The bvis1_view_tableau
+* also forwards all events to the active tool.  The abstract bvis1_tool
+* is the base class for all tools.  Tools allow customized handling of
+* user events to provide interaction with vgui view structures and the
+* underlying data structures.
+*
+*/
