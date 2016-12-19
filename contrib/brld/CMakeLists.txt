@@ -32,9 +32,14 @@ add_subdirectory(bbasd)
 add_subdirectory(bmvgd)
 
 # Old Brown Process Library 1 (development version)
-add_subdirectory(bpro1d)
+add_subdirectory(bpro1)
 
 # Old Video Process Library 1 (development version)
-#add_subdirectory(vidpro1d)
+add_subdirectory(vidpro1)
+
+option(BUILD_BREYE1 "Build Old Brown Eyes" YES)
+if(BUILD_BREYE1)
+  add_subdirectory( breye1 )
+endif(BUILD_BREYE1)
 
 
