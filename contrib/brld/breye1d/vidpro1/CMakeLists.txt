@@ -2,13 +2,13 @@
 
 project(vidpro1)
 
-include_directories( ${VXL_BRL_INCLUDE_DIR} )
-include_directories( ${VXL_GEL_INCLUDE_DIR} )
-include_directories( ${VXL_MUL_INCLUDE_DIR} )
-include_directories( ${VXL_OXL_INCLUDE_DIR} )
-include_directories( ${VXL_BRL_INCLUDE_DIR}/bseg )
-include_directories( ${VXL_BRL_INCLUDE_DIR}/bbas )
-include_directories( ${lems_SOURCE_DIR}/basic )
+include_directories(${VXL_BRL_INCLUDE_DIR})
+include_directories(${VXL_GEL_INCLUDE_DIR})
+include_directories(${VXL_MUL_INCLUDE_DIR})
+include_directories(${VXL_OXL_INCLUDE_DIR})
+include_directories(${VXL_BRL_INCLUDE_DIR}/bseg)
+include_directories(${VXL_BRL_INCLUDE_DIR}/bbas)
+include_directories(${BRLD_SOURCE_DIR}/bbasd)
 
 
 set(vidpro1_sources
