@@ -14,8 +14,8 @@
 //  Modifications
 // \endverbatim
 
-#include <bpro1d/bpro1d_process.h>
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_process.h>
+#include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage_sptr.h>
 #include <vcl_vector.h>
@@ -25,14 +25,14 @@
 // dbdet/pro/dbdet_load_edg_process.h
 //
 // Use this version only if you don't want to link to dbdet.
-class vidpro1_load_edg_process : public bpro1d_process
+class vidpro1_load_edg_process : public bpro1_process
 {
 public:
   vidpro1_load_edg_process();
   ~vidpro1_load_edg_process() {}
 
   //: Clone the process
-  virtual bpro1d_process* clone() const;
+  virtual bpro1_process* clone() const;
   
   vcl_string name() {
     return "Load .EDG File";

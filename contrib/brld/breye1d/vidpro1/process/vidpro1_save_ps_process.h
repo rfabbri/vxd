@@ -14,8 +14,8 @@
 //  Modifications
 // \endverbatim
 
-#include <bpro1d/bpro1d_process.h>
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_process.h>
+#include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage_sptr.h>
 #include <vcl_vector.h>
@@ -23,14 +23,14 @@
 //: This class saves the geometry from the current frame into a .PS file.
 // It only saves vsol2D_curve types and ignores the rest
 
-class vidpro1_save_ps_process : public bpro1d_process
+class vidpro1_save_ps_process : public bpro1_process
 {
 public:
   vidpro1_save_ps_process();
   ~vidpro1_save_ps_process() {}
 
   //: Clone the process
-  virtual bpro1d_process* clone() const;
+  virtual bpro1_process* clone() const;
   
   vcl_string name() {
     return "Save .PS File";

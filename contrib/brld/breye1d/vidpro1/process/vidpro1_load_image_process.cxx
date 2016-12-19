@@ -6,7 +6,7 @@
 #include <vidpro1/process/vidpro1_load_image_process.h>
 #include <vcl_iostream.h>
 
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_image_storage.h>
 #include <vidpro1/storage/vidpro1_image_storage_sptr.h>
 
@@ -18,9 +18,9 @@
 #include <vil/vil_new.h>
 
 //: Constructor
-vidpro1_load_image_process::vidpro1_load_image_process() : bpro1d_process()
+vidpro1_load_image_process::vidpro1_load_image_process() : bpro1_process()
 {
-  if( !parameters()->add( "Image file <filename...>" , "-image_filename" , bpro1d_filepath("","*") ) 
+  if( !parameters()->add( "Image file <filename...>" , "-image_filename" , bpro1_filepath("","*") ) 
       )
   {
     vcl_cerr << "ERROR: Adding parameters in " __FILE__ << vcl_endl;
@@ -35,7 +35,7 @@ vidpro1_load_image_process::~vidpro1_load_image_process()
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_load_image_process::clone() const
 {
   return new vidpro1_load_image_process(*this);
@@ -77,7 +77,7 @@ vcl_vector< vcl_string > vidpro1_load_image_process::get_output_type()
 bool
 vidpro1_load_image_process::execute()
 {
-  bpro1d_filepath image_path;
+  bpro1_filepath image_path;
   parameters()->get_value( "-image_filename" , image_path );
   vcl_string image_filename = image_path.path;
 
@@ -95,12 +95,12 @@ vidpro1_load_image_process::execute()
   //if (hacked_loading) {
   //  //: ozge's hack to load the second image shifted, TODO: REMOVE this
   //  vidpro1_repository_sptr res = bvis1_manager::instance()->repository();
-  //  vcl_set<bpro1d_storage_sptr> st_set = res->get_all_storage_classes(res->current_frame());
+  //  vcl_set<bpro1_storage_sptr> st_set = res->get_all_storage_classes(res->current_frame());
   //  vcl_string name_initial = "image";
   //  int len = name_initial.length();
   //  int max = 0;
   //  int offset_x = 0;
-  //  for (vcl_set<bpro1d_storage_sptr>::iterator iter = st_set.begin();
+  //  for (vcl_set<bpro1_storage_sptr>::iterator iter = st_set.begin();
   //    iter != st_set.end(); iter++) {
   //      if ((*iter)->type() == image_storage->type()) {
   //        vidpro1_image_storage_sptr image_stg;

@@ -55,7 +55,7 @@ vidpro1_vsol2D_storage::register_binary_io() const
 
 //: Create a copy of the object on the heap.
 // The caller is responsible for deletion
-bpro1d_storage* 
+bpro1_storage* 
 vidpro1_vsol2D_storage::clone() const
 {
   return new vidpro1_vsol2D_storage(*this);
@@ -75,7 +75,7 @@ void
 vidpro1_vsol2D_storage::b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
-  bpro1d_storage::b_write(os);
+  bpro1_storage::b_write(os);
   vsl_b_write(os, vsol_map_);
   vsl_b_write(os, attr_map_);
 }
@@ -94,20 +94,20 @@ vidpro1_vsol2D_storage::b_read(vsl_b_istream &is)
   case 1:
   {
     int count; // not used anymore
-    bpro1d_storage::b_read(is);
+    bpro1_storage::b_read(is);
     vsl_b_read(is, count);
     vsl_b_read(is, vsol_map_);
     break;
   }
   case 2:
   {
-    bpro1d_storage::b_read(is);
+    bpro1_storage::b_read(is);
     vsl_b_read(is, vsol_map_);
     break;
   }
   case 3:
   {
-    bpro1d_storage::b_read(is);
+    bpro1_storage::b_read(is);
     vsl_b_read(is, vsol_map_);
     vsl_b_read(is, attr_map_);
     if(attr_map_.size()>0)
@@ -255,8 +255,8 @@ vidpro1_vsol2D_storage::groups() const
 }
 
 // Merge two storage instances 
-bpro1d_storage* vidpro1_vsol2D_storage::merge(const bpro1d_storage* sa,
-                                           const bpro1d_storage* sb)
+bpro1_storage* vidpro1_vsol2D_storage::merge(const bpro1_storage* sa,
+                                           const bpro1_storage* sb)
 {
   if(!sa||!sb)
     return 0;

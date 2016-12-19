@@ -16,7 +16,7 @@
 //   7/22/2004  Matt Leotta  Modified interface for easier data access
 // \endverbatim
 
-#include <bpro1d/bpro1d_storage.h>
+#include <bpro1/bpro1_storage.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage_sptr.h>
 #include <vsol/vsol_spatial_object_2d_sptr.h>
 
@@ -24,7 +24,7 @@
 #include <vcl_vector.h>
 #include <vcl_string.h>
 
-class vidpro1_vsol2D_storage : public bpro1d_storage {
+class vidpro1_vsol2D_storage : public bpro1_storage {
 
 public:
   typedef vcl_map< vcl_string, vcl_vector<vsol_spatial_object_2d_sptr> > data_map;
@@ -53,7 +53,7 @@ public:
 
   //: Create a copy of the object on the heap.
   // The caller is responsible for deletion
-  virtual bpro1d_storage* clone() const;
+  virtual bpro1_storage* clone() const;
   
   //: Return a platform independent string identifying the class
   virtual vcl_string is_a() const { return "vidpro1_vsol2D_storage"; }
@@ -88,8 +88,8 @@ public:
   void clear_all();
 
   //: Static method since no primary storage instance is involved
-  virtual bpro1d_storage* merge(const bpro1d_storage* sa,
-                              const bpro1d_storage* sb);
+  virtual bpro1_storage* merge(const bpro1_storage* sa,
+                              const bpro1_storage* sb);
 
 
   //FOR NOW JUST A DOUBLE - NEEDS TO BE GENERALIZED - JLM

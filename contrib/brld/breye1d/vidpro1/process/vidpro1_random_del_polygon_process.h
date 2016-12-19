@@ -16,15 +16,15 @@
 //
 // \endverbatim
 
-#include <bpro1d/bpro1d_process.h>
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_process.h>
+#include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage_sptr.h>
 #include <vcl_vector.h>
 
 //: This class saves the geometry from the current frame into a .CON file.
 // It only saves vsol2D_curve types and ignores the rest
-class vidpro1_random_del_polygon_process : public bpro1d_process
+class vidpro1_random_del_polygon_process : public bpro1_process
 {
 public:
   vidpro1_random_del_polygon_process();
@@ -35,7 +35,7 @@ public:
   }
 
   //: Clone the process
-  virtual bpro1d_process* clone() const;
+  virtual bpro1_process* clone() const;
   
   vcl_vector< vcl_string > get_input_type();
   vcl_vector< vcl_string > get_output_type();

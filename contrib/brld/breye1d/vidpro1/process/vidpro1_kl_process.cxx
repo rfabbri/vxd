@@ -11,7 +11,7 @@
 #include <vil/vil_image_view.h>
 #include <vil/vil_convert.h>
 #include <vil/vil_math.h>
-#include<bpro1d/bpro1d_parameters.h>
+#include<bpro1/bpro1_parameters.h>
 #include<vsol/vsol_point_2d.h>
 #include<vidpro1/storage/vidpro1_vsol2D_storage_sptr.h>
 #include<vidpro1/storage/vidpro1_vsol2D_storage.h>
@@ -25,7 +25,7 @@ vidpro1_kl_process::vidpro1_kl_process(void)
   There is a copy of it in lemsvxl/old/contrib/gel/vgel
   If you need this, you must first modernize vgel and make it build
 
-  : bpro1d_process(),kl_params(),kl_points(NULL)
+  : bpro1_process(),kl_params(),kl_points(NULL)
 */
 {
     
@@ -161,7 +161,7 @@ vidpro1_kl_process::execute()
   */
 }
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_kl_process::clone() const
 {
   return new vidpro1_kl_process(*this);

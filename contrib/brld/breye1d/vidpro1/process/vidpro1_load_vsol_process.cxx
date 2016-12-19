@@ -13,9 +13,9 @@
 
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 
-vidpro1_load_vsol_process::vidpro1_load_vsol_process() : bpro1d_process()
+vidpro1_load_vsol_process::vidpro1_load_vsol_process() : bpro1_process()
 {
-  if( !parameters()->add( "Input file <filename...>" , "-fname" , bpro1d_filepath("","*") )) 
+  if( !parameters()->add( "Input file <filename...>" , "-fname" , bpro1_filepath("","*") )) 
   {
     vcl_cerr << "ERROR: Adding parameters in " __FILE__ << vcl_endl;
   }
@@ -23,7 +23,7 @@ vidpro1_load_vsol_process::vidpro1_load_vsol_process() : bpro1d_process()
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_load_vsol_process::clone() const
 {
   return new vidpro1_load_vsol_process(*this);
@@ -44,7 +44,7 @@ vcl_vector< vcl_string > vidpro1_load_vsol_process::get_output_type()
 
 bool vidpro1_load_vsol_process::execute()
 {
-  bpro1d_filepath input;
+  bpro1_filepath input;
   parameters()->get_value( "-fname" , input);
   vcl_string input_file = input.path;
   

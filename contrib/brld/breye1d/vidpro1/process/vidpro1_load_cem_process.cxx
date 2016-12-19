@@ -14,9 +14,9 @@
 #include <vul/vul_file_iterator.h>
 #include <dbsol/dbsol_file_io.h>
 
-vidpro1_load_cem_process::vidpro1_load_cem_process() : bpro1d_process(), num_frames_(0)
+vidpro1_load_cem_process::vidpro1_load_cem_process() : bpro1_process(), num_frames_(0)
 {
-  if( !parameters()->add( "Input file <filename.edg...> (gzipped .gz supported)" , "-ceminput" , bpro1d_filepath("","*.cem*") ))
+  if( !parameters()->add( "Input file <filename.edg...> (gzipped .gz supported)" , "-ceminput" , bpro1_filepath("","*.cem*") ))
   {
     vcl_cerr << "ERROR: Adding parameters in " __FILE__ << vcl_endl;
   }
@@ -24,7 +24,7 @@ vidpro1_load_cem_process::vidpro1_load_cem_process() : bpro1d_process(), num_fra
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_load_cem_process::clone() const
 {
   return new vidpro1_load_cem_process(*this);
@@ -49,7 +49,7 @@ vcl_vector< vcl_string > vidpro1_load_cem_process::get_output_type()
 
 bool vidpro1_load_cem_process::execute()
 {
-  bpro1d_filepath input;
+  bpro1_filepath input;
   parameters()->get_value( "-ceminput" , input);
   vcl_string input_file_path = input.path;
 
@@ -84,7 +84,7 @@ bool vidpro1_load_cem_process::execute()
       vidpro1_vsol2D_storage_sptr new_cem = vidpro1_vsol2D_storage_new();
       new_cem->add_objects(contours, input_file);
       
-      output_data_.push_back(vcl_vector< bpro1d_storage_sptr > (1,new_cem));
+      output_data_.push_back(vcl_vector< bpro1_storage_sptr > (1,new_cem));
       num_of_files++;
       input_files.pop_back();
     }
@@ -102,7 +102,7 @@ bool vidpro1_load_cem_process::execute()
     vidpro1_vsol2D_storage_sptr new_cem = vidpro1_vsol2D_storage_new();
     new_cem->add_objects(contours, input_file);
 
-    output_data_.push_back(vcl_vector< bpro1d_storage_sptr > (1,new_cem));
+    output_data_.push_back(vcl_vector< bpro1_storage_sptr > (1,new_cem));
     num_frames_ = 1;
   }
 

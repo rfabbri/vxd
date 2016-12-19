@@ -13,12 +13,12 @@
 //    Amir Tamrakar     Added an option to ouput either as component images or as a single image with 3 planes
 // \endverbatim
 
-#include <bpro1d/bpro1d_process.h>
+#include <bpro1/bpro1_process.h>
 #include <vcl_vector.h>
 #include <vcl_string.h>
 
 //: Process that converts RGB image to IHS image
-class vidpro1_RGB_to_IHS_process : public bpro1d_process {
+class vidpro1_RGB_to_IHS_process : public bpro1_process {
 
 public:
   //: Constructor
@@ -27,7 +27,7 @@ public:
   virtual ~vidpro1_RGB_to_IHS_process();
 
   //: Clone the process
-  virtual bpro1d_process* clone() const;
+  virtual bpro1_process* clone() const;
 
   //: Returns the name of this process
   vcl_string name();

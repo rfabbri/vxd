@@ -1,7 +1,7 @@
 // This is brl/vidpro1/process/vidpro1_load_image_sequence_process.cxx
 
 #include <vidpro1/process/vidpro1_load_image_sequence_process.h>
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_image_storage.h>
 #include <vidpro1/storage/vidpro1_image_storage_sptr.h>
 #include <vul/vul_file.h>
@@ -11,10 +11,10 @@
 
 //: Constructor
 vidpro1_load_image_sequence_process::
-vidpro1_load_image_sequence_process() : bpro1d_process(), num_frames_(0)
+vidpro1_load_image_sequence_process() : bpro1_process(), num_frames_(0)
 {
-  if( !parameters()->add( "Image folder:" , "-image_folder", bpro1d_filepath("","*") ) ||
-      !parameters()->add( "Image list file:" , "-image_list", bpro1d_filepath("","*") )
+  if( !parameters()->add( "Image folder:" , "-image_folder", bpro1_filepath("","*") ) ||
+      !parameters()->add( "Image list file:" , "-image_list", bpro1_filepath("","*") )
         )
     {
         vcl_cerr << "ERROR: Adding parameters in " __FILE__ << vcl_endl;
@@ -30,7 +30,7 @@ vidpro1_load_image_sequence_process::
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_load_image_sequence_process::clone() const
 {
     return new vidpro1_load_image_sequence_process(*this);
@@ -50,7 +50,7 @@ void vidpro1_load_image_sequence_process::
 clear_output(int resize)
 {
   num_frames_ = 0;
-  bpro1d_process::clear_output(resize);  
+  bpro1_process::clear_output(resize);  
 }
 
 
@@ -98,7 +98,7 @@ execute()
   // 1. parse input parameters
 
   // image folder
-  bpro1d_filepath image_folder_path;
+  bpro1_filepath image_folder_path;
   this->parameters()->get_value("-image_folder" , image_folder_path);
   vcl_string image_folder = image_folder_path.path;
 
@@ -110,7 +110,7 @@ execute()
   }
 
   // image name list
-  bpro1d_filepath image_list_path;
+  bpro1_filepath image_list_path;
   this->parameters()->get_value("-image_list" , image_list_path);
   //vcl_string image_list = image_list_path.path;
 
@@ -155,7 +155,7 @@ execute()
     // place holder for the image
     vidpro1_image_storage_sptr image_storage = vidpro1_image_storage_new();
     image_storage->set_image( image_resource );
-    output_data_.push_back(vcl_vector< bpro1d_storage_sptr >(1,image_storage));
+    output_data_.push_back(vcl_vector< bpro1_storage_sptr >(1,image_storage));
     this->num_frames_++;
   }
   return true;   

@@ -32,7 +32,7 @@ vidpro1_image_storage::version() const
 
 //: Create a copy of the object on the heap.
 // The caller is responsible for deletion
-bpro1d_storage* 
+bpro1_storage* 
 vidpro1_image_storage::clone() const
 {
   return new vidpro1_image_storage(*this);
@@ -44,7 +44,7 @@ void
 vidpro1_image_storage::b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
-  bpro1d_storage::b_write(os);
+  bpro1_storage::b_write(os);
   if(image_){
     vsl_b_write(os, true);
     vsl_b_write(os, int(image_->pixel_format()));
@@ -97,7 +97,7 @@ vidpro1_image_storage::b_read(vsl_b_istream &is)
   {
   case 1:
   {
-    bpro1d_storage::b_read(is);
+    bpro1_storage::b_read(is);
     vil_image_view<vxl_byte> image;
     vsl_b_read(is, image);
     this->image_ = vil_new_image_resource_of_view(image);
@@ -105,7 +105,7 @@ vidpro1_image_storage::b_read(vsl_b_istream &is)
   }
   case 2:
   {
-    bpro1d_storage::b_read(is);
+    bpro1_storage::b_read(is);
     bool is_valid;
     vsl_b_read(is, is_valid);
     if(is_valid){
@@ -119,7 +119,7 @@ vidpro1_image_storage::b_read(vsl_b_istream &is)
   }
   case 3:
   {
-    bpro1d_storage::b_read(is);
+    bpro1_storage::b_read(is);
     bool is_valid;
     vsl_b_read(is, is_valid);
     if(is_valid) {

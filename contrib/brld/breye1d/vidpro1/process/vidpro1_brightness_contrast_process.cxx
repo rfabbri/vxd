@@ -6,7 +6,7 @@
 #include <vidpro1/process/vidpro1_brightness_contrast_process.h>
 #include <vcl_iostream.h>
 
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_image_storage.h>
 #include <vidpro1/storage/vidpro1_image_storage_sptr.h>
 
@@ -16,7 +16,7 @@
 #include <vcl_cmath.h>
 
 
-vidpro1_brightness_contrast_process::vidpro1_brightness_contrast_process() : bpro1d_process()
+vidpro1_brightness_contrast_process::vidpro1_brightness_contrast_process() : bpro1_process()
 {
   if( !parameters()->add( "Brightness" , "-brightness" , (int)0 ) ||
       !parameters()->add( "Contrast" ,   "-contrast" ,   1.0f ) ) {
@@ -31,7 +31,7 @@ vidpro1_brightness_contrast_process::~vidpro1_brightness_contrast_process()
 
 
 //: Clone the process
-bpro1d_process* 
+bpro1_process* 
 vidpro1_brightness_contrast_process::clone() const
 {
   return new vidpro1_brightness_contrast_process(*this);

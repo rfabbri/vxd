@@ -28,7 +28,7 @@ vidpro1_vsol_scale_process::vidpro1_vsol_scale_process()
 
 
 //: Clone the process
-bpro1d_process* 
+bpro1_process* 
 vidpro1_vsol_scale_process::clone() const
 {
   return new vidpro1_vsol_scale_process(*this);

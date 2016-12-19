@@ -12,12 +12,12 @@
 //  Modifications
 // \endverbatim
 
-#include <bpro1d/bpro1d_process.h>
+#include <bpro1/bpro1_process.h>
 #include <vcl_vector.h>
 #include <vcl_string.h>
 
 //: Process that splits an RGB image into separate color channel images
-class vidpro1_split_into_RGB_process : public bpro1d_process {
+class vidpro1_split_into_RGB_process : public bpro1_process {
 
 public:
   //: Constructor
@@ -26,7 +26,7 @@ public:
   virtual ~vidpro1_split_into_RGB_process();
 
   //: Clone the process
-  virtual bpro1d_process* clone() const;
+  virtual bpro1_process* clone() const;
 
   //: Returns the name of this process
   vcl_string name();

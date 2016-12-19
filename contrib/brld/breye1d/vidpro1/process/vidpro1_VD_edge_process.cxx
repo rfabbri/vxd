@@ -7,7 +7,7 @@
 
 #include <vul/vul_timer.h>
 
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_parameters.h>
 
 #include <vidpro1/storage/vidpro1_image_storage.h>
 #include <vidpro1/storage/vidpro1_image_storage_sptr.h>
@@ -60,7 +60,7 @@ vidpro1_VD_edge_process::~vidpro1_VD_edge_process()
 
 
 //: Clone the process
-bpro1d_process* 
+bpro1_process* 
 vidpro1_VD_edge_process::clone() const
 {
   return new vidpro1_VD_edge_process(*this);

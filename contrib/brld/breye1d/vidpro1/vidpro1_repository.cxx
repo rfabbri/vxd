@@ -1,6 +1,6 @@
 // This is brl/vidpro1/vidpro1_repository.cxx
 #include <vidpro1/vidpro1_repository.h>
-#include <bpro1d/bpro1d_storage.h>
+#include <bpro1/bpro1_storage.h>
 #include <vcl_iostream.h>
 #include <vcl_cassert.h>
 #include <vsl/vsl_binary_io.h>
@@ -11,7 +11,7 @@
 //:
 // \file
 
-vcl_map<vcl_string, bpro1d_storage_sptr> vidpro1_repository::registered_types_;
+vcl_map<vcl_string, bpro1_storage_sptr> vidpro1_repository::registered_types_;
 
 
 //: Constructor
@@ -23,7 +23,7 @@ vidpro1_repository::vidpro1_repository()
 //: Registers a storage type with the repository
 //  Call this function with a null smart pointer of each type you plan to use
 bool
-vidpro1_repository::register_type(const bpro1d_storage_sptr& dummy_storage)
+vidpro1_repository::register_type(const bpro1_storage_sptr& dummy_storage)
 {
   if( registered_types_.find(dummy_storage->type()) != registered_types_.end())
     return false;
@@ -40,7 +40,7 @@ vcl_set<vcl_string>
 vidpro1_repository::types() const
 {
   vcl_set<vcl_string> types;
-  for ( vcl_map<vcl_string, bpro1d_storage_sptr>::const_iterator 
+  for ( vcl_map<vcl_string, bpro1_storage_sptr>::const_iterator 
         itr = registered_types_.begin();
         itr != registered_types_.end();  ++itr)
   {
@@ -73,7 +73,7 @@ vidpro1_repository::remove_all_except(const vcl_set<vcl_string>& retain)
       bool removed = true;
       while( removed ){
         removed = false;
-        for ( vcl_vector<bpro1d_storage_sptr>::iterator s_itr = itr->second.begin();
+        for ( vcl_vector<bpro1_storage_sptr>::iterator s_itr = itr->second.begin();
         s_itr != itr->second.end(); ++s_itr)
         {
           if(retain.count((*s_itr)->name()) == 0){
@@ -93,7 +93,7 @@ vidpro1_repository::remove_all_except(const vcl_set<vcl_string>& retain)
     bool removed = true;
     while( removed ){
       removed = false;
-      for ( vcl_vector<bpro1d_storage_sptr>::iterator s_itr = itr->second.begin();
+      for ( vcl_vector<bpro1_storage_sptr>::iterator s_itr = itr->second.begin();
       s_itr != itr->second.end(); ++s_itr)
       {
         if(retain.count((*s_itr)->name()) == 0){
@@ -145,8 +145,8 @@ bool vidpro1_repository::add_repository(const vidpro1_repository_sptr& new_rep)
       for ( storage_map::const_iterator itr = new_rep->data_[frame].begin(); 
             itr != new_rep->data_[frame].end(); ++itr )
         {
-          const vcl_vector<bpro1d_storage_sptr>& temp = itr->second;
-          for(vcl_vector<bpro1d_storage_sptr>::const_iterator sit = temp.begin();
+          const vcl_vector<bpro1_storage_sptr>& temp = itr->second;
+          for(vcl_vector<bpro1_storage_sptr>::const_iterator sit = temp.begin();
               sit != temp.end(); ++sit)
             {
               storage_map::iterator it = data_[frame].find((*sit)->type());
@@ -160,8 +160,8 @@ bool vidpro1_repository::add_repository(const vidpro1_repository_sptr& new_rep)
     for ( storage_map::const_iterator itr = new_rep->global_data_.begin(); 
           itr != new_rep->global_data_.end(); ++itr )
     {
-      const vcl_vector<bpro1d_storage_sptr>& temp = itr->second;
-      for(vcl_vector<bpro1d_storage_sptr>::const_iterator sit = temp.begin();
+      const vcl_vector<bpro1_storage_sptr>& temp = itr->second;
+      for(vcl_vector<bpro1_storage_sptr>::const_iterator sit = temp.begin();
           sit != temp.end(); ++sit)
         {
           storage_map::iterator it = global_data_.find((*sit)->type());
@@ -177,12 +177,12 @@ vidpro1_repository::initialize( int num_frames )
 {
   this->remove_all();
   // create a template map of NULL smart pointers
-  //storage_map <==> vcl_map< vcl_string, vcl_vector< bpro1d_storage_sptr > >
+  //storage_map <==> vcl_map< vcl_string, vcl_vector< bpro1_storage_sptr > >
   vidpro1_repository::storage_map temp_map;
-  for( vcl_map<vcl_string, bpro1d_storage_sptr>::const_iterator 
+  for( vcl_map<vcl_string, bpro1_storage_sptr>::const_iterator 
        type_itr = registered_types_.begin();
        type_itr != registered_types_.end();  ++type_itr ){
-    temp_map[type_itr->first] = vcl_vector< bpro1d_storage_sptr >();
+    temp_map[type_itr->first] = vcl_vector< bpro1_storage_sptr >();
   }
   // Copy the template map for each frame added
   data_.resize(num_frames, temp_map);
@@ -191,10 +191,10 @@ vidpro1_repository::initialize( int num_frames )
 
 void vidpro1_repository::initialize_global()
 {
-  for( vcl_map<vcl_string, bpro1d_storage_sptr>::const_iterator 
+  for( vcl_map<vcl_string, bpro1_storage_sptr>::const_iterator 
        type_itr = registered_types_.begin();
        type_itr != registered_types_.end();  ++type_itr ){
-    global_data_[type_itr->first] = vcl_vector< bpro1d_storage_sptr >();
+    global_data_[type_itr->first] = vcl_vector< bpro1_storage_sptr >();
   }
 }
 
@@ -203,10 +203,10 @@ vidpro1_repository::add_new_frame()
 {
   // create a map of NULL smart pointers
   vidpro1_repository::storage_map temp_map;
-  for( vcl_map<vcl_string, bpro1d_storage_sptr>::const_iterator 
+  for( vcl_map<vcl_string, bpro1_storage_sptr>::const_iterator 
        type_itr = registered_types_.begin();
        type_itr != registered_types_.end();  ++type_itr ){
-    temp_map[type_itr->first] = vcl_vector< bpro1d_storage_sptr >();
+    temp_map[type_itr->first] = vcl_vector< bpro1_storage_sptr >();
   }
   data_.push_back( temp_map );
 }
@@ -345,10 +345,10 @@ vidpro1_repository::get_all_storage_class_names(const vcl_string& type, int fram
 
   
 //: Returns the set of all storage classes (all types) at the given frame
-vcl_set < bpro1d_storage_sptr > 
+vcl_set < bpro1_storage_sptr > 
 vidpro1_repository::get_all_storage_classes(int frame) const
 {
-  vcl_set < bpro1d_storage_sptr > storage_set;
+  vcl_set < bpro1_storage_sptr > storage_set;
   if(frame >= -1){
     for(storage_map::const_iterator it = global_data_.begin();
         it != global_data_.end();  ++it )
@@ -384,7 +384,7 @@ vidpro1_repository::get_storage_class_size(const vcl_string& type) const
 
 //: Retrieve a storage smart pointer to the data named \p name at the current frame
 //  The optional frame_offset is added to the current frame number
-bpro1d_storage_sptr 
+bpro1_storage_sptr 
 vidpro1_repository::get_data_by_name(const vcl_string& name, int frame_offset )
 {
   return get_data_by_name_at( name, current_frame_ + frame_offset);
@@ -392,14 +392,14 @@ vidpro1_repository::get_data_by_name(const vcl_string& name, int frame_offset )
 
 
 //: Retrieve a storage smart pointer to the data named \p name at the given frame
-bpro1d_storage_sptr 
+bpro1_storage_sptr 
 vidpro1_repository::get_data_by_name_at( const vcl_string& name, int frame)
 {
   // search global data
   for( storage_map::iterator t_itr = global_data_.begin();
         t_itr != global_data_.end(); ++t_itr )
   {
-    for( vcl_vector< bpro1d_storage_sptr >::const_iterator s_itr = t_itr->second.begin();
+    for( vcl_vector< bpro1_storage_sptr >::const_iterator s_itr = t_itr->second.begin();
           s_itr != t_itr->second.end();  ++s_itr )
     {
       if( (*s_itr)->name() == name )
@@ -411,7 +411,7 @@ vidpro1_repository::get_data_by_name_at( const vcl_string& name, int frame)
     for( storage_map::iterator t_itr = data_[frame].begin();
          t_itr != data_[frame].end(); ++t_itr )
     {
-      for( vcl_vector< bpro1d_storage_sptr >::const_iterator s_itr = t_itr->second.begin();
+      for( vcl_vector< bpro1_storage_sptr >::const_iterator s_itr = t_itr->second.begin();
            s_itr != t_itr->second.end();  ++s_itr )
       {
         if( (*s_itr)->name() == name )
@@ -425,7 +425,7 @@ vidpro1_repository::get_data_by_name_at( const vcl_string& name, int frame)
 
 //: Retrieve a storage smart pointer to the data indexed by ind of a given type at the current frame
 //  The optional frame_offset is added to the current frame number
-bpro1d_storage_sptr 
+bpro1_storage_sptr 
 vidpro1_repository::get_data(const vcl_string& type, int frame_offset, int ind)
 {
   return get_data_at( type, current_frame_ + frame_offset, ind);
@@ -434,7 +434,7 @@ vidpro1_repository::get_data(const vcl_string& type, int frame_offset, int ind)
 
 
 //: Retrieve a storage smart pointer to the data indexed by ind of a given type at the given frame
-bpro1d_storage_sptr 
+bpro1_storage_sptr 
 vidpro1_repository::get_data_at(const vcl_string& type, int frame, int ind)
 {
   if( frame == -1 ) {
@@ -457,7 +457,7 @@ vidpro1_repository::get_data_at(const vcl_string& type, int frame, int ind)
 //  The optional frame_offset is added to the current frame number
 //  Returns false if no storage of this type has been defined
 bool 
-vidpro1_repository::store_data(const bpro1d_storage_sptr& storage, int frame_offset)
+vidpro1_repository::store_data(const bpro1_storage_sptr& storage, int frame_offset)
 {
    return store_data_at( storage, current_frame_ + frame_offset );
 }
@@ -474,7 +474,7 @@ vidpro1_repository::pop_data(const vcl_string& type, int frame_offset)
 //: Store the storage smart pointer to the data at the given frame
 //  Returns false if no storage of this type has been defined
 bool 
-vidpro1_repository::store_data_at(const bpro1d_storage_sptr& storage, int frame)
+vidpro1_repository::store_data_at(const bpro1_storage_sptr& storage, int frame)
 {
   if( !storage.ptr() )
     return false;
@@ -543,7 +543,7 @@ vidpro1_repository::pop_data_at(const vcl_string& type, int frame)
 //: Create a new empty storage class
 //  The optional frame_offset is added to the current frame number
 //  \return false if this data type is not registered
-bpro1d_storage_sptr  
+bpro1_storage_sptr  
 vidpro1_repository::new_data( const vcl_string& type, 
                              const vcl_string& name, 
                              int frame_offset )
@@ -554,19 +554,19 @@ vidpro1_repository::new_data( const vcl_string& type,
 
 //: Create a new empty storage class
 //  \return false if this data type is not registered
-bpro1d_storage_sptr  
+bpro1_storage_sptr  
 vidpro1_repository::new_data_at( const vcl_string& type, 
                                 const vcl_string& name, 
                                 int frame )
 {
   if( name == "" )
     return NULL;
-  vcl_map<vcl_string, bpro1d_storage_sptr>::iterator 
+  vcl_map<vcl_string, bpro1_storage_sptr>::iterator 
     result = registered_types_.find(type);
   if( result == registered_types_.end() )
     return NULL;
 
-  bpro1d_storage_sptr blank = result->second->clone();
+  bpro1_storage_sptr blank = result->second->clone();
   blank->set_name(name);
   if(!this->store_data_at(blank, frame))
     return NULL;
@@ -616,7 +616,7 @@ vidpro1_repository::b_read(vsl_b_istream &is)
 
 
   default:
-    vcl_cerr << "I/O ERROR: bpro1d_storage::b_read(vsl_b_istream&)\n"
+    vcl_cerr << "I/O ERROR: bpro1_storage::b_read(vsl_b_istream&)\n"
              << "           Unknown version number "<< ver << '\n';
     is.is().clear(vcl_ios::badbit); // Set an unrecoverable IO error on stream
     return;
@@ -641,7 +641,7 @@ vidpro1_repository::print_summary()
 
   vcl_cout << "Registered Types: " ;
   
-  for ( vcl_map<vcl_string, bpro1d_storage_sptr>::iterator 
+  for ( vcl_map<vcl_string, bpro1_storage_sptr>::iterator 
         rt_itr = registered_types_.begin(); 
         rt_itr != registered_types_.end();  ++rt_itr)
     vcl_cout << (rt_itr->first) << ", " ;

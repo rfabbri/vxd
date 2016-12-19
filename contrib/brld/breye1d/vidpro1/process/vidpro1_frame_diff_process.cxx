@@ -26,7 +26,7 @@ vidpro1_frame_diff_process::~vidpro1_frame_diff_process()
 
 
 //: Clone the process
-bpro1d_process* 
+bpro1_process* 
 vidpro1_frame_diff_process::clone() const
 {
   return new vidpro1_frame_diff_process(*this);

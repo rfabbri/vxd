@@ -22,7 +22,7 @@
 
 
 //: Constructor
-vidpro1_harris_corners_process::vidpro1_harris_corners_process() : bpro1d_process()
+vidpro1_harris_corners_process::vidpro1_harris_corners_process() : bpro1_process()
 {
   if( !parameters()->add( "Sigma" ,                     "-hcsigma" ,  1.0f ) ||
       !parameters()->add( "Threshold" ,                 "-hcthresh" , 2.0f ) ||
@@ -41,7 +41,7 @@ vidpro1_harris_corners_process::~vidpro1_harris_corners_process()
 
 
 //: Clone the process
-bpro1d_process* 
+bpro1_process* 
 vidpro1_harris_corners_process::clone() const
 {
   return new vidpro1_harris_corners_process(*this);

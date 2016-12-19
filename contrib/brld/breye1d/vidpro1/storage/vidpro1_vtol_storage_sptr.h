@@ -5,9 +5,9 @@
 //:
 // \file
 
-#include <bpro1d/bpro1d_storage_sptr.h>
+#include <bpro1/bpro1_storage_sptr.h>
 
 class vidpro1_vtol_storage;
-typedef bpro1d_storage_sptr_t<vidpro1_vtol_storage> vidpro1_vtol_storage_sptr;
+typedef bpro1_storage_sptr_t<vidpro1_vtol_storage> vidpro1_vtol_storage_sptr;
 
 #endif // vidpro1_vtol_storage_sptr_h

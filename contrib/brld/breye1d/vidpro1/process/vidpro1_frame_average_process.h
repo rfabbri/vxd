@@ -15,10 +15,10 @@
 
 #include <vcl_vector.h>
 #include <vcl_string.h>
-#include <bpro1d/bpro1d_process.h>
+#include <bpro1/bpro1_process.h>
 #include <vil/vil_image_view.h>
 
-class vidpro1_frame_average_process : public bpro1d_process {
+class vidpro1_frame_average_process : public bpro1_process {
 
 public:
 
@@ -26,7 +26,7 @@ public:
   virtual ~vidpro1_frame_average_process();
 
   //: Clone the process
-  virtual bpro1d_process* clone() const;
+  virtual bpro1_process* clone() const;
 
   vcl_string name();
 

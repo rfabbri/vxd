@@ -54,7 +54,7 @@ vidpro1_vsol3D_storage::register_binary_io() const
 #endif
 //: Create a copy of the object on the heap.
 // The caller is responsible for deletion
-bpro1d_storage* 
+bpro1_storage* 
 vidpro1_vsol3D_storage::clone() const
 {
   return new vidpro1_vsol3D_storage(*this);

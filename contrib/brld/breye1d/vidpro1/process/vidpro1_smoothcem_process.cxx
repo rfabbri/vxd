@@ -13,7 +13,7 @@
 
 #include <bdgl/bdgl_curve_algs.h>
 
-vidpro1_smoothcem_process::vidpro1_smoothcem_process() : bpro1d_process()
+vidpro1_smoothcem_process::vidpro1_smoothcem_process() : bpro1_process()
 {
   if(!parameters()->add(  "Sigma" , "-sigma" , (float)1.0 ) ||
      !parameters()->add(  "Number of times" , "-times" , 5 ))
@@ -23,7 +23,7 @@ vidpro1_smoothcem_process::vidpro1_smoothcem_process() : bpro1d_process()
 }
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_smoothcem_process::clone() const
 {
   return new vidpro1_smoothcem_process(*this);

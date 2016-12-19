@@ -21,7 +21,7 @@ vidpro1_vtol_storage::~vidpro1_vtol_storage()
 
 //: Create a copy of the object on the heap.
 // The caller is responsible for deletion
-bpro1d_storage* 
+bpro1_storage* 
 vidpro1_vtol_storage::clone() const
 {
   return new vidpro1_vtol_storage(*this);

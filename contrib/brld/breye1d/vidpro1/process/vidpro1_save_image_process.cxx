@@ -6,7 +6,7 @@
 #include <vidpro1/process/vidpro1_save_image_process.h>
 #include <vcl_iostream.h>
 
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_image_storage.h>
 #include <vidpro1/storage/vidpro1_image_storage_sptr.h>
 
@@ -19,9 +19,9 @@
 
 
 //: Constructor
-vidpro1_save_image_process::vidpro1_save_image_process() : bpro1d_process()
+vidpro1_save_image_process::vidpro1_save_image_process() : bpro1_process()
 {
-  if( !parameters()->add( "Filename" , "-filename", bpro1d_filepath("","*") ) )
+  if( !parameters()->add( "Filename" , "-filename", bpro1_filepath("","*") ) )
   {
     vcl_cerr << "ERROR: Adding parameters in " __FILE__ << vcl_endl;
   }
@@ -35,7 +35,7 @@ vidpro1_save_image_process::~vidpro1_save_image_process()
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_save_image_process::clone() const
 {
   return new vidpro1_save_image_process(*this);
@@ -53,7 +53,7 @@ vcl_string vidpro1_save_image_process::name()
 void
 vidpro1_save_image_process::clear_output()
 {
-  bpro1d_process::clear_output();
+  bpro1_process::clear_output();
 }
 
 
@@ -188,7 +188,7 @@ vidpro1_save_image_process::execute()
     }
   }
 
-  bpro1d_filepath file;
+  bpro1_filepath file;
   parameters()->get_value( "-filename" , file );
   vil_save(save_image,file.path.c_str());
  

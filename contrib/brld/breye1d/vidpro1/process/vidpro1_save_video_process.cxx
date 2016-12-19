@@ -6,7 +6,7 @@
 #include <vidpro1/process/vidpro1_save_video_process.h>
 #include <vcl_iostream.h>
 
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_image_storage.h>
 #include <vidpro1/storage/vidpro1_image_storage_sptr.h>
 
@@ -19,9 +19,9 @@
 
 //: Constructor
 vidpro1_save_video_process::vidpro1_save_video_process() 
- : bpro1d_process(), sample_counter_(0), first_frame_(true), num_frames_(0)
+ : bpro1_process(), sample_counter_(0), first_frame_(true), num_frames_(0)
 {
-  if( !parameters()->add( "Video file <filename...>" , "-video_filename", bpro1d_filepath("","*") ) ||
+  if( !parameters()->add( "Video file <filename...>" , "-video_filename", bpro1_filepath("","*") ) ||
       !parameters()->add( "Type" , "-video_type", vcl_string("tiff") ) ||
 
       !parameters()->add( "Frame Sample Interval" , "-frame_sample_interval",
@@ -39,7 +39,7 @@ vidpro1_save_video_process::~vidpro1_save_video_process()
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_save_video_process::clone() const
 {
   return new vidpro1_save_video_process(*this);
@@ -57,7 +57,7 @@ vcl_string vidpro1_save_video_process::name()
 void
 vidpro1_save_video_process::clear_output()
 {
-  bpro1d_process::clear_output();
+  bpro1_process::clear_output();
 }
 
 
@@ -197,7 +197,7 @@ bool
 vidpro1_save_video_process::finish() 
 {
     
-  bpro1d_filepath video_path;
+  bpro1_filepath video_path;
   vcl_string video_type;
   parameters()->get_value( "-video_filename" , video_path );
   parameters()->get_value( "-video_type" , video_type );

@@ -17,9 +17,9 @@
 #include <vcl_vector.h>
 #include <vcl_string.h>
 #include <osl/osl_canny_rothwell_params.h>
-#include <bpro1d/bpro1d_process.h>
+#include <bpro1/bpro1_process.h>
 
-class vidpro1_Rothwell_edge_process : public bpro1d_process 
+class vidpro1_Rothwell_edge_process : public bpro1_process 
 {
 public:
 
@@ -27,7 +27,7 @@ public:
   virtual ~vidpro1_Rothwell_edge_process();
 
   //: Clone the process
-  virtual bpro1d_process* clone() const;
+  virtual bpro1_process* clone() const;
   
   vcl_string name();
 

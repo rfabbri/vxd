@@ -16,9 +16,9 @@
 
 
 
-vidpro1_load_edg_process::vidpro1_load_edg_process() : bpro1d_process()
+vidpro1_load_edg_process::vidpro1_load_edg_process() : bpro1_process()
 {
-  if( !parameters()->add( "Input file <filename...>" , "-edginput" , bpro1d_filepath("","*.edg") ) ||
+  if( !parameters()->add( "Input file <filename...>" , "-edginput" , bpro1_filepath("","*.edg") ) ||
       !parameters()->add( "SubPixel ?" ,               "-bP_SP" ,    false ) ||
       !parameters()->add( "Load as Lines" ,            "-blines" ,   true )  ||
       !parameters()->add( "Scale" ,                    "-scale" ,   1.0 ))
@@ -29,7 +29,7 @@ vidpro1_load_edg_process::vidpro1_load_edg_process() : bpro1d_process()
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_load_edg_process::clone() const
 {
   return new vidpro1_load_edg_process(*this);
@@ -44,7 +44,7 @@ bool vidpro1_load_edg_process::execute()
   int ix, iy;
   bool bSubPixel=false, blines=false;
   double idir, iconf, dir, conf;
-  bpro1d_filepath input;
+  bpro1_filepath input;
   double scale;
   
   parameters()->get_value( "-edginput" , input );

@@ -25,13 +25,13 @@
 #include <vcl_string.h>
 #include <vbl/vbl_ref_count.h>
 #include <vsl/vsl_fwd.h>
-#include <bpro1d/bpro1d_storage_sptr.h>
+#include <bpro1/bpro1_storage_sptr.h>
 #include <vidpro1/vidpro1_repository_sptr.h>
 
 class vidpro1_repository : public vbl_ref_count {
 
 public:
-  typedef vcl_map< vcl_string, vcl_vector< bpro1d_storage_sptr > > storage_map;
+  typedef vcl_map< vcl_string, vcl_vector< bpro1_storage_sptr > > storage_map;
 
   //: Constructor
   vidpro1_repository();
@@ -41,7 +41,7 @@ public:
   //: Registers a storage type with the repository
   //  Call this function with a dummy instance of each type you plan to use
   //  Returns false if this type is already registered
-  static bool register_type(const bpro1d_storage_sptr& dummy_storage);
+  static bool register_type(const bpro1_storage_sptr& dummy_storage);
   //: Returns the set of strings representing all registered types
   vcl_set< vcl_string > types() const;
   //: Clear all data from the repository
@@ -101,29 +101,29 @@ public:
   vcl_vector < vcl_string > get_all_storage_class_names(const vcl_string& type, int frame);
   
   //: Returns the set of all storage classes (all types) at the given frame
-  vcl_set < bpro1d_storage_sptr > get_all_storage_classes(int frame) const;
+  vcl_set < bpro1_storage_sptr > get_all_storage_classes(int frame) const;
   
   //: Returns the number of storage classes of a given type at the current frame
   int get_storage_class_size(const vcl_string& type) const;
 
   //: Retrieve a storage smart pointer to the data named \p name at the current frame
   //  The optional frame_offset is added to the current frame number
-  bpro1d_storage_sptr get_data_by_name(const vcl_string& name, int frame_offset=0 );
+  bpro1_storage_sptr get_data_by_name(const vcl_string& name, int frame_offset=0 );
   //: Retrieve a storage smart pointer to the data named \p name at the given frame
-  bpro1d_storage_sptr get_data_by_name_at( const vcl_string& name, int frame);
+  bpro1_storage_sptr get_data_by_name_at( const vcl_string& name, int frame);
   //: Retrieve a storage smart pointer to the data indexed by ind of a given type at the current frame
   //  The optional frame_offset is added to the current frame number
-  bpro1d_storage_sptr get_data(const vcl_string& type, int frame_offset=0, int ind=0);
+  bpro1_storage_sptr get_data(const vcl_string& type, int frame_offset=0, int ind=0);
   //: Retrieve a storage smart pointer to the data indexed by ind of a given type at the given frame
-  bpro1d_storage_sptr get_data_at(const vcl_string& type, int frame, int ind=0);
+  bpro1_storage_sptr get_data_at(const vcl_string& type, int frame, int ind=0);
 
   //: Store the storage smart pointer to the data at the current frame
   //  The optional frame_offset is added to the current frame number
   //  Returns false if no storage of this type has been defined
-  bool store_data(const bpro1d_storage_sptr& storage, int frame_offset=0);
+  bool store_data(const bpro1_storage_sptr& storage, int frame_offset=0);
   //: Store the storage smart pointer to the data at the given frame
   //  Returns false if no storage of this type has been defined
-  bool store_data_at(const bpro1d_storage_sptr& storage, int frame);
+  bool store_data_at(const bpro1_storage_sptr& storage, int frame);
 
   //: Pop back the storage smart pointer to the data at the current frame with the given type
   //  The optional frame_offset is added to the current frame number
@@ -136,10 +136,10 @@ public:
   //: Create a new empty storage class
   //  The optional frame_offset is added to the current frame number
   //  \return NULL if this data type is not registered
-  bpro1d_storage_sptr new_data(const vcl_string& type, const vcl_string& name, int frame_offset=0);
+  bpro1_storage_sptr new_data(const vcl_string& type, const vcl_string& name, int frame_offset=0);
   //: Create a new empty storage class
   //  \return NULL if this data type is not registered
-  bpro1d_storage_sptr new_data_at(const vcl_string& type, const vcl_string& name, int frame);
+  bpro1_storage_sptr new_data_at(const vcl_string& type, const vcl_string& name, int frame);
 
   //: Binary save self to stream.
   void b_write(vsl_b_ostream &os) const;
@@ -159,7 +159,7 @@ private:
   //: The current active frame (starting with 0)
   int current_frame_;
   //: A vector of registered types
-  static vcl_map<vcl_string, bpro1d_storage_sptr> registered_types_;
+  static vcl_map<vcl_string, bpro1_storage_sptr> registered_types_;
   //: Vector(indexed by frame number) of a map of type name to vector of data smart pointers
   vcl_vector< storage_map > data_;
   //: Data associated with all frames - a map of type name to vector of data smart pointers

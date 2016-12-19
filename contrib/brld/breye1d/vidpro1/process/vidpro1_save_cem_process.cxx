@@ -10,9 +10,9 @@
 #include <vnl/vnl_math.h>
 #include <dbsol/dbsol_file_io.h>
 
-vidpro1_save_cem_process::vidpro1_save_cem_process() : bpro1d_process()
+vidpro1_save_cem_process::vidpro1_save_cem_process() : bpro1_process()
 {
-  if( !parameters()->add( "Output file <filename...>" , "-cemoutput" , bpro1d_filepath("","*.cem") ))
+  if( !parameters()->add( "Output file <filename...>" , "-cemoutput" , bpro1_filepath("","*.cem") ))
   {
     vcl_cerr << "ERROR: Adding parameters in " __FILE__ << vcl_endl;
   }
@@ -20,7 +20,7 @@ vidpro1_save_cem_process::vidpro1_save_cem_process() : bpro1d_process()
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_save_cem_process::clone() const
 {
   return new vidpro1_save_cem_process(*this);
@@ -43,7 +43,7 @@ vcl_vector< vcl_string > vidpro1_save_cem_process::get_output_type()
 
 bool vidpro1_save_cem_process::execute()
 {
-  bpro1d_filepath output;
+  bpro1_filepath output;
   parameters()->get_value( "-cemoutput" , output );
   return saveCEM(output.path);
 }

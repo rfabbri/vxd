@@ -14,21 +14,21 @@
 
 
 
-#include <bpro1d/bpro1d_process.h>
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_process.h>
+#include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage_sptr.h>
 #include <vcl_vector.h>
 
 //: This process loads a .CON file into a vidpro1_vsol_storage class
-class vidpro1_load_vsol_process : public bpro1d_process
+class vidpro1_load_vsol_process : public bpro1_process
 {
 public:
   vidpro1_load_vsol_process();
   ~vidpro1_load_vsol_process() {}
 
   //: Clone the process
-  virtual bpro1d_process* clone() const;
+  virtual bpro1_process* clone() const;
   
   vcl_string name() {
     return "Load vsol storage";

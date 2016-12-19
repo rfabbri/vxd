@@ -11,9 +11,9 @@
 
 #include <vul/vul_psfile.h>
 
-vidpro1_save_ps_process::vidpro1_save_ps_process() : bpro1d_process()
+vidpro1_save_ps_process::vidpro1_save_ps_process() : bpro1_process()
 {
-  if( !parameters()->add( "Output file <filename...>" , "-psoutput" , bpro1d_filepath("","*.ps") ))
+  if( !parameters()->add( "Output file <filename...>" , "-psoutput" , bpro1_filepath("","*.ps") ))
   {
     vcl_cerr << "ERROR: Adding parameters in " __FILE__ << vcl_endl;
   }
@@ -21,7 +21,7 @@ vidpro1_save_ps_process::vidpro1_save_ps_process() : bpro1d_process()
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_save_ps_process::clone() const
 {
   return new vidpro1_save_ps_process(*this);
@@ -48,7 +48,7 @@ vcl_vector< vcl_string > vidpro1_save_ps_process::get_output_type()
 
 bool vidpro1_save_ps_process::execute()
 {
-  bpro1d_filepath output;
+  bpro1_filepath output;
   parameters()->get_value( "-psoutput" , output );
   return savePS(output.path);
 }

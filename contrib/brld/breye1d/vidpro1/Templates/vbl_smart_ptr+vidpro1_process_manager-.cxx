@@ -1,4 +1,4 @@
-#include <bpro1d/bpro1d_storage.h>
+#include <bpro1/bpro1_storage.h>
 
 #include <vidpro1/vidpro1_process_manager.h>
 #include <vbl/vbl_smart_ptr.hxx>

@@ -14,8 +14,8 @@
 //  Apr 23 2007 Ricardo Fabbri - added support for vsol input 
 // \endverbatim
 //--------------------------------------------------------------------------------
-#include <bpro1d/bpro1d_process.h>
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_process.h>
+#include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage_sptr.h>
 
@@ -29,14 +29,14 @@
 //  This process can be used for vtol -> vsol conversion, or for duplicating vsol curve storages. In case the pruning option is
 //  unchecked in the dialog, the input is merely copied to the output.
 //
-class vidpro1_edgeprune_process : public bpro1d_process
+class vidpro1_edgeprune_process : public bpro1_process
 {
 public:
   vidpro1_edgeprune_process();
   ~vidpro1_edgeprune_process() {}
 
   //: Clone the process
-  virtual bpro1d_process* clone() const;
+  virtual bpro1_process* clone() const;
 
   vcl_string name() {
     return "Prune Edges";

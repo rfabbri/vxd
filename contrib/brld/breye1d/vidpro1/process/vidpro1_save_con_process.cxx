@@ -12,22 +12,22 @@
 #include <vsol/vsol_point_2d.h>
 #include <vnl/vnl_math.h>
 
-vidpro1_save_con_process::vidpro1_save_con_process() : bpro1d_process(), first_frame_(true)
+vidpro1_save_con_process::vidpro1_save_con_process() : bpro1_process(), first_frame_(true)
 {
   if( !parameters()->add( "Output file <filename...>" , 
                           "-conoutput" , 
-                          bpro1d_filepath("","*.con")) ||
+                          bpro1_filepath("","*.con")) ||
       !parameters()->add( "Output poly file?", "-b_output_poly", (bool) false) ||
       !parameters()->add( "Video File ID:", "-video_file_id", (int) 1007) ||
       !parameters()->add( "# of frames:", "-num_frames", (int) 1) ||
-      !parameters()->add( "Output Poly file <filename...>", "-poly_filename", bpro1d_filepath("","*.txt")) )
+      !parameters()->add( "Output Poly file <filename...>", "-poly_filename", bpro1_filepath("","*.txt")) )
   {
     vcl_cerr << "ERROR: Adding parameters in vidpro1_save_con_process::vidpro1_save_con_process()" << vcl_endl;
   }
 }
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_save_con_process::clone() const
 {
   return new vidpro1_save_con_process(*this);
@@ -49,7 +49,7 @@ vcl_vector< vcl_string > vidpro1_save_con_process::get_output_type()
 
 bool vidpro1_save_con_process::execute()
 {
-  bpro1d_filepath con_output, poly_output;
+  bpro1_filepath con_output, poly_output;
   bool b_output_poly=false;
   int video_id=0, num_frames=0;
   parameters()->get_value( "-conoutput" , con_output);

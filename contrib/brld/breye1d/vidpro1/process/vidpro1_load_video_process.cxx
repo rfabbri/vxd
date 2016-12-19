@@ -5,7 +5,7 @@
 #include "vidpro1_load_video_process.h"
 
 
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_image_storage.h>
 #include <vidpro1/storage/vidpro1_image_storage_sptr.h>
 
@@ -41,9 +41,9 @@
 
 
 //: Constructor
-vidpro1_load_video_process::vidpro1_load_video_process() : bpro1d_process(), num_frames_(0)
+vidpro1_load_video_process::vidpro1_load_video_process() : bpro1_process(), num_frames_(0)
 {
-    if( !parameters()->add( "Video file <filename...>" , "-video_filename", bpro1d_filepath("","*") )||
+    if( !parameters()->add( "Video file <filename...>" , "-video_filename", bpro1_filepath("","*") )||
 #if HAS_DSHOW
         !parameters()->add( "Load with direct show? (clip it, otherwise may take forever!" , "-dshow",bool(true) )||
         !parameters()->add( "Is Decimated" , "-isdec",bool(false) )||
@@ -74,7 +74,7 @@ vidpro1_load_video_process::~vidpro1_load_video_process()
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_load_video_process::clone() const
 {
     return new vidpro1_load_video_process(*this);
@@ -93,7 +93,7 @@ void
 vidpro1_load_video_process::clear_output(int resize)
 {
   num_frames_ = 0;
-  bpro1d_process::clear_output(resize);  
+  bpro1_process::clear_output(resize);  
 }
 
 
@@ -140,7 +140,7 @@ vidpro1_load_video_process::output_frames()
 bool
 vidpro1_load_video_process::execute()
 {
-  bpro1d_filepath video_path;
+  bpro1_filepath video_path;
   static int topx_, topy_;
   static int lenx_, leny_;
   static bool isroi, isclipped;
@@ -264,7 +264,7 @@ vidpro1_load_video_process::execute()
   for (vcl_vector<vidpro1_image_storage_sptr >::reverse_iterator iter = 
     image_storage_list.rbegin(); iter != image_storage_list.rend(); ++iter)
   {
-    output_data_.push_back(vcl_vector< bpro1d_storage_sptr >(1, *iter));
+    output_data_.push_back(vcl_vector< bpro1_storage_sptr >(1, *iter));
     ++this->num_frames_;
   }
 
@@ -354,7 +354,7 @@ vidpro1_load_video_process::execute()
               break;
             }
             
-            //vcl_vector< bpro1d_storage_sptr > tmp(1,image_storage);
+            //vcl_vector< bpro1_storage_sptr > tmp(1,image_storage);
             //temp_output.push_back(tmp);
             temp_output.push_back(img_r);
             num_frames_ ++;
@@ -369,7 +369,7 @@ vidpro1_load_video_process::execute()
         vidpro1_image_storage_sptr image_storage = vidpro1_image_storage_new();
         if (temp_output[k])
           image_storage->set_image(temp_output[k]);
-        output_data_.push_back(vcl_vector< bpro1d_storage_sptr > (1,image_storage));
+        output_data_.push_back(vcl_vector< bpro1_storage_sptr > (1,image_storage));
       }
       vcl_cout << "num_frames_: " << num_frames_ << " output size: " << output_data_.size() << vcl_endl;
 

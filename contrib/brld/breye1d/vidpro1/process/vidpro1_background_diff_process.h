@@ -12,13 +12,13 @@
 //  Modifications
 // \endverbatim
 
-#include <bpro1d/bpro1d_process.h>
+#include <bpro1/bpro1_process.h>
 #include <vcl_vector.h>
 #include <vcl_string.h>
 #include <vidpro1/storage/vidpro1_image_storage_sptr.h>
 
 //: Derived video process class for computing background subtraction
-class vidpro1_background_diff_process : public bpro1d_process {
+class vidpro1_background_diff_process : public bpro1_process {
 
 public:
 
@@ -27,7 +27,7 @@ public:
 
   vcl_string name();
 
-  virtual bpro1d_process* clone() const;
+  virtual bpro1_process* clone() const;
 
 
   int input_frames();

@@ -69,7 +69,7 @@ vcl_vector< vcl_string > vidpro1_background_diff_process::get_output_type()
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_background_diff_process::clone() const
 {
   return new vidpro1_background_diff_process(*this);

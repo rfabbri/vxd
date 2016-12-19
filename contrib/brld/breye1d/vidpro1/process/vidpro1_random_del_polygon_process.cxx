@@ -14,7 +14,7 @@
 //#include <dbsol/dbsol_algos.h>
 #include <dbsol/algo/dbsol_curve_algs.h>
 
-vidpro1_random_del_polygon_process::vidpro1_random_del_polygon_process() : bpro1d_process(), first_frame_(true)
+vidpro1_random_del_polygon_process::vidpro1_random_del_polygon_process() : bpro1_process(), first_frame_(true)
 {
   if( !parameters()->add( "percentage of length to delete:", "-perc_d", (float) 20) ||
       !parameters()->add( "deletion sigma:", "-sigma", (float) 2) ||
@@ -31,7 +31,7 @@ vidpro1_random_del_polygon_process::vidpro1_random_del_polygon_process() : bpro1
 }
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_random_del_polygon_process::clone() const
 {
   return new vidpro1_random_del_polygon_process(*this);
@@ -54,7 +54,7 @@ vcl_vector< vcl_string > vidpro1_random_del_polygon_process::get_output_type()
 
 bool vidpro1_random_del_polygon_process::execute()
 {
-  bpro1d_filepath con_output, poly_output;
+  bpro1_filepath con_output, poly_output;
   float perc_d, sigma, divident, perc_add, sigma_add, divident_add;
   parameters()->get_value( "-perc_d" , perc_d);
   parameters()->get_value( "-sigma" , sigma);
@@ -103,7 +103,7 @@ bool vidpro1_random_del_polygon_process::execute()
         output_vsol->add_object(pieces[i], "remains");
       }
       if (!output_data_.size())
-        output_data_.push_back(vcl_vector< bpro1d_storage_sptr > (1,output_vsol));
+        output_data_.push_back(vcl_vector< bpro1_storage_sptr > (1,output_vsol));
       else
         output_data_[0].push_back(output_vsol);
 
@@ -136,7 +136,7 @@ bool vidpro1_random_del_polygon_process::execute()
         output_vsol->add_object(pieces[i]->cast_to_spatial_object(), "remains");
       }
       if (!output_data_.size())
-        output_data_.push_back(vcl_vector< bpro1d_storage_sptr > (1,output_vsol));
+        output_data_.push_back(vcl_vector< bpro1_storage_sptr > (1,output_vsol));
       else
         output_data_[0].push_back(output_vsol);
 
@@ -167,7 +167,7 @@ bool vidpro1_random_del_polygon_process::execute()
         output_vsol->add_object(pieces[i], "pieces");
       }
       if (!output_data_.size())
-        output_data_.push_back(vcl_vector< bpro1d_storage_sptr > (1,output_vsol));
+        output_data_.push_back(vcl_vector< bpro1_storage_sptr > (1,output_vsol));
       else
         output_data_[0].push_back(output_vsol);
    

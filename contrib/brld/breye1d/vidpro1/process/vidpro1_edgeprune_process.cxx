@@ -18,7 +18,7 @@
 #include <vsol/vsol_polygon_2d.h>
 
 
-vidpro1_edgeprune_process::vidpro1_edgeprune_process() : bpro1d_process()
+vidpro1_edgeprune_process::vidpro1_edgeprune_process() : bpro1_process()
 {
   if(!parameters()->add( "Prune edges (if not, just copy to output)?" ,                               "-prune" ,  true ) ||
      !parameters()->add( "by length? (otherwise by number of points)" , "-prunel" , true ) ||
@@ -32,7 +32,7 @@ vidpro1_edgeprune_process::vidpro1_edgeprune_process() : bpro1d_process()
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_edgeprune_process::clone() const
 {
   return new vidpro1_edgeprune_process(*this);

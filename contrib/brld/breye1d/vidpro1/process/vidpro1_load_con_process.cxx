@@ -21,9 +21,9 @@
 
 #include <dbsol/dbsol_file_io.h>
 
-vidpro1_load_con_process::vidpro1_load_con_process() : bpro1d_process(), num_frames_(0)
+vidpro1_load_con_process::vidpro1_load_con_process() : bpro1_process(), num_frames_(0)
 {
-  if (!parameters()->add( "Input file <filename...>" , "-coninput" , bpro1d_filepath("Choose a file or a directory","*.con") ) ||
+  if (!parameters()->add( "Input file <filename...>" , "-coninput" , bpro1_filepath("Choose a file or a directory","*.con") ) ||
       !parameters()->add( "Add all cons to the same frame" , "-bsame_frame" , (bool)false) ||
       !parameters()->add( "reverse frame sequence " , "-rev" , (bool)false ))
   {
@@ -33,7 +33,7 @@ vidpro1_load_con_process::vidpro1_load_con_process() : bpro1d_process(), num_fra
 
 
 //: Clone the process
-bpro1d_process*
+bpro1_process*
 vidpro1_load_con_process::clone() const
 {
   return new vidpro1_load_con_process(*this);
@@ -54,7 +54,7 @@ vcl_vector< vcl_string > vidpro1_load_con_process::get_output_type()
 
 bool vidpro1_load_con_process::execute()
 {
-  bpro1d_filepath input;
+  bpro1_filepath input;
   parameters()->get_value( "-coninput" , input);
   vcl_string input_file_path = input.path;
   
@@ -89,7 +89,7 @@ bool vidpro1_load_con_process::execute()
         vidpro1_vsol2D_storage_sptr new_con = vidpro1_vsol2D_storage_new();
         new_con->add_objects(contours, input_file);
         
-        output_data_.push_back(vcl_vector< bpro1d_storage_sptr > (1,new_con));
+        output_data_.push_back(vcl_vector< bpro1_storage_sptr > (1,new_con));
         num_of_files++;
       }
       else
@@ -97,7 +97,7 @@ bool vidpro1_load_con_process::execute()
     }
 
     if (bsame_frame){
-      output_data_.push_back(vcl_vector< bpro1d_storage_sptr > (1,output_vsol));
+      output_data_.push_back(vcl_vector< bpro1_storage_sptr > (1,output_vsol));
       num_frames_ = 1;
     }
     else {
@@ -116,7 +116,7 @@ bool vidpro1_load_con_process::execute()
 
     output_vsol->add_objects(contours, input_file);
 
-    output_data_.push_back(vcl_vector< bpro1d_storage_sptr > (1,output_vsol));
+    output_data_.push_back(vcl_vector< bpro1_storage_sptr > (1,output_vsol));
     num_frames_ = 1;
   }
 
