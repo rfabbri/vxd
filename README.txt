@@ -59,7 +59,6 @@ In VXL, we have basically two top levels of code maturity:
   Examples: contrib/brl or "Brown Libraries" for Brown University contributions,
   contrib/gel or "General Electrics Libraries", etc. 
   
-
 Both core and contrib have been very closely maintained by the community using
 high standards, while keeping it as lean as possible,
 to reduce maintenance burden and to serve as a reliable basis for other software systems.
@@ -331,7 +330,7 @@ layered organization to make the problem more well defined. Still, it is
 fundamentally a manual solution.
 
 Some ideas on having a development environment repository to help keep
-everything in place for a team are given in [VPE orVision Programming
+everything in place for a team are given in [VPE or Vision Programming
 Environment)](http://github.com/rfabbri/vpe). 
 
 #### Example case: small scale
