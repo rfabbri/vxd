@@ -1,9 +1,9 @@
-// This is breye1/bpro1d/bpro1d_parameters.h
-#ifndef bpro1d_parameters_h_
-#define bpro1d_parameters_h_
+// This is breye1/bpro1/bpro1_parameters.h
+#ifndef bpro1_parameters_h_
+#define bpro1_parameters_h_
 //:
 // \file
-// \brief classes to represent parameters to bpro1d processes
+// \brief classes to represent parameters to bpro1 processes
 // \author based on original code by Matt Leotta
 // \date 7/1/2004
 //
@@ -11,7 +11,7 @@
 // \verbatim
 //  Modifications
 //    Matt Leotta  12/15/04     Migrated from vidpro
-//    Amir Tamrakar 09/19/06    Added a parameter type for multiple choice options (bpro1d_choice_param_type)
+//    Amir Tamrakar 09/19/06    Added a parameter type for multiple choice options (bpro1_choice_param_type)
 //
 // \endverbatim
 
@@ -24,19 +24,19 @@
 
 #include <vbl/vbl_ref_count.h>
 
-#include <bpro1d/bpro1d_parameters_sptr.h>
+#include <bpro1/bpro1_parameters_sptr.h>
 
 
 //: The abstract base class for a parameter
-class bpro1d_param
+class bpro1_param
 {
  public:
 
   //: Destructor
-  virtual ~bpro1d_param() {}
+  virtual ~bpro1_param() {}
 
   //: Clone this parameter
-  virtual bpro1d_param * clone() const = 0;
+  virtual bpro1_param * clone() const = 0;
 
   //: Return the parameter name
   vcl_string name() const { return name_; }
@@ -64,7 +64,7 @@ class bpro1d_param
 
  protected:
   //: Constructor
-  bpro1d_param(bool has_bounds, const vcl_string& name, const vcl_string& desc)
+  bpro1_param(bool has_bounds, const vcl_string& name, const vcl_string& desc)
    : has_bounds_(has_bounds), name_(name), description_(desc) {}
 
 
@@ -76,24 +76,24 @@ class bpro1d_param
   const vcl_string description_;
 };
 
-//: Output stream operator for bpro1d_params
-vcl_ostream& operator<<(vcl_ostream& os, const bpro1d_param& p);
+//: Output stream operator for bpro1_params
+vcl_ostream& operator<<(vcl_ostream& os, const bpro1_param& p);
 
 //===========================================================================================
 
 //: A Templated parameter class
 template< class T >
-class bpro1d_param_type : public bpro1d_param
+class bpro1_param_type : public bpro1_param
 {
  public:
   // Constructor - with bounds
-  bpro1d_param_type<T>(const vcl_string& name, const vcl_string& desc, const T& dflt, const T& min, const T& max)
-   : bpro1d_param(true, name, desc), value_(dflt), default_(dflt), temp_value_(dflt),
+  bpro1_param_type<T>(const vcl_string& name, const vcl_string& desc, const T& dflt, const T& min, const T& max)
+   : bpro1_param(true, name, desc), value_(dflt), default_(dflt), temp_value_(dflt),
      min_value_(min), max_value_(max) { assert( min_value_ <= value_ && value_ <= max_value_ ); }
 
   // Constructor - without bounds
-  bpro1d_param_type<T>(const vcl_string& name, const vcl_string& desc, const T& dflt)
-   : bpro1d_param(false, name, desc), value_(dflt), default_(dflt), temp_value_(dflt),
+  bpro1_param_type<T>(const vcl_string& name, const vcl_string& desc, const T& dflt)
+   : bpro1_param(false, name, desc), value_(dflt), default_(dflt), temp_value_(dflt),
      min_value_(dflt), max_value_(dflt) {}
 
   //: Accessor for the default value;
@@ -116,7 +116,7 @@ class bpro1d_param_type : public bpro1d_param
   virtual void reset() { value_ = default_; }
 
   //: Clone the parameter
-  virtual bpro1d_param * clone() const { return new bpro1d_param_type<T>(*this); }
+  virtual bpro1_param * clone() const { return new bpro1_param_type<T>(*this); }
 
   //: Return a string representation of the current value
   virtual vcl_string value_str() const { return create_string(value_); }
@@ -152,16 +152,16 @@ class bpro1d_param_type : public bpro1d_param
 //===========================================================================================
 
 //: A parameter class for handling multiple choice parameters
-class bpro1d_choice_param_type : public bpro1d_param_type<unsigned>
+class bpro1_choice_param_type : public bpro1_param_type<unsigned>
 {
  public:
   // Constructor
-  bpro1d_choice_param_type(const vcl_string& name, const vcl_string& desc,  
+  bpro1_choice_param_type(const vcl_string& name, const vcl_string& desc,  
   const vcl_vector<vcl_string>& choices, const unsigned def_val)
-   : bpro1d_param_type<unsigned>(name, desc, def_val, 0, choices.size()-1), choices_(choices) {}
+   : bpro1_param_type<unsigned>(name, desc, def_val, 0, choices.size()-1), choices_(choices) {}
 
   //: Clone the parameter
-  virtual bpro1d_param * clone() const { return new bpro1d_choice_param_type(*this); }
+  virtual bpro1_param * clone() const { return new bpro1_choice_param_type(*this); }
 
   //: Accessor for the choice list;
   vcl_vector<vcl_string> & choices() { return choices_; }
@@ -175,17 +175,17 @@ class bpro1d_choice_param_type : public bpro1d_param_type<unsigned>
 //===========================================================================================
 
 //: This class maintains all parameters for a process
-class bpro1d_parameters : public vbl_ref_count
+class bpro1_parameters : public vbl_ref_count
 {
  public:
 
   //: Constructor
-  bpro1d_parameters();
+  bpro1_parameters();
   //: Destructor
-  ~bpro1d_parameters();
+  ~bpro1_parameters();
 
   //: Deep psuedo copy constructor
-  bpro1d_parameters( const bpro1d_parameters_sptr& old_params);
+  bpro1_parameters( const bpro1_parameters_sptr& old_params);
 
   //: Returns true if a parameter exists with \p name
   bool valid_parameter( const vcl_string& name ) const;
@@ -194,36 +194,36 @@ class bpro1d_parameters : public vbl_ref_count
   template<class T>
   bool valid_parameter_type( const vcl_string& name, const T&) const
   {
-    vcl_map< vcl_string, bpro1d_param* >::const_iterator 
+    vcl_map< vcl_string, bpro1_param* >::const_iterator 
       itr = name_param_map_.find( name );
     if( itr == name_param_map_.end() ) {
       return false; // Not Found
     }
-    return (dynamic_cast<bpro1d_param_type<T> *>(itr->second) != NULL);
+    return (dynamic_cast<bpro1_param_type<T> *>(itr->second) != NULL);
   }
 
   //: Add a new parameter with no bounds
   template<class T>
   bool add( const vcl_string& desc, const vcl_string& name, const T& default_val )
-  { return add(new bpro1d_param_type<T>(name, desc, default_val)); }
+  { return add(new bpro1_param_type<T>(name, desc, default_val)); }
 
   //: Add a new parameter with bounds
   template<class T>
   bool add( const vcl_string& desc, const vcl_string& name, const T& default_val,
             const T& min_val, const T& max_val )
-  { return add(new bpro1d_param_type<T>(name, desc, default_val, min_val, max_val)); }
+  { return add(new bpro1_param_type<T>(name, desc, default_val, min_val, max_val)); }
 
   //: Add a new parameter for multiple choice options
   template<class T>
   bool add( const vcl_string& desc, const vcl_string& name, 
             const vcl_vector<vcl_string>& choices, const T& default_val )
-  { return add(new bpro1d_choice_param_type(name, desc, choices, default_val)); }
+  { return add(new bpro1_choice_param_type(name, desc, choices, default_val)); }
 
   //: Set the value of the existing parameter named \p name
   template<class T>
   bool set_value( const vcl_string& name , const T& value )
   {
-    bpro1d_param_type<T> * param = NULL;
+    bpro1_param_type<T> * param = NULL;
     if( get_param(name, param) && param ){
       return param->set_value(value);
     }
@@ -234,7 +234,7 @@ class bpro1d_parameters : public vbl_ref_count
   template<class T>
   bool get_value( const vcl_string& name , T& value ) const
   {
-    bpro1d_param_type<T> * param = NULL;
+    bpro1_param_type<T> * param = NULL;
     if( get_param(name, param) && param ){
       value = param->value();
       return true;
@@ -246,7 +246,7 @@ class bpro1d_parameters : public vbl_ref_count
   template<class T>
   bool get_default( const vcl_string& name , T& deflt ) const
   {
-    bpro1d_param_type<T> * param = NULL;
+    bpro1_param_type<T> * param = NULL;
     if( get_param(name, param) && param ){
       deflt = param->default_value();
       return true;
@@ -258,7 +258,7 @@ class bpro1d_parameters : public vbl_ref_count
   template<class T>
   bool get_bounds( const vcl_string& name, T & min, T & max ) const
   {
-    bpro1d_param_type<T> * param = NULL;
+    bpro1_param_type<T> * param = NULL;
     if( get_param(name, param) && param ){
       min = param->min_value();
       max = param->max_value();
@@ -273,10 +273,10 @@ class bpro1d_parameters : public vbl_ref_count
   bool reset( const vcl_string& name );
 
   //: Return a vector of base class pointers to the parameters
-  vcl_vector< bpro1d_param* > get_param_list() const;
+  vcl_vector< bpro1_param* > get_param_list() const;
 
   //: Return a vector of base class pointers to the parameters
-  vcl_map< vcl_string , bpro1d_param* >& get_param_map() { return name_param_map_; }
+  vcl_map< vcl_string , bpro1_param* >& get_param_map() { return name_param_map_; }
 
   //: Return the description of the parameter named \p name
   vcl_string get_desc( const vcl_string& name ) const;
@@ -285,18 +285,18 @@ class bpro1d_parameters : public vbl_ref_count
   
  private:
   //: Add parameter helper function
-  bool add( bpro1d_param* param );
+  bool add( bpro1_param* param );
 
   template<class T>
   bool get_param( const vcl_string& name, 
-                  bpro1d_param_type<T> * &param) const
+                  bpro1_param_type<T> * &param) const
   {
-    vcl_map< vcl_string, bpro1d_param* >::const_iterator 
+    vcl_map< vcl_string, bpro1_param* >::const_iterator 
       itr = name_param_map_.find( name );
     if( itr == name_param_map_.end() ) {
       return false; // Not Found
     }
-    param = dynamic_cast<bpro1d_param_type<T> *>(itr->second);
+    param = dynamic_cast<bpro1_param_type<T> *>(itr->second);
     if( !param )
       vcl_cerr << "WARNING: parameter \""<< name 
                << "\" was found but has incorrect type" << vcl_endl;
@@ -304,37 +304,37 @@ class bpro1d_parameters : public vbl_ref_count
   }
 
   //: The map from names to parameters
-  vcl_map< vcl_string , bpro1d_param* > name_param_map_;
+  vcl_map< vcl_string , bpro1_param* > name_param_map_;
   //: The vector of parameters in order of declaration
-  vcl_vector< bpro1d_param* > param_list_;
+  vcl_vector< bpro1_param* > param_list_;
 };
 
 //: Set the value of the existing parameter named \p name
-bool bpro1d_parameters_set_value_from_str(bpro1d_parameters& pars, const vcl_string& name , const vcl_string& value_str);
+bool bpro1_parameters_set_value_from_str(bpro1_parameters& pars, const vcl_string& name , const vcl_string& value_str);
 
 //===========================================================================================
 
 
 //: A simple class to represent a file (for use with parameters)
-class bpro1d_filepath
+class bpro1_filepath
 {
  public:
   //: Constructor
-  bpro1d_filepath(const vcl_string& p = "", const vcl_string& e = "*")
+  bpro1_filepath(const vcl_string& p = "", const vcl_string& e = "*")
    : path(p), ext(e) {}
 
   vcl_string path;
   vcl_string ext;
 };
 
-//: Less than operator for bpro1d_filepath objects
-bool operator<( const bpro1d_filepath& lhs, const bpro1d_filepath& rhs );
-//: Less than or equal to operator for bpro1d_filepath objects
-bool operator<=( const bpro1d_filepath& lhs, const bpro1d_filepath& rhs );
-//: Output stream operator for bpro1d_filepath objects
-vcl_ostream& operator<<( vcl_ostream& strm, const bpro1d_filepath& fp );
-//: Input stream operator for bpro1d_filepath objects
-vcl_istream& operator>>( vcl_istream& strm, const bpro1d_filepath& fp );
+//: Less than operator for bpro1_filepath objects
+bool operator<( const bpro1_filepath& lhs, const bpro1_filepath& rhs );
+//: Less than or equal to operator for bpro1_filepath objects
+bool operator<=( const bpro1_filepath& lhs, const bpro1_filepath& rhs );
+//: Output stream operator for bpro1_filepath objects
+vcl_ostream& operator<<( vcl_ostream& strm, const bpro1_filepath& fp );
+//: Input stream operator for bpro1_filepath objects
+vcl_istream& operator>>( vcl_istream& strm, const bpro1_filepath& fp );
 
 
-#endif // bpro1d_parameters_h_
+#endif // bpro1_parameters_h_

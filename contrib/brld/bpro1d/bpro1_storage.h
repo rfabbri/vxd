@@ -1,6 +1,6 @@
-// This is brl/bpro1d/bpro1d_storage.h
-#ifndef bpro1d_storage_h_
-#define bpro1d_storage_h_
+// This is brl/bpro1/bpro1_storage.h
+#ifndef bpro1_storage_h_
+#define bpro1_storage_h_
 
 //:
 // \file
@@ -28,11 +28,11 @@
 // - frame == -2 : marked for global insertion in the repository
 // - frame == -1 : stored globally in the repository
 // - frame >=  0 : stored at \p frame in the repository
-class bpro1d_storage : public vbl_ref_count
+class bpro1_storage : public vbl_ref_count
 {
 public:
   //: Destructor
-  virtual ~bpro1d_storage();
+  virtual ~bpro1_storage();
 
   //: Return a string that indicates the type of data
   virtual vcl_string type() const = 0;
@@ -66,11 +66,11 @@ public:
 
   //: Create a copy of the object on the heap.
   // The caller is responsible for deletion
-  virtual bpro1d_storage* clone() const = 0;
+  virtual bpro1_storage* clone() const = 0;
 
   //: No primary storage instance is involved
-  virtual bpro1d_storage* merge(const bpro1d_storage* /*sa*/,
-                              const bpro1d_storage* /*sb*/)
+  virtual bpro1_storage* merge(const bpro1_storage* /*sa*/,
+                              const bpro1_storage* /*sb*/)
     {return 0;} //for now, but should be implemented on all storage types
   
   //: Return IO version number;
@@ -82,9 +82,9 @@ public:
 
 protected:
   //: Constructor
-  bpro1d_storage();
+  bpro1_storage();
   //: Constructor
-  bpro1d_storage(const vcl_string& name);
+  bpro1_storage(const vcl_string& name);
 
 private:
   //: The name of this instance
@@ -104,10 +104,10 @@ private:
 //  an instance of each derived class that might be
 //  found.  This function gives the model class to
 //  the appropriate loader.
-void vsl_add_to_binary_loader(const bpro1d_storage& b);
+void vsl_add_to_binary_loader(const bpro1_storage& b);
 
 
 //: Print an ASCII summary to the stream
-void vsl_print_summary(vcl_ostream &os, const bpro1d_storage* n);
+void vsl_print_summary(vcl_ostream &os, const bpro1_storage* n);
 
-#endif // bpro1d_storage_h_
+#endif // bpro1_storage_h_

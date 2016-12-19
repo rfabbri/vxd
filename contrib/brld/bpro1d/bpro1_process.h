@@ -1,10 +1,10 @@
-// This is brl/bpro1d/bpro1d_process.h
-#ifndef bpro1d_process_h_
-#define bpro1d_process_h_
+// This is brl/bpro1/bpro1_process.h
+#ifndef bpro1_process_h_
+#define bpro1_process_h_
 //--------------------------------------------------------------------------------
 //:
 // \file
-// \brief The bpro1d process base class
+// \brief The bpro1 process base class
 //
 //  A process is an object that wraps an algorithm to create
 //  standardized interface.
@@ -24,8 +24,8 @@
 #include <vcl_string.h>
 #include <vbl/vbl_ref_count.h>
 
-#include <bpro1d/bpro1d_parameters_sptr.h>
-#include <bpro1d/bpro1d_storage_sptr.h>
+#include <bpro1/bpro1_parameters_sptr.h>
+#include <bpro1/bpro1_storage_sptr.h>
 
 //: This abstract class is the base class for process objects
 //
@@ -50,9 +50,9 @@
 // sufficient in almost all cases (in some cases you may need
 // to write an explicit copy constructor).
 // \verbatim
-// bpro1d_process* bpro1d_my_process::clone() const
+// bpro1_process* bpro1_my_process::clone() const
 // {
-//   return new bpro1d_my_process(*this);
+//   return new bpro1_my_process(*this);
 // }
 // \endverbatim
 // The name function should simply return a string containing 
@@ -67,22 +67,22 @@
 // The get_input_type and get_output_type functions should return
 // a vector of type identifier strings that the process requires 
 // as input and will produce as output.  The type identifier 
-// strings must match those return by a bpro1d_storage class.
+// strings must match those return by a bpro1_storage class.
 //
 // The execute function should be a wrapper around your algorithm.
-// Before execute is called, the bpro1d_process_manager will
+// Before execute is called, the bpro1_process_manager will
 // populate the member data structure input_data_ with smart
 // pointers to the storages classes to use for input.  These
 // classes are determined by the input_frames and get_input_type
-// functions.  Storage classes are taken from the bpro1d_repository
+// functions.  Storage classes are taken from the bpro1_repository
 // if the appropriate data is available.  If not, these pointers
 // will be null.  The execute function must cast these base class
 // smart pointers into the appropriate storage types and then
 // extract the needed data.  This data is passed to the algorithm
 // to be run, and the results must be repackaged into storage
 // classes.  The new storage classes should be added to the
-// output_data_ vector, and the bpro1d_process_manager will then
-// add the output back into the bpro1d_repository after the 
+// output_data_ vector, and the bpro1_process_manager will then
+// add the output back into the bpro1_repository after the 
 // execute call returns.
 //
 // The finish function is similar to the execute function 
@@ -97,17 +97,17 @@
 // purpose of a the finish function is to perform any global 
 // calculations on the video or to provide "clean-up" for the 
 // prior calls to execute. Again, any new storage classes added
-// to output_data_ are submitted to the bpro1d_repository when 
+// to output_data_ are submitted to the bpro1_repository when 
 // the finish function returns.   
 //
 // Typically, the constructor is used to define the parameters
-// for a process. See bpro1d_parameters. 
-class bpro1d_process : public vbl_ref_count
+// for a process. See bpro1_parameters. 
+class bpro1_process : public vbl_ref_count
 {
  public:
 
   //: Clone the process
-  virtual bpro1d_process* clone() const = 0;
+  virtual bpro1_process* clone() const = 0;
   
   //: Clear the input vector and then resize the empty vector
   virtual void clear_input(int resize = -1);
@@ -115,19 +115,19 @@ class bpro1d_process : public vbl_ref_count
   virtual void clear_output(int resize = -1);
   
   //: Set this vector of inputs at the given frame
-  void set_input( const vcl_vector< bpro1d_storage_sptr >&, unsigned frame=0);
+  void set_input( const vcl_vector< bpro1_storage_sptr >&, unsigned frame=0);
   //: Append the storage class to the input vector at the given frame
-  void add_input( const bpro1d_storage_sptr& i, unsigned frame=0);
+  void add_input( const bpro1_storage_sptr& i, unsigned frame=0);
 
   //: Return the vector of output storage class at the given frame
-  vcl_vector< bpro1d_storage_sptr >  const & get_output(unsigned frame=0);
+  vcl_vector< bpro1_storage_sptr >  const & get_output(unsigned frame=0);
   //: Return the vector of input storage class at the given frame
-  vcl_vector< bpro1d_storage_sptr >  const & get_input(unsigned frame=0);
+  vcl_vector< bpro1_storage_sptr >  const & get_input(unsigned frame=0);
 
   //: Return a smart pointer to the parameters
-  bpro1d_parameters_sptr parameters();
+  bpro1_parameters_sptr parameters();
   //: Set the parameters
-  void set_parameters(const bpro1d_parameters_sptr& params);
+  void set_parameters(const bpro1_parameters_sptr& params);
 
   //: Set the vector of names of the storage classes to be used as input
   void set_input_names(const vcl_vector<vcl_string>& names)
@@ -177,17 +177,17 @@ class bpro1d_process : public vbl_ref_count
   virtual bool non_causal() const { return false; }
  protected:
   
-  vcl_vector< vcl_vector< bpro1d_storage_sptr > >  input_data_;
-  vcl_vector< vcl_vector< bpro1d_storage_sptr > >  output_data_;
+  vcl_vector< vcl_vector< bpro1_storage_sptr > >  input_data_;
+  vcl_vector< vcl_vector< bpro1_storage_sptr > >  output_data_;
 
   //: Copy Constructor
-  bpro1d_process(const bpro1d_process& other);
-  bpro1d_process();
-  virtual ~bpro1d_process();
+  bpro1_process(const bpro1_process& other);
+  bpro1_process();
+  virtual ~bpro1_process();
 
  private:
   //: The parameters of this process
-  bpro1d_parameters_sptr parameters_;
+  bpro1_parameters_sptr parameters_;
   
   //: Names of the storage classes used as input
   vcl_vector< vcl_string > input_names_;
@@ -197,4 +197,4 @@ class bpro1d_process : public vbl_ref_count
   
 };
 
-#endif // bpro1d_process_h_
+#endif // bpro1_process_h_

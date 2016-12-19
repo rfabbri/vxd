@@ -1,34 +1,34 @@
-// This is brl/bpro1d/bpro1d_storage.cxx
+// This is brl/bpro1/bpro1_storage.cxx
 
 //:
 // \file
 
-#include "bpro1d_storage.h"
+#include "bpro1_storage.h"
 #include <iostream>
 
 
 //: Destructor
-bpro1d_storage::~bpro1d_storage()
+bpro1_storage::~bpro1_storage()
 {
 }
 
 
 //: Constructor
-bpro1d_storage::bpro1d_storage()
+bpro1_storage::bpro1_storage()
  : name_("defaultname"), frame_(-3)
 {
 }
 
 
 //: Constructor
-bpro1d_storage::bpro1d_storage(const vcl_string& name)
+bpro1_storage::bpro1_storage(const vcl_string& name)
  : name_(name)
 {
 }
 
 //: Set the name of this storage class instance
 void 
-bpro1d_storage::set_name(const vcl_string& name)
+bpro1_storage::set_name(const vcl_string& name)
 {
   name_ = name;
 }
@@ -36,7 +36,7 @@ bpro1d_storage::set_name(const vcl_string& name)
 
 //: Returns the name of this storage class instance
 vcl_string
-bpro1d_storage::name() const
+bpro1_storage::name() const
 {
   return name_;
 }
@@ -44,7 +44,7 @@ bpro1d_storage::name() const
   
 //: Mark a new storage class for storage at all frames
 bool 
-bpro1d_storage::mark_global()
+bpro1_storage::mark_global()
 {
   if(frame_ <= -2){
     frame_ = -2;
@@ -56,7 +56,7 @@ bpro1d_storage::mark_global()
 
 //: Returns the frame number associated with this instance
 int
-bpro1d_storage::frame() const
+bpro1_storage::frame() const
 {
   return frame_;
 }
@@ -64,7 +64,7 @@ bpro1d_storage::frame() const
 
 //: Binary save self to stream.
 void 
-bpro1d_storage::b_write(vsl_b_ostream &os) const
+bpro1_storage::b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
   vsl_b_write(os, this->frame_);
@@ -74,7 +74,7 @@ bpro1d_storage::b_write(vsl_b_ostream &os) const
 
 //: Binary load self from stream.
 void 
-bpro1d_storage::b_read(vsl_b_istream &is)
+bpro1_storage::b_read(vsl_b_istream &is)
 {
   if (!is) return;
 
@@ -88,7 +88,7 @@ bpro1d_storage::b_read(vsl_b_istream &is)
     break;
 
   default:
-    vcl_cerr << "I/O ERROR: bpro1d_storage::b_read(vsl_b_istream&)\n"
+    vcl_cerr << "I/O ERROR: bpro1_storage::b_read(vsl_b_istream&)\n"
              << "           Unknown version number "<< ver << '\n';
     is.is().clear(vcl_ios::badbit); // Set an unrecoverable IO error on stream
     return;
@@ -98,7 +98,7 @@ bpro1d_storage::b_read(vsl_b_istream &is)
 
 //: Return IO version number;
 short 
-bpro1d_storage::version() const
+bpro1_storage::version() const
 {
   return 1;
 }
@@ -114,20 +114,20 @@ bpro1d_storage::version() const
 //  an instance of each derived class that might be
 //  found.  This function gives the model class to
 //  the appropriate loader.
-void vsl_add_to_binary_loader(const bpro1d_storage& b)
+void vsl_add_to_binary_loader(const bpro1_storage& b)
 {
-  vsl_binary_loader<bpro1d_storage>::instance().add(b);
+  vsl_binary_loader<bpro1_storage>::instance().add(b);
 }
 
 
 //==============================================
 //: Stream summary output for base class pointer
-void vsl_print_summary(vcl_ostream& os,const bpro1d_storage* s)
+void vsl_print_summary(vcl_ostream& os,const bpro1_storage* s)
 {
   if (s)
-    os << "bpro1d_storage{type:"<<s->type()<<"}";
+    os << "bpro1_storage{type:"<<s->type()<<"}";
   else
-    os << "No bpro1d_storage defined.\n";
+    os << "No bpro1_storage defined.\n";
 }
 
 

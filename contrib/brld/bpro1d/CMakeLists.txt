@@ -1,17 +1,17 @@
-# brld/bpro1d/CMakeLists.txt
+# brld/bpro1/CMakeLists.txt
 
 
-set(bpro1d_sources
-   bpro1d_parameters.cxx                  bpro1d_parameters.h                  bpro1d_parameters_sptr.h
-   bpro1d_parameters.hxx
-   bpro1d_process.cxx                     bpro1d_process.h                     bpro1d_process_sptr.h
-   bpro1d_storage.cxx                     bpro1d_storage.h                     bpro1d_storage_sptr.h
+set(bpro1_sources
+   bpro1_parameters.cxx                  bpro1_parameters.h                  bpro1_parameters_sptr.h
+   bpro1_parameters.hxx
+   bpro1_process.cxx                     bpro1_process.h                     bpro1_process_sptr.h
+   bpro1_storage.cxx                     bpro1_storage.h                     bpro1_storage_sptr.h
 )
 
 
-aux_source_directory(Templates bpro1d_sources)
+aux_source_directory(Templates bpro1_sources)
 
-add_library(bpro1d  ${bpro1d_sources})
+add_library(bpro1  ${bpro1_sources})
 
-target_link_libraries(bpro1d vsl vbl)
+target_link_libraries(bpro1 vsl vbl)
 

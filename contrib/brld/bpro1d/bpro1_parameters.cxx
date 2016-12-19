@@ -1,17 +1,17 @@
-// This is brld/bpro1d/bpro1d_parameters.cxx
+// This is brld/bpro1/bpro1_parameters.cxx
 
 //:
 // \file
 
-#include <bpro1d/bpro1d_parameters.h>
+#include <bpro1/bpro1_parameters.h>
 
 #include <vcl_utility.h>
 #include <vcl_iostream.h>
 #include <vcl_sstream.h>
 
 
-//: Output stream operator for bpro1d_params
-vcl_ostream& operator<<(vcl_ostream& os, const bpro1d_param& p)
+//: Output stream operator for bpro1_params
+vcl_ostream& operator<<(vcl_ostream& os, const bpro1_param& p)
 {
   os << "parameter{\n  Description: " << p.description();
   if(p.has_bounds())
@@ -25,15 +25,15 @@ vcl_ostream& operator<<(vcl_ostream& os, const bpro1d_param& p)
 //===========================================================================================
 
 //: Constructor
-bpro1d_parameters::bpro1d_parameters()
+bpro1_parameters::bpro1_parameters()
 {
 }
 
 
 //: Destructor
-bpro1d_parameters::~bpro1d_parameters()
+bpro1_parameters::~bpro1_parameters()
 {
-  for( vcl_vector< bpro1d_param * >::iterator it = param_list_.begin();
+  for( vcl_vector< bpro1_param * >::iterator it = param_list_.begin();
        it != param_list_.end();
        it++ ) {
     delete (*it);
@@ -41,35 +41,35 @@ bpro1d_parameters::~bpro1d_parameters()
 }
 
 //: Deep copy constructor
-bpro1d_parameters::bpro1d_parameters(const bpro1d_parameters_sptr& old_params)
+bpro1_parameters::bpro1_parameters(const bpro1_parameters_sptr& old_params)
 {
-  for( vcl_vector< bpro1d_param * >::iterator it = old_params->param_list_.begin();
+  for( vcl_vector< bpro1_param * >::iterator it = old_params->param_list_.begin();
       it != old_params->param_list_.end();
       it++ ) {
 
     //deep copy this param
-    bpro1d_param * new_param = (*it)->clone();
+    bpro1_param * new_param = (*it)->clone();
 
     param_list_.push_back( new_param );
-    name_param_map_.insert( vcl_pair< vcl_string , bpro1d_param* >( new_param->name() , new_param ) );
+    name_param_map_.insert( vcl_pair< vcl_string , bpro1_param* >( new_param->name() , new_param ) );
   }
 }
 
 
 //: Returns true if a parameter exists with \p flag
 bool
-bpro1d_parameters::valid_parameter( const vcl_string& name ) const
+bpro1_parameters::valid_parameter( const vcl_string& name ) const
 {
-  vcl_map< vcl_string , bpro1d_param * >::const_iterator itr = name_param_map_.find( name );
+  vcl_map< vcl_string , bpro1_param * >::const_iterator itr = name_param_map_.find( name );
   return (itr != name_param_map_.end());
 }
 
 
 //: Reset all parameters to their default values
 bool
-bpro1d_parameters::reset_all()
+bpro1_parameters::reset_all()
 {
-  for( vcl_vector< bpro1d_param * >::iterator it = param_list_.begin();
+  for( vcl_vector< bpro1_param * >::iterator it = param_list_.begin();
        it != param_list_.end();
        it++ ) {
     (*it)->reset();
@@ -80,9 +80,9 @@ bpro1d_parameters::reset_all()
 
 //: Reset the parameter named \p name to its default value
 bool
-bpro1d_parameters::reset( const vcl_string& name )
+bpro1_parameters::reset( const vcl_string& name )
 {
-  vcl_map< vcl_string , bpro1d_param * >::iterator it = name_param_map_.find( name );
+  vcl_map< vcl_string , bpro1_param * >::iterator it = name_param_map_.find( name );
   if( it == name_param_map_.end() ) {
     return false;
   }
@@ -94,8 +94,8 @@ bpro1d_parameters::reset( const vcl_string& name )
 
 
 //: Return a vector of base class pointers to the parameters
-vcl_vector< bpro1d_param* >
-bpro1d_parameters::get_param_list() const
+vcl_vector< bpro1_param* >
+bpro1_parameters::get_param_list() const
 {
   return param_list_;
 }
@@ -103,9 +103,9 @@ bpro1d_parameters::get_param_list() const
 
 //: Return the description of the parameter named \p name
 vcl_string
-bpro1d_parameters::get_desc( const vcl_string& name ) const
+bpro1_parameters::get_desc( const vcl_string& name ) const
 {
-  vcl_map< vcl_string , bpro1d_param * >::const_iterator it = name_param_map_.find( name );
+  vcl_map< vcl_string , bpro1_param * >::const_iterator it = name_param_map_.find( name );
   if( it == name_param_map_.end() ) {
     return "";
   }
@@ -115,9 +115,9 @@ bpro1d_parameters::get_desc( const vcl_string& name ) const
 
 //: Print all parameters to \p os
 void
-bpro1d_parameters::print_all(vcl_ostream& os) const
+bpro1_parameters::print_all(vcl_ostream& os) const
 {
-  for( vcl_vector< bpro1d_param * >::const_iterator it = param_list_.begin();
+  for( vcl_vector< bpro1_param * >::const_iterator it = param_list_.begin();
        it != param_list_.end();
        it++ ) {
     os << *(*it);
@@ -127,7 +127,7 @@ bpro1d_parameters::print_all(vcl_ostream& os) const
 
 //: Add parameter helper function
 bool 
-bpro1d_parameters::add( bpro1d_param* param )
+bpro1_parameters::add( bpro1_param* param )
 {
   if( !param )
     return false;
@@ -140,20 +140,20 @@ bpro1d_parameters::add( bpro1d_param* param )
   }
 
   param_list_.push_back( param );
-  name_param_map_.insert( vcl_pair< vcl_string , bpro1d_param* >( name , param ) );
+  name_param_map_.insert( vcl_pair< vcl_string , bpro1_param* >( name , param ) );
 
   return true;
 }
 
 //: Set the value of the existing parameter named \p name
-bool bpro1d_parameters_set_value_from_str(bpro1d_parameters& pars, const vcl_string& name , const vcl_string& value_str)
+bool bpro1_parameters_set_value_from_str(bpro1_parameters& pars, const vcl_string& name , const vcl_string& value_str)
 {
-  vcl_map< vcl_string , bpro1d_param* >::iterator it = pars.get_param_map().find(name);
+  vcl_map< vcl_string , bpro1_param* >::iterator it = pars.get_param_map().find(name);
   if (it == pars.get_param_map().end()) {
     return false;
   }
   
-  bpro1d_param* param = it->second;
+  bpro1_param* param = it->second;
   if( param ){
     return param->parse_value_str(value_str);
   }
@@ -165,27 +165,27 @@ bool bpro1d_parameters_set_value_from_str(bpro1d_parameters& pars, const vcl_str
 
 //===========================================================================================
 
-//: Less than operator for bpro1d_filepath objects
-bool operator<( const bpro1d_filepath& lhs, const bpro1d_filepath& rhs )
+//: Less than operator for bpro1_filepath objects
+bool operator<( const bpro1_filepath& lhs, const bpro1_filepath& rhs )
 {
   return lhs.path < rhs.path;
 }
 
-//: Less than or equal to operator for bpro1d_filepath objects
-bool operator<=( const bpro1d_filepath& lhs, const bpro1d_filepath& rhs )
+//: Less than or equal to operator for bpro1_filepath objects
+bool operator<=( const bpro1_filepath& lhs, const bpro1_filepath& rhs )
 {
   return lhs.path <= rhs.path;
 }
 
-//: Output stream operator for bpro1d_filepath objects
-vcl_ostream& operator<<( vcl_ostream& strm, const bpro1d_filepath& fp )
+//: Output stream operator for bpro1_filepath objects
+vcl_ostream& operator<<( vcl_ostream& strm, const bpro1_filepath& fp )
 {
   strm << fp.path << '\n' << fp.ext << vcl_ends;
   return strm;
 }
 
-//: Input stream operator for bpro1d_filepath objects
-vcl_istream& operator>>( vcl_istream& strm, const bpro1d_filepath& fp )
+//: Input stream operator for bpro1_filepath objects
+vcl_istream& operator>>( vcl_istream& strm, const bpro1_filepath& fp )
 {
   strm >> fp.path >> fp.ext;
   return strm;
