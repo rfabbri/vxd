@@ -8,14 +8,14 @@
 //\date 04/24/2006 02:32:22 PM EDT
 //
 
-#include <bpro1d/bpro1d_storage.h>
+#include <bpro1/bpro1_storage.h>
 #include <bdifd/pro/bdifd_3rd_order_geometry_storage_sptr.h>
 #include <bdifd/bdifd_frenet.h>
 
 
 
 //: Stores a sequence of 2D point-tangent-curvature-kderivative
-class bdifd_3rd_order_geometry_storage: public bpro1d_storage 
+class bdifd_3rd_order_geometry_storage: public bpro1_storage 
 {
 public:
   bdifd_3rd_order_geometry_storage();
@@ -24,7 +24,7 @@ public:
 
   //: Create a copy of the object on the heap.
   // The caller is responsible for deletion
-  virtual bpro1d_storage* clone() const;
+  virtual bpro1_storage* clone() const;
   
   //: Return a platform independent string identifying the class
   virtual vcl_string is_a() const { return "bdifd_3rd_order_geometry_storage"; }

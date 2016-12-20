@@ -9,4 +9,4 @@ bdifd_edgel_data_process.cxx bdifd_edgel_data_process.h
 
 add_library(bdifd_pro ${bdifd_pro_sources})
 
-target_link_libraries(bdifd_pro bdifd_algo vidpro1 bpro1d)
+target_link_libraries(bdifd_pro bdifd_algo vidpro1 bpro1)

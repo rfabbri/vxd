@@ -15,7 +15,7 @@ bdifd_3rd_order_geometry_storage::
 
 //: Create a copy of the object on the heap.
 // The caller is responsible for deletion
-bpro1d_storage* 
+bpro1_storage* 
 bdifd_3rd_order_geometry_storage::clone() const
 {
   return new bdifd_3rd_order_geometry_storage(*this);
@@ -29,7 +29,7 @@ bdifd_3rd_order_geometry_storage::
 b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
-  bpro1d_storage::b_write(os);
+  bpro1_storage::b_write(os);
   vsl_b_write(os,c_);
 }
 
@@ -46,7 +46,7 @@ b_read(vsl_b_istream &is)
   {
   case 1:
   {
-    bpro1d_storage::b_read(is);
+    bpro1_storage::b_read(is);
     vsl_b_read(is,c_);
     break;
   }
