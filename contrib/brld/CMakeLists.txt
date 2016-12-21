@@ -9,12 +9,14 @@ doxygen_add_package(contrib/brld "Brown University Libraries: Development Versio
 # Setting BRLD_INCLUDE_DIR in this way allows #include <foo/foo.h> without
 # having to know the internal directory structure.
 # The root directory should be listed last in case anyone tries to append to this path
-set( BRLD_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/bbasd;${CMAKE_CURRENT_BINARY_DIR}/bbasd;${CMAKE_CURRENT_SOURCE_DIR}/bmvgd;${CMAKE_CURRENT_BINARY_DIR}/bmvgd" CACHE STATIC "Brown University development package include files" FORCE )
-set( BRLD_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}")
-set( BRLD_INSTALL_INCLUDE_DIR 
+set(BRLD_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/bbasd;${CMAKE_CURRENT_BINARY_DIR}/bbasd;${CMAKE_CURRENT_SOURCE_DIR}/bmvgd;${CMAKE_CURRENT_BINARY_DIR}/bmvgd;${CMAKE_CURRENT_SOURCE_DIR}/breye1d;${CMAKE_CURRENT_BINARY_DIR}/breye1d" CACHE STATIC "Brown University development package include files" FORCE)
+
+set(BRLD_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+set(BRLD_INSTALL_INCLUDE_DIR 
   ${CMAKE_INSTALL_PREFIX}/include/vxl/contrib/brld 
   ${CMAKE_INSTALL_PREFIX}/include/vxl/contrib/brld/bbasd 
   ${CMAKE_INSTALL_PREFIX}/include/vxl/contrib/brld/bmvgd 
+  ${CMAKE_INSTALL_PREFIX}/include/vxl/contrib/brld/breye1d
   CACHE INTERNAL "Brown University development package include files"
 )
 
@@ -31,7 +33,7 @@ add_subdirectory(bbasd)
 # brown multiview geometry (development version)
 add_subdirectory(bmvgd)
 
-option(BUILD_BREYE1D "Build Old Brown Eyes (VXD)" YES)
+option(BUILD_BREYE1D "Build Old Brown Eyes VXD" YES)
 if(BUILD_BREYE1D)
   add_subdirectory(breye1d)
 endif(BUILD_BREYE1D)
