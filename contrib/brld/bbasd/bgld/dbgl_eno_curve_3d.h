@@ -12,7 +12,7 @@
 //        for curve property (curvature, torsion, tangent, normal, etc.)
 //        computations
 //
-// \author H. Can Aras (can@lems.brown.edu)
+// \author Based on original code by  H. Can Aras (@lems.brown.edu)
 // \date 2006-11-17
 //
 // \verbatim

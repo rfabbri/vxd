@@ -12,7 +12,7 @@
 // \file
 // \brief Basic distance and squared distance computation.
 //
-// \author 
+// \author Based on original code by  
 //    Ming-Ching Chang Mar 07, 2007    
 //
 // \verbatim  

@@ -6,7 +6,7 @@
 // \brief  Class that implements methods to create lines and 
 //         find length as a special case of a polynomial curve
 //         to be used in linear interpolation
-// \author Ozge Can Ozcanli (ozge@lems.brown.edu)
+// \author Based on original code by  Ozge Can Ozcanli (@lems.brown.edu)
 // \date 02/11/05
 //
 // \verbatim

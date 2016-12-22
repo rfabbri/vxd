@@ -5,7 +5,7 @@
 // \file
 // \brief An arc implementation via a parametric equation
 //        for sampling and calculation of geometric properties.
-// \author Ozge Can Ozcanli (ozge@lems.brown.edu)
+// \author Based on original code by  Ozge Can Ozcanli (@lems.brown.edu)
 // \date 02/09/05
 //
 // \verbatim

@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief  Some 3D barycentric functions.
-// \author Ming-Ching Chang (mcchang@lems.brown.edu)
+// \author Based on original code by  Ming-Ching Chang (@lems.brown.edu)
 // \date   Jan/03/2007
 //
 // \verbatim

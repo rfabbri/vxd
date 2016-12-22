@@ -10,7 +10,7 @@
 //        so it could be used for representing other kinds of fitting
 //        polynomials of second order where the parameter along x and y
 //        is not necessarily arclength
-// \author H. Can Aras (can@lems.brown.edu)
+// \author Based on original code by  H. Can Aras (@lems.brown.edu)
 // \date 2006-11-15
 //
 // \verbatim

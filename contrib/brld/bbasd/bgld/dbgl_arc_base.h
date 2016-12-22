@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief A base to derive Arc class
-// \author Ozge Can Ozcanli (ozge@lems.brown.edu)
+// \author Based on original code by  Ozge Can Ozcanli (@lems.brown.edu)
 // \date 02/09/05
 //
 // \verbatim

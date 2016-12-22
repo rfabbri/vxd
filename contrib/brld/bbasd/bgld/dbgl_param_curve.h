@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief A parametric curve that can be sampled via a parametric equation.
-// \author Ozge Can Ozcanli (ozge@lems.brown.edu)
+// \author Based on original code by  Based on original code by  Ozge Can Ozcanli (@lems.brown.edu)
 // \date 02/09/05
 //
 // \verbatim

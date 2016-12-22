@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief A base to derive Euler Spiral and Arc classes
-// \author Ozge Can Ozcanli (ozge@lems.brown.edu)
+// \author Based on original code by  Ozge Can Ozcanli (@lems.brown.edu)
 // \date 02/09/05
 //
 // \verbatim

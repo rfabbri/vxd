@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief  Basic triangle geometric.
-// \author Ming-Ching Chang (mcchang@lems.brown.edu)
+// \author Based on original code by  Ming-Ching Chang (@lems.brown.edu)
 // \date   May/31/2005
 //
 // \verbatim
