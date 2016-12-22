@@ -1,34 +1,34 @@
-# lemsvxlsrc/basic/dbgl/CMakeLists.txt
+# vxd/contrib/brld/bbasd/bgld/CMakeLists.txt
 # The Development Brown Geometry Library
 
-set( dbgl_sources
+set( bgld_sources
 
-   dbgl_fuzzy_boolean.h
-   dbgl_dist.h                dbgl_dist.cxx
-   dbgl_triangle.h            dbgl_triangle.cxx
-   dbgl_barycentric.h         dbgl_barycentric.cxx
+   bgld_fuzzy_boolean.h
+   bgld_dist.h                bgld_dist.cxx
+   bgld_triangle.h            bgld_triangle.cxx
+   bgld_barycentric.h         bgld_barycentric.cxx
 
-   dbgl_param_curve.h         dbgl_param_curve.cxx
-   dbgl_poly_curve.h          dbgl_poly_curve.cxx     
-   dbgl_poly_curve_line.h     dbgl_poly_curve_line.cxx
-   dbgl_eulerspiral_base.h    dbgl_eulerspiral_base.cxx
-   dbgl_arc_base.h            dbgl_arc_base.cxx
-   dbgl_arc.h                 dbgl_arc.cxx
-   dbgl_eno_curve.h           dbgl_eno_curve.cxx
+   bgld_param_curve.h         bgld_param_curve.cxx
+   bgld_poly_curve.h          bgld_poly_curve.cxx     
+   bgld_poly_curve_line.h     bgld_poly_curve_line.cxx
+   bgld_eulerspiral_base.h    bgld_eulerspiral_base.cxx
+   bgld_arc_base.h            bgld_arc_base.cxx
+   bgld_arc.h                 bgld_arc.cxx
+   bgld_eno_curve.h           bgld_eno_curve.cxx
 
-   dbgl_param_curve_3d.h      dbgl_param_curve_3d.cxx
-   dbgl_eno_curve_3d.h        dbgl_eno_curve_3d.cxx
-   dbgl_linear_curve_3d.h     dbgl_linear_curve_3d.cxx
+   bgld_param_curve_3d.h      bgld_param_curve_3d.cxx
+   bgld_eno_curve_3d.h        bgld_eno_curve_3d.cxx
+   bgld_linear_curve_3d.h     bgld_linear_curve_3d.cxx
    
-   dbgl_area.h                dbgl_area.hxx
-   dbgl_rigid_align.cxx       dbgl_rigid_align.h
+   bgld_area.h                bgld_area.hxx
+   bgld_rigid_align.cxx       bgld_rigid_align.h
 )
 
-aux_source_directory(Templates dbgl_sources)
+aux_source_directory(Templates bgld_sources)
 
-add_library(dbgl ${dbgl_sources})
+add_library(bgld ${bgld_sources})
   
-target_link_libraries( dbgl vgl vcl vnl vnl_algo)
+target_link_libraries( bgld vgl vcl vnl vnl_algo)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)
