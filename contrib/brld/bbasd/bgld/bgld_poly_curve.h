@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_poly_curve.h
+// This is bbasd/bgld/bgld_poly_curve.h
 #ifndef bgld_poly_curve_h_
 #define bgld_poly_curve_h_
 //:

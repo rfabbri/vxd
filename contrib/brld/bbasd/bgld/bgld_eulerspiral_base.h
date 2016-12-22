@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_eulerspiral_base.h
+// This is bbasd/bgld/bgld_eulerspiral_base.h
 #ifndef bgld_eulerspiral_base_h_
 #define bgld_eulerspiral_base_h_
 //:

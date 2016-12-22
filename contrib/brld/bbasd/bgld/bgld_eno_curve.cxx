@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_eno_curve.cxx
+// This is bbasd/bgld/bgld_eno_curve.cxx
 #include "bgld_eno_curve.h"
 #include <vcl_cmath.h>
 #include <vnl/vnl_math.h>

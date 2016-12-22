@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_eno_curve.h
+// This is bbasd/bgld/bgld_eno_curve.h
 #ifndef bgld_eno_curve_h_
 #define bgld_eno_curve_h_
 //:

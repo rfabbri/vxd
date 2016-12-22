@@ -1,5 +1,5 @@
 #include <testlib/testlib_test.h>
-#include <dbgl/dbgl_poly_curve_line.h>
+#include <bgld/bgld_poly_curve_line.h>
 #include <vcl_iostream.h>
 #include <vcl_cmath.h>
 
@@ -19,7 +19,7 @@ MAIN( test_poly_line )
   vgl_point_2d<double> end(1.0, 0.0);   
   vgl_point_2d<double> center(0.0, 0.0);
   
-  dbgl_poly_curve_line a(start, end);
+  bgld_poly_curve_line a(start, end);
   TEST("length() ", a.length(), 2.0);
   
   TEST("point_at() start ", almost_equal2(a.point_at(0),start), true);
@@ -39,15 +39,15 @@ MAIN( test_poly_line )
   midtan = a.tangent_at_length(1.0);
   TEST("tangent_at_length() mid", vcl_fabs(atan2(midtan.y(),midtan.x())-0.0)<NearZeroValue, true);
 
-  dbgl_poly_curve_line b(start, end);
+  bgld_poly_curve_line b(start, end);
   TEST("Operator == ", a == b, true);
 
-  dbgl_poly_curve_line c(a);
+  bgld_poly_curve_line c(a);
   TEST("Copy Constructor ", a == c, true);
 
   //: construct a line in reverse orientation
   vcl_cout << "Testing line in reverse direction\n";
-  dbgl_poly_curve_line d(end, start);
+  bgld_poly_curve_line d(end, start);
   TEST("line vs reverse line equality ", c == d, false);
   TEST("reverse line tangent_angle_at() ", vcl_fabs(d.tangent_angle_at(0.0)-PI)<NearZeroValue, true);
   
@@ -59,7 +59,7 @@ MAIN( test_poly_line )
   start.set(-2.0,0.0);
   end.set(0.0,2.0);
   center.set(-1.0,1.0);
-  dbgl_poly_curve_line f(start, end);
+  bgld_poly_curve_line f(start, end);
   
   TEST("Operator == ", a == f, false);
 

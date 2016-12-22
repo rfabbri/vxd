@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_barycentric.h
+// This is bbasd/bgld/bgld_barycentric.h
 #ifndef bgld_barycentric_h_
 #define bgld_barycentric_h_
 //:

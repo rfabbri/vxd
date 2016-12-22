@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_arc_base.cxx
+// This is bbasd/bgld/bgld_arc_base.cxx
 //:
 // \file
 // Based on original code written by Ozge Can Ozcanli, 09 February 2005.

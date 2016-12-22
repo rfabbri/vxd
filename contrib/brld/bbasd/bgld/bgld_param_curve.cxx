@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_param_curve.cxx
+// This is bbasd/bgld/bgld_param_curve.cxx
 //:
 // \file
 // Based on original code written by Ozge Can Ozcanli, 04 February 2005.

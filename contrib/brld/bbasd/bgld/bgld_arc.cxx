@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_arc.cxx
+// This is bbasd/bgld/bgld_arc.cxx
 //:
 //\file
 // A considerable part of this implementation is "inspired" from old GENO C code

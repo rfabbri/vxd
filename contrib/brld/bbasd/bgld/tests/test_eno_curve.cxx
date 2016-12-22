@@ -1,5 +1,5 @@
 #include <testlib/testlib_test.h>
-#include <dbgl/dbgl_eno_curve.h>
+#include <bgld/bgld_eno_curve.h>
 #include <vcl_iostream.h>
 #include <vcl_cmath.h>
 
@@ -18,7 +18,7 @@ MAIN( test_eno_curve )
   coefs_y.push_back(-1.0);
   coefs_y.push_back(2.0);
 
-  dbgl_eno_curve curve(coefs_x, coefs_y, 0, 1);
+  bgld_eno_curve curve(coefs_x, coefs_y, 0, 1);
   
   TEST_NEAR("length test: ", curve.length(), 3.307, tolerance);
   
@@ -69,7 +69,7 @@ MAIN( test_eno_curve )
   coefs_y.push_back(3.0);
   coefs_y.push_back(-1.0);
 
-  dbgl_eno_curve curve2(coefs_x, coefs_y, 3, 4);
+  bgld_eno_curve curve2(coefs_x, coefs_y, 3, 4);
 
   TEST("start point test: ", curve2.point_at(0).x(), 18);
   TEST("start point test: ", curve2.point_at(0).y(), 1);

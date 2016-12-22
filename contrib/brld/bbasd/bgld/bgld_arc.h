@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_arc.h
+// This is bbasd/bgld/bgld_arc.h
 #ifndef bgld_arc_h_
 #define bgld_arc_h_
 //:

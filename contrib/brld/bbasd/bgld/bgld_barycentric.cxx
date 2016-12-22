@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_barycentric.cxx
+// This is bbasd/bgld/bgld_barycentric.cxx
 //:
 //\file
 

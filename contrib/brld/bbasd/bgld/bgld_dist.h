@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_dist.h
+// This is bbasd/bgld/bgld_dist.h
 
 #ifndef bgld_dist_h_
 #define bgld_dist_h_

@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_param_curve_3d.h
+// This is bbasd/bgld/bgld_param_curve_3d.h
 #ifndef bgld_param_curve_3d_h_
 #define bgld_param_curve_3d_h_
 //:

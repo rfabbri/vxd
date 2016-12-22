@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_triangle.cxx
+// This is bbasd/bgld/bgld_triangle.cxx
 //:
 //\file
 // Mar 07, 2007  Basic triangle geometric.

@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_poly_curve.cxx
+// This is bbasd/bgld/bgld_poly_curve.cxx
 #include "bgld_poly_curve.h"
 #include <vcl_cmath.h>
 

@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_dist.cxx
+// This is bbasd/bgld/bgld_dist.cxx
 //:
 //\file
 // Mar 07, 2007  Basic distance computation.

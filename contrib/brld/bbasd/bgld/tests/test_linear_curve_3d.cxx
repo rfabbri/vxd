@@ -1,5 +1,5 @@
 #include <testlib/testlib_test.h>
-#include <dbgl/dbgl_linear_curve_3d.h>
+#include <bgld/bgld_linear_curve_3d.h>
 #include <vcl_iostream.h>
 #include <vcl_cmath.h>
 #include <vnl/vnl_math.h>
@@ -13,7 +13,7 @@ MAIN( test_linear_curve_3d )
   vgl_vector_3d<double> start(1, 1, 1);
   vgl_vector_3d<double> end(2, 3, 4);
 
-  dbgl_linear_curve_3d curve(start, end);
+  bgld_linear_curve_3d curve(start, end);
 
   TEST_NEAR("curve length: ", curve.length(), 3.74165738677394, tolerance);
   /*******/

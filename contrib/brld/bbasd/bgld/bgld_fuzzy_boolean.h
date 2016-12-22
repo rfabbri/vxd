@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_fuzzy_boolean.h
+// This is bbasd/bgld/bgld_fuzzy_boolean.h
 #ifndef _bgld_fuzzy_boolean_h_
 #define _bgld_fuzzy_boolean_h_
 //:

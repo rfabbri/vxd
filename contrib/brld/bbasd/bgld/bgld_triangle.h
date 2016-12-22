@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_triangle.h
+// This is bbasd/bgld/bgld_triangle.h
 #ifndef _bgld_triangle_h_
 #define _bgld_triangle_h_
 //:

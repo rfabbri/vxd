@@ -1,25 +1,25 @@
 #include <testlib/testlib_test.h>
-#include <dbgl/dbgl_arc.h>
+#include <bgld/bgld_arc.h>
 #include <vcl_iostream.h>
 #include <vcl_cmath.h>
 
 bool almost_equal(vgl_point_2d<double> a, vgl_point_2d<double> b) {
-  return (vcl_fabs(a.x()-b.x()) < dbgl_arc::near_zero_value &&
-          vcl_fabs(a.y()-b.y()) < dbgl_arc::near_zero_value);
+  return (vcl_fabs(a.x()-b.x()) < bgld_arc::near_zero_value &&
+          vcl_fabs(a.y()-b.y()) < bgld_arc::near_zero_value);
 }
 
 MAIN( test_arc )
 {
   START ("ARC ");
 
-  double tolerance=dbgl_arc::near_zero_value;
+  double tolerance=bgld_arc::near_zero_value;
 
   vcl_cout << "construct upper hemisphere of unit circle:" << vcl_endl;
   vgl_point_2d<double> start(1.0, 0.0);  // 0
   vgl_point_2d<double> end(-1.0, 0.0);   // pi
   vgl_point_2d<double> other(0.0, -1.0); // 3*pi/2
   vgl_point_2d<double> center(0.0, 0.0);  // 0
-  dbgl_arc a(start, end, other);
+  bgld_arc a(start, end, other);
   TEST("curvature() ", a.curvature(), 1.0);
   TEST("center() ", a.center() == center, true);
   TEST("start_angle() ", vcl_fabs(a.start_angle()-0.0)<tolerance, true);
@@ -53,15 +53,15 @@ MAIN( test_arc )
   TEST("tangent_at_length() mid", vcl_fabs(atan2(midtan.y(),midtan.x())-PI)<tolerance, true);
   //vcl_cout << "tangent vector at mid point angle: " << atan2(midtan.y(),midtan.x()) << vcl_endl;
   
-  dbgl_arc b(start, end, other);
+  bgld_arc b(start, end, other);
   TEST("Operator == ", a == b, true);
 
-  dbgl_arc c(a);
+  bgld_arc c(a);
   TEST("Copy Constructor ", a == c, true);
 
   //: construct upper hemisphere in reverse orientation
   vcl_cout << "Testing arc in reverse direction\n";
-  dbgl_arc d(end, start, other);
+  bgld_arc d(end, start, other);
   TEST("reverse arc curvature() ", d.curvature(), 1.0);
   TEST("reverse arc center() ", d.center() == center, true);
   TEST("reverse arc start_angle() ", vcl_fabs(d.start_angle()-PI)<tolerance, true);
@@ -75,7 +75,7 @@ MAIN( test_arc )
   TEST("reverse arc tangent_at() ", vcl_fabs(atan2(midtan.y(),midtan.x())-3.0*PI/4.0)<tolerance, true);
 
   vcl_cout << "try to construct an arc from linear points: " << vcl_endl;
-  dbgl_arc e(start, end, center);
+  bgld_arc e(start, end, center);
   TEST("collinearity ", e.curvature()==0.0, true);
 
   //: construct arc at center (1,1) 
@@ -83,7 +83,7 @@ MAIN( test_arc )
   end.set(-1.0,1.0);
   other.set(1.0,3.0);
   center.set(1.0,1.0);
-  dbgl_arc f(start, end, other);
+  bgld_arc f(start, end, other);
   //vcl_cout << "f center " << f.center() << vcl_endl;
   //vcl_cout << "f curv " << f.curvature() << vcl_endl;
   TEST("third arc curvature() ", vcl_fabs(f.curvature()-1.0/2.0) < tolerance, true);
@@ -98,7 +98,7 @@ MAIN( test_arc )
   start.set(-4,-4);
   end.set(4,4);
   other.set(-5,-5);
-  dbgl_arc a2(start,end,other);
+  bgld_arc a2(start,end,other);
   a2.print();
   //: center has to be midpoint of segment in the convention of the class
   TEST_NEAR("CenterX",a2.center().x(),0, tolerance);
