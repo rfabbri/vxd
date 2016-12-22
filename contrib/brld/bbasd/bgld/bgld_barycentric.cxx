@@ -1,10 +1,10 @@
-// This is basic/dbgl/dbgl_barycentric.cxx
+// This is basic/bgld/bgld_barycentric.cxx
 //:
 //\file
 
 #include <vgl/vgl_distance.h>
-#include <dbgl/dbgl_triangle.h>
-#include <dbgl/dbgl_barycentric.h>
+#include <bgld/bgld_triangle.h>
+#include <bgld/bgld_barycentric.h>
 
 double tri_compactness (double* d, double& area)
 {
@@ -12,7 +12,7 @@ double tri_compactness (double* d, double& area)
 
   ///assert (compactness <= 1);
   if (compactness > 1) {
-    assert (dbgl_eq_m (compactness, 1));
+    assert (bgld_eq_m (compactness, 1));
     compactness = 1;
   }
 
@@ -26,9 +26,9 @@ bool get_barycentric (const vgl_point_3d<double>& G1,
                       const vgl_point_3d<double>& G3,
                       double& alpha, double& beta, double& gamma)
 {
-  const double u12 = dbgl_sqdist_3d (G1, G2);
-  const double u23 = dbgl_sqdist_3d (G2, G3);
-  const double u13 = dbgl_sqdist_3d (G1, G3);
+  const double u12 = bgld_sqdist_3d (G1, G2);
+  const double u23 = bgld_sqdist_3d (G2, G3);
+  const double u13 = bgld_sqdist_3d (G1, G3);
 
   return _get_barycentric (u12, u23, u13, alpha, beta, gamma);
 }
@@ -45,7 +45,7 @@ bool _get_barycentric (const double& u12, const double& u23, const double& u13,
   beta  = u13 * (u12 + u23 - u13) / delta2_16;
   gamma = u12 * (u13 + u23 - u12) / delta2_16;
 
-  assert (dbgl_eq_m (alpha + beta + gamma, 1.0));
+  assert (bgld_eq_m (alpha + beta + gamma, 1.0));
   return true;
 }
 
@@ -135,9 +135,9 @@ bool dbsk3d_fs_edge::computeTriCoord()
   dbmsh3d_vertex* pGeneC = genes[2];
 
   // Compute the Mu's : Squares of diameters linking pairs of sources
-  double dMuAB = dbgl_sqdist_3d (pGeneB->pt(), pGeneA->pt());
-  double dMuAC = dbgl_sqdist_3d (pGeneC->pt(), pGeneA->pt());
-  double dMuBC = dbgl_sqdist_3d (pGeneC->pt(), pGeneB->pt());
+  double dMuAB = bgld_sqdist_3d (pGeneB->pt(), pGeneA->pt());
+  double dMuAC = bgld_sqdist_3d (pGeneC->pt(), pGeneA->pt());
+  double dMuBC = bgld_sqdist_3d (pGeneC->pt(), pGeneB->pt());
 
   //double fPerimeter = (double) (sqrt(dMuAB) + sqrt(dMuAC) + sqrt(dMuBC));
 
@@ -238,12 +238,12 @@ bool dbsk3d_fs_vertex::computeQuadCoord()
   dbmsh3d_vertex* Gl = Genes_[3];
 
   //: Compute the Mu's : Squares of diameters linking pairs of sources 
-  double mu1 = dbgl_sqdist_3d (Gj->pt(), Gi->pt());
-  double mu2 = dbgl_sqdist_3d (Gk->pt(), Gi->pt());
-  double mu3 = dbgl_sqdist_3d (Gk->pt(), Gj->pt());
-  double mu4 = dbgl_sqdist_3d (Gl->pt(), Gi->pt());
-  double mu5 = dbgl_sqdist_3d (Gl->pt(), Gj->pt());
-  double mu6 = dbgl_sqdist_3d (Gl->pt(), Gk->pt());
+  double mu1 = bgld_sqdist_3d (Gj->pt(), Gi->pt());
+  double mu2 = bgld_sqdist_3d (Gk->pt(), Gi->pt());
+  double mu3 = bgld_sqdist_3d (Gk->pt(), Gj->pt());
+  double mu4 = bgld_sqdist_3d (Gl->pt(), Gi->pt());
+  double mu5 = bgld_sqdist_3d (Gl->pt(), Gj->pt());
+  double mu6 = bgld_sqdist_3d (Gl->pt(), Gk->pt());
 
   //: Compute the (signed) quadrilinear coordinates
   double mu1mu6 = mu1 * mu6;
@@ -298,10 +298,10 @@ bool dbsk3d_fs_vertex::computeQuadCoord()
   quadCoord_[3] = fDelta;
 
   // --- Check Squared Radius values ---
-  double fDSqA = dbgl_sqdist_3d (Gi->pt(), pt_);
-  double fDSqB = dbgl_sqdist_3d (Gj->pt(), pt_);
-  double fDSqC = dbgl_sqdist_3d (Gk->pt(), pt_);
-  double fDSqD = dbgl_sqdist_3d (Gl->pt(), pt_);
+  double fDSqA = bgld_sqdist_3d (Gi->pt(), pt_);
+  double fDSqB = bgld_sqdist_3d (Gj->pt(), pt_);
+  double fDSqC = bgld_sqdist_3d (Gk->pt(), pt_);
+  double fDSqD = bgld_sqdist_3d (Gl->pt(), pt_);
 
   ///time_ = sqrt (fDSqA);
   double fTmpX, fTmpY, fTmpZ;

@@ -1,6 +1,6 @@
-// This is basic/dbgl/dbgl_param_curve_3d.h
-#ifndef dbgl_param_curve_3d_h_
-#define dbgl_param_curve_3d_h_
+// This is basic/bgld/bgld_param_curve_3d.h
+#ifndef bgld_param_curve_3d_h_
+#define bgld_param_curve_3d_h_
 //:
 // \file
 // \brief A parametric 3D curve that can be sampled via a parametric equation.
@@ -25,7 +25,7 @@
 //  and they enable sampling and calculation of basic differential 
 //  geometries.
 //
-//  dbgl_param_curve_3d is the base class, various parametric curves 
+//  bgld_param_curve_3d is the base class, various parametric curves 
 //  such as arcs, euler spirals, polynomials which shall derive from this base class.
 //
 //  A parametric curve has a start and an endpoint. It also enables parametric
@@ -62,25 +62,25 @@ struct tangent_angles
   // T = [sin(phi).cos(theta), sin(phi).sin(theta), cos(phi)]
 };
 
-class dbgl_param_curve_3d
+class bgld_param_curve_3d
 {
  public:
 
-  dbgl_param_curve_3d() {}
+  bgld_param_curve_3d() {}
 
-  virtual ~dbgl_param_curve_3d() {}
+  virtual ~bgld_param_curve_3d() {}
 
   static const vcl_type_info& type_id()
-  { return typeid(dbgl_param_curve_3d); }
+  { return typeid(bgld_param_curve_3d); }
 
   virtual bool is_type( const vcl_type_info& type ) const
-  { return (typeid(dbgl_param_curve_3d) == type)!=0; }
+  { return (typeid(bgld_param_curve_3d) == type)!=0; }
 
   //: comparison operator.
   //  Comparison is on the curve, two parametric curves are identical if their
   //  equations are equivalent
   virtual
-  bool operator==(dbgl_param_curve_3d const& c) const {return this == &c; } 
+  bool operator==(bgld_param_curve_3d const& c) const {return this == &c; } 
 
   // Elementary geometric functions ----------------------------------
 
@@ -124,9 +124,9 @@ class dbgl_param_curve_3d
   virtual double torsion_at_length(double s) const = 0;
 
   virtual
-    dbgl_param_curve_3d& operator=( dbgl_param_curve_3d const& ) { return *this; }
+    bgld_param_curve_3d& operator=( bgld_param_curve_3d const& ) { return *this; }
  private:
   
 };
 
-#endif // dbgl_param_curve_3d_h_
+#endif // bgld_param_curve_3d_h_

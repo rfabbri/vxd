@@ -1,6 +1,6 @@
-// This is basic/dbgl/dbgl_param_curve.h
-#ifndef dbgl_param_curve_h_
-#define dbgl_param_curve_h_
+// This is basic/bgld/bgld_param_curve.h
+#ifndef bgld_param_curve_h_
+#define bgld_param_curve_h_
 //:
 // \file
 // \brief A parametric curve that can be sampled via a parametric equation.
@@ -36,7 +36,7 @@
 //  and they enable sampling and calculation of basic differential 
 //  geometries.
 //
-//  dbgl_param_curve is the base class, various parametric curves 
+//  bgld_param_curve is the base class, various parametric curves 
 //  such as arcs, euler spirals, and polynomials shall derive from this base class.
 //
 //  A parametric curve has a start and an endpoint. It also enables parametric
@@ -62,30 +62,30 @@
 //
 //
 
-class dbgl_param_curve
+class bgld_param_curve
 {
  public:
 
-  dbgl_param_curve() {}
+  bgld_param_curve() {}
 
   //: copy constructor
-  //dbgl_param_curve(const dbgl_param_curve()& that )
+  //bgld_param_curve(const bgld_param_curve()& that )
   //  : vbl_ref_count()
   //{    }   //suppress copying of reference count between objects
 
-  virtual ~dbgl_param_curve() {}
+  virtual ~bgld_param_curve() {}
 
   static const vcl_type_info& type_id()
-  { return typeid(dbgl_param_curve); }
+  { return typeid(bgld_param_curve); }
 
   virtual bool is_type( const vcl_type_info& type ) const
-  { return (typeid(dbgl_param_curve) == type)!=0; }
+  { return (typeid(bgld_param_curve) == type)!=0; }
 
   //: comparison operator.
   //  Comparison is on the curve, two parametric curves are identical if their
   //  equations are equivalent
   virtual
-  bool operator==(dbgl_param_curve const& c) const {return this == &c; } 
+  bool operator==(bgld_param_curve const& c) const {return this == &c; } 
 
   //: Write "<dbvgl_param_curve> to stream"
   // \relates dbvgl_param_curve
@@ -122,10 +122,10 @@ class dbgl_param_curve
   //: Get curvature of the point at s arclength away from starting point.
   virtual double curvature_at_length(double s) const = 0;
 
-  virtual dbgl_param_curve& operator=( dbgl_param_curve const& ) { return *this; }
+  virtual bgld_param_curve& operator=( bgld_param_curve const& ) { return *this; }
 
   // This will be an abstract function...
-  virtual dbgl_param_curve *clone() const = 0;// { return 0; }
+  virtual bgld_param_curve *clone() const = 0;// { return 0; }
 
  private:
   
@@ -135,9 +135,9 @@ class dbgl_param_curve
 
 //: Read parameters from stream
 // \relates dbvgl_param_curve
-//vcl_istream&  operator>>(vcl_istream& s, dbgl_param_curve const& c) const = 0;
+//vcl_istream&  operator>>(vcl_istream& s, bgld_param_curve const& c) const = 0;
 
 
 
 
-#endif // dbgl_param_curve_h_
+#endif // bgld_param_curve_h_

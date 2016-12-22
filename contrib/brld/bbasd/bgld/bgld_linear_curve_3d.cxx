@@ -1,11 +1,11 @@
-// This is basic/dbgl/dbgl_linear_curve_3d.cxx
-#include "dbgl_linear_curve_3d.h"
+// This is basic/bgld/bgld_linear_curve_3d.cxx
+#include "bgld_linear_curve_3d.h"
 #include <vcl_cmath.h>
 #include <vnl/vnl_math.h>
 #include <vnl/vnl_analytic_integrant.h>
 #include <vnl/algo/vnl_adaptsimpson_integral.h>
 
-dbgl_linear_curve_3d::dbgl_linear_curve_3d(vgl_vector_3d<double> start,
+bgld_linear_curve_3d::bgld_linear_curve_3d(vgl_vector_3d<double> start,
                                            vgl_vector_3d<double> end)
 {
   tolerance_ = 10e-6;
@@ -26,22 +26,22 @@ dbgl_linear_curve_3d::dbgl_linear_curve_3d(vgl_vector_3d<double> start,
   slopes_[2] = diff.z() / len_;
 };
 
-dbgl_linear_curve_3d::~dbgl_linear_curve_3d()
+bgld_linear_curve_3d::~bgld_linear_curve_3d()
 {
 }
 
-double dbgl_linear_curve_3d::length() const
+double bgld_linear_curve_3d::length() const
 {
   return len_;
 }
 
-vgl_point_3d<double> dbgl_linear_curve_3d::point_at(double s) const
+vgl_point_3d<double> bgld_linear_curve_3d::point_at(double s) const
 {
   assert(s >= 0 && s <= 1);
   return point_at_length(s * len_);
 }
 
-vgl_point_3d<double> dbgl_linear_curve_3d::point_at_length(double s) const
+vgl_point_3d<double> bgld_linear_curve_3d::point_at_length(double s) const
 {
   assert(s >= -tolerance_ && s <= len_ + tolerance_);
 
@@ -52,13 +52,13 @@ vgl_point_3d<double> dbgl_linear_curve_3d::point_at_length(double s) const
   return vgl_point_3d<double> (x,y,z);
 }
 
-vgl_vector_3d<double> dbgl_linear_curve_3d::tangent_at(double s) const
+vgl_vector_3d<double> bgld_linear_curve_3d::tangent_at(double s) const
 {
   assert(s >= 0 && s <= 1);
   return tangent_at_length(s * len_);
 }
 
-vgl_vector_3d<double> dbgl_linear_curve_3d::tangent_at_length(double s) const
+vgl_vector_3d<double> bgld_linear_curve_3d::tangent_at_length(double s) const
 {
   assert((s >= -tolerance_) && (s <= len_+tolerance_));
 //  struct tangent_angles ta = tangent_angles_at_length(s);
@@ -72,25 +72,25 @@ vgl_vector_3d<double> dbgl_linear_curve_3d::tangent_at_length(double s) const
   return tangent;
 }
 
-vgl_vector_3d<double> dbgl_linear_curve_3d::normal_at(double s) const
+vgl_vector_3d<double> bgld_linear_curve_3d::normal_at(double s) const
 {
   assert(s >= 0 && s <= 1);
   return normal_at_length(s * len_);
 }
 
-vgl_vector_3d<double> dbgl_linear_curve_3d::normal_at_length(double s) const
+vgl_vector_3d<double> bgld_linear_curve_3d::normal_at_length(double s) const
 {
-  vcl_cout << "dbgl_linear_curve_3d::normal_at_length NOT IMPLEMENTED!" << vcl_endl;
+  vcl_cout << "bgld_linear_curve_3d::normal_at_length NOT IMPLEMENTED!" << vcl_endl;
   return vgl_vector_3d<double>(0, 0, 0);
 }
 
-struct tangent_angles dbgl_linear_curve_3d::tangent_angles_at(double s) const
+struct tangent_angles bgld_linear_curve_3d::tangent_angles_at(double s) const
 {
   assert(s >= 0 && s <= 1);
   return tangent_angles_at_length(s * len_);
 }
 
-struct tangent_angles dbgl_linear_curve_3d::tangent_angles_at_length(double s) const
+struct tangent_angles bgld_linear_curve_3d::tangent_angles_at_length(double s) const
 {
   assert((s >= -tolerance_) && (s <= len_+tolerance_));
   double dx = slopes_[0];
@@ -110,26 +110,26 @@ struct tangent_angles dbgl_linear_curve_3d::tangent_angles_at_length(double s) c
   return ta;
 }
 
-double dbgl_linear_curve_3d::curvature_at(double s) const
+double bgld_linear_curve_3d::curvature_at(double s) const
 {
   assert(s >= 0 && s <= 1);
   return curvature_at_length(s * len_);
 }
 
-double dbgl_linear_curve_3d::curvature_at_length(double s) const
+double bgld_linear_curve_3d::curvature_at_length(double s) const
 {
-  vcl_cout << "dbgl_linear_curve_3d::curvature_at_length NOT IMPLEMENTED!" << vcl_endl;
+  vcl_cout << "bgld_linear_curve_3d::curvature_at_length NOT IMPLEMENTED!" << vcl_endl;
   return 0;
 }
 
-double dbgl_linear_curve_3d::torsion_at(double s) const
+double bgld_linear_curve_3d::torsion_at(double s) const
 {
   assert(s >= 0 && s <= 1);
   return torsion_at_length(s * len_);
 }
 
-double dbgl_linear_curve_3d::torsion_at_length(double s) const
+double bgld_linear_curve_3d::torsion_at_length(double s) const
 {
-  vcl_cout << "dbgl_linear_curve_3d::torsion_at_length NOT IMPLEMENTED!" << vcl_endl;
+  vcl_cout << "bgld_linear_curve_3d::torsion_at_length NOT IMPLEMENTED!" << vcl_endl;
   return 0;
 }

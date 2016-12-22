@@ -1,6 +1,6 @@
-// This is basic/dbgl/dbgl_arc.h
-#ifndef dbgl_arc_h_
-#define dbgl_arc_h_
+// This is basic/bgld/bgld_arc.h
+#ifndef bgld_arc_h_
+#define bgld_arc_h_
 //:
 // \file
 // \brief An arc implementation via a parametric equation
@@ -18,13 +18,13 @@
 
 #include <vgl/vgl_point_2d.h>
 #include <vgl/vgl_line_2d.h>
-#include <dbgl/dbgl_arc_base.h>
+#include <bgld/bgld_arc_base.h>
 #include <vcl_cmath.h>
 #include <vnl/vnl_math.h>
 #include <vcl_iostream.h>
 
 //: 
-// An arc segment class. \sa dbgl_param_curve documentation, specially 
+// An arc segment class. \sa bgld_param_curve documentation, specially 
 // regarding the conventions for parametrized access to the curve. Above all,
 // whenever a parameter is assumed to be within [0,1] range, do NOT assume it to
 // be a fraction of arclength parameter, even though it might actually be.
@@ -36,7 +36,7 @@
 //  angle is a linear function of s 
 //  but depends on the direction of arc (ccw = 1 if counterclockwise, -1 otherwise)
 //  alpha(s) = alpha0 + [ [ 2PI + ccw * (alpha1-alpha0) ] % 2PI ] * s)
-class dbgl_arc : public dbgl_arc_base
+class bgld_arc : public bgld_arc_base
 {
  public:
     static const double near_zero_value
@@ -47,39 +47,39 @@ class dbgl_arc : public dbgl_arc_base
 
 
   //: default constructor 
-   dbgl_arc() : center_(0,0), curv_(1.0), ccw_(1), alpha0_(0.0), alpha1_(PI) {}
+   bgld_arc() : center_(0,0), curv_(1.0), ccw_(1), alpha0_(0.0), alpha1_(PI) {}
 
   //: copy_constructor
-  dbgl_arc( const dbgl_arc& that )
-    : dbgl_arc_base(), center_(that.center_), curv_(that.curv_),
+  bgld_arc( const bgld_arc& that )
+    : bgld_arc_base(), center_(that.center_), curv_(that.curv_),
       ccw_(that.ccw_), alpha0_(that.alpha0_), alpha1_(that.alpha1_)
   {    }  
 
   //: construct from 3 points
   //  check curvature, should be nonzero for a valid arc
-  dbgl_arc(const vgl_point_2d<double> &start, const vgl_point_2d<double> &end, const vgl_point_2d<double> &other);
+  bgld_arc(const vgl_point_2d<double> &start, const vgl_point_2d<double> &end, const vgl_point_2d<double> &other);
 
   //:
-  virtual ~dbgl_arc();
+  virtual ~bgld_arc();
 
   static const vcl_type_info& type_id()
-  { return typeid(dbgl_arc); }
+  { return typeid(bgld_arc); }
 
   virtual bool is_type( const vcl_type_info& type ) const
-  { return (typeid(dbgl_arc) == type)!=0 ||
-            this->dbgl_arc_base::is_type(type);
+  { return (typeid(bgld_arc) == type)!=0 ||
+            this->bgld_arc_base::is_type(type);
   }
 
-  dbgl_param_curve *clone() const { return new dbgl_arc(*this); }
+  bgld_param_curve *clone() const { return new bgld_arc(*this); }
 
   //: comparison operator.
   //  Comparison is on the curve, two parametric curves are identical if their
   //  equations are equivalent
   virtual
-  bool operator==(const dbgl_arc &c) const;
-  inline bool operator!=(const dbgl_arc &other) const {return !operator==(other);}
+  bool operator==(const bgld_arc &c) const;
+  inline bool operator!=(const bgld_arc &other) const {return !operator==(other);}
 
-  //bool operator==(dbgl_param_curve const& obj) const; // virtual of dbgl_param_curve
+  //bool operator==(bgld_param_curve const& obj) const; // virtual of bgld_param_curve
 
   //: Write "<dbvgl_param_curve> to stream"
   // \relates dbvgl_param_curve
@@ -136,12 +136,12 @@ class dbgl_arc : public dbgl_arc_base
   double curvature() const { return curv_; }
 
   //: make an euler spiral from itself and return an euler spiral 
-  //dbgl_euler_spiral make_euler_spiral() const;
+  //bgld_euler_spiral make_euler_spiral() const;
 
   //
-  dbgl_arc& operator=( dbgl_arc const& );
+  bgld_arc& operator=( bgld_arc const& );
 
-  friend class dbgl_arc_algo;
+  friend class bgld_arc_algo;
 
  protected: // some routines that maybe useful for friends and derived classes
   
@@ -173,18 +173,18 @@ class dbgl_arc : public dbgl_arc_base
 };
 
 // Inlined definitions -------------------------------------------
-inline bool dbgl_arc::is_almost_zero(double x)
+inline bool bgld_arc::is_almost_zero(double x)
 {
   return (vcl_fabs(x) < near_zero_value);
 }
 
-inline bool dbgl_arc::is_almost_equal(double val1, double val2, double tolerance)
+inline bool bgld_arc::is_almost_equal(double val1, double val2, double tolerance)
 {
   return (vcl_fabs(val1 - val2) < tolerance);
 }
 
 //: length of arc 
-inline double dbgl_arc::length() const
+inline double bgld_arc::length() const
 {
    if (curv_ != 0.0) {
       double dif = vcl_fmod((TWOPI+ccw_*(alpha1_-alpha0_)),TWOPI);
@@ -193,4 +193,4 @@ inline double dbgl_arc::length() const
       return 2*vnl_math::hypot(center_.x()-alpha0_, center_.y()-alpha1_);
 }
 
-#endif // dbgl_arc_h_
+#endif // bgld_arc_h_

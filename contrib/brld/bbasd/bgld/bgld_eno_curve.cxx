@@ -1,10 +1,10 @@
-// This is basic/dbgl/dbgl_eno_curve.cxx
-#include "dbgl_eno_curve.h"
+// This is basic/bgld/bgld_eno_curve.cxx
+#include "bgld_eno_curve.h"
 #include <vcl_cmath.h>
 #include <vnl/vnl_math.h>
 #include <limits>
 
-dbgl_eno_curve::dbgl_eno_curve(vcl_vector<double> coefs_x, vcl_vector<double> coefs_y, double start_t, double end_t)
+bgld_eno_curve::bgld_eno_curve(vcl_vector<double> coefs_x, vcl_vector<double> coefs_y, double start_t, double end_t)
 {
   tolerance_ = 10e-6;
 
@@ -22,13 +22,13 @@ dbgl_eno_curve::dbgl_eno_curve(vcl_vector<double> coefs_x, vcl_vector<double> co
   len_ = length_at(end_t_);
 };
 
-dbgl_eno_curve::~dbgl_eno_curve()
+bgld_eno_curve::~bgld_eno_curve()
 {
   coefs_x_.clear();
   coefs_y_.clear();
 }
 
-double dbgl_eno_curve::s_to_t(double s, double accuracy) const
+double bgld_eno_curve::s_to_t(double s, double accuracy) const
 {
   // s cannot be smaller than zero or greater than the length of the curve
   assert(s >= -tolerance_ && s <= len_ + tolerance_);
@@ -50,7 +50,7 @@ double dbgl_eno_curve::s_to_t(double s, double accuracy) const
 }
 
 // formula obtained by using Maple
-double dbgl_eno_curve::length_at(double t) const
+double bgld_eno_curve::length_at(double t) const
 {
   double val = 0;
   // t has to be in [start_t_, end_t_] range
@@ -108,12 +108,12 @@ double dbgl_eno_curve::length_at(double t) const
     return val; //enters this only for the constructor before len_until_start_ is set
 }
 
-double dbgl_eno_curve::length() const
+double bgld_eno_curve::length() const
 {
   return len_;
 }
 
-vgl_point_2d<double> dbgl_eno_curve::point_at(double t) const
+vgl_point_2d<double> bgld_eno_curve::point_at(double t) const
 {
   assert(t >= start_t_ - tolerance_ && t <= end_t_ + tolerance_);
   double x = evaluate_x(t);
@@ -121,28 +121,28 @@ vgl_point_2d<double> dbgl_eno_curve::point_at(double t) const
   return vgl_point_2d<double>(x, y);
 }
 
-vgl_point_2d<double> dbgl_eno_curve::point_at_length(double s) const
+vgl_point_2d<double> bgld_eno_curve::point_at_length(double s) const
 {
   assert(s >= -tolerance_ && s <= len_ + tolerance_);
   double t = s_to_t(s, S_T_ACCURACY);
   return point_at(t);
 }
 
-vgl_vector_2d<double> dbgl_eno_curve::tangent_at(double t) const
+vgl_vector_2d<double> bgld_eno_curve::tangent_at(double t) const
 {
   assert(t >= start_t_ - tolerance_ && t <= end_t_ + tolerance_);
   double angle = tangent_angle_at(t);
   return vgl_vector_2d<double> (vcl_cos(angle), vcl_sin(angle));
 }
 
-vgl_vector_2d<double> dbgl_eno_curve::tangent_at_length(double s) const
+vgl_vector_2d<double> bgld_eno_curve::tangent_at_length(double s) const
 {
   assert(s >= -tolerance_ && s <= len_ + tolerance_);
   double t = s_to_t(s, S_T_ACCURACY);
   return tangent_at(t);
 }
 
-double dbgl_eno_curve::tangent_angle_at(double t) const
+double bgld_eno_curve::tangent_angle_at(double t) const
 {
   assert(t >= start_t_ - tolerance_ && t <= end_t_ + tolerance_);
   double dx = evaluate_first_derivative_x(t);
@@ -155,14 +155,14 @@ double dbgl_eno_curve::tangent_angle_at(double t) const
   return angle;
 }
 
-double dbgl_eno_curve::tangent_angle_at_length(double s) const
+double bgld_eno_curve::tangent_angle_at_length(double s) const
 {
   assert(s >= -tolerance_ && s <= len_ + tolerance_);
   double t = s_to_t(s, S_T_ACCURACY);
   return tangent_angle_at(t);
 }
 
-double dbgl_eno_curve::curvature_at(double t) const
+double bgld_eno_curve::curvature_at(double t) const
 {
   assert(t >= start_t_ - tolerance_ && t <= end_t_ + tolerance_);
   double x_t = evaluate_first_derivative_x(t);
@@ -177,39 +177,39 @@ double dbgl_eno_curve::curvature_at(double t) const
   return temp1 / temp2;
 }
 
-double dbgl_eno_curve::curvature_at_length(double s) const
+double bgld_eno_curve::curvature_at_length(double s) const
 {
   assert(s >= -tolerance_ && s <= len_ + tolerance_);
   double t = s_to_t(s, S_T_ACCURACY);
   return curvature_at(t);
 }
 
-double dbgl_eno_curve::evaluate_x(double t) const
+double bgld_eno_curve::evaluate_x(double t) const
 {
   return coefs_x_[0] + coefs_x_[1] * t + coefs_x_[2] * vcl_pow(t, 2.0);
 }
 
-double dbgl_eno_curve::evaluate_y(double t) const
+double bgld_eno_curve::evaluate_y(double t) const
 {
   return coefs_y_[0] + coefs_y_[1] * t + coefs_y_[2] * vcl_pow(t, 2.0);
 }
 
-double dbgl_eno_curve::evaluate_first_derivative_x(double t) const
+double bgld_eno_curve::evaluate_first_derivative_x(double t) const
 {
   return coefs_x_[1] + 2 * coefs_x_[2] * t;
 }
 
-double dbgl_eno_curve::evaluate_first_derivative_y(double t) const
+double bgld_eno_curve::evaluate_first_derivative_y(double t) const
 {
   return coefs_y_[1] + 2 * coefs_y_[2] * t;
 }
 
-double dbgl_eno_curve::evaluate_second_derivative_x(double t) const
+double bgld_eno_curve::evaluate_second_derivative_x(double t) const
 {
   return 2 * coefs_x_[2];
 }
 
-double dbgl_eno_curve::evaluate_second_derivative_y(double t) const
+double bgld_eno_curve::evaluate_second_derivative_y(double t) const
 {
   return 2 * coefs_y_[2];
 }

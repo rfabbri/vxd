@@ -1,4 +1,4 @@
-// Mar 03, 2004  dbgl/dbgl_rigid_transform.cxx
+// Mar 03, 2004  bgld/bgld_rigid_transform.cxx
 // Based on original code by MingChing Chang
 
 #include <vcl_iostream.h>
@@ -7,7 +7,7 @@
 #include <vnl/vnl_matrix.h>
 #include <vnl/algo/vnl_svd.h>
 
-#include <dbgl/dbgl_rigid_align.h>
+#include <bgld/bgld_rigid_align.h>
 
 //: Compute the best rigid transformation that minimizing Euclidean distance.
 //  Rotate and Translate mov_pts to target_pts that best matches them.
@@ -25,7 +25,7 @@
 //       2)multiple by the rotation matrix R
 //       3)add by Cf, you get the point in P in P1 space
 //
-void dbgl_get_rigid_alignment (vcl_vector<vgl_point_3d<double> >& cor_fixPS,
+void bgld_get_rigid_alignment (vcl_vector<vgl_point_3d<double> >& cor_fixPS,
                                vcl_vector<vgl_point_3d<double> >& cor_movPS,
                                vnl_matrix_fixed<double,3,3>& R, 
                                vnl_vector_fixed<double,3>& Cf, 

@@ -1,6 +1,6 @@
-// This is basic/dbgl/dbgl_poly_curve.h
-#ifndef dbgl_poly_curve_h_
-#define dbgl_poly_curve_h_
+// This is basic/bgld/bgld_poly_curve.h
+#ifndef bgld_poly_curve_h_
+#define bgld_poly_curve_h_
 //:
 // \file
 // \brief Abstract base class for a polynomial curve that can be sampled via a polynomial equation.
@@ -16,7 +16,7 @@
 
 #include <vgl/vgl_point_2d.h>
 #include <vgl/vgl_vector_2d.h>
-#include <dbgl/dbgl_param_curve.h>
+#include <bgld/bgld_param_curve.h>
 #include <vcl_iostream.h>
 
 //: polynomial is parametrized by s (runs in [-infinity,+infinity]). 
@@ -26,37 +26,37 @@
 //  y(s) = coef_y[0] + coef_y[1]*s + coef_y[2]*s^2 + ... + coef_y[n]*s^n 
 //  \endcode
 
-class dbgl_poly_curve : public dbgl_param_curve
+class bgld_poly_curve : public bgld_param_curve
 {
  public:
 
-  dbgl_poly_curve() {}
+  bgld_poly_curve() {}
 
   //: construct from vectors of coefs
-  dbgl_poly_curve(int order, double len, vcl_vector<double> coefs_x, 
+  bgld_poly_curve(int order, double len, vcl_vector<double> coefs_x, 
                                          vcl_vector<double> coefs_y) 
     : order_(order), len_(len), coefs_x_(coefs_x), coefs_y_(coefs_y)  {}
 
   //: copy_constructor
-  dbgl_poly_curve( const dbgl_poly_curve& that )
-    : dbgl_param_curve(), order_(that.order_), len_(that.len_), 
+  bgld_poly_curve( const bgld_poly_curve& that )
+    : bgld_param_curve(), order_(that.order_), len_(that.len_), 
       coefs_x_(that.coefs_x_), coefs_y_(that.coefs_y_)  {} 
 
-  virtual ~dbgl_poly_curve() {}
+  virtual ~bgld_poly_curve() {}
 
   static const vcl_type_info& type_id()
-  { return typeid(dbgl_poly_curve); }
+  { return typeid(bgld_poly_curve); }
 
   virtual bool is_type( const vcl_type_info& type ) const
-  { return (typeid(dbgl_poly_curve) == type)!=0 ||
-            this->dbgl_param_curve::is_type(type);
+  { return (typeid(bgld_poly_curve) == type)!=0 ||
+            this->bgld_param_curve::is_type(type);
   }
  
   // Property functions ----------------------------------------------
   
   virtual
-  bool operator==(const dbgl_poly_curve &c) const;
-  inline bool operator!=(const dbgl_poly_curve &other) const {return !operator==(other);}
+  bool operator==(const bgld_poly_curve &c) const;
+  inline bool operator!=(const bgld_poly_curve &other) const {return !operator==(other);}
 
   //: return order of the polynomial
   int order() const { return order_; }
@@ -97,9 +97,9 @@ class dbgl_poly_curve : public dbgl_param_curve
   virtual double tangent_angle_at_length(double l) const = 0;
 
   // 
-  dbgl_poly_curve& operator=( dbgl_poly_curve const& );
+  bgld_poly_curve& operator=( bgld_poly_curve const& );
 
-  virtual dbgl_param_curve *clone() const = 0;
+  virtual bgld_param_curve *clone() const = 0;
 
  private:
 
@@ -125,4 +125,4 @@ class dbgl_poly_curve : public dbgl_param_curve
 
 };
 
-#endif // dbgl_poly_curve_h_
+#endif // bgld_poly_curve_h_

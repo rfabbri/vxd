@@ -1,19 +1,19 @@
-// This is basic/dbgl/dbgl_arc.cxx
+// This is basic/bgld/bgld_arc.cxx
 //:
 //\file
 // A considerable part of this implementation is "inspired" from old GENO C code
 // by Kwun Han.
 
-#include "dbgl_arc.h"
+#include "bgld_arc.h"
 #include <vcl_cmath.h>
 #include <vcl_iostream.h>
 
 
 
 #if !VCL_STATIC_CONST_INIT_FLOAT_NO_DEFN
-const double  dbgl_arc::near_zero_value
+const double  bgld_arc::near_zero_value
       VCL_STATIC_CONST_INIT_FLOAT_DEFN(1.0e-8);
-const double dbgl_arc::minimum_curvature
+const double bgld_arc::minimum_curvature
       VCL_STATIC_CONST_INIT_FLOAT_DEFN(0.00260416);  //(1/384.0)
 #endif
 
@@ -21,7 +21,7 @@ const double dbgl_arc::minimum_curvature
 
 
 
-bool dbgl_arc::is_colinear(const vgl_point_2d<double> &point1,
+bool bgld_arc::is_colinear(const vgl_point_2d<double> &point1,
                            const vgl_point_2d<double> &point2,
                            const vgl_point_2d<double> &point3)
 {
@@ -42,7 +42,7 @@ bool dbgl_arc::is_colinear(const vgl_point_2d<double> &point1,
 
 //: finds intersection of two disecting lines and sets the center of the circle
 // \return false if there is no intersection 
-bool dbgl_arc::
+bool bgld_arc::
 find_center(
       const vgl_point_2d<double>& p11, const vgl_point_2d<double>& p12,
       const vgl_point_2d<double>& p21, const vgl_point_2d<double>& p22)
@@ -66,7 +66,7 @@ find_center(
 // traversal. Arcs of radius 0 (points) are NOT supported by this class (e.g. 
 // methods such as point_at will have undefined behavior).
 //
-dbgl_arc::dbgl_arc(
+bgld_arc::bgld_arc(
       const vgl_point_2d<double> &start, 
       const vgl_point_2d<double> &end, 
       const vgl_point_2d<double> &other)
@@ -127,20 +127,20 @@ dbgl_arc::dbgl_arc(
        r  = (center_-start).length();
      else {
 #ifndef NDEBUG
-         vcl_cerr << "dbgl_arc: no center found..\n";
+         vcl_cerr << "bgld_arc: no center found..\n";
 #endif
        r = 0.0;
      }
 
      if (is_almost_zero(r)) {
-        vcl_cerr << "dbgl_arc: Radius 0 (not supported!)\n";
+        vcl_cerr << "bgld_arc: Radius 0 (not supported!)\n";
         curv_ = 0.0;
      } else
         curv_ = 1.0/r;
 
 
      if (curv_ < minimum_curvature){
-//         vcl_cerr << "dbgl_arc: clipping curvature " << curv_ << " --> 0\n";
+//         vcl_cerr << "bgld_arc: clipping curvature " << curv_ << " --> 0\n";
          curv_ = 0.0;
          center_.x() = (end.x() + start.x()) / 2.0;
          center_.y() = (end.y() + start.y()) / 2.0;
@@ -182,12 +182,12 @@ dbgl_arc::dbgl_arc(
 }
 
 //:
-dbgl_arc::~dbgl_arc() {}
+bgld_arc::~bgld_arc() {}
 
 //: comparison operator.
 //  Comparison is on the curve, two parametric curves are identical if their
 //  equations are equivalent
-bool dbgl_arc::operator==(dbgl_arc const& c) const 
+bool bgld_arc::operator==(bgld_arc const& c) const 
 {
   return (curv_== c.curvature() && 
           center_== c.center() && 
@@ -196,7 +196,7 @@ bool dbgl_arc::operator==(dbgl_arc const& c) const
           alpha1_ == c.end_angle()); 
 }
 
-dbgl_arc& dbgl_arc::operator=( dbgl_arc const& c)
+bgld_arc& bgld_arc::operator=( bgld_arc const& c)
 {
   curv_ = c.curvature();
   center_ = c.center(); 
@@ -210,7 +210,7 @@ dbgl_arc& dbgl_arc::operator=( dbgl_arc const& c)
 
 //: Get sample point at value s of a parameter along the curve, s within [0,1] 
 vgl_point_2d<double> 
-dbgl_arc::point_at(double s) const
+bgld_arc::point_at(double s) const
 {
   if (curv_ == 0.0) {
      double x = alpha0_ + s*2*(center_.x() - alpha0_);
@@ -242,14 +242,14 @@ dbgl_arc::point_at(double s) const
 
 
 //: Get tangent of the point at parameter s within [0,1]
-vgl_vector_2d<double> dbgl_arc::tangent_at(double s) const
+vgl_vector_2d<double> bgld_arc::tangent_at(double s) const
 {
   double alpha = tangent_angle_at(s);
   return vgl_vector_2d<double>(cos(alpha), sin(alpha));
 }
 
 //: Gets tangent angle (in radian) in [0, 2PI) at parameter s within [0,1]
-double dbgl_arc::tangent_angle_at(double s) const
+double bgld_arc::tangent_angle_at(double s) const
 {
   if (curv_ == 0) { 
      // atan2: [-pi,pi]
@@ -292,7 +292,7 @@ double dbgl_arc::tangent_angle_at(double s) const
 }
 
 //: intersection of two lines
-unsigned dbgl_arc::
+unsigned bgld_arc::
 compute_inters_ll(
       const vgl_point_2d<double> &p11, const vgl_point_2d<double> &p12,
       const vgl_point_2d<double> &p21, const vgl_point_2d<double> &p22,
@@ -341,7 +341,7 @@ compute_inters_ll(
 }
 
 vcl_ostream& 
-dbgl_arc::
+bgld_arc::
 print(vcl_ostream &os) const
 {
    

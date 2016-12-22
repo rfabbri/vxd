@@ -1,11 +1,11 @@
-// This is basic/dbgl/dbgl_dist.cxx
+// This is basic/bgld/bgld_dist.cxx
 //:
 //\file
 // Mar 07, 2007  Basic distance computation.
 
-#include <dbgl/dbgl_dist.h>
+#include <bgld/bgld_dist.h>
 
-vgl_box_3d<double> dbgl_reduce_box (const vgl_box_3d<double>& box, const double red)
+vgl_box_3d<double> bgld_reduce_box (const vgl_box_3d<double>& box, const double red)
 {
   vgl_box_3d<double> red_box;
 
@@ -24,7 +24,7 @@ vgl_box_3d<double> dbgl_reduce_box (const vgl_box_3d<double>& box, const double 
   return red_box;
 }
 
-vgl_box_3d<double> dbgl_extend_box (const vgl_box_3d<double>& box, const double ext)
+vgl_box_3d<double> bgld_extend_box (const vgl_box_3d<double>& box, const double ext)
 {
   vgl_box_3d<double> ext_box;
 
@@ -39,7 +39,7 @@ vgl_box_3d<double> dbgl_extend_box (const vgl_box_3d<double>& box, const double 
   return ext_box;
 }
 
-vgl_box_3d<double> dbgl_extend_box_by_factor (const vgl_box_3d<double>& box, const float factor)
+vgl_box_3d<double> bgld_extend_box_by_factor (const vgl_box_3d<double>& box, const float factor)
 {
   vgl_box_3d<double> ext_box;
 

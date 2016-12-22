@@ -1,6 +1,6 @@
-// This is basic/dbgl/dbgl_barycentric.h
-#ifndef dbgl_barycentric_h_
-#define dbgl_barycentric_h_
+// This is basic/bgld/bgld_barycentric.h
+#ifndef bgld_barycentric_h_
+#define bgld_barycentric_h_
 //:
 // \file
 // \brief  Some 3D barycentric functions.
@@ -65,4 +65,4 @@ vgl_point_3d<double> circum_center_3pts (const vgl_point_3d<double>& A,
                                          const vgl_point_3d<double>& C);
 
 
-#endif // dbgl_barycentric_h_
+#endif // bgld_barycentric_h_

@@ -1,6 +1,6 @@
-// This is basic/dbgl/dbgl_poly_curve_line.h
-#ifndef dbgl_poly_curve_line_h_
-#define dbgl_poly_curve_line_h_
+// This is basic/bgld/bgld_poly_curve_line.h
+#ifndef bgld_poly_curve_line_h_
+#define bgld_poly_curve_line_h_
 //:
 // \file
 // \brief  Class that implements methods to create lines and 
@@ -16,7 +16,7 @@
 //
 //-----------------------------------------------------------------------------
 
-#include <dbgl/dbgl_poly_curve.h>
+#include <bgld/bgld_poly_curve.h>
 
 //: Each polynomial has 2 coefficients in linear case. 
 //  For each interval C[i-1, i] on curve, compute px(s) = a1*s + a0
@@ -27,37 +27,37 @@
 // to interpolate the point at l arclength away from start point use:
 // point_at(l/length()) ,i.e. set s = l/total_length 
 
-class dbgl_poly_curve_line : public dbgl_poly_curve
+class bgld_poly_curve_line : public bgld_poly_curve
 {
  public:
 
-  dbgl_poly_curve_line() {}
+  bgld_poly_curve_line() {}
 
   //: construct from vectors of coefs
-  dbgl_poly_curve_line(double len, vcl_vector<double> coefs_x, vcl_vector<double> coefs_y) : 
-  dbgl_poly_curve(1, len, coefs_x, coefs_y) {}  
+  bgld_poly_curve_line(double len, vcl_vector<double> coefs_x, vcl_vector<double> coefs_y) : 
+  bgld_poly_curve(1, len, coefs_x, coefs_y) {}  
   //order_(1), len_(len), coefs_x_(coefs_x), coefs_y_(coefs_y) {}
 
   //: copy_constructor
-  dbgl_poly_curve_line( const dbgl_poly_curve_line& that ) :
-    dbgl_poly_curve(that) {} 
+  bgld_poly_curve_line( const bgld_poly_curve_line& that ) :
+    bgld_poly_curve(that) {} 
     //: order_(that.order_), len_(that.len_), coefs_x_(that.coefs_x_), coefs_y_(that.coefs_y_) {} 
 
   //: construct from two points 
-  dbgl_poly_curve_line(vgl_point_2d<double> start, vgl_point_2d<double> end);
+  bgld_poly_curve_line(vgl_point_2d<double> start, vgl_point_2d<double> end);
 
   //:
-  virtual ~dbgl_poly_curve_line() {}
+  virtual ~bgld_poly_curve_line() {}
 
   static const vcl_type_info& type_id()
-  { return typeid(dbgl_poly_curve_line); }
+  { return typeid(bgld_poly_curve_line); }
 
   virtual bool is_type( const vcl_type_info& type ) const
-  { return (typeid(dbgl_poly_curve_line) == type)!=0 ||
-            this->dbgl_poly_curve::is_type(type);
+  { return (typeid(bgld_poly_curve_line) == type)!=0 ||
+            this->bgld_poly_curve::is_type(type);
   }
 
-  dbgl_param_curve *clone() const { return new dbgl_poly_curve_line(*this); }
+  bgld_param_curve *clone() const { return new bgld_poly_curve_line(*this); }
  
   // Property functions ----------------------------------------------
   
@@ -81,7 +81,7 @@ class dbgl_poly_curve_line : public dbgl_poly_curve
 
  private:
   // disabled
-  dbgl_poly_curve_line& operator=( dbgl_poly_curve_line const& );
+  bgld_poly_curve_line& operator=( bgld_poly_curve_line const& );
 };
 
-#endif // dbgl_poly_curve_line_h_
+#endif // bgld_poly_curve_line_h_

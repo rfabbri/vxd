@@ -1,6 +1,6 @@
-// This is basic/dbgl/dbgl_eno_curve_3d.h
-#ifndef dbgl_eno_curve_3d_h_
-#define dbgl_eno_curve_3d_h_
+// This is basic/bgld/bgld_eno_curve_3d.h
+#ifndef bgld_eno_curve_3d_h_
+#define bgld_eno_curve_3d_h_
 //:
 // \file
 // \brief Class that implements third-order polynomial parametric 
@@ -24,7 +24,7 @@
 
 #include <vgl/vgl_point_3d.h>
 #include <vgl/vgl_vector_3d.h>
-#include <dbgl/dbgl_param_curve_3d.h>
+#include <bgld/bgld_param_curve_3d.h>
 #include <vcl_iostream.h>
 
 // accuracy used for the computation of "t" (running parameter) from "s" (arclength)
@@ -44,33 +44,33 @@
 //  point_at_length(double s) which will in advance call point_at_t(double t), and
 //  same as similar functions
 
-class dbgl_eno_curve_3d : public dbgl_param_curve_3d
+class bgld_eno_curve_3d : public bgld_param_curve_3d
 {
 public:
   //: No empty constructors
 
   //: Constructor from coefficients, start point parameter value, and
   //  end point parameter value
-  dbgl_eno_curve_3d(vcl_vector<double> coefs_x, 
+  bgld_eno_curve_3d(vcl_vector<double> coefs_x, 
                     vcl_vector<double> coefs_y, 
                     vcl_vector<double> coefs_z,
                     double start_t,
                     double end_t);
 
-  virtual ~dbgl_eno_curve_3d();
+  virtual ~bgld_eno_curve_3d();
 
   static const vcl_type_info& type_id()
-  { return typeid(dbgl_eno_curve_3d); }
+  { return typeid(bgld_eno_curve_3d); }
 
   virtual bool is_type( const vcl_type_info& type ) const
-  { return (typeid(dbgl_eno_curve_3d) == type)!=0 ||
-  this->dbgl_eno_curve_3d::is_type(type);
+  { return (typeid(bgld_eno_curve_3d) == type)!=0 ||
+  this->bgld_eno_curve_3d::is_type(type);
   }
 
   //: comparison operator.
   //  Comparison is on the curve, two parametric curves are identical if their
   //  equations are equivalent
-  bool operator==(dbgl_eno_curve_3d const& c) const {return this == &c; } 
+  bool operator==(bgld_eno_curve_3d const& c) const {return this == &c; } 
 
   //: access functions
   double start_t(){ return start_t_; };
@@ -132,7 +132,7 @@ public:
   //: Get torsion at value t along the curve, t within [start_t_, end_t_]
   double torsion_at_t(double t) const;
 
-  dbgl_eno_curve_3d& operator=( dbgl_eno_curve_3d const& ) { return *this; }
+  bgld_eno_curve_3d& operator=( bgld_eno_curve_3d const& ) { return *this; }
 
 private:
   //: evaluate at t, t between [0,1]
@@ -168,4 +168,4 @@ protected:
   double tolerance_;
 };
 
-#endif // dbgl_eno_curve_3d_h_
+#endif // bgld_eno_curve_3d_h_

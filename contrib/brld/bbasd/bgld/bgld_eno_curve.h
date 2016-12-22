@@ -1,6 +1,6 @@
-// This is basic/dbgl/dbgl_eno_curve.h
-#ifndef dbgl_eno_curve_h_
-#define dbgl_eno_curve_h_
+// This is basic/bgld/bgld_eno_curve.h
+#ifndef bgld_eno_curve_h_
+#define bgld_eno_curve_h_
 //:
 // \file
 // \brief Class that implements second-order polynomial 
@@ -22,7 +22,7 @@
 
 #include <vgl/vgl_point_2d.h>
 #include <vgl/vgl_vector_2d.h>
-#include <dbgl/dbgl_param_curve.h>
+#include <bgld/bgld_param_curve.h>
 #include <vcl_iostream.h>
 
 #define S_T_ACCURACY 10e-6
@@ -33,28 +33,28 @@
 //  y(t) = coef_y[0] + coef_y[1]*t + coef_y[2]*t^2
 //  \endcode
 
-class dbgl_eno_curve : public dbgl_param_curve
+class bgld_eno_curve : public bgld_param_curve
 {
 public:
   //: No empty constructors
 
   //: Constructor from ENO coefficients
-  dbgl_eno_curve(vcl_vector<double> coefs_x, vcl_vector<double> coefs_y, double start_t, double end_t);
+  bgld_eno_curve(vcl_vector<double> coefs_x, vcl_vector<double> coefs_y, double start_t, double end_t);
 
-  virtual ~dbgl_eno_curve();
+  virtual ~bgld_eno_curve();
 
   static const vcl_type_info& type_id()
-  { return typeid(dbgl_eno_curve); }
+  { return typeid(bgld_eno_curve); }
 
   virtual bool is_type( const vcl_type_info& type ) const
-  { return (typeid(dbgl_eno_curve) == type)!=0 ||
-  this->dbgl_eno_curve::is_type(type);
+  { return (typeid(bgld_eno_curve) == type)!=0 ||
+  this->bgld_eno_curve::is_type(type);
   }
 
   //: comparison operator.
   //  Comparison is on the curve, two parametric curves are identical if their
   //  equations are equivalent
-  bool operator==(dbgl_eno_curve const& c) const {return this == &c; } 
+  bool operator==(bgld_eno_curve const& c) const {return this == &c; } 
 
   //: access functions
   double start_t(){ return start_t_; };
@@ -98,9 +98,9 @@ public:
   //: Get curvature at arclength s away from starting point, s within [0,len_]
   double curvature_at_length(double s) const;
 
-  dbgl_eno_curve& operator=( dbgl_eno_curve const& ) { return *this; }
+  bgld_eno_curve& operator=( bgld_eno_curve const& ) { return *this; }
 
-  dbgl_param_curve *clone() const { return new dbgl_eno_curve(*this); }
+  bgld_param_curve *clone() const { return new bgld_eno_curve(*this); }
 
 private:
   //: evaluate at t, t between [0,1]
@@ -137,4 +137,4 @@ protected:
   double tolerance_;
 };
 
-#endif // dbgl_eno_curve_h_
+#endif // bgld_eno_curve_h_

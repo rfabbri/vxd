@@ -1,15 +1,15 @@
-//: dbgl/dbgl_rigid_align.h
+//: bgld/bgld_rigid_align.h
 //  Based on original code by MingChing Chang, Jul 21, 2008 
 
-#ifndef dbgl_rigid_align_h_
-#define dbgl_rigid_align_h_
+#ifndef bgld_rigid_align_h_
+#define bgld_rigid_align_h_
 
 #include <vcl_vector.h>
 #include <vnl/vnl_matrix.h>
 #include <vnl/vnl_vector_fixed.h>
 #include <vgl/algo/vgl_h_matrix_3d.h>
 
-void dbgl_get_rigid_alignment (vcl_vector<vgl_point_3d<double> >& cor_fixPS,
+void bgld_get_rigid_alignment (vcl_vector<vgl_point_3d<double> >& cor_fixPS,
                                vcl_vector<vgl_point_3d<double> >& cor_movPS,
                                vnl_matrix_fixed<double,3,3>& R, 
                                vnl_vector_fixed<double,3>& fixC, 

@@ -1,6 +1,6 @@
-// This is basic/dbgl/dbgl_linear_curve_3d.h
-#ifndef dbgl_linear_curve_3d_h_
-#define dbgl_linear_curve_3d_h_
+// This is basic/bgld/bgld_linear_curve_3d.h
+#ifndef bgld_linear_curve_3d_h_
+#define bgld_linear_curve_3d_h_
 //:
 // \file
 // \brief Class that implements linear three dimensional curve 
@@ -20,7 +20,7 @@
 
 #include <vgl/vgl_point_3d.h>
 #include <vgl/vgl_vector_3d.h>
-#include <dbgl/dbgl_param_curve_3d.h>
+#include <bgld/bgld_param_curve_3d.h>
 #include <vcl_iostream.h>
 
 //: polynomial is parametrized by arclength, which is between [0, len_]
@@ -29,28 +29,28 @@
 //  z(s) = coef_z[0] + coef_z[1]*s
 //  IMPORTANT: s (curve parameter) values are not normalized between [0,1]
 
-class dbgl_linear_curve_3d : public dbgl_param_curve_3d
+class bgld_linear_curve_3d : public bgld_param_curve_3d
 {
 public:
   //: No empty constructors
 
   //: Constructor from start and end points
-  dbgl_linear_curve_3d(vgl_vector_3d<double> start, vgl_vector_3d<double> end);
+  bgld_linear_curve_3d(vgl_vector_3d<double> start, vgl_vector_3d<double> end);
 
-  virtual ~dbgl_linear_curve_3d();
+  virtual ~bgld_linear_curve_3d();
 
   static const vcl_type_info& type_id()
-  { return typeid(dbgl_linear_curve_3d); }
+  { return typeid(bgld_linear_curve_3d); }
 
   virtual bool is_type( const vcl_type_info& type ) const
-  { return (typeid(dbgl_linear_curve_3d) == type)!=0 ||
-  this->dbgl_linear_curve_3d::is_type(type);
+  { return (typeid(bgld_linear_curve_3d) == type)!=0 ||
+  this->bgld_linear_curve_3d::is_type(type);
   }
 
   //: comparison operator.
   //  Comparison is on the curve, two parametric curves are identical if their
   //  equations are equivalent
-  bool operator==(dbgl_linear_curve_3d const& c) const {return this == &c; } 
+  bool operator==(bgld_linear_curve_3d const& c) const {return this == &c; } 
 
   //: access functions
   vgl_vector_3d<double> start(){ return start_; };
@@ -91,7 +91,7 @@ public:
   //: Get torsion at arclength s away from starting point, s within [0,len_]
   double torsion_at_length(double s) const;
 
-  dbgl_linear_curve_3d& operator=( dbgl_linear_curve_3d const& ) { return *this; }
+  bgld_linear_curve_3d& operator=( bgld_linear_curve_3d const& ) { return *this; }
 
 private:
 
@@ -111,4 +111,4 @@ protected:
   double tolerance_;
 };
 
-#endif // dbgl_linear_curve_3d_h_
+#endif // bgld_linear_curve_3d_h_
