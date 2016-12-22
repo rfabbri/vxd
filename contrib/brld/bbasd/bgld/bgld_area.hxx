@@ -22,8 +22,8 @@ T dbgl_area_triangle(vgl_point_3d<T> const& p1,
 }
 
 
-#undef DBGL_AREA_INSTANTIATE
-#define DBGL_AREA_INSTANTIATE(T) \
+#undef BGLD_AREA_INSTANTIATE
+#define BGLD_AREA_INSTANTIATE(T) \
 template T dbgl_area_triangle(vgl_point_3d<T> const&,vgl_point_3d<T> const&,vgl_point_3d<T> const&)
 
 #endif // dbgl_area_txx_

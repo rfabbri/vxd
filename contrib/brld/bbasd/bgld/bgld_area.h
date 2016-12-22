@@ -24,6 +24,6 @@ template <class T> T bgld_area_triangle(vgl_point_3d<T> const& p1,
                                         vgl_point_3d<T> const& p3);
 
 
-#define DBGL_AREA_INSTANTIATE(T) extern "please include vgl/vgl_area.hxx instead"
+#define BGLD_AREA_INSTANTIATE(T) extern "please include vgl/vgl_area.hxx instead"
 
 #endif // vgl_area_h_
