@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief A parametric 3D curve that can be sampled via a parametric equation.
-// \author Based on original code by  Based on original code by  H. Can Aras (@lems.brown.edu)
+// \author Based on original code by  H. Can Aras (@lems.brown.edu)
 // \date 2006-11-17
 //
 // \verbatim

@@ -7,7 +7,7 @@
 // \file
 // \brief Functions to compute area of geometric objects
 // 
-// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date 06/15/2007
 //
 // \verbatim

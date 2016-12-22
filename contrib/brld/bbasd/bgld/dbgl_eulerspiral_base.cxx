@@ -1,7 +1,7 @@
 // This is basic/dbgl/dbgl_eulerspiral_base.cxx
 //:
 // \file
-// Written by Ozge Can Ozcanli, 09 February 2005.
+// Based on original code written by Ozge Can Ozcanli, 09 February 2005.
 
 #include "dbgl_eulerspiral_base.h"
 

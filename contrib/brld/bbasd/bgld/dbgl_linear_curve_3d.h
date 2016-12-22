@@ -5,7 +5,7 @@
 // \file
 // \brief Class that implements linear three dimensional curve 
 //
-// \author Based on original code by  H. Can Aras (@lems.brown.edu)
+// \author Based on original code by H. Can Aras (@lems.brown.edu)
 // \date 2007-01-15
 //
 // TO DO: Since tangent, tangent angles, etc. have the same value at every point

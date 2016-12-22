@@ -1,5 +1,5 @@
 // Mar 03, 2004  dbgl/dbgl_rigid_transform.cxx
-// MingChing Chang
+// Based on original code by MingChing Chang
 
 #include <vcl_iostream.h>
 #include <stdio.h>

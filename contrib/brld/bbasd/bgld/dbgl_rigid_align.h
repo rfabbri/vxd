@@ -1,5 +1,5 @@
 //: dbgl/dbgl_rigid_align.h
-//  Jul 21, 2008  MingChing Chang
+//  Based on original code by MingChing Chang, Jul 21, 2008 
 
 #ifndef dbgl_rigid_align_h_
 #define dbgl_rigid_align_h_

@@ -1,7 +1,7 @@
 // This is basic/dbgl/dbgl_param_curve.cxx
 //:
 // \file
-// Written by Ozge Can Ozcanli, 04 February 2005.
+// Based on original code written by Ozge Can Ozcanli, 04 February 2005.
 
 #include "dbgl_param_curve.h"
 
