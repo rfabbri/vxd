@@ -1,9 +1,9 @@
-// This is basic/dbgl/dbgl_area.hxx
+// This is basic/bgld/bgld_area.hxx
 
-#ifndef dbgl_area_txx_
-#define dbgl_area_txx_
+#ifndef bgld_area_txx_
+#define bgld_area_txx_
 
-#include "dbgl_area.h"
+#include "bgld_area.h"
 #include <vgl/vgl_point_3d.h>
 #include <vgl/vgl_vector_3d.h>
 
@@ -11,7 +11,7 @@
 
 //: Computes the area of a triangle in 3D
 template <class T> 
-T dbgl_area_triangle(vgl_point_3d<T> const& p1,
+T bgld_area_triangle(vgl_point_3d<T> const& p1,
                      vgl_point_3d<T> const& p2,
                      vgl_point_3d<T> const& p3)
 {
@@ -24,6 +24,6 @@ T dbgl_area_triangle(vgl_point_3d<T> const& p1,
 
 #undef BGLD_AREA_INSTANTIATE
 #define BGLD_AREA_INSTANTIATE(T) \
-template T dbgl_area_triangle(vgl_point_3d<T> const&,vgl_point_3d<T> const&,vgl_point_3d<T> const&)
+template T bgld_area_triangle(vgl_point_3d<T> const&,vgl_point_3d<T> const&,vgl_point_3d<T> const&)
 
-#endif // dbgl_area_txx_
+#endif // bgld_area_txx_
