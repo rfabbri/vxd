@@ -1,4 +1,4 @@
-# This is /db3p/ray_tri/CMakeLists.txt
+# This is /b3pd/ray_tri/CMakeLists.txt
 # Code for testing if a ray intersects a triangle in 3D or not
 
 set ( ray_tri_sources

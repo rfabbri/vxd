@@ -1,4 +1,4 @@
-// This is db3p/ray_tri/ray_tri.h
+// This is b3pd/ray_tri/ray_tri.h
 #ifndef ray_tri_h_
 #define ray_tri_h_
 //:

@@ -1,4 +1,4 @@
-// This is db3p/ray_tri/ray_tri.cxx
+// This is b3pd/ray_tri/ray_tri.cxx
 //  Code added and modified by Ming-Ching Chang (mcchang@lems.brown.edu) 
 //  Aug 05, 2005
 //
