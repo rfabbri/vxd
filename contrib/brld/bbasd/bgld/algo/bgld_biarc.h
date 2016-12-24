@@ -1,7 +1,7 @@
-// This is basic/dbgl/algo/dbgl_biarc.h
+// This is bbasd/bgld/algo/bgld_biarc.h
 
-#ifndef dbgl_algo_biarc_h_
-#define dbgl_algo_biarc_h_
+#ifndef bgld_algo_biarc_h_
+#define bgld_algo_biarc_h_
 
 //:
 // \file
@@ -21,27 +21,27 @@
 #include <vgl/vgl_vector_2d.h>
 
 
-class dbgl_biarc
+class bgld_biarc
 {
 
 public:
   // -------------- BASIC ----------------------------
   //: Constructor - default
-  dbgl_biarc(){};
+  bgld_biarc(){};
   
   //: Constructor - from intrinsic parameters
-  dbgl_biarc(vgl_point_2d<double > start, double start_angle, double k1, double len1, double k2, double len2);
+  bgld_biarc(vgl_point_2d<double > start, double start_angle, double k1, double len1, double k2, double len2);
 
   //: Constructor - from 2 point-tangents
-  dbgl_biarc( vgl_point_2d< double > start, double start_angle, 
+  bgld_biarc( vgl_point_2d< double > start, double start_angle, 
     vgl_point_2d< double > end, double end_angle );
 
   //: Constructor - from 2 point-tangents
-  dbgl_biarc( vgl_point_2d< double > start, vgl_vector_2d<double > start_tangent, 
+  bgld_biarc( vgl_point_2d< double > start, vgl_vector_2d<double > start_tangent, 
     vgl_point_2d< double > end, vgl_vector_2d<double > end_tangent );
 
   //: Destructor
-  ~dbgl_biarc(){};
+  ~bgld_biarc(){};
 
   //: Return the starting point of the biarc
   vgl_point_2d< double > start() const { return this->start_; }
@@ -186,5 +186,5 @@ private:
 };
 
 
-#endif // basic/dbgl/algo/dbgl_biarc.h
+#endif // bbasd/bgld/algo/bgld_biarc.h
 

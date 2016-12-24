@@ -1,15 +1,15 @@
-// This is basic/dbgl/algo/dbgl_conic_arc.cxx
+// This is bbasd/bgld/algo/bgld_conic_arc.cxx
 //:
 // \file
 
-#include "dbgl_conic_arc.h"
+#include "bgld_conic_arc.h"
 #include <vcl_cmath.h>
 #include <vgl/algo/vgl_homg_operators_2d.h>
 
 
-const double dbgl_conic_arc::epsilon = 1e-10;
+const double bgld_conic_arc::epsilon = 1e-10;
 
-bool dbgl_conic_arc::
+bool bgld_conic_arc::
 set_from(const vgl_conic_segment_2d<double> &c)
 {
 
@@ -50,7 +50,7 @@ set_from(const vgl_conic_segment_2d<double> &c)
 }
 
 //: Create a new circular arc from 2 point-tangents and one curvature
-bool dbgl_conic_arc::
+bool bgld_conic_arc::
 set_from(const vgl_point_2d<double >& start,
          const vgl_vector_2d<double >& chord_direction,
          double chord_length,
@@ -60,15 +60,15 @@ set_from(const vgl_point_2d<double >& start,
 {
   // degerate case when the whole curve is just a point
   // only extrinsic parameters matters in this case
-  if (chord_length < dbgl_conic_arc::epsilon)
+  if (chord_length < bgld_conic_arc::epsilon)
   {
     double theta = vcl_atan2(chord_direction.y(), chord_direction.x());
     this->set_extrinsic(start, theta);
     this->set_intrinsic(0, 0, 0, 1); 
     
     // return false if the angles are not consistent
-    if ((angle(chord_direction, start_tangent) > dbgl_conic_arc::epsilon) ||
-      (angle(chord_direction, end_tangent) > dbgl_conic_arc::epsilon) )
+    if ((angle(chord_direction, start_tangent) > bgld_conic_arc::epsilon) ||
+      (angle(chord_direction, end_tangent) > bgld_conic_arc::epsilon) )
     {
       return false;
     }
@@ -92,11 +92,11 @@ set_from(const vgl_point_2d<double >& start,
 
   // -----------------------------------------------------
   // degenerate case : a straight line
-  if (vcl_abs(k0) < dbgl_conic_arc::epsilon)
+  if (vcl_abs(k0) < bgld_conic_arc::epsilon)
   {
     // t0 and t2 need to be horizontal to make a straight line
-    if (vcl_abs(vcl_atan2(t0.y(), t0.x())) < 100*dbgl_conic_arc::epsilon &&
-      vcl_abs(vcl_atan2(t0.y(), t0.x())) < 100*dbgl_conic_arc::epsilon)
+    if (vcl_abs(vcl_atan2(t0.y(), t0.x())) < 100*bgld_conic_arc::epsilon &&
+      vcl_abs(vcl_atan2(t0.y(), t0.x())) < 100*bgld_conic_arc::epsilon)
     {
       // the straight line is parameterized wrt arclength
       this->set_extrinsic(start, theta);
@@ -135,14 +135,14 @@ set_from(const vgl_point_2d<double >& start,
 
 // ----------------------------------------------------------------------------
 //: Create a new conic arc from 2 point-tangents and one curvature
-bool dbgl_conic_arc::
+bool bgld_conic_arc::
 set_from(const vgl_point_2d<double >& start,
          const vgl_point_2d<double >& end,
          const vgl_vector_2d<double >& start_tangent,
          const vgl_vector_2d<double >& end_tangent,
          double start_curvature)
 {
-  if ((end-start).length() < dbgl_conic_arc::epsilon)
+  if ((end-start).length() < bgld_conic_arc::epsilon)
   {
     return this->set_from(start, start_tangent, 0, start_tangent, 
     end_tangent, start_curvature);
@@ -153,7 +153,7 @@ set_from(const vgl_point_2d<double >& start,
 
 
 //: Return chord length of the conic
-double dbgl_conic_arc::
+double bgld_conic_arc::
 chord_length() const
 {
   return this->x2();
@@ -168,7 +168,7 @@ chord_length() const
 //: Get sample point of the conic with parameter t, t \in [0, 1] with
 // t = 0 : starting point
 // t = 1 : ending point
-vgl_point_2d<double > dbgl_conic_arc::
+vgl_point_2d<double > bgld_conic_arc::
 point_at(double t) const
 {
   // coordinate in canonical coordinate system
@@ -184,12 +184,12 @@ point_at(double t) const
 
 // ----------------------------------------------------------------------------
 //: Get tangent of the point at parameter t within [0,1]
-vgl_vector_2d<double > dbgl_conic_arc::
+vgl_vector_2d<double > bgld_conic_arc::
 tangent_at(double t) const
 {
   // for super degenerate case, when the chord length is zero
   // (the whole curve is just a point)
-  if (this->x2()<dbgl_conic_arc::epsilon) 
+  if (this->x2()<bgld_conic_arc::epsilon) 
     return vgl_vector_2d<double >(vcl_cos(this->theta()), vcl_sin(this->theta()));
 
   // for regular case, including straight line
@@ -224,7 +224,7 @@ tangent_at(double t) const
 
 // ----------------------------------------------------------------------------
 //: Get curvature of the point at parameter t, t \in [0, 1]
-double dbgl_conic_arc::
+double bgld_conic_arc::
 curvature_at(double t) const
 {
   double w0 = 1;
@@ -267,8 +267,8 @@ curvature_at(double t) const
 
 // ------------------------------------------------------------------------
 //: Print parameters of the circular arc
-void dbgl_conic_arc::
+void bgld_conic_arc::
 print(vcl_ostream &os )
 {
-  os << "<dbgl_conic_arc> \n";
+  os << "<bgld_conic_arc> \n";
 }

@@ -1,4 +1,4 @@
-// This is basic/dbgl/algo/tests/test_compute_symmetry_point.cxx
+// This is bbasd/bgld/algo/tests/test_compute_symmetry_point.cxx
 
 //:
 // \file
@@ -6,12 +6,12 @@
 
 #include <testlib/testlib_test.h>
 
-#include <dbgl/algo/dbgl_compute_symmetry_point.h>
+#include <bgld/algo/bgld_compute_symmetry_point.h>
 #include <vnl/vnl_math.h>
 
 
 //------------------------------------------------------------------------------
-//: test functions of dbgl_circ_arc class
+//: test functions of bgld_circ_arc class
 void test_compute_symmetry_point_on_line()
 {
   // Case 1: degenerate - two tangents are parallel
@@ -24,7 +24,7 @@ void test_compute_symmetry_point_on_line()
 
   vcl_vector<double > s_along_line;
 
-  dbgl_compute_symmetry_point_on_line(right_line_start, right_line_end,
+  bgld_compute_symmetry_point_on_line(right_line_start, right_line_end,
                                       left_bnd_pt, left_bnd_tangent,
                                       s_along_line);
 
@@ -41,7 +41,7 @@ void test_compute_symmetry_point_on_line()
   left_bnd_tangent.set(vcl_cos(angle), vcl_sin(angle));
 
   s_along_line.clear();
-  dbgl_compute_symmetry_point_on_line(right_line_start, right_line_end,
+  bgld_compute_symmetry_point_on_line(right_line_start, right_line_end,
                                       left_bnd_pt, left_bnd_tangent,
                                       s_along_line);
   TEST("Symmetry point on a line - typical case - test #point", s_along_line.size(), 1);
@@ -57,7 +57,7 @@ void test_compute_symmetry_point_on_line()
 
 
 //------------------------------------------------------------------------------
-//: test functions of dbgl_circ_arc class
+//: test functions of bgld_circ_arc class
 void test_compute_symmetry_point_on_circ_arc()
 {
   // Case 1: degenerate - two tangents are parallel
@@ -71,11 +71,11 @@ void test_compute_symmetry_point_on_circ_arc()
   vgl_point_2d<double > pt1(5-radius * vcl_cos(vnl_math::pi/6) , -4);
   vgl_point_2d<double > pt2(5+ radius * vcl_cos(vnl_math::pi/6) , -4);
   double k = -1.0 / radius;
-  dbgl_circ_arc right_bnd_arc(pt1, pt2, k);
+  bgld_circ_arc right_bnd_arc(pt1, pt2, k);
 
   // the symmetry point on line is (5, 0) and has s = 1/2 length of arc;
   vcl_vector<double > s_along_line;
-  dbgl_compute_symmetry_point_on_circ_arc(right_bnd_arc,
+  bgld_compute_symmetry_point_on_circ_arc(right_bnd_arc,
                                       left_bnd_pt, left_bnd_tangent,
                                       s_along_line);
 
@@ -93,7 +93,7 @@ void test_compute_symmetry_point_on_circ_arc()
   left_bnd_tangent.set(vcl_cos(angle), vcl_sin(angle));
 
   s_along_line.clear();
-  dbgl_compute_symmetry_point_on_circ_arc(right_bnd_arc,
+  bgld_compute_symmetry_point_on_circ_arc(right_bnd_arc,
                                       left_bnd_pt, left_bnd_tangent,
                                       s_along_line);
   TEST("Symmetry point on a circular arc - mid point - test #point", s_along_line.size(), 1);
@@ -108,10 +108,10 @@ void test_compute_symmetry_point_on_circ_arc()
   double len = right_bnd_arc.length();
   vgl_point_2d<double > p1 = right_bnd_arc.point_at_length(-len/4);
   vgl_point_2d<double > p2 = right_bnd_arc.point_at_length(3*len/4);
-  dbgl_circ_arc shifted_arc(p1, p2, right_bnd_arc.k());
+  bgld_circ_arc shifted_arc(p1, p2, right_bnd_arc.k());
 
   s_along_line.clear();
-  dbgl_compute_symmetry_point_on_circ_arc(shifted_arc,
+  bgld_compute_symmetry_point_on_circ_arc(shifted_arc,
                                       left_bnd_pt, left_bnd_tangent,
                                       s_along_line);
   TEST("Symmetry point on a circular arc - typical case - test #point", s_along_line.size(), 1);

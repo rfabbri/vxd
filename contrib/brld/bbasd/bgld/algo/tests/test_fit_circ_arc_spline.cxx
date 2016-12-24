@@ -1,4 +1,4 @@
-// This is basic/dbgl/algo/tests/test_fit_circ_arc_spline.cxx
+// This is bbasd/bgld/algo/tests/test_fit_circ_arc_spline.cxx
 
 // \author Nhon Trinh
 // \date April 16, 2008
@@ -6,11 +6,11 @@
 #include <testlib/testlib_test.h>
 #include <vnl/vnl_math.h>
 #include <vnl/vnl_numeric_traits.h>
-#include <dbgl/algo/dbgl_fit_circ_arc_spline.h>
-#include <dbgl/algo/dbgl_closest_point.h>
+#include <bgld/algo/bgld_fit_circ_arc_spline.h>
+#include <bgld/algo/bgld_closest_point.h>
 
-//: test functions of dbgl_circ_arc class
-void test_dbgl_fit_circ_arc_spline()
+//: test functions of bgld_circ_arc class
+void test_bgld_fit_circ_arc_spline()
 {
 
   ////////////////////////////////////////////////////////
@@ -34,10 +34,10 @@ void test_dbgl_fit_circ_arc_spline()
   // Interpolate these curves with a polyarc
   
   //: Interpolate a set of points with a circular arc spline
-  vcl_vector<dbgl_circ_arc > arc_list;
+  vcl_vector<bgld_circ_arc > arc_list;
   double tol = 1;
 
-  bool success = dbgl_fit_circ_arc_spline_to_polyline(arc_list, pts, tol);
+  bool success = bgld_fit_circ_arc_spline_to_polyline(arc_list, pts, tol);
 
   // Compute the closest distance from each point to the arc spline
   double max_error = 0; 
@@ -49,9 +49,9 @@ void test_dbgl_fit_circ_arc_spline()
     double min_distance = vnl_numeric_traits<double >::maxval;
     for (unsigned k =0; k < arc_list.size(); ++k)
     {
-      dbgl_circ_arc arc = arc_list[k];
+      bgld_circ_arc arc = arc_list[k];
       double ratio = 2;
-      double distance = dbgl_closest_point::point_to_circular_arc(pt, 
+      double distance = bgld_closest_point::point_to_circular_arc(pt, 
         arc.start(), arc.end(), arc.k(), ratio);
 
       min_distance = (min_distance <= distance) ? min_distance : distance;
@@ -92,10 +92,10 @@ void test_dbgl_fit_circ_arc_spline()
   // Interpolate these curves with a polyarc
   
   //: Interpolate a set of points with a circular arc spline
-  vcl_vector<dbgl_circ_arc > arc_list2;
+  vcl_vector<bgld_circ_arc > arc_list2;
   double tol2 = 2;
   
-  bool success2 = dbgl_fit_circ_arc_spline_to_polyline(arc_list2, pts2, tol2);
+  bool success2 = bgld_fit_circ_arc_spline_to_polyline(arc_list2, pts2, tol2);
 
   // Compute the closest distance from each point to the arc spline
   double max_error2 = 0; 
@@ -107,9 +107,9 @@ void test_dbgl_fit_circ_arc_spline()
     double min_distance = vnl_numeric_traits<double >::maxval;
     for (unsigned k =0; k < arc_list2.size(); ++k)
     {
-      dbgl_circ_arc arc = arc_list2[k];
+      bgld_circ_arc arc = arc_list2[k];
       double ratio = 2;
-      double distance = dbgl_closest_point::point_to_circular_arc(pt, 
+      double distance = bgld_closest_point::point_to_circular_arc(pt, 
         arc.start(), arc.end(), arc.k(), ratio);
 
       min_distance = (min_distance <= distance) ? min_distance : distance;
@@ -139,8 +139,8 @@ void test_dbgl_fit_circ_arc_spline()
 //: Test functions of biarc class
 MAIN( test_fit_circ_arc_spline )
 {
-  START ("Test functions of dbgl_interp_arc_spline");
-  test_dbgl_fit_circ_arc_spline();
+  START ("Test functions of bgld_interp_arc_spline");
+  test_bgld_fit_circ_arc_spline();
   SUMMARY();
 }
 

@@ -1,12 +1,12 @@
-// This is basic/dbgl/algo/dbgl_closest_point.cxx
+// This is bbasd/bgld/algo/bgld_closest_point.cxx
 //:
 // \file
 
-#include "dbgl_closest_point.h"
+#include "bgld_closest_point.h"
 
 #include <dbnl/dbnl_solve_quadratic_equation.h>
 #include <dbnl/dbnl_solve_trigonometric_equation.h>
-#include <dbgl/algo/dbgl_circ_arc.h>
+#include <bgld/algo/bgld_circ_arc.h>
 
 #include <vcl_cmath.h>
 #include <vnl/vnl_math.h>
@@ -20,15 +20,15 @@
 
 //------------------------------------------------------------------------
 //: minimum curvature of an arc
-double dbgl_closest_point::min_curvature = dbgl_circ_arc::epsilon;
-const double dbgl_closest_point_distance_epsilon = 1e-8;
+double bgld_closest_point::min_curvature = bgld_circ_arc::epsilon;
+const double bgld_closest_point_distance_epsilon = 1e-8;
 
 
 //------------------------------------------------------------------------
 //: Return shortest distance between two line segments.
 // `ratio1' and 'ratio2' (in range [0, 1]) are normalized arclength of 
   // closest points between the two line segments
-double dbgl_closest_point::
+double bgld_closest_point::
 lineseg_lineseg(const vgl_point_2d<double >& line1_p1,
                 const vgl_point_2d<double >& line1_p2,
                 const vgl_point_2d<double >& line2_p1,
@@ -187,14 +187,14 @@ lineseg_lineseg(const vgl_point_2d<double >& line1_p1,
 //: Return distance between a point and a circular arc.
 // 'ratio' (in range [0, 1]) is the normalized arclength of closest point
 // on the arc
-double dbgl_closest_point::
+double bgld_closest_point::
 point_to_circular_arc(const vgl_point_2d<double >& query_pt,
                       const vgl_point_2d<double >& p1, 
                       const vgl_point_2d<double >& p2, 
                       double k, double& ret_ratio)
 {
   // degenerate arc: a line segment
-  if (vnl_math::abs(k) < dbgl_closest_point::min_curvature)
+  if (vnl_math::abs(k) < bgld_closest_point::min_curvature)
   {
     double xm, ym;
     vgl_closest_point_to_linesegment<double >(xm, ym, p1.x(), p1.y(), 
@@ -209,7 +209,7 @@ point_to_circular_arc(const vgl_point_2d<double >& query_pt,
   }
 
   // regular arc - an arc with curvature != 0
-  dbgl_circ_arc arc(p1, p2, k);
+  bgld_circ_arc arc(p1, p2, k);
   vgl_vector_2d<double > t1 = arc.tangent_at_start();
   // formula
   //                     k (x0-xp) - sin(psi0)   
@@ -283,7 +283,7 @@ point_to_circular_arc(const vgl_point_2d<double >& query_pt,
 
 
 //: Return distance between a point and a circle
-double dbgl_closest_point::
+double bgld_closest_point::
 point_to_circle(const vgl_point_2d<double >& query_pt,
                 const vgl_point_2d<double >& p0, 
                 const vgl_vector_2d<double >& t0, 
@@ -292,7 +292,7 @@ point_to_circle(const vgl_point_2d<double >& query_pt,
 {
   
   // degenerate arc: a line segment
-  if (vnl_math::abs(k) < dbgl_closest_point::min_curvature)
+  if (vnl_math::abs(k) < bgld_closest_point::min_curvature)
   {
     vgl_vector_2d<double > tangent = normalized(t0);
     vgl_line_2d<double > line(p0, p0 + 1.0 * tangent);
@@ -309,11 +309,11 @@ point_to_circle(const vgl_point_2d<double >& query_pt,
   //// regular arc - an arc with curvature != 0
   // construct a dummy arc
   double length = (vcl_abs(k)<1) ? 1 : 1 / vcl_abs(k);
-  dbgl_circ_arc arc;
+  bgld_circ_arc arc;
   arc.set_from(p0, t0, k, length);
   vgl_point_2d<double > p1 = arc.point1();
 
-  //dbgl_circ_arc arc(p1, p2, k);
+  //bgld_circ_arc arc(p1, p2, k);
   
   vgl_vector_2d<double > t1 = arc.tangent_at_start();
   // formula
@@ -359,7 +359,7 @@ point_to_circle(const vgl_point_2d<double >& query_pt,
 //: Return distance between a line segment and a circular arc
 // 'line_ratios' and 'arc_ratios' are normalized arclength (in range [0, 1])
 // of the closest points
-double dbgl_closest_point::
+double bgld_closest_point::
 lineseg_to_circular_arc(const vgl_point_2d<double >& line_p1,
                         const vgl_point_2d<double >& line_p2,
                         const vgl_point_2d<double >& arc_p1, 
@@ -376,10 +376,10 @@ lineseg_to_circular_arc(const vgl_point_2d<double >& line_p1,
   arc_ratios.clear();
 
   // Case 1: degenerate arc (k = 0)
-  if (vnl_math::abs(arc_k) < dbgl_closest_point::min_curvature)
+  if (vnl_math::abs(arc_k) < bgld_closest_point::min_curvature)
   {
     double line_ratio, arc_ratio;
-    double dist = dbgl_closest_point::lineseg_lineseg(
+    double dist = bgld_closest_point::lineseg_lineseg(
       line_p1, line_p2, arc_p1, arc_p2, line_ratio, arc_ratio);
     line_ratios.push_back(line_ratio);
     arc_ratios.push_back(arc_ratio);
@@ -387,7 +387,7 @@ lineseg_to_circular_arc(const vgl_point_2d<double >& line_p1,
   }
 
   // Case 2: regular arc (k != 0)
-  dbgl_circ_arc arc(arc_p1, arc_p2, arc_k);
+  bgld_circ_arc arc(arc_p1, arc_p2, arc_k);
   vgl_vector_2d<double > lineseg = line_p2 - line_p1;
 
   // tangent of arc at `arc_p1'
@@ -505,12 +505,12 @@ lineseg_to_circular_arc(const vgl_point_2d<double >& line_p1,
 
   // 1st set: line_p1 and arc
   line_candidate_ratios[0] = 0;
-  distances[0] = dbgl_closest_point::point_to_circular_arc(
+  distances[0] = bgld_closest_point::point_to_circular_arc(
     line_p1, arc_p1, arc_p2, arc_k, arc_candidate_ratios[0]);
 
   // 2nd set: line_p2 and arc
   line_candidate_ratios[1] = 1;
-  distances[1] = dbgl_closest_point::point_to_circular_arc(
+  distances[1] = bgld_closest_point::point_to_circular_arc(
     line_p2, arc_p1, arc_p2, arc_k, arc_candidate_ratios[1]);
 
   // 3rd set: arc_p1 and line segment
@@ -554,12 +554,12 @@ lineseg_to_circular_arc(const vgl_point_2d<double >& line_p1,
 //: Return distance between a line segment and a circular arc
 // 'line_ratios' and 'arc_ratios' are normalized arclength (in range [0, 1])
 // of the closest points
-double dbgl_closest_point::
+double bgld_closest_point::
 lineseg_to_circular_arc(const vgl_line_segment_2d<double >& lineseg,
-                        const dbgl_circ_arc& arc,
+                        const bgld_circ_arc& arc,
                         vcl_vector<double >& line_ratios, vcl_vector<double >& arc_ratios)
 {
-  return dbgl_closest_point::lineseg_to_circular_arc(
+  return bgld_closest_point::lineseg_to_circular_arc(
     lineseg.point1(), lineseg.point2(), arc.start(), arc.end(), arc.k(), 
     line_ratios,  arc_ratios);
 }
@@ -573,7 +573,7 @@ lineseg_to_circular_arc(const vgl_line_segment_2d<double >& lineseg,
 //: Return distance between two circular arcs
 // 'arc1_ratios' and 'arc2_ratios' are normalized arclength (in range [0, 1])
 // of the closest points
-double dbgl_closest_point::
+double bgld_closest_point::
 circular_arc_to_circular_arc(const vgl_point_2d<double >& arc1_p1,
                              const vgl_point_2d<double >& arc1_p2,
                              double arc1_k,
@@ -590,20 +590,20 @@ circular_arc_to_circular_arc(const vgl_point_2d<double >& arc1_p1,
   arc2_ratios.clear();
 
   // --------- cases (arc1_k == 0 or arc2_k ==0) ------------------
-  if (vnl_math::abs(arc1_k) < dbgl_closest_point::min_curvature)
-    return dbgl_closest_point::lineseg_to_circular_arc(arc1_p1, arc1_p2,
+  if (vnl_math::abs(arc1_k) < bgld_closest_point::min_curvature)
+    return bgld_closest_point::lineseg_to_circular_arc(arc1_p1, arc1_p2,
     arc2_p1, arc2_p2, arc2_k, arc1_ratios, arc2_ratios);
 
-  if (vnl_math::abs(arc2_k) < dbgl_closest_point::min_curvature)
-    return dbgl_closest_point::lineseg_to_circular_arc(arc2_p1, arc2_p2,
+  if (vnl_math::abs(arc2_k) < bgld_closest_point::min_curvature)
+    return bgld_closest_point::lineseg_to_circular_arc(arc2_p1, arc2_p2,
     arc1_p1, arc1_p2, arc1_k, arc2_ratios, arc1_ratios);
 
   // -------  regular arcs (arc1_k != 0 and arc2_k !=0) ------------
 
   // construct two arcs, 
   // making the first one's curvature less than the second one's
-  dbgl_circ_arc arc1(arc1_p1, arc1_p2, arc1_k);
-  dbgl_circ_arc arc2(arc2_p1, arc2_p2, arc2_k);
+  bgld_circ_arc arc1(arc1_p1, arc1_p2, arc1_k);
+  bgld_circ_arc arc2(arc2_p1, arc2_p2, arc2_k);
   
   vcl_vector<double >* ret_ratios1 = &arc1_ratios;
   vcl_vector<double >* ret_ratios2 = &arc2_ratios;
@@ -643,7 +643,7 @@ circular_arc_to_circular_arc(const vgl_point_2d<double >& arc1_p1,
   double eq_a = 2*a*b1; 
   double eq_b = 2*a*b2;
   double eq_c = a*a+b1*b1+b2*b2-1;
-  dbgl_closest_point::solve_1st_order_trig_equation(eq_a, eq_b, eq_c, roots);
+  bgld_closest_point::solve_1st_order_trig_equation(eq_a, eq_b, eq_c, roots);
   
   // if there is a root, the two CIRCLES intersect
   // the intersection points need to satisfy range constraints for the 
@@ -765,22 +765,22 @@ circular_arc_to_circular_arc(const vgl_point_2d<double >& arc1_p1,
 
   // 1st set: arc1.point1() and arc2
   arc1_candidate_ratios[0] = 0;
-  distances[0] = dbgl_closest_point::point_to_circular_arc(arc1.point1(), 
+  distances[0] = bgld_closest_point::point_to_circular_arc(arc1.point1(), 
     arc2.point1(), arc2.point2(), arc2.k(), arc2_candidate_ratios[0]);
 
   // 2nd set: arc1.point2() and arc2
   arc1_candidate_ratios[1] = 1;
-  distances[1] = dbgl_closest_point::point_to_circular_arc(arc1.point2(), 
+  distances[1] = bgld_closest_point::point_to_circular_arc(arc1.point2(), 
     arc2.point1(), arc2.point2(), arc2.k(), arc2_candidate_ratios[1]);
 
   // 3rd set: arc2.point1() and arc1
   arc2_candidate_ratios[2] = 0;
-  distances[2] = dbgl_closest_point::point_to_circular_arc(arc2.point1(), 
+  distances[2] = bgld_closest_point::point_to_circular_arc(arc2.point1(), 
     arc1.point1(), arc1.point2(), arc1.k(), arc1_candidate_ratios[2]);
 
   // 4th set: arc2.point2() and arc1
   arc2_candidate_ratios[3] = 1;
-  distances[3] = dbgl_closest_point::point_to_circular_arc(arc2.point2(), 
+  distances[3] = bgld_closest_point::point_to_circular_arc(arc2.point2(), 
     arc1.point1(), arc1.point2(), arc1.k(), arc1_candidate_ratios[3]);
 
   // now we compare the distances of 4 sets to find the min-distance
@@ -809,20 +809,20 @@ circular_arc_to_circular_arc(const vgl_point_2d<double >& arc1_p1,
 //: Compute closest between a point and a biarc
 // Return the shortest distance and saved the arc_length of the closest point
 // at `ret_arc_length'
-double dbgl_closest_point::
+double bgld_closest_point::
 point_to_biarc(const vgl_point_2d<double > query,
-               const dbgl_biarc& biarc, double& ret_arclength)
+               const bgld_biarc& biarc, double& ret_arclength)
 {
   
   double min_dist = vgl_distance(query, biarc.start());
   ret_arclength = 0;
 
   // only compute for meaning arc segment
-  if (biarc.len1() > dbgl_closest_point_distance_epsilon)
+  if (biarc.len1() > bgld_closest_point_distance_epsilon)
   {
-    dbgl_circ_arc arc1(biarc.start(), biarc.mid_pt(), biarc.k1());
+    bgld_circ_arc arc1(biarc.start(), biarc.mid_pt(), biarc.k1());
     double ratio1 = -1;
-    double d1 = dbgl_closest_point::point_to_circular_arc(query, 
+    double d1 = bgld_closest_point::point_to_circular_arc(query, 
     arc1.point1(), arc1.point2(), arc1.k(), ratio1);
 
     if (d1 < min_dist)
@@ -832,11 +832,11 @@ point_to_biarc(const vgl_point_2d<double > query,
     }
   }
 
-  if (biarc.len2() > dbgl_closest_point_distance_epsilon)
+  if (biarc.len2() > bgld_closest_point_distance_epsilon)
   {
-    dbgl_circ_arc arc2(biarc.mid_pt(), biarc.point_at(biarc.len()), biarc.k2());
+    bgld_circ_arc arc2(biarc.mid_pt(), biarc.point_at(biarc.len()), biarc.k2());
     double ratio2 = -1;
-    double d2 = dbgl_closest_point::point_to_circular_arc(query, 
+    double d2 = bgld_closest_point::point_to_circular_arc(query, 
       arc2.point1(), arc2.point2(), arc2.k(), ratio2);
 
     if (d2 < min_dist)
@@ -853,7 +853,7 @@ point_to_biarc(const vgl_point_2d<double > query,
 
 // -----------------------------------------------------------------------
 //: Solve trigonometry equation a sin(x) + b cos(x) + c = 0
-void dbgl_closest_point::
+void bgld_closest_point::
 solve_1st_order_trig_equation(double a, double b, double c,
   vcl_vector<vgl_vector_2d<double > >& roots)
 {

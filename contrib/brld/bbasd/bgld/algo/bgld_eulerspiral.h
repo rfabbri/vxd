@@ -1,7 +1,7 @@
-// This is basic/dbgl/algo/dbgl_eulerspiral.h
+// This is bbasd/bgld/algo/bgld_eulerspiral.h
 
-#ifndef dbgl_eulerspiral_h_
-#define dbgl_eulerspiral_h_
+#ifndef bgld_eulerspiral_h_
+#define bgld_eulerspiral_h_
 
 
 
@@ -16,8 +16,8 @@
 //  The original code was written by Amir Tamrakar (yakkeeper@lems.brown.edu)
 //  Modifications:
 //    3/2/2005. Nhon Trinh: added levenberg_marquardt algorithm for optimization.
-//    1/3/2007: Nhon Trinh: moved declaration of dbgl_eulerspiral_optimization_function
-//              to the .cxx file to reduce include files in dbgl_eulerspiral.h
+//    1/3/2007: Nhon Trinh: moved declaration of bgld_eulerspiral_optimization_function
+//              to the .cxx file to reduce include files in bgld_eulerspiral.h
 //    2/5/2007: Ozge Can Ozcanli: added average_curvature() method -- curvature at the midpoint
 // \endverbatim
 
@@ -25,51 +25,51 @@
 #include <vcl_ostream.h>
 #include <vgl/vgl_point_2d.h>
 #include <vcl_string.h>
-#include <dbgl/dbgl_eulerspiral_base.h>
+#include <bgld/bgld_eulerspiral_base.h>
 
-// declaration of dbgl_eulerspiral_optimization_function;
-class dbgl_eulerspiral_optimization_function;
+// declaration of bgld_eulerspiral_optimization_function;
+class bgld_eulerspiral_optimization_function;
 
-//: dbgl_eulerspiral: a class to represent an Euler spiral curve
+//: bgld_eulerspiral: a class to represent an Euler spiral curve
 // which has linear curvature k(s) = k0 + k1 * s
-class dbgl_eulerspiral : public dbgl_eulerspiral_base
+class bgld_eulerspiral : public bgld_eulerspiral_base
 {
 public:
   
   //: optimization function, need to access compute_end_pt(...) function
-  friend class dbgl_eulerspiral_optimization_function;
+  friend class bgld_eulerspiral_optimization_function;
   
   // -------------- INITIALIZERS/CONSTRUCTORS/DESTRUCTORS ----------------------------
   
   //: Constructor - default
-  dbgl_eulerspiral(): start_(vgl_point_2d< double >(0, 0)){};
+  bgld_eulerspiral(): start_(vgl_point_2d< double >(0, 0)){};
   
   //: Constructor - from intrinsic parameters
-  dbgl_eulerspiral(vgl_point_2d<double > start, double start_angle, double k0, double gamma, double len);
+  bgld_eulerspiral(vgl_point_2d<double > start, double start_angle, double k0, double gamma, double len);
   
   //: Constructor - from 2 point-tangents
-  dbgl_eulerspiral( vgl_point_2d< double > start, double start_angle, 
+  bgld_eulerspiral( vgl_point_2d< double > start, double start_angle, 
     vgl_point_2d< double > end, double end_angle );
   
   //: Copy Constructor
-  dbgl_eulerspiral(const dbgl_eulerspiral & eulerspiral );
+  bgld_eulerspiral(const bgld_eulerspiral & eulerspiral );
   
   //: Set the core parameters of the eulerspiral
   void init(const vgl_point_2d<double >& start, double start_angle, double k0, double gamma, double len);
   
   //: Destructor
-  virtual ~dbgl_eulerspiral(){};
+  virtual ~bgld_eulerspiral(){};
 
   //----------------- TYPE ----------------------------
   static const vcl_type_info& type_id()
-  { return typeid(dbgl_eulerspiral); }
+  { return typeid(bgld_eulerspiral); }
 
   virtual bool is_type( const vcl_type_info& type ) const { 
-    return (typeid(dbgl_eulerspiral) == type) != 0 || 
-      this->dbgl_eulerspiral_base::is_type(type); 
+    return (typeid(bgld_eulerspiral) == type) != 0 || 
+      this->bgld_eulerspiral_base::is_type(type); 
   }
 
-  dbgl_param_curve *clone() const { return new dbgl_eulerspiral(*this); }
+  bgld_param_curve *clone() const { return new bgld_eulerspiral(*this); }
 
 
   // ------------ ACCESS MEMBER VARIABLES ----------------------------------
@@ -172,11 +172,11 @@ public:
   //: comparison operator.
   //  Comparison is on the curve, two parametric curves are identical if their
   //  equations are equivalent
-  virtual bool operator==(const dbgl_eulerspiral& c) const; 
-  inline bool operator!=(const dbgl_eulerspiral &other) const {return ! this->operator==(other);}
+  virtual bool operator==(const bgld_eulerspiral& c) const; 
+  inline bool operator!=(const bgld_eulerspiral &other) const {return ! this->operator==(other);}
 
   //: assignment operator 
-  virtual dbgl_eulerspiral& operator=( dbgl_eulerspiral const& );
+  virtual bgld_eulerspiral& operator=( bgld_eulerspiral const& );
 
 
   // ---------------- MISCELLANEOUS ----------------------
@@ -268,12 +268,12 @@ private:
 
 //: a class to contain a look-up table of initial values for euler spiral optimization
 // there is ONLY ONE instance for the entire class
-class dbgl_eulerspiral_lookup_table {
+class bgld_eulerspiral_lookup_table {
 public:
   //: Destructor
-  ~dbgl_eulerspiral_lookup_table();
+  ~bgld_eulerspiral_lookup_table();
   //: Return the pointer to the only instance of the class
-  static dbgl_eulerspiral_lookup_table* instance();
+  static bgld_eulerspiral_lookup_table* instance();
   //: Return whether the look-up table are created successfully
   bool has_table(){ return has_table_; }
 
@@ -287,11 +287,11 @@ public:
 private:
   // ----------- SINGLETON approach ------------------------------
   //: Constructor - kept private so that only one instance can be created
-  dbgl_eulerspiral_lookup_table();
+  bgld_eulerspiral_lookup_table();
   //: hold the pointer to the only instance of the class
-  static dbgl_eulerspiral_lookup_table * instance_;
+  static bgld_eulerspiral_lookup_table * instance_;
   
-  static const vcl_string file_name; //("dbgl_eulerspiral_lookup_table.bvl");
+  static const vcl_string file_name; //("bgld_eulerspiral_lookup_table.bvl");
   static const vcl_string file_path; // (LEMSVXL_LIB_DIR)
 
   // ----------- THE LOOK-UP TABLE ----------------------------------
@@ -307,4 +307,4 @@ private:
   bool has_table_;
 };
 
-#endif // dbgl_eulerspiral_h_
+#endif // bgld_eulerspiral_h_

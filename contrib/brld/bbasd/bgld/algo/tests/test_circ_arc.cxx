@@ -1,26 +1,26 @@
-// This is basic/dbgl/algo/tests/test_circ_arc.cxx
+// This is bbasd/bgld/algo/tests/test_circ_arc.cxx
 
 // \author Nhon Trinh
 // \date Aug 18, 2005
 
 #include <testlib/testlib_test.h>
-#include <dbgl/algo/dbgl_circ_arc.h>
+#include <bgld/algo/bgld_circ_arc.h>
 #include <vcl_cmath.h>
 #include <vcl_limits.h>
 #include <vgl/vgl_distance.h>
 //////#include <vnl/vnl_math.h>
 
-//: test functions of dbgl_circ_arc class
-void test_dbgl_circ_arc_functions()
+//: test functions of bgld_circ_arc class
+void test_bgld_circ_arc_functions()
 {
-  vcl_cout << "In test_dbgl_circ_arc_functions()\n";
+  vcl_cout << "In test_bgld_circ_arc_functions()\n";
   vgl_point_2d<double > circ_center(2, 1);
   vgl_point_2d<double > point1(0, 1);
   vgl_point_2d<double > point2(3, 1+vcl_sqrt(3.0));
   double k = -0.5;
 
   // construct the circular arc
-  dbgl_circ_arc arc1(point1, point2, k);
+  bgld_circ_arc arc1(point1, point2, k);
   
 
   // constant
@@ -94,9 +94,9 @@ void test_dbgl_circ_arc_functions()
   TEST("circle_region() - on circle", arc1.circ_region(oncircle_pt), 0);
 }
 
-void test_dbgl_circ_arc_creation()
+void test_bgld_circ_arc_creation()
 {
-  vcl_cout << "In test_dbgl_circ_arc_creation()\n";
+  vcl_cout << "In test_bgld_circ_arc_creation()\n";
 
   // test creating circular arcs from three points
   // k = 0.5
@@ -105,7 +105,7 @@ void test_dbgl_circ_arc_creation()
   
    vgl_point_2d<double > middle(vcl_sqrt(3.0) - 1, vcl_sqrt(3.0)-1);
   //vgl_point_2d<double > middle(vcl_sqrt(3.0), 1);
-  dbgl_circ_arc arc;
+  bgld_circ_arc arc;
   arc.set_from(start, middle, end);
   double true_k = -0.5;
   TEST_NEAR("Circular arc from 3 points - k", arc.k(), true_k, 1e-8);
@@ -157,9 +157,9 @@ void test_dbgl_circ_arc_creation()
 //: Test functions of biarc class
 MAIN( test_circ_arc )
 {
-  START ("Test functions of dbgl_circ_arc");
-  test_dbgl_circ_arc_functions();
-  test_dbgl_circ_arc_creation();
+  START ("Test functions of bgld_circ_arc");
+  test_bgld_circ_arc_functions();
+  test_bgld_circ_arc_creation();
   SUMMARY();
 }
 

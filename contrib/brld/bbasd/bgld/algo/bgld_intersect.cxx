@@ -1,4 +1,4 @@
-// This is basic/dbgl/algo/dbgl_intersect.cxx
+// This is bbasd/bgld/algo/bgld_intersect.cxx
 //:
 // \file
 
@@ -13,8 +13,8 @@
 #include <vgl/vgl_closest_point.h>
 #include <vgl/vgl_plane_3d.h>
 
-#include <dbgl/dbgl_fuzzy_boolean.h>
-#include <dbgl/algo/dbgl_intersect.h>
+#include <bgld/bgld_fuzzy_boolean.h>
+#include <bgld/algo/bgld_intersect.h>
 #include <ray_tri/ray_tri.h>
 
 
@@ -27,7 +27,7 @@
 //  return true if there is an intersection.
 //  t: dist(PF), (1-u-v, u, v): barycentric coord of F on triangle ABC.
 //
-bool dbgl_intersect_ray_tri (const vgl_point_3d<double>& P, const vgl_vector_3d<double>& D,
+bool bgld_intersect_ray_tri (const vgl_point_3d<double>& P, const vgl_vector_3d<double>& D,
                              const vgl_point_3d<double>& V1, const vgl_point_3d<double>& V2, 
                              const vgl_point_3d<double>& V3,
                              double& t, double& u, double& v)
@@ -38,7 +38,7 @@ bool dbgl_intersect_ray_tri (const vgl_point_3d<double>& P, const vgl_vector_3d<
   ori[2] = P.z();
 
   double vec[3];
-  assert (dbgl_eq_m (D.sqr_length(), 1));
+  assert (bgld_eq_m (D.sqr_length(), 1));
   vec[0] = D.x();
   vec[1] = D.y();
   vec[2] = D.z();
@@ -74,7 +74,7 @@ bool dbgl_intersect_ray_tri (const vgl_point_3d<double>& P, const vgl_vector_3d<
 // Returns the length of the intersection. Returns 0 if no intersection is found.
 // 
 double
-dbgl_intersect::sphere_line_intersect(vgl_line_3d_2_points<double> const& line, 
+bgld_intersect::sphere_line_intersect(vgl_line_3d_2_points<double> const& line, 
                          vgl_sphere_3d<double>& sphere)
 {
     // solving for the au^2 + bu + c=0
@@ -151,7 +151,7 @@ dbgl_intersect::sphere_line_intersect(vgl_line_3d_2_points<double> const& line,
 //: takes a homg line and a sphere finds the intersection of a line with a sphere if any. 
 // Returns the length of the intersection. returns 0 if no intersection is found.
 double
-dbgl_intersect::sphere_homg_line_intersect(vgl_homg_line_3d_2_points<double> const& line, 
+bgld_intersect::sphere_homg_line_intersect(vgl_homg_line_3d_2_points<double> const& line, 
                          vgl_sphere_3d<double>& sphere)
 {
     // solving for the au^2 + bu + c=0
@@ -211,7 +211,7 @@ dbgl_intersect::sphere_homg_line_intersect(vgl_homg_line_3d_2_points<double> con
 }
 
 // ----------------------------------------------------------------------------
-bool dbgl_intersect::
+bool bgld_intersect::
 line_lineseg_intersect(
     const vgl_line_2d<double> &line, 
     const vgl_line_segment_2d<double> &seg,
@@ -241,7 +241,7 @@ line_lineseg_intersect(
 // An arbitrary point on the ellipse can be described as
 // c(t) = ellipse_center + cos(t) * ellipse_major_axis + sin(t) * ellipse_minor_axis
 // where t is in [0, 2pi)
-bool dbgl_intersect::
+bool bgld_intersect::
 plane_infinite_cylinder(const vgl_plane_3d<double >& plane, 
                         const vgl_cylinder<double >& cylinder,
                         vgl_point_3d<double >& ellipse_center,

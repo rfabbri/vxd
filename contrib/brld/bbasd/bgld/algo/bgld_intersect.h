@@ -1,7 +1,7 @@
-// This is basic/dbgl/algo/dbgl_intersect.h
+// This is bbasd/bgld/algo/bgld_intersect.h
 
-#ifndef dbgl_intersect_h_
-#define dbgl_intersect_h_
+#ifndef bgld_intersect_h_
+#define bgld_intersect_h_
 
 //:
 // \file
@@ -32,7 +32,7 @@
 //  return true if there is an intersection.
 //  t: dist(PF), (1-u-v, u, v): barycentric coord of F on triangle ABC.
 //
-bool dbgl_intersect_ray_tri (const vgl_point_3d<double>& P, 
+bool bgld_intersect_ray_tri (const vgl_point_3d<double>& P, 
                              const vgl_vector_3d<double>& D,
                              const vgl_point_3d<double>& V1, 
                              const vgl_point_3d<double>& V2, 
@@ -44,12 +44,12 @@ bool dbgl_intersect_ray_tri (const vgl_point_3d<double>& P,
 //: A class to compute intersection of geometry objects
 // Reference for computing arc-arc intersection
 // Agarwal, P., et al. "Counting Circular Arc Intersections." 2002.
-class dbgl_intersect
+class bgld_intersect
 {
 protected:
 public:
  
-  ~dbgl_intersect(){};
+  ~bgld_intersect(){};
   
   //: finds the intersection of a line with a circle and returns the length of 
   // the intersection segment
@@ -80,9 +80,9 @@ public:
 
 
 private:
-     dbgl_intersect(){};  
+     bgld_intersect(){};  
 };
 
 
 
-#endif // dbgl_intersect_h_
+#endif // bgld_intersect_h_

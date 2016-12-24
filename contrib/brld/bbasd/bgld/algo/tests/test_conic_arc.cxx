@@ -1,14 +1,14 @@
-// This is basic/dbgl/algo/tests/test_circ_arc.cxx
+// This is bbasd/bgld/algo/tests/test_circ_arc.cxx
 
 // \author Nhon Trinh
 // \date Aug 18, 2005
 
 #include <testlib/testlib_test.h>
-#include <dbgl/algo/dbgl_conic_arc.h>
+#include <bgld/algo/bgld_conic_arc.h>
 #include <vcl_cmath.h>
 
 
-//: test functions of dbgl_circ_arc class
+//: test functions of bgld_circ_arc class
 void test_conic_arc_functions()
 {
   vcl_cout << "In test_conic_arc_functions()\n";
@@ -20,7 +20,7 @@ void test_conic_arc_functions()
   // y'' = 6;
   // k = y'' / (1+y'^2)3/2
   {
-    dbgl_conic_arc conic;
+    bgld_conic_arc conic;
     conic.set_from(vgl_point_2d<double >(0, 0), vgl_point_2d<double >(2, 12),
       vgl_vector_2d<double >(1, 0), vgl_vector_2d<double >(1, 12),
       6);
@@ -45,7 +45,7 @@ void test_conic_arc_functions()
 
   {
     // Parabola y = 3x^2
-    dbgl_conic_arc conic;
+    bgld_conic_arc conic;
     vgl_conic<double> vc(3, 0, 0, 0, -1, 0);
 
     vgl_conic_segment_2d<double> 
@@ -114,7 +114,7 @@ void test_conic_arc_functions()
   vgl_vector_2d<double > end_tangent(-vcl_sqrt(2.0)/2, -vcl_sqrt(2.0));
   double start_k = 16 * vcl_sqrt(13.0) / 169;
 
-  dbgl_conic_arc conic;
+  bgld_conic_arc conic;
   conic.set_from(start, end, start_tangent, end_tangent, start_k);
 
   
@@ -162,7 +162,7 @@ void test_conic_arc_functions()
 //: Test functions of biarc class
 MAIN( test_conic_arc )
 {
-  START ("Test functions of dbgl_circ_arc");
+  START ("Test functions of bgld_circ_arc");
   test_conic_arc_functions();
   SUMMARY();
 }

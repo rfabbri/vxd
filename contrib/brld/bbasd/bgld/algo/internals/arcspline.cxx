@@ -1,4 +1,4 @@
-// This is dbgl/algo/internals/arcspline.cxx
+// This is bgld/algo/internals/arcspline.cxx
 
 //:
 // \file

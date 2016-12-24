@@ -1,7 +1,7 @@
-// This is basic/dbgl/algo/dbgl_conic_arc.h
+// This is bbasd/bgld/algo/bgld_conic_arc.h
 
-#ifndef dbgl_conic_arc_h_
-#define dbgl_conic_arc_h_
+#ifndef bgld_conic_arc_h_
+#define bgld_conic_arc_h_
 
 //:
 // \file
@@ -29,7 +29,7 @@
 // The model is based on the formulation in 
 // Gerald Farin, "Curves and Surfaces for CAGD" with modifications documented
 // in Nhon's notes (links will be provided later).
-class dbgl_conic_arc
+class bgld_conic_arc
 {
 public:
   //static const double taylor_4_bound;
@@ -68,10 +68,10 @@ public:
   //**************************************************************
 
   //: Constructor - default
-  dbgl_conic_arc(){};
+  bgld_conic_arc(){};
 
   //: Constructor - member variables
-  dbgl_conic_arc(double x0, double y0, double theta, 
+  bgld_conic_arc(double x0, double y0, double theta, 
     double x2,
     double ax, double ay,
     double w1) : 
@@ -80,7 +80,7 @@ public:
 
 
   //: Destructor
-  virtual ~dbgl_conic_arc(){};
+  virtual ~bgld_conic_arc(){};
 
 
   //**************************************************************
@@ -173,5 +173,5 @@ protected:
 
 };
 
-#endif // basic/dbgl/algo/dbgl_conic_arc.h
+#endif // bbasd/bgld/algo/bgld_conic_arc.h
 

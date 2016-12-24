@@ -1,7 +1,7 @@
-// This is basic/dbgl/algo/dbgl_distance.h
+// This is bbasd/bgld/algo/bgld_distance.h
 
-#ifndef dbgl_distance_h_
-#define dbgl_distance_h_
+#ifndef bgld_distance_h_
+#define bgld_distance_h_
 
 //:
 // \file
@@ -23,7 +23,7 @@
 #include <vgl/vgl_point_3d.h>
 #include <vgl/vgl_distance.h>
 
-#include <dbgl/algo/dbgl_intersect.h>
+#include <bgld/algo/bgld_intersect.h>
 
 
 //#######################################################################
@@ -32,14 +32,14 @@
 //: Compute the foot point F of a point P on triangle ABC.
 //  Also return the barycentric coord. of F.
 //  t: dist(PF), (u, v, 1-u-v): barycentric coord of F on triangle ABC.
-bool dbgl_pt_fpt_tri (const vgl_point_3d<double>& P, const vgl_point_3d<double>& A,
+bool bgld_pt_fpt_tri (const vgl_point_3d<double>& P, const vgl_point_3d<double>& A,
                       const vgl_point_3d<double>& B, const vgl_point_3d<double>& C,
                       vgl_point_3d<double>& F, double& t, double& u, double& v);
 
 //: Compute the closest distance d of P to ABC:
 //  If the foot point F is inside ABC, d = PF, F = G.
 //  Otherwise d = PG, where G is on the boundary of ABC.
-double dbgl_pt_tri_dist_3d (const vgl_point_3d<double>& P, const vgl_point_3d<double>& A,
+double bgld_pt_tri_dist_3d (const vgl_point_3d<double>& P, const vgl_point_3d<double>& A,
                             const vgl_point_3d<double>& B, const vgl_point_3d<double>& C,
                             vgl_point_3d<double>& G);
 
@@ -47,10 +47,10 @@ double dbgl_pt_tri_dist_3d (const vgl_point_3d<double>& P, const vgl_point_3d<do
 //#######################################################################
 
 //: A set of static functions to compute distance between geometric objects
-class dbgl_distance
+class bgld_distance
 {
 public:
-  ~dbgl_distance(){};
+  ~bgld_distance(){};
   
   ////------------------------------------------------------------------------
   ////: Return distance between two points
@@ -110,7 +110,7 @@ public:
 
 
 private:
-  dbgl_distance(){};
+  bgld_distance(){};
 };
 
 //--------------------------------------------------------------------------
@@ -127,7 +127,7 @@ private:
 //
 // \authors Vishal Jain and Ricardo Fabbri
 //
-inline void dbgl_distance:: 
+inline void bgld_distance:: 
 projected_distance (
     double x1,double y1,
     double x2,double y2,double theta2, 
@@ -154,7 +154,7 @@ projected_distance (
 
 //: Same as projected_distance, but returns a weighted distance d_w.
 // The returned d_w  is to be fed into exp() function to obtain a Gaussian-weighted distance
-inline double dbgl_distance::
+inline double bgld_distance::
 weighted_projected_distance(
     double x1,double y1,double theta1,
     double x2,double y2,double theta2, 
@@ -174,4 +174,4 @@ weighted_projected_distance(
 }
 
 
-#endif // dbgl_distance_h_
+#endif // bgld_distance_h_

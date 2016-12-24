@@ -1,6 +1,6 @@
-// This is basic/dbgl/algo/dbgl_similarity_3d.h
-#ifndef dbgl_similarity_3d_h_
-#define dbgl_similarity_3d_h_
+// This is bbasd/bgld/algo/bgld_similarity_3d.h
+#ifndef bgld_similarity_3d_h_
+#define bgld_similarity_3d_h_
 //:
 // \file
 // \brief A class representing a 3d similarity tranform.
@@ -31,20 +31,20 @@
 #include <vcl_iostream.h>
 
 template <class T>
-class dbgl_similarity_3d
+class bgld_similarity_3d
 {
  public:
   // Constructors:-------------------------------------
 
   //: Construct the identity transformation
-  dbgl_similarity_3d() : s_(1), R_(), t_(0,0,0) {}
+  bgld_similarity_3d() : s_(1), R_(), t_(0,0,0) {}
 
   //: Construct from scale, rotation, and translation
-  dbgl_similarity_3d( const T& s, const vgl_rotation_3d<T>& R,
+  bgld_similarity_3d( const T& s, const vgl_rotation_3d<T>& R,
                       const vgl_vector_3d<T>& t ) : s_(s), R_(R), t_(t) {}
   
   //: Construct from scale, rotation, and translation
-  dbgl_similarity_3d( const vnl_vector_fixed<T,7>& la )
+  bgld_similarity_3d( const vnl_vector_fixed<T,7>& la )
   : s_(vcl_exp(la[0])), R_(la.extract(3,1))
     {
       const double& ls = la[0];
@@ -284,16 +284,16 @@ class dbgl_similarity_3d
     }
 
   //: The inverse similarity
-  dbgl_similarity_3d<T> inverse() const
+  bgld_similarity_3d<T> inverse() const
     {
       vgl_rotation_3d<T> Rinv(R_.inverse());
-      return dbgl_similarity_3d<T>(1.0/s_,Rinv,-(Rinv*t_)/s_);
+      return bgld_similarity_3d<T>(1.0/s_,Rinv,-(Rinv*t_)/s_);
     }
 
   //: Composition of two similarity
-  dbgl_similarity_3d<T> operator*( const dbgl_similarity_3d<T>& rhs ) const
+  bgld_similarity_3d<T> operator*( const bgld_similarity_3d<T>& rhs ) const
     {
-      return dbgl_similarity_3d<T>(s_*rhs.s_, R_*rhs.R_, s_*(R_*rhs.t_)+ t_ );
+      return bgld_similarity_3d<T>(s_*rhs.s_, R_*rhs.R_, s_*(R_*rhs.t_)+ t_ );
     }
 
   //: Transform a homogeneous point.
@@ -382,11 +382,11 @@ class dbgl_similarity_3d
 // ----------------------------------------------------------------
 
 template <class T>
-vcl_ostream& operator<<(vcl_ostream& s, dbgl_similarity_3d<T> const& S)
+vcl_ostream& operator<<(vcl_ostream& s, bgld_similarity_3d<T> const& S)
 {
   return s << "[s:"<<S.scale()<<", R:"<< S.rotation()<<", t:"<<S.translation()<<"]";
 }
 
 
 
-#endif // dbgl_similarity_3d_h_
+#endif // bgld_similarity_3d_h_

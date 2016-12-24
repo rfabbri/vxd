@@ -1,7 +1,7 @@
-// This is basic/dbgl/algo/tests/test_diffgeom.cxx
+// This is bbasd/bgld/algo/tests/test_diffgeom.cxx
 #include <testlib/testlib_test.h>
 #include <vcl_iostream.h>
-#include <dbgl/algo/dbgl_diffgeom.h>
+#include <bgld/algo/bgld_diffgeom.h>
 #include <vnl/vnl_math.h>
 
 //: Test differential geometry estimation functions
@@ -26,9 +26,9 @@ MAIN( test_diffgeom )
 
   vnl_vector<double> curvature;
 
-  START("dbgl curvature estimation");
+  START("bgld curvature estimation");
 
-  dbgl_compute_curvature(vertices, &curvature);
+  bgld_compute_curvature(vertices, &curvature);
 
   bool status = true;
 
@@ -47,7 +47,7 @@ MAIN( test_diffgeom )
                          -0.290821022430010,  -0.956777473037887 };
 
   vcl_vector< vnl_vector_fixed<double, 2> > normal;
-  dbgl_compute_normals(vertices, &normal);
+  bgld_compute_normals(vertices, &normal);
 
   status = true;
   for(int i = 0; i < vertices.size(); ++i)

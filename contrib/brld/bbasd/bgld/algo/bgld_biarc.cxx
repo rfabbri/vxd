@@ -1,21 +1,21 @@
-// This is basic/dbgl/algo/dbgl_biarc.cxx
+// This is bbasd/bgld/algo/bgld_biarc.cxx
 //:
 // \file
 
-#include "dbgl_biarc.h"
+#include "bgld_biarc.h"
 #include <vnl/vnl_math.h>
 #include <vgl/vgl_vector_2d.h>
 #include <vcl_cassert.h>
 
-#define dbgl_biarc_e_angle 0.0001   //Epsilon for angles
-#define dbgl_biarc_e_k 0.00001   //Epsilon for curvature  0.0001
-#define dbgl_biarc_k_large 100000 //large curvature value
+#define bgld_biarc_e_angle 0.0001   //Epsilon for angles
+#define bgld_biarc_e_k 0.00001   //Epsilon for curvature  0.0001
+#define bgld_biarc_k_large 100000 //large curvature value
 
 
 // -------------- CONSTRUCTORS and DESTRUCTORS --------------
 //: Constructor - from intrinsic parameters
-dbgl_biarc::
-dbgl_biarc(vgl_point_2d<double > start, double start_angle, double k1, double len1, double k2, double len2)
+bgld_biarc::
+bgld_biarc(vgl_point_2d<double > start, double start_angle, double k1, double len1, double k2, double len2)
   : start_(start), k1_(k1), len1_(len1), k2_(k2), len2_(len2)
 {
   this->set_start_angle(start_angle);
@@ -27,8 +27,8 @@ dbgl_biarc(vgl_point_2d<double > start, double start_angle, double k1, double le
 
 
 //: Constructor - from 2 point-tangents
-dbgl_biarc::
-dbgl_biarc( vgl_point_2d< double > start, double start_angle, 
+bgld_biarc::
+bgld_biarc( vgl_point_2d< double > start, double start_angle, 
            vgl_point_2d< double > end, double end_angle )
 {
   this->set_start_params(start, start_angle);
@@ -39,8 +39,8 @@ dbgl_biarc( vgl_point_2d< double > start, double start_angle,
 
 
 //: Constructor - from 2 point-tangents
-dbgl_biarc::
-dbgl_biarc(vgl_point_2d< double > start, vgl_vector_2d<double > start_tangent, 
+bgld_biarc::
+bgld_biarc(vgl_point_2d< double > start, vgl_vector_2d<double > start_tangent, 
            vgl_point_2d< double > end, vgl_vector_2d<double > end_tangent )
 {
   double start_angle = vcl_atan2(start_tangent.y(), start_tangent.x());
@@ -55,8 +55,8 @@ dbgl_biarc(vgl_point_2d< double > start, vgl_vector_2d<double > start_tangent,
 
 
 ////: Copy Constructor 
-//dbgl_biarc::
-//dbgl_biarc(const dbgl_biarc & biarc ) 
+//bgld_biarc::
+//bgld_biarc(const bgld_biarc & biarc ) 
 //  : start_(biarc.start_), start_angle_(biarc.start_angle_),
 //  k1_(biarc.k1_), len1_(biarc.len1_),
 //  k2_(biarc.k2_), len2_(biarc.len2_)
@@ -67,7 +67,7 @@ dbgl_biarc(vgl_point_2d< double > start, vgl_vector_2d<double > start_tangent,
 // ----------------- BASIC ------------------------------
 
 //: Set the start angle, converted to the range [0, 2*pi)
-void dbgl_biarc::
+void bgld_biarc::
 set_start_angle( double start_angle ){
   double theta = vcl_fmod(start_angle, vnl_math::pi * 2);
   if (theta < 0.0)
@@ -76,7 +76,7 @@ set_start_angle( double start_angle ){
 }
 
 //: Set end angle of the biarc, converted to the range [0, 2*pi)
-void dbgl_biarc::
+void bgld_biarc::
 set_end_angle( double end_angle ){
   double theta = vcl_fmod(end_angle, vnl_math::pi * 2);
   if (theta < 0.0)
@@ -91,7 +91,7 @@ set_end_angle( double end_angle ){
 
 // -----------------------------------------------------------------------------
 //: Verify if indeed the biarc parameters and its start and end parameters match
-bool dbgl_biarc::
+bool bgld_biarc::
 is_consistent() const
 {
   // check end point
@@ -119,7 +119,7 @@ is_consistent() const
 // ---------------- GEOMETRY PROPERTIES -----------------------
   
 //: Return radius of the first arc
-double dbgl_biarc::
+double bgld_biarc::
 r1() const
 {
   if (this->k1() == 0) return vnl_huge_val(this->k1());
@@ -127,7 +127,7 @@ r1() const
 }
   
 //: Return radius of the second arc
-double dbgl_biarc::
+double bgld_biarc::
 r2() const
 {
   if (this->k2() == 0) return vnl_huge_val(this->k2());
@@ -136,11 +136,11 @@ r2() const
 
 
 //: Return the point at which two arcs meet
-vgl_point_2d< double > dbgl_biarc::
+vgl_point_2d< double > bgld_biarc::
 mid_pt() const 
 {
   // curvature of the first arc is non-zero
-  if (vcl_abs(this->k1()) >= dbgl_biarc_e_k){
+  if (vcl_abs(this->k1()) >= bgld_biarc_e_k){
     double dt = this->len1() * this->k1(); //params.L1*params.K1;
     double angle = this->start_angle() + vnl_math::pi_over_2 + dt;
     vgl_vector_2d < double > t(vcl_cos(angle), vcl_sin(angle));
@@ -154,7 +154,7 @@ mid_pt() const
 }
 
 //: Return the center of the first arc
-vgl_point_2d< double > dbgl_biarc::
+vgl_point_2d< double > bgld_biarc::
 center1() const
 {
   double angle = this->start_angle()- vnl_math::pi_over_2;
@@ -163,7 +163,7 @@ center1() const
 }
 
 //: Return the center of the second arc
-vgl_point_2d< double > dbgl_biarc::
+vgl_point_2d< double > bgld_biarc::
 center2() const
 {
   double angle = this->end_angle()-vnl_math::pi_over_2;
@@ -176,14 +176,14 @@ center2() const
   
 //: Return a point on the biarc with s arclength away from starting point
 // assert s in range [0, L]
-vgl_point_2d< double > dbgl_biarc::
+vgl_point_2d< double > bgld_biarc::
 point_at( double s) const
 {
   //assert(s >= 0 && s <= this->len());
 
   if ( s <= this->len1() ){
     // curvature of the first arc is non-zero
-    if (vcl_abs(this->k1()) >= dbgl_biarc_e_k){
+    if (vcl_abs(this->k1()) >= bgld_biarc_e_k){
       double dt = s * this->k1();
       double angle = this->start_angle() + vnl_math::pi_over_2 + dt;
       vgl_vector_2d < double > t(vcl_cos(angle), vcl_sin(angle));
@@ -197,7 +197,7 @@ point_at( double s) const
   }
   else{ //if ( s <= this->len() ){
     // if curvature of the second arc is non-zero
-    if (vcl_abs(this->k2()) >= dbgl_biarc_e_k){
+    if (vcl_abs(this->k2()) >= bgld_biarc_e_k){
       double angle = this->start_angle() + this->len1()*this->k1() + (s-this->len1())*this->k2()
         + vnl_math::pi_over_2;
       vgl_vector_2d < double > t(vcl_cos(angle), vcl_sin(angle));
@@ -213,7 +213,7 @@ point_at( double s) const
 }
   
 //: Return tangent of a point on the biarc with s arclength away from starting point
-vgl_vector_2d< double > dbgl_biarc::
+vgl_vector_2d< double > bgld_biarc::
 tangent_at( double s) const
 {
   //assert(s >= 0 && s <= this->len());
@@ -227,7 +227,7 @@ tangent_at( double s) const
 }
 
 //: Return curvature of a point on the biarc with s arclength away from starting point
-double dbgl_biarc::
+double bgld_biarc::
 curvature_at( double s) const
 {
   assert(s >= 0 && s<= this->len());
@@ -241,14 +241,14 @@ curvature_at( double s) const
 // ------------------ UTILITIES ------------------------
 
 //: set parameters at starting point
-void dbgl_biarc::
+void bgld_biarc::
 set_start_params( vgl_point_2d< double > start, double start_angle ){
   this->set_start(start);
   this->set_start_angle(start_angle);
 }
 
 //: set parameters at ending point
-void dbgl_biarc::
+void bgld_biarc::
 set_end_params( vgl_point_2d< double > end, double end_angle ){
   this->set_end(end);
   this->set_end_angle(end_angle);
@@ -257,7 +257,7 @@ set_end_params( vgl_point_2d< double > end, double end_angle ){
 
 
 //: compute biar parameters using the currently saved start and end parameters
-bool dbgl_biarc::
+bool bgld_biarc::
 compute_biarc_params(){
 
   double k1, k2, k3, k4;
@@ -271,7 +271,7 @@ compute_biarc_params(){
   double d = v.length(); 
 
   //degenerate case
-  if ( d < dbgl_biarc_e_angle ){
+  if ( d < bgld_biarc_e_angle ){
     this->set_k1( vnl_huge_val( this->k1() ));
     this->set_k2( vnl_huge_val( this->k2() )); 
     this->energy_ = vnl_huge_val( this->energy_ ); 
@@ -290,17 +290,17 @@ compute_biarc_params(){
 
   // due to the 0-2*pi discontinuity even for perfect arcs,
   // (psi-(t2+t0)/2)~{-pi,0, pi} for cocircular solutions
-  // if (abs(mod(psi -(t2+t0)/2, pi))<dbgl_biarc_e_angle) % this condition is not correct
+  // if (abs(mod(psi -(t2+t0)/2, pi))<bgld_biarc_e_angle) % this condition is not correct
   
   double tdiff = psi-(t2+t0)/2;
   tdiff = vcl_fmod(vcl_fabs(tdiff), vnl_math::pi*2);
 
-  if ( (vcl_fabs(tdiff) < dbgl_biarc_e_angle) || 
-    (vcl_fabs(tdiff - vnl_math::pi) < dbgl_biarc_e_angle) || 
-    (vcl_fabs(tdiff - 2*vnl_math::pi) < dbgl_biarc_e_angle) )
+  if ( (vcl_fabs(tdiff) < bgld_biarc_e_angle) || 
+    (vcl_fabs(tdiff - vnl_math::pi) < bgld_biarc_e_angle) || 
+    (vcl_fabs(tdiff - 2*vnl_math::pi) < bgld_biarc_e_angle) )
   {
     // straight line (still need to check mod 2*pi)
-    if (vcl_fabs(vcl_fmod(psi-t0,2*vnl_math::pi)) < dbgl_biarc_e_angle){ 
+    if (vcl_fabs(vcl_fmod(psi-t0,2*vnl_math::pi)) < bgld_biarc_e_angle){ 
       k1 = 0;
       k2 = 0;
       d1 = d;
@@ -310,7 +310,7 @@ compute_biarc_params(){
     else {
       k1 = -4*vcl_sin((3*t0+t2)/4 - psi)* vcl_cos((t2-t0)/4)/d;
       // special case when start_angle == end_angle = psi-pi : no solution
-      if (vcl_fabs(k1) < dbgl_biarc_e_k){
+      if (vcl_fabs(k1) < bgld_biarc_e_k){
         k1 = 0;
         this->set_len1(vnl_huge_val((double) 1));
         return false;
@@ -332,14 +332,14 @@ compute_biarc_params(){
     k1 = -4*vcl_sin((3*t0+t2)/4 - psi)*vcl_cos((t2-t0)/4)/d;
     k2 = 4*vcl_sin((t0+3*t2)/4 - psi)*vcl_cos((t2-t0)/4)/d;
   
-    if (vcl_fabs(k1)<dbgl_biarc_e_k){
+    if (vcl_fabs(k1)<bgld_biarc_e_k){
       k1 = 0;
       d1 = d * vcl_sin((t2+t0)/2-psi) / vcl_sin((t2-t0)/2);
       d2 = this->compute_arclength(t0,t2,k2);
     }
   
     else{
-      if ( vcl_fabs(k2)<dbgl_biarc_e_k ){
+      if ( vcl_fabs(k2)<bgld_biarc_e_k ){
         k2 = 0;
         d2 = d*vcl_sin((t2+t0)/2-psi)/vcl_sin((t0-t2)/2);
         d1 = this->compute_arclength(t0,t2,k1);
@@ -361,14 +361,14 @@ compute_biarc_params(){
   
     // since this solution picks the biarc with the bigger turn
     // the curvature solutions can still be close to zero
-    if ( ((vcl_fabs(k3) > dbgl_biarc_e_k) || (vcl_fabs(k4)>dbgl_biarc_e_k)) && vcl_fabs(k4-k3) > dbgl_biarc_e_k ){
-      if (vcl_fabs(k3)<dbgl_biarc_e_k){
+    if ( ((vcl_fabs(k3) > bgld_biarc_e_k) || (vcl_fabs(k4)>bgld_biarc_e_k)) && vcl_fabs(k4-k3) > bgld_biarc_e_k ){
+      if (vcl_fabs(k3)<bgld_biarc_e_k){
         k3 = 0;
         d3 = d * vcl_sin((t2+t0)/2-psi)/ vcl_sin((t2-t0)/2);
         d4 = this->compute_arclength(t0,t2,k4);
       }
       else {
-        if (vcl_fabs(k4) < dbgl_biarc_e_k){
+        if (vcl_fabs(k4) < bgld_biarc_e_k){
           k4 = 0;
           d4 = d*vcl_sin((t2+t0)/2-psi)/vcl_sin((t0-t2)/2);
           d3 = this->compute_arclength(t0,t2,k3);
@@ -382,7 +382,7 @@ compute_biarc_params(){
     }
   
     // choose the smaller one
-    // but due to the epsilon settings (dbgl_biarc_e_angle and dbgl_biarc_e_k) we could still get an incorrect solution
+    // but due to the epsilon settings (bgld_biarc_e_angle and bgld_biarc_e_k) we could still get an incorrect solution
     // this could be caught by looking at the signs of Ls.
     if ( (d1>0 && d2>0) && ((d3<0 || d4<0) || (d1+d2)<(d3+d4)) ){
       //k1 and k2 are the correct solutions
@@ -413,7 +413,7 @@ compute_biarc_params(){
 }
 
 //: compute biar parameters, given start and end parameters
-bool dbgl_biarc::
+bool bgld_biarc::
 compute_biarc_params( vgl_point_2d< double > start, double start_angle,
     vgl_point_2d< double > end, double end_angle )
 {
@@ -427,7 +427,7 @@ compute_biarc_params( vgl_point_2d< double > start, double start_angle,
 
 
 //: compute biar parameters, given start and end parameters
-bool dbgl_biarc::
+bool bgld_biarc::
 compute_biarc_params(const vgl_point_2d< double >& start, 
                      const vgl_vector_2d<double >& start_tangent,
                      const vgl_point_2d< double >& end, 
@@ -449,7 +449,7 @@ compute_biarc_params(const vgl_point_2d< double >& start,
 
 
 //: Compute the angle at which the two arcs meet
-double dbgl_biarc::
+double bgld_biarc::
 compute_join_theta (double k1, double k2){
   // compute the theta at which the two arcs meet
   
@@ -473,7 +473,7 @@ compute_join_theta (double k1, double k2){
 
 //: compute arc length of a circle with curvature k, turning from
 // angle t0 to t1
-double dbgl_biarc::
+double bgld_biarc::
 compute_arclength(double t0, double t1, double k){
   double num = (t1-t0);
   if (k == 0)
@@ -488,7 +488,7 @@ compute_arclength(double t0, double t1, double k){
 
 // ---------------- MISCELLANEOUS ----------------------
 //: Print parameters of the biarc
-void dbgl_biarc::
+void bgld_biarc::
 print(vcl_ostream &os ) const
 {
   os << vcl_endl << "Start parameters" << vcl_endl;

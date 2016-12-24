@@ -1,7 +1,7 @@
-// This is basic/dbgl/algo/dbgl_circ_arc.h
+// This is bbasd/bgld/algo/bgld_circ_arc.h
 
-#ifndef dbgl_circ_arc_h_
-#define dbgl_circ_arc_h_
+#ifndef bgld_circ_arc_h_
+#define bgld_circ_arc_h_
 
 //:
 // \file
@@ -25,13 +25,13 @@
 //: Circular arc class - a curve segment with constant curvature, 
 // internally represented by two end points and a signed curvature
 // A circular arc is assumed to be less than half a circle
-// This class is temporary and will be merged with dbgl_arc later on
+// This class is temporary and will be merged with bgld_arc later on
 // The reason it is separate now is because of the difference in 
 // internal representation
 // This circular arc class avoids using the circle center as much as possible
 // because for low curvature, the center is very far away, hence causes
 // large numerical error.
-class dbgl_circ_arc
+class bgld_circ_arc
 {
 public:
   static const double taylor_4_bound;
@@ -47,29 +47,29 @@ public:
 
   // ================================================================================
   //// ***********************************************************
-  //// NEW FUNCTIONS - to merge with dbgl_arc
+  //// NEW FUNCTIONS - to merge with bgld_arc
   //// ***********************************************************
 
-  //dbgl_arc( const dbgl_arc& that );
+  //bgld_arc( const bgld_arc& that );
 
   ////: construct from 3 points
   ////  check curvature, should be nonzero for a valid arc
-  //dbgl_arc(const vgl_point_2d<double> &start, const vgl_point_2d<double> &end, const vgl_point_2d<double> &other);
+  //bgld_arc(const vgl_point_2d<double> &start, const vgl_point_2d<double> &end, const vgl_point_2d<double> &other);
 
   //static const vcl_type_info& type_id()
-  //{ return typeid(dbgl_arc); }
+  //{ return typeid(bgld_arc); }
 
   //virtual bool is_type( const vcl_type_info& type ) const
-  //{ return (typeid(dbgl_arc) == type)!=0 ||
-  //          this->dbgl_arc_base::is_type(type);
+  //{ return (typeid(bgld_arc) == type)!=0 ||
+  //          this->bgld_arc_base::is_type(type);
   //}
 
   ////: comparison operator.
   ////  Comparison is on the curve, two parametric curves are identical if their
   ////  equations are equivalent
   //virtual
-  //bool operator==(const dbgl_arc &c) const;
-  //inline bool operator!=(const dbgl_arc &other) const {return !operator==(other);}
+  //bool operator==(const bgld_arc &c) const;
+  //inline bool operator!=(const bgld_arc &other) const {return !operator==(other);}
 
 
   //vcl_ostream& print(vcl_ostream & = vcl_cerr) const;
@@ -102,14 +102,14 @@ public:
   //**************************************************************
 
   //: Constructor - default
-  dbgl_circ_arc();
+  bgld_circ_arc();
 
   //: Constructor - from intrinsic parameters
-  dbgl_circ_arc(const vgl_point_2d<double >& point1, 
+  bgld_circ_arc(const vgl_point_2d<double >& point1, 
     const vgl_point_2d<double > & point2, double curvature );
 
   //: Destructor
-  virtual ~dbgl_circ_arc(){};
+  virtual ~bgld_circ_arc(){};
   
   // DATA ACCESS --------------------------------------------------------------
 
@@ -258,7 +258,7 @@ public:
   double curvature_at_length(double) const {return this->k_;}
 
   //: Return the exact arc but with reversed end-point order
-  dbgl_circ_arc reversed_arc() const;
+  bgld_circ_arc reversed_arc() const;
 
   //**************************************************************
   // UTILITIES
@@ -283,7 +283,7 @@ protected:
   double sinc(double t) const
   {
     // for large t, use normal formula
-    if (vcl_abs(t) > dbgl_circ_arc::taylor_4_bound)
+    if (vcl_abs(t) > bgld_circ_arc::taylor_4_bound)
     {
       return vcl_sin(t)/t;
     }
@@ -301,5 +301,5 @@ private:
 
 };
 
-#endif // basic/dbgl/algo/dbgl_circ_arc.h
+#endif // bbasd/bgld/algo/bgld_circ_arc.h
 

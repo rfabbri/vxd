@@ -1,4 +1,4 @@
-//: This is dbgl/dbgl_curve_smoothing.cxx
+//: This is bgld/bgld_curve_smoothing.cxx
 //  Ricardo
 //  Ming-Ching Chang
 
@@ -13,7 +13,7 @@
 #include <vnl/vnl_cross.h>
 #include <vnl/vnl_rotation_matrix.h>
 #include <vnl/vnl_math.h>
-#include "dbgl_curve_smoothing.h"
+#include "bgld_curve_smoothing.h"
 
 
 //: A simple discrete curvature smoothing technique. Simply move each sample point according to an
@@ -25,7 +25,7 @@
 // \param[in] nsteps : number of smoothing iterations
 //
 void
-dbgl_csm(
+bgld_csm(
     vcl_vector<vgl_point_2d<double> > &c,
     double psi,
     unsigned nsteps
@@ -77,7 +77,7 @@ dbgl_csm(
 // the smoothed curve will not cross itself.
 // \param[in] nsteps : number of smoothing iterations
 //
-bool dbgl_curve_shorten_3d (vcl_vector<vgl_point_3d<double> > &c,
+bool bgld_curve_shorten_3d (vcl_vector<vgl_point_3d<double> > &c,
                             double psi, unsigned nsteps)
 {
   unsigned n = c.size();
@@ -120,7 +120,7 @@ bool dbgl_curve_shorten_3d (vcl_vector<vgl_point_3d<double> > &c,
   return true;
 }
 
-void dbgl_curve_shorten_z (vcl_vector<vgl_point_3d<double> > &c,
+void bgld_curve_shorten_z (vcl_vector<vgl_point_3d<double> > &c,
                            double psi, unsigned nsteps)
 {
   unsigned n = c.size();
@@ -162,7 +162,7 @@ void dbgl_curve_shorten_z (vcl_vector<vgl_point_3d<double> > &c,
   }
 }
 
-void dbgl_curve_shorten_3d_th (vcl_vector<vgl_point_3d<double> > &c, const double kernel_th,
+void bgld_curve_shorten_3d_th (vcl_vector<vgl_point_3d<double> > &c, const double kernel_th,
                                double stepsize, unsigned int nsteps)
 {  
   //For curve c, look for consecutive group of points from js to je
@@ -186,7 +186,7 @@ void dbgl_curve_shorten_3d_th (vcl_vector<vgl_point_3d<double> > &c, const doubl
       curve.push_back (c[j]);
 
     if (curve.size() > 2)
-      dbgl_curve_shorten_3d (curve, stepsize, nsteps);
+      bgld_curve_shorten_3d (curve, stepsize, nsteps);
 
     for (unsigned int j=js; j<=je; j++)
       c[j] = curve[j-js];
@@ -202,7 +202,7 @@ void dbgl_curve_shorten_3d_th (vcl_vector<vgl_point_3d<double> > &c, const doubl
 
 #define GK_SIZE 3
 
-void dbgl_gaussian_smooth_curve_3d (vcl_vector<vgl_point_3d<double> >& curve, 
+void bgld_gaussian_smooth_curve_3d (vcl_vector<vgl_point_3d<double> >& curve, 
                                     const float sigma, const int nsteps)
 {
   vnl_gaussian_kernel_1d gauss_1d ((double) sigma);
@@ -244,7 +244,7 @@ void dbgl_gaussian_smooth_curve_3d (vcl_vector<vgl_point_3d<double> >& curve,
 }
 
 
-void dbgl_gaussian_smooth_curve_3d_th (vcl_vector<vgl_point_3d<double> >& curve, 
+void bgld_gaussian_smooth_curve_3d_th (vcl_vector<vgl_point_3d<double> >& curve, 
                                        const double kernel_th, const float sigma, const int nsteps)
 {
   vnl_gaussian_kernel_1d gauss_1d ((double) sigma);
@@ -288,7 +288,7 @@ void dbgl_gaussian_smooth_curve_3d_th (vcl_vector<vgl_point_3d<double> >& curve,
   curve.erase(curve.end()-1);
 }
 
-void dbgl_gaussian_smooth_curve_z_th (vcl_vector<vgl_point_3d<double> >& curve, 
+void bgld_gaussian_smooth_curve_z_th (vcl_vector<vgl_point_3d<double> >& curve, 
                                       const double kernel_th, const float sigma, const int nsteps)
 {
   vnl_gaussian_kernel_1d gauss_1d ((double) sigma);
@@ -328,7 +328,7 @@ void dbgl_gaussian_smooth_curve_z_th (vcl_vector<vgl_point_3d<double> >& curve,
   curve.erase(curve.end()-1);
 }
 
-bool dbgl_gaussian_smooth_curve_3d_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
+bool bgld_gaussian_smooth_curve_3d_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
                                                const float sigma, const int nsteps)
 {
   if (curve.size() < 2)
@@ -342,7 +342,7 @@ bool dbgl_gaussian_smooth_curve_3d_fixedendpt (vcl_vector<vgl_point_3d<double> >
                    (ePt.z()-sPt.z())*(ePt.z()-sPt.z()));
 
   //smooth noise curve n times and write to original file 
-  dbgl_gaussian_smooth_curve_3d (curve, sigma, nsteps);
+  bgld_gaussian_smooth_curve_3d (curve, sigma, nsteps);
   assert (sz == curve.size());
 
   //If starting and ending points are the same (r==0), return true.
@@ -404,7 +404,7 @@ bool dbgl_gaussian_smooth_curve_3d_fixedendpt (vcl_vector<vgl_point_3d<double> >
   return true;
 }
 
-void dbgl_gaussian_smooth_curve_3d_th_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
+void bgld_gaussian_smooth_curve_3d_th_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
                                                   const double kernel_th, 
                                                   const float sigma, const int nsteps)
 {
@@ -416,7 +416,7 @@ void dbgl_gaussian_smooth_curve_3d_th_fixedendpt (vcl_vector<vgl_point_3d<double
                    (ePt.z()-sPt.z())*(ePt.z()-sPt.z()));
 
   // smooth noise curve n times and write to original file 
-  dbgl_gaussian_smooth_curve_3d_th (curve, kernel_th, sigma, nsteps);
+  bgld_gaussian_smooth_curve_3d_th (curve, kernel_th, sigma, nsteps);
   assert (sz == curve.size());
 
   //1)compute the r_new, get the scale.
@@ -473,7 +473,7 @@ void dbgl_gaussian_smooth_curve_3d_th_fixedendpt (vcl_vector<vgl_point_3d<double
 }
 
 
-void dbgl_gaussian_smooth_curve_z_th_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
+void bgld_gaussian_smooth_curve_z_th_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
                                                  const double kernel_th, 
                                                  const float sigma, const int nsteps)
 {
@@ -485,7 +485,7 @@ void dbgl_gaussian_smooth_curve_z_th_fixedendpt (vcl_vector<vgl_point_3d<double>
                    (ePt.z()-sPt.z())*(ePt.z()-sPt.z()));
 
   // smooth noise curve n times and write to original file 
-  dbgl_gaussian_smooth_curve_z_th (curve, kernel_th, sigma, nsteps);
+  bgld_gaussian_smooth_curve_z_th (curve, kernel_th, sigma, nsteps);
   assert (sz == curve.size());
 
   //1)compute the r_new, get the scale.
@@ -542,7 +542,7 @@ void dbgl_gaussian_smooth_curve_z_th_fixedendpt (vcl_vector<vgl_point_3d<double>
 }
 
 //2D Gaussian smoothing on 2D scalar function.
-void dbgl_gaussian_smooth_2d_th (vcl_vector<vcl_vector<double> >& range, 
+void bgld_gaussian_smooth_2d_th (vcl_vector<vcl_vector<double> >& range, 
                                  const float d_intra, const float d_inter, 
                                  const int nsteps,
                                  const float G_sigma_ratio,
@@ -568,7 +568,7 @@ void dbgl_gaussian_smooth_2d_th (vcl_vector<vcl_vector<double> >& range,
   int GK2_SIZE_JL = int (ksize / d_intra); //intra_scanline kernel size
   int GK2_SIZE_IK = int (ksize / d_inter); //inter_scanline kernel size
 
-  vul_printf (vcl_cout, "\ndbgl_gaussian_smooth_2d_th():\n", sigma);
+  vul_printf (vcl_cout, "\nbgld_gaussian_smooth_2d_th():\n", sigma);
   vul_printf (vcl_cout, "\td_intra: %f, d_inter: %f.\n", d_intra, d_inter);
   vul_printf (vcl_cout, "\tsigma: %f, kernel_size: %f, kernel_th: %f.\n", sigma, ksize, kth);
   vul_printf (vcl_cout, "\tkstep_intra: %d, kstep_inter: %d.\n", GK2_SIZE_JL, GK2_SIZE_IK);

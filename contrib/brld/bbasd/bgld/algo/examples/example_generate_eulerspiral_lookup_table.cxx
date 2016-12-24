@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// This is basic/dbgl/algo/examples/example_generate_eulerspiral_lookup_table.cxx
+// This is bbasd/bgld/algo/examples/example_generate_eulerspiral_lookup_table.cxx
 //:
 // \file
 // \brief
@@ -14,7 +14,7 @@
 //
 //-------------------------------------------------------------------------
 
-#include <dbgl/algo/dbgl_eulerspiral.h>
+#include <bgld/algo/bgld_eulerspiral.h>
 #include <vcl_iostream.h>
 #include <vsl/vsl_binary_io.h>
 #include <vsl/vsl_vector_io.h>
@@ -30,7 +30,7 @@ int main( int , char*[] )
   vcl_cout << "The two variables of the tables are start_angle and end_angles ranging in [0, 2pi)" << vcl_endl;
   
   int npts = 100;
-  vcl_string es_file("dbgl_eulerspiral_lookup_table.bvl");
+  vcl_string es_file("bgld_eulerspiral_lookup_table.bvl");
 
   // create the table.
   vcl_vector< vcl_vector< double > > k0_table;
@@ -48,7 +48,7 @@ int main( int , char*[] )
   double len;
   vcl_cout << vcl_endl << " ----- Generate tables for k0, gamma, and length ------ " 
     << vcl_endl << vcl_endl;
-  dbgl_eulerspiral es;
+  bgld_eulerspiral es;
   vcl_cout << "(i, Start angle) = " << vcl_endl;
   int num_failed_cases = 0;
   for (int i = 0; i < npts; i ++){

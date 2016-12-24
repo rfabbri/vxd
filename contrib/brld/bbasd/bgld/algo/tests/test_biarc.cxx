@@ -1,7 +1,7 @@
-// This is basic/dbgl/algo/tests/test_biarc.cxx
+// This is bbasd/bgld/algo/tests/test_biarc.cxx
 
 #include <testlib/testlib_test.h>
-#include <dbgl/algo/dbgl_biarc.h>
+#include <bgld/algo/bgld_biarc.h>
 #include <vcl_iostream.h>
 #include <vcl_cmath.h>
 #include <vnl/vnl_math.h>
@@ -12,12 +12,12 @@ MAIN( test_biarc )
 {
   double tolerance = 1e-7;
   
-  START (" Test dbgl_biarc class");
+  START (" Test bgld_biarc class");
   vcl_cout << "Test Constructors" << vcl_endl;
-  dbgl_biarc biarc1 = dbgl_biarc();
+  bgld_biarc biarc1 = bgld_biarc();
   TEST("Default Constructor", &biarc1 != 0, true);
-  biarc1 = dbgl_biarc(vgl_point_2d<double >(0, 0), 0, vgl_point_2d< double >(5, 5), vnl_math::pi/2);
-  dbgl_biarc biarc2 = dbgl_biarc(biarc1);
+  biarc1 = bgld_biarc(vgl_point_2d<double >(0, 0), 0, vgl_point_2d< double >(5, 5), vnl_math::pi/2);
+  bgld_biarc biarc2 = bgld_biarc(biarc1);
   bool test_copy = (biarc1.start() == biarc2.start()) && (biarc1.k1() == biarc2.k1())
     && (biarc1.len1() == biarc2.len1()) && (biarc1.k2() == biarc2.k2())
     && (biarc1.len2() == biarc2.len2());
@@ -39,7 +39,7 @@ MAIN( test_biarc )
   bool test_passed = true;
  
   // test case 1 - create biarc from 2 point-tangent on a circle
-  dbgl_biarc b = dbgl_biarc(vgl_point_2d< double >(case1[0], case1[1]), case1[2], 
+  bgld_biarc b = bgld_biarc(vgl_point_2d< double >(case1[0], case1[1]), case1[2], 
     vgl_point_2d<double >(case1[3], case1[4]), case1[5]);
   double r1[] = {b.k1(), b.len1(), b.k2(), b.len2()};
   test_passed = true;
@@ -177,7 +177,7 @@ MAIN( test_biarc )
   //double theta0 = vnl_math::pi/3;
   //double theta2 = vnl_math::pi * 5.0/6;
 
-  //dbgl_biarc biarc(pp0, theta0, pp2, theta2);
+  //bgld_biarc biarc(pp0, theta0, pp2, theta2);
   //vcl_cout << "Dr. Walton's biarc: "
   //  << "\n   k1 = " << biarc.k1() 
   //  << "\n   len1 = " << biarc.len1() 

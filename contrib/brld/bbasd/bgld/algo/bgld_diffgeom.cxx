@@ -1,7 +1,7 @@
 #include <vcl_iostream.h>
 #include <vcl_cmath.h>
 #include <vcl_cassert.h>
-#include "dbgl_diffgeom.h"
+#include "bgld_diffgeom.h"
 
 /**
  * Compute the inverse matrix of | 1.0, -Ta, Ta^2 |
@@ -63,7 +63,7 @@ double compute_dist(double x1, double x2, double y1, double y2)
 }
 
 void 
-dbgl_compute_curvature(
+bgld_compute_curvature(
     const vcl_vector< vgl_point_2d<double> > &vertices, 
     vnl_vector<double> *k
     )
@@ -111,7 +111,7 @@ dbgl_compute_curvature(
                       inv);
 }
 
-void dbgl_compute_normals(
+void bgld_compute_normals(
     const vcl_vector< vgl_point_2d<double> > &vertices, 
     vcl_vector< vnl_vector_fixed<double, 2> > *n
     )

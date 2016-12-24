@@ -1,4 +1,4 @@
-// This is basic/dbgl/algo/dbgl_pt_tri_dist_3d.cxx
+// This is bbasd/bgld/algo/bgld_pt_tri_dist_3d.cxx
 //:
 // \file
 // \brief  Point to Triangle Distance in 3D.
@@ -11,15 +11,15 @@
 //-----------------------------------------------------------------------------
 
 #include <vcl_cfloat.h>
-#include <dbgl/dbgl_fuzzy_boolean.h>
-#include <dbgl/algo/dbgl_distance.h>
+#include <bgld/bgld_fuzzy_boolean.h>
+#include <bgld/algo/bgld_distance.h>
 
 
 //: Compute the foot point F of a point P on triangle ABC.
 //  If P is inside ABC, also return t = dist(PF) and
 //  (1-u-v, u, v) the barycentric coord of F on triangle ABC.
 //
-bool dbgl_pt_fpt_tri (const vgl_point_3d<double>& P, const vgl_point_3d<double>& A,
+bool bgld_pt_fpt_tri (const vgl_point_3d<double>& P, const vgl_point_3d<double>& A,
                       const vgl_point_3d<double>& B, const vgl_point_3d<double>& C,
                       vgl_point_3d<double>& F, double& t, double& u, double& v)
 {
@@ -29,14 +29,14 @@ bool dbgl_pt_fpt_tri (const vgl_point_3d<double>& P, const vgl_point_3d<double>&
   N /= N.length();
 
   //Check validality of N
-  if (dbgl_eq_m (N.sqr_length(), 1) == false)
+  if (bgld_eq_m (N.sqr_length(), 1) == false)
     return false;
 
   //Make sure that N is the same direction of PF.
   if (dot_product (P-A, N) > 0)
     N = -N;
 
-  bool F_inside_ABC = dbgl_intersect_ray_tri (P, N, A, B, C, t, u, v);
+  bool F_inside_ABC = bgld_intersect_ray_tri (P, N, A, B, C, t, u, v);
 
   //The foot point F on ABC
   F = P + N * t;
@@ -53,13 +53,13 @@ bool dbgl_pt_fpt_tri (const vgl_point_3d<double>& P, const vgl_point_3d<double>&
 //    3. If F is inside ABC, return F as G.
 //       Otherwise, determine G using the barycentric coordinate of F.
 //    
-double dbgl_pt_tri_dist_3d (const vgl_point_3d<double>& P, const vgl_point_3d<double>& A,
+double bgld_pt_tri_dist_3d (const vgl_point_3d<double>& P, const vgl_point_3d<double>& A,
                             const vgl_point_3d<double>& B, const vgl_point_3d<double>& C,
                             vgl_point_3d<double>& G)
 {
   vgl_point_3d<double> F; 
   double t, a, b, c, l, edge_len; 
-  bool F_inside_ABC = dbgl_pt_fpt_tri (P, A, B, C, F, t, b, c);
+  bool F_inside_ABC = bgld_pt_fpt_tri (P, A, B, C, F, t, b, c);
 
   if (F_inside_ABC) {
     G = F;    

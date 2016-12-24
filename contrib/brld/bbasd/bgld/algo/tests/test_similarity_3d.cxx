@@ -1,8 +1,8 @@
-// Test dbgl_similarity_3d
+// Test bgld_similarity_3d
 
 
 #include <testlib/testlib_test.h>
-#include <dbgl/algo/dbgl_similarity_3d.h>
+#include <bgld/algo/bgld_similarity_3d.h>
 #include <vgl/vgl_plane_3d.h>
 #include <vgl/vgl_homg_line_3d_2_points.h>
 #include <vgl/vgl_line_3d_2_points.h>
@@ -18,9 +18,9 @@ static const double epsilon = 1e-11;
 
 
 // Test that the inverse similarity works as expected
-static void test_inverse(const dbgl_similarity_3d<double>& sim)
+static void test_inverse(const bgld_similarity_3d<double>& sim)
 {
-  dbgl_similarity_3d<double> simI = sim * sim.inverse();
+  bgld_similarity_3d<double> simI = sim * sim.inverse();
   vnl_matrix_fixed<double,4,4> I; I.set_identity();
   double diff = (simI.as_matrix() - I).frobenius_norm();
   TEST_NEAR("Inverse similarity", diff, 0.0, epsilon);
@@ -28,7 +28,7 @@ static void test_inverse(const dbgl_similarity_3d<double>& sim)
 
 
 // Test application of similarity to other vgl objects
-static void test_application(const dbgl_similarity_3d<double>& sim)
+static void test_application(const bgld_similarity_3d<double>& sim)
 {
   vnl_double_4x4 S = sim.as_matrix();
 
@@ -84,11 +84,11 @@ static void test_application(const dbgl_similarity_3d<double>& sim)
 }
 
 // Test Lie algebra operations
-static void test_lie(const dbgl_similarity_3d<double>& sim)
+static void test_lie(const bgld_similarity_3d<double>& sim)
 {
   vnl_vector_fixed<double,7> a = sim.lie_algebra_basis();
   // construct from lie algebra basis
-  dbgl_similarity_3d<double> sim2(a);
+  bgld_similarity_3d<double> sim2(a);
   TEST_NEAR("Construct from Lie algebra basis",
             (sim.as_matrix() - sim2.as_matrix()).frobenius_norm(), 0.0, epsilon);
   vcl_cout << "basis <"<<sim.lie_algebra_basis()<<">\n" << vcl_endl;
@@ -115,7 +115,7 @@ static void test_lie(const dbgl_similarity_3d<double>& sim)
 void test_similarity_3d()
 {
   vcl_cout << "***************************\n"
-           << " Testing dbgl_similarity_3d\n"
+           << " Testing bgld_similarity_3d\n"
            << "***************************\n";
 
 
@@ -123,7 +123,7 @@ void test_similarity_3d()
     vcl_cout << "\n1. 2x scale, rotation about the x axis over 90 degrees, translation (1,-2,3).\n";
     vgl_rotation_3d<double> rot(1.57079632679489661923, 0.0, 0.0);
     vgl_vector_3d<double> t(1.0, -2.0, 3.0);
-    dbgl_similarity_3d<double> sim(2.0,rot,t);
+    bgld_similarity_3d<double> sim(2.0,rot,t);
     //test_conversions(sim);
     test_inverse(sim);
     test_application(sim);
@@ -134,7 +134,7 @@ void test_similarity_3d()
     vcl_cout << "\n2. no scale, rotation about the x axis over 90 degrees, translation (1,-2,3).\n";
     vgl_rotation_3d<double> rot(1.57079632679489661923, 0.0, 0.0);
     vgl_vector_3d<double> t(1.0, -2.0, 3.0);
-    dbgl_similarity_3d<double> sim(1.0,rot,t);
+    bgld_similarity_3d<double> sim(1.0,rot,t);
     //test_conversions(sim);
     test_inverse(sim);
     test_application(sim);
@@ -145,7 +145,7 @@ void test_similarity_3d()
     vcl_cout << "\n3. 2x scale, no rotation, translation (1,-2,3).\n";
     vgl_rotation_3d<double> rot;
     vgl_vector_3d<double> t(1.0, -2.0, 3.0);
-    dbgl_similarity_3d<double> sim(2.0,rot,t);
+    bgld_similarity_3d<double> sim(2.0,rot,t);
     //test_conversions(sim);
     test_inverse(sim);
     test_application(sim);
@@ -156,7 +156,7 @@ void test_similarity_3d()
     vcl_cout << "\n4. no scale, no rotation, translation (1,-2,3).\n";
     vgl_rotation_3d<double> rot;
     vgl_vector_3d<double> t(1.0, -2.0, 3.0);
-    dbgl_similarity_3d<double> sim(1.0,rot,t);
+    bgld_similarity_3d<double> sim(1.0,rot,t);
     //test_conversions(sim);
     test_inverse(sim);
     test_application(sim);
@@ -167,7 +167,7 @@ void test_similarity_3d()
     vnl_random rnd;
     vgl_rotation_3d<double> rot(rnd.normal(), rnd.normal(), rnd.normal());
     vgl_vector_3d<double> t(rnd.normal(), rnd.normal(), rnd.normal());
-    dbgl_similarity_3d<double> sim(rnd.drand32()*10,rot,t);
+    bgld_similarity_3d<double> sim(rnd.drand32()*10,rot,t);
     vcl_cout << "\n5. Random Similarity: " << sim << vcl_endl;
     //test_conversions(sim);
     test_inverse(sim);

@@ -1,4 +1,4 @@
-#include "dbgl_arc_algo.h"
+#include "bgld_arc_algo.h"
 #include <vcl_cstdio.h>
 
 // copied this definition from visualizer's base_defines.h
@@ -15,22 +15,22 @@
 // Don't expect sensible results if you want to find intercections of 
 // _enpoints_ of the arcs with something. This is not currently supported, but
 // may work.
-unsigned dbgl_arc_algo::
-compute_intersections(const dbgl_arc &arc1, const dbgl_arc &arc2, 
+unsigned bgld_arc_algo::
+compute_intersections(const bgld_arc &arc1, const bgld_arc &arc2, 
          vgl_point_2d<double> *intercept1, vgl_point_2d<double> *intercept2)
 {
 
    
   bool a1_curv_is_zero,a2_curv_is_zero;
 
-  a1_curv_is_zero = dbgl_arc::is_almost_zero(arc1.curvature());
-  a2_curv_is_zero = dbgl_arc::is_almost_zero(arc2.curvature());
+  a1_curv_is_zero = bgld_arc::is_almost_zero(arc1.curvature());
+  a2_curv_is_zero = bgld_arc::is_almost_zero(arc2.curvature());
 
   if (a1_curv_is_zero && a2_curv_is_zero) {
 #ifndef NDEBUG
     vcl_printf("line-line \n");
 #endif
-    return dbgl_arc::compute_inters_ll(arc1.point_at(0), arc1.point_at(1), 
+    return bgld_arc::compute_inters_ll(arc1.point_at(0), arc1.point_at(1), 
           arc2.point_at(0), arc2.point_at(1), intercept1);
   } else if (!a1_curv_is_zero && !a2_curv_is_zero) {
 #ifndef NDEBUG
@@ -55,8 +55,8 @@ compute_intersections(const dbgl_arc &arc1, const dbgl_arc &arc2,
 // available in the old GENO interpolation code from LEMS, file geno-geometric.c
 //
 // \return number of intersections, or 3 if arcs come from same circle.
-unsigned dbgl_arc_algo::
-compute_inters_aa_bkk(const dbgl_arc &arc1, const dbgl_arc &arc2, 
+unsigned bgld_arc_algo::
+compute_inters_aa_bkk(const bgld_arc &arc1, const bgld_arc &arc2, 
          vgl_point_2d<double> *intercept1, vgl_point_2d<double> *intercept2)
 {
     double R1, R2;
@@ -87,8 +87,8 @@ compute_inters_aa_bkk(const dbgl_arc &arc1, const dbgl_arc &arc2,
     P2 = (R1*R1 - R2*R2) - (x1*x1 - x2*x2) - (y1*y1 - y2*y2);
     P2 /= 2.0;
 
-    if(dbgl_arc::is_almost_zero(M)){
-       if (dbgl_arc::is_almost_zero(N))
+    if(bgld_arc::is_almost_zero(M)){
+       if (bgld_arc::is_almost_zero(N))
           return 3; // arcs from coincident circles
 
         x_int1 = P2 / N;    //:< bug fix wrt. original
@@ -99,9 +99,9 @@ compute_inters_aa_bkk(const dbgl_arc &arc1, const dbgl_arc &arc2,
         c = y1*y1 + x_int1*x_int1 - 2*x1*x_int1 + x1*x1 - R1*R1;
         d = (b*b - 4.0*a*c);
 
-        if (d < 0.0 && !dbgl_arc::is_almost_zero(d)) { //:< bug fix wrt. original
+        if (d < 0.0 && !bgld_arc::is_almost_zero(d)) { //:< bug fix wrt. original
             return 0;
-        } else if (dbgl_arc::is_almost_zero(d)){
+        } else if (bgld_arc::is_almost_zero(d)){
             y_int1 = -b / (2.0 * a);
             intercept1->set(x_int1,y_int1);
             return 1;
@@ -127,9 +127,9 @@ compute_inters_aa_bkk(const dbgl_arc &arc1, const dbgl_arc &arc2,
 
     d = (b*b - 4.0 * a * c);
 
-    if (d < 0.0 && !dbgl_arc::is_almost_zero(d)) { //:< bug fix wrt. original
+    if (d < 0.0 && !bgld_arc::is_almost_zero(d)) { //:< bug fix wrt. original
         return 0;
-    } else if (dbgl_arc::is_almost_zero(d)) {
+    } else if (bgld_arc::is_almost_zero(d)) {
         x_int1 = -b / (2.0 * a);
         y_int1 = (P2 / M)  - ((N * x_int1) / M);
 
@@ -154,8 +154,8 @@ compute_inters_aa_bkk(const dbgl_arc &arc1, const dbgl_arc &arc2,
 //: This is based on Kwun Han's arc-line intersection function - it
 // finds the two points where the line (arc of virtually zero curvature) intersects the
 // given arc; Note that it doesn't check the line _segment_!
-unsigned dbgl_arc_algo::
-compute_inters_al(const dbgl_arc &arc, const dbgl_arc &line, 
+unsigned bgld_arc_algo::
+compute_inters_al(const bgld_arc &arc, const bgld_arc &line, 
          vgl_point_2d<double> *intercept1, vgl_point_2d<double> *intercept2)
 
 {
@@ -218,7 +218,7 @@ compute_inters_al(const dbgl_arc &arc, const dbgl_arc &line,
 }
 
 //: compute the radius of the circular arc through three points [p1-----p2----p3]
-double dbgl_arc_algo::
+double bgld_arc_algo::
 compute_arc_radius_from_three_points(vgl_point_2d<double> p1,vgl_point_2d<double> p2, vgl_point_2d<double> p3)
 {
   double x1 = p1.x();  double y1 = p1.y();

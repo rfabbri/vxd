@@ -1,7 +1,7 @@
-// This is basic/dbgl/algo/dbgl_closest_point.h
+// This is bbasd/bgld/algo/bgld_closest_point.h
 
-#ifndef dbgl_closest_point_h_
-#define dbgl_closest_point_h_
+#ifndef bgld_closest_point_h_
+#define bgld_closest_point_h_
 
 //:
 // \file
@@ -22,15 +22,15 @@
 
 #include <vgl/vgl_line_segment_2d.h>
 #include <vcl_complex.h>
-#include <dbgl/algo/dbgl_biarc.h>
-#include <dbgl/algo/dbgl_circ_arc.h>
+#include <bgld/algo/bgld_biarc.h>
+#include <bgld/algo/bgld_circ_arc.h>
 
 //: A set of static functions to compute closest points of geometry objects
-class dbgl_closest_point
+class bgld_closest_point
 {
 protected:
 public:
-  ~dbgl_closest_point(){};
+  ~bgld_closest_point(){};
 
   //: minimum curvature of an arc
   static double min_curvature;
@@ -72,7 +72,7 @@ public:
   // 'line_ratios' and 'arc_ratios' are normalized arclength (in range [0, 1])
   // of the closest points
   static double lineseg_to_circular_arc(const vgl_line_segment_2d<double >& lineseg,
-    const dbgl_circ_arc& arc,
+    const bgld_circ_arc& arc,
     vcl_vector<double >& line_ratios, vcl_vector<double >& arc_ratios);
 
   //: Return distance between two circular arcs
@@ -96,7 +96,7 @@ public:
   // Return the shortest distance and saved the arc_length of the closest point
   // at `ret_arclength'
   static double point_to_biarc(const vgl_point_2d<double > query,
-    const dbgl_biarc& biarc, double& ret_arclength);
+    const bgld_biarc& biarc, double& ret_arclength);
 
 
 protected:
@@ -110,7 +110,7 @@ protected:
     vcl_vector<vgl_vector_2d<double > >& roots);
 
 private:
-  dbgl_closest_point(){};
+  bgld_closest_point(){};
 };
 
-#endif // dbgl_closest_point_h_
+#endif // bgld_closest_point_h_

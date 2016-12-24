@@ -1,17 +1,17 @@
-// This is file basic/dbgl/algo/dbgl_fit_circ_arc_spline.cxx
+// This is file bbasd/bgld/algo/bgld_fit_circ_arc_spline.cxx
 
 //:
 // \file
 
 
-#include "dbgl_fit_circ_arc_spline.h"
+#include "bgld_fit_circ_arc_spline.h"
 #include "internals/arcspline.h"
 #include <vbl/vbl_array_1d.h>
 #include <vnl/vnl_math.h>
-#include <dbgl/algo/dbgl_biarc.h>
+#include <bgld/algo/bgld_biarc.h>
 
 //: Interpolate a set of points with a circular arc spline
-bool dbgl_fit_circ_arc_spline_to_polyline(vcl_vector<dbgl_circ_arc >& arc_list,
+bool bgld_fit_circ_arc_spline_to_polyline(vcl_vector<bgld_circ_arc >& arc_list,
                                  const vcl_vector<vgl_point_2d<double > >& pts,
                                  double tolerance)
 {
@@ -38,13 +38,13 @@ bool dbgl_fit_circ_arc_spline_to_polyline(vcl_vector<dbgl_circ_arc >& arc_list,
   double betan = 0;
 
 
-  dbgl_circ_arc arc_first;
+  bgld_circ_arc arc_first;
   if (arc_first.set_from(pts[0], pts[1], pts[2]))
   {
     alpha1 = signed_angle(arc_first.tangent_at_start(), pts[1]-pts[0]);
   }
 
-  dbgl_circ_arc arc_last;
+  bgld_circ_arc arc_last;
   if (arc_last.set_from(pts[n-3], pts[n-2], pts[n-1]))
   {
     betan = signed_angle(pts[n-1]-pts[n-2], arc_last.tangent_at_end());
@@ -76,7 +76,7 @@ bool dbgl_fit_circ_arc_spline_to_polyline(vcl_vector<dbgl_circ_arc >& arc_list,
       vgl_point_2d<double > end(e_point.x, e_point.y);
 
       // construct the arc
-      dbgl_circ_arc circ_arc(start, end, 0);
+      bgld_circ_arc circ_arc(start, end, 0);
       arc_list.push_back(circ_arc);
     }
     else
@@ -91,7 +91,7 @@ bool dbgl_fit_circ_arc_spline_to_polyline(vcl_vector<dbgl_circ_arc >& arc_list,
       vgl_point_2d<double > end(e_point.x, e_point.y);
 
       // Construct the arc
-      dbgl_circ_arc circ_arc(start, end, (1/radius) * sign_k);
+      bgld_circ_arc circ_arc(start, end, (1/radius) * sign_k);
 
       // add to the list
       arc_list.push_back(circ_arc);
@@ -106,7 +106,7 @@ bool dbgl_fit_circ_arc_spline_to_polyline(vcl_vector<dbgl_circ_arc >& arc_list,
 // -----------------------------------------------------------------------------
 //: Interpolate a polygon with circular-arc polygon, i.e., a closed smooth contour
 // consisting circular arc segments
-bool dbgl_fit_circ_arc_spline_to_polygon(vcl_vector<dbgl_circ_arc >& arc_list,
+bool bgld_fit_circ_arc_spline_to_polygon(vcl_vector<bgld_circ_arc >& arc_list,
                                  const vcl_vector<vgl_point_2d<double > >& pts,
                                  double tolerance)
 {
@@ -147,7 +147,7 @@ bool dbgl_fit_circ_arc_spline_to_polygon(vcl_vector<dbgl_circ_arc >& arc_list,
   }
 
   // fit the polyline with circular arc spline
-  dbgl_fit_circ_arc_spline_to_polyline(arc_list, polyline, tolerance);
+  bgld_fit_circ_arc_spline_to_polyline(arc_list, polyline, tolerance);
 
   // interpolate the gap with a biarc
   vgl_point_2d<double > gap_start_pt = arc_list.back().end();
@@ -156,11 +156,11 @@ bool dbgl_fit_circ_arc_spline_to_polygon(vcl_vector<dbgl_circ_arc >& arc_list,
   vgl_point_2d<double > gap_end_pt = arc_list.front().start();
   vgl_vector_2d<double > gap_end_tangent = arc_list.front().tangent_at_start();
 
-  dbgl_biarc gap_biarc(gap_start_pt, gap_start_tangent, gap_end_pt, gap_end_tangent);
+  bgld_biarc gap_biarc(gap_start_pt, gap_start_tangent, gap_end_pt, gap_end_tangent);
   if (gap_biarc.is_consistent())
   {
-    dbgl_circ_arc arc1(gap_biarc.start(), gap_biarc.mid_pt(), gap_biarc.k1());
-    dbgl_circ_arc arc2(gap_biarc.mid_pt(), gap_biarc.end(), gap_biarc.k2());
+    bgld_circ_arc arc1(gap_biarc.start(), gap_biarc.mid_pt(), gap_biarc.k1());
+    bgld_circ_arc arc2(gap_biarc.mid_pt(), gap_biarc.end(), gap_biarc.k2());
 
     arc_list.push_back(arc1);
     arc_list.push_back(arc2);
@@ -169,7 +169,7 @@ bool dbgl_fit_circ_arc_spline_to_polygon(vcl_vector<dbgl_circ_arc >& arc_list,
   else
   {
     // just add a line connecting the two end points
-    dbgl_circ_arc arc1(gap_start_pt, gap_end_pt, 0);
+    bgld_circ_arc arc1(gap_start_pt, gap_end_pt, 0);
     arc_list.push_back(arc1);
     return false;
   }

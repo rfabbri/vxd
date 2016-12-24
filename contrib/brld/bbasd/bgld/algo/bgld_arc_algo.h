@@ -1,38 +1,38 @@
-// This is dbgl_arc_algo.h
-#ifndef dbgl_arc_algo_h
-#define dbgl_arc_algo_h
+// This is bgld_arc_algo.h
+#ifndef bgld_arc_algo_h
+#define bgld_arc_algo_h
 //:
 //\file
-//\brief Algorithms that act on dbgl_arcs
+//\brief Algorithms that act on bgld_arcs
 //\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri.github.io)
 // Some content is based on C code by Kwun Han (kwh@lems.brown.edu)
 //\date 03/08/2005 07:31:18 PM EST
 //
 
-#include <dbgl/dbgl_arc.h>
+#include <bgld/bgld_arc.h>
 #include <vgl/vgl_point_2d.h>
 #include <vcl_cmath.h>
 #include <vcl_limits.h>
 
-class dbgl_arc_algo
+class bgld_arc_algo
 {
 
 public:
-   //: intersection of two dbgl_arc's
-   static unsigned compute_intersections(const dbgl_arc &arc1, const dbgl_arc &arc2, 
+   //: intersection of two bgld_arc's
+   static unsigned compute_intersections(const bgld_arc &arc1, const bgld_arc &arc2, 
             vgl_point_2d<double> *intercept1, vgl_point_2d<double> *intercept2);
 
 private:
 
    //: intersection of two arcs with non-zero curvature
    static unsigned 
-   compute_inters_aa_bkk(const dbgl_arc &arc1, const dbgl_arc &arc2, 
+   compute_inters_aa_bkk(const bgld_arc &arc1, const bgld_arc &arc2, 
             vgl_point_2d<double> *intercept1, vgl_point_2d<double> *intercept2);
    
    //: finds the two points where a line (arc of virtually zero curvature)
    // intersects an arc
    static unsigned
-   compute_inters_al(const dbgl_arc &arc, const dbgl_arc &line, 
+   compute_inters_al(const bgld_arc &arc, const bgld_arc &line, 
          vgl_point_2d<double> *intercept1, vgl_point_2d<double> *intercept2);
 
 public:
@@ -43,5 +43,5 @@ public:
 };
 
 
-#endif // dbgl_arc_algo_h
+#endif // bgld_arc_algo_h
 

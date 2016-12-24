@@ -1,13 +1,13 @@
-// This is basic/dbgl/algo/dbgl_circ_arc.cxx
+// This is bbasd/bgld/algo/bgld_circ_arc.cxx
 //:
 // \file
 
-#include "dbgl_circ_arc.h"
+#include "bgld_circ_arc.h"
 
 #include <vcl_cmath.h>
 #include <vcl_limits.h>
 
-const double dbgl_circ_arc_pi = 3.14159265358979323846;
+const double bgld_circ_arc_pi = 3.14159265358979323846;
 
 
 
@@ -15,15 +15,15 @@ const double dbgl_circ_arc_pi = 3.14159265358979323846;
 // CONSTRUCTORS / DESTRUCTORS / INITIALIZERS
 //**************************************************************
 
-const double dbgl_circ_arc::taylor_4_bound = 
+const double bgld_circ_arc::taylor_4_bound = 
     vcl_sqrt(vcl_sqrt(vcl_numeric_limits<double >::epsilon()));
-const double dbgl_circ_arc::epsilon = 1e-12;
+const double bgld_circ_arc::epsilon = 1e-12;
 
 
 //------------------------------------------------------------------------
 //: Constructor - default
-dbgl_circ_arc::
-dbgl_circ_arc():
+bgld_circ_arc::
+bgld_circ_arc():
 point1_(vgl_point_2d<double >(0, 0)),
 point2_(vgl_point_2d<double >(1, 0)),
 k_(1)
@@ -32,8 +32,8 @@ k_(1)
 
 //------------------------------------------------------------------------
 //: Constructor - from intrinsic parameters
-dbgl_circ_arc::
-dbgl_circ_arc(const vgl_point_2d<double >& point1, 
+bgld_circ_arc::
+bgld_circ_arc(const vgl_point_2d<double >& point1, 
               const vgl_point_2d<double > & point2, 
               double curvature ):
 point1_(point1), point2_(point2), k_(curvature)
@@ -51,14 +51,14 @@ point1_(point1), point2_(point2), k_(curvature)
 
 //: Create a new circular arc from three points on the arc
 // Return false if the creation fails
-bool dbgl_circ_arc::
+bool bgld_circ_arc::
 set_from(const vgl_point_2d<double >& start, 
          const vgl_point_2d<double >& middle,
          const vgl_point_2d<double >& end )
 {
   // Return false if the middle point coincides with one of the end points
-  if ((middle-start).length() < dbgl_circ_arc::epsilon ||
-    (middle-end).length() < dbgl_circ_arc::epsilon )
+  if ((middle-start).length() < bgld_circ_arc::epsilon ||
+    (middle-end).length() < bgld_circ_arc::epsilon )
   {
     vcl_cerr << "Error: middle point coincides with one of the end points.\n";
     return false;
@@ -88,20 +88,20 @@ set_from(const vgl_point_2d<double >& start,
 //: Create a new circular arc from starting point (P1), circular center (O),
 // and a normal vector at the end point (pointing toward the center)
 // Return false if the creation fails
-bool dbgl_circ_arc::
+bool bgld_circ_arc::
 set_from(const vgl_point_2d<double >& start, 
          const vgl_point_2d<double >& center,
          const vgl_vector_2d<double >& end_normal_vector )
 {
   // premilinary check
   double radius;
-  if ((radius = (center-start).length()) < dbgl_circ_arc::epsilon)
+  if ((radius = (center-start).length()) < bgld_circ_arc::epsilon)
   {
     vcl_cerr << "Error: Circular center and starting point of the arc coincide.\n";
     return false;
   }
 
-  if (end_normal_vector.length() < dbgl_circ_arc::epsilon)
+  if (end_normal_vector.length() < bgld_circ_arc::epsilon)
   {
     vcl_cerr << "Error: non-zero end_normal_vector required.\n";
     return false;
@@ -126,7 +126,7 @@ set_from(const vgl_point_2d<double >& start,
 
 //: Create a circular arc from two end points and tangent at the starting point
 // Return false if creation fails
-bool dbgl_circ_arc::
+bool bgld_circ_arc::
 set_from(const vgl_point_2d<double >& start,
          const vgl_vector_2d<double >& start_tangent,
          const vgl_point_2d<double >& end)
@@ -141,7 +141,7 @@ set_from(const vgl_point_2d<double >& start,
   sin_angle = (dot_product(start_tangent, chord_dir) > 0) ? sin_angle : -sin_angle;
   
   // curvature
-  double k = (chord_len < dbgl_circ_arc::epsilon)? 0 : (2*sin_angle / chord_len);
+  double k = (chord_len < bgld_circ_arc::epsilon)? 0 : (2*sin_angle / chord_len);
   
   // finalize
   this->set(start, end, k);
@@ -155,14 +155,14 @@ set_from(const vgl_point_2d<double >& start,
 //------------------------------------------------------------------------------
 //: Creat a circular arc from starting point, starting tangent, curvature,
 // and length of the arc
-bool dbgl_circ_arc::
+bool bgld_circ_arc::
 set_from(const vgl_point_2d<double >& start,
          const vgl_vector_2d<double >& start_tangent,
          double curvature,
          double arc_length)
 {
   // limit the arc to half a circle
-  if ( vcl_abs(curvature*arc_length) > dbgl_circ_arc_pi )
+  if ( vcl_abs(curvature*arc_length) > bgld_circ_arc_pi )
     return false;
 
   // The only missing info is the position of the end point
@@ -184,7 +184,7 @@ set_from(const vgl_point_2d<double >& start,
 //------------------------------------------------------------------------------
 //: Create a circular arc from mid-point (on the arc), tangent at mid-point
 // chord length and height of arc (negative for curvature < 0)
-bool dbgl_circ_arc::
+bool bgld_circ_arc::
 set_from(double chord_length, double height, 
          const vgl_point_2d<double >& mid_pt, 
          const vgl_vector_2d<double >& mid_tangent)
@@ -209,7 +209,7 @@ set_from(double chord_length, double height,
 // GEOMETRY PROPERTIES --------------------------------------------------------
 //-----------------------------------------------------------------------------
 //: Return height of the arc
-double dbgl_circ_arc::
+double bgld_circ_arc::
 height() const
 {
   // formula
@@ -227,7 +227,7 @@ height() const
 
 //------------------------------------------------------------------------
 //: Return length of `this' arc
-double dbgl_circ_arc::
+double bgld_circ_arc::
 len() const
 {
   double t = this->k()*this->chord_len()/2;
@@ -235,7 +235,7 @@ len() const
 
   // compute arcsin(t)/t
   // for large t, use normal formule
-  if (vcl_abs(t) > dbgl_circ_arc::taylor_4_bound)
+  if (vcl_abs(t) > bgld_circ_arc::taylor_4_bound)
   {
     asin_t_over_t = vcl_asin(t)/t;
   }
@@ -253,7 +253,7 @@ len() const
 
 
 //: Return area of the region limited by the circular arc and its chord
-double dbgl_circ_arc::
+double bgld_circ_arc::
 area() const
 {
   double s = this->length();
@@ -265,7 +265,7 @@ area() const
   // Problematic when a --> 0. Use Taylor expansion
   // for large a, use normal formula
   double w = 0;
-  if (vcl_abs(a) > dbgl_circ_arc::taylor_4_bound)
+  if (vcl_abs(a) > bgld_circ_arc::taylor_4_bound)
   {
     w = (a - vcl_sin(a)) / (a*a);
   }
@@ -284,7 +284,7 @@ area() const
 // accurate to within 0.1% for 0< central_angle < 150 o
 // and 0.8% for  150 o < central_angle < 180 o
 // See http://mathworld.wolfram.com/CircularSegment.html
-double dbgl_circ_arc::
+double bgld_circ_arc::
 area_approx() const
 {
   double c = this->chord_len();
@@ -300,7 +300,7 @@ area_approx() const
 //------------------------------------------------------------------------
 //: Return unit tangent vector at starting point (point1)
 // \TODO write it
-vgl_vector_2d<double > dbgl_circ_arc::
+vgl_vector_2d<double > bgld_circ_arc::
 tangent_at_start() const
 {
   double sin_alpha = this->k()*this->chord_len() / 2;
@@ -320,7 +320,7 @@ tangent_at_start() const
 
 //------------------------------------------------------------------------
 //: Return unit tangent at ending point (point2)
-vgl_vector_2d<double > dbgl_circ_arc::
+vgl_vector_2d<double > bgld_circ_arc::
 tangent_at_end() const
 {
   double sin_alpha = this->k()*this->chord_len() / 2;
@@ -338,7 +338,7 @@ tangent_at_end() const
 //------------------------------------------------------------------------
 //: Return unit normal vector at starting point (point1)
 // Normal vector points TOWARD the circle center
-vgl_vector_2d<double > dbgl_circ_arc::
+vgl_vector_2d<double > bgld_circ_arc::
 normal_at_start() const
 {
   // compute normal vector using tangent vector and sign of curvature
@@ -352,7 +352,7 @@ normal_at_start() const
 //------------------------------------------------------------------------
 //: Return unit normal vector at ending point (point2)
 // Normal vector points TOWARD the circle center
-vgl_vector_2d<double > dbgl_circ_arc::
+vgl_vector_2d<double > bgld_circ_arc::
 normal_at_end() const
 {
   // compute normal vector using tangent vector and sign of curvature
@@ -364,7 +364,7 @@ normal_at_end() const
 
 //------------------------------------------------------------------------
 //: Return center of the circle containing the arc
-vgl_point_2d<double > dbgl_circ_arc::
+vgl_point_2d<double > bgld_circ_arc::
 center() const
 {
   // center is at infinity when k == 0
@@ -382,7 +382,7 @@ center() const
 
 
 //: Get sample point at value s of a parameter along the curve, s within [0,1]
-vgl_point_2d<double> dbgl_circ_arc::
+vgl_point_2d<double> bgld_circ_arc::
 point_at(double t) const
 {
   return this->point_at_length(t*this->len());
@@ -390,7 +390,7 @@ point_at(double t) const
 
 // ------------------------------------------------------------------------
 //: Get sample point at arclength s away from starting point
-vgl_point_2d<double> dbgl_circ_arc::
+vgl_point_2d<double> bgld_circ_arc::
 point_at_length(double s) const
 {
 
@@ -404,7 +404,7 @@ point_at_length(double s) const
   double sinc_t = this->sinc(t);
 
   // for large t, use normal formula
-  if (vcl_abs(t) > dbgl_circ_arc::taylor_4_bound)
+  if (vcl_abs(t) > bgld_circ_arc::taylor_4_bound)
   {
     sinc_t = vcl_sin(t)/t;
   }
@@ -427,7 +427,7 @@ point_at_length(double s) const
 
 // ----------------------------------------------------------------------------
 //: Sample the arc with a given sampling rate
-vcl_vector<vgl_point_2d<double > > dbgl_circ_arc::
+vcl_vector<vgl_point_2d<double > > bgld_circ_arc::
 compute_samples(double ds) const
 {
   vcl_vector<vgl_point_2d<double > > pts;
@@ -442,7 +442,7 @@ compute_samples(double ds) const
 
 
 //: Sample the arc with a given sampling rate (length)
-void dbgl_circ_arc::
+void bgld_circ_arc::
 compute_samples(double ds, 
                 vcl_vector<vgl_point_2d<double > >& pts,
                 vcl_vector<vgl_vector_2d<double > >& tangents) const
@@ -467,7 +467,7 @@ compute_samples(double ds,
 
 // ------------------------------------------------------------------------
 //: Get tangent of the point at parameter t within [0,1]
-vgl_vector_2d<double> dbgl_circ_arc::
+vgl_vector_2d<double> bgld_circ_arc::
 tangent_at(double t) const
 {
   return this->tangent_at_length(t*this->len());
@@ -477,7 +477,7 @@ tangent_at(double t) const
 
 // ------------------------------------------------------------------------
 //: Get tangent of the point at arclength s away from starting point
-vgl_vector_2d<double> dbgl_circ_arc::
+vgl_vector_2d<double> bgld_circ_arc::
 tangent_at_length(double s) const
 {
   // formula
@@ -494,14 +494,14 @@ tangent_at_length(double s) const
 
 //: Get unit normal vector of the point at parameter t within [0,1]
 // Normal vector points TOWARD the circle center
-vgl_vector_2d<double> dbgl_circ_arc::
+vgl_vector_2d<double> bgld_circ_arc::
 normal_at(double t) const
 {
   return this->normal_at_length(t*this->len());
 }
 
 //: Get unit normal vector of the point at arclength s
-vgl_vector_2d<double> dbgl_circ_arc::
+vgl_vector_2d<double> bgld_circ_arc::
 normal_at_length(double s) const
 {
   // compute normal vector using tangent vector and sign of curvature
@@ -514,10 +514,10 @@ normal_at_length(double s) const
 
 // ---------------------------------------------------------------------------
 //: Return the exact arc but with reversed end-point order
-dbgl_circ_arc dbgl_circ_arc::
+bgld_circ_arc bgld_circ_arc::
 reversed_arc() const
 {
-  return dbgl_circ_arc(this->point2(), this->point1(), -this->k()); 
+  return bgld_circ_arc(this->point2(), this->point1(), -this->k()); 
 }
 
 
@@ -535,7 +535,7 @@ reversed_arc() const
 //: Return 1 if `pt' is OUTSIDE the circle
 //         0 if `pt' is ON the circle
 //        -1 if `pt' is INSIDE the circle
-int dbgl_circ_arc::
+int bgld_circ_arc::
 circ_region(const vgl_point_2d<double >& pt) const
 {
   double sin_alpha = this->k()*this->chord_len() / 2;
@@ -548,7 +548,7 @@ circ_region(const vgl_point_2d<double >& pt) const
 
   double test = q*cos_alpha - p*sin_alpha;
   
-  if (vcl_abs(test) < dbgl_circ_arc::epsilon) return 0;
+  if (vcl_abs(test) < bgld_circ_arc::epsilon) return 0;
   else if (test > 0) return 1;
   else return -1;
 }
@@ -561,10 +561,10 @@ circ_region(const vgl_point_2d<double >& pt) const
 
 // ------------------------------------------------------------------------
 //: Print parameters of the circular arc
-void dbgl_circ_arc::
+void bgld_circ_arc::
 print(vcl_ostream &os ) const
 {
-  os << "<dbgl_circ_arc> p1=(" << 
+  os << "<bgld_circ_arc> p1=(" << 
     this->point1().x() << "," << this->point1().y() << ")  p2=(" <<
     this->point2().x() << "," << this->point2().y() << ") k=" <<
     this->k();

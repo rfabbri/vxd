@@ -1,7 +1,7 @@
-// This is basic/dbgl/algo/tests/test_eulerspiral.cxx
+// This is bbasd/bgld/algo/tests/test_eulerspiral.cxx
 
 #include <testlib/testlib_test.h>
-#include <dbgl/algo/dbgl_eulerspiral.h>
+#include <bgld/algo/bgld_eulerspiral.h>
 #include <vcl_iostream.h>
 #include <vcl_cmath.h>
 #include <vnl/vnl_math.h>
@@ -20,13 +20,13 @@ MAIN( test_eulerspiral )
   bool test_passed;
   // -------------- INITIALIZERS/CONSTRUCTORS/DESTRUCTORS ----------------------------    
   // Default
-  START (" Test dbgl_eulerspiral class");
+  START (" Test bgld_eulerspiral class");
   vcl_cout << "Test Constructors" << vcl_endl;
-  dbgl_eulerspiral es1 = dbgl_eulerspiral();
+  bgld_eulerspiral es1 = bgld_eulerspiral();
   TEST("Default Constructor", &es1 != 0, true);
   
   // construct from intrinsic params
-  dbgl_eulerspiral es2 = dbgl_eulerspiral(vgl_point_2d< double >(0, 0), 0.0, 1, 1, 2);
+  bgld_eulerspiral es2 = bgld_eulerspiral(vgl_point_2d< double >(0, 0), 0.0, 1, 1, 2);
   test_passed = (vcl_fabs(es2.start().x() - 0) < tolerance) &&
      (vcl_fabs(es2.start().y() - 0) < tolerance) && 
      (vcl_fabs(es2.start_angle() - 0) < tolerance) &&
@@ -36,7 +36,7 @@ MAIN( test_eulerspiral )
   TEST("Contruct from intrinsic params", test_passed, true);
   
   // contruct from 2 point-tangents
-  dbgl_eulerspiral es3 = dbgl_eulerspiral(vgl_point_2d< double >(0, 0), 0, 
+  bgld_eulerspiral es3 = bgld_eulerspiral(vgl_point_2d< double >(0, 0), 0, 
     vgl_point_2d< double >(5, 5), vnl_math::pi_over_2);
   test_passed = (vcl_fabs(es3.gamma() - 0) < tolerance) &&
     (vcl_fabs(es3.k0() - 0.2) < tolerance);
@@ -44,7 +44,7 @@ MAIN( test_eulerspiral )
   TEST("Construct from two point-tangents", test_passed, true);
 
   // copy contructor
-  dbgl_eulerspiral es4 = dbgl_eulerspiral(es3);
+  bgld_eulerspiral es4 = bgld_eulerspiral(es3);
   test_passed = (es3.start() == es4.start()) &&
     (es3.start_angle() == es4.start_angle()) &&
     (es3.k0() == es4.k0()) &&
@@ -98,7 +98,7 @@ MAIN( test_eulerspiral )
   double result5[] = {-0.2, 0.3, 2};
 
 
-  dbgl_eulerspiral es;
+  bgld_eulerspiral es;
   
   // test case 1 - create a "straight line" eulerspiral
   test_passed = true;
@@ -186,7 +186,7 @@ MAIN( test_eulerspiral )
   TEST("Test curvature_at_length(s) function", test_passed, true);
   
 
-  // bool success = dbgl_eulerspiral_lookup_table::instance()->has_table();
+  // bool success = bgld_eulerspiral_lookup_table::instance()->has_table();
   // vcl_cout << "success = " << success << vcl_endl;     
     //k0(CCW(params.psi, params.start_angle), CCW(params.psi, params.end_angle));
   vcl_vector< double > g;
@@ -204,9 +204,9 @@ MAIN( test_eulerspiral )
   es.compute_es_params(vgl_point_2d< double >(0, 0), s2, vgl_point_2d< double >(1, 0), e2);
   es.print(vcl_cout);
   
-  if (dbgl_eulerspiral_lookup_table::instance()->has_table()){
+  if (bgld_eulerspiral_lookup_table::instance()->has_table()){
     double k0_new, gamma_new, len_new, k0_max_error_new, gamma_max_error_new, len_max_error_new ;
-    dbgl_eulerspiral_lookup_table::instance()->look_up(s2, e2, &k0_new, &gamma_new, &len_new, 
+    bgld_eulerspiral_lookup_table::instance()->look_up(s2, e2, &k0_new, &gamma_new, &len_new, 
       &k0_max_error_new, &gamma_max_error_new, &len_max_error_new);
     vcl_cout << "Data from look-up table : " << vcl_endl;
     vcl_cout << "k0_new = " << k0_new << vcl_endl;

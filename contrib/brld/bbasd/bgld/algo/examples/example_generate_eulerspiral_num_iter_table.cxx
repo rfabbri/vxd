@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// This is basic/dbgl/algo/example_generate_eulerspiral_num_iter_table.cxx
+// This is bbasd/bgld/algo/example_generate_eulerspiral_num_iter_table.cxx
 //:
 // \file
 // \brief This program generates a table of number of iterations used for 
@@ -20,7 +20,7 @@
 //
 //-------------------------------------------------------------------------
 
-#include <dbgl/algo/dbgl_eulerspiral.h>
+#include <bgld/algo/bgld_eulerspiral.h>
 #include <vcl_iostream.h>
 #include <vnl/vnl_math.h>
 #include <vcl_fstream.h>
@@ -41,12 +41,12 @@ int main( int argc, char* argv[] )
   vgl_point_2d< double > end(1, 0);
   double start_angle = 0;
   double end_angle = 0;
-  dbgl_eulerspiral es;
+  bgld_eulerspiral es;
   int npts = 100;
   double dt = vnl_math::pi*2 / npts;
 
   bool success = false;
-  vcl_ofstream ofs("dbgl_eulerspiral_num_iter_table_using_lookup_table_minimization.txt");
+  vcl_ofstream ofs("bgld_eulerspiral_num_iter_table_using_lookup_table_minimization.txt");
   int num_failed_cases = 0;
   for (int i = 0; i < npts; i++ ){
     

@@ -1,4 +1,4 @@
-// This is dbgl/algo/internals/arcspline.h
+// This is bgld/algo/internals/arcspline.h
 
 #ifndef arcspline_h_
 #define arcspline_h_

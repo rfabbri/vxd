@@ -1,6 +1,6 @@
-// This is dbgl_curve_smoothing.h
-#ifndef dbgl_curve_smoothing_h_
-#define dbgl_curve_smoothing_h_
+// This is bgld_curve_smoothing.h
+#ifndef bgld_curve_smoothing_h_
+#define bgld_curve_smoothing_h_
 //:
 //\file
 //\brief Smoothing of digital curves
@@ -27,49 +27,49 @@
 // 
 //
 //
-void dbgl_csm( vcl_vector<vgl_point_2d<double> > &c, double psi, unsigned nsteps);
+void bgld_csm( vcl_vector<vgl_point_2d<double> > &c, double psi, unsigned nsteps);
 
-bool dbgl_curve_shorten_3d (vcl_vector<vgl_point_3d<double> > &c, double psi, unsigned nsteps);
+bool bgld_curve_shorten_3d (vcl_vector<vgl_point_3d<double> > &c, double psi, unsigned nsteps);
 
-void dbgl_curve_shorten_3d_th (vcl_vector<vgl_point_3d<double> > &c, const double kernel_th,
+void bgld_curve_shorten_3d_th (vcl_vector<vgl_point_3d<double> > &c, const double kernel_th,
                                double psi, unsigned nsteps);
 
 //: curve shortening only in z(x,y) value.
-void dbgl_curve_shorten_z (vcl_vector<vgl_point_3d<double> > &c, double psi, unsigned nsteps);
+void bgld_curve_shorten_z (vcl_vector<vgl_point_3d<double> > &c, double psi, unsigned nsteps);
 
 // ###############################################################
 // Ming: gaussian 3D curve smoothing
 
 //: Gaussian curve smoothing.
-void dbgl_gaussian_smooth_curve_3d (vcl_vector<vgl_point_3d<double> > &curve, 
+void bgld_gaussian_smooth_curve_3d (vcl_vector<vgl_point_3d<double> > &curve, 
                                     const float sigma, const int nsteps);
 
 //: Gaussian curve smoothing with a specified kernel_th.
-void dbgl_gaussian_smooth_curve_3d_th (vcl_vector<vgl_point_3d<double> >& curve, 
+void bgld_gaussian_smooth_curve_3d_th (vcl_vector<vgl_point_3d<double> >& curve, 
                                        const double kernel_th, const float sigma, const int nsteps);
 
 //: Gaussian curve smoothing with a specified kernel_th.
-void dbgl_gaussian_smooth_curve_z_th (vcl_vector<vgl_point_3d<double> >& curve, 
+void bgld_gaussian_smooth_curve_z_th (vcl_vector<vgl_point_3d<double> >& curve, 
                                       const double kernel_th, const float sigma, const int nsteps);
 
-bool dbgl_gaussian_smooth_curve_3d_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
+bool bgld_gaussian_smooth_curve_3d_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
                                                const float sigma, int nsteps);
 
-void dbgl_gaussian_smooth_curve_3d_th_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
+void bgld_gaussian_smooth_curve_3d_th_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
                                                   const double kernel_th, 
                                                   const float sigma, const int nsteps);
 
-void dbgl_gaussian_smooth_curve_z_th_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
+void bgld_gaussian_smooth_curve_z_th_fixedendpt (vcl_vector<vgl_point_3d<double> >& curve, 
                                                  const double kernel_th, 
                                                  const float sigma, const int nsteps);
 
 //2D Gaussian smoothing on 2D scalar function.
-void dbgl_gaussian_smooth_2d_th (vcl_vector<vcl_vector<double> >& range, 
+void bgld_gaussian_smooth_2d_th (vcl_vector<vcl_vector<double> >& range, 
                                  const float d_intra, const float d_inter, 
                                  const int nsteps,
                                  const float G_sigma_ratio,
                                  const float G_radius_ratio,
                                  const float G_th_ratio);
 
-#endif // dbgl_curve_smoothing_h
+#endif // bgld_curve_smoothing_h
 

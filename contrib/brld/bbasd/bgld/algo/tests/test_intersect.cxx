@@ -1,7 +1,7 @@
-// This is basic/dbgl/algo/tests/test_intersect.cxx
+// This is bbasd/bgld/algo/tests/test_intersect.cxx
 
 #include <testlib/testlib_test.h>
-#include <dbgl/algo/dbgl_intersect.h>
+#include <bgld/algo/bgld_intersect.h>
 #include <vcl_iostream.h>
 #include <vcl_cmath.h>
 #include <vgl/vgl_line_2d.h>
@@ -18,24 +18,24 @@ void test_compute_line_sphere_intersect() {
     vgl_point_3d<double> center(10, 0, 0);
     vgl_sphere_3d<double> sphere(center, 5);
     vgl_homg_line_3d_2_points<double> line(vgl_homg_point_3d<double> (0,0,5,1), vgl_homg_point_3d<double> (10,0,5,1));
-    double inters_length = dbgl_intersect::sphere_homg_line_intersect(line, sphere);
+    double inters_length = bgld_intersect::sphere_homg_line_intersect(line, sphere);
     TEST_NEAR("Sphere line intersection", inters_length, 5, 1e-8);
 
     vcl_cout << "Case2: There are two intersection points" << vcl_endl;
     vgl_homg_line_3d_2_points<double> line2(vgl_homg_point_3d<double> (0,0,0,1), vgl_homg_point_3d<double> (10,0,3,1));
-    inters_length = dbgl_intersect::sphere_homg_line_intersect(line2, sphere);
+    inters_length = bgld_intersect::sphere_homg_line_intersect(line2, sphere);
     vcl_cout << "length intersc-->" << inters_length << vcl_endl;
     TEST_NEAR("Sphere line intersection", inters_length, 8, 1);
 
     vcl_cout << "Case3: There are two intersection points" << vcl_endl;
     vgl_homg_line_3d_2_points<double> line3(vgl_homg_point_3d<double> (0,0,0,1), vgl_homg_point_3d<double> (20,0,0,1));
-    inters_length = dbgl_intersect::sphere_homg_line_intersect(line3, sphere);
+    inters_length = bgld_intersect::sphere_homg_line_intersect(line3, sphere);
     vcl_cout << "length intersc-->" << inters_length << vcl_endl;
     TEST_NEAR("Sphere line intersection", inters_length, 10, 1e-8);
 
     vcl_cout << "Case3: There are two intersection points" << vcl_endl;
     vgl_homg_line_3d_2_points<double> line4(vgl_homg_point_3d<double> (0,0,0,1), vgl_homg_point_3d<double> (10,0,10,1));
-    inters_length = dbgl_intersect::sphere_homg_line_intersect(line4, sphere);
+    inters_length = bgld_intersect::sphere_homg_line_intersect(line4, sphere);
     vcl_cout << "length intersc-->" << inters_length << vcl_endl;
     TEST_NEAR("Sphere line intersection", inters_length, 0, 1e-8);
 }
@@ -50,7 +50,7 @@ test_line_lineseg_intersect()
   vgl_point_2d<double> intr;
 
   bool has_intr;
-  has_intr = dbgl_intersect::line_lineseg_intersect(line,seg, intr);
+  has_intr = bgld_intersect::line_lineseg_intersect(line,seg, intr);
 
   TEST("Line lineseg intersection",has_intr,true);
   TEST("Line lineseg intersection",vgl_distance<double>(intr,vgl_point_2d<double> (-2,0)) < 1e-8, true);
@@ -63,7 +63,7 @@ test_line_lineseg_intersect()
   vgl_point_2d<double> intr;
 
   bool has_intr;
-  has_intr = dbgl_intersect::line_lineseg_intersect(line,seg, intr);
+  has_intr = bgld_intersect::line_lineseg_intersect(line,seg, intr);
 
   TEST("Line lineseg intersection",has_intr,false);
   }
@@ -86,7 +86,7 @@ void test_plane_infinite_cylinder_intersect()
   vgl_vector_3d<double > ellipse_major;
   vgl_vector_3d<double > ellipse_minor;
   bool intersection_exist = 
-    dbgl_intersect::plane_infinite_cylinder(plane, cylinder, ellipse_center, ellipse_major, ellipse_minor);
+    bgld_intersect::plane_infinite_cylinder(plane, cylinder, ellipse_center, ellipse_major, ellipse_minor);
   TEST("Intersection existence", intersection_exist, true);
 
   // true intersection axis
@@ -133,7 +133,7 @@ void test_plane_infinite_cylinder_intersect()
 //: Test functions of biarc class
 MAIN( test_intersect )
 {
-  START (" Test dbgl_intersect class");
+  START (" Test bgld_intersect class");
   test_compute_line_sphere_intersect();
   test_line_lineseg_intersect();
   test_plane_infinite_cylinder_intersect();

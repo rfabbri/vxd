@@ -1,6 +1,6 @@
-// This is dbgl_diffgeom.h
-#ifndef dbgl_diffgeom_h_
-#define dbgl_diffgeom_h_
+// This is bgld_diffgeom.h
+#ifndef bgld_diffgeom_h_
+#define bgld_diffgeom_h_
 //:
 //\file
 //\brief Differential geometry estimation for curves
@@ -40,7 +40,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 void 
-dbgl_compute_curvature(
+bgld_compute_curvature(
     const vcl_vector< vgl_point_2d<double> > &vertices, 
     vnl_vector<double> *k
     );
@@ -52,12 +52,12 @@ dbgl_compute_curvature(
 // Originally written by  D.Kroon University of Twente (August 2011)
 //
 void 
-dbgl_compute_normals(
+bgld_compute_normals(
     const vcl_vector< vgl_point_2d<double> > &vertices, 
     vcl_vector< vnl_vector_fixed<double, 2> > *n
     );
 
 #define DIFFGEOM_EPS 2.2204e-16
 
-#endif // dbgl_diffgeom_h
+#endif // bgld_diffgeom_h
 

@@ -1,7 +1,7 @@
 // This is brcv/shp/dbsk2d/dbsk2d_geometry_utils.h
 
-#ifndef dbgl_arc_center_h_
-#define dbgl_arc_center_h_
+#ifndef bgld_arc_center_h_
+#define bgld_arc_center_h_
 
 // \file
 // \brief This is  
@@ -58,5 +58,5 @@ inline vgl_point_2d<double> getArcCenterFromThreePoints (double x1, double y1,
 }
 
 
-#endif // dbgl_arc_center_h_
+#endif // bgld_arc_center_h_
 

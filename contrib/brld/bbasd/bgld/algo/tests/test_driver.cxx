@@ -1,4 +1,4 @@
-// This is basic/dbgl/algo/tests/test_driver.cxx
+// This is bbasd/bgld/algo/tests/test_driver.cxx
 
 #include <testlib/testlib_register.h>
 

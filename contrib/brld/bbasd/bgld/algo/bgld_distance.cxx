@@ -1,8 +1,8 @@
-// This is basic/dbgl/algo/dbgl_distance.cxx
+// This is bbasd/bgld/algo/bgld_distance.cxx
 //:
 // \file
 
-#include "dbgl_distance.h"
+#include "bgld_distance.h"
 
 #include <vcl_cmath.h>
 #include <vcl_algorithm.h>
@@ -13,7 +13,7 @@
 
 ////------------------------------------------------------------------------
 ////: Return distance between two points
-//double dbgl_distance::point_point(const vgl_point_2d<double >& p1,
+//double bgld_distance::point_point(const vgl_point_2d<double >& p1,
 //  vgl_point_2d<double >& p2)
 //{
 //  return vcl_sqrt((p2.x()-p1.x())*(p2.x()-p1.x())+
@@ -23,7 +23,7 @@
 
 //------------------------------------------------------------------------
 //: Return shortest distance between two line segments
-double dbgl_distance::
+double bgld_distance::
 lineseg_lineseg(const vgl_point_2d<double >& line1_p1,
                 const vgl_point_2d<double >& line1_p2,
                 const vgl_point_2d<double >& line2_p1,

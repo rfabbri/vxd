@@ -1,6 +1,6 @@
-// This is dbgl/algo/dbgl_compute_symmetry_point.h
-#ifndef dbgl_compute_symmetry_point_h_
-#define dbgl_compute_symmetry_point_h_
+// This is bgld/algo/bgld_compute_symmetry_point.h
+#ifndef bgld_compute_symmetry_point_h_
+#define bgld_compute_symmetry_point_h_
 
 //:
 // \file
@@ -14,7 +14,7 @@
 // \endverbatim
 
 
-#include <dbgl/algo/dbgl_circ_arc.h>
+#include <bgld/algo/bgld_circ_arc.h>
 #include <vcl_vector.h>
 
 
@@ -23,7 +23,7 @@
 // Tangent orientation follows Giblin and Kimia (PAMI'03) convention, i.e.,
 // right tangent points forward
 // left tangent points backward
-void dbgl_compute_symmetry_point_on_line(const vgl_point_2d<double >& right_line_start,
+void bgld_compute_symmetry_point_on_line(const vgl_point_2d<double >& right_line_start,
                                          const vgl_point_2d<double >& right_line_end,
                                          const vgl_point_2d<double >& left_bnd_pt,
                                          const vgl_vector_2d<double >& left_bnd_tangent,
@@ -34,13 +34,13 @@ void dbgl_compute_symmetry_point_on_line(const vgl_point_2d<double >& right_line
 // Tangent orientation follow Giblin and Kimia (PAMI'03) convention, i.e.
 // right tangent points forward
 // left tangent points backward
-void dbgl_compute_symmetry_point_on_circ_arc(const dbgl_circ_arc& right_bnd_arc,
+void bgld_compute_symmetry_point_on_circ_arc(const bgld_circ_arc& right_bnd_arc,
                                  const vgl_point_2d<double >& left_bnd_pt,
                                  const vgl_vector_2d<double >& left_bnd_tangent,
                                  vcl_vector<double >& s_along_right_bnd_arc);
 
 
 
-#endif // dbgl/algo/dbgl_compute_symmetry_point.h
+#endif // bgld/algo/bgld_compute_symmetry_point.h
 
 

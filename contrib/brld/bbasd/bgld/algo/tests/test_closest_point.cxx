@@ -1,4 +1,4 @@
-// This is basic/dbgl/algo/tests/test_closest_point.cxx
+// This is bbasd/bgld/algo/tests/test_closest_point.cxx
 
 // \author Nhon Trinh
 // \date Aug 11, 2005
@@ -11,10 +11,10 @@
 #include <vgl/vgl_lineseg_test.h>
 #include <vgl/vgl_triangle_test.h>
 
-#include <dbgl/algo/dbgl_closest_point.h>
-#include <dbgl/algo/dbgl_circ_arc.h>
+#include <bgld/algo/bgld_closest_point.h>
+#include <bgld/algo/bgld_circ_arc.h>
 
-//: Test dbgl_distance::lineseg_lineseg function
+//: Test bgld_distance::lineseg_lineseg function
 void test_closest_point_lineseg_lineseg()
 {
   vcl_cout << "In test_closest_point_lineseg_lineseg() \n";
@@ -28,7 +28,7 @@ void test_closest_point_lineseg_lineseg()
   //unused bool success = false;
 
   // case 1 - two line segments intersect at(7,2)
-  d = dbgl_closest_point::lineseg_lineseg(p1, p2, p3, p4,ratio1, ratio2);
+  d = bgld_closest_point::lineseg_lineseg(p1, p2, p3, p4,ratio1, ratio2);
   
   real_d = 0;
   real_ratio1 = 0.75;
@@ -46,7 +46,7 @@ void test_closest_point_lineseg_lineseg()
   p4.set(9, 6);
 
   // case 2.1
-  d = dbgl_closest_point::lineseg_lineseg(p1, p2, p3, p4,ratio1, ratio2);
+  d = bgld_closest_point::lineseg_lineseg(p1, p2, p3, p4,ratio1, ratio2);
   real_d = vcl_sqrt((double)5.0);
   real_ratio1 = 0.75;
   real_ratio2 = 0;
@@ -55,7 +55,7 @@ void test_closest_point_lineseg_lineseg()
   TEST_NEAR("Case 1 - line 2", ratio2, real_ratio2, 1e-8);
 
   // case 2.2
-  d = dbgl_closest_point::lineseg_lineseg(p1, p2, p4, p3, ratio1, ratio2);
+  d = bgld_closest_point::lineseg_lineseg(p1, p2, p4, p3, ratio1, ratio2);
   real_d = vcl_sqrt((double)5.0);
   real_ratio1 = 0.75;
   real_ratio2 = 1;
@@ -64,7 +64,7 @@ void test_closest_point_lineseg_lineseg()
   TEST_NEAR("Case 1 - line 2", ratio2, real_ratio2, 1e-8);
 
   // case 2.3
-  d = dbgl_closest_point::lineseg_lineseg(p3, p4, p1, p2, ratio1, ratio2);
+  d = bgld_closest_point::lineseg_lineseg(p3, p4, p1, p2, ratio1, ratio2);
   real_d = vcl_sqrt((double)5.0);
   real_ratio1 = 0;
   real_ratio2 = 0.75;
@@ -74,7 +74,7 @@ void test_closest_point_lineseg_lineseg()
 
 
   // case 2.4
-  d = dbgl_closest_point::lineseg_lineseg(p4, p3, p2, p1, ratio1, ratio2);
+  d = bgld_closest_point::lineseg_lineseg(p4, p3, p2, p1, ratio1, ratio2);
   real_d = vcl_sqrt((double)5.0);
   real_ratio1 = 1;
   real_ratio2 = 0.25;
@@ -122,7 +122,7 @@ void test_closest_point_lineseg_lineseg()
 
   //// when the two lines intersect, find the intersection 
   //// and modify the edges
-  //d = dbgl_closest_point::lineseg_lineseg(p1, p2, p3, p4, ratio1, ratio2);
+  //d = bgld_closest_point::lineseg_lineseg(p1, p2, p3, p4, ratio1, ratio2);
 
   //vcl_cout << "d = " << d << vcl_endl;
   //vcl_cout << "ratio1 = " << ratio1 << vcl_endl;
@@ -145,7 +145,7 @@ void test_closest_point_to_circular_arc()
   double real_d = vcl_sqrt(17.0)-2;
   double real_ratio = vcl_atan2(1.0, 4.0)/(2*vnl_math::pi/3);
   double ret_ratio = -1;
-  double ret_d = dbgl_closest_point::point_to_circular_arc(query_pt, arc_p1,
+  double ret_d = bgld_closest_point::point_to_circular_arc(query_pt, arc_p1,
     arc_p2, arc_k, ret_ratio);
   TEST_NEAR("point to arc (inside arc) - distance", ret_d, real_d, 1e-12);
   TEST_NEAR("point to arc (inside arc) - ratio", ret_ratio, real_ratio, 
@@ -154,7 +154,7 @@ void test_closest_point_to_circular_arc()
   query_pt.set(5, -2);
   real_d = vcl_sqrt(3.0) + 1;
   real_ratio = 1;
-  ret_d = dbgl_closest_point::point_to_circular_arc(query_pt, arc_p1,
+  ret_d = bgld_closest_point::point_to_circular_arc(query_pt, arc_p1,
     arc_p2, arc_k, ret_ratio);
   TEST_NEAR("point to arc (from inside circle) - distance", ret_d, real_d, 1e-12);
   TEST_NEAR("point to arc (from inside circle) - ratio", ret_ratio, real_ratio, 
@@ -163,7 +163,7 @@ void test_closest_point_to_circular_arc()
   query_pt.set(1, -2);
   real_d = vcl_sqrt((double)2.0);
   real_ratio = 0;
-  ret_d = dbgl_closest_point::point_to_circular_arc(query_pt, arc_p1,
+  ret_d = bgld_closest_point::point_to_circular_arc(query_pt, arc_p1,
     arc_p2, arc_k, ret_ratio);
   TEST_NEAR("point to arc (at 1st endpoint) - distance", ret_d, real_d, 1e-12);
   TEST_NEAR("point to arc (at 1st endpoint) - ratio", ret_ratio, real_ratio, 
@@ -172,7 +172,7 @@ void test_closest_point_to_circular_arc()
   query_pt.set(6, 0);
   real_d = vcl_sqrt(1+vnl_math::sqr(vcl_sqrt(3.0)-1));
   real_ratio = 1;
-  ret_d = dbgl_closest_point::point_to_circular_arc(query_pt, arc_p1,
+  ret_d = bgld_closest_point::point_to_circular_arc(query_pt, arc_p1,
     arc_p2, arc_k, ret_ratio);
   TEST_NEAR("point to arc (at 2nd endpoint) - distance", ret_d, real_d, 1e-12);
   TEST_NEAR("point to arc (at 2nd endpoint) - ratio", ret_ratio, real_ratio, 
@@ -184,11 +184,11 @@ void test_closest_point_to_circular_arc()
   arc_k = -1e-11;
   query_pt.set(3, 0);
   //real_d =  1-1e11*(1-cos(2e-11));
-  dbgl_circ_arc arc2(arc_p1, arc_p2, arc_k);
+  bgld_circ_arc arc2(arc_p1, arc_p2, arc_k);
   real_d = 3-arc2.point_at_length(arc2.len()/2).x();
   
   real_ratio = 0.5;
-  ret_d = dbgl_closest_point::point_to_circular_arc(query_pt, arc_p1,
+  ret_d = bgld_closest_point::point_to_circular_arc(query_pt, arc_p1,
     arc_p2, arc_k, ret_ratio);
   TEST_NEAR("point to arc (small k) - distance", ret_d, real_d, 1e-12);
   TEST_NEAR("point to arc (small k) - ratio", ret_ratio, real_ratio, 
@@ -206,7 +206,7 @@ void test_closest_point_to_circle()
   vgl_point_2d<double > query_pt(0, 3);
   double arc_length = 1e100;
   double min_dist = 
-    dbgl_closest_point::point_to_circle(query_pt, start, start_tangent, k, arc_length);
+    bgld_closest_point::point_to_circle(query_pt, start, start_tangent, k, arc_length);
 
   TEST_NEAR("point to circle - line case - min_dist", min_dist, 2, 1e-12);
   TEST_NEAR("point to circle - line case -arc length of closest pt", arc_length, -1, 1e-10);
@@ -217,7 +217,7 @@ void test_closest_point_to_circle()
   start_tangent.set(100, 0);
   k = 0.5;
   query_pt.set(-1, 1);
-  min_dist = dbgl_closest_point::point_to_circle(query_pt, start, start_tangent, k, arc_length);
+  min_dist = bgld_closest_point::point_to_circle(query_pt, start, start_tangent, k, arc_length);
   
   TEST_NEAR("point to circle - arc case - min_dist", min_dist, 2*vcl_sqrt(2.0)-2, 1e-12);
   TEST_NEAR("point to circle-arc case-arc length of closest pt", arc_length, -vnl_math::pi_over_2, 1e-10);
@@ -256,7 +256,7 @@ void test_closest_point_lineseg_to_circular_arc()
 
   vcl_vector<double > line_ratios;
   vcl_vector<double > arc_ratios;
-  double d = dbgl_closest_point::lineseg_to_circular_arc(line_p1, line_p2, 
+  double d = bgld_closest_point::lineseg_to_circular_arc(line_p1, line_p2, 
     arc_p1, arc_p2, arc_k, line_ratios, arc_ratios);
 
   TEST("lineseg to arc (2 intersections) - distance", d, real_d);
@@ -280,7 +280,7 @@ void test_closest_point_lineseg_to_circular_arc()
   real_d = 0;
   real_line_ratios[0] = 2.0/3;
   real_arc_ratios[0] = 0.25;
-  d = dbgl_closest_point::lineseg_to_circular_arc(line_p1, line_p2, 
+  d = bgld_closest_point::lineseg_to_circular_arc(line_p1, line_p2, 
     arc_p1, arc_p2, arc_k, line_ratios, arc_ratios);
   TEST("lineseg to arc (1 intersections) - distance", d, real_d);
   TEST("lineseg to arc (1 intersections) - num. intersect", line_ratios.size(), 1);
@@ -301,7 +301,7 @@ void test_closest_point_lineseg_to_circular_arc()
   real_d = 1;
   real_line_ratios[0] = 0.8;
   real_arc_ratios[0] = 0.75;
-  d = dbgl_closest_point::lineseg_to_circular_arc(line_p1, line_p2, 
+  d = bgld_closest_point::lineseg_to_circular_arc(line_p1, line_p2, 
     arc_p1, arc_p2, arc_k, line_ratios, arc_ratios);
   TEST("lineseg to arc (0 intersections, local minimum) - distance", vnl_math::abs(d-real_d)<1e-12, true);
   TEST("lineseg to arc (0 intersections, local minimum) - num. ratios returned", line_ratios.size(), 1 );
@@ -322,7 +322,7 @@ void test_closest_point_lineseg_to_circular_arc()
   real_d = 1;
   real_line_ratios[0] = 0;
   real_arc_ratios[0] = 0.75;
-  d = dbgl_closest_point::lineseg_to_circular_arc(line_p1, line_p2, 
+  d = bgld_closest_point::lineseg_to_circular_arc(line_p1, line_p2, 
     arc_p1, arc_p2, arc_k, line_ratios, arc_ratios);
   TEST("lineseg to arc (0 intersect, line_p1 and arc) - distance", vnl_math::abs(d-real_d)<1e-12, true);
   TEST("lineseg to arc (0 intersect, line_p1 and arc) - num. ratios returned", line_ratios.size(), 1 );
@@ -339,7 +339,7 @@ void test_closest_point_lineseg_to_circular_arc()
   real_d = vcl_sqrt(3.0)-1;
   real_line_ratios[0] = 0.25;
   real_arc_ratios[0] = 1;
-  d = dbgl_closest_point::lineseg_to_circular_arc(line_p1, line_p2, 
+  d = bgld_closest_point::lineseg_to_circular_arc(line_p1, line_p2, 
     arc_p1, arc_p2, arc_k, line_ratios, arc_ratios);
   TEST("lineseg to arc (0 intersect, arc_p2 and line) - distance", vnl_math::abs(d-real_d)<1e-12, true);
   TEST("lineseg to arc (0 intersect, arc_p2 and line) - num. ratios returned", line_ratios.size(), 1 );
@@ -385,7 +385,7 @@ void test_closest_point_circular_arc_to_circular_arc()
 
   //// For debugging purpose
   //vcl_cout << "ARC 1: \n";
-  //dbgl_circ_arc arc1(arc1_p1, arc1_p2, arc1_k);
+  //bgld_circ_arc arc1(arc1_p1, arc1_p2, arc1_k);
   //for (int i=0; i<2; ++i)
   //{
   //  vcl_cout << "Point at(" << real_arc1_ratios[i]*arc1.len() << ")= " << 
@@ -400,7 +400,7 @@ void test_closest_point_circular_arc_to_circular_arc()
 
   //// For debugging purpose
   //vcl_cout << "ARC 2: \n";
-  //dbgl_circ_arc arc2(arc2_p1, arc2_p2, arc2_k);
+  //bgld_circ_arc arc2(arc2_p1, arc2_p2, arc2_k);
   //for (int i=0; i<2; ++i)
   //{
   //  vcl_cout << "Point at(" << real_arc2_ratios[i]*arc2.len() << ")= " << 
@@ -412,7 +412,7 @@ void test_closest_point_circular_arc_to_circular_arc()
   vcl_vector<double > arc1_ratios;
   vcl_vector<double > arc2_ratios;
 
-  double d = dbgl_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
+  double d = bgld_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
     arc2_p1, arc2_p2, arc2_k, arc1_ratios, arc2_ratios);
 
   TEST("arc to arc (2 intersections) - distance", d, real_d);
@@ -441,7 +441,7 @@ void test_closest_point_circular_arc_to_circular_arc()
   real_arc1_ratios[0] = 3.0/4;
   real_arc2_ratios[0] = 1.0/3;
 
-  d = dbgl_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
+  d = bgld_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
     arc2_p1, arc2_p2, arc2_k, arc1_ratios, arc2_ratios);
 
   TEST("arc to arc (1 intersections) - distance", d, real_d);
@@ -470,7 +470,7 @@ void test_closest_point_circular_arc_to_circular_arc()
   real_arc1_ratios[0] = 1.0/2;
   real_arc2_ratios[0] = 2.0/3;
 
-  d = dbgl_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
+  d = bgld_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
     arc2_p1, arc2_p2, arc2_k, arc1_ratios, arc2_ratios);
 
   TEST_NEAR("arc to arc (0 intersect-local minimum) - distance", d, real_d, 1e-12);
@@ -497,7 +497,7 @@ void test_closest_point_circular_arc_to_circular_arc()
   real_arc1_ratios[0] = 1.0/2;
   real_arc2_ratios[0] = 0;
 
-  d = dbgl_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
+  d = bgld_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
     arc2_p1, arc2_p2, arc2_k, arc1_ratios, arc2_ratios);
 
   TEST_NEAR("arc to arc (0 intersect-arc2_p1 and arc1) - distance", d, real_d, 1e-12);
@@ -520,7 +520,7 @@ void test_closest_point_circular_arc_to_circular_arc()
   arc2_p2.set(0, 5);
   arc2_k = 1.0 / 5;
 
-  d = dbgl_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
+  d = bgld_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
     arc2_p1, arc2_p2, arc2_k, arc1_ratios, arc2_ratios);
 
   // closest point is at end point 
@@ -550,7 +550,7 @@ void test_closest_point_circular_arc_to_circular_arc()
   arc2_p2.set(0, 5);
   arc2_k = 1.0 / 5;
 
-  d = dbgl_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
+  d = bgld_closest_point::circular_arc_to_circular_arc(arc1_p1, arc1_p2, arc1_k, 
     arc2_p1, arc2_p2, arc2_k, arc1_ratios, arc2_ratios);
 
   // closest point is at end point 
@@ -565,7 +565,7 @@ void test_closest_point_circular_arc_to_circular_arc()
 //: Test closest point functions
 MAIN( test_closest_point )
 {
-  START (" Test dbgl_distance class functions");
+  START (" Test bgld_distance class functions");
   test_closest_point_lineseg_lineseg();
   test_closest_point_to_circular_arc();
   test_closest_point_to_circle();

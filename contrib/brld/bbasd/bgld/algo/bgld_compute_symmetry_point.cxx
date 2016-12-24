@@ -1,10 +1,10 @@
-// This is file basic/dbgl/algo/dbgl_compute_symmetry_point.cxx
+// This is file bbasd/bgld/algo/bgld_compute_symmetry_point.cxx
 
 //:
 // \file
 
 
-#include "dbgl_compute_symmetry_point.h"
+#include "bgld_compute_symmetry_point.h"
 #include <dbnl/dbnl_solve_trigonometric_equation.h>
 #include <vnl/vnl_math.h>
 
@@ -15,7 +15,7 @@
 // Tangent orientation follows Giblin and Kimia (PAMI'03) convention, i.e.,
 // right tangent points forward
 // left tangent points backward
-void dbgl_compute_symmetry_point_on_line(const vgl_point_2d<double >& right_line_start,
+void bgld_compute_symmetry_point_on_line(const vgl_point_2d<double >& right_line_start,
                                          const vgl_point_2d<double >& right_line_end,
                                          const vgl_point_2d<double >& left_bnd_pt,
                                          const vgl_vector_2d<double >& left_bnd_tangent,
@@ -65,7 +65,7 @@ void dbgl_compute_symmetry_point_on_line(const vgl_point_2d<double >& right_line
 // Tangent orientation follow Giblin and Kimia (PAMI'03) convention, i.e.
 // right tangent points forward
 // left tangent points backward
-void dbgl_compute_symmetry_point_on_circ_arc(const dbgl_circ_arc& right_bnd_arc,
+void bgld_compute_symmetry_point_on_circ_arc(const bgld_circ_arc& right_bnd_arc,
                        const vgl_point_2d<double >& left_bnd_pt,
                        const vgl_vector_2d<double >& left_bnd_tangent, // pointing backward, following Giblin & Kimia's convention
                        vcl_vector<double >& s_along_right_bnd_arc)
@@ -73,9 +73,9 @@ void dbgl_compute_symmetry_point_on_circ_arc(const dbgl_circ_arc& right_bnd_arc,
 
   double k = right_bnd_arc.k();
 
-  if (vnl_math::abs(k) < dbgl_circ_arc::epsilon)
+  if (vnl_math::abs(k) < bgld_circ_arc::epsilon)
   {
-    dbgl_compute_symmetry_point_on_line(right_bnd_arc.start(), right_bnd_arc.end(),
+    bgld_compute_symmetry_point_on_line(right_bnd_arc.start(), right_bnd_arc.end(),
       left_bnd_pt, left_bnd_tangent, s_along_right_bnd_arc);
     return;
   }
@@ -134,7 +134,7 @@ void dbgl_compute_symmetry_point_on_circ_arc(const dbgl_circ_arc& right_bnd_arc,
         vgl_vector_2d<double > tC (cos_x[i], sin_x[i]);
         double ks = signed_angle(tA, tC);
         // if ks is close to zero, force it to be zero
-        ks = (vnl_math::abs(ks) < dbgl_circ_arc::epsilon) ? 0  : ks;
+        ks = (vnl_math::abs(ks) < bgld_circ_arc::epsilon) ? 0  : ks;
         s[i] = ks / k;
       }
 
