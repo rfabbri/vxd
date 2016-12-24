@@ -10,7 +10,7 @@
 //                      ...                 ...                 ...
 //                  start_angle_n       start_angle_n       num_iter_n
 //
-// \author
+// \author Based on original code by 
 //  Nhon Trinh
 // \date 2/24/2005
 // \verbatim

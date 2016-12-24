@@ -4,7 +4,7 @@
 // \file
 // \brief
 //
-// \author
+// \author Based on original code by 
 //  Nhon Trinh
 // \date 2/15/2005
 // \verbatim
