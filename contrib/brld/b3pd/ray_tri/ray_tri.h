@@ -6,7 +6,7 @@
 // \brief  test if a ray intersect a triangle or not.
 //         Original code by Tomas Moller and Ben Trumbore's ray-triangle intersection
 //         http://jgt.akpeters.com/papers/MollerTrumbore97/
-//         Modified and Added by Ming-Ching Chang (mcchang@lems.brown.edu)
+//         Modified and Added by Ming-Ching Chang (@lems.brown.edu)
 // \date   May/31/2005
 //
 // \verbatim

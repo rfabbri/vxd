@@ -1,5 +1,5 @@
 // This is b3pd/ray_tri/ray_tri.cxx
-//  Code added and modified by Ming-Ching Chang (mcchang@lems.brown.edu) 
+//  Code added and modified by Ming-Ching Chang (@lems.brown.edu) 
 //  Aug 05, 2005
 //
 //  Tomas Moller and Ben Trumbore's ray-triangle intersection
