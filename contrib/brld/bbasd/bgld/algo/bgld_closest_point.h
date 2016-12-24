@@ -11,7 +11,7 @@
 // This class will add to the function list, i.e. compute closest points 
 // between line segments, line-arc, arc-arc, etc.
 //
-// \author Nhon Trinh ( ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
 // \date 08/08/2005
 //
 // \verbatim  

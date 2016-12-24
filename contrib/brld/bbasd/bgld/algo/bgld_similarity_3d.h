@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief A class representing a 3d similarity tranform.
-// \author Matt Leotta
+// \author Based on original code by  Matt Leotta
 // \date 03/12/08
 //
 // This is a class maintaining and applying similarity transformations

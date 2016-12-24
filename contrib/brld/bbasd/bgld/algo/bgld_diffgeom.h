@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Differential geometry estimation for curves
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri.github.io)
+//\author Based on original code by  Ricardo Fabbri (rfabbri), Brown University  (rfabbri.github.io)
 //\date Wed May 25 15:53:23 BRT 2016
 //
 

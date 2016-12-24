@@ -5,7 +5,7 @@
 
 // \file
 // \brief This is  
-// \author Amir Tamrakar
+// \author Based on original code by  Amir Tamrakar
 // \date 02/02/05
 //
 // 

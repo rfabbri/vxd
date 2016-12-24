@@ -2,7 +2,7 @@
 //:
 // \file
 // \brief  Point to Triangle Distance in 3D.
-// \author Ming-Ching Chang (mcchang@lems.brown.edu)
+// \author Based on original code by  Ming-Ching Chang (@lems.brown.edu)
 // \date   May/07/2007
 //
 // \verbatim

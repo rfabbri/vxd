@@ -8,7 +8,7 @@
 // \brief Conic arc - a quadratic curve segments represented with
 // two end points and three (real number) parameters
 // 
-// \author Nhon Trinh ( ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
 // \date Oct 28, 2006
 // \verbatim
 //  Modifications:

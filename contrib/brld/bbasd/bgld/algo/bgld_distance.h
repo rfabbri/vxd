@@ -9,7 +9,7 @@
 // vgl already has functions to compute distance from a point to other objects such as line, polygon, etc
 // This class will add to the function list, i.e. compute distance between line segments, line-arc, arc-arc, etc.
 //
-// \author Nhon Trinh ( ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
 // \date 07/13/05
 //
 // \verbatim  
@@ -98,7 +98,7 @@ public:
   //
   // \param[in] theta2 : angle of edge 2 from positive x-axis towards positive y-axis.
   //
-  // \authors Vishal Jain and Ricardo Fabbri
+  // \authors Based on original code by  Vishal Jain and Ricardo Fabbri
   //
   static void projected_distance (double x1,double y1,double x2,double y2,double theta2, double
       *d_e_ptr, double *d_p_ptr, double *d_t_ptr);
@@ -125,7 +125,7 @@ private:
 //
 // \param[in] theta2 : angle of edge 2 from x-axis
 //
-// \authors Vishal Jain and Ricardo Fabbri
+// \authors Based on original code by  Vishal Jain and Ricardo Fabbri
 //
 inline void bgld_distance:: 
 projected_distance (

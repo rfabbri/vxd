@@ -4,8 +4,8 @@
 //:
 //\file
 //\brief Algorithms that act on bgld_arcs
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri.github.io)
-// Some content is based on C code by Kwun Han (kwh@lems.brown.edu)
+//\author Based on original code by  Ricardo Fabbri (rfabbri), Brown University  (rfabbri.github.io)
+// Some content is based on C code by Kwun Han (@lems.brown.edu)
 //\date 03/08/2005 07:31:18 PM EST
 //
 

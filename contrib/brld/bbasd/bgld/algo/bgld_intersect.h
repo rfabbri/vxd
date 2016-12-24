@@ -8,7 +8,7 @@
 // \brief Algorithms to compute intersection of geometry objects
 // vgl already has function to detect intersection of two line segments
 // this class will add more to it, i.e. intersection of line-arc, arc-arc, etc
-// \author Nhon Trinh ( ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
 // \date 07/14/05
 //
 // \verbatim  

@@ -9,11 +9,11 @@
 // \file
 // \brief Euler spiral - a curve with linear curvature
 // \ k(s) = k0 + gamma * s;
-// \author Nhon Trinh ( ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
 // \date 2/06/05
 //
 // \verbatim
-//  The original code was written by Amir Tamrakar (yakkeeper@lems.brown.edu)
+//  The original code was written by Amir Tamrakar (@lems.brown.edu)
 //  Modifications:
 //    3/2/2005. Nhon Trinh: added levenberg_marquardt algorithm for optimization.
 //    1/3/2007: Nhon Trinh: moved declaration of bgld_eulerspiral_optimization_function

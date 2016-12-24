@@ -7,11 +7,11 @@
 // \file
 // \brief Biarc - two connected circular arcs with continuous tangent
 // 
-// \author Nhon Trinh ( ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
 // \date 2/03/05
 //
 // \verbatim
-//  The main algorithm was written by Amir Tamrakar (yakkeeper@lems.brown.edu)
+//  The main algorithm was written by Amir Tamrakar (@lems.brown.edu)
 //  Modifications:
 // \endverbatim
 
