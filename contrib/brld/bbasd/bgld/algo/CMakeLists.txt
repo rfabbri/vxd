@@ -1,58 +1,58 @@
-# This is dbgl/algo/CMakeLists.txt
+# This is bgld/algo/CMakeLists.txt
 # The Development Brown Geometry Library - Specific Algorithms
 
-# Set up dbgl_where_lemsvxl_lib_dir.h to have a macro set to $LIBRARY_OUTPUT_PATH
+# Set up bgld_where_lemsvxl_lib_dir.h to have a macro set to $LIBRARY_OUTPUT_PATH
 configure_file(
-  ${lems_SOURCE_DIR}/basic/dbgl/algo/dbgl_where_lemsvxl_lib_dir.h.in
-  ${lems_BINARY_DIR}/basic/dbgl/algo/dbgl_where_lemsvxl_lib_dir.h ESCAPE_QUOTES
+  ${lems_SOURCE_DIR}/basic/bgld/algo/bgld_where_lemsvxl_lib_dir.h.in
+  ${lems_BINARY_DIR}/basic/bgld/algo/bgld_where_lemsvxl_lib_dir.h ESCAPE_QUOTES
 )
 
 # Copy the Eulerspiral lookup-table file to the LEMSVXL library folder
 configure_file(
-  ${lems_SOURCE_DIR}/basic/dbgl/algo/dbgl_eulerspiral_lookup_table.bvl
-  ${LIBRARY_OUTPUT_PATH}/dbgl_eulerspiral_lookup_table.bvl COPYONLY
+  ${lems_SOURCE_DIR}/basic/bgld/algo/bgld_eulerspiral_lookup_table.bvl
+  ${LIBRARY_OUTPUT_PATH}/bgld_eulerspiral_lookup_table.bvl COPYONLY
 )
 
-add_definitions(-DDBGL_WHERE_LEMSVXL_LIB_DIR_H_EXISTS)
+add_definitions(-DBGLD_WHERE_LEMSVXL_LIB_DIR_H_EXISTS)
 
-include_directories( ${lems_BINARY_DIR}/basic/dbgl/algo/ )
-include_directories( ${lems_BINARY_DIR}/basic/dbgl/ )
+include_directories( ${lems_BINARY_DIR}/basic/bgld/algo/ )
+include_directories( ${lems_BINARY_DIR}/basic/bgld/ )
 
-set( dbgl_algo_sources
-  dbgl_where_lemsvxl_lib_dir.h.in
-  dbgl_biarc.cxx               dbgl_biarc.h
-  dbgl_eulerspiral.cxx         dbgl_eulerspiral.h
-  dbgl_arc_algo.cxx            dbgl_arc_algo.h
-  dbgl_arc_center.cxx          dbgl_arc_center.h
-  dbgl_intersect.cxx           dbgl_intersect.h
-  dbgl_distance.cxx            dbgl_distance.h
-  dbgl_pt_tri_dist_3d.cxx
+set( bgld_algo_sources
+  bgld_where_lemsvxl_lib_dir.h.in
+  bgld_biarc.cxx               bgld_biarc.h
+  bgld_eulerspiral.cxx         bgld_eulerspiral.h
+  bgld_arc_algo.cxx            bgld_arc_algo.h
+  bgld_arc_center.cxx          bgld_arc_center.h
+  bgld_intersect.cxx           bgld_intersect.h
+  bgld_distance.cxx            bgld_distance.h
+  bgld_pt_tri_dist_3d.cxx
 
-  dbgl_closest_point.cxx       dbgl_closest_point.h
-  dbgl_curve_smoothing.cxx     dbgl_curve_smoothing.h
+  bgld_closest_point.cxx       bgld_closest_point.h
+  bgld_curve_smoothing.cxx     bgld_curve_smoothing.h
   
   # temporary circular arc files with different intrinsic
-  # representation from dbgl_arc
+  # representation from bgld_arc
   # will merge the two later
-  dbgl_circ_arc.cxx            dbgl_circ_arc.h
-  dbgl_conic_arc.cxx         dbgl_conic_arc.h
+  bgld_circ_arc.cxx            bgld_circ_arc.h
+  bgld_conic_arc.cxx         bgld_conic_arc.h
   
   # interpolation
   internals/arcspline.h         internals/arcspline.cxx
-  dbgl_fit_circ_arc_spline.h    dbgl_fit_circ_arc_spline.cxx
+  bgld_fit_circ_arc_spline.h    bgld_fit_circ_arc_spline.cxx
   
-  dbgl_similarity_3d.h
+  bgld_similarity_3d.h
   
   # find symmetry point
-  dbgl_compute_symmetry_point.h   dbgl_compute_symmetry_point.cxx
+  bgld_compute_symmetry_point.h   bgld_compute_symmetry_point.cxx
 
   #differential Geometry
-  dbgl_diffgeom.h               dbgl_diffgeom.cxx
+  bgld_diffgeom.h               bgld_diffgeom.cxx
 )
 
-add_library( dbgl_algo ${dbgl_algo_sources} )
+add_library( bgld_algo ${bgld_algo_sources} )
 
-target_link_libraries( dbgl_algo vnl_algo vsl vgl_algo dbnl dbgl vul ray_tri)
+target_link_libraries( bgld_algo vnl_algo vsl vgl_algo dbnl bgld vul ray_tri)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)

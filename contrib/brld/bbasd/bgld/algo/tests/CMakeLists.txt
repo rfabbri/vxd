@@ -1,9 +1,9 @@
-# basic/dbgl/algo/tests/CMakeLists.txt
-# Tests for dbgl_algo library
+# basic/bgld/algo/tests/CMakeLists.txt
+# Tests for bgld_algo library
 
 include_directories( ${LIBRARY_OUTPUT_PATH})
 
-add_executable( dbgl_algo_test_all
+add_executable( bgld_algo_test_all
   test_driver.cxx
   test_circ_arc.cxx
   test_conic_arc.cxx
@@ -20,22 +20,22 @@ add_executable( dbgl_algo_test_all
   test_diffgeom.cxx
 )
 
-target_link_libraries( dbgl_algo_test_all vsl vnl_algo dbgl_algo dbgl dbnl testlib )
+target_link_libraries( bgld_algo_test_all vsl vnl_algo bgld_algo bgld dbnl testlib )
 
-add_test( dbgl_algo_test_circ_arc        dbgl_algo_test_all test_circ_arc )
-add_test( dbgl_algo_test_biarc           dbgl_algo_test_all test_biarc )
-add_test( dbgl_algo_test_eulerspiral     dbgl_algo_test_all test_eulerspiral )
-add_test( dbgl_algo_test_conic_arc       dbgl_algo_test_all test_conic_arc )
-add_test( dbgl_algo_test_arc_intersect   dbgl_algo_test_all test_arc_intersect )
-add_test( dbgl_algo_test_intersect       dbgl_algo_test_all test_intersect )
-add_test( dbgl_algo_test_distance        dbgl_algo_test_all test_distance )
-add_test( dbgl_algo_test_closest_point   dbgl_algo_test_all test_closest_point )
-add_test( dbgl_algo_test_pt_tri_dist_3d  dbgl_algo_test_all test_pt_tri_dist_3d )
-add_test( dbgl_algo_test_similarity_3d   dbgl_algo_test_all test_similarity_3d )
-add_test( dbgl_algo_test_fit_circ_arc_spline  dbgl_algo_test_all test_fit_circ_arc_spline )
-add_test( dbgl_algo_test_compute_symmetry_point dbgl_algo_test_all test_compute_symmetry_point )
-add_test( dbgl_algo_test_diffgeom dbgl_algo_test_all test_diffgeom )
+add_test( bgld_algo_test_circ_arc        bgld_algo_test_all test_circ_arc )
+add_test( bgld_algo_test_biarc           bgld_algo_test_all test_biarc )
+add_test( bgld_algo_test_eulerspiral     bgld_algo_test_all test_eulerspiral )
+add_test( bgld_algo_test_conic_arc       bgld_algo_test_all test_conic_arc )
+add_test( bgld_algo_test_arc_intersect   bgld_algo_test_all test_arc_intersect )
+add_test( bgld_algo_test_intersect       bgld_algo_test_all test_intersect )
+add_test( bgld_algo_test_distance        bgld_algo_test_all test_distance )
+add_test( bgld_algo_test_closest_point   bgld_algo_test_all test_closest_point )
+add_test( bgld_algo_test_pt_tri_dist_3d  bgld_algo_test_all test_pt_tri_dist_3d )
+add_test( bgld_algo_test_similarity_3d   bgld_algo_test_all test_similarity_3d )
+add_test( bgld_algo_test_fit_circ_arc_spline  bgld_algo_test_all test_fit_circ_arc_spline )
+add_test( bgld_algo_test_compute_symmetry_point bgld_algo_test_all test_compute_symmetry_point )
+add_test( bgld_algo_test_diffgeom bgld_algo_test_all test_diffgeom )
 
-add_executable( dbgl_algo_test_include test_include.cxx )
+add_executable( bgld_algo_test_include test_include.cxx )
 
-target_link_libraries( dbgl_algo_test_include dbgl_algo dbgl dbnl ray_tri )
+target_link_libraries( bgld_algo_test_include bgld_algo bgld dbnl ray_tri )
