@@ -1,6 +1,6 @@
 // This is bbasd/bgld/algo/tests/test_closest_point.cxx
 
-// \author Nhon Trinh
+// \author Based on original code by  Nhon Trinh
 // \date Aug 11, 2005
 
 #include <testlib/testlib_test.h>

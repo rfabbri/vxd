@@ -1,6 +1,6 @@
 // This is bbasd/bgld/algo/tests/test_fit_circ_arc_spline.cxx
 
-// \author Nhon Trinh
+// \author Based on original code by  Nhon Trinh
 // \date April 16, 2008
 
 #include <testlib/testlib_test.h>

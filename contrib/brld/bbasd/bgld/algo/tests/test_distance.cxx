@@ -1,6 +1,6 @@
 // This is bbasd/bgld/algo/tests/test_distance.cxx
 
-// \author Nhon Trinh
+// \author Based on original code by  Nhon Trinh
 // \date Aug 11, 2005
 
 #include <vcl_iostream.h>

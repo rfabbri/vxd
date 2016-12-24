@@ -1,6 +1,6 @@
 // This is bbasd/bgld/algo/tests/test_circ_arc.cxx
 
-// \author Nhon Trinh
+// \author Based on original code by  Nhon Trinh
 // \date Aug 18, 2005
 
 #include <testlib/testlib_test.h>
