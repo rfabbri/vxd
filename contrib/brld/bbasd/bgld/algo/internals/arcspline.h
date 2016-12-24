@@ -10,7 +10,7 @@
 // Xunnian Yang, "Efficient circular arc interpolation based on active tolerance control", 
 // Computer-Aided Design 34(2002) 1037-1046
 // 
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date April 14, 2008
 //
 // \verbatim
