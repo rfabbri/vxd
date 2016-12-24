@@ -37,3 +37,6 @@ option(BUILD_BREYE1D "Build Old Brown Eyes VXD" YES)
 if(BUILD_BREYE1D)
   add_subdirectory(breye1d)
 endif(BUILD_BREYE1D)
+
+# 3rd party libraries
+add_subdirectory(b3pd)

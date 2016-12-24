@@ -1,0 +1,18 @@
+Brown 3rd Party Libraries
+
+This subdirectory is the local equivalent of v3p found at the root of
+VXL.  Third party libraries that are required by other LEMS VXL code
+can be included here.  This does not include all required thrid party
+libraries.  In general, libraries added to this directory meet
+additional criteria:
+
+1) No longer publicly maintained or difficult to find.
+2) Require some level of porting to use them in VXL across all
+   platforms.
+
+Very large libraries that are maintained by other groups (such as
+Coin3D) should not be include here if users can easily obtain and
+install them.
+
+Make sure you include all licence and readme file that were part of
+the original distribution.  Try to follow the conventions of v3p.
