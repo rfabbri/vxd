@@ -1,4 +1,4 @@
-# basic/bgld/algo/tests/CMakeLists.txt
+# bbasd/bgld/algo/tests/CMakeLists.txt
 # Tests for bgld_algo library
 
 include_directories( ${LIBRARY_OUTPUT_PATH})

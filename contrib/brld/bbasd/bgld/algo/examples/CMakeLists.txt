@@ -1,4 +1,4 @@
-# This is basic/bgld/algo/examples/CMakeLists.txt
+# This is bbasd/bgld/algo/examples/CMakeLists.txt
 
 
 # Program to generate look-up table for Euler Spiral computation

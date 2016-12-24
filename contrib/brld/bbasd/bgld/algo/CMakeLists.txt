@@ -3,20 +3,20 @@
 
 # Set up bgld_where_lemsvxl_lib_dir.h to have a macro set to $LIBRARY_OUTPUT_PATH
 configure_file(
-  ${lems_SOURCE_DIR}/basic/bgld/algo/bgld_where_lemsvxl_lib_dir.h.in
-  ${lems_BINARY_DIR}/basic/bgld/algo/bgld_where_lemsvxl_lib_dir.h ESCAPE_QUOTES
+  ${lems_SOURCE_DIR}/bbasd/bgld/algo/bgld_where_lemsvxl_lib_dir.h.in
+  ${lems_BINARY_DIR}/bbasd/bgld/algo/bgld_where_lemsvxl_lib_dir.h ESCAPE_QUOTES
 )
 
 # Copy the Eulerspiral lookup-table file to the LEMSVXL library folder
 configure_file(
-  ${lems_SOURCE_DIR}/basic/bgld/algo/bgld_eulerspiral_lookup_table.bvl
+  ${lems_SOURCE_DIR}/bbasd/bgld/algo/bgld_eulerspiral_lookup_table.bvl
   ${LIBRARY_OUTPUT_PATH}/bgld_eulerspiral_lookup_table.bvl COPYONLY
 )
 
 add_definitions(-DBGLD_WHERE_LEMSVXL_LIB_DIR_H_EXISTS)
 
-include_directories( ${lems_BINARY_DIR}/basic/bgld/algo/ )
-include_directories( ${lems_BINARY_DIR}/basic/bgld/ )
+include_directories( ${lems_BINARY_DIR}/bbasd/bgld/algo/ )
+include_directories( ${lems_BINARY_DIR}/bbasd/bgld/ )
 
 set( bgld_algo_sources
   bgld_where_lemsvxl_lib_dir.h.in
