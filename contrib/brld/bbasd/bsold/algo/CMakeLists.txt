@@ -15,7 +15,7 @@ set( bsold_algo_sources
 
 add_library( bsold_algo ${bsold_algo_sources} )
 
-target_link_libraries( bsold_algo bsold dbnl_algo bil_algo)
+target_link_libraries( bsold_algo bsold bnld_algo bil_algo)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)

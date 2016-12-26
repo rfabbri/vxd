@@ -30,10 +30,10 @@ aux_source_directory(Templates bsold_sources)
 add_library(bsold ${bsold_sources})
 
 if(Boost_FOUND)
-  target_link_libraries(bsold dbgl dbgl_algo vgl vsol ${Boost_LIBRARIES})
+  target_link_libraries(bsold bgld bgld_algo vgl vsol ${Boost_LIBRARIES})
   include_directories( ${Boost_INCLUDE_DIRS} )
 else()
-  target_link_libraries(bsold dbgl dbgl_algo vgl vsol)
+  target_link_libraries(bsold bgld bgld_algo vgl vsol)
 endif()
 
 if( Boost_FOUND )
