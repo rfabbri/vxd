@@ -8,4 +8,5 @@
 #                                                                  #
 ####################################################################
 
-add_subdirectory( ray_tri )
+add_subdirectory(ray_tri)
+add_subdirectory(brent)
