@@ -146,16 +146,16 @@ function_upsample(int new_size, int type)
 
   /*
   if (type == 1 || (type == 2 && inp.size() < 3)) {
-     curve = new dbsol_interp_curve_2d;
-     dbsol_curve_algs::interpolate_linear(&(*curve),inp, closed);
+     curve = new bsold_interp_curve_2d;
+     bsold_curve_algs::interpolate_linear(&(*curve),inp, closed);
   } else {
-     dbsol_geno_curve_2d *gcurve = new dbsol_geno_curve_2d;
-     dbsol_geno::interpolate(gcurve,inp, closed);
+     bsold_geno_curve_2d *gcurve = new bsold_geno_curve_2d;
+     bsold_geno::interpolate(gcurve,inp, closed);
      curve = gcurve;
   }
 
   vcl_vector < vsol_point_2d_sptr> points;
-  dbsol_curve_algs::sample(*curve, new_size, points);
+  bsold_curve_algs::sample(*curve, new_size, points);
   
   if (!points.size()) {
        vcl_cout << "Problems in upsampling process!\n";

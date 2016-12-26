@@ -11,8 +11,8 @@
 #include <vsol/vsol_polygon_2d_sptr.h>
 #include <vsol/vsol_point_2d.h>
 #include <vnl/vnl_math.h>
-//#include <dbsol/dbsol_algos.h>
-#include <dbsol/algo/dbsol_curve_algs.h>
+//#include <bsold/bsold_algos.h>
+#include <bsold/algo/bsold_curve_algs.h>
 
 vidpro1_random_del_polygon_process::vidpro1_random_del_polygon_process() : bpro1_process(), first_frame_(true)
 {
@@ -86,7 +86,7 @@ bool vidpro1_random_del_polygon_process::execute()
 
       vcl_vector<vsol_spatial_object_2d_sptr> pieces;
       vcl_vector<vsol_polyline_2d_sptr> del_pieces;
-      if (!dbsol_curve_algs::segment_addition_and_deletion(poly, pieces, del_pieces, perc_add, sigma_add, divident_add, perc_d, sigma, divident))
+      if (!bsold_curve_algs::segment_addition_and_deletion(poly, pieces, del_pieces, perc_add, sigma_add, divident_add, perc_d, sigma, divident))
         return false;
 
       vcl_cout << "there are " << pieces.size() << " remaining pieces and " << del_pieces.size() << " deleted pieces\n";
@@ -119,7 +119,7 @@ bool vidpro1_random_del_polygon_process::execute()
 
       vcl_vector<vsol_polyline_2d_sptr> pieces;
       vcl_vector<vsol_polyline_2d_sptr> del_pieces;
-      if (!dbsol_curve_algs::segment_wise_deletion(poly, pieces, del_pieces, perc_d, sigma, divident))
+      if (!bsold_curve_algs::segment_wise_deletion(poly, pieces, del_pieces, perc_d, sigma, divident))
         return false;
 
       vcl_cout << "there are " << pieces.size() << " remaining pieces and " << del_pieces.size() << " deleted pieces\n";
@@ -155,7 +155,7 @@ bool vidpro1_random_del_polygon_process::execute()
     if (add_lines) {
     
       vcl_vector<vsol_spatial_object_2d_sptr> pieces;
-      if (!dbsol_curve_algs::segment_addition(poly, pieces, perc_add, sigma_add, divident_add))
+      if (!bsold_curve_algs::segment_addition(poly, pieces, perc_add, sigma_add, divident_add))
         return false;
 
       vcl_cout << "there are " << pieces.size() << " pieces\n";

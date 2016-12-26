@@ -8,7 +8,7 @@
 // \date 02/23/05
 //
 //  An interpolated curve is a series of intervals, each of which is a
-//  parametric curve (from dbgl_param_curve). 
+//  parametric curve (from bgld_param_curve). 
 //  There are N intervals, which are given to the constructor, together with
 //  arclengths of each interval
 //  --> lengths_[0] for first and lengths_[N-1] for last interval, etc.
@@ -47,7 +47,7 @@
 
 #include <vcl_vector.h>
 #include <vcl_iostream.h>
-#include <dbgl/dbgl_param_curve.h>
+#include <bgld/bgld_param_curve.h>
 #include <vsol/vsol_curve_2d.h>
 #include <vsol/vsol_point_2d.h>
 #include <vgl/vgl_point_2d.h>
@@ -60,7 +60,7 @@ class bsold_interp_curve_2d : public vsol_curve_2d
  public:
   // Constructors/Destructors--------------------------------------------------
   bsold_interp_curve_2d() {};
-  bsold_interp_curve_2d(vcl_vector<dbgl_param_curve *> inter);
+  bsold_interp_curve_2d(vcl_vector<bgld_param_curve *> inter);
   bsold_interp_curve_2d( const bsold_interp_curve_2d& that): vsol_curve_2d(that) { *this = that; }
   
   //: deletes internal storage
@@ -81,7 +81,7 @@ class bsold_interp_curve_2d : public vsol_curve_2d
    }
 
   //: same as constructor but may be called anytime
-  void make(const vcl_vector<dbgl_param_curve *> & inter);
+  void make(const vcl_vector<bgld_param_curve *> & inter);
    
   virtual vsol_spatial_object_2d* clone(void) const 
    { return new bsold_interp_curve_2d(*this); }
@@ -118,15 +118,15 @@ class bsold_interp_curve_2d : public vsol_curve_2d
   // Data Access---------------------------------------------------------------
 
   //: return vector of intervals (parametric curves)
-  vcl_vector<dbgl_param_curve *> const & intervals() const { return ints_; }
+  vcl_vector<bgld_param_curve *> const & intervals() const { return ints_; }
 
-  void set_intervals(vcl_vector<dbgl_param_curve *> const &intervals) 
+  void set_intervals(vcl_vector<bgld_param_curve *> const &intervals) 
      { ints_ = intervals; }
 
   //: easy access of intervals using an array subscript
-  dbgl_param_curve const & operator [] (unsigned i) const { return *(ints_[i]);}
+  bgld_param_curve const & operator [] (unsigned i) const { return *(ints_[i]);}
 
-  dbgl_param_curve const * interval(unsigned i) const { return ints_[i];}
+  bgld_param_curve const * interval(unsigned i) const { return ints_[i];}
 
   //: Return the first point of `this'
   virtual vsol_point_2d_sptr p0() const // pure virtual of vsol_curve_2d
@@ -186,8 +186,8 @@ class bsold_interp_curve_2d : public vsol_curve_2d
   //: Last point of the curve
   //vsol_point_2d_sptr p1_;
   
-  //: List of dbgl_param_curve smart pointers
-  vcl_vector<dbgl_param_curve *> ints_;
+  //: List of bgld_param_curve smart pointers
+  vcl_vector<bgld_param_curve *> ints_;
   
   //: Arclengths of each interval for fast access
   vcl_vector<double> lengths_;

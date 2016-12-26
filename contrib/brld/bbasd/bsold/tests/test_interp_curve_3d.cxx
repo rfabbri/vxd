@@ -1,6 +1,6 @@
 #include <testlib/testlib_test.h>
 
-#include <dbgl/dbgl_eno_curve_3d.h>
+#include <bgld/bgld_eno_curve_3d.h>
 #include <bsold/bsold_interp_curve_3d.h>
 
 #include <vcl_iostream.h>
@@ -34,9 +34,9 @@ MAIN( test_interp_curve_3d )
   coefs_z.push_back(-1);
   coefs_z.push_back(1);
 
-  vcl_vector<dbgl_param_curve_3d *> ints(2);
-  ints[0] = new dbgl_eno_curve_3d(coefs_x, coefs_y, coefs_z, 0.0, 1.0);
-  ints[1] = new dbgl_eno_curve_3d(coefs_x, coefs_y, coefs_z, 1.0, 2.0);
+  vcl_vector<bgld_param_curve_3d *> ints(2);
+  ints[0] = new bgld_eno_curve_3d(coefs_x, coefs_y, coefs_z, 0.0, 1.0);
+  ints[1] = new bgld_eno_curve_3d(coefs_x, coefs_y, coefs_z, 1.0, 2.0);
 
   bsold_interp_curve_3d c(ints);
 

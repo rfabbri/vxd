@@ -17,7 +17,7 @@
 #include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 
-#include <dbgl/algo/dbgl_fit_circ_arc_spline.h>
+#include <bgld/algo/bgld_fit_circ_arc_spline.h>
 
 
 #include <vgl/algo/vgl_fit_lines_2d.h>
@@ -133,7 +133,7 @@ execute()
   output_data_[0].push_back(output_vsol);
 
   // fit (the first found) the polyline or polygon with a circular arc spline
-  vcl_vector<dbgl_circ_arc > arc_list;
+  vcl_vector<bgld_circ_arc > arc_list;
   for (unsigned int i=0; i<all_vsols.size(); ++i)
   {
     vsol_spatial_object_2d_sptr vsol = all_vsols[i];
@@ -200,7 +200,7 @@ execute()
 
 
 
-      dbgl_fit_circ_arc_spline_to_polyline(arc_list, pts, tolerance);
+      bgld_fit_circ_arc_spline_to_polyline(arc_list, pts, tolerance);
       break;
     } 
     else if (vsol->cast_to_region() && vsol->cast_to_region()->cast_to_polygon()) 
@@ -216,7 +216,7 @@ execute()
       }
 
       // fit polygon with circular arc spline
-      dbgl_fit_circ_arc_spline_to_polygon(arc_list, pts, tolerance);
+      bgld_fit_circ_arc_spline_to_polygon(arc_list, pts, tolerance);
       break;
     }
   }
@@ -226,7 +226,7 @@ execute()
   // putting each circular arc as a vsol2D object (since there is not poly-arc in vsol)
   for (unsigned i =0; i < arc_list.size(); ++i)
   {
-    dbgl_circ_arc arc = arc_list[i];
+    bgld_circ_arc arc = arc_list[i];
 
     ////
     //vcl_cout << "arc [ " << i << " ] = ";

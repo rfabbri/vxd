@@ -16,11 +16,11 @@
 //   Ozge C Ozcanli April 03, 08 --
 //             changed all the loops in the following fashion with no paranthesis:
 //             for (unsigned i=0; i<ints.size(); ++i) 
-//                ints[i] = new dbgl_poly_curve_line(pts[i], pts[i+1]);
+//                ints[i] = new bgld_poly_curve_line(pts[i], pts[i+1]);
 //
 //             to the one below:
 //             for (unsigned i=0; i<ints.size(); i++) { 
-//                ints[i] = new dbgl_poly_curve_line(pts[i], pts[i+1]);
+//                ints[i] = new bgld_poly_curve_line(pts[i], pts[i+1]);
 //             }
 //
 //             there is a bug in an older version of gcc which is still used on one of our linux machines
@@ -32,7 +32,7 @@
 #include <vsol/vsol_polygon_2d_sptr.h>
 #include <vsol/vsol_polyline_2d_sptr.h>
 #include <vsol/vsol_spatial_object_2d_sptr.h>
-#include <dbgl/dbgl_arc.h>
+#include <bgld/bgld_arc.h>
 #include <vgl/vgl_point_2d.h>
 #include <vnl/vnl_vector.h>
 

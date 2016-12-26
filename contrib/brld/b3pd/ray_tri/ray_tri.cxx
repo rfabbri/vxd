@@ -4,7 +4,7 @@
 //
 //  Tomas Moller and Ben Trumbore's ray-triangle intersection
 //  http://jgt.akpeters.com/papers/MollerTrumbore97/
-//  See the dbgl_moller_trumbore_jgt97.pdf in the same directory.
+//  See the bgld_moller_trumbore_jgt97.pdf in the same directory.
 
 #include <vcl_cassert.h>
 #include <vcl_cmath.h>

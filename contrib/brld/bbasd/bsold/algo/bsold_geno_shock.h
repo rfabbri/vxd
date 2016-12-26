@@ -43,18 +43,18 @@ class bsold_geno_shock
    //: Tests whether an interval is a probable shock based on
    // abrupt variation of measures at the endpoints.
    static bool test_change(
-         dbgl_param_curve const   &prev,
-         dbgl_param_curve const   &curr, 
-         dbgl_param_curve const   &next,
+         bgld_param_curve const   &prev,
+         bgld_param_curve const   &curr, 
+         bgld_param_curve const   &next,
          double tt=default_tangent_threshold, 
          double ct=default_curvature_threshold );
 
    //: If you have geometric measures already computed, this version of shock_test will 
    // use them  instead of repeating the calculation.
    static bool test_change(
-         dbgl_param_curve const   &prev, bsold_geno_measures const &prevm,
-         dbgl_param_curve const   &curr, bsold_geno_measures const &currm,
-         dbgl_param_curve const   &next, bsold_geno_measures const &nextm,
+         bgld_param_curve const   &prev, bsold_geno_measures const &prevm,
+         bgld_param_curve const   &curr, bsold_geno_measures const &currm,
+         bgld_param_curve const   &next, bsold_geno_measures const &nextm,
          double tt=default_tangent_threshold, 
          double ct=default_curvature_threshold );
 

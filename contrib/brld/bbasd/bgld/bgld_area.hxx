@@ -1,4 +1,4 @@
-// This is basic/bgld/bgld_area.hxx
+// This is bbasd/bgld/bgld_area.hxx
 
 #ifndef bgld_area_txx_
 #define bgld_area_txx_

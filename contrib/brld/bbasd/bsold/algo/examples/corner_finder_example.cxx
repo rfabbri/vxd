@@ -4,7 +4,7 @@
 #include <bsold/algo/bsold_corner_finder.h>
 #include <vul/vul_file_iterator.h>
 #include <bdgl/bdgl_curve_algs.h>
-#include <dbgl/algo/dbgl_curve_smoothing.h>
+#include <bgld/algo/bgld_curve_smoothing.h>
 #include <vcl_cstring.h>
 #include <vcl_cstdlib.h>
 
@@ -86,7 +86,7 @@ int main()
     out.append(buffer);
     float psi = 1;
     unsigned int num_times = 5;
-    dbgl_csm(pts, psi, num_times);
+    bgld_csm(pts, psi, num_times);
     vcl_vector<vsol_point_2d_sptr> smoothed;
     for(unsigned i=0; i<pts.size();i++)
       smoothed.push_back(new vsol_point_2d(pts[i].x(), pts[i].y()));
@@ -164,7 +164,7 @@ int main()
       pts.push_back(vgl_point_2d<double> (points[i]->x(), points[i]->y()));
     float psi = 1;
     unsigned int num_times = 30;
-    dbgl_csm(pts, psi, num_times);
+    bgld_csm(pts, psi, num_times);
     vcl_vector<vsol_point_2d_sptr> smoothed;
     for(unsigned i=0; i<pts.size();i++)
       smoothed.push_back(new vsol_point_2d(pts[i].x(), pts[i].y()));

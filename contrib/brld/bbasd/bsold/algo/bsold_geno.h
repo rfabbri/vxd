@@ -9,7 +9,7 @@
 //
 
 #include <bsold/bsold_geno_curve_2d.h>
-#include <dbgl/dbgl_arc.h>
+#include <bgld/bgld_arc.h>
 
 //: GENO interpolation
 // GENO stands for Geometric Non-Oscillatory interpolation.
@@ -46,7 +46,7 @@ public:
 
   //: 2nd order GENO interpolation of an interval from four points.
   // The central interval is the one to be interpolated.
-  static dbgl_arc * interpolate_interval(
+  static bgld_arc * interpolate_interval(
          vgl_point_2d<double> const & pts0, vgl_point_2d<double> const & pts1, 
          vgl_point_2d<double> const & pts2, vgl_point_2d<double> const & pts3, 
          bool *up);
@@ -59,20 +59,20 @@ public:
 //: 2nd order GENO interpolation of an interval from four points.
 // The central interval is the one to be interpolated.
 // \param[out] lower true if the interpolant uses first three pts
-inline dbgl_arc * bsold_geno::
+inline bgld_arc * bsold_geno::
 interpolate_interval(
       vgl_point_2d<double> const &  pts0, vgl_point_2d<double> const &  pts1, 
       vgl_point_2d<double> const &  pts2, vgl_point_2d<double> const &  pts3, bool *up)
 {
-   dbgl_arc lower(pts1, pts2, pts0);
-   dbgl_arc upper(pts1, pts2, pts3);
+   bgld_arc lower(pts1, pts2, pts0);
+   bgld_arc upper(pts1, pts2, pts3);
 
    if (lower.curvature() < upper.curvature()) {
       *up=false;
-      return new dbgl_arc(lower);
+      return new bgld_arc(lower);
    } else {
       *up=true;
-      return new dbgl_arc(upper);
+      return new bgld_arc(upper);
    }
 }
 

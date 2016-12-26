@@ -3,7 +3,7 @@
 // \author Ricardo Fabbri
 
 #include "bsold_geno.h"
-#include <dbgl/algo/dbgl_eulerspiral.h>
+#include <bgld/algo/bgld_eulerspiral.h>
 #include <vnl/vnl_math.h>
 #include <vcl_cmath.h>
 
@@ -17,14 +17,14 @@ interpolate(bsold_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const &pts, b
    }
 
    if (!closed) {
-      vcl_vector<dbgl_param_curve *> ints(pts.size()-1);
+      vcl_vector<bgld_param_curve *> ints(pts.size()-1);
       unsigned i;
       bool fwd;
 
       c->stencil_.resize(ints.size());
 
       // do first interval separately
-      ints[0] = new dbgl_arc(pts[0]->get_p(),pts[1]->get_p(), pts[2]->get_p());
+      ints[0] = new bgld_arc(pts[0]->get_p(),pts[1]->get_p(), pts[2]->get_p());
       c->set_upper(0,true);
 
       // do middle intervals
@@ -34,13 +34,13 @@ interpolate(bsold_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const &pts, b
          c->set_upper(i,fwd);
       }
       // do last interval separately
-      ints[i] = new dbgl_arc(pts[i]->get_p(), pts[i+1]->get_p(), pts[i-1]->get_p());
+      ints[i] = new bgld_arc(pts[i]->get_p(), pts[i+1]->get_p(), pts[i-1]->get_p());
       c->set_upper(i,false);
 
       c->make(ints,closed);
    } else {
 
-      vcl_vector<dbgl_param_curve *> ints(pts.size());
+      vcl_vector<bgld_param_curve *> ints(pts.size());
       unsigned i;
       bool fwd;
 
@@ -143,7 +143,7 @@ interpolate3_approx(bsold_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const
 
   // --- INTERPOLATION ---
 
-  vcl_vector<dbgl_param_curve *> ints(pts.size()-1);
+  vcl_vector<bgld_param_curve *> ints(pts.size()-1);
 
   /*
   for (i=0; i<ints.size(); ++i) {
@@ -158,7 +158,7 @@ interpolate3_approx(bsold_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const
     else 
       angle1 = arc_geno[i].tangent_angle_at(1);
 
-    ints[i] = (dbgl_param_curve *)(new dbgl_eulerspiral(pts[i]->get_p(),angle0,pts[i+1]->get_p(),angle1));
+    ints[i] = (bgld_param_curve *)(new bgld_eulerspiral(pts[i]->get_p(),angle0,pts[i+1]->get_p(),angle1));
   }
   */
 
@@ -167,7 +167,7 @@ interpolate3_approx(bsold_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const
     angle0 = tangents[i];
     angle1 = tangents[i+1];
 
-    ints[i] = new dbgl_eulerspiral(pts[i]->get_p(),angle0,pts[i+1]->get_p(),angle1);
+    ints[i] = new bgld_eulerspiral(pts[i]->get_p(),angle0,pts[i+1]->get_p(),angle1);
     /* Debugging code:
     if (i ==743 || i == 742 || i == 744) {
       vcl_cout << "I: " << i << vcl_endl;
@@ -178,7 +178,7 @@ interpolate3_approx(bsold_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const
 
       vcl_cout << "points:" << *(pts[i]) << " ; " << *(pts[i+1]) << vcl_endl;
       vcl_cout << "Ints size: " << ints.size() << vcl_endl;
-      vcl_cout << "Kdot: " << (reinterpret_cast<dbgl_eulerspiral*> (ints[i]))->gamma() << vcl_endl;
+      vcl_cout << "Kdot: " << (reinterpret_cast<bgld_eulerspiral*> (ints[i]))->gamma() << vcl_endl;
       vcl_cout << "K_start: " << ints[i]->curvature_at(0) << "   K_end:" << ints[i]->curvature_at(1);
       vcl_cout << "\n==========================\n\n\n" << vcl_endl;
     }
@@ -218,14 +218,14 @@ interpolate3_from_tangents(
 
   // --- INTERPOLATION ---
 
-  vcl_vector<dbgl_param_curve *> ints(pts.size()-1);
+  vcl_vector<bgld_param_curve *> ints(pts.size()-1);
 
   for (i=0; i<ints.size(); ++i) {
     double angle0, angle1;
     angle0 = tangent_angles[i];
     angle1 = tangent_angles[i+1];
 
-    ints[i] = new dbgl_eulerspiral(pts[i]->get_p(),angle0,pts[i+1]->get_p(),angle1);
+    ints[i] = new bgld_eulerspiral(pts[i]->get_p(),angle0,pts[i+1]->get_p(),angle1);
   }
 
   c->make(ints,closed);

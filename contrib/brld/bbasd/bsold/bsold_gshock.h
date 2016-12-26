@@ -7,7 +7,7 @@
 //\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri.github.io)
 //\date 03/09/2005 06:59:04 PM EST
 //
-#include <dbgl/dbgl_arc.h>
+#include <bgld/bgld_arc.h>
 #include <bsold/bsold_geno_measures.h>
 #include <vbl/vbl_ref_count.h>
 
@@ -22,8 +22,8 @@ public:
       VCL_STATIC_CONST_INIT_FLOAT_DECL(1.5);
    
    //: default constructor
-   bsold_gshock(const dbgl_param_curve *prv, const dbgl_param_curve *cur, 
-                const dbgl_param_curve *nxt, 
+   bsold_gshock(const bgld_param_curve *prv, const bgld_param_curve *cur, 
+                const bgld_param_curve *nxt, 
                 const double st=default_shock_point_dist_threshold) 
    { make (prv, cur, nxt, st); }
 
@@ -36,12 +36,12 @@ public:
 
 //   cache_measures();
 
-   unsigned make(const dbgl_param_curve *prv, const dbgl_param_curve *cur, 
-                 const dbgl_param_curve *nxt, 
+   unsigned make(const bgld_param_curve *prv, const bgld_param_curve *cur, 
+                 const bgld_param_curve *nxt, 
                  const double shock_point_dist_threshold=default_shock_point_dist_threshold);
 
 protected:
-//   dbgl_param_curve *next_, *prev_; //< not in original kwh's GENO
+//   bgld_param_curve *next_, *prev_; //< not in original kwh's GENO
    vcl_vector< vgl_point_2d<double> > loc_;
    /*
    double speed_;
@@ -51,8 +51,8 @@ protected:
    */
 private:
    static double patchspan(double);
-   bool fix_outofbound_shock(const dbgl_arc *prv, const dbgl_arc *cur, const dbgl_arc *nxt);
-   void place_shock_at_endpoints(const dbgl_arc *cur);
+   bool fix_outofbound_shock(const bgld_arc *prv, const bgld_arc *cur, const bgld_arc *nxt);
+   void place_shock_at_endpoints(const bgld_arc *cur);
 };
 
 // ------ Inlined definitions ----------------------------------------
@@ -60,7 +60,7 @@ private:
 inline double bsold_gshock::patchspan(double x)
 { return bsold_geno_measures::patchspan(x); }
 
-inline void bsold_gshock::place_shock_at_endpoints(const dbgl_arc *cur)
+inline void bsold_gshock::place_shock_at_endpoints(const bgld_arc *cur)
 {
    loc_.resize(2);
    loc_[0] = cur->point_at(0);

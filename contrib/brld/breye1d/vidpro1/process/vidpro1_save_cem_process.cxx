@@ -8,7 +8,7 @@
 #include <vsol/vsol_polyline_2d_sptr.h>
 #include <vsol/vsol_point_2d.h>
 #include <vnl/vnl_math.h>
-#include <dbsol/dbsol_file_io.h>
+#include <bsold/bsold_file_io.h>
 
 vidpro1_save_cem_process::vidpro1_save_cem_process() : bpro1_process()
 {
@@ -56,7 +56,7 @@ bool vidpro1_save_cem_process::saveCEM (vcl_string filename)
 
   vcl_vector< vsol_spatial_object_2d_sptr > vsol_list = input_vsol->all_data();
 
-  return dbsol_save_cem(vsol_list, filename);
+  return bsold_save_cem(vsol_list, filename);
 }
 
 

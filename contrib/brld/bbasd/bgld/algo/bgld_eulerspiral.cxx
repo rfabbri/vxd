@@ -12,7 +12,7 @@
 #include <vnl/algo/vnl_levenberg_marquardt.h>
 
 #include <bgld/algo/bgld_biarc.h>
-#include <dbnl/dbnl_fresnel.h>
+#include <bnld/bnld_fresnel.h>
 #include <vcl_string.h>
 
 #include <vsl/vsl_binary_io.h>
@@ -377,8 +377,8 @@ compute_end_pt( double k0, double gamma, double len, bool normalized ) const {
   
   double fresnel1_cos, fresnel1_sin;
   double fresnel2_cos, fresnel2_sin;
-  dbnl_fresnel_integral((k0+gamma*len)/const1, &fresnel1_cos, &fresnel1_sin );
-  dbnl_fresnel_integral( k0/const1, &fresnel2_cos, &fresnel2_sin );
+  bnld_fresnel_integral((k0+gamma*len)/const1, &fresnel1_cos, &fresnel1_sin );
+  bnld_fresnel_integral( k0/const1, &fresnel2_cos, &fresnel2_sin );
 
   double c = fresnel1_cos - fresnel2_cos;
   c = (gamma < 0) ? -c : c;

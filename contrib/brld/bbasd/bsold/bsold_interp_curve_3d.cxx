@@ -9,9 +9,9 @@
 // \author Based on original code by  H. Can Aras (design/declarations) 
 
 //: Constructor
-// Caution: the user of this constructor SHALL NOT delete the dbgl_param_curve_3d objects
+// Caution: the user of this constructor SHALL NOT delete the bgld_param_curve_3d objects
 // pointed to by the 'inter' vector 
-bsold_interp_curve_3d::bsold_interp_curve_3d(vcl_vector<dbgl_param_curve_3d *> inter)
+bsold_interp_curve_3d::bsold_interp_curve_3d(vcl_vector<bgld_param_curve_3d *> inter)
     : ints_(inter), lengths_(ints_.size())
 {
    lengths_[0] = ints_[0]->length();
@@ -19,7 +19,7 @@ bsold_interp_curve_3d::bsold_interp_curve_3d(vcl_vector<dbgl_param_curve_3d *> i
      lengths_[i]=lengths_[i-1] + ints_[i]->length();
 }
 
-void bsold_interp_curve_3d::make(const vcl_vector<dbgl_param_curve_3d *> &inter)
+void bsold_interp_curve_3d::make(const vcl_vector<bgld_param_curve_3d *> &inter)
 {
    for (unsigned i = 0; i<ints_.size(); i++)
       delete ints_[i];
@@ -132,8 +132,8 @@ void bsold_interp_curve_3d::describe(vcl_ostream &strm, int blanking) const
   for (unsigned int i=0; i<ints_.size(); ++i) 
   {
      strm << "=== Interval " << i << " ===" << vcl_endl;
-     dbgl_eno_curve_3d *p = (dbgl_eno_curve_3d *) ints_[i];
-     if((typeid(*ints_[i]) == typeid(dbgl_eno_curve_3d)))
+     bgld_eno_curve_3d *p = (bgld_eno_curve_3d *) ints_[i];
+     if((typeid(*ints_[i]) == typeid(bgld_eno_curve_3d)))
      {
        vcl_cout << "t start: " << p->start_t() << " start point: " << p->point_at_t(p->start_t()) << vcl_endl;
        vcl_cout << "t end: " << p->end_t() << " end point: " << p->point_at_t(p->end_t()) << vcl_endl;

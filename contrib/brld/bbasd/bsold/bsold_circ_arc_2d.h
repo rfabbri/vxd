@@ -15,7 +15,7 @@
 //#include <bvis1/bvis1_tool.h>
 //#include <bvis1/tool/bvis1_vsol2D_tools.h>
 
-#include <dbgl/algo/dbgl_circ_arc.h>
+#include <bgld/algo/bgld_circ_arc.h>
 #include <vgl/vgl_fwd.h>
 #include <vgl/vgl_conic_segment_2d.h>
 #include <vsl/vsl_binary_io.h>
@@ -29,7 +29,7 @@
 #include <vcl_list.h>
 #include <vcl_iostream.h>
 
-class bsold_circ_arc_2d : public vsol_curve_2d, public dbgl_circ_arc
+class bsold_circ_arc_2d : public vsol_curve_2d, public bgld_circ_arc
 {
 
   //***************************************************************************
@@ -50,10 +50,10 @@ public:
   //**************************************************************
 
   //: Constructor - default
-  bsold_circ_arc_2d(): vsol_curve_2d(), dbgl_circ_arc() {}
+  bsold_circ_arc_2d(): vsol_curve_2d(), bgld_circ_arc() {}
 
   //: Constructor - from intrinsic parameters;p1, p2 and curvature.
-  bsold_circ_arc_2d(vsol_point_2d const& p1 ,vsol_point_2d const& p2, double c ): vsol_curve_2d(), dbgl_circ_arc(p1.get_p(),p2.get_p(),c){}
+  bsold_circ_arc_2d(vsol_point_2d const& p1 ,vsol_point_2d const& p2, double c ): vsol_curve_2d(), bgld_circ_arc(p1.get_p(),p2.get_p(),c){}
 
   //: Constructor - from starting point (p1), circular center (o)
   // and normal vector at the ending point.
@@ -65,15 +65,15 @@ public:
     vsol_point_2d const& p2,vsol_point_2d const& end_point );
 
 
-  //: Constructor from dbgl_circ_arc
+  //: Constructor from bgld_circ_arc
 
-  bsold_circ_arc_2d(dbgl_circ_arc arc) : vsol_curve_2d(), dbgl_circ_arc(arc.point1(),arc.point2(),arc.k()),
+  bsold_circ_arc_2d(bgld_circ_arc arc) : vsol_curve_2d(), bgld_circ_arc(arc.point1(),arc.point2(),arc.k()),
     p0_(new vsol_point_2d(arc.point1())), p1_(new vsol_point_2d(arc.point2())){}
 
   //---------------------------------------------------------------------------
   //: Copy constructor
   //---------------------------------------------------------------------------
-  bsold_circ_arc_2d(bsold_circ_arc_2d const& c):vsol_curve_2d(c),dbgl_circ_arc(c) {}
+  bsold_circ_arc_2d(bsold_circ_arc_2d const& c):vsol_curve_2d(c),bgld_circ_arc(c) {}
 
 
   //: Destructor
@@ -143,9 +143,9 @@ public:
 
 
   //---------------------------------------------------------------------------
-  //: Get a dbgl_circ_arc
+  //: Get a bgld_circ_arc
   //---------------------------------------------------------------------------
-  dbgl_circ_arc dbgl_arc() const;
+  bgld_circ_arc bgld_arc() const;
 
 
   //  ***************************************************************************

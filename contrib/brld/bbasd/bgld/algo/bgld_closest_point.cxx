@@ -4,8 +4,8 @@
 
 #include "bgld_closest_point.h"
 
-#include <dbnl/dbnl_solve_quadratic_equation.h>
-#include <dbnl/dbnl_solve_trigonometric_equation.h>
+#include <bnld/bnld_solve_quadratic_equation.h>
+#include <bnld/bnld_solve_trigonometric_equation.h>
 #include <bgld/algo/bgld_circ_arc.h>
 
 #include <vcl_cmath.h>
@@ -412,7 +412,7 @@ lineseg_to_circular_arc(const vgl_point_2d<double >& line_p1,
   double b = 2*(a1*b1 + a2*b2);
   double c = b1*b1 + b2*b2 - 1;
   vcl_vector<double > roots;
-  dbnl_solve_quadratic_equation(a, b, c, roots);
+  bnld_solve_quadratic_equation(a, b, c, roots);
 
   double ret_distance = -1;
   // if there are real roots then the CIRCLE and the LINE intersect
@@ -861,7 +861,7 @@ solve_1st_order_trig_equation(double a, double b, double c,
 
   vcl_vector<double > cos_x;
   vcl_vector<double > sin_x;
-  dbnl_solve_1st_order_trig_equation(a, b, c, sin_x, cos_x);
+  bnld_solve_1st_order_trig_equation(a, b, c, sin_x, cos_x);
 
   for (unsigned i =0; i < cos_x.size(); ++i)
   {

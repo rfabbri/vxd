@@ -31,8 +31,8 @@ bdifd_epipolar_point_transfer(
 bool
 reconstruct_pt_tangents(
       // Input:
-      dbsol_interp_curve_2d *curve1, 
-      dbsol_interp_curve_2d *curve2,
+      bsold_interp_curve_2d *curve1, 
+      bsold_interp_curve_2d *curve2,
       const vnl_matrix <double> &s,  // nx2 w/ pairs of arc lengths of pts to reconstruct
       const vpgl_perspective_camera <double> &Pr1,
       const vpgl_perspective_camera <double> &Pr2,
@@ -47,8 +47,8 @@ reconstruct_pt_tangents(
 bool
 reconstruct_pt_tangents(
       // Input:
-      dbsol_interp_curve_2d *curve1, 
-      dbsol_interp_curve_2d *curve2,
+      bsold_interp_curve_2d *curve1, 
+      bsold_interp_curve_2d *curve2,
       double s1p, double s2p, double s1, double s2,
       const vpgl_perspective_camera <double> &Pr1,
       const vpgl_perspective_camera <double> &Pr2,

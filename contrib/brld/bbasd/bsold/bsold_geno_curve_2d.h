@@ -31,12 +31,12 @@ class bsold_geno_curve_2d : public bsold_interp_curve_2d {
      order_(2) //:< just a default order; the interpolator algo may change this
       { }
 
-   bsold_geno_curve_2d(vcl_vector<dbgl_param_curve *> inter,bool closed) :
+   bsold_geno_curve_2d(vcl_vector<bgld_param_curve *> inter,bool closed) :
       bsold_interp_curve_2d(inter),
       closed_(closed),order_(2) { }
 
 
-   virtual void make(const vcl_vector<dbgl_param_curve *> &inter, bool closed) 
+   virtual void make(const vcl_vector<bgld_param_curve *> &inter, bool closed) 
       { bsold_interp_curve_2d::make(inter); closed_=closed;}
 
    //: algorithms

@@ -14,7 +14,7 @@
 #include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 #include <bdgl/bdgl_curve_algs.h>
-#include <dbgl/algo/dbgl_curve_smoothing.h>
+#include <bgld/algo/bgld_curve_smoothing.h>
 
 
 
@@ -175,7 +175,7 @@ execute()
       }
 
       if (discrete_csm) { 
-        dbgl_csm(pts,psi,num_times);
+        bgld_csm(pts,psi,num_times);
       }
 
       assert(pts.size() == polyline->size());
@@ -225,7 +225,7 @@ execute()
       }
 
       if (discrete_csm) { 
-        dbgl_csm(pts,psi,num_times);
+        bgld_csm(pts,psi,num_times);
       }
 
       assert(pts.size() == poly->size());

@@ -3,8 +3,8 @@
 // \date May 31, 2006
 
 #include <testlib/testlib_test.h>
-//#include <dbgl/algo/dbgl_distance.h>
-//////#include <dbgl/algo/dbgl_biarc.h>
+//#include <bgld/algo/bgld_distance.h>
+//////#include <bgld/algo/bgld_biarc.h>
 //#include <vcl_iostream.h>
 //#include <vcl_cmath.h>
 //////#include <vnl/vnl_math.h>

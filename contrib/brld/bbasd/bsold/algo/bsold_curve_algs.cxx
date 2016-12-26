@@ -5,15 +5,15 @@
 
 #include "bsold_curve_algs.h"
 #include <bsold/bsold_interp_curve_2d.h>
-#include <dbgl/dbgl_poly_curve_line.h>
-#include <dbgl/dbgl_arc.h>
-#include <dbgl/dbgl_eno_curve.h>
+#include <bgld/bgld_poly_curve_line.h>
+#include <bgld/bgld_arc.h>
+#include <bgld/bgld_eno_curve.h>
 #include <vsol/vsol_polygon_2d.h>
 #include <vsol/vsol_polyline_2d.h>
 #include <vsol/vsol_box_2d.h>
 
 #include <vcl_iostream.h>
-#include <dbnl/algo/dbnl_eno.h>
+#include <bnld/algo/bnld_eno.h>
 #include <vnl/vnl_vector.h>
 #include <vnl/vnl_matrix.h>
 #include <vnl/algo/vnl_svd.h>
@@ -134,25 +134,25 @@ interpolate_linear(bsold_interp_curve_2d *c, vcl_vector<vsol_point_2d_sptr> cons
                    bool closed)
 {
   if (!closed) {
-    vcl_vector<dbgl_param_curve *> ints(pts.size()-1);
+    vcl_vector<bgld_param_curve *> ints(pts.size()-1);
 
     for (unsigned i=0; i<ints.size(); i++) {
-      ints[i] = new dbgl_poly_curve_line(pts[i]->get_p(), pts[i+1]->get_p());
+      ints[i] = new bgld_poly_curve_line(pts[i]->get_p(), pts[i+1]->get_p());
     }
 
     c->make(ints);
   } else {
 
-    vcl_vector<dbgl_param_curve *> ints(pts.size());
+    vcl_vector<bgld_param_curve *> ints(pts.size());
 
     unsigned i;
     //: ozge changed all the loops in the following fashion with no paranthesis to the one below
     //  there is a bug in an older version of gcc which is still used on one of our linux machines
     //for (unsigned i=0; i<ints.size(); ++i) 
     for (i=0; i<ints.size()-1; i++) {
-      ints[i] = new dbgl_poly_curve_line(pts[i]->get_p(), pts[i+1]->get_p());
+      ints[i] = new bgld_poly_curve_line(pts[i]->get_p(), pts[i+1]->get_p());
     }
-    ints[i] = new dbgl_poly_curve_line(pts[i]->get_p(), pts[0]->get_p());
+    ints[i] = new bgld_poly_curve_line(pts[i]->get_p(), pts[0]->get_p());
 
     c->make(ints);
   }
@@ -164,25 +164,25 @@ bool bsold_curve_algs::
 interpolate_linear(bsold_interp_curve_2d *c, vcl_vector<vgl_point_2d<double> > const &pts, bool closed)
 {
   if (!closed) {
-    vcl_vector<dbgl_param_curve *> ints(pts.size()-1);
+    vcl_vector<bgld_param_curve *> ints(pts.size()-1);
 
     //: ozge changed all the loops in the following fashion with no paranthesis to the one below
     //  there is a bug in an older version of gcc which is still used on one of our linux machines
     //for (unsigned i=0; i<ints.size(); ++i) 
     for (unsigned i=0; i<ints.size(); i++) { 
-      ints[i] = new dbgl_poly_curve_line(pts[i], pts[i+1]);
+      ints[i] = new bgld_poly_curve_line(pts[i], pts[i+1]);
     }
 
     c->make(ints);
   } else {
 
-    vcl_vector<dbgl_param_curve *> ints(pts.size());
+    vcl_vector<bgld_param_curve *> ints(pts.size());
 
     unsigned i;
     for (i=0; i<ints.size()-1; i++) {
-      ints[i] = new dbgl_poly_curve_line(pts[i], pts[i+1]);
+      ints[i] = new bgld_poly_curve_line(pts[i], pts[i+1]);
     }
-    ints[i] = new dbgl_poly_curve_line(pts[i], pts[0]);
+    ints[i] = new bgld_poly_curve_line(pts[i], pts[0]);
 
     c->make(ints);
   }
@@ -193,13 +193,13 @@ interpolate_linear(bsold_interp_curve_2d *c, vcl_vector<vgl_point_2d<double> > c
 bool bsold_curve_algs::interpolate_linear(bsold_interp_curve_2d *c,
                                           vsol_polygon_2d_sptr poly)
 {
-  vcl_vector<dbgl_param_curve *> ints(poly->size());
+  vcl_vector<bgld_param_curve *> ints(poly->size());
 
   unsigned i;
   for (i=0; i<poly->size()-1; i++) {
-    ints[i] = new dbgl_poly_curve_line(poly->vertex(i)->get_p(), poly->vertex(i+1)->get_p());
+    ints[i] = new bgld_poly_curve_line(poly->vertex(i)->get_p(), poly->vertex(i+1)->get_p());
   }
-  ints[i] = new dbgl_poly_curve_line(poly->vertex(i)->get_p(), poly->vertex(0)->get_p());
+  ints[i] = new bgld_poly_curve_line(poly->vertex(i)->get_p(), poly->vertex(0)->get_p());
 
   c->make(ints);
   return true;
@@ -209,11 +209,11 @@ bool bsold_curve_algs::interpolate_linear(bsold_interp_curve_2d *c,
 bool bsold_curve_algs::interpolate_linear(bsold_interp_curve_2d *c,
                                  vsol_polyline_2d_sptr poly)
 {
-  vcl_vector<dbgl_param_curve *> ints(poly->size()-1);
+  vcl_vector<bgld_param_curve *> ints(poly->size()-1);
 
   unsigned i;
   for (i=0; i<poly->size()-1; i++) {
-    ints[i] = new dbgl_poly_curve_line(poly->vertex(i)->get_p(), poly->vertex(i+1)->get_p());
+    ints[i] = new bgld_poly_curve_line(poly->vertex(i)->get_p(), poly->vertex(i+1)->get_p());
   }
   
   c->make(ints);
@@ -225,25 +225,25 @@ interpolate_linear2(bsold_interp_curve_2d *c, vcl_vector<vsol_point_2d_sptr> con
                     bool closed, int time)
 {
   if (!closed) {
-    vcl_vector<dbgl_param_curve *> ints(pts.size()-1);
+    vcl_vector<bgld_param_curve *> ints(pts.size()-1);
 
     for (unsigned i=0; i<ints.size(); i++) {
-      ints[i] = new dbgl_poly_curve_line(pts[i]->get_p(), pts[i+1]->get_p());
+      ints[i] = new bgld_poly_curve_line(pts[i]->get_p(), pts[i+1]->get_p());
     }
 
     c->make(ints);
   } else {
 
-    vcl_vector<dbgl_param_curve *> ints(pts.size());
+    vcl_vector<bgld_param_curve *> ints(pts.size());
 
     int size_looptarget = static_cast<int>(ints.size())-1;
     int i, j;
     for (i=0, j = time; j<size_looptarget; i++, j++) {
-      ints[i] = new dbgl_poly_curve_line(pts[j]->get_p(), pts[j+1]->get_p());
+      ints[i] = new bgld_poly_curve_line(pts[j]->get_p(), pts[j+1]->get_p());
     }
-    ints[i] = new dbgl_poly_curve_line(pts[j]->get_p(), pts[0]->get_p());
+    ints[i] = new bgld_poly_curve_line(pts[j]->get_p(), pts[0]->get_p());
     for (i++, j = 0; j<time; i++, j++) {
-      ints[i] = new dbgl_poly_curve_line(pts[j]->get_p(), pts[j+1]->get_p());
+      ints[i] = new bgld_poly_curve_line(pts[j]->get_p(), pts[j+1]->get_p());
     }
 
     c->make(ints);
@@ -329,21 +329,21 @@ bool bsold_curve_algs::interpolate_eno_main(bsold_interp_curve_2d *c,
     }
   }
 
-  vcl_vector<dbgl_param_curve *> ints(num_points-1);
+  vcl_vector<bgld_param_curve *> ints(num_points-1);
   vcl_vector<double> coefs_x;
   vcl_vector<double> coefs_y;
 
   if(num_points > 3)
   {
-    dbnl_eno_1d eno_x;
-    dbnl_eno_1d eno_y;
+    bnld_eno_1d eno_x;
+    bnld_eno_1d eno_y;
 
     eno_x.interpolate(&data_x, &sample_pts);
     eno_y.interpolate(&data_y, &sample_pts);
 
     // get the interpolants
-    vcl_vector<dbnl_eno_interp> eno_interp_x = eno_x.interp();
-    vcl_vector<dbnl_eno_interp> eno_interp_y = eno_y.interp();
+    vcl_vector<bnld_eno_interp> eno_interp_x = eno_x.interp();
+    vcl_vector<bnld_eno_interp> eno_interp_y = eno_y.interp();
 
     for(int i=0; i < num_points-1; i++)
     {
@@ -352,7 +352,7 @@ bool bsold_curve_algs::interpolate_eno_main(bsold_interp_curve_2d *c,
         coefs_x.push_back(eno_interp_x.at(i).coeff(j));
         coefs_y.push_back(eno_interp_y.at(i).coeff(j));
       }
-      ints[i] = new dbgl_eno_curve(coefs_x, coefs_y, sample_pts[i], sample_pts[i+1]);
+      ints[i] = new bgld_eno_curve(coefs_x, coefs_y, sample_pts[i], sample_pts[i+1]);
       coefs_x.clear();
       coefs_y.clear();
     }
@@ -382,7 +382,7 @@ bool bsold_curve_algs::interpolate_eno_main(bsold_interp_curve_2d *c,
         coefs_x.push_back(cx(j,0));
         coefs_y.push_back(cy(j,0));
       }
-      ints[i] = new dbgl_eno_curve(coefs_x, coefs_y, sample_pts[i], sample_pts[i+1]);
+      ints[i] = new bgld_eno_curve(coefs_x, coefs_y, sample_pts[i], sample_pts[i+1]);
       coefs_x.clear();
       coefs_y.clear();
     }
@@ -404,7 +404,7 @@ bool bsold_curve_algs::interpolate_eno_main(bsold_interp_curve_2d *c,
     coefs_y.push_back(a);
     coefs_y.push_back(0.0);
 
-    ints[0] = new dbgl_eno_curve(coefs_x, coefs_y, sample_pts[0], sample_pts[1]);
+    ints[0] = new bgld_eno_curve(coefs_x, coefs_y, sample_pts[0], sample_pts[1]);
   }
   else
   {

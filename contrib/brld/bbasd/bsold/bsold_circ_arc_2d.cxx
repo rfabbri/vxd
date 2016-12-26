@@ -8,12 +8,12 @@
 #include <vbl/io/vbl_io_smart_ptr.h>
 #include <vsol/vsol_point_2d.h>
 #include <vgl/vgl_homg_point_2d.h>
-#include <dbgl/algo/dbgl_circ_arc.h>
+#include <bgld/algo/bgld_circ_arc.h>
 #include <vgl/vgl_vector_2d.h>
 #include <vgl/vgl_homg_line_2d.h>
 #include <vgl/vgl_point_2d.h>
 #include <vgl/algo/vgl_homg_operators_2d.h>
-#include <dbgl/algo/dbgl_closest_point.h>
+#include <bgld/algo/bgld_closest_point.h>
 
 //: Constructor - from starting point (P1), circular center (O)
 // and normal vector at the ending point.
@@ -81,13 +81,13 @@ double bsold_circ_arc_2d::length() const
 
 
 //--------------------------------------------------------------------
-//: compute a dbgl arc corresponding to *this
+//: compute a bgld arc corresponding to *this
 //--------------------------------------------------------------------
-dbgl_circ_arc bsold_circ_arc_2d::dbgl_arc() const
+bgld_circ_arc bsold_circ_arc_2d::bgld_arc() const
 {
   vsol_point_2d_sptr pnt0= this->p0();
   vsol_point_2d_sptr pnt1= this->p1();
-  dbgl_circ_arc arc(pnt0->get_p(), pnt1->get_p(), this->curvature());
+  bgld_circ_arc arc(pnt0->get_p(), pnt1->get_p(), this->curvature());
   return arc;
 }
 
@@ -169,7 +169,7 @@ bsold_circ_arc_2d::closest_point_on_curve(vsol_point_2d_sptr const& pt) const
 {
  double ret_ratio;
  double length_at_query;
- ret_ratio=dbgl_closest_point::point_to_circular_arc(pt->get_p(),p0_->get_p(),p1_->get_p(),this->k(),ret_ratio);
+ ret_ratio=bgld_closest_point::point_to_circular_arc(pt->get_p(),p0_->get_p(),p1_->get_p(),this->k(),ret_ratio);
  length_at_query= ret_ratio * this->length();
  return new vsol_point_2d(vsol_point_2d(point_at_length(length_at_query)));
 }

@@ -10,7 +10,7 @@
 
 #include <bsold/bsold_geno_curve_2d.h>
 #include <bsold/bsold_geno_measures.h>
-#include <dbgl/dbgl_param_curve.h>
+#include <bgld/bgld_param_curve.h>
 #include <bsold/bsold_gshock_sptr.h>
 
 //: After interpolation, this class is read-only for non-friends, except for
@@ -53,7 +53,7 @@ class bsold_gshock_curve_2d : public bsold_geno_curve_2d {
    void mark(unsigned i) { skmark_[i] = true; }
    //: true if interval is marked as shock
    bool marked(unsigned i) const {return skmark_[i];}
-   virtual void make(const vcl_vector<dbgl_param_curve *> &inter, bool closed) 
+   virtual void make(const vcl_vector<bgld_param_curve *> &inter, bool closed) 
       { bsold_geno_curve_2d::make(inter,closed); m_.clear(); cache_measures(); 
          skmark_.clear(); skmark_.resize(inter.size(),false);}
 

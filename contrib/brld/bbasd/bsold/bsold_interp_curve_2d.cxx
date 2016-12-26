@@ -9,10 +9,10 @@
  
 
 //: Constructor
-// Caution: the user of this constructor SHALL NOT delete the dbgl_param_curve objects
+// Caution: the user of this constructor SHALL NOT delete the bgld_param_curve objects
 // pointed to by the 'inter' vector 
 bsold_interp_curve_2d::
-bsold_interp_curve_2d(vcl_vector<dbgl_param_curve *> inter)
+bsold_interp_curve_2d(vcl_vector<bgld_param_curve *> inter)
     : ints_(inter), lengths_(ints_.size())
 {
    lengths_[0] = ints_[0]->length();
@@ -21,7 +21,7 @@ bsold_interp_curve_2d(vcl_vector<dbgl_param_curve *> inter)
 }
 
 void bsold_interp_curve_2d::
-make(const vcl_vector<dbgl_param_curve *> &inter)
+make(const vcl_vector<bgld_param_curve *> &inter)
 {
   for (unsigned i = 0; i<ints_.size(); i++) {
     delete ints_[i];

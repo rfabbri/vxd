@@ -177,7 +177,7 @@ MAIN( test_geno )
 
   TEST_NEAR("Tangent at 0 length",c.tangent_angle_at(0),vnl_math::pi/2, tolerance);
   
-  TEST_NEAR("Curvature at 0 length", ((dbgl_arc *) c.interval(0))->curvature(), 1.0, tolerance);
+  TEST_NEAR("Curvature at 0 length", ((bgld_arc *) c.interval(0))->curvature(), 1.0, tolerance);
   } //< end block
 
   SUMMARY();

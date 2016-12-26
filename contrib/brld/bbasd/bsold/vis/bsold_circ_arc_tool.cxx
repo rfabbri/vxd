@@ -5,7 +5,7 @@
  *    DATE: Aug 25  2006
  *************************************************************************/
 #include "bsold_circ_arc_tool.h"
-#include <dbgl/algo/dbgl_arc_center.h> 
+#include <bgld/algo/bgld_arc_center.h> 
 #include <bvis1/tool/bvis1_vsol2D_tools.h>
 #include <bvis1/bvis1_manager.h>
 #include <vgui/vgui_style.h>

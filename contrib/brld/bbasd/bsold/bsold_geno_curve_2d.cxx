@@ -1,8 +1,8 @@
 // This is bbasd/bsold/bsold_geno_curve_2d.cxx
 #include "bsold_geno_curve_2d.h"
 
-#include <dbgl/algo/dbgl_eulerspiral.h>
-#include <dbgl/dbgl_arc.h>
+#include <bgld/algo/bgld_eulerspiral.h>
+#include <bgld/bgld_arc.h>
 
 
 
@@ -28,7 +28,7 @@ curvature_at(double s) const
 {
    unsigned is = interval_index(s,&s);
 
-   return (reinterpret_cast<dbgl_arc*>(ints_[is]))->curvature_at_length(s);
+   return (reinterpret_cast<bgld_arc*>(ints_[is]))->curvature_at_length(s);
 }
 
 
@@ -40,5 +40,5 @@ double bsold_geno_curve_2d::
 curvature_derivative_at(double s) const
 {
    unsigned is = interval_index(s);
-   return (reinterpret_cast<dbgl_eulerspiral*> (ints_[is]))->gamma();
+   return (reinterpret_cast<bgld_eulerspiral*> (ints_[is]))->gamma();
 }

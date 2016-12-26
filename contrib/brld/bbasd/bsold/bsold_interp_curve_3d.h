@@ -15,8 +15,8 @@
 
 #include <vcl_vector.h>
 #include <vcl_iostream.h>
-#include <dbgl/dbgl_param_curve_3d.h>
-#include <dbgl/dbgl_eno_curve_3d.h>
+#include <bgld/bgld_param_curve_3d.h>
+#include <bgld/bgld_eno_curve_3d.h>
 #include <vsol/vsol_curve_3d.h>
 #include <vsol/vsol_point_3d.h>
 #include <vgl/vgl_point_3d.h>
@@ -30,7 +30,7 @@ class bsold_interp_curve_3d : public vsol_curve_3d
 
   // Constructors/Destructors--------------------------------------------------
   bsold_interp_curve_3d() {};
-  bsold_interp_curve_3d(vcl_vector<dbgl_param_curve_3d *> inter);
+  bsold_interp_curve_3d(vcl_vector<bgld_param_curve_3d *> inter);
   
   //: deletes internal storage
   ~bsold_interp_curve_3d() {
@@ -40,7 +40,7 @@ class bsold_interp_curve_3d : public vsol_curve_3d
   }
 
   //: same as constructor but may be called anytime
-  void make(const vcl_vector<dbgl_param_curve_3d *> & inter);
+  void make(const vcl_vector<bgld_param_curve_3d *> & inter);
 
   virtual vsol_spatial_object_3d* clone(void) const 
    { return new bsold_interp_curve_3d(*this); }
@@ -82,15 +82,15 @@ class bsold_interp_curve_3d : public vsol_curve_3d
   // Data Access---------------------------------------------------------------
 
   //: return vector of intervals (parametric curves)
-  vcl_vector<dbgl_param_curve_3d *> const & intervals() const { return ints_; }
+  vcl_vector<bgld_param_curve_3d *> const & intervals() const { return ints_; }
 
-  void set_intervals(vcl_vector<dbgl_param_curve_3d *> const &intervals) 
+  void set_intervals(vcl_vector<bgld_param_curve_3d *> const &intervals) 
      { ints_ = intervals; }
 
   //: easy access of intervals using an array subscript
-  dbgl_param_curve_3d const & operator [] (unsigned i) const { return *(ints_[i]);}
+  bgld_param_curve_3d const & operator [] (unsigned i) const { return *(ints_[i]);}
 
-  dbgl_param_curve_3d const * interval(unsigned i) const { return ints_[i];}
+  bgld_param_curve_3d const * interval(unsigned i) const { return ints_[i];}
 
   //: Return the first point of `this'
   virtual vsol_point_3d_sptr p0() const // pure virtual of vsol_curve_3d
@@ -151,8 +151,8 @@ class bsold_interp_curve_3d : public vsol_curve_3d
   //: Last point of the curve
   //vsol_point_3d_sptr p1_;
   
-  //: List of dbgl_param_curve smart pointers
-  vcl_vector<dbgl_param_curve_3d *> ints_;
+  //: List of bgld_param_curve smart pointers
+  vcl_vector<bgld_param_curve_3d *> ints_;
   
   //: Arclengths of each interval for fast access
   vcl_vector<double> lengths_;

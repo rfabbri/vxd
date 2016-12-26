@@ -1,6 +1,6 @@
 #include <testlib/testlib_test.h>
 
-#include <dbgl/dbgl_poly_curve_line.h>
+#include <bgld/bgld_poly_curve_line.h>
 #include <bsold/bsold_interp_curve_2d.h>
 
 #include <vcl_iostream.h>
@@ -24,10 +24,10 @@ MAIN( test_interp_curve_2d )
   double s = 0.74563;
   vgl_point_2d<double> test_p(s, 0.0);
   
-  vcl_vector<dbgl_param_curve *> ints(2);
+  vcl_vector<bgld_param_curve *> ints(2);
 /*
-  ints[0] = new dbgl_poly_curve_line(p0, p1);
-  ints[1] = new dbgl_poly_curve_line(p1, p2);
+  ints[0] = new bgld_poly_curve_line(p0, p1);
+  ints[1] = new bgld_poly_curve_line(p1, p2);
 
   bsold_interp_curve_2d c(ints);
   
@@ -45,15 +45,15 @@ MAIN( test_interp_curve_2d )
   TEST("tangent_angle_at() 1.5 ", vcl_fabs(c.tangent_angle_at(1.5)-0.0)<NearZeroValue, true);
   TEST("tangent_angle_at() end ", vcl_fabs(c.tangent_angle_at(2)-0.0)<NearZeroValue, true);
 
-//  dbgl_poly_curve_line b(start, end);
+//  bgld_poly_curve_line b(start, end);
 //  TEST("Operator == ", a == b, true);
 
-//  dbgl_poly_curve_line c(a);
+//  bgld_poly_curve_line c(a);
 //  TEST("Copy Constructor ", a == c, true);
 
   //: construct a line in reverse orientation
 //  vcl_cout << "Testing line in reverse direction\n";
-//  dbgl_poly_curve_line d(end, start);
+//  bgld_poly_curve_line d(end, start);
 //  TEST("line vs reverse line equality ", c == d, false);
 //  TEST("reverse line tangent_angle_at() ", vcl_fabs(d.tangent_angle_at(0.0)-PI)<NearZeroValue, true);
   
@@ -65,7 +65,7 @@ MAIN( test_interp_curve_2d )
 //  start.set(-2.0,0.0);
 //  end.set(0.0,2.0);
 //  center.set(-1.0,1.0);
-//  dbgl_poly_curve_line f(start, end);
+//  bgld_poly_curve_line f(start, end);
   
 //  TEST("Operator == ", a == f, false);
 

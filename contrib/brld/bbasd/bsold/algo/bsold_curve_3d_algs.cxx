@@ -5,11 +5,11 @@
 
 #include "bsold_curve_3d_algs.h"
 #include <bsold/bsold_interp_curve_3d.h>
-#include <dbgl/dbgl_eno_curve_3d.h>
-#include <dbgl/dbgl_linear_curve_3d.h>
+#include <bgld/bgld_eno_curve_3d.h>
+#include <bgld/bgld_linear_curve_3d.h>
 #include <vsol/vsol_polygon_2d.h>
 #include <vcl_iostream.h>
-#include <dbnl/algo/dbnl_eno_third_order.h>
+#include <bnld/algo/bnld_eno_third_order.h>
 #include <vnl/vnl_vector.h>
 
 
@@ -53,12 +53,12 @@ sample(bsold_interp_curve_3d const &c, int size,
 bool bsold_curve_3d_algs::interpolate_linear_3d(bsold_interp_curve_3d *c, vcl_vector<vsol_point_3d_sptr> const &pts)
 {
   int num_points = pts.size();
-  vcl_vector<dbgl_param_curve_3d *> ints(num_points-1);
+  vcl_vector<bgld_param_curve_3d *> ints(num_points-1);
   for(int i=0; i < num_points-1; i++)
   {
     vgl_vector_3d<double> start(pts[i]->x(), pts[i]->y(), pts[i]->z());
     vgl_vector_3d<double> end(pts[i+1]->x(), pts[i+1]->y(), pts[i+1]->z());
-    ints[i] = new dbgl_linear_curve_3d(start, end);
+    ints[i] = new bgld_linear_curve_3d(start, end);
   }
 
   c->make(ints);
@@ -101,15 +101,15 @@ bool bsold_curve_3d_algs::interpolate_eno_3d(bsold_interp_curve_3d *c,
     }
   }
 
-  dbnl_eno_third_order eno_x;
-  dbnl_eno_third_order eno_y;
-  dbnl_eno_third_order eno_z;
+  bnld_eno_third_order eno_x;
+  bnld_eno_third_order eno_y;
+  bnld_eno_third_order eno_z;
 
   eno_x.interpolate(sample_pts, data_x);
   eno_y.interpolate(sample_pts, data_y);
   eno_z.interpolate(sample_pts, data_z);
 
-  vcl_vector<dbgl_param_curve_3d *> ints(num_points-1);
+  vcl_vector<bgld_param_curve_3d *> ints(num_points-1);
 
   vcl_vector<double> coefs_x;
   vcl_vector<double> coefs_y;
@@ -123,8 +123,8 @@ bool bsold_curve_3d_algs::interpolate_eno_3d(bsold_interp_curve_3d *c,
       coefs_y.push_back(eno_y.coefficient(i, j));
       coefs_z.push_back(eno_z.coefficient(i, j));
     }
-//    ints[i] = new dbgl_eno_curve_3d(coefs_x, coefs_y, coefs_z, i, i+1);
-    ints[i] = new dbgl_eno_curve_3d(coefs_x, coefs_y, coefs_z, sample_pts[i], sample_pts[i+1]);
+//    ints[i] = new bgld_eno_curve_3d(coefs_x, coefs_y, coefs_z, i, i+1);
+    ints[i] = new bgld_eno_curve_3d(coefs_x, coefs_y, coefs_z, sample_pts[i], sample_pts[i+1]);
     coefs_x.clear();
     coefs_y.clear();
     coefs_z.clear();

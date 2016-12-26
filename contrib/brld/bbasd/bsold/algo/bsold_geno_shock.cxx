@@ -23,9 +23,9 @@ const double bsold_geno_shock::default_curvature_threshold
 // This function may be used without actually having an instance (object) of
 // eno_shock_1d. 
 bool bsold_geno_shock::
-test_change( dbgl_param_curve const   &prv,
-      dbgl_param_curve const   &cur, 
-      dbgl_param_curve const   &nxt,
+test_change( bgld_param_curve const   &prv,
+      bgld_param_curve const   &cur, 
+      bgld_param_curve const   &nxt,
       double tangent_threshold, 
       double curvature_threshold)
 {
@@ -41,14 +41,14 @@ test_change( dbgl_param_curve const   &prv,
 }
 
 bool bsold_geno_shock::
-test_change( dbgl_param_curve const   &, bsold_geno_measures const &prevm,
-      dbgl_param_curve const   &, bsold_geno_measures const &currm,
-      dbgl_param_curve const   &, bsold_geno_measures const &nextm,
+test_change( bgld_param_curve const   &, bsold_geno_measures const &prevm,
+      bgld_param_curve const   &, bsold_geno_measures const &currm,
+      bgld_param_curve const   &, bsold_geno_measures const &nextm,
       double tangent_threshold, 
       double curv_threshold )
 {
    // OBS: criterion slightly different than the one used in ENO
-   // TODO: compare with dbnl/algo/dbnl_eno_shock.cxx
+   // TODO: compare with bnld/algo/bnld_eno_shock.cxx
    
    double delta_tan, delta_curv;
 

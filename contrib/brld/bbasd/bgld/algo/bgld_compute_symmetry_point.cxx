@@ -5,7 +5,7 @@
 
 
 #include "bgld_compute_symmetry_point.h"
-#include <dbnl/dbnl_solve_trigonometric_equation.h>
+#include <bnld/bnld_solve_trigonometric_equation.h>
 #include <vnl/vnl_math.h>
 
 
@@ -108,7 +108,7 @@ void bgld_compute_symmetry_point_on_circ_arc(const bgld_circ_arc& right_bnd_arc,
 
     vcl_vector<double > cos_x;
     vcl_vector<double > sin_x;
-    dbnl_solve_1st_order_trig_equation(a, b, c, sin_x, cos_x);
+    bnld_solve_1st_order_trig_equation(a, b, c, sin_x, cos_x);
 
     if (cos_x.size() > 2) // degenerate
     {

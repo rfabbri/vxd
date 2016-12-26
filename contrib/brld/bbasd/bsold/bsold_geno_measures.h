@@ -4,25 +4,25 @@
 //:
 //\file
 //\brief Code to compute and store/cache some differential measures from
-// dbgl_param_curve's 
+// bgld_param_curve's 
 //
 // \author Ricardo Fabbri (RFabbri), Brown University
 // (rfabbri.github.io)
 //\date Wed Mar  2 20:04:27 EST 2005
 //
 
-#include <dbgl/dbgl_param_curve.h>
+#include <bgld/bgld_param_curve.h>
 #include <vnl/vnl_math.h>
 #include <vcl_iostream.h>
 
-//: Given a dbgl_param_curve, this class computes and stores/cache some useful
+//: Given a bgld_param_curve, this class computes and stores/cache some useful
 // measures.  Their primary purpose is to be used in shock detection.
 class bsold_geno_measures {
 public:
    bsold_geno_measures() {}
    ~bsold_geno_measures() {}
 
-   void compute(const dbgl_param_curve &c);
+   void compute(const bgld_param_curve &c);
    void print(vcl_ostream& = vcl_cerr) const;
 
    /// Accessors

@@ -15,7 +15,7 @@ const double  bsold_geno_measures::degrees_per_radian
  * and total_curvature.
  */
 void bsold_geno_measures::
-compute(const dbgl_param_curve &c)
+compute(const bgld_param_curve &c)
 {
    start_tangent_ = c.tangent_angle_at(0);
    start_tangent_ = c.tangent_angle_at(1);

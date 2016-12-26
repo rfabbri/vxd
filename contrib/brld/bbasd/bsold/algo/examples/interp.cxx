@@ -1,7 +1,7 @@
 #include <bsold/algo/bsold_curve_algs.h>
 #include <bsold/algo/bsold_geno.h>
 #include <bsold/bsold_interp_curve_2d.h>
-#include <dbgl/dbgl_arc.h>
+#include <bgld/bgld_arc.h>
 #include <vsol/vsol_point_2d.h>
 #include <vcl_iostream.h>
 //: Interpolation example

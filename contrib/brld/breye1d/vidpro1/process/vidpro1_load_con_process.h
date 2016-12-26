@@ -19,7 +19,7 @@
 //  Amir Tamrakar 07/25/2005   Modified so that it can load all files in the 
 //                             directory
 //
-//  Amir Tamrakar 05/15/2008   Now using dbsol to load the cons. Also allowed for loading 
+//  Amir Tamrakar 05/15/2008   Now using bsold to load the cons. Also allowed for loading 
 //                             all the con files in a directory to the same frame
 //
 // \endverbatim

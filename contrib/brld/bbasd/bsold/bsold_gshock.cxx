@@ -1,6 +1,6 @@
 #include "bsold_gshock.h"
 #include <vcl_cmath.h>
-#include <dbgl/algo/dbgl_arc_algo.h>
+#include <bgld/algo/bgld_arc_algo.h>
 
 #if !VCL_STATIC_CONST_INIT_FLOAT_NO_DEFN
 const double bsold_gshock::default_shock_point_dist_threshold
@@ -8,17 +8,17 @@ const double bsold_gshock::default_shock_point_dist_threshold
 #endif
 
 unsigned bsold_gshock::
-make(const dbgl_param_curve *prv, const dbgl_param_curve *cur,
-     const dbgl_param_curve *nxt, const double shock_point_dist_threshold)
+make(const bgld_param_curve *prv, const bgld_param_curve *cur,
+     const bgld_param_curve *nxt, const double shock_point_dist_threshold)
 {
    unsigned n_intercepts;
    double mid_x, mid_y, d1, d2;
    vgl_point_2d<double> i1, i2;
 
-   const dbgl_arc *aprv, *acur, *anxt;
-   aprv = dynamic_cast<const dbgl_arc *> (prv);
-   acur = dynamic_cast<const dbgl_arc *> (cur);
-   anxt = dynamic_cast<const dbgl_arc *> (nxt);
+   const bgld_arc *aprv, *acur, *anxt;
+   aprv = dynamic_cast<const bgld_arc *> (prv);
+   acur = dynamic_cast<const bgld_arc *> (cur);
+   anxt = dynamic_cast<const bgld_arc *> (nxt);
 
    if (!aprv || !acur || !anxt) {
      vcl_cerr << "bsold_shock::make - only arcs are currently supported" << vcl_endl;
@@ -30,7 +30,7 @@ make(const dbgl_param_curve *prv, const dbgl_param_curve *cur,
    mid_x = (cur->point_at(0).x() + cur->point_at(1).x()) / 2;
    mid_y = (cur->point_at(0).y() + cur->point_at(1).y()) / 2;
 
-   n_intercepts = dbgl_arc_algo::
+   n_intercepts = bgld_arc_algo::
       compute_intersections( *aprv, *anxt, &i1, &i2);
 
    if (n_intercepts == 1) {
@@ -67,7 +67,7 @@ make(const dbgl_param_curve *prv, const dbgl_param_curve *cur,
 
 //: TODO: what does this do exactly?
 bool bsold_gshock::
-fix_outofbound_shock(const dbgl_arc *prv, const dbgl_arc *cur, const dbgl_arc *nxt)
+fix_outofbound_shock(const bgld_arc *prv, const bgld_arc *cur, const bgld_arc *nxt)
 {
    vgl_point_2d<double> pcenter, ncenter;
 

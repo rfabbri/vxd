@@ -1,6 +1,6 @@
-// This is dbgl_gshock_sptr.h
-#ifndef dbgl_gshock_sptr_h
-#define dbgl_gshock_sptr_h
+// This is bgld_gshock_sptr.h
+#ifndef bgld_gshock_sptr_h
+#define bgld_gshock_sptr_h
 //:
 //\file
 //\brief Smart pointer to GENO shock
@@ -15,5 +15,5 @@ class bsold_gshock;
 typedef vbl_smart_ptr<bsold_gshock> bsold_gshock_sptr;
 
 
-#endif // dbgl_gshock_sptr_h
+#endif // bgld_gshock_sptr_h
 

@@ -19,7 +19,7 @@
 #include <vul/vul_file.h>
 #include <vul/vul_file_iterator.h>
 
-#include <dbsol/dbsol_file_io.h>
+#include <bsold/bsold_file_io.h>
 
 vidpro1_load_con_process::vidpro1_load_con_process() : bpro1_process(), num_frames_(0)
 {
@@ -82,7 +82,7 @@ bool vidpro1_load_con_process::execute()
   
       //load the con file      
       vcl_vector< vsol_spatial_object_2d_sptr > contours;
-      contours.push_back(dbsol_load_con_file(input_file.c_str()));
+      contours.push_back(bsold_load_con_file(input_file.c_str()));
 
       if (!bsame_frame){
         // create the output storage class
@@ -112,7 +112,7 @@ bool vidpro1_load_con_process::execute()
 
     //load the con file      
     vcl_vector< vsol_spatial_object_2d_sptr > contours;
-    contours.push_back(dbsol_load_con_file(input_file.c_str()));
+    contours.push_back(bsold_load_con_file(input_file.c_str()));
 
     output_vsol->add_objects(contours, input_file);
 

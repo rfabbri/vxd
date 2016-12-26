@@ -12,7 +12,7 @@
 #include <vnl/vnl_math.h>
 #include <vul/vul_file.h>
 #include <vul/vul_file_iterator.h>
-#include <dbsol/dbsol_file_io.h>
+#include <bsold/bsold_file_io.h>
 
 vidpro1_load_cem_process::vidpro1_load_cem_process() : bpro1_process(), num_frames_(0)
 {
@@ -78,7 +78,7 @@ bool vidpro1_load_cem_process::execute()
       vcl_string input_file = input_files.back();
   
       vcl_vector< vsol_spatial_object_2d_sptr > contours;
-      dbsol_load_cem(contours, input_file);
+      bsold_load_cem(contours, input_file);
 
       // create the output storage class
       vidpro1_vsol2D_storage_sptr new_cem = vidpro1_vsol2D_storage_new();
@@ -96,7 +96,7 @@ bool vidpro1_load_cem_process::execute()
     vcl_string input_file = input_file_path;
 
     vcl_vector< vsol_spatial_object_2d_sptr > contours;
-    dbsol_load_cem(contours, input_file);
+    bsold_load_cem(contours, input_file);
 
     // create the output storage class
     vidpro1_vsol2D_storage_sptr new_cem = vidpro1_vsol2D_storage_new();
