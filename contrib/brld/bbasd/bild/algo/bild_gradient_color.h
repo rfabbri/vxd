@@ -1,4 +1,4 @@
-// This is basic/dbgl/algo/dbil_gradient_color.h
+// This is bbasd/bgld/algo/dbil_gradient_color.h
 
 #ifndef dbil_gradient_color_h_
 #define dbil_gradient_color_h_
@@ -30,5 +30,5 @@ bool dbil_gradient_rgb_Linf(const vil_image_view<double >& src,
                           vil_image_view<double >& Gy);
 
 
-#endif // basic/dbgl/algo/dbil_gradient_color.h
+#endif // bbasd/bgld/algo/dbil_gradient_color.h
 

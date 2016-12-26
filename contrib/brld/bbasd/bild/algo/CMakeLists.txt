@@ -25,7 +25,7 @@ add_library( dbil_algo ${dbil_algo_sources} )
 target_link_libraries( dbil_algo vil_algo vul)
 
 if(OCTAVE_FOUND)
-    target_link_libraries(dbil_algo dbul)
+    target_link_libraries(dbil_algo buld)
 endif(OCTAVE_FOUND)
 
 if( BUILD_TESTING )

@@ -1,4 +1,4 @@
-// This is basic/dbgl/algo/dbil_gradient_color.cxx
+// This is bbasd/bgld/algo/dbil_gradient_color.cxx
 //:
 // \file
 

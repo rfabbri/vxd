@@ -10,7 +10,7 @@
 
 #include <vcl_iostream.h>
 
-vil_image_resource_sptr dbil_convert_octave_array_to_image_resource(const dbul_octave_uint8_array& oct_array)
+vil_image_resource_sptr dbil_convert_octave_array_to_image_resource(const buld_octave_uint8_array& oct_array)
 {
     dim_vector dv = oct_array.dims();
     int height = dv(0);
@@ -35,18 +35,18 @@ vil_image_resource_sptr dbil_convert_octave_array_to_image_resource(const dbul_o
     return img_ptr;
 }
 
-vil_image_resource_sptr dbil_octave_imresize(const dbul_octave_value& image_src, double factor, const vcl_string& interp)
+vil_image_resource_sptr dbil_octave_imresize(const buld_octave_value& image_src, double factor, const vcl_string& interp)
 {
-    dbul_octave_argument_list function_arguments;
-    dbul_octave_argument_list return_argument;
+    buld_octave_argument_list function_arguments;
+    buld_octave_argument_list return_argument;
     function_arguments(0) = image_src;
     function_arguments(1) = factor;
     function_arguments(2) = interp.c_str();
-    dbul_octave.run("", "imresize", function_arguments, return_argument);
-    return dbil_convert_octave_array_to_image_resource(dbul_octave_value_to_octave_uint8_array(return_argument(0)));
+    buld_octave.run("", "imresize", function_arguments, return_argument);
+    return dbil_convert_octave_array_to_image_resource(buld_octave_value_to_octave_uint8_array(return_argument(0)));
 }
 
-vil_image_resource_sptr dbil_octave_imresize(const dbul_octave_value& image_src, double factor)
+vil_image_resource_sptr dbil_octave_imresize(const buld_octave_value& image_src, double factor)
 {
     return dbil_octave_imresize(image_src, factor, "nearest");
 }
