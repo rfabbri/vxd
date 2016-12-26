@@ -1,0 +1,8 @@
+// The following text is included in the main documentation page by doxygen
+/*! \mainpage dbsol : Development Brown Spatial Objects Library
+* A collection of numerical routines augmenting vsol
+*
+* This library provides interpolation algorithms and the interpolated curve
+* class.
+*
+*/

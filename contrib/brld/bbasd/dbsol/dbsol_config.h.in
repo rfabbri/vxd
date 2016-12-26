@@ -1,0 +1,17 @@
+// This is dbsol_config.h
+#ifndef dbsol_config_h
+#define dbsol_config_h
+//:
+//\file
+//\brief 
+//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@lems.brown.edu)
+//\date 09/16/2009 01:38:11 PM PDT
+//
+
+#cmakedefine Boost_FOUND
+#ifdef Boost_FOUND
+#define HAS_BOOST 1
+#endif
+
+#endif // dbsol_config_h
+
