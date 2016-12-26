@@ -1,6 +1,7 @@
 # The Development Brown Numerical Library - Specific Algorithms
 include_directories( ${vxl_SOURCE_DIR} )
 include_directories( ${VXL_NETLIB_INCLUDE_DIR} )
+include_directories( ${B3PD_INCLUDE_DIR} )
 
 set( bnld_algo_sources
    bnld_eno.cxx               bnld_eno.h
