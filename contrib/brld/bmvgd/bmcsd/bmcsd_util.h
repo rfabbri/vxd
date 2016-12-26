@@ -112,12 +112,12 @@ bmcsd_normal_correspondence_line(
 
 
 #define bmcsd_tolerance 1e-7
-#define MW_ROUND(X)        ((int)((X)+0.5))
+#define BMCSD_ROUND(X)        ((int)((X)+0.5))
 
 class bmcsd_util {
 public:
 
-  typedef enum {MW_INTRINSIC_EXTRINSIC, MW_3X4} camera_file_type;
+  typedef enum {BMCS_INTRINSIC_EXTRINSIC, BMCS_3X4} camera_file_type;
 
   static bool near_zero(double x) { return vcl_fabs(x) < bmcsd_tolerance; }
   static bool near_zero(double x,double tol) { return vcl_fabs(x) < tol; }
@@ -429,6 +429,6 @@ struct bmcsd_dereference_less {
 };
 
 
-#define MW_UTIL_INSTANTIATE(T) extern "please include bmcsd/bmcsd_util.hxx first"
+#define BMCSD_UTIL_INSTANTIATE(T) extern "please include bmcsd/bmcsd_util.hxx first"
 
 #endif // bmcsd_util_h

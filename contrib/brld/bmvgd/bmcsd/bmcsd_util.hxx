@@ -17,8 +17,8 @@ parse_num_list(const vcl_string &stringlist, vcl_vector<T> *values)
     values->push_back(value);
 }
 
-#undef MW_UTIL_INSTANTIATE
-#define MW_UTIL_INSTANTIATE(T) \
+#undef BMCSD_UTIL_INSTANTIATE
+#define BMCSD_UTIL_INSTANTIATE(T) \
 template void bmcsd_util::parse_num_list(const vcl_string &stringlist, vcl_vector<T> *values);
 
 #endif // bmcsd_util_txx_

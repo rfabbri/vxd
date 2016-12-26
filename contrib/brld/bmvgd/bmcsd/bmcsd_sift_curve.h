@@ -1,6 +1,6 @@
 // This is bmcsd_sift_curve.h
-#ifndef MW_SIFT_CURVE_H
-#define MW_SIFT_CURVE_H
+#ifndef BMCSD_SIFT_CURVE_H
+#define BMCSD_SIFT_CURVE_H
 //:
 //\file
 //\brief A sequence of sift features along a curve
@@ -12,7 +12,7 @@
 #include <vcl_iomanip.h>
 #include <vnl/vnl_vector_fixed.h>
 
-#define MW_SIFT_CURVE_NUM_DIMS 128
+#define BMCSD_SIFT_CURVE_NUM_DIMS 128
 
 class bmcsd_sift_curve {
 private:
@@ -124,5 +124,5 @@ private:
   vcl_vector< vcl_vector<bool> > valid_;
 };
 
-#endif // MW_SIFT_CURVE_H
+#endif // BMCSD_SIFT_CURVE_H
 

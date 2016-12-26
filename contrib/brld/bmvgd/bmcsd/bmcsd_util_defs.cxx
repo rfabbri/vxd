@@ -110,7 +110,7 @@ bool
 con_filenames(vcl_string image_fname,vcl_vector<vcl_string> &con_fnames)
 {
 
-   vcl_string cmdline("/home/rfabbri/cprg/vxlprg/lemsvxlsrc/contrib/rfabbri/bmcsd/scripts/confiles ");
+   vcl_string cmdline("/home/rfabbri/cprg/vxlprg/lemsvxlsrc/contrib/bmvgd/bmcsd/scripts/confiles ");
    cmdline.append(image_fname);
    if (system(cmdline.c_str()) == -1) {
       vcl_cerr << "error trying to exec helper script confiles" << vcl_endl;
@@ -1300,13 +1300,13 @@ read_cam_anytype(vcl_string fname, camera_file_type type,
   vpgl_perspective_camera<double> *cam)
 {
   switch (type) {
-    case bmcsd_util::MW_INTRINSIC_EXTRINSIC:
+    case bmcsd_util::BMCS_INTRINSIC_EXTRINSIC:
       vcl_cout << "Reading camera: intrinsic/extrinsic, fname = " << fname << vcl_endl;
       if (! read_cam(fname, cam) )
         return false;
     break;
 
-    case bmcsd_util::MW_3X4:
+    case bmcsd_util::BMCS_3X4:
       vcl_cout << "Reading camera: 3x4 matrix, fname = " << fname << vcl_endl;
       if (! read_3x4_matrix_into_cam(fname, cam) )
          return false;
@@ -1328,7 +1328,7 @@ write_cams(vcl_string dir, vcl_string prefix, camera_file_type type,
   }
 
   switch (type) {
-    case bmcsd_util::MW_INTRINSIC_EXTRINSIC: {
+    case bmcsd_util::BMCS_INTRINSIC_EXTRINSIC: {
       vcl_cout << "Writing camera: intrinsic/extrinsic, dir = " << dir << vcl_endl;
 
       { // Intrinsics
@@ -1369,7 +1369,7 @@ write_cams(vcl_string dir, vcl_string prefix, camera_file_type type,
       return true;
     } break;
 
-    case bmcsd_util::MW_3X4:
+    case bmcsd_util::BMCS_3X4:
       vcl_cout << "Writing camera: 3x4 matrix, dir = " << dir << vcl_endl;
       vcl_cerr << "Error: Not supported\n";
       return false;
@@ -1396,7 +1396,7 @@ write_cams(
   assert(cam_fname_noexts.size() == cam.size());
 
   switch (type) {
-    case bmcsd_util::MW_INTRINSIC_EXTRINSIC: {
+    case bmcsd_util::BMCS_INTRINSIC_EXTRINSIC: {
       vcl_cout << "Writing camera: intrinsic/extrinsic, dir = " << dir << vcl_endl;
 
       { // Intrinsics
@@ -1435,7 +1435,7 @@ write_cams(
       return true;
     } break;
 
-    case bmcsd_util::MW_3X4:
+    case bmcsd_util::BMCS_3X4:
       vcl_cout << "Writing camera: 3x4 matrix, dir = " << dir << vcl_endl;
       vcl_cerr << "Error: Not supported\n";
       return false;
