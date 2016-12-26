@@ -1,7 +1,7 @@
 SHORT TERM
 
-- rename dbnl_eno_zerox_label to dbnl_eno_zerox_label_1d
--  " "   dbnl_eno_zerox_label to dbnl_eno_zerox_label_1d
+- rename bnld_eno_zerox_label to bnld_eno_zerox_label_1d
+-  " "   bnld_eno_zerox_label to bnld_eno_zerox_label_1d
 
 - write down weak cases of the algorithm (e.g. shocks with no intersection, etc)
 

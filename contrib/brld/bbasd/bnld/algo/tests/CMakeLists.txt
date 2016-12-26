@@ -1,6 +1,6 @@
-# This is lemsvxlsrc/basic/dbnl/algo/tests
+# This is lemsvxlsrc/bbasd/bnld/algo/tests
 
-add_executable ( dbnl_algo_test_all
+add_executable ( bnld_algo_test_all
    # Driver source and utilities
    test_driver.cxx
 
@@ -15,17 +15,17 @@ add_executable ( dbnl_algo_test_all
    test_brent_root.cxx
 )
 
-target_link_libraries( dbnl_algo_test_all dbnl_algo testlib )
+target_link_libraries( bnld_algo_test_all bnld_algo testlib )
 
-add_test( dbnl_algo_test_eno_poly         dbnl_algo_test_all test_eno_poly )
-add_test( dbnl_algo_test_eno_interp       dbnl_algo_test_all test_eno_interp)
-add_test( dbnl_algo_test_eno_zerox        dbnl_algo_test_all test_eno_zerox )
-add_test( dbnl_algo_test_eno_1d           dbnl_algo_test_all test_eno_1d)
-add_test( dbnl_algo_test_eno_image        dbnl_algo_test_all test_eno_image)
-add_test( dbnl_algo_test_eno_shock_1d     dbnl_algo_test_all test_eno_shock_1d)
-add_test( dbnl_algo_test_eno_third_order  dbnl_algo_test_all test_eno_third_order)
+add_test( bnld_algo_test_eno_poly         bnld_algo_test_all test_eno_poly )
+add_test( bnld_algo_test_eno_interp       bnld_algo_test_all test_eno_interp)
+add_test( bnld_algo_test_eno_zerox        bnld_algo_test_all test_eno_zerox )
+add_test( bnld_algo_test_eno_1d           bnld_algo_test_all test_eno_1d)
+add_test( bnld_algo_test_eno_image        bnld_algo_test_all test_eno_image)
+add_test( bnld_algo_test_eno_shock_1d     bnld_algo_test_all test_eno_shock_1d)
+add_test( bnld_algo_test_eno_third_order  bnld_algo_test_all test_eno_third_order)
 
 
-add_executable( dbnl_algo_test_include test_include.cxx )
-target_link_libraries( dbnl_algo_test_include dbnl_algo )
+add_executable( bnld_algo_test_include test_include.cxx )
+target_link_libraries( bnld_algo_test_include bnld_algo )
 
