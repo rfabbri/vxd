@@ -2,7 +2,7 @@
 
 //:
 // \file
-// \author Firat Kalaycilar (firat@lems.brown.edu)
+// \author Based on original code by  Firat Kalaycilar (@lems.brown.edu)
 // \date   Mar 8, 2010
 // \brief 
 //

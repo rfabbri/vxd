@@ -3,7 +3,7 @@
 //:
 // \file
 // \brief
-// \author Firat Kalaycilar (firat@lems.brown.edu)
+// \author Based on original code by  Firat Kalaycilar (@lems.brown.edu)
 // \date Feb 09, 2010
 
 //  -i ~/Desktop/input.txt -h /home/firat/lemsvxl/src/contrib/firat/any2cpp/test/test.h -c /home/firat/lemsvxl/src/contrib/firat/any2cpp/test/test.cxx -e extractTestFiles -d deleteTestFiles

@@ -4,7 +4,7 @@
 #endif
 //:
 // \file
-// \author Matt Leotta (Brown)
+// \author Based on original code by  Matt Leotta (Brown)
 // \date   October 28, 2005
 
 #include "dbul_solar_position.h"

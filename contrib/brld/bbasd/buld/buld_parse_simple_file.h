@@ -9,7 +9,7 @@
 // \brief Parsing simple commonly-used files
 //
 //
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date   September 18, 2008
 //
 // \verbatim

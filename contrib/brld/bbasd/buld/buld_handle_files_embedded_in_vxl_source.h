@@ -3,7 +3,7 @@
 //:
 // \file
 // \brief
-// \author Firat Kalaycilar (firat@lems.brown.edu)
+// \author Based on original code by  Firat Kalaycilar (@lems.brown.edu)
 // \date Feb 09, 2010
 
 #ifndef DBUL_HANDLE_FILES_EMBEDDED_IN_VXL_SOURCE_H_

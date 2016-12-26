@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Directory and file read/write utilities
-// \author Ming-Ching Chang
+// \author Based on original code by  Ming-Ching Chang
 // \date   Mar 07, 2007
 //
 // \verbatim

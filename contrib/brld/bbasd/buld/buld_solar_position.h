@@ -16,7 +16,7 @@
 //     the University of Western Australia, Jan.
 //
 //
-// \author Matt Leotta (Brown)
+// \author Based on original code by  Matt Leotta (Brown)
 // \date   October 28, 2005
 //
 // \verbatim

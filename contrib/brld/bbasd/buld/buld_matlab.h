@@ -3,7 +3,7 @@
 //:
 // \file
 // \brief
-// \author Firat Kalaycilar (firat@lems.brown.edu)
+// \author Based on original code by  Firat Kalaycilar (@lems.brown.edu)
 // \date Mar 24, 2010
 // Implementation is incomplete. Required features will be added as needed.
 
