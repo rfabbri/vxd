@@ -1,7 +1,7 @@
-#include "dbnl_eno_zerox_image.h"
+#include "bnld_eno_zerox_image.h"
 
-dbnl_eno_zerox_image::
-dbnl_eno_zerox_image(dbnl_eno_image &eim)
+bnld_eno_zerox_image::
+bnld_eno_zerox_image(bnld_eno_image &eim)
 {
   ni_ = eim.ni();
   nj_ = eim.nj();
@@ -10,16 +10,16 @@ dbnl_eno_zerox_image(dbnl_eno_image &eim)
   vert_.resize(ni_);
 
   for (unsigned j=0; j < nj_; ++j)
-    horiz_[j] = new dbnl_eno_zerox_vector( eim.horiz(j) );
+    horiz_[j] = new bnld_eno_zerox_vector( eim.horiz(j) );
 
   for (unsigned i=0; i < ni_; ++i)
-    vert_[i] = new dbnl_eno_zerox_vector( eim.vert(i) );
+    vert_[i] = new bnld_eno_zerox_vector( eim.vert(i) );
 
 }
 
 
-dbnl_eno_zerox_image::
-~dbnl_eno_zerox_image()
+bnld_eno_zerox_image::
+~bnld_eno_zerox_image()
 {
   for (unsigned i=0; i < ni_; ++i)
     delete vert_[i];
@@ -35,7 +35,7 @@ dbnl_eno_zerox_image::
 }
 
 void 
-dbnl_eno_zerox_image::
+bnld_eno_zerox_image::
 print(vcl_ostream& strm) const
 {
 
@@ -48,12 +48,12 @@ print(vcl_ostream& strm) const
 
 
 //: Compute labels
-bool dbnl_eno_zerox_image::
+bool bnld_eno_zerox_image::
 assign_labels(const vil_image_view<double> &img, const vil_image_view<unsigned> &label)
 {
 
   if (!label.is_contiguous() || label.istep() != 1) {
-    vcl_cerr << "dbnl_eno_zerox_image::assign_labels : only contigous row-wise (col,row) images supported\n";
+    vcl_cerr << "bnld_eno_zerox_image::assign_labels : only contigous row-wise (col,row) images supported\n";
     return false;
   }
 
@@ -64,7 +64,7 @@ assign_labels(const vil_image_view<double> &img, const vil_image_view<unsigned> 
   const double *img_data = img.top_left_ptr();
 
   for (unsigned j=0; j < nj_; ++j)
-    hlabel_[j] = new dbnl_eno_zerox_label( img_data + j*ni_, label_data + j*ni_, horiz(j) );
+    hlabel_[j] = new bnld_eno_zerox_label( img_data + j*ni_, label_data + j*ni_, horiz(j) );
 
   unsigned *buffer;    //:< an image column as contigous block
   double   *imgbuffer; //:< an image column as contigous block
@@ -76,7 +76,7 @@ assign_labels(const vil_image_view<double> &img, const vil_image_view<unsigned> 
       buffer[j]    = label(i,j);
       imgbuffer[j] = img(i,j);
     }
-    vlabel_[i] = new dbnl_eno_zerox_label(imgbuffer, buffer, vert(i));
+    vlabel_[i] = new bnld_eno_zerox_label(imgbuffer, buffer, vert(i));
   }
 
   delete [] buffer;

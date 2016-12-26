@@ -1,5 +1,5 @@
-#ifndef dbnl_matrix_multiply_h
-#define dbnl_matrix_multiply_h
+#ifndef bnld_matrix_multiply_h
+#define bnld_matrix_multiply_h
 
 #include <vnl/vnl_matrix.h>
 

@@ -1,7 +1,7 @@
-// This is basic/dbnl/dbnl_fresnel.h
+// This is bbasd/bnld/bnld_fresnel.h
 
-#ifndef dbnl_fresnel_h_
-#define dbnl_fresnel_h_
+#ifndef bnld_fresnel_h_
+#define bnld_fresnel_h_
 
 //:
 // \file
@@ -21,6 +21,6 @@
 // FresnelC = int(cos(pi/2 * t^2), t = 0..x);
 // FresnelS = int(sin(pi/2 * t^2), t = 0..x);
 // Return: fs is Fresnel cosin integral, fc is Frenel sine integral
-void dbnl_fresnel_integral(double x, double* fresnel_cos, double* fresnel_sin);
+void bnld_fresnel_integral(double x, double* fresnel_cos, double* fresnel_sin);
 
-#endif // basic/dbnl/dbnl_fresnel.h
+#endif // bbasd/bnld/bnld_fresnel.h

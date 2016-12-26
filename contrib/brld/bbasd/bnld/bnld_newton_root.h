@@ -1,7 +1,7 @@
-// This is basic/dbnl/algo/dbnl_newton_root.h
+// This is bbasd/bnld/algo/bnld_newton_root.h
 
-#ifndef dbnl_newton_root_h_
-#define dbnl_newton_root_h_
+#ifndef bnld_newton_root_h_
+#define bnld_newton_root_h_
 
 //:
 // \file
@@ -22,11 +22,11 @@
 // ISBN 0-521-43108-5
 
 
-class dbnl_newton_root_func
+class bnld_newton_root_func
 {
 public:
-  dbnl_newton_root_func(){};
-  virtual ~dbnl_newton_root_func(){};
+  bnld_newton_root_func(){};
+  virtual ~bnld_newton_root_func(){};
   virtual double f(double x){ return 0; };
   virtual double df( double x){ return 0; };
   void compute(double x, double *f, double *df){
@@ -36,7 +36,7 @@ public:
 };
 
 
-bool dbnl_newton_secant_root( dbnl_newton_root_func& funcd, 
+bool bnld_newton_secant_root( bnld_newton_root_func& funcd, 
                               double x1, double x2, double xacc, double *root);
 
-#endif // basic/dbnl/dbnl_fresnel.h
+#endif // bbasd/bnld/bnld_fresnel.h

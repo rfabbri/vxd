@@ -1,19 +1,19 @@
-#include "dbnl_eno_zerox_label.h"
+#include "bnld_eno_zerox_label.h"
 #include <stdio.h>
 
 #if !VCL_STATIC_CONST_INIT_INT_NO_DEFN
-const unsigned dbnl_eno_zerox_label::unlabeled
+const unsigned bnld_eno_zerox_label::unlabeled
       VCL_STATIC_CONST_INIT_INT_DEFN((unsigned)-1);
 
-const unsigned dbnl_eno_zerox_label::maxzeros
+const unsigned bnld_eno_zerox_label::maxzeros
       VCL_STATIC_CONST_INIT_INT_DEFN(4);
 #endif
 
-dbnl_eno_zerox_label::
-  dbnl_eno_zerox_label(
+bnld_eno_zerox_label::
+  bnld_eno_zerox_label(
       const double *data,
       const unsigned *label,
-      const dbnl_eno_zerox_vector &zc)
+      const bnld_eno_zerox_vector &zc)
   :
   label_(4*zc.size(),unlabeled)
 {
@@ -32,10 +32,10 @@ dbnl_eno_zerox_label::
   }
 }
 
-void dbnl_eno_zerox_label::
+void bnld_eno_zerox_label::
 label_one_zerox_in_interval(
     unsigned pos,
-    const dbnl_eno_zero_crossing &, 
+    const bnld_eno_zero_crossing &, 
     const double *data, 
     const unsigned *data_label)
 {
@@ -47,7 +47,7 @@ label_one_zerox_in_interval(
   if (start > 0 && end > 0){
     printf("Both end points can't be +ve with one zerox\n");
     printf("Loc=%d; start=%g; end=%g",pos, start,end);
-    label_[maxzeros*pos]=dbnl_eno_zerox_label::unlabeled;
+    label_[maxzeros*pos]=bnld_eno_zerox_label::unlabeled;
   } 
   else if (start > 0)
     label_[maxzeros*pos]=data_label[pos];
@@ -56,15 +56,15 @@ label_one_zerox_in_interval(
   else {
     printf("Both end points can't be -ve with one zerox\n");
     printf("Loc=%d; start=%g; end=%g",pos, start,end);
-    label_[maxzeros*pos] =dbnl_eno_zerox_label::unlabeled;
+    label_[maxzeros*pos] =bnld_eno_zerox_label::unlabeled;
   }
 }
 
 void
-dbnl_eno_zerox_label::
+bnld_eno_zerox_label::
 label_two_zerox_in_interval(
     unsigned pos,
-    const dbnl_eno_zero_crossing &zc_i, 
+    const bnld_eno_zero_crossing &zc_i, 
     const double *data, 
     const unsigned *data_label)
 {
@@ -93,14 +93,14 @@ label_two_zerox_in_interval(
         << vcl_endl << "Start: " << start << " End: "
         << end << " Pos: " << pos << vcl_endl;
     /*If end points are -ve cannot label the zerox*/
-    label_[maxzeros*pos]=dbnl_eno_zerox_label::unlabeled;
-    label_[maxzeros*pos+1]=dbnl_eno_zerox_label::unlabeled;
+    label_[maxzeros*pos]=bnld_eno_zerox_label::unlabeled;
+    label_[maxzeros*pos+1]=bnld_eno_zerox_label::unlabeled;
   }
 }
 
-//: print alongside dbnl_eno_1d and zerox
-void dbnl_eno_zerox_label::
-print(dbnl_eno_1d &eno, dbnl_eno_zerox_vector &zc, vcl_ostream& strm) const
+//: print alongside bnld_eno_1d and zerox
+void bnld_eno_zerox_label::
+print(bnld_eno_1d &eno, bnld_eno_zerox_vector &zc, vcl_ostream& strm) const
 {
    strm << "==== Eno 1D with Labeled Zerocrossings ====" << vcl_endl
         << "len: " << eno.size() << vcl_endl;

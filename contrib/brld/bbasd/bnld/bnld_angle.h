@@ -1,7 +1,7 @@
-// This is basic/dbnl/dbnl_angle.h
+// This is bbasd/bnld/bnld_angle.h
 
-#ifndef dbnl_angle_h_
-#define dbnl_angle_h_
+#ifndef bnld_angle_h_
+#define bnld_angle_h_
 
 #ifdef VCL_NEEDS_PRAGMA_INTERFACE
 #pragma interface
@@ -24,7 +24,7 @@
 
 //: Convert an angle to [0, 2pi) range
 template <class T>
-inline T dbnl_angle_0to2pi(T angle_in_radian)
+inline T bnld_angle_0to2pi(T angle_in_radian)
 {
   const T twopi = static_cast<T>(6.28318530717958647692); //2*3.14159265358979323846;
   T x = vcl_fmod(angle_in_radian, twopi);
@@ -39,7 +39,7 @@ inline T dbnl_angle_0to2pi(T angle_in_radian)
 // Since angles are circular, the smallest angle is chosen to minimize the overall 
 // range of the ange list. As a result, some angles may become larger than 2pi.
 template <class T >
-inline void dbnl_angle_sort_ascending(T* angle_array_in_radian, unsigned num_pts)
+inline void bnld_angle_sort_ascending(T* angle_array_in_radian, unsigned num_pts)
 {
   // START HERE
   if (num_pts == 0) return;
@@ -55,7 +55,7 @@ inline void dbnl_angle_sort_ascending(T* angle_array_in_radian, unsigned num_pts
   // convert to 0 to 2pi
   for (unsigned i =0; i < num_pts; ++i)
   {
-    x[i] = dbnl_angle_0to2pi(x[i]);
+    x[i] = bnld_angle_0to2pi(x[i]);
   }
 
   // sort the angles
@@ -101,4 +101,4 @@ inline void dbnl_angle_sort_ascending(T* angle_array_in_radian, unsigned num_pts
 
 
 
-#endif // basic/dbnl/dbnl_angle.h
+#endif // bbasd/bnld/bnld_angle.h

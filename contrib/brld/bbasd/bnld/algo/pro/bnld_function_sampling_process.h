@@ -1,10 +1,10 @@
-// This is basic/dbnl/algo/pro/dbnl_function_sampling_process_h_
-#ifndef dbnl_function_sampling_process_h_
-#define dbnl_function_sampling_process_h_
+// This is bbasd/bnld/algo/pro/bnld_function_sampling_process_h_
+#ifndef bnld_function_sampling_process_h_
+#define bnld_function_sampling_process_h_
 
 //:
 // \file
-// \brief A process for upsampling a dbnl_eno object (or other continuous
+// \brief A process for upsampling a bnld_eno object (or other continuous
 // functions). Interpolates input vsol's
 //
 // \author Based on original code by  Ricardo Fabbri
@@ -20,11 +20,11 @@
 #include <vidpro1/storage/vidpro1_vsol2D_storage_sptr.h>
 #include <vcl_vector.h>
 
-class dbnl_function_sampling_process : public bpro1_process
+class bnld_function_sampling_process : public bpro1_process
 {
 public:
-  dbnl_function_sampling_process();
-  ~dbnl_function_sampling_process() {}
+  bnld_function_sampling_process();
+  ~bnld_function_sampling_process() {}
   
   vcl_string name() {
     return "Sample Function";
@@ -53,4 +53,4 @@ public:
 protected:
 };
 
-#endif // dbnl_function_sampling_process_h_
+#endif // bnld_function_sampling_process_h_

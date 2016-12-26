@@ -1,6 +1,6 @@
 #include <testlib/testlib_test.h>
-#include <dbnl/algo/dbnl_eno_image.h>
-#include <dbnl/algo/dbnl_eno_zerox_image.h>
+#include <bnld/algo/bnld_eno_image.h>
+#include <bnld/algo/bnld_eno_zerox_image.h>
 #include <vcl_iostream.h>
 #include <vcl_limits.h>
 #include <vil/vil_fill.h>
@@ -9,7 +9,7 @@
 
 
 //static double p1(double x);
-//static void test_interval(double x, double x_ref, dbnl_eno_1d &e,double tol);
+//static void test_interval(double x, double x_ref, bnld_eno_1d &e,double tol);
 
 MAIN( test_eno_image )
 {
@@ -40,12 +40,12 @@ MAIN( test_eno_image )
 
   vil_print_all(vcl_cout,image);
 
-  dbnl_eno_image eim;
+  bnld_eno_image eim;
 
   eim.interpolate(&image);
   eim.print();
 
-  dbnl_eno_zerox_image zim(eim);
+  bnld_eno_zerox_image zim(eim);
   zim.print();
   zim.assign_labels(image,label);
   zim.print();
@@ -55,7 +55,7 @@ MAIN( test_eno_image )
 
 /*
 
-void test_interval(double x, double x_ref, dbnl_eno_1d &e, double tol)
+void test_interval(double x, double x_ref, bnld_eno_1d &e, double tol)
 {
    vcl_cout << "Abscissa " << x << " in interval #" << e.interval_index(x) << vcl_endl;
    TEST_NEAR("Sample",e.sample(x),x_ref,tol);

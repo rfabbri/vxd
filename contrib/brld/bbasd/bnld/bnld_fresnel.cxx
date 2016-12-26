@@ -1,8 +1,8 @@
-// This is basic/dbnl/dbnl_fresnel.cxx
+// This is bbasd/bnld/bnld_fresnel.cxx
 //:
 // \file
 
-#include "dbnl_fresnel.h"
+#include "bnld_fresnel.h"
 #include <vcl_complex.h>
 #include <vnl/vnl_math.h>
 #include <vcl_iostream.h>
@@ -24,7 +24,7 @@
 // FresnelS = int(sin(pi/2 * t^2), t = 0..x);
 // Return: fres_cos is Fresnel cosin integral, fres_sin is Frenel sine integral
 // accuracy: 1e-8
-void dbnl_fresnel_integral(double x, double* fresnel_cos, double* fresnel_sin){
+void bnld_fresnel_integral(double x, double* fresnel_cos, double* fresnel_sin){
   // the computation fails when x is outside [-1e8, 1e8]
   // Fortunately, fresnel integrals converge when 
   // x goes to +-infinity

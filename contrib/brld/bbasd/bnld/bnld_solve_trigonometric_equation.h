@@ -1,7 +1,7 @@
-// This is basic/dbnl/dbnl_solve_trigonometric_equation.h
+// This is bbasd/bnld/bnld_solve_trigonometric_equation.h
 
-#ifndef dbnl_solve_trigonometric_equation_h_
-#define dbnl_solve_trigonometric_equation_h_
+#ifndef bnld_solve_trigonometric_equation_h_
+#define bnld_solve_trigonometric_equation_h_
 
 //:
 // \file
@@ -19,10 +19,10 @@
 
 //: Solve trigonometry equation a sin(x) + b cos(x) + c = 0
 // returned roots have format: root(cos(x), sin(x))
-void dbnl_solve_1st_order_trig_equation(double a, double b, double c,
+void bnld_solve_1st_order_trig_equation(double a, double b, double c,
                                    vcl_vector<double >& sin_x,
                                    vcl_vector<double >& cos_x);
 
 
 
-#endif // basic/dbnl/dbnl_solve_trigonometric_equation.h
+#endif // bbasd/bnld/bnld_solve_trigonometric_equation.h

@@ -1,7 +1,7 @@
-// This is basic/dbnl/algo/dbnl_brent_root.h
+// This is bbasd/bnld/algo/bnld_brent_root.h
 
-#ifndef dbnl_brent_root_h_
-#define dbnl_brent_root_h_
+#ifndef bnld_brent_root_h_
+#define bnld_brent_root_h_
 
 //:
 // \file
@@ -21,12 +21,12 @@
 
 
 
-class dbnl_brent_root
+class bnld_brent_root
 {
 public:
-  dbnl_brent_root(vnl_cost_function& functor, double tol = 1e-12, int max_iter = 100):
+  bnld_brent_root(vnl_cost_function& functor, double tol = 1e-12, int max_iter = 100):
       f_(&functor), tol_(tol), max_iter_(max_iter){ assert(tol > 0); }
-  virtual ~dbnl_brent_root(){};
+  virtual ~bnld_brent_root(){};
 
   //: Main function: Find a root of the function in the range [ax, bx]
   // Required: f(ax) . f(bx) < 0
@@ -43,4 +43,4 @@ protected:
 
 };
 
-#endif // basic/dbnl/dbnl_fresnel.h
+#endif // bbasd/bnld/bnld_fresnel.h

@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
-#include <dbnl/algo/dbnl_eno.h>
-#include <dbnl/algo/dbnl_eno_zerox.h>
-#include <dbnl/algo/dbnl_eno_zerox_label.h>
+#include <bnld/algo/bnld_eno.h>
+#include <bnld/algo/bnld_eno_zerox.h>
+#include <bnld/algo/bnld_eno_zerox_label.h>
 #include <vcl_iostream.h>
 #include <vcl_limits.h>
 #include <vcl_cmath.h>
@@ -14,19 +14,19 @@ MAIN( test_eno_zerox )
 
    {
 
-     vcl_cout << "\n Testing dbnl_eno_zero_crossing\n";
+     vcl_cout << "\n Testing bnld_eno_zero_crossing\n";
 
-     dbnl_eno_poly p(2);
+     bnld_eno_poly p(2);
 
      //  This is just a test... the user should NOT access "data" members
      // directly
 
      vcl_cout << vcl_endl << "Part 1:" << vcl_endl;
-     p[dbnl_eno_poly::zero_order_index]   = -4;
-     p[dbnl_eno_poly::first_order_index]  =  0;
-     p[dbnl_eno_poly::second_order_index] =  1;
+     p[bnld_eno_poly::zero_order_index]   = -4;
+     p[bnld_eno_poly::first_order_index]  =  0;
+     p[bnld_eno_poly::second_order_index] =  1;
 
-     dbnl_eno_zero_crossing z1;
+     bnld_eno_zero_crossing z1;
      z1.compute(p);
      z1.print();
      TEST("Quantity", z1.number(), 2);
@@ -36,10 +36,10 @@ MAIN( test_eno_zerox )
 
      vcl_cout << vcl_endl << "Part 2:" << vcl_endl;
 
-     dbnl_eno_zero_crossing z2;
-     p[dbnl_eno_poly::zero_order_index]   =  0;
-     p[dbnl_eno_poly::first_order_index]  =  0;
-     p[dbnl_eno_poly::second_order_index] =  1000;
+     bnld_eno_zero_crossing z2;
+     p[bnld_eno_poly::zero_order_index]   =  0;
+     p[bnld_eno_poly::first_order_index]  =  0;
+     p[bnld_eno_poly::second_order_index] =  1000;
 
      // two roots equal to 0 represents one root of multiplicity 2
      z2.compute(p);
@@ -51,7 +51,7 @@ MAIN( test_eno_zerox )
      vcl_cout << "Part 3" << vcl_endl;
      z2.remove_duplicates();
      
-     dbnl_eno_zero_crossing z;
+     bnld_eno_zero_crossing z;
      z.combine(&z1,&z2);
      TEST("Quantity after Combine",z.number(),3);
      z.print();
@@ -63,7 +63,7 @@ MAIN( test_eno_zerox )
 
    {
      vcl_cout << "\n\n----------------------------------------------------------------------\n";
-     vcl_cout << "Testing dbnl_eno_zerox_vector and dbnl_eno_zerox_label\n";
+     vcl_cout << "Testing bnld_eno_zerox_vector and bnld_eno_zerox_label\n";
 
 
      // Define data
@@ -94,17 +94,17 @@ MAIN( test_eno_zerox )
      vcl_cout << data << vcl_endl;
 
      {
-     dbnl_eno_1d e;
+     bnld_eno_1d e;
      e.interpolate(&data);
      
      vcl_cout << "Computing zeros" << vcl_endl;
-     dbnl_eno_zerox_vector z(e);
+     bnld_eno_zerox_vector z(e);
      TEST_NEAR("Zero1, test 1",z[4].location(0),14.0/3.0,tol);
      TEST_NEAR("Zero2, test 1",z[0].location(0),0,tol);
 
      unsigned label[] = { 0, 11, 22, 33, 44, 55, 66 };
    
-     dbnl_eno_zerox_label zl(data.data_block(), label, z);
+     bnld_eno_zerox_label zl(data.data_block(), label, z);
 
      zl.print(e, z, vcl_cout);
      TEST("Label1",zl[0][0],11);
@@ -124,19 +124,19 @@ MAIN( test_eno_zerox )
      data2 = data - 5;
      // now 2 intervals will signal zeros at 3
      
-     dbnl_eno_1d e;
+     bnld_eno_1d e;
      e.interpolate(&data2);
 
-     dbnl_eno_zerox_vector z(e);
+     bnld_eno_zerox_vector z(e);
      TEST_NEAR("Zero1, test 2",z[2].location(0),3,tol);
      TEST_NEAR("Zero2, test 2",z[3].location(0),3,tol);
 
      unsigned label[] = { 0, 11, 22, 33, 44, 55, 66 };
-     dbnl_eno_zerox_label zl(data2.data_block(), label, z);
+     bnld_eno_zerox_label zl(data2.data_block(), label, z);
 
      zl.print(e, z, vcl_cout);
-     TEST("Label1",zl[2][0],dbnl_eno_zerox_label::unlabeled);
-     TEST("Label2",zl[3][0],dbnl_eno_zerox_label::unlabeled);
+     TEST("Label1",zl[2][0],bnld_eno_zerox_label::unlabeled);
+     TEST("Label2",zl[3][0],bnld_eno_zerox_label::unlabeled);
      }
      // TODO:
      //   - test cases where there are 2 zero crossings in an interval.

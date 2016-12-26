@@ -1,12 +1,12 @@
 #include <testlib/testlib_test.h>
-#include <dbnl/algo/dbnl_eno_third_order.h>
+#include <bnld/algo/bnld_eno_third_order.h>
 #include <vcl_iostream.h>
 
 MAIN( test_eno_third_order )
 {
    START ("eno_third_order");
 
-   dbnl_eno_third_order eno;
+   bnld_eno_third_order eno;
    
    vcl_vector<double> xi;
    vcl_vector<double> fxi;

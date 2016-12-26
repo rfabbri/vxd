@@ -1,7 +1,7 @@
-// This is basic/dbnl/dbnl_min_max_3.h
+// This is bbasd/bnld/bnld_min_max_3.h
 
-#ifndef dbnl_min_max_3_h_
-#define dbnl_min_max_3_h_
+#ifndef bnld_min_max_3_h_
+#define bnld_min_max_3_h_
 
 //:
 // \file
@@ -16,17 +16,17 @@
 
 #include <vcl_algorithm.h>
 
-inline double dbnl_min3 (const double& a, const double& b, const double& c)
+inline double bnld_min3 (const double& a, const double& b, const double& c)
 {
   return vcl_min (vcl_min(a,b), vcl_min(b,c));
 }
 
-inline double dbnl_max3 (const double& a, const double& b, const double& c)
+inline double bnld_max3 (const double& a, const double& b, const double& c)
 {
   return vcl_max (vcl_max(a,b), vcl_max(b,c));
 }
 
-inline int dbnl_max3 (const int& a, const int& b, const int& c)
+inline int bnld_max3 (const int& a, const int& b, const int& c)
 {
   if (a>b) {
     if (a>c)

@@ -1,8 +1,8 @@
-// This is basic/dbnl/dbnl_newton_root.cxx
+// This is bbasd/bnld/bnld_newton_root.cxx
 //:
 // \file
 
-#include "dbnl_newton_root.h"
+#include "bnld_newton_root.h"
 #include <vnl/vnl_math.h>
 #include <vcl_iostream.h>
 // Maxinum allowed number of iterations
@@ -15,7 +15,7 @@
 // ISBN 0-521-43108-5
 
 
-bool dbnl_newton_secant_root( dbnl_newton_root_func& funcd, 
+bool bnld_newton_secant_root( bnld_newton_root_func& funcd, 
                              double x1, double x2, double xacc, double *root)
 {
   int j;
@@ -25,7 +25,7 @@ bool dbnl_newton_secant_root( dbnl_newton_root_func& funcd,
   funcd.compute(x1, &fl, &df);
   funcd.compute(x2, &fh, &df);
   if ((fl > 0.0 && fh > 0.0) || (fl < 0.0 && fh < 0.0))
-    vcl_cerr << "Root must be bracketed in dbnl_newton_secant_safe" << vcl_endl;
+    vcl_cerr << "Root must be bracketed in bnld_newton_secant_safe" << vcl_endl;
   if (fl == 0.0) {
     *root = x1;
     return true;
@@ -82,7 +82,7 @@ bool dbnl_newton_secant_root( dbnl_newton_root_func& funcd,
     else
       xh = rts;
   }
-  vcl_cerr << "Maximum number of iterations exceeded in dbnl_newton_secant_root" << vcl_endl;
+  vcl_cerr << "Maximum number of iterations exceeded in bnld_newton_secant_root" << vcl_endl;
   return false; // should never get here
 
 }

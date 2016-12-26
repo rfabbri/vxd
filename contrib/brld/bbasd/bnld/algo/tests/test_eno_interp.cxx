@@ -1,6 +1,6 @@
 #include <testlib/testlib_test.h>
-#include <dbnl/algo/dbnl_eno.h>
-#include <dbnl/algo/dbnl_eno_measures.h>
+#include <bnld/algo/bnld_eno.h>
+#include <bnld/algo/bnld_eno_measures.h>
 #include <vcl_iostream.h>
 #include <vcl_limits.h>
 
@@ -11,7 +11,7 @@ MAIN( test_eno_interp)
    double tol = vcl_numeric_limits<double>::epsilon()*100;
 
    {
-   dbnl_eno_interp e(1,2); // (start, end) coordinates of interval to interpolate
+   bnld_eno_interp e(1,2); // (start, end) coordinates of interval to interpolate
    double nhood[4];
 
    vcl_cout << "Test 1: plain interpolation" << vcl_endl;
@@ -38,7 +38,7 @@ MAIN( test_eno_interp)
    // TODO: print the interpolated values 
    
 
-   dbnl_eno_measures m;
+   bnld_eno_measures m;
 
    m.compute(e);
    vcl_cerr.precision(3);
@@ -62,7 +62,7 @@ MAIN( test_eno_interp)
 
    /* now using non-integral abcissas */
    {
-   dbnl_eno_interp e(0,0.5); // (start, end) coordinates of interval to interpolate
+   bnld_eno_interp e(0,0.5); // (start, end) coordinates of interval to interpolate
    double nhood[4];
    double x[4] = {-1, 0, 0.5, 2};
 

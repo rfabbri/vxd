@@ -1,7 +1,7 @@
-// This is basic/dbnl/dbnl_math.h
+// This is bbasd/bnld/bnld_math.h
 
-#ifndef dbnl_math_h_
-#define dbnl_math_h_
+#ifndef bnld_math_h_
+#define bnld_math_h_
 
 #ifdef VCL_NEEDS_PRAGMA_INTERFACE
 #pragma interface
@@ -23,7 +23,7 @@
 
 //: Compute exponential with an integer power: f(x) = x^n
 template<class T>
-inline T dbnl_math_pow(T x, int n)
+inline T bnld_math_pow(T x, int n)
 {
   T fx = 1;
   int abs_n = (n < 0) ? (-n) : n;
@@ -38,10 +38,10 @@ inline T dbnl_math_pow(T x, int n)
 
 //: Return true if |x-y| <= tol
 template<class T>
-inline bool dbnl_math_near(T x, T y, T tol)
+inline bool bnld_math_near(T x, T y, T tol)
 {
   T abs_diff = (x > y) ? (x-y) : (y-x);
   return abs_diff <= tol;
 }
 
-#endif // basic/dbnl/dbnl_math.h
+#endif // bbasd/bnld/bnld_math.h

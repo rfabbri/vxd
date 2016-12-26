@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------
-// This is basic/dbnl/examples/example_compute_fresnel_integral.cxx
+// This is bbasd/bnld/examples/example_compute_fresnel_integral.cxx
 //:
 // \file
 // \brief
@@ -14,7 +14,7 @@
 //
 //-------------------------------------------------------------------------
 
-#include <dbnl/dbnl_fresnel.h>
+#include <bnld/bnld_fresnel.h>
 #include <vcl_iostream.h>
 
 int main( int argc, char* argv[] )
@@ -24,7 +24,7 @@ int main( int argc, char* argv[] )
   vcl_cout << "Enter x = ";
   vcl_cin >> x;
   double xc, xs;
-  dbnl_fresnel_integral(x, &xc, &xs);
+  bnld_fresnel_integral(x, &xc, &xs);
   vcl_cout << "x = " << x << " \t fresnel_cos(x) = " << xc 
       << " \t fresnel_sin(x) = " << xs << vcl_endl;
   return 0;

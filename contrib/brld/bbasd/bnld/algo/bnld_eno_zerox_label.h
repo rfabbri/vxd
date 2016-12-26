@@ -1,12 +1,12 @@
-// This is dbnl_eno_zerox_label.h
-#ifndef dbnl_eno_zerox_label_h
-#define dbnl_eno_zerox_label_h
+// This is bnld_eno_zerox_label.h
+#ifndef bnld_eno_zerox_label_h
+#define bnld_eno_zerox_label_h
 
 
 
 #include <vcl_limits.h>
 #include <vcl_vector.h>
-#include <dbnl/algo/dbnl_eno_zerox.h>
+#include <bnld/algo/bnld_eno_zerox.h>
 
 //:
 //\file
@@ -24,11 +24,11 @@
 // we don't want to attempt doing it for now.
 //
 // Note that this class should be used side-by-side with a corresponding
-// dbnl_eno_zerox_vector. This class will not store the number of zero crossings
+// bnld_eno_zerox_vector. This class will not store the number of zero crossings
 // or any other info already in other classes that should be used in conjunction
 // with this one.
 //
-class dbnl_eno_zerox_label {
+class bnld_eno_zerox_label {
 public:
 
   static const unsigned unlabeled 
@@ -39,12 +39,12 @@ public:
      VCL_STATIC_CONST_INIT_INT_DECL(4);
 
   //: constructor does all the work and stores result in this object
-  dbnl_eno_zerox_label(
+  bnld_eno_zerox_label(
       const double *data,
       const unsigned *label,
-      const dbnl_eno_zerox_vector &zc);
+      const bnld_eno_zerox_vector &zc);
 
-  ~dbnl_eno_zerox_label() {}
+  ~bnld_eno_zerox_label() {}
 
   //: return labels for current interval in a 2-element array 
   // For example, if zl is an object of this class, then
@@ -56,7 +56,7 @@ public:
 
   void print (vcl_ostream&) const { vcl_cout << "Not yet coded\n";}
 
-  void print(dbnl_eno_1d &eno, dbnl_eno_zerox_vector &zc, vcl_ostream& strm) const;
+  void print(bnld_eno_1d &eno, bnld_eno_zerox_vector &zc, vcl_ostream& strm) const;
 
 protected:
   //: The labeling of each zero-crossing is implemented by 1D vector
@@ -68,14 +68,14 @@ protected:
   // Internally used auxiliary function
   void label_one_zerox_in_interval(
       unsigned pos,
-      const dbnl_eno_zero_crossing &, 
+      const bnld_eno_zero_crossing &, 
       const double *data, 
       const unsigned *data_label);
 
   // Internally used auxiliary function
   void label_two_zerox_in_interval(
       unsigned pos,
-      const dbnl_eno_zero_crossing &zc_i, 
+      const bnld_eno_zero_crossing &zc_i, 
       const double *data, 
       const unsigned *data_label);
 
@@ -84,5 +84,5 @@ protected:
 };
 
 
-#endif // dbnl_eno_zerox_label_h
+#endif // bnld_eno_zerox_label_h
 

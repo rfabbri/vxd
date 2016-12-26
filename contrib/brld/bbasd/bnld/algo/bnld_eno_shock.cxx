@@ -1,22 +1,22 @@
-#include "dbnl_eno_shock.h"
-#include "dbnl_eno_zerox.h"
+#include "bnld_eno_shock.h"
+#include "bnld_eno_zerox.h"
 #include <vcl_cassert.h>
 
 
 #if !VCL_STATIC_CONST_INIT_FLOAT_NO_DEFN
-const double dbnl_eno_shock_1d::default_tangent_change_threshold
+const double bnld_eno_shock_1d::default_tangent_change_threshold
       VCL_STATIC_CONST_INIT_FLOAT_DEFN(20.0);
-const double dbnl_eno_shock_1d::default_curvature_change_threshold
+const double bnld_eno_shock_1d::default_curvature_change_threshold
       VCL_STATIC_CONST_INIT_FLOAT_DEFN(0.3);
 #endif
 
 
 
 // ----------------------------------------------------------------------------
-// dbnl_eno_shock_interp
+// bnld_eno_shock_interp
 // ----------------------------------------------------------------------------
 
-void dbnl_eno_shock_interp::
+void bnld_eno_shock_interp::
 print(vcl_ostream& strm) const
 {
    strm << "==== Shock ====\n";
@@ -28,13 +28,13 @@ print(vcl_ostream& strm) const
 
 
 //:\return number of intersections of the continuations of neighboring intervals
-unsigned dbnl_eno_shock_interp::
-make(dbnl_eno_interp const *prev, dbnl_eno_interp const *curr,
-      dbnl_eno_interp const *next) 
+unsigned bnld_eno_shock_interp::
+make(bnld_eno_interp const *prev, bnld_eno_interp const *curr,
+      bnld_eno_interp const *next) 
 
 {
-   dbnl_eno_zero_crossing zeros;
-   dbnl_eno_poly sub = *prev - *next;
+   bnld_eno_zero_crossing zeros;
+   bnld_eno_poly sub = *prev - *next;
    unsigned valid_root_cnt = zeros.compute(sub, curr->start(), curr->end());
 
    /* if we found valid roots, create a new shock structure */
@@ -60,13 +60,13 @@ make(dbnl_eno_interp const *prev, dbnl_eno_interp const *curr,
 }
 
 // ----------------------------------------------------------------------------
-// dbnl_eno_shock_1d
+// bnld_eno_shock_1d
 // ----------------------------------------------------------------------------
 
-bool dbnl_eno_shock_1d::
-test( dbnl_eno_interp const *prv, dbnl_eno_measures const *prvm,
-      dbnl_eno_interp const *cur, dbnl_eno_measures const *curm,
-      dbnl_eno_interp const *nxt, dbnl_eno_measures const *nxtm,
+bool bnld_eno_shock_1d::
+test( bnld_eno_interp const *prv, bnld_eno_measures const *prvm,
+      bnld_eno_interp const *cur, bnld_eno_measures const *curm,
+      bnld_eno_interp const *nxt, bnld_eno_measures const *nxtm,
       double shock_tangent_change_threshold, 
       double shock_curvature_change_threshold
       )
@@ -183,15 +183,15 @@ test( dbnl_eno_interp const *prv, dbnl_eno_measures const *prvm,
    return need_shock_p;
 }
 
-bool dbnl_eno_shock_1d::
-test( dbnl_eno_interp const   *prv, 
-      dbnl_eno_interp const   *cur, 
-      dbnl_eno_interp const   *nxt, 
+bool bnld_eno_shock_1d::
+test( bnld_eno_interp const   *prv, 
+      bnld_eno_interp const   *cur, 
+      bnld_eno_interp const   *nxt, 
       double shock_tangent_change_threshold, 
       double shock_curvature_change_threshold
       )
 {
-   dbnl_eno_measures prvm, curm, nxtm;
+   bnld_eno_measures prvm, curm, nxtm;
 
    prvm.compute(*prv);
    curm.compute(*cur);
@@ -203,7 +203,7 @@ test( dbnl_eno_interp const   *prv,
 
 //: place shocks on all intervals
 // \return true on success
-bool dbnl_eno_shock_1d::
+bool bnld_eno_shock_1d::
 place_shocks( double tangent_change_thresh, 
                   double curvature_change_thresh)
 {
@@ -225,7 +225,7 @@ place_shocks( double tangent_change_thresh,
       if ( test(&interp_[i-1],&m_[i-1], &interp_[i], &m_[i], &interp_[i+1], &m_[i+1],
                 tangent_change_thresh, curvature_change_thresh) ) {
          // make shock
-         s_[i] = new dbnl_eno_shock_interp;
+         s_[i] = new bnld_eno_shock_interp;
 
          s_[i]->make(&interp_[i-1],&interp_[i],&interp_[i+1]);
          nshocks_++;
@@ -256,7 +256,7 @@ place_shocks( double tangent_change_thresh,
    return true;
 }
 
-void dbnl_eno_shock_1d::
+void bnld_eno_shock_1d::
 delete_shock(unsigned i)
 {
    assert (s_.size()!=0 && has_shock(i));
@@ -266,10 +266,10 @@ delete_shock(unsigned i)
 }
 
 // -----------------------------------------------------------------------------
-// dbnl_eno_shock_1d
+// bnld_eno_shock_1d
 // -----------------------------------------------------------------------------
 
-bool dbnl_eno_shock_1d::
+bool bnld_eno_shock_1d::
 test_shock( unsigned i, 
             double tangent_change_thresh, 
             double curvature_change_thresh) const
@@ -285,7 +285,7 @@ test_shock( unsigned i,
          tangent_change_thresh, curvature_change_thresh); 
 }
 
-void dbnl_eno_shock_1d::
+void bnld_eno_shock_1d::
 compute_measures()
 {
 #ifndef NDEBUG
@@ -299,7 +299,7 @@ compute_measures()
       m_[i].compute(interp_[i]);
 }
 
-void dbnl_eno_shock_1d::
+void bnld_eno_shock_1d::
 make_shock(unsigned i)
 {
 #ifndef NDEBUG
@@ -317,15 +317,15 @@ make_shock(unsigned i)
       return;
    }
 #endif
-   s_[i] = new dbnl_eno_shock_interp;
+   s_[i] = new bnld_eno_shock_interp;
    s_[i]->make(&interp_[i-1],&interp_[i],&interp_[i+1]); 
 
    nshocks_++;
 }
 
 //:Destructor
-dbnl_eno_shock_1d::
-~dbnl_eno_shock_1d()
+bnld_eno_shock_1d::
+~bnld_eno_shock_1d()
 {
    for (unsigned i=0; i<s_.size(); ++i)
       if (has_shock(i))
@@ -333,7 +333,7 @@ dbnl_eno_shock_1d::
 }
 
 
-void dbnl_eno_shock_1d::
+void bnld_eno_shock_1d::
 print(vcl_ostream& strm) const
 {
    strm << "==== Eno 1D with Shocks ====" << vcl_endl

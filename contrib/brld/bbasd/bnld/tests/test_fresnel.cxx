@@ -1,5 +1,5 @@
 #include <testlib/testlib_test.h>
-#include <dbnl/dbnl_fresnel.h>
+#include <bnld/bnld_fresnel.h>
 #include <vcl_iostream.h>
 #include<vcl_cmath.h>
 
@@ -108,7 +108,7 @@ MAIN( test_fresnel )
   // compute fresnel integrals
   for (int i = 0; i < 27; ++i)
   {
-    dbnl_fresnel_integral(x[i], &fc[i], &fs[i]);
+    bnld_fresnel_integral(x[i], &fc[i], &fs[i]);
   }
 
   for (int i = 0; i < 27; ++i)

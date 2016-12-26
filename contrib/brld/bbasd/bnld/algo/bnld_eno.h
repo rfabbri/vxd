@@ -1,4 +1,4 @@
-// This is basic/dbnl/dbnl_eno.h
+// This is bbasd/bnld/bnld_eno.h
 #ifndef bnl_eno_h
 #define bnl_eno_h
 //:
@@ -13,7 +13,7 @@
 // major rearrangement of class structure.
 //
 // \todo add a sample(t) or value_at(t) method for eno_poly and eno_1d 
-// \todo move plain eno to dbnl, and all the other stuff to algo
+// \todo move plain eno to bnld, and all the other stuff to algo
 //
 // \verbatim
 // Modifications
@@ -32,7 +32,7 @@
 // This class only defines some constants and compile-time parameters related to
 // the algorithm. 
 // The code looks ugly so that it works with VS 6.0
-class dbnl_eno {
+class bnld_eno {
 public:
 #define DBNL_ENO_MAX_ORDER 2
 #define DBNL_ENO_DATA_LENGTH (DBNL_ENO_MAX_ORDER + 2)
@@ -48,15 +48,15 @@ public:
 //: This class is a very simple, static-array polynomial of order 2
 // vnl_real_polynomial is not used because it can be inefficient for specific
 // 2nd order ENO.
-class dbnl_eno_poly {
+class bnld_eno_poly {
 public:
    static const unsigned zero_order_index   VCL_STATIC_CONST_INIT_INT_DECL(0);
    static const unsigned first_order_index  VCL_STATIC_CONST_INIT_INT_DECL(1);
    static const unsigned second_order_index VCL_STATIC_CONST_INIT_INT_DECL(2);
 
-   dbnl_eno_poly() { }
-   dbnl_eno_poly(unsigned degree) {order_ = degree;}
-   ~dbnl_eno_poly() { }
+   bnld_eno_poly() { }
+   bnld_eno_poly(unsigned degree) {order_ = degree;}
+   ~bnld_eno_poly() { }
 
    unsigned order() const  {return order_;}
    double coeff(unsigned i) const  {return coeffs_[i];}
@@ -77,15 +77,15 @@ protected:
 };
 
 //: Difference of two polynomials
-//\relates dbnl_eno_poly
-dbnl_eno_poly operator-(const dbnl_eno_poly &f1, const dbnl_eno_poly &f2);
+//\relates bnld_eno_poly
+bnld_eno_poly operator-(const bnld_eno_poly &f1, const bnld_eno_poly &f2);
 
 
-inline double  dbnl_eno_poly ::
+inline double  bnld_eno_poly ::
 derivative(double t) const
 {
-   return coeffs_[dbnl_eno_poly::first_order_index] +
-          2.0 * coeffs_[dbnl_eno_poly::second_order_index] * t;
+   return coeffs_[bnld_eno_poly::first_order_index] +
+          2.0 * coeffs_[bnld_eno_poly::second_order_index] * t;
 }
 
 // ---------------------------------------------------------------------------
@@ -93,14 +93,14 @@ derivative(double t) const
 // The additions of this class to a bare polynomial is that it stores the
 // endpoints of the interval, and whether the stencil went forwards or
 // backwards. It also has the method for interpolating an interval.
-class dbnl_eno_interp : public dbnl_eno_poly {
+class bnld_eno_interp : public bnld_eno_poly {
 public:
-   dbnl_eno_interp(double start=0, double end=0) :
+   bnld_eno_interp(double start=0, double end=0) :
       // start is the index/coordinate of the first element in the interval
       // for this interp; end is the index/coordinate for the last
       // element (usually end = start + 1)
       start_ (start), end_ (end) { }
-   ~dbnl_eno_interp() {}
+   ~bnld_eno_interp() {}
 
    //: was compute_polynomial
    void interpolate (double const data[DBNL_ENO_DATA_LENGTH]);
@@ -124,9 +124,9 @@ private:
 
 // ---------------------------------------------------------------------------
 //: This is the main class to use for eno interpolation of a 1D array
-// It consists of an array of dbnl_eno_interp (interpolants). Example code:
+// It consists of an array of bnld_eno_interp (interpolants). Example code:
 // \code
-// dbnl_eno1d e;
+// bnld_eno1d e;
 // ...
 // vnl_vector<double> data(n);
 // ... (add some data)
@@ -142,20 +142,20 @@ private:
 // \sa
 // This class is very easy to use, but it does not deal
 // with ENO extensions such as shock-placing ENO. For that, see the child
-// dbnl_eno_shock_1d class. Moreover, if you want to find the
+// bnld_eno_shock_1d class. Moreover, if you want to find the
 // roots/zerocrossings of the polynomials or of the whole interpolated data, see
-// the class dbnl_eno_zero_crossing.  This ENO library was also designed so you
-// can work directly at each interval-level if you want. See dbnl_eno_interp for this.
+// the class bnld_eno_zero_crossing.  This ENO library was also designed so you
+// can work directly at each interval-level if you want. See bnld_eno_interp for this.
 // See also the examples directory.
 //
 // \remarks Currently the x-values (abcissas) are taken to be 0...n-1, // where n is the number of samples of the function.
 //
-class dbnl_eno_1d {
+class bnld_eno_1d {
 public: 
-   dbnl_eno_1d(double border_value = vcl_numeric_limits<double>::max()/1e10) 
+   bnld_eno_1d(double border_value = vcl_numeric_limits<double>::max()/1e10) 
       : border_value_(border_value) { }
 
-   ~dbnl_eno_1d() { }
+   ~bnld_eno_1d() { }
 
 
    bool interps_been_computed() const {return interp_.size() != 0;}
@@ -170,10 +170,10 @@ public:
 
    bool interpolate(double const *data, double const *x, unsigned len, ptrdiff_t stride=1);
 
-   const dbnl_eno_interp &operator [] (unsigned i) const { return interp_[i];}
+   const bnld_eno_interp &operator [] (unsigned i) const { return interp_[i];}
 
    //: Access to the vector of interpolants
-   vcl_vector<dbnl_eno_interp>& interp() {return interp_;}
+   vcl_vector<bnld_eno_interp>& interp() {return interp_;}
 
    //: Access to the vector of abscissas
    double x(unsigned i) const {return abscissas_[i];}
@@ -187,7 +187,7 @@ public:
 
    void print(vcl_ostream& = vcl_cerr) const;
 protected:
-   vcl_vector<dbnl_eno_interp> interp_;    //:< one interpolant for each interval
+   vcl_vector<bnld_eno_interp> interp_;    //:< one interpolant for each interval
    vnl_vector<double> abscissas_;
    ptrdiff_t stride_; //:< for use with images stored in big continuous memory blocks
    const double border_value_; //:< value of function outside of data bounds 

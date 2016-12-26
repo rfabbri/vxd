@@ -1,8 +1,8 @@
-// This is basic/dbnl/dbnl_sinc.cxx
+// This is bbasd/bnld/bnld_sinc.cxx
 //:
 // \file
 
-#include "dbnl_sinc.h"
+#include "bnld_sinc.h"
 
 
 

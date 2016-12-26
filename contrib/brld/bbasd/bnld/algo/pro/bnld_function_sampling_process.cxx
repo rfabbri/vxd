@@ -1,10 +1,10 @@
-// This is basic/dbnl/algo/pro/dbnl_function_sampling_process.cxx
+// This is bbasd/bnld/algo/pro/bnld_function_sampling_process.cxx
 
 #include <vcl_iostream.h>
 #include <vcl_fstream.h>
 
-#include <dbnl/algo/pro/dbnl_function_sampling_process.h>
-#include <dbnl/algo/dbnl_eno.h>
+#include <bnld/algo/pro/bnld_function_sampling_process.h>
+#include <bnld/algo/bnld_eno.h>
 #include <vsol/vsol_polyline_2d.h>
 #include <vsol/vsol_polyline_2d_sptr.h>
 #include <vsol/vsol_point_2d.h>
@@ -21,25 +21,25 @@ struct less_x :
 };
 
 
-dbnl_function_sampling_process::
-dbnl_function_sampling_process() : bpro1_process()
+bnld_function_sampling_process::
+bnld_function_sampling_process() : bpro1_process()
 {
   if( !parameters()->add(  "Number of samples in new curve:" , "-size" , 90 ) ||
       !parameters()->add(  "Order of interpolation to create curve: (1:linear, 2:eno)" , "-type" , 2 ))
   {
     vcl_cerr << 
-       "ERROR: Adding parameters in dbnl_function_sampling_process::dbnl_function_sampling_process()\n";
+       "ERROR: Adding parameters in bnld_function_sampling_process::bnld_function_sampling_process()\n";
   }
 }
 
 //: Clone the process
-bpro1_process* dbnl_function_sampling_process::
+bpro1_process* bnld_function_sampling_process::
 clone() const
 {
-  return new dbnl_function_sampling_process(*this);
+  return new bnld_function_sampling_process(*this);
 }
 
-vcl_vector< vcl_string > dbnl_function_sampling_process::
+vcl_vector< vcl_string > bnld_function_sampling_process::
 get_input_type()
 {
   vcl_vector< vcl_string > to_return;
@@ -47,14 +47,14 @@ get_input_type()
   return to_return;
 }
 
-vcl_vector< vcl_string > dbnl_function_sampling_process::get_output_type()
+vcl_vector< vcl_string > bnld_function_sampling_process::get_output_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "vsol2D" );
   return to_return;
 }
 
-bool dbnl_function_sampling_process::execute()
+bool bnld_function_sampling_process::execute()
 {
   int new_size=0;
   parameters()->get_value( "-size" , new_size);
@@ -65,7 +65,7 @@ bool dbnl_function_sampling_process::execute()
 
 
 
-bool dbnl_function_sampling_process::
+bool bnld_function_sampling_process::
 function_upsample(int new_size, int type)
 {
   // get input storage class
@@ -120,7 +120,7 @@ function_upsample(int new_size, int type)
   }
 
 
-  dbnl_eno_1d e;
+  bnld_eno_1d e;
 
   vnl_vector<double> x, f;
 

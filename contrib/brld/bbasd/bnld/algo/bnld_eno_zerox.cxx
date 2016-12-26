@@ -1,5 +1,5 @@
 #include <vcl_cassert.h>
-#include "dbnl_eno_zerox.h"
+#include "bnld_eno_zerox.h"
 
 //:
 // \file
@@ -8,13 +8,13 @@
 
 //: Find zeros of polynomial
 //\return number of zeros
-unsigned dbnl_eno_zero_crossing::
-compute(const dbnl_eno_poly &poly)
+unsigned bnld_eno_zero_crossing::
+compute(const bnld_eno_poly &poly)
 {
     double const
-      a = poly[dbnl_eno_poly::second_order_index], 
-      b = poly[dbnl_eno_poly::first_order_index], 
-      c = poly[dbnl_eno_poly::zero_order_index]; 
+      a = poly[bnld_eno_poly::second_order_index], 
+      b = poly[bnld_eno_poly::first_order_index], 
+      c = poly[bnld_eno_poly::zero_order_index]; 
     double
       discriminant;
     
@@ -46,8 +46,8 @@ compute(const dbnl_eno_poly &poly)
 
 //: Find zeros of polynomial, but restrict them only btween start and end
 //\return number of zeros
-unsigned dbnl_eno_zero_crossing::
-compute(const dbnl_eno_poly &poly, double start, double end)
+unsigned bnld_eno_zero_crossing::
+compute(const bnld_eno_poly &poly, double start, double end)
 {
    int valid_root_cnt = 0,
        root_cnt = compute(poly);
@@ -65,8 +65,8 @@ compute(const dbnl_eno_poly &poly, double start, double end)
    return number_ = valid_root_cnt;
 }
 
-unsigned dbnl_eno_zero_crossing::
-compute(const dbnl_eno_interp &ip)
+unsigned bnld_eno_zero_crossing::
+compute(const bnld_eno_interp &ip)
 {
    compute(ip, ip.start(), ip.end());
     
@@ -79,11 +79,11 @@ compute(const dbnl_eno_interp &ip)
    return number();
 }
 
-unsigned  dbnl_eno_zero_crossing::
-compute(const dbnl_eno_shock_interp &ip)
+unsigned  bnld_eno_zero_crossing::
+compute(const bnld_eno_shock_interp &ip)
 {
    double shock_loc = ip.loc();
-   dbnl_eno_zero_crossing prev_zeros, next_zeros;
+   bnld_eno_zero_crossing prev_zeros, next_zeros;
 
    // When there is a shock, Kaleem originally was checking the
    // ENTIRE current interval for zerox of the neighboring intervals.
@@ -109,8 +109,8 @@ compute(const dbnl_eno_shock_interp &ip)
 }
 
 //: Tests if zerocrossing in loc_[index] is in between start and end.
-int dbnl_eno_zero_crossing::
-check_in_interval(const dbnl_eno_poly *poly, int index, double start, double end)
+int bnld_eno_zero_crossing::
+check_in_interval(const bnld_eno_poly *poly, int index, double start, double end)
 {
    int in_interval = 0;
    double loc_idx = loc_[index];
@@ -121,12 +121,12 @@ check_in_interval(const dbnl_eno_poly *poly, int index, double start, double end
        polynomial term, possibly placing them outside the interval by a
        very small amount. If this is the case, I'm clamping the return
        location to the appropriate end point */
-   if (is_almost_zero( (*poly)[dbnl_eno_poly::second_order_index] )) {
-      if (is_almost_equal(loc_idx, start, dbnl_eno::interval_tolerance)) {
+   if (is_almost_zero( (*poly)[bnld_eno_poly::second_order_index] )) {
+      if (is_almost_equal(loc_idx, start, bnld_eno::interval_tolerance)) {
         in_interval++;
         loc_[index] = start;
       }
-      else if (is_almost_equal(loc_idx, end, dbnl_eno::interval_tolerance)) {
+      else if (is_almost_equal(loc_idx, end, bnld_eno::interval_tolerance)) {
         in_interval++;
         loc_[index] = end; /*was start;  Seth made this change, 7-3-97*/
       }
@@ -140,11 +140,11 @@ check_in_interval(const dbnl_eno_poly *poly, int index, double start, double end
    return in_interval;
 }
 
-void dbnl_eno_zero_crossing::
+void bnld_eno_zero_crossing::
 remove_duplicates()
 {
    if (number() > 1 && 
-       is_almost_equal(location(0),location(1),dbnl_eno::near_zero_value))
+       is_almost_equal(location(0),location(1),bnld_eno::near_zero_value))
       --number_;
 }
 
@@ -155,8 +155,8 @@ remove_duplicates()
 //\section Remarks
 //The original code is broken.
 // \return true on success
-bool dbnl_eno_zero_crossing::
-combine(const dbnl_eno_zero_crossing *z1, const dbnl_eno_zero_crossing *z2)
+bool bnld_eno_zero_crossing::
+combine(const bnld_eno_zero_crossing *z1, const bnld_eno_zero_crossing *z2)
 {
 
    unsigned i,k; bool found;
@@ -164,7 +164,7 @@ combine(const dbnl_eno_zero_crossing *z1, const dbnl_eno_zero_crossing *z2)
    for (i=0; i < z1->number(); ++i) {
       found = false;
       for (k=number()-1; k != (unsigned)-1 && !found; --k)
-         found = is_almost_equal(loc_[k],z1->location(i),dbnl_eno::near_zero_value);
+         found = is_almost_equal(loc_[k],z1->location(i),bnld_eno::near_zero_value);
 
       if (!found)
          loc_[number_++] = z1->location(i);
@@ -178,7 +178,7 @@ combine(const dbnl_eno_zero_crossing *z1, const dbnl_eno_zero_crossing *z2)
    for (i=0; i < z2->number(); ++i) {
       found = false;
       for (k=number()-1; k != (unsigned)-1 && !found; --k)
-         found = is_almost_equal(loc_[k],z2->location(i),dbnl_eno::near_zero_value);
+         found = is_almost_equal(loc_[k],z2->location(i),bnld_eno::near_zero_value);
 
       if (!found)
          loc_[number_++] = z2->location(i);
@@ -191,8 +191,8 @@ combine(const dbnl_eno_zero_crossing *z1, const dbnl_eno_zero_crossing *z2)
 
 //: Detects zero-crossings in each interval
 // \return true on success
-dbnl_eno_zerox_vector::
-dbnl_eno_zerox_vector(const dbnl_eno_1d &eno)
+bnld_eno_zerox_vector::
+bnld_eno_zerox_vector(const bnld_eno_1d &eno)
 {
 #ifndef NDEBUG
    if (!eno.interps_been_computed()) {
@@ -208,8 +208,8 @@ dbnl_eno_zerox_vector(const dbnl_eno_1d &eno)
       z_[i].compute(eno[i]);
 }
 
-dbnl_eno_zerox_vector::
-dbnl_eno_zerox_vector(const dbnl_eno_shock_1d &eno)
+bnld_eno_zerox_vector::
+bnld_eno_zerox_vector(const bnld_eno_shock_1d &eno)
   :
   number_(0)
 {
@@ -233,7 +233,7 @@ dbnl_eno_zerox_vector(const dbnl_eno_shock_1d &eno)
    }
 }
 
-void dbnl_eno_zero_crossing::
+void bnld_eno_zero_crossing::
 print(vcl_ostream &strm) const
 {
    strm << "==== Zeros ====" << vcl_endl
@@ -247,7 +247,7 @@ print(vcl_ostream &strm) const
    strm << vcl_endl;
 }
 
-void dbnl_eno_zerox_vector::
+void bnld_eno_zerox_vector::
 print(vcl_ostream& strm) const
 {
 
@@ -259,8 +259,8 @@ print(vcl_ostream& strm) const
       z_.at(i).print(strm);
 }
 
-void dbnl_eno_zerox_vector::
-print(dbnl_eno_1d &eno, vcl_ostream& strm) const
+void bnld_eno_zerox_vector::
+print(bnld_eno_1d &eno, vcl_ostream& strm) const
 {
    strm << "==== Eno 1D with Zerocrossing ====" << vcl_endl
         << "len: " << eno.size() << vcl_endl;
@@ -272,8 +272,8 @@ print(dbnl_eno_1d &eno, vcl_ostream& strm) const
    }
 }
 
-void dbnl_eno_zerox_vector::
-print(dbnl_eno_shock_1d &eno, vcl_ostream& strm) const
+void bnld_eno_zerox_vector::
+print(bnld_eno_shock_1d &eno, vcl_ostream& strm) const
 {
    strm << "==== Eno 1D with Shocks ====" << vcl_endl
         << "len: " << eno.size() << vcl_endl;

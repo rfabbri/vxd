@@ -1,15 +1,15 @@
-// This is basic/dbnl/dbnl_eno_third_order.cxx
-#include "dbnl_eno_third_order.h"
+// This is bbasd/bnld/bnld_eno_third_order.cxx
+#include "bnld_eno_third_order.h"
 #include <vcl_iostream.h>
 #include <vcl_cfloat.h>
 #include <vcl_cmath.h>
 #include <assert.h>
 
-dbnl_eno_third_order::dbnl_eno_third_order()
+bnld_eno_third_order::bnld_eno_third_order()
 {
 }
 
-dbnl_eno_third_order::~dbnl_eno_third_order()
+bnld_eno_third_order::~bnld_eno_third_order()
 {
   for(int i=0; i < num_intervals_; i++)
     delete [] coeffs_[i];
@@ -17,7 +17,7 @@ dbnl_eno_third_order::~dbnl_eno_third_order()
   delete [] coeffs_;
 }
 
-void dbnl_eno_third_order::interpolate(vcl_vector<double> fxi)
+void bnld_eno_third_order::interpolate(vcl_vector<double> fxi)
 {
   vcl_vector<double> xi;
 
@@ -28,7 +28,7 @@ void dbnl_eno_third_order::interpolate(vcl_vector<double> fxi)
   return interpolate(xi, fxi);
 }
 
-void dbnl_eno_third_order::interpolate(vcl_vector<double> xi, vcl_vector<double> fxi)
+void bnld_eno_third_order::interpolate(vcl_vector<double> xi, vcl_vector<double> fxi)
 {
   assert(xi.size() > 3);
   num_intervals_ = xi.size()-1;
@@ -87,20 +87,20 @@ void dbnl_eno_third_order::interpolate(vcl_vector<double> xi, vcl_vector<double>
   }
 }
 
-double dbnl_eno_third_order::coefficient(int interval, int coeff_order)
+double bnld_eno_third_order::coefficient(int interval, int coeff_order)
 {
   assert(interval >= 0 && interval < num_intervals_);
   assert(coeff_order >= 0 && coeff_order < 4);
   return coeffs_[interval][coeff_order];
 }
 
-int dbnl_eno_third_order::polynomial_start_index(int interval)
+int bnld_eno_third_order::polynomial_start_index(int interval)
 {
   assert(interval >= 0 && interval < num_intervals_);
   return poly_start_index_[interval];
 }
 
-void dbnl_eno_third_order::print()
+void bnld_eno_third_order::print()
 {
   for(int i=0; i<num_intervals_; i++)
   {
@@ -111,7 +111,7 @@ void dbnl_eno_third_order::print()
   }
 }
 
-void dbnl_eno_third_order::find_parameters(vcl_vector<double> xi, vcl_vector<double> fxi, int start_index, double *coeffs)
+void bnld_eno_third_order::find_parameters(vcl_vector<double> xi, vcl_vector<double> fxi, int start_index, double *coeffs)
 {
   double a0, a1, a2, a3;
   

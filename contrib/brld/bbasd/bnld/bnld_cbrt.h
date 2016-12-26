@@ -1,7 +1,7 @@
-// This is basic/dbnl/dbnl_cbrt.h
+// This is bbasd/bnld/bnld_cbrt.h
 
-#ifndef _dbnl_cbrt_h_
-#define _dbnl_cbrt_h_
+#ifndef _bnld_cbrt_h_
+#define _bnld_cbrt_h_
 
 //:
 // \file
@@ -16,7 +16,7 @@
 
 //: Compute cubic root of input x.
 //  cbrt is not part of ANSI C, here is our version of it.
-double dbnl_cbrt (const double& inputx);
+double bnld_cbrt (const double& inputx);
 
 
 #endif

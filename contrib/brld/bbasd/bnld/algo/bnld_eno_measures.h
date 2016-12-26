@@ -1,23 +1,23 @@
-// This is dbnl_eno_measures.h
-#ifndef dbnl_eno_measures_h
-#define dbnl_eno_measures_h
+// This is bnld_eno_measures.h
+#ifndef bnld_eno_measures_h
+#define bnld_eno_measures_h
 //:
 //\file
-//\brief Code to compute some differential measures from dbnl_eno_intep's
+//\brief Code to compute some differential measures from bnld_eno_intep's
 //\author Based on original code by  Ricardo Fabbri (RFabbri), Brown University  (rfabbri.github.io)
 //\date 02/11/2005 05:21:36 PM EST
 //
 
-#include <dbnl/algo/dbnl_eno.h>
+#include <bnld/algo/bnld_eno.h>
 
 //: Given an eno_interp, this class computes and stores some useful measures.
 // Their primary purpose is to be used in shock detection
-class dbnl_eno_measures {
+class bnld_eno_measures {
 public:
-   dbnl_eno_measures() {}
-   ~dbnl_eno_measures() {}
+   bnld_eno_measures() {}
+   ~bnld_eno_measures() {}
 
-   void compute(const dbnl_eno_interp &I);
+   void compute(const bnld_eno_interp &I);
    void print(vcl_ostream& = vcl_cerr) const;
 
    /// Accessors
@@ -38,7 +38,7 @@ protected:
    double pow_1_5(double x) const { return sqrt(x*x*x); }
 };
 
-inline double dbnl_eno_measures::
+inline double bnld_eno_measures::
 angle_difference(double a,double b)
 {
 // angles are in degrees
@@ -51,4 +51,4 @@ angle_difference(double a,double b)
       return diff - 360.0;
    return diff + 360.0;
 }
-#endif // dbnl_eno_measures_h
+#endif // bnld_eno_measures_h

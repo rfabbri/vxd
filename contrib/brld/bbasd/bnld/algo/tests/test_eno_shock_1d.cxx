@@ -1,6 +1,6 @@
 #include <testlib/testlib_test.h>
-#include <dbnl/algo/dbnl_eno.h>
-#include <dbnl/algo/dbnl_eno_shock.h>
+#include <bnld/algo/bnld_eno.h>
+#include <bnld/algo/bnld_eno_shock.h>
 #include <vcl_iostream.h>
 #include <vcl_limits.h>
 MAIN( test_eno_shock_1d )
@@ -9,7 +9,7 @@ MAIN( test_eno_shock_1d )
 
    {
    vcl_cout << "Testing samples of a polynomial with known zeros" << vcl_endl;
-   dbnl_eno_shock_1d e;
+   bnld_eno_shock_1d e;
 
    vnl_vector<double> data(4);
 

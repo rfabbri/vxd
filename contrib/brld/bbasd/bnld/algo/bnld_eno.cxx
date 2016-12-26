@@ -1,4 +1,4 @@
-#include "dbnl_eno.h"
+#include "bnld_eno.h"
 #include <vcl_cstdio.h>
 #include <vcl_cassert.h>
 #include <vcl_limits.h>
@@ -9,15 +9,15 @@
 // \author Based on original code by  Ricardo Fabbri
 
 #if !VCL_STATIC_CONST_INIT_FLOAT_NO_DEFN
-const double  dbnl_eno::near_zero_value
+const double  bnld_eno::near_zero_value
       VCL_STATIC_CONST_INIT_FLOAT_DEFN(1.0e-8);
-const double  dbnl_eno::interval_tolerance
+const double  bnld_eno::interval_tolerance
       VCL_STATIC_CONST_INIT_FLOAT_DEFN(1.0e-8);
 #endif
 
 //:
 // \return true on success
-bool dbnl_eno_1d::
+bool bnld_eno_1d::
 interpolate(double const *data, unsigned len, ptrdiff_t stride)
 {
    /* if don't have enough data to interpolate intervals, nothing to
@@ -35,7 +35,7 @@ interpolate(double const *data, unsigned len, ptrdiff_t stride)
    double nhood[DBNL_ENO_DATA_LENGTH]; /* storage for copying
                                            local neighborhood */
 
-   vcl_vector<dbnl_eno_interp>::iterator interp_ptr;
+   vcl_vector<bnld_eno_interp>::iterator interp_ptr;
 
    stride_ = stride;
    interp_.resize(len*stride -1);
@@ -90,7 +90,7 @@ interpolate(double const *data, unsigned len, ptrdiff_t stride)
 //:
 // stride does not apply to abcissa vector x
 // \return true on success
-bool dbnl_eno_1d::
+bool bnld_eno_1d::
 interpolate(double const *data, double const *x, unsigned len, ptrdiff_t stride)
 {
    /* if don't have enough data to interpolate intervals, nothing to
@@ -107,7 +107,7 @@ interpolate(double const *data, double const *x, unsigned len, ptrdiff_t stride)
    double nhood[DBNL_ENO_DATA_LENGTH]; /* storage for copying
                                            local neighborhood */
 
-   vcl_vector<dbnl_eno_interp>::iterator interp_ptr;
+   vcl_vector<bnld_eno_interp>::iterator interp_ptr;
 
    stride_ = stride;
    interp_.resize(len*stride -1);
@@ -152,7 +152,7 @@ interpolate(double const *data, double const *x, unsigned len, ptrdiff_t stride)
    return true;
 }
 
-void dbnl_eno_1d::
+void bnld_eno_1d::
 print(vcl_ostream& strm) const
 {
 
@@ -164,14 +164,14 @@ print(vcl_ostream& strm) const
       interp_.at(i).print(strm);
 }
 
-double dbnl_eno_1d::
+double bnld_eno_1d::
 sample(double x) const
 {
    unsigned i=interval_index(x);
    return interp_[i].sample(x);
 }
 
-bool dbnl_eno_1d::
+bool bnld_eno_1d::
 sample(unsigned size, vnl_vector<double> &f, vnl_vector<double> &xx) const
 {
    f.set_size(size);
@@ -191,7 +191,7 @@ sample(unsigned size, vnl_vector<double> &f, vnl_vector<double> &xx) const
 // binary search.
 // If s correspond to one of the endpoints/samples, we return the index of the
 // interval to the "left" of it.
-unsigned dbnl_eno_1d::
+unsigned bnld_eno_1d::
 interval_index(double x) const
 {
    // binary search for s in vector of arclens

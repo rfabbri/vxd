@@ -1,11 +1,11 @@
 #include <testlib/testlib_test.h>
-#include <dbnl/algo/dbnl_eno.h>
-#include <dbnl/algo/dbnl_eno_zerox.h>
+#include <bnld/algo/bnld_eno.h>
+#include <bnld/algo/bnld_eno_zerox.h>
 #include <vcl_iostream.h>
 #include <vcl_limits.h>
 
 static double p1(double x);
-static void test_interval(double x, double x_ref, dbnl_eno_1d &e,double tol);
+static void test_interval(double x, double x_ref, bnld_eno_1d &e,double tol);
 
 MAIN( test_eno_1d )
 {
@@ -15,7 +15,7 @@ MAIN( test_eno_1d )
 
    {
    vcl_cout << "Testing samples of a polynomial with known zeros" << vcl_endl;
-   dbnl_eno_1d e;
+   bnld_eno_1d e;
 
    vnl_vector<double> data(4);
 
@@ -29,14 +29,14 @@ MAIN( test_eno_1d )
    e.print(vcl_cout);
    
    vcl_cout << "Computing zeros" << vcl_endl;
-   dbnl_eno_zerox_vector z(e);
+   bnld_eno_zerox_vector z(e);
    z.print(e,vcl_cout);
    TEST_NEAR("Zero1",z[1].location(0),1.2,tol);
    TEST_NEAR("Zero2",z[1].location(1),1.8,tol);
    }
 
    vcl_cout << "Testing samples of a polynomial with known zeros" << vcl_endl;
-   dbnl_eno_1d e;
+   bnld_eno_1d e;
 
    vnl_vector<double> data(4), x(4);
 
@@ -54,7 +54,7 @@ MAIN( test_eno_1d )
    e.print(vcl_cout);
    
    vcl_cout << "Computing zeros" << vcl_endl;
-   dbnl_eno_zerox_vector z(e);
+   bnld_eno_zerox_vector z(e);
    z.print(e,vcl_cout);
    TEST_NEAR("Zero1",z[1].location(0),9.1,tol);
    TEST_NEAR("Zero2",z[1].location(1),10.8,tol);
@@ -75,7 +75,7 @@ MAIN( test_eno_1d )
    SUMMARY();
 }
 
-void test_interval(double x, double x_ref, dbnl_eno_1d &e, double tol)
+void test_interval(double x, double x_ref, bnld_eno_1d &e, double tol)
 {
    vcl_cout << "Abscissa " << x << " in interval #" << e.interval_index(x) << vcl_endl;
    TEST_NEAR("Sample",e.sample(x),x_ref,tol);

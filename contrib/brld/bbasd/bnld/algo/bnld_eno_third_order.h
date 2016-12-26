@@ -1,4 +1,4 @@
-// This is basic/dbnl/dbnl_eno_third_order.h
+// This is bbasd/bnld/bnld_eno_third_order.h
 #ifndef bnl_eno_third_order_h
 #define bnl_eno_third_order_h
 //:
@@ -27,14 +27,14 @@
 
 #include <vcl_vector.h>
 
-class dbnl_eno_third_order
+class bnld_eno_third_order
 {
   // FUNCTIONS
 public:
   //: empty default constructor
-  dbnl_eno_third_order();
+  bnld_eno_third_order();
   //: destructor
-  virtual ~dbnl_eno_third_order();
+  virtual ~bnld_eno_third_order();
   //: interpolator with f(x_i) values only, the sampling is assumed 
   //   to be uniform in this case, i.e. x_i = 0,1,2,...
   void interpolate(vcl_vector<double> fxi);

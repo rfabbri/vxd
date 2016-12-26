@@ -1,8 +1,8 @@
-// This is basic/dbnl/dbnl_brent_root.cxx
+// This is bbasd/bnld/bnld_brent_root.cxx
 //:
 // \file
 
-#include "dbnl_brent_root.h"
+#include "bnld_brent_root.h"
 #include <brent/brent.h>
 #include <vnl/vnl_math.h>
 #include <vcl_iostream.h>
@@ -18,7 +18,7 @@ void *vnl_cost_function_obj;
 
 
 
-double dbnl_brent_root::
+double bnld_brent_root::
 f(double x)
 {
   vnl_vector<double > v(1, x);
@@ -29,7 +29,7 @@ f(double x)
 
 
 // ----------------------------------------------------------------------------
-double dbnl_brent_root::
+double bnld_brent_root::
 zeroin_f(double x)
 {
   vnl_cost_function* f0 = (vnl_cost_function*) vnl_cost_function_obj;
@@ -41,7 +41,7 @@ zeroin_f(double x)
 // ----------------------------------------------------------------------------
 //: Find a root of the function in the range [ax, bx]
 // Required: f(ax) . f(bx) < 0
-bool dbnl_brent_root::
+bool bnld_brent_root::
 solve(double ax, double bx, double& root)
 {
 
@@ -87,7 +87,7 @@ solve(double ax, double bx, double& root)
   // An abuse in using the tol_ variable. It is meant for the tolerance of the
   // function f. But in bren't algorithm, the tolerance is used to check the 
   // increment of the 'x' variable.
-  root = zeroin(ax, bx, &dbnl_brent_root::zeroin_f, this->tol_, this->max_iter_);
+  root = zeroin(ax, bx, &bnld_brent_root::zeroin_f, this->tol_, this->max_iter_);
 
   return (vnl_math::abs(this->f(root)) <= this->tol_);
 }

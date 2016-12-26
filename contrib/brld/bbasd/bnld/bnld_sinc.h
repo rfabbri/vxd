@@ -1,7 +1,7 @@
-// This is basic/dbnl/dbnl_sinc.h
+// This is bbasd/bnld/bnld_sinc.h
 
-#ifndef dbnl_sinc_h_
-#define dbnl_sinc_h_
+#ifndef bnld_sinc_h_
+#define bnld_sinc_h_
 
 //:
 // \file
@@ -22,7 +22,7 @@
 // sinc(x) = sin(x)/x when x != 0 and
 //         = 0        when x  = 0
 // Reference: http://www.boost.org/boost/math/special_functions/sinc.hpp
-inline double dbnl_sinc(double x)
+inline double bnld_sinc(double x)
 {
   static double const taylor_0_bound = vcl_numeric_limits<double >::epsilon();
   static double const taylor_2_bound = vcl_sqrt(taylor_0_bound);
@@ -51,4 +51,4 @@ inline double dbnl_sinc(double x)
   }
 }
 
-#endif // basic/dbnl/dbnl_sinc.h
+#endif // bbasd/bnld/bnld_sinc.h

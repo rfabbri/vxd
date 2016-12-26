@@ -1,12 +1,12 @@
-// This is basic/dbnl/dbnl_cbrt.cxx
+// This is bbasd/bnld/bnld_cbrt.cxx
 //:
 // \file
 
 #include <vcl_cassert.h>
 #include <vcl_cmath.h>
-#include <dbnl/dbnl_cbrt.h>
+#include <bnld/bnld_cbrt.h>
 
-double dbnl_cbrt (const double& inputx)
+double bnld_cbrt (const double& inputx)
 {
   int i;
   double  w1, w2, y1, p, q, r;

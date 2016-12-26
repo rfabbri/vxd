@@ -1,5 +1,5 @@
 #include <testlib/testlib_test.h>
-#include <dbnl/algo/dbnl_brent_root.h>
+#include <bnld/algo/bnld_brent_root.h>
 #include <vcl_iostream.h>
 #include <vnl/vnl_math.h>
 
@@ -27,7 +27,7 @@ MAIN( test_brent_root )
    double x1 = 0;
    double x2 = 1;
   
-   dbnl_brent_root root_solver(f0);
+   bnld_brent_root root_solver(f0);
    double root = -1000;
    root_solver.solve(-100, 100, root);
 

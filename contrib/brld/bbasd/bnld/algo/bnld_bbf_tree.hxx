@@ -1,8 +1,8 @@
-// This is basic/dbnl/algo/dbnl_bbf_tree.cxx
+// This is bbasd/bnld/algo/bnld_bbf_tree.cxx
 //:
 // \file
 
-#include "dbnl_bbf_tree.h"
+#include "bnld_bbf_tree.h"
 
 #include <vcl_limits.h>
 #include <vcl_utility.h>
@@ -19,7 +19,7 @@
 
 //: Constructor
 template <class T, unsigned int n>
-dbnl_bbf_box<T,n>::dbnl_bbf_box( const vnl_vector_fixed<T,n>& min_point,
+bnld_bbf_box<T,n>::bnld_bbf_box( const vnl_vector_fixed<T,n>& min_point,
                                       const vnl_vector_fixed<T,n>& max_point )
   : min_point_(min_point), max_point_(max_point)
 {
@@ -34,15 +34,15 @@ dbnl_bbf_box<T,n>::dbnl_bbf_box( const vnl_vector_fixed<T,n>& min_point,
 
 //: Copy Constructor
 template <class T, unsigned int n>
-dbnl_bbf_box<T,n>::dbnl_bbf_box( const dbnl_bbf_box<T,n>& old )
+bnld_bbf_box<T,n>::bnld_bbf_box( const bnld_bbf_box<T,n>& old )
   : min_point_(old.min_point_), max_point_(old.max_point_)
 {
 }
 
 //: Assignment Operator
 template <class T, unsigned int n>
-dbnl_bbf_box<T,n> &
-dbnl_bbf_box<T,n>::operator= ( const dbnl_bbf_box<T,n>& old )
+bnld_bbf_box<T,n> &
+bnld_bbf_box<T,n>::operator= ( const bnld_bbf_box<T,n>& old )
 {
   min_point_ = old.min_point_;
   max_point_ = old.max_point_;
@@ -51,7 +51,7 @@ dbnl_bbf_box<T,n>::operator= ( const dbnl_bbf_box<T,n>& old )
 
 //: Return the minimum square distance between \a p and any point in \a b.
 template <class T, unsigned int n>
-T dbnl_bbf_dist_sq( const vnl_vector_fixed<T,n>& p, const dbnl_bbf_box<T,n>& b )
+T bnld_bbf_dist_sq( const vnl_vector_fixed<T,n>& p, const bnld_bbf_box<T,n>& b )
 {
   T sum_sq = 0;
 
@@ -78,7 +78,7 @@ T dbnl_bbf_dist_sq( const vnl_vector_fixed<T,n>& p, const dbnl_bbf_box<T,n>& b )
 
 //: Constuctor
 template <class T, unsigned int n>
-dbnl_bbf_tree<T,n>::dbnl_bbf_tree(const vcl_vector< vnl_vector_fixed<T,n> >& points, int points_per_leaf)
+bnld_bbf_tree<T,n>::bnld_bbf_tree(const vcl_vector< vnl_vector_fixed<T,n> >& points, int points_per_leaf)
  : leaf_count_(0), leaves_examined_(0), internal_count_(0),
    internal_examined_(0), points_(points) 
 {
@@ -87,7 +87,7 @@ dbnl_bbf_tree<T,n>::dbnl_bbf_tree(const vcl_vector< vnl_vector_fixed<T,n> >& poi
   // 1.  Build the initial bounding box.
   vnl_vector_fixed<T,n> low(vcl_numeric_limits<T>::min());
   vnl_vector_fixed<T,n> high(vcl_numeric_limits<T>::max());
-  dbnl_bbf_box<T,n> box( low, high );
+  bnld_bbf_box<T,n> box( low, high );
   
   // 2. create the vector of ids
   vcl_vector< int > indices( points_.size() );
@@ -113,9 +113,9 @@ first_less( const vcl_pair<T,int>& left,
 
 //: Build the tree
 template <class T, unsigned int n>
-typename dbnl_bbf_tree<T,n>::dbnl_bbf_node_sptr
-dbnl_bbf_tree<T,n>::build_tree( int points_per_leaf,
-                                const dbnl_bbf_box<T,n>& outer_box,
+typename bnld_bbf_tree<T,n>::bnld_bbf_node_sptr
+bnld_bbf_tree<T,n>::build_tree( int points_per_leaf,
+                                const bnld_bbf_box<T,n>& outer_box,
                                 int depth,
                                 vcl_vector< int >& indices )
 {
@@ -123,12 +123,12 @@ dbnl_bbf_tree<T,n>::build_tree( int points_per_leaf,
 
   // 1. Build the inner box.  This is not done inside the bounding box
   //    class because of the indices.
-  dbnl_bbf_box<T,n> inner_box = this->build_inner_box( indices );
+  bnld_bbf_box<T,n> inner_box = this->build_inner_box( indices );
 
   // 2. If only one point is left, create and return a leaf node.
   if ( indices.size() <= (unsigned int)points_per_leaf){
     leaf_count_++;
-    return new dbnl_bbf_node<T,n> ( outer_box, inner_box, depth, indices );
+    return new bnld_bbf_node<T,n> ( outer_box, inner_box, depth, indices );
   }
 
   // 3. Find the dimension along which there is the greatest variation
@@ -147,7 +147,7 @@ dbnl_bbf_tree<T,n>::build_tree( int points_per_leaf,
   unsigned int med_loc = (indices.size()-1) / 2;
   T median_value = (values[med_loc].first + values[med_loc+1].first) / 2;
   
-  dbnl_bbf_box<T,n> left_outer_box( outer_box ), right_outer_box( outer_box );
+  bnld_bbf_box<T,n> left_outer_box( outer_box ), right_outer_box( outer_box );
   left_outer_box.max_point_[dim] = median_value;
   right_outer_box.min_point_[dim] = median_value;
   
@@ -156,7 +156,7 @@ dbnl_bbf_tree<T,n>::build_tree( int points_per_leaf,
   for ( ; i<indices.size(); ++i ) right_indices[i-med_loc-1] = values[i].second;
 
   // Create a new internal node and branch
-  dbnl_bbf_node_sptr node = new dbnl_bbf_node<T,n>( outer_box, inner_box, depth );
+  bnld_bbf_node_sptr node = new bnld_bbf_node<T,n>( outer_box, inner_box, depth );
   internal_count_++;
   node->left_  = this->build_tree( points_per_leaf, left_outer_box,  depth+1, left_indices );
   node->right_ = this->build_tree( points_per_leaf, right_outer_box, depth+1, right_indices );
@@ -166,8 +166,8 @@ dbnl_bbf_tree<T,n>::build_tree( int points_per_leaf,
 
 //: Build an inner bounding box
 template <class T, unsigned int n>
-dbnl_bbf_box<T,n>
-dbnl_bbf_tree<T,n>::build_inner_box( const vcl_vector< int >& indices )
+bnld_bbf_box<T,n>
+bnld_bbf_tree<T,n>::build_inner_box( const vcl_vector< int >& indices )
 {
   assert( indices.size() > 0 );
   vnl_vector_fixed<T,n> min_point( points_[ indices[ 0 ] ] );
@@ -182,13 +182,13 @@ dbnl_bbf_tree<T,n>::build_inner_box( const vcl_vector< int >& indices )
         max_point[j] = pt[j];
     }
   }
-  return dbnl_bbf_box<T,n>( min_point, max_point );
+  return bnld_bbf_box<T,n>( min_point, max_point );
 }
 
 //: Find the dimension with the greatest variation
 template <class T, unsigned int n>
 int
-dbnl_bbf_tree<T,n>::greatest_variation( const vcl_vector<int>& indices )
+bnld_bbf_tree<T,n>::greatest_variation( const vcl_vector<int>& indices )
 {
   int dim = -1;
   T interval_size = 0;
@@ -214,7 +214,7 @@ dbnl_bbf_tree<T,n>::greatest_variation( const vcl_vector<int>& indices )
 //: Return an estimate of the n closest points to the query point
 template <class T, unsigned int n>
 void
-dbnl_bbf_tree<T,n>::n_nearest_pts( const vnl_vector_fixed<T,n>& query_point,
+bnld_bbf_tree<T,n>::n_nearest_pts( const vnl_vector_fixed<T,n>& query_point,
                                    vcl_vector< vnl_vector_fixed<T,n> >& closest_points,
                                    int num, int max_search_nodes ) const
 {
@@ -231,7 +231,7 @@ dbnl_bbf_tree<T,n>::n_nearest_pts( const vnl_vector_fixed<T,n>& query_point,
 //: Return an estimate of the n closest points to the query point
 template <class T, unsigned int n>
 void
-dbnl_bbf_tree<T,n>::n_nearest( const vnl_vector_fixed<T,n>& query_point,
+bnld_bbf_tree<T,n>::n_nearest( const vnl_vector_fixed<T,n>& query_point,
                                vcl_vector< int >& closest_indices,
                                int num, int max_search_nodes ) const
 {
@@ -243,7 +243,7 @@ dbnl_bbf_tree<T,n>::n_nearest( const vnl_vector_fixed<T,n>& query_point,
     closest_indices.resize( num );
     
   vcl_vector< T > sq_distances( num );
-  vcl_vector< dbnl_bbf_queue_entry<T,n> > priority_queue;
+  vcl_vector< bnld_bbf_queue_entry<T,n> > priority_queue;
   priority_queue.reserve( 100 );    // should be more than enough
   
   int num_found = 0;
@@ -251,18 +251,18 @@ dbnl_bbf_tree<T,n>::n_nearest( const vnl_vector_fixed<T,n>& query_point,
   T sq_dist;
 
   //  Go down the tree, finding the leaf node which contains the query point
-  dbnl_bbf_node_sptr current = root_;
+  bnld_bbf_node_sptr current = root_;
   while ( current->left_ ) {
     internal_examined_++;
 
-    if ( dbnl_bbf_dist_sq( query_point, current->left_->outer_box_ ) <= 0 ) {
-      right_box_sq_dist = dbnl_bbf_dist_sq( query_point, current->right_->inner_box_ );
-      priority_queue.push_back( dbnl_bbf_queue_entry<T,n>( right_box_sq_dist, current->right_ ) );
+    if ( bnld_bbf_dist_sq( query_point, current->left_->outer_box_ ) <= 0 ) {
+      right_box_sq_dist = bnld_bbf_dist_sq( query_point, current->right_->inner_box_ );
+      priority_queue.push_back( bnld_bbf_queue_entry<T,n>( right_box_sq_dist, current->right_ ) );
       current = current->left_ ;
     }
     else {
-      left_box_sq_dist = dbnl_bbf_dist_sq( query_point, current->left_->inner_box_ );
-      priority_queue.push_back( dbnl_bbf_queue_entry<T,n>( left_box_sq_dist, current->left_ ) );
+      left_box_sq_dist = bnld_bbf_dist_sq( query_point, current->left_->inner_box_ );
+      priority_queue.push_back( bnld_bbf_queue_entry<T,n>( left_box_sq_dist, current->left_ ) );
       current = current->right_ ;
     }
   }
@@ -299,19 +299,19 @@ dbnl_bbf_tree<T,n>::n_nearest( const vnl_vector_fixed<T,n>& query_point,
         // vcl_cout << "Internal\n";
         internal_examined_ ++ ;
 
-        left_box_sq_dist = dbnl_bbf_dist_sq( query_point, current->left_->inner_box_ );
+        left_box_sq_dist = bnld_bbf_dist_sq( query_point, current->left_->inner_box_ );
         // vcl_cout << "left sq distance = " << left_box_sq_dist << vcl_endl;
         if ( num_found < num || sq_distances[ num_found-1 ] > left_box_sq_dist ) {
           // vcl_cout << "pushing left onto the heap\n";
-          priority_queue.push_back( dbnl_bbf_queue_entry<T,n>( left_box_sq_dist, current->left_ ) );
+          priority_queue.push_back( bnld_bbf_queue_entry<T,n>( left_box_sq_dist, current->left_ ) );
           vcl_push_heap( priority_queue.begin(), priority_queue.end() );
         };
 
-        right_box_sq_dist = dbnl_bbf_dist_sq( query_point, current->right_->inner_box_ );
+        right_box_sq_dist = bnld_bbf_dist_sq( query_point, current->right_->inner_box_ );
         // vcl_cout << "right sq distance = " << right_box_sq_dist << vcl_endl;
         if ( num_found < num || sq_distances[ num_found-1 ] > right_box_sq_dist ) {
           // vcl_cout << "pushing right onto the heap\n";
-          priority_queue.push_back( dbnl_bbf_queue_entry<T,n>( right_box_sq_dist, current->right_ ) );
+          priority_queue.push_back( bnld_bbf_queue_entry<T,n>( right_box_sq_dist, current->right_ ) );
           vcl_push_heap( priority_queue.begin(), priority_queue.end() );
         }
       }
@@ -342,9 +342,9 @@ dbnl_bbf_tree<T,n>::n_nearest( const vnl_vector_fixed<T,n>& query_point,
 
 template <class T, unsigned int n>
 void
-dbnl_bbf_tree<T,n>::update_closest( const vnl_vector_fixed<T,n>& query_point,
+bnld_bbf_tree<T,n>::update_closest( const vnl_vector_fixed<T,n>& query_point,
                                     int num,
-                                    dbnl_bbf_node_sptr p,
+                                    bnld_bbf_node_sptr p,
                                     vcl_vector< int >& closest_indices,
                                     vcl_vector< T >& sq_distances,
                                     int & num_found ) const
@@ -400,9 +400,9 @@ dbnl_bbf_tree<T,n>::update_closest( const vnl_vector_fixed<T,n>& query_point,
 //  points.
 template <class T, unsigned int n>
 bool
-dbnl_bbf_tree<T,n>::bounded_at_leaf( const vnl_vector_fixed<T,n>& query_point,
+bnld_bbf_tree<T,n>::bounded_at_leaf( const vnl_vector_fixed<T,n>& query_point,
                                      int num,
-                                     dbnl_bbf_node_sptr current,
+                                     bnld_bbf_node_sptr current,
                                      const vcl_vector< T >& sq_distances,
                                      int & num_found ) const
 {
@@ -428,11 +428,11 @@ dbnl_bbf_tree<T,n>::bounded_at_leaf( const vnl_vector_fixed<T,n>& query_point,
 }
 
 #define DBNL_BBF_TREE_INSTANTIATE(T,n) \
-template class dbnl_bbf_box< T,n >; \
-template class dbnl_bbf_node< T,n >; \
-template class dbnl_bbf_queue_entry< T,n >; \
-template class dbnl_bbf_tree< T,n >; \
+template class bnld_bbf_box< T,n >; \
+template class bnld_bbf_node< T,n >; \
+template class bnld_bbf_queue_entry< T,n >; \
+template class bnld_bbf_tree< T,n >; \
 VCL_INSTANTIATE_INLINE(bool first_less( const vcl_pair<T,int>& left, \
                                         const vcl_pair<T,int>& right )); \
-typedef dbnl_bbf_node<T,n> dbnl_bbf_node_inst; \
-VBL_SMART_PTR_INSTANTIATE( dbnl_bbf_node_inst );
+typedef bnld_bbf_node<T,n> bnld_bbf_node_inst; \
+VBL_SMART_PTR_INSTANTIATE( bnld_bbf_node_inst );

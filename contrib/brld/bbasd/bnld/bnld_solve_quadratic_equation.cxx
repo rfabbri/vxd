@@ -1,14 +1,14 @@
-// This is basic/dbnl/dbnl_solve_quadratic_equation.cxx
+// This is bbasd/bnld/bnld_solve_quadratic_equation.cxx
 //:
 // \file
 
-#include "dbnl_solve_quadratic_equation.h"
+#include "bnld_solve_quadratic_equation.h"
 
 #include <vcl_cmath.h>
 #include <vcl_cassert.h>
 
 //: Solve quadratic equation ax^2 + bx + c = 0, a != 0
-void dbnl_solve_quadratic_equation(double a, double b, double c, 
+void bnld_solve_quadratic_equation(double a, double b, double c, 
                                      vcl_vector<double >& roots)
 {
   // require

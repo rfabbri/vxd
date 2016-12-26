@@ -1,4 +1,4 @@
-#include "dbnl_matrix_multiply.h"
+#include "bnld_matrix_multiply.h"
 
 #include <v3p_netlib.h>
 #include <vnl/vnl_fortran_copy.h>

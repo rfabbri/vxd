@@ -1,6 +1,6 @@
-#include <dbnl/algo/dbnl_eno.h>
-#include <dbnl/algo/dbnl_eno_shock.h>
-#include <dbnl/algo/dbnl_eno_zerox.h>
+#include <bnld/algo/bnld_eno.h>
+#include <bnld/algo/bnld_eno_shock.h>
+#include <bnld/algo/bnld_eno_zerox.h>
 
 int main()
 {
@@ -10,7 +10,7 @@ int main()
       << "------------------------------------" << vcl_endl
       << "EXAMPLE 0" << vcl_endl;
    {
-   dbnl_eno_shock_1d myeno;
+   bnld_eno_shock_1d myeno;
 
    vnl_vector<double> data(4);
 
@@ -22,7 +22,7 @@ int main()
 
    myeno.interpolate(&data);
    myeno.place_shocks(); 
-   dbnl_eno_zerox_vector z(myeno);
+   bnld_eno_zerox_vector z(myeno);
    z.print(myeno, vcl_cout);
    }
    */
@@ -32,7 +32,7 @@ int main()
       << "------------------------------------" << vcl_endl
       << "EXAMPLE 0" << vcl_endl;
    {
-   dbnl_eno_shock_1d myeno;
+   bnld_eno_shock_1d myeno;
 
    vnl_vector<double> data(4);
 
@@ -45,7 +45,7 @@ int main()
 
    myeno.interpolate(&data);
    myeno.place_shocks(); 
-   dbnl_eno_zerox_vector z(myeno);
+   bnld_eno_zerox_vector z(myeno);
    z.print(myeno, vcl_cout);
    }
    */
@@ -56,7 +56,7 @@ int main()
       << "------------------------------------" << vcl_endl
       << "EXAMPLE 1" << vcl_endl;
    {
-   dbnl_eno_shock_1d myeno;
+   bnld_eno_shock_1d myeno;
 
    double data[4];
    data[0] = 1;
@@ -66,7 +66,7 @@ int main()
 
    myeno.interpolate(data, 4);
    myeno.place_shocks();
-   dbnl_eno_zerox_vector z(myeno);
+   bnld_eno_zerox_vector z(myeno);
    z.print(myeno, vcl_cout);
    }
 
@@ -75,7 +75,7 @@ int main()
       << "------------------------------------" << vcl_endl
       << "EXAMPLE 2" << vcl_endl;
    {
-   dbnl_eno_shock_1d myeno;
+   bnld_eno_shock_1d myeno;
 
    double data[4];
    data[0] = 1;
@@ -99,7 +99,7 @@ int main()
       << "------------------------------------" << vcl_endl
       << "EXAMPLE: 6 points" << vcl_endl;
    {
-   dbnl_eno_shock_1d myeno;
+   bnld_eno_shock_1d myeno;
 
    double data[6];
    data[0] = 0;

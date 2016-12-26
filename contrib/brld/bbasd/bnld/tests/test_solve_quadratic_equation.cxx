@@ -1,5 +1,5 @@
 #include <testlib/testlib_test.h>
-#include <dbnl/dbnl_solve_quadratic_equation.h>
+#include <bnld/bnld_solve_quadratic_equation.h>
 #include <vcl_iostream.h>
 #include <vcl_cmath.h>
 
@@ -15,14 +15,14 @@ MAIN( test_solve_quadratic_equation )
   double b = 2;
   double c = 1;
   vcl_vector<double > roots;
-  dbnl_solve_quadratic_equation(a, b, c, roots);
+  bnld_solve_quadratic_equation(a, b, c, roots);
   TEST("Equation with no root", roots.empty(), true);
 
   // one root - x = 3
   a = 3;
   b = 18;
   c = 27;
-  dbnl_solve_quadratic_equation(a, b, c, roots);
+  bnld_solve_quadratic_equation(a, b, c, roots);
   TEST("Equation with one root - test # of root", roots.size(), 1);
   if (roots.size() == 1)
   {
@@ -33,7 +33,7 @@ MAIN( test_solve_quadratic_equation )
   a = 1;
   b = -5;
   c = 4;
-  dbnl_solve_quadratic_equation(a, b, c, roots);
+  bnld_solve_quadratic_equation(a, b, c, roots);
   TEST("Equation with two roots - test # of root", roots.size(), 2);
   if (roots.size() == 2)
   {
