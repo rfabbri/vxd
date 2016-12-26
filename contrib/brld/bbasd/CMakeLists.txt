@@ -13,5 +13,9 @@ add_subdirectory(bnld)
 # The Brown Spatial Objects Library (vxd development version)
 add_subdirectory(bsold) 
 
-# The Development Brown Utility Library (vxd development version)
+# The Brown Utility Library (vxd development version)
 add_subdirectory(buld)
+
+# The Brown Spatial Indexing Library (vxd development version)
+add_subdirectory(dbspi)
+
