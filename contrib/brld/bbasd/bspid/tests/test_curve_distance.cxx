@@ -2,7 +2,7 @@
 
 #include <vsol/vsol_point_2d.h>
 #include <bspid/bspid_curve_distance.h>
-#include <dbil/algo/dbil_exact_distance_transform.h>
+#include <bild/algo/bild_exact_distance_transform.h>
 
 void
 test_num_inliers(
@@ -15,7 +15,7 @@ test_num_inliers(
   assert(d_threshold.size() == num_inliers.size());
   // compute dt + label
   vil_image_view <vxl_uint_32> label(feature_map.ni(), feature_map.nj(), 1);
-  dbil_exact_distance_transform_maurer_label(feature_map, label);
+  bild_exact_distance_transform_maurer_label(feature_map, label);
 
   for (unsigned i=0; i < d_threshold.size(); ++i) {
     if (verbose)

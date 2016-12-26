@@ -172,7 +172,7 @@ execute()
 
         // scan polygon
         vgl_polygon<double > polygon(pts);
-        //dbil_roi_mask_add_polygon(mask, polygon);
+        //bild_roi_mask_add_polygon(mask, polygon);
 
         // if we have two polygons, one is completely inside the other
         // this will generate a polygon with hole
