@@ -3,7 +3,7 @@
 //:
 // \file
 // \brief
-// \author Firat Kalaycilar (firat@lems.brown.edu)
+// \author Based on original code by  Firat Kalaycilar (@lems.brown.edu)
 // \date Feb 24, 2010
 
 #include "dbil_octave.h"

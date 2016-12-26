@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Tools that work on images 
-// \author Amir Tamrakar
+// \author Based on original code by  Amir Tamrakar
 // \date 03/01/2005
 //
 // \verbatim

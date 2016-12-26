@@ -2,7 +2,7 @@
 //:
 // \file
 // \brief Euclidean Distance Transform algorithms
-// \author Ricardo Fabbri (Brown)
+// \author Based on original code by  Ricardo Fabbri (Brown)
 //
 // \todo Idea for the future: define these in a class; use of inheritance may be useful e.g. by
 // defining a base "distance_tranform" compute class wich abstracts all EDT

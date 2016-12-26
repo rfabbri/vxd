@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process to compute the distance transform for a binary image
-// \author Vishal Jain
+// \author Based on original code by  Vishal Jain
 // \date 09/06/05
 //
 // \verbatim

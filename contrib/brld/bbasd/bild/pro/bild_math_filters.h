@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Filters to apply vil_math operations
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 6/9/06
 //
 // \verbatim

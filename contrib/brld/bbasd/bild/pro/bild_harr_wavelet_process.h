@@ -6,7 +6,7 @@
 // \file
 // \brief  A process for the Harr Wavelet Transform and its inverse
 //
-// \author Matt Leotta
+// \author Based on original code by  Matt Leotta
 // \date 10/20/05
 //
 // \verbatim

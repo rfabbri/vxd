@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Include this file in your executable to force registration of this library
-// \author Matt Leotta, (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta, (@lems.brown.edu)
 // \date 1/3/05
 
 #include <dbpro1/dbpro_storage.h>

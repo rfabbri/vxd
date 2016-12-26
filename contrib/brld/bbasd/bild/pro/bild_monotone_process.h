@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Process that converts an image into monotone (grey-scale)
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 12/21/04
 //
 // \verbatim

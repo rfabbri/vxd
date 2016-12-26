@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief A tool for looking at image gradients in a patch
-// \author Amir Tamrakar
+// \author Based on original code by  Amir Tamrakar
 // \date 03/01/2005
 //
 // \verbatim

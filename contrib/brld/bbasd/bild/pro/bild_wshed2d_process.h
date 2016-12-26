@@ -6,7 +6,7 @@
 // \file
 // \brief   this implements the watershed transform of an image
 //
-// \author
+// \author Based on original code by 
 //   H.C. Aras
 //
 // \verbatim

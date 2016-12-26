@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process that smooths an image with a Gaussian filter
-// \author Matt Leotta
+// \author Based on original code by  Matt Leotta
 // \date 12/20/04
 //
 // \verbatim

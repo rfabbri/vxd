@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief A tool for looking at image statistics in a region
-// \author Matt Leotta
+// \author Based on original code by  Matt Leotta
 // \date 06/27/2005
 //
 // \verbatim

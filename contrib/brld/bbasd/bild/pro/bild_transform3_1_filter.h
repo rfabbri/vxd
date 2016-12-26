@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Apply a function of 3 variables to map 3 planes into 1
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 5/8/09
 //
 // \verbatim

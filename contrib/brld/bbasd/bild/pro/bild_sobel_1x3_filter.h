@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A Sobel 1x3 filter to produce image gradients
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 5/8/09
 //
 // \verbatim

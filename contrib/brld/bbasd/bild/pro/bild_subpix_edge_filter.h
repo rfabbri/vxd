@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Suppress all non-maximal edges and estimate subpixel locations
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 5/8/09
 //
 // \verbatim

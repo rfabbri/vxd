@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief tool to inspect the RGB,IHS values of images
-// \author unknown
+// \author Based on original code by  unknown
 // \date 03/01/2005
 //
 // \verbatim

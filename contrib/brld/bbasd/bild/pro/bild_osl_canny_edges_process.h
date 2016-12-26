@@ -8,7 +8,7 @@
 // \brief  A process for detecting edges of an image using
 // U. Oxford's Canny edge detector
 //
-// \author Vishal Jain (vj)
+// \author Based on original code by  Vishal Jain (vj)
 // \date 06/27/2003
 //
 // \verbatim

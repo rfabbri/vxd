@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Compute the squares and cross terms of gradient.
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 5/8/09
 //
 // \verbatim

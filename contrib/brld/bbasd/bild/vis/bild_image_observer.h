@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief A dbpro image observer for vgui 
-// \author Matt Leotta
+// \author Based on original code by  Matt Leotta
 // \date 01/21/2008
 //
 // \verbatim

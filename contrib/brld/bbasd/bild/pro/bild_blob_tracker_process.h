@@ -6,7 +6,7 @@
 // \file
 // \brief  A process for tracking blobs in binary images
 //
-// \author Matt Leotta
+// \author Based on original code by  Matt Leotta
 // \date 02/21/06
 //
 // \verbatim
