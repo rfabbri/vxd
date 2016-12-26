@@ -6,3 +6,6 @@ add_subdirectory(bbld)
 
 # The Brown Geometry Library (vxd development version)
 add_subdirectory(bgld) 
+
+# The Development Brown Numerical Library (vxd development version)
+add_subdirectory(bnld)
