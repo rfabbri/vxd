@@ -10,7 +10,7 @@
 
 
 #include <vbl/vbl_sparse_array_3d.h>
-#include <mw/bmcsd_discrete_corresp.h>
+#include <bmcsd/bmcsd_discrete_corresp.h>
 #include <vcl_set.h>
 #include <vcl_algorithm.h>
 #include <assert.h>

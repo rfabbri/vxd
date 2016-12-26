@@ -9,9 +9,9 @@
 //
 
 #include <bdifd/bdifd_frenet.h>
-#include <mw/bmcsd_view_set.h>
-#include <mw/bmcsd_curve_3d_attributes.h>
-#include <mw/bmcsd_util.h>
+#include <bmcsd/bmcsd_view_set.h>
+#include <bmcsd/bmcsd_curve_3d_attributes.h>
+#include <bmcsd/bmcsd_util.h>
 
 // This class holds 3D curves together with attributes such as pointers to which
 // views were used to reconstruct them, etc. It is used as a basic

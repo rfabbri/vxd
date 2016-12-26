@@ -1,6 +1,6 @@
 #include "bmcsd_curve_3d_attributes.h"
 #include <vsl/vsl_vector_io.h>
-#include <mw/bmcsd_view_set.h>
+#include <bmcsd/bmcsd_view_set.h>
 
 void bmcsd_curve_3d_attributes::
 b_write(vsl_b_ostream &os) const

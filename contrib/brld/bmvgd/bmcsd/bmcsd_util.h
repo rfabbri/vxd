@@ -429,6 +429,6 @@ struct bmcsd_dereference_less {
 };
 
 
-#define MW_UTIL_INSTANTIATE(T) extern "please include mw/bmcsd_util.hxx first"
+#define MW_UTIL_INSTANTIATE(T) extern "please include bmcsd/bmcsd_util.hxx first"
 
 #endif // bmcsd_util_h

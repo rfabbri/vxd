@@ -1,5 +1,5 @@
 #include "bmcsd_discrete_corresp_n.h"
-#include <mw/bmcsd_util.h>
+#include <bmcsd/bmcsd_util.h>
 #include <vbl/io/vbl_io_sparse_array_base.h>
 #include <vsl/vsl_vector_io.h>
 

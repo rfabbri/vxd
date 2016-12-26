@@ -1,6 +1,6 @@
 #include "bmcsd_discrete_corresp_3.h"
-#include <mw/bmcsd_discrete_corresp_n.h> // just for conversion
-#include <mw/bmcsd_util.h>
+#include <bmcsd/bmcsd_discrete_corresp_n.h> // just for conversion
+#include <bmcsd/bmcsd_util.h>
 #include <vbl/io/vbl_io_sparse_array_3d.h>
 
 bmcsd_discrete_corresp_3::

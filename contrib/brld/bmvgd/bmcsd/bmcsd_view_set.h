@@ -74,7 +74,7 @@ inline void vsl_b_read(vsl_b_istream &is,  bmcsd_stereo_views &p)
 }
 
 
-#include <mw/bmcsd_stereo_views_sptr.h>
+#include <bmcsd/bmcsd_stereo_views_sptr.h>
 
 //: Represents indexes of views to be used in multiple instances of binocular
 // stereo. Each instance of binocular stereo matches two views, but can use many

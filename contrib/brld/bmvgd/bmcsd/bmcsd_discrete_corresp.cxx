@@ -4,7 +4,7 @@
 #include <vcl_algorithm.h>
 #include <vcl_set.h>
 #include <dborl/dborl_evaluation.h>
-#include <mw/bmcsd_util.h>
+#include <bmcsd/bmcsd_util.h>
 
 bool  bmcsd_discrete_corresp::
 add_unique(const bmcsd_attributed_object &e, unsigned i, 

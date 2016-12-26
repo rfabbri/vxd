@@ -8,9 +8,9 @@
 //\date 08/31/2009 04:05:46 PM PDT
 //
 
-#include <mw/bmcsd_util.h>
-#include <mw/bmcsd_view_set.h>
-#include <mw/bmcsd_stereo_views_sptr.h>
+#include <bmcsd/bmcsd_util.h>
+#include <bmcsd/bmcsd_view_set.h>
+#include <bmcsd/bmcsd_stereo_views_sptr.h>
 #include <vsl/vsl_binary_io.h>
 
 class bmcsd_curve_3d_attributes {

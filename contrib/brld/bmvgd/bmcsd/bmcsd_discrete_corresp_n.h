@@ -12,7 +12,7 @@
 #include <vcl_set.h>
 #include <vcl_algorithm.h>
 #include <vcl_vector.h>
-#include <mw/bmcsd_discrete_corresp.h>
+#include <bmcsd/bmcsd_discrete_corresp.h>
 
 typedef vcl_vector<unsigned> bmcsd_ntuplet;
 

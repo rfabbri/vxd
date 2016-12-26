@@ -110,7 +110,7 @@ bool
 con_filenames(vcl_string image_fname,vcl_vector<vcl_string> &con_fnames)
 {
 
-   vcl_string cmdline("/home/rfabbri/cprg/vxlprg/lemsvxlsrc/contrib/rfabbri/mw/scripts/confiles ");
+   vcl_string cmdline("/home/rfabbri/cprg/vxlprg/lemsvxlsrc/contrib/rfabbri/bmcsd/scripts/confiles ");
    cmdline.append(image_fname);
    if (system(cmdline.c_str()) == -1) {
       vcl_cerr << "error trying to exec helper script confiles" << vcl_endl;
