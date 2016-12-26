@@ -1,4 +1,4 @@
-#include <mw/dbmcs_view_set.h>
+#include <mw/bmcsd_view_set.h>
 #include <vbl/vbl_smart_ptr.hxx>
  
-VBL_SMART_PTR_INSTANTIATE(dbmcs_stereo_views);
+VBL_SMART_PTR_INSTANTIATE(bmcsd_stereo_views);
