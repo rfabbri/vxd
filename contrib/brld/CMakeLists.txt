@@ -12,6 +12,7 @@ doxygen_add_package(contrib/brld "Brown University Libraries: Development Versio
 set(BRLD_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/bbasd;${CMAKE_CURRENT_BINARY_DIR}/bbasd;${CMAKE_CURRENT_SOURCE_DIR}/bmvgd;${CMAKE_CURRENT_BINARY_DIR}/bmvgd;${CMAKE_CURRENT_SOURCE_DIR}/breye1d;${CMAKE_CURRENT_BINARY_DIR}/breye1d" CACHE STATIC "Brown University development package include files" FORCE)
 
 set(BRLD_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+set(BRLD_SOURCE_DIR "${vxd_SOURCE_DIR}/contrib/brld")
 set(BRLD_INSTALL_INCLUDE_DIR 
   ${CMAKE_INSTALL_PREFIX}/include/vxl/contrib/brld 
   ${CMAKE_INSTALL_PREFIX}/include/vxl/contrib/brld/bbasd 
