@@ -1,0 +1,8 @@
+# This is a mcs_stereo_instance format.
+# Format:
+# stereo_view0 stereo_view1 confirm_view0 confirm_view1 confirm_view_n
+# This is a comment.
+# Each line can have as as many ints, from 2 to infinity.
+
+0 2 1 3 4 5
+1 3 0 2 5
