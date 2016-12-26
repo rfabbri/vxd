@@ -1,5 +1,9 @@
 # Curve Multiview Lib (Curve Sketch System Base, VXD version)
 
+include_directories(${VXL_GEL_INCLUDE_DIR} )
+include_directories(${VXL_GEL_INCLUDE_DIR}/mrc )
+
+
 set( bmcsd_sources
    bmcsd_util.hxx       bmcsd_util_defs.cxx bmcsd_util.h
    bmcsd_discrete_corresp.cxx      bmcsd_discrete_corresp.h
