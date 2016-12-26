@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Best-Bin-First search (limited search KD-tree)
-// \author Matthew Leotta, (mleotta@lems.brown.edu)
+// \author Based on original code by  Matthew Leotta, (@lems.brown.edu)
 // \date Sun Nov 9 2003
 //
 // This implementation is based on the kd-tree code found in contrib/rsdl

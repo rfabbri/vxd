@@ -6,7 +6,7 @@
 
 //:
 // \file
-// \author Ricardo Fabbri
+// \author Based on original code by  Ricardo Fabbri
 
 #if !VCL_STATIC_CONST_INIT_FLOAT_NO_DEFN
 const double  dbnl_eno::near_zero_value

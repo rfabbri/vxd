@@ -7,7 +7,7 @@
 // \file
 // \brief Cubic root
 // 
-// \author Ming-Ching Chang ( mcchang@lems.brown.edu)
+// \author Based on original code by  Ming-Ching Chang ( @lems.brown.edu)
 // \date   Mar/07/2007
 //
 // \verbatim

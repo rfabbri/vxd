@@ -7,7 +7,7 @@
 // \file
 // \brief Gaussian functions
 // 
-// \author Nhon Trinh ( ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
 // \date Nov 4, 2007
 //
 // \verbatim

@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Zerocrossings from polynomial functions and interval interpolants
-// \author Ricardo Fabbri, LEMS, Brown University (rfabbri.github.io)
+// \author Based on original code by  Ricardo Fabbri, LEMS, Brown University (rfabbri.github.io)
 // \date Feb 2005
 //
 

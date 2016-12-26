@@ -7,7 +7,7 @@
 // \file
 // \brief Newton root solver
 // 
-// \author Nhon Trinh ( ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
 // \date 2/13/05
 //
 // \verbatim

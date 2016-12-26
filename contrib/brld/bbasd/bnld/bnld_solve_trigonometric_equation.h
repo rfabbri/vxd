@@ -7,7 +7,7 @@
 // \file
 // \brief Functions to solve various trigonomtric equations
 // 
-// \author Nhon Trinh ( ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
 // \date Nov 19, 2009
 //
 // \verbatim

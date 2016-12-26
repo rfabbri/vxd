@@ -12,7 +12,7 @@
 // \file
 // \brief Various commonly used and simple math functions
 // 
-// \author Nhon Trinh ( ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
 // \date Oct 14, 2008
 //
 // \verbatim

@@ -2,7 +2,7 @@
 #include <vcl_cstdio.h>
 //:
 // \file
-// \author Ricardo Fabbri
+// \author Based on original code by  Ricardo Fabbri
 
 //: interpolation code for non-integral coords
 void dbnl_eno_interp ::

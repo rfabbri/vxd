@@ -7,7 +7,7 @@
 // \file
 // \brief Fresnel integrals - sine and cosine
 // 
-// \author Nhon Trinh ( ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu)
 // \date 2/03/05
 //
 // \verbatim

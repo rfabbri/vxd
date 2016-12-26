@@ -7,7 +7,7 @@
 // \brief A process for upsampling a dbnl_eno object (or other continuous
 // functions). Interpolates input vsol's
 //
-// \author Ricardo Fabbri
+// \author Based on original code by  Ricardo Fabbri
 // \date 03/26/05
 //
 // \verbatim

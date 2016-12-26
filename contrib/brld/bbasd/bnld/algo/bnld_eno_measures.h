@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Code to compute some differential measures from dbnl_eno_intep's
-//\author Ricardo Fabbri (RFabbri), Brown University  (rfabbri.github.io)
+//\author Based on original code by  Ricardo Fabbri (RFabbri), Brown University  (rfabbri.github.io)
 //\date 02/11/2005 05:21:36 PM EST
 //
 

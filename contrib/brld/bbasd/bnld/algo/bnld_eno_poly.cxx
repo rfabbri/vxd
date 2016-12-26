@@ -1,7 +1,7 @@
 #include "dbnl_eno.h"
 //:
 // \file
-// \author Ricardo Fabbri
+// \author Based on original code by  Ricardo Fabbri
 
 // Constants
 #if !VCL_STATIC_CONST_INIT_INT_NO_DEFN

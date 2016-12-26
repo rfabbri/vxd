@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Essentially Non-Oscillatory 1D interpolation resulting in third order polynomial
-// \author H. Can Aras, aras@brown.edu
+// \author Based on original code by  H. Can Aras, @brown.edu
 // \date 2006-11-23
 //
 // The algorithm uses ENO idea to fit third order polynomials between each point sample pair.

@@ -12,7 +12,7 @@
 // \file
 // \brief Various simple functions for dealing with angles
 // 
-// \author Nhon Trinh ( ntrinh@lems.brown.edu )
+// \author Based on original code by  Nhon Trinh ( @lems.brown.edu )
 // \date Oct 23, 2009
 //
 // \verbatim

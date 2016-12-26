@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief  Zerocrossings for dbnl_eno_image
-////\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri.github.io)
+////\author Based on original code by  Ricardo Fabbri (rfabbri), Brown University  (rfabbri.github.io)
 //\date 10/27/2005 10:03:47 PM EDT
 //
 

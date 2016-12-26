@@ -3,7 +3,7 @@
 
 //:
 // \file
-// \author Ricardo Fabbri
+// \author Based on original code by  Ricardo Fabbri
 
 
 //: Find zeros of polynomial

@@ -2,7 +2,7 @@
 #include <dbnl/dbnl_sinc.h>
 
 
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date 08/17/2005
 
 

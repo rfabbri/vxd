@@ -2,7 +2,7 @@
 #include <dbnl/dbnl_angle.h>
 #include <vnl/vnl_math.h>
 
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date Oct 23, 2009
 
 
