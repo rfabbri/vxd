@@ -1,5 +1,5 @@
 #include <testlib/testlib_test.h>
-#include <mw/bmcsd_discrete_corresp_3.h>
+#include <bmcsd/bmcsd_discrete_corresp_3.h>
 #include <vcl_limits.h>
 #include <vcl_set.h>
 #include <vnl/vnl_math.h>

@@ -1,8 +1,8 @@
 #include <testlib/testlib_test.h>
 
-#include <mw/bmcsd_util.h>
+#include <bmcsd/bmcsd_util.h>
 #include <vcl_algorithm.h>
-#include <mw/bmcsd_view_set.h>
+#include <bmcsd/bmcsd_view_set.h>
 #include <buld/buld_parse_simple_file.h>
 
 static const double tolerance=vcl_numeric_limits<double>::epsilon()*100;

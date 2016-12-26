@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
-#include <mw/bmcsd_discrete_corresp_3.h>
-#include <mw/bmcsd_discrete_corresp_n.h>
-#include <mw/algo/bmcsd_discrete_corresp_algo.h>
+#include <bmcsd/bmcsd_discrete_corresp_3.h>
+#include <bmcsd/bmcsd_discrete_corresp_n.h>
+#include <bmcsd/algo/bmcsd_discrete_corresp_algo.h>
 #include <vcl_limits.h>
 #include <vcl_set.h>
 #include <vnl/vnl_math.h>

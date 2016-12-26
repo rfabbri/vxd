@@ -1,6 +1,6 @@
 #include <iostream>
 #include <testlib/testlib_test.h>
-#include <mw/bmcsd_discrete_corresp.h>
+#include <bmcsd/bmcsd_discrete_corresp.h>
 #include <vcl_limits.h>
 #include <vnl/vnl_math.h>
 #include <dborl/dborl_evaluation.h>

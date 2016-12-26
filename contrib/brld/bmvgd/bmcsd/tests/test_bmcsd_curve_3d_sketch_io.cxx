@@ -1,9 +1,9 @@
 #include <testlib/testlib_test.h>
 #include <vcl_algorithm.h>
-#include <mw/bmcsd_util.h>
-#include <mw/bmcsd_view_set.h>
-#include <mw/bmcsd_curve_3d_attributes.h>
-#include <mw/bmcsd_curve_3d_sketch.h>
+#include <bmcsd/bmcsd_util.h>
+#include <bmcsd/bmcsd_view_set.h>
+#include <bmcsd/bmcsd_curve_3d_attributes.h>
+#include <bmcsd/bmcsd_curve_3d_sketch.h>
 
 static void test_bmcsd_curve_3d_sketch_io();
 static void test_stereo_views_io();
