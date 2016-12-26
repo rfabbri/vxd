@@ -1,7 +1,7 @@
-// This is basic/dbul/cmdline/dbul_embed_files_to_vxl_source_utils.h
+// This is bbasd/buld/cmdline/buld_embed_files_to_vxl_source_utils.h
 
-#ifndef DBUL_EMBED_FILES_TO_VXL_SOURCE_UTILS_H_
-#define DBUL_EMBED_FILES_TO_VXL_SOURCE_UTILS_H_
+#ifndef BULD_EMBED_FILES_TO_VXL_SOURCE_UTILS_H_
+#define BULD_EMBED_FILES_TO_VXL_SOURCE_UTILS_H_
 
 //:
 // \file
@@ -25,4 +25,4 @@ void create_h_file(vcl_string& filename, vcl_string& h_file_tag, vcl_string& ext
 
 void create_cpp_file(vcl_string& output_cpp_file_name, vcl_string& output_h_file_name, vcl_string& root_path, vcl_vector<vcl_string>& original_files, vcl_vector<vcl_string>& variable_names, vcl_vector<int>& data_sizes, vcl_string& extract_command, vcl_string& delete_command);
 
-#endif /* DBUL_EMBED_FILES_TO_VXL_SOURCE_UTILS_H_ */
+#endif /* BULD_EMBED_FILES_TO_VXL_SOURCE_UTILS_H_ */

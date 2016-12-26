@@ -1,4 +1,4 @@
-// This is basic/dbul/dbul_handle_files_embedded_in_vxl_source.cxx
+// This is bbasd/buld/buld_handle_files_embedded_in_vxl_source.cxx
 
 //:
 // \file
@@ -15,34 +15,34 @@
 #include<vul/vul_file_iterator.h>
 #include<vpl/vpl.h>
 
-#include "dbul_handle_files_embedded_in_vxl_source.h"
+#include "buld_handle_files_embedded_in_vxl_source.h"
 
-bool dbul_is_embedded_files_dir_safe = false;
+bool buld_is_embedded_files_dir_safe = false;
 
-void dbul_create_file_extraction_lock(const char* out_dir)
+void buld_create_file_extraction_lock(const char* out_dir)
 {
     vcl_string expanded_out_dir = vul_file::expand_tilde(out_dir);
-    vcl_string lock_file = expanded_out_dir + vcl_string("/.dbulrunlock");
+    vcl_string lock_file = expanded_out_dir + vcl_string("/.buldrunlock");
     vcl_ofstream lock_stream(lock_file.c_str());
-    lock_stream << "DBUL_LOCK";
+    lock_stream << "BULD_LOCK";
     lock_stream.close();
 }
 
-void dbul_remove_file_extraction_lock(const char* out_dir)
+void buld_remove_file_extraction_lock(const char* out_dir)
 {
     vcl_string expanded_out_dir = vul_file::expand_tilde(out_dir);
-    vcl_string lock_file = expanded_out_dir + vcl_string("/.dbulrunlock");
+    vcl_string lock_file = expanded_out_dir + vcl_string("/.buldrunlock");
     vpl_unlink(lock_file.c_str());
 }
 
-bool dbul_is_file_extraction_in_progress(const char* out_dir)
+bool buld_is_file_extraction_in_progress(const char* out_dir)
 {
     vcl_string expanded_out_dir = vul_file::expand_tilde(out_dir);
-    vcl_string lock_file = expanded_out_dir + vcl_string("/.dbulrunlock");
+    vcl_string lock_file = expanded_out_dir + vcl_string("/.buldrunlock");
     return vul_file_exists(lock_file);
 }
 
-void dbul_default_extract_embedded_file(char* array, int length, const char* out_dir, char* file_name)
+void buld_default_extract_embedded_file(char* array, int length, const char* out_dir, char* file_name)
 {
     vcl_string expanded_out_dir = vul_file::expand_tilde(out_dir);
     vcl_string out_file = expanded_out_dir + vcl_string("/") + vcl_string(file_name);
@@ -51,16 +51,16 @@ void dbul_default_extract_embedded_file(char* array, int length, const char* out
     if(pFile == NULL)
     {
         vcl_cerr << "ERROR: File " <<  out_file << " cannot be created. Cannot continue!" << vcl_endl;
-        dbul_remove_file_extraction_lock(out_dir);
+        buld_remove_file_extraction_lock(out_dir);
         vcl_exit(1);
     }
     vcl_fwrite (array, 1 ,length ,pFile);
     vcl_fclose(pFile);
 }
 
-void dbul_default_delete_extracted_file(const char* out_dir)
+void buld_default_delete_extracted_file(const char* out_dir)
 {
-    if(dbul_is_embedded_files_dir_safe)
+    if(buld_is_embedded_files_dir_safe)
     {
         vcl_string path = vul_file::expand_tilde(out_dir);
         if(vul_file::is_directory(path))
@@ -74,7 +74,7 @@ void dbul_default_delete_extracted_file(const char* out_dir)
                     continue;
                 }
                 vcl_string full_entry_path = path + '/' + entry_name;
-                dbul_default_delete_extracted_file(full_entry_path.c_str());
+                buld_default_delete_extracted_file(full_entry_path.c_str());
             }
             while(++fit);
             vcl_cout << "Deleting " << path.c_str() << vcl_endl;

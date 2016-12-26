@@ -1,15 +1,15 @@
-// This is dbul/dbul_dir_file.cxx
+// This is buld/buld_dir_file.cxx
 
 #include <vcl_cassert.h>
 #include <vcl_algorithm.h>
-#include <dbul/dbul_dir_file.h>
+#include <buld/buld_dir_file.h>
 #include <vcl_fstream.h>
 
 #define FILENAME_HUGE_INT 1000
 
 //: For the input "abc\def\prefix-ghi-jkl-mno.txt"
 //  return the directory "abc\def"
-vcl_string dbul_get_dir (const vcl_string& filename) 
+vcl_string buld_get_dir (const vcl_string& filename) 
 {
     int end;
     end=filename.find_last_of('\\');
@@ -18,7 +18,7 @@ vcl_string dbul_get_dir (const vcl_string& filename)
 
 //: For the input "abc\def\prefix-ghi-jkl-mno.txt"
 //  return the file prefix "prefix"
-vcl_string dbul_get_prefix (const vcl_string& filename) 
+vcl_string buld_get_prefix (const vcl_string& filename) 
 {
     int start=filename.find_last_of ('\\');
     int end1 = filename.find_first_of ('-');
@@ -34,7 +34,7 @@ vcl_string dbul_get_prefix (const vcl_string& filename)
 
 //: For the input "abc\def\prefix-ghi-jkl-mno.txt"
 //  return the dir-file prefix "abc\def\prefix"
-vcl_string dbul_get_dir_prefix (const vcl_string& filename) 
+vcl_string buld_get_dir_prefix (const vcl_string& filename) 
 {
     int end1 = filename.find_first_of ('-');
     int end2 = filename.find_first_of ('.');
@@ -52,7 +52,7 @@ vcl_string dbul_get_dir_prefix (const vcl_string& filename)
 
 //: For the input "abc\def\prefix_ghi_jkl-mno.txt"
 //  return the dir-file prefix "abc\def\prefix"
-vcl_string dbul_get_dir_prefix2 (const vcl_string& filename) 
+vcl_string buld_get_dir_prefix2 (const vcl_string& filename) 
 {
     int end1 = filename.find_first_of ('_');
     int end2 = filename.find_first_of ('.');
@@ -84,7 +84,7 @@ bool is_par_dir (const vcl_string& str)
 
 //: For the input "abc\def\prefix-ghi-jkl-mno.txt"
 //  return the file prefix "abc\def\prefix-ghi-jkl-mno"
-vcl_string dbul_get_dir_file (const vcl_string& filename)
+vcl_string buld_get_dir_file (const vcl_string& filename)
 {  
     int end=filename.find_last_of ('.');
 
@@ -98,7 +98,7 @@ vcl_string dbul_get_dir_file (const vcl_string& filename)
 
 //: For the input "abc\def\prefix-ghi-jkl-mno.txt"
 //  return the file name "prefix-ghi-jkl-mno.txt"
-vcl_string dbul_get_file (const vcl_string& filename)
+vcl_string buld_get_file (const vcl_string& filename)
 {
     int start1 = filename.find_last_of ('\\');
     int start2 = filename.find_last_of ('/');
@@ -110,7 +110,7 @@ vcl_string dbul_get_file (const vcl_string& filename)
 //: For the input "abc\def\prefix-ghi-jkl-mno.txt"
 //  return the file suffix ".txt"
 //  For the input "..\..\abc\def\prefix-ghi-jkl-mno", return "".
-vcl_string dbul_get_suffix (const vcl_string& filename)
+vcl_string buld_get_suffix (const vcl_string& filename)
 {
     int start,end;
     start=filename.find_last_of ('.');
@@ -128,7 +128,7 @@ vcl_string dbul_get_suffix (const vcl_string& filename)
     }
 }
 
-vcl_string dbul_get_str_prior (const vcl_string& str, const vcl_string& sub)
+vcl_string buld_get_str_prior (const vcl_string& str, const vcl_string& sub)
 {
     int end = str.find (sub); //find_last_of
     return str.substr (0, end);
@@ -141,7 +141,7 @@ vcl_string remove_commas (vcl_string& filename)
     return filename;
 }
 
-bool dbul_copy_file(const vcl_string& inf, const vcl_string& outf)
+bool buld_copy_file(const vcl_string& inf, const vcl_string& outf)
 {
     char * buffer;
     long size;

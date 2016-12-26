@@ -1,4 +1,4 @@
-// This is basic/dbul/cmdline/dbul_embed_files_to_vxl_source_main.cxx
+// This is bbasd/buld/cmdline/buld_embed_files_to_vxl_source_main.cxx
 
 //:
 // \file
@@ -17,7 +17,7 @@
 #include<vul/vul_file.h>
 #include<vul/vul_arg.h>
 
-#include "dbul_embed_files_to_vxl_source_utils.h"
+#include "buld_embed_files_to_vxl_source_utils.h"
 
 int main(int argn, char* args[])
 {

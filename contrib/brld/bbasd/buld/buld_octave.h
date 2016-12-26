@@ -1,4 +1,4 @@
-// This is basic/dbul/dbul_octave.h
+// This is bbasd/buld/buld_octave.h
 
 //:
 // \file
@@ -7,8 +7,8 @@
 // \date Feb 16, 2010
 // Implementation is incomplete. Required features will be added as needed.
 
-#ifndef DBUL_OCTAVE_H_
-#define DBUL_OCTAVE_H_
+#ifndef BULD_OCTAVE_H_
+#define BULD_OCTAVE_H_
 
 #include <octave/oct.h>
 #include <octave/oct-map.h>
@@ -16,33 +16,33 @@
 #include <vcl_vector.h>
 #include <bxml/bxml_document.h>
 
-#define dbul_octave_value_to_double(x) (x.scalar_value())
-#define dbul_octave_value_to_string(x) (x.string_value())
-#define dbul_octave_value_to_octave_double_matrix(x) (x.matrix_value())
-#define dbul_octave_value_to_octave_double_array(x) (x.array_value())
-#define dbul_octave_value_to_octave_uint8_array(x) (x.uint8_array_value())
+#define buld_octave_value_to_double(x) (x.scalar_value())
+#define buld_octave_value_to_string(x) (x.string_value())
+#define buld_octave_value_to_octave_double_matrix(x) (x.matrix_value())
+#define buld_octave_value_to_octave_double_array(x) (x.array_value())
+#define buld_octave_value_to_octave_uint8_array(x) (x.uint8_array_value())
 
-typedef Matrix dbul_octave_double_matrix;
+typedef Matrix buld_octave_double_matrix;
 
-typedef NDArray dbul_octave_double_array;
+typedef NDArray buld_octave_double_array;
 
-typedef uint8NDArray dbul_octave_uint8_array;
-typedef uint16NDArray dbul_octave_uint16_array;
-typedef uint32NDArray dbul_octave_uint32_array;
-typedef uint64NDArray dbul_octave_uint64_array;
+typedef uint8NDArray buld_octave_uint8_array;
+typedef uint16NDArray buld_octave_uint16_array;
+typedef uint32NDArray buld_octave_uint32_array;
+typedef uint64NDArray buld_octave_uint64_array;
 
-typedef int8NDArray dbul_octave_int8_array;
-typedef int16NDArray dbul_octave_int16_array;
-typedef int32NDArray dbul_octave_int32_array;
-typedef int64NDArray dbul_octave_int64_array;
+typedef int8NDArray buld_octave_int8_array;
+typedef int16NDArray buld_octave_int16_array;
+typedef int32NDArray buld_octave_int32_array;
+typedef int64NDArray buld_octave_int64_array;
 
-typedef Octave_map dbul_octave_struct;
-typedef Cell dbul_octave_cell;
+typedef Octave_map buld_octave_struct;
+typedef Cell buld_octave_cell;
 
-typedef octave_value_list dbul_octave_argument_list;
-typedef octave_value dbul_octave_value;
+typedef octave_value_list buld_octave_argument_list;
+typedef octave_value buld_octave_value;
 
-class dbul_octave_wrapper
+class buld_octave_wrapper
 {
 private:
     void add_path(const vcl_string& path);
@@ -51,18 +51,18 @@ private:
 
     bool is_activated_;
 public:
-    dbul_octave_wrapper();
-    ~dbul_octave_wrapper();
-    void run(const vcl_string& path, const vcl_string& name, dbul_octave_argument_list& inargs, dbul_octave_argument_list& outargs);
+    buld_octave_wrapper();
+    ~buld_octave_wrapper();
+    void run(const vcl_string& path, const vcl_string& name, buld_octave_argument_list& inargs, buld_octave_argument_list& outargs);
 };
 
-dbul_octave_double_array dbul_octave_get_empty_double_array(vcl_vector<int>& sizes);
-dbul_octave_uint8_array dbul_octave_get_empty_uint8_array(vcl_vector<int>& sizes);
-dbul_octave_uint16_array dbul_octave_get_empty_uint16_array(vcl_vector<int>& sizes);
-dbul_octave_uint32_array dbul_octave_get_empty_uint32_array(vcl_vector<int>& sizes);
+buld_octave_double_array buld_octave_get_empty_double_array(vcl_vector<int>& sizes);
+buld_octave_uint8_array buld_octave_get_empty_uint8_array(vcl_vector<int>& sizes);
+buld_octave_uint16_array buld_octave_get_empty_uint16_array(vcl_vector<int>& sizes);
+buld_octave_uint32_array buld_octave_get_empty_uint32_array(vcl_vector<int>& sizes);
 
-bool dbul_octave_convert_xml_to_octave_value(const bxml_data_sptr& root_xml, dbul_octave_value& ret);
+bool buld_octave_convert_xml_to_octave_value(const bxml_data_sptr& root_xml, buld_octave_value& ret);
 
-extern dbul_octave_wrapper dbul_octave;
+extern buld_octave_wrapper buld_octave;
 
-#endif /* DBUL_OCTAVE_H_ */
+#endif /* BULD_OCTAVE_H_ */

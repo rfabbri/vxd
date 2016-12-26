@@ -1,4 +1,4 @@
-// This is basic/dbul/dbul_solar_position.cxx
+// This is bbasd/buld/buld_solar_position.cxx
 #ifdef VCL_NEEDS_PRAGMA_INTERFACE
 #pragma implementation
 #endif
@@ -7,13 +7,13 @@
 // \author Based on original code by  Matt Leotta (Brown)
 // \date   October 28, 2005
 
-#include "dbul_solar_position.h"
+#include "buld_solar_position.h"
 #include <vcl_cmath.h>
 
 
 //:  Compute position of the sun given time, date, and location
 void
-dbul_solar_position(int day, double utc_hour, 
+buld_solar_position(int day, double utc_hour, 
                     double lat, double lng,
                     double& alt, double& az)
 {

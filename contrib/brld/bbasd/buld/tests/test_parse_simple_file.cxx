@@ -4,7 +4,7 @@
 #include <testlib/testlib_test.h>
 #include <vcl_iostream.h>
 #include <vcl_fstream.h>
-#include <dbul/dbul_parse_simple_file.h>
+#include <buld/buld_parse_simple_file.h>
 
 void test_parse_number_lists()
 {
@@ -23,7 +23,7 @@ void test_parse_number_lists()
   }
 
   vcl_vector<vcl_vector<int> > nl;
-  bool retval = dbul_parse_number_lists("number_lists_tmp.txt", nl);
+  bool retval = buld_parse_number_lists("number_lists_tmp.txt", nl);
 
   TEST("retval", retval, true);
   TEST("num lines", nl.size(), 2u);

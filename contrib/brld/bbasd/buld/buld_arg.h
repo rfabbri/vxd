@@ -1,6 +1,6 @@
-// This is dbul_arg.h
-#ifndef dbul_h
-#define dbul_h
+// This is buld_arg.h
+#ifndef buld_h
+#define buld_h
 //:
 //\file
 //\brief Extensions to vul_arg
@@ -28,5 +28,5 @@ template<> void print_value(vcl_ostream &s, vul_arg<vcl_vector<vcl_string> > con
 template<> int parse(vul_arg<vcl_vector<vcl_string> >* argmt, char ** argv);
 
 
-#endif // dbul_h
+#endif // buld_h
 

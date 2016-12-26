@@ -1,4 +1,4 @@
-// This is /lemsvxl/basic/dbul/dbul_random.h
+// This is /lemsvxl/bbasd/buld/buld_random.h
 
 //:
 // \file
@@ -11,11 +11,11 @@
 // \endverbatim
 //
 
-#ifndef DBUL_RANDOM_H_
-#define DBUL_RANDOM_H_
+#ifndef BULD_RANDOM_H_
+#define BULD_RANDOM_H_
 
 #include<vcl_string.h>
 
-vcl_string dbul_get_random_alphanumeric_string(int len);
+vcl_string buld_get_random_alphanumeric_string(int len);
 
-#endif /* DBUL_RANDOM_H_ */
+#endif /* BULD_RANDOM_H_ */

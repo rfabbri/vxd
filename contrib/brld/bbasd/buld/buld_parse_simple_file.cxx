@@ -1,4 +1,4 @@
-// This is basic/dbul/dbul_parse_simple_file.cxx
+// This is bbasd/buld/buld_parse_simple_file.cxx
 #ifdef VCL_NEEDS_PRAGMA_INTERFACE
 #pragma implementation
 #endif
@@ -6,7 +6,7 @@
 //:
 // \file
 
-#include "dbul_parse_simple_file.h"
+#include "buld_parse_simple_file.h"
 //#include <vcl_cstdlib.h>
 
 #include <vcl_iostream.h>
@@ -16,7 +16,7 @@
 #include <vcl_cstring.h>
 #include <vcl_utility.h>
 
-bool dbul_parse_string_list(const vcl_string& input_file, 
+bool buld_parse_string_list(const vcl_string& input_file, 
                             vcl_vector<vcl_string >& string_list)
 {
   string_list.clear();
@@ -49,13 +49,13 @@ bool dbul_parse_string_list(const vcl_string& input_file,
 }
 
 bool 
-dbul_parse_number_lists (
+buld_parse_number_lists (
       const vcl_string &fname,
       vcl_vector< vcl_vector<int> > &number_lists)
 {
   vcl_ifstream infp(fname.c_str(), vcl_ios::in);
   if (!infp) {
-    vcl_cerr << "dbul: Error, unable to open file name " 
+    vcl_cerr << "buld: Error, unable to open file name " 
       << fname << vcl_endl;
     return false;
   }
@@ -101,7 +101,7 @@ dbul_parse_number_lists (
 //
 // Output: a map with  key  : section name
 //                     value: list of key-value pairs in the section
-bool dbul_parse_ini_file(const vcl_string& fname,
+bool buld_parse_ini_file(const vcl_string& fname,
                          vcl_map<vcl_string, vcl_map<vcl_string, vcl_string > >& section_params)
 {
   section_params.clear();

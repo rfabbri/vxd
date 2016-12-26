@@ -1,6 +1,6 @@
-// This is basic/dbul/dbul_solar_position.h
-#ifndef dbul_solar_position_h_
-#define dbul_solar_position_h_
+// This is bbasd/buld/buld_solar_position.h
+#ifndef buld_solar_position_h_
+#define buld_solar_position_h_
 #ifdef VCL_NEEDS_PRAGMA_INTERFACE
 #pragma interface
 #endif
@@ -31,10 +31,10 @@
 // \param lng longitude in degrees
 // \retval alt altitude in radians from the horizon
 // \retval az azimuth in radians from North
-void dbul_solar_position(int day, double utc_hour, 
+void buld_solar_position(int day, double utc_hour, 
                          double lat, double lng,
                          double& alt, double& az);
 
 
 
-#endif // dbul_solar_position_h_
+#endif // buld_solar_position_h_

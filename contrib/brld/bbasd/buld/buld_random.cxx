@@ -1,4 +1,4 @@
-// This is /lemsvxl/basic/dbul/dbul_random.cxx
+// This is /lemsvxl/bbasd/buld/buld_random.cxx
 
 //:
 // \file
@@ -11,12 +11,12 @@
 // \endverbatim
 //
 
-#include "dbul_random.h"
+#include "buld_random.h"
 
 #include<vcl_cstdlib.h>
 #include<vcl_ctime.h>
 
-void dbul_random_init()
+void buld_random_init()
 {
     static bool is_init = false;
     if(!is_init)
@@ -26,9 +26,9 @@ void dbul_random_init()
     }
 }
 
-vcl_string dbul_get_random_alphanumeric_string(int len)
+vcl_string buld_get_random_alphanumeric_string(int len)
 {
-    dbul_random_init();
+    buld_random_init();
     vcl_string ret;
     for (int i = 0; i < len; ++i) {
         char randomChar = rand()%(26+26+10);
