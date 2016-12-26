@@ -17,6 +17,7 @@ add_definitions(-DBGLD_WHERE_BRLD_LIB_DIR_H_EXISTS)
 
 include_directories( ${BRLD_BINARY_DIR}/bbasd/bgld/algo/ )
 include_directories( ${BRLD_BINARY_DIR}/bbasd/bgld/ )
+include_directories(${B3PD_INCLUDE_DIR})
 
 set( bgld_algo_sources
   bgld_where_brld_lib_dir.h.in

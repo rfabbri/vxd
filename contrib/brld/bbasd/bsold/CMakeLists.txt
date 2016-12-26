@@ -4,7 +4,6 @@ project(bsold)
 
 include_directories( ${VXL_GEL_INCLUDE_DIR} )
 include_directories( ${VXL_BRL_INCLUDE_DIR}/bbas )
-include_directories(${lems_SOURCE_DIR}/basic)
 
 configure_file( ${bsold_SOURCE_DIR}/bsold_config.h.in
                 ${bsold_BINARY_DIR}/bsold_config.h )
