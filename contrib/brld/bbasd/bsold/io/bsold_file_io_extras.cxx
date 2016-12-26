@@ -7,7 +7,7 @@
 // \file
 
 
-#include "bsold_file_io.h"
+#include "bsold_file_io_extras.h"
 
 #include <vcl_iostream.h>
 #include <vcl_cstring.h>
@@ -16,6 +16,8 @@
 #include <vsol/vsol_polyline_2d.h>
 #include <vsol/vsol_line_2d.h>
 #include <vsol/vsol_line_2d_sptr.h>
+#include <vsol/vsol_polyline_2d_sptr.h>
+#include <vsol/vsol_polygon_2d_sptr.h>
 
 #include <vnl/vnl_math.h>
 #include <vul/vul_psfile.h>
