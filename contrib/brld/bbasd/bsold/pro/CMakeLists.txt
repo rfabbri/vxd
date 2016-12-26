@@ -19,5 +19,5 @@ set(bsold_pro_sources
 
 add_library(bsold_pro  ${bsold_pro_sources})
 
-target_link_libraries(bsold_pro bsold_algo vidpro1 )
+target_link_libraries(bsold_pro bsold_algo bsold_io vidpro1 )
 

@@ -15,7 +15,7 @@
 #include <vidpro1/storage/vidpro1_image_storage_sptr.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage_sptr.h>
-#include <bsold/bsold_file_io.h>
+#include <bsold/io/bsold_file_io_extras.h>
 
 
 //
