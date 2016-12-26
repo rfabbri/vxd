@@ -1,10 +1,10 @@
-// This is basic/dbsol/pro/dbsol_merge_storage_process.cxx
+// This is bbasd/bsold/pro/bsold_merge_storage_process.cxx
 
 //:
 // \file
 
 
-#include "dbsol_merge_storage_process.h"
+#include "bsold_merge_storage_process.h"
 ////#include <vil/vil_image_resource.h>
 ////#include <vil/vil_image_view.h>
 ////#include <vil/vil_new.h>
@@ -24,11 +24,11 @@
 
 //#include <vgl/vgl_vector_2d.h>
 
-//#include <dbsol/algo/dbsol_linear_transform_2d.h>
+//#include <bsold/algo/bsold_linear_transform_2d.h>
 //
 //: Constructor
-dbsol_merge_storage_process::
-dbsol_merge_storage_process()
+bsold_merge_storage_process::
+bsold_merge_storage_process()
 {
   if( false 
     //!parameters()->add("Number of times " , "-num_times" , (unsigned)1 )
@@ -40,22 +40,22 @@ dbsol_merge_storage_process()
 
 
 //: Destructor
-dbsol_merge_storage_process::
-~dbsol_merge_storage_process()
+bsold_merge_storage_process::
+~bsold_merge_storage_process()
 {
 }
 
 
 //: Clone the process
-bpro1_process* dbsol_merge_storage_process::
+bpro1_process* bsold_merge_storage_process::
 clone() const
 {
-  return new dbsol_merge_storage_process(*this);
+  return new bsold_merge_storage_process(*this);
 }
 
 
 //: Return the name of this process
-vcl_string dbsol_merge_storage_process::
+vcl_string bsold_merge_storage_process::
 name()
 {
   return "Merge vsol2D storages";
@@ -63,7 +63,7 @@ name()
 
 
 //: Return the number of input frame for this process
-int dbsol_merge_storage_process::
+int bsold_merge_storage_process::
 input_frames()
 {
   return 1;
@@ -71,7 +71,7 @@ input_frames()
 
 
 //: Return the number of output frames for this process
-int dbsol_merge_storage_process::
+int bsold_merge_storage_process::
 output_frames()
 {
   return 1;
@@ -79,7 +79,7 @@ output_frames()
 
 
 //: Provide a vector of required input types
-vcl_vector< vcl_string > dbsol_merge_storage_process::
+vcl_vector< vcl_string > bsold_merge_storage_process::
 get_input_type()
 {
   vcl_vector< vcl_string > to_return;
@@ -90,7 +90,7 @@ get_input_type()
 
 
 //: Provide a vector of output types
-vcl_vector< vcl_string > dbsol_merge_storage_process::
+vcl_vector< vcl_string > bsold_merge_storage_process::
 get_output_type()
 {
   vcl_vector<vcl_string > to_return;
@@ -100,12 +100,12 @@ get_output_type()
 
 
 //: Execute the process
-bool dbsol_merge_storage_process::
+bool bsold_merge_storage_process::
 execute()
 {
   if ( input_data_.size() != 1 )
   {
-    vcl_cout << "In dbsol_merge_storage_process::execute() - not exactly 1"
+    vcl_cout << "In bsold_merge_storage_process::execute() - not exactly 1"
              << " input frames \n";
     return false;
   }
@@ -128,7 +128,7 @@ execute()
 
 
 bool
-dbsol_merge_storage_process::finish()
+bsold_merge_storage_process::finish()
 {
   return true;
 }

@@ -1,6 +1,6 @@
-// This is basic/dbsol/vis/dbsol_circ_arc_2d.h
-#ifndef dbsol_circ_arc_2d_h
-#define dbsol_circ_arc_2d_h
+// This is bbasd/bsold/vis/bsold_circ_arc_2d.h
+#ifndef bsold_circ_arc_2d_h
+#define bsold_circ_arc_2d_h
 //:
 // \file
 // \brief  circular arc in a 2D space
@@ -24,12 +24,12 @@
 #include <vsol/vsol_point_2d_sptr.h>
 #include <vsol/vsol_line_2d.h>
 #include <vsol/vsol_line_2d_sptr.h>
-#include <dbsol/dbsol_circ_arc_2d_sptr.h>
+#include <bsold/bsold_circ_arc_2d_sptr.h>
 #include <vnl/vnl_double_3x3.h>
 #include <vcl_list.h>
 #include <vcl_iostream.h>
 
-class dbsol_circ_arc_2d : public vsol_curve_2d, public dbgl_circ_arc
+class bsold_circ_arc_2d : public vsol_curve_2d, public dbgl_circ_arc
 {
 
   //***************************************************************************
@@ -50,34 +50,34 @@ public:
   //**************************************************************
 
   //: Constructor - default
-  dbsol_circ_arc_2d(): vsol_curve_2d(), dbgl_circ_arc() {}
+  bsold_circ_arc_2d(): vsol_curve_2d(), dbgl_circ_arc() {}
 
   //: Constructor - from intrinsic parameters;p1, p2 and curvature.
-  dbsol_circ_arc_2d(vsol_point_2d const& p1 ,vsol_point_2d const& p2, double c ): vsol_curve_2d(), dbgl_circ_arc(p1.get_p(),p2.get_p(),c){}
+  bsold_circ_arc_2d(vsol_point_2d const& p1 ,vsol_point_2d const& p2, double c ): vsol_curve_2d(), dbgl_circ_arc(p1.get_p(),p2.get_p(),c){}
 
   //: Constructor - from starting point (p1), circular center (o)
   // and normal vector at the ending point.
-  dbsol_circ_arc_2d( vsol_point_2d const& P1, 
+  bsold_circ_arc_2d( vsol_point_2d const& P1, 
     vsol_point_2d const& O,  vgl_vector_2d<double >const& end_normal_vector);
 
   //: Constructor - from 3 points
-  dbsol_circ_arc_2d(vsol_point_2d const& p1, 
+  bsold_circ_arc_2d(vsol_point_2d const& p1, 
     vsol_point_2d const& p2,vsol_point_2d const& end_point );
 
 
   //: Constructor from dbgl_circ_arc
 
-  dbsol_circ_arc_2d(dbgl_circ_arc arc) : vsol_curve_2d(), dbgl_circ_arc(arc.point1(),arc.point2(),arc.k()),
+  bsold_circ_arc_2d(dbgl_circ_arc arc) : vsol_curve_2d(), dbgl_circ_arc(arc.point1(),arc.point2(),arc.k()),
     p0_(new vsol_point_2d(arc.point1())), p1_(new vsol_point_2d(arc.point2())){}
 
   //---------------------------------------------------------------------------
   //: Copy constructor
   //---------------------------------------------------------------------------
-  dbsol_circ_arc_2d(dbsol_circ_arc_2d const& c):vsol_curve_2d(c),dbgl_circ_arc(c) {}
+  bsold_circ_arc_2d(bsold_circ_arc_2d const& c):vsol_curve_2d(c),dbgl_circ_arc(c) {}
 
 
   //: Destructor
-  ~dbsol_circ_arc_2d(){}
+  ~bsold_circ_arc_2d(){}
 
 private: // has been superceeded by is_a()
   //: Return the curve type
@@ -115,8 +115,8 @@ public:
   //---------------------------------------------------------------------------
   //: Return `this' if `this' is a circular arc, 0 otherwise
   //---------------------------------------------------------------------------
-  virtual dbsol_circ_arc_2d const*cast_to_circ_arc()const{return this;}
-  virtual dbsol_circ_arc_2d *cast_to_circ_arc() {return this;}
+  virtual bsold_circ_arc_2d const*cast_to_circ_arc()const{return this;}
+  virtual bsold_circ_arc_2d *cast_to_circ_arc() {return this;}
 
 
 
@@ -191,7 +191,7 @@ public:
 
 
   //: Return a platform independent string identifying the class
-  virtual vcl_string is_a() const { return "dbsol_circ_arc_2d"; }
+  virtual vcl_string is_a() const { return "bsold_circ_arc_2d"; }
 
 
 
@@ -201,4 +201,4 @@ public:
 
 
 
-#endif // dbsol_circ_arc_2d_h_
+#endif // bsold_circ_arc_2d_h_

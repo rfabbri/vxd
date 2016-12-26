@@ -1,6 +1,6 @@
-// This is brl/bbas/bgui/dbsol2D_tableau.h
-#ifndef dbsol2D_tableau_h_
-#define dbsol2D_tableau_h_
+// This is brl/bbas/bgui/bsold2D_tableau.h
+#ifndef bsold2D_tableau_h_
+#define bsold2D_tableau_h_
 //-----------------------------------------------------------------------------
 //:
 // \file
@@ -20,31 +20,31 @@
 #include <vsol/vsol_spatial_object_2d_sptr.h>
 #include <vgui/vgui_style_sptr.h>
 #include <bgui/bgui_vsol2D_tableau.h>
-#include <dbsol/dbsol_circ_arc_2d_sptr.h>
-#include <dbsol/vis/dbsol_soview2D_circ_arc.h>
-#include <dbsol/vis/dbsol2D_tableau_sptr.h>
+#include <bsold/bsold_circ_arc_2d_sptr.h>
+#include <bsold/vis/bsold_soview2D_circ_arc.h>
+#include <bsold/vis/bsold2D_tableau_sptr.h>
 
 
-class dbsol2D_tableau : public bgui_vsol2D_tableau
+class bsold2D_tableau : public bgui_vsol2D_tableau
 {
  public:  
-  dbsol2D_tableau(const char* n="unnamed");
+  bsold2D_tableau(const char* n="unnamed");
 
-  dbsol2D_tableau(vgui_image_tableau_sptr const& it,
+  bsold2D_tableau(vgui_image_tableau_sptr const& it,
                              const char* n="unnamed");
 
-  dbsol2D_tableau(vgui_tableau_sptr const& t,
+  bsold2D_tableau(vgui_tableau_sptr const& t,
                              const char* n="unnamed");
 
-  ~dbsol2D_tableau(){}
+  ~bsold2D_tableau(){}
 
-  //: Returns the type of this tableau ('dbsol2D_tableau').
-  vcl_string type_name() const { return "dbsol2D_tableau";}
+  //: Returns the type of this tableau ('bsold2D_tableau').
+  vcl_string type_name() const { return "bsold2D_tableau";}
 
  
-  ////: display for dbsol_circ_arc_2d
-  dbsol_soview2D_circ_arc*
-    add_dbsol_circ_arc_2d(dbsol_circ_arc_2d_sptr const& circ_arc,
+  ////: display for bsold_circ_arc_2d
+  bsold_soview2D_circ_arc*
+    add_bsold_circ_arc_2d(bsold_circ_arc_2d_sptr const& circ_arc,
                       const vgui_style_sptr& style = NULL);
 
   void add_spatial_object(vsol_spatial_object_2d_sptr const& sos,
@@ -59,7 +59,7 @@ class dbsol2D_tableau : public bgui_vsol2D_tableau
   void set_vsol_spatial_object_2d_style(vsol_spatial_object_2d_sptr sos,
                                         const vgui_style_sptr& style);
 
-  void set_dbsol_circ_arc_2d_style(const vgui_style_sptr& style);
+  void set_bsold_circ_arc_2d_style(const vgui_style_sptr& style);
  
 
  protected:
@@ -74,20 +74,20 @@ class dbsol2D_tableau : public bgui_vsol2D_tableau
 ////this stuff is needed to establish inheritance between tableau  smart pointers
 ////cloned from xcv_image_tableau
 //
-struct dbsol2D_tableau_new : public dbsol2D_tableau_sptr
+struct bsold2D_tableau_new : public bsold2D_tableau_sptr
 {
-  typedef dbsol2D_tableau_sptr base;
+  typedef bsold2D_tableau_sptr base;
 
-  dbsol2D_tableau_new(const char* n="unnamed") :
-    base(new dbsol2D_tableau(n)) { }
-  dbsol2D_tableau_new(vgui_image_tableau_sptr const& it,
+  bsold2D_tableau_new(const char* n="unnamed") :
+    base(new bsold2D_tableau(n)) { }
+  bsold2D_tableau_new(vgui_image_tableau_sptr const& it,
                                  const char* n="unnamed") :
-    base(new dbsol2D_tableau(it,n)) { }
+    base(new bsold2D_tableau(it,n)) { }
 
-  dbsol2D_tableau_new(vgui_tableau_sptr const& t, const char* n="unnamed")
-    :  base(new dbsol2D_tableau(t, n)) { }
+  bsold2D_tableau_new(vgui_tableau_sptr const& t, const char* n="unnamed")
+    :  base(new bsold2D_tableau(t, n)) { }
 
   operator vgui_easy2D_tableau_sptr () const { vgui_easy2D_tableau_sptr tt; tt.vertical_cast(*this); return tt; }
 };
 
-#endif // dbsol2D_tableau_h_
+#endif // bsold2D_tableau_h_

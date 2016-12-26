@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
 
-#include <dbsol/algo/dbsol_curve_3d_algs.h>
-#include <dbsol/dbsol_interp_curve_3d.h>
+#include <bsold/algo/bsold_curve_3d_algs.h>
+#include <bsold/bsold_interp_curve_3d.h>
 #include <vsol/vsol_point_3d.h>
 #include <vgl/vgl_vector_3d.h>
 #include <vnl/vnl_math.h>
@@ -81,8 +81,8 @@ MAIN( test_interp_eno_3d )
    samples.push_back(2.5);
    samples.push_back(3.0);
 
-   dbsol_interp_curve_3d c;
-   dbsol_curve_3d_algs::interpolate_eno_3d(&c,pts,samples);
+   bsold_interp_curve_3d c;
+   bsold_curve_3d_algs::interpolate_eno_3d(&c,pts,samples);
    vcl_cout << c;
 
    TEST_NEAR("length test: ", c.length_at(0), 0.0, tolerance);

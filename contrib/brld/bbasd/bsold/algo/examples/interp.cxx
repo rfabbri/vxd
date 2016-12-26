@@ -1,6 +1,6 @@
-#include <dbsol/algo/dbsol_curve_algs.h>
-#include <dbsol/algo/dbsol_geno.h>
-#include <dbsol/dbsol_interp_curve_2d.h>
+#include <bsold/algo/bsold_curve_algs.h>
+#include <bsold/algo/bsold_geno.h>
+#include <bsold/bsold_interp_curve_2d.h>
 #include <dbgl/dbgl_arc.h>
 #include <vsol/vsol_point_2d.h>
 #include <vcl_iostream.h>
@@ -18,9 +18,9 @@ int main()
    pts.push_back(new vsol_point_2d(1,0));
 
 
-   dbsol_interp_curve_2d c;
+   bsold_interp_curve_2d c;
 
-   dbsol_curve_algs::interpolate_linear(&c,pts, false);
+   bsold_curve_algs::interpolate_linear(&c,pts, false);
 
    vcl_cout << c;
 
@@ -61,8 +61,8 @@ int main()
    pts.push_back(new vsol_point_2d(394,58));
 
 
-   dbsol_geno_curve_2d c;
-   dbsol_geno::interpolate(&c,pts,false);
+   bsold_geno_curve_2d c;
+   bsold_geno::interpolate(&c,pts,false);
    vcl_cout << c;
    vcl_cout << "----------------------------\n";
 
@@ -75,12 +75,12 @@ int main()
    pts.push_back(new vsol_point_2d(-1,0));
    pts.push_back(new vsol_point_2d(0,-1));
 
-   dbsol_geno_curve_2d c;
-   dbsol_geno::interpolate(&c,pts,true);
+   bsold_geno_curve_2d c;
+   bsold_geno::interpolate(&c,pts,true);
    vcl_cout << c;
    vcl_cout << "----------------------------\n";
 
-   dbsol_geno::interpolate(&c,pts,false);
+   bsold_geno::interpolate(&c,pts,false);
    vcl_cout << c;
 
    vcl_cout << "----------------------------\n";
@@ -89,7 +89,7 @@ int main()
    pts.push_back(new vsol_point_2d(0,1));
    pts.push_back(new vsol_point_2d(1,0));
    pts.push_back(new vsol_point_2d(3.5,0.5));
-   dbsol_geno::interpolate(&c,pts,false);
+   bsold_geno::interpolate(&c,pts,false);
    vcl_cout << c;
    */
 

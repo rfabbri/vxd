@@ -1,16 +1,16 @@
-#ifndef dbsol_curve_algs_h_
-#define dbsol_curve_algs_h_
+#ifndef bsold_curve_algs_h_
+#define bsold_curve_algs_h_
 //-----------------------------------------------------------------------------
 //:
 // \file
 // \author Based on original code by  Ozge Can Ozcanli
-// \brief dbsol_interp_curve_2d algorithms
+// \brief bsold_interp_curve_2d algorithms
 // \date 02/25/05
 //
 // \verbatim
 //  Modifications
 //   Initial version November 25, 2002
-//   Ozge Can Ozcanli, Feb 26 2006, added interpolate_linear(dbsol_interp_curve_2d *c,
+//   Ozge Can Ozcanli, Feb 26 2006, added interpolate_linear(bsold_interp_curve_2d *c,
 //                                                           vsol_polygon_2d_sptr poly);
 //
 //   Ozge C Ozcanli April 03, 08 --
@@ -27,7 +27,7 @@
 // \endverbatim
 //
 //-----------------------------------------------------------------------------
-#include <dbsol/dbsol_interp_curve_2d.h>
+#include <bsold/bsold_interp_curve_2d.h>
 #include <vsol/vsol_point_2d.h>
 #include <vsol/vsol_polygon_2d_sptr.h>
 #include <vsol/vsol_polyline_2d_sptr.h>
@@ -39,58 +39,58 @@
 // see bdgl_curve_algs.h for an example of such a class
 
 //: Interpolators and other algorithms constructing or acting on
-//dbsol_intepr_curve_2d. They have not been made methods of the curve class so
+//bsold_intepr_curve_2d. They have not been made methods of the curve class so
 //that the curve class can be independent of them. For example, changing their
 //implementation or interface should not require a change of the curve class
-//declaration or a rebuild of the basic dbsol library nor of software that use it.
+//declaration or a rebuild of the basic bsold library nor of software that use it.
 //
 
-class dbsol_curve_algs {
+class bsold_curve_algs {
 public:
   
-  ~dbsol_curve_algs();
+  ~bsold_curve_algs();
 
   //:Sample the curve and produce given number of samples
-  static bool sample(dbsol_interp_curve_2d const &c, int size,
+  static bool sample(bsold_interp_curve_2d const &c, int size,
                      vcl_vector<vsol_point_2d_sptr>& pts);
 
   //: return the samples and the tangents at those samples
   //  no max length threshold to sample if negative
-  static bool sample(dbsol_interp_curve_2d const &c, double ds,
+  static bool sample(bsold_interp_curve_2d const &c, double ds,
                      vcl_vector<vsol_point_2d_sptr>& pts, vcl_vector<double>& tangents, double length_threshold = -1);
 
   //: sample a "region" evenly around this interp curve, 
   // (including the points right on the curve is optional, if not they start from delta away on the normal direction)
-  static void sample_region_along_curve(dbsol_interp_curve_2d const &curve, vcl_vector<vsol_point_2d_sptr>& region_pts, double delta, double length_threshold, float region_width, bool add_curve_points);
+  static void sample_region_along_curve(bsold_interp_curve_2d const &curve, vcl_vector<vsol_point_2d_sptr>& region_pts, double delta, double length_threshold, float region_width, bool add_curve_points);
 
-  static bool interpolate_linear(dbsol_interp_curve_2d *c,
+  static bool interpolate_linear(bsold_interp_curve_2d *c,
                        vcl_vector<vsol_point_2d_sptr> const &pts, bool closed=false);
 
-  static bool interpolate_linear(dbsol_interp_curve_2d *c,
+  static bool interpolate_linear(bsold_interp_curve_2d *c,
                        vcl_vector<vgl_point_2d<double> > const &pts, bool closed=false);
 
-  static bool interpolate_linear(dbsol_interp_curve_2d *c,
+  static bool interpolate_linear(bsold_interp_curve_2d *c,
                                  vsol_polygon_2d_sptr poly);   // closed 
 
-  static bool interpolate_linear(dbsol_interp_curve_2d *c,
+  static bool interpolate_linear(bsold_interp_curve_2d *c,
                                  vsol_polyline_2d_sptr poly);   // open 
   
-  static bool interpolate_linear2(dbsol_interp_curve_2d *c,
+  static bool interpolate_linear2(bsold_interp_curve_2d *c,
                        vcl_vector<vsol_point_2d_sptr> const &pts, bool closed=false, int time=0);
 
-  static bool interpolate_eno(dbsol_interp_curve_2d *c,
+  static bool interpolate_eno(bsold_interp_curve_2d *c,
                               vcl_vector<vsol_point_2d_sptr> const &pts,
                               vnl_vector<double> &sample_pts);
 
-  static bool interpolate_eno(dbsol_interp_curve_2d *c,
+  static bool interpolate_eno(bsold_interp_curve_2d *c,
                               vcl_vector<vsol_point_2d> const &pts,
                               vnl_vector<double> &sample_pts);
 
-  static bool interpolate_eno(dbsol_interp_curve_2d *c,
+  static bool interpolate_eno(bsold_interp_curve_2d *c,
                               vcl_vector< vgl_point_2d<double> > const &pts,
                               vnl_vector<double> &sample_pts);
 
-  static bool interpolate_eno_main(dbsol_interp_curve_2d *c,
+  static bool interpolate_eno_main(bsold_interp_curve_2d *c,
                                    vnl_vector<double> const &data_x,
                                    vnl_vector<double> const &data_y,
                                    vnl_vector<double> &sample_pts);
@@ -127,7 +127,7 @@ public:
 
 
  private:
-  dbsol_curve_algs();
+  bsold_curve_algs();
 };
 
 
@@ -144,9 +144,9 @@ void fit_lines_to_contour(vcl_vector<vsol_point_2d_sptr>& poly, double rms,
 
 //: This function subsamples the points in the contour according to the c_ds value
 //  just like Thomas sebastian did
-vsol_polygon_2d_sptr dbsol_subsample_contour(vsol_polygon_2d_sptr poly, double c_ds=1.0);
+vsol_polygon_2d_sptr bsold_subsample_contour(vsol_polygon_2d_sptr poly, double c_ds=1.0);
 
 //: This function subsamples the points in the contour according to the c_ds value
-vsol_polygon_2d_sptr dbsol_subsample_contour_smart(vsol_polygon_2d_sptr poly, double c_ds=1.0);
+vsol_polygon_2d_sptr bsold_subsample_contour_smart(vsol_polygon_2d_sptr poly, double c_ds=1.0);
 
-#endif  // dbsol_curve_algs_h
+#endif  // bsold_curve_algs_h

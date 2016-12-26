@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
 
-#include <dbsol/algo/dbsol_geno_shock.h>
-#include <dbsol/dbsol_interp_curve_2d.h>
+#include <bsold/algo/bsold_geno_shock.h>
+#include <bsold/bsold_interp_curve_2d.h>
 #include <vsol/vsol_point_2d.h>
 #include <vgl/vgl_vector_2d.h>
 #include <vnl/vnl_math.h>
@@ -32,20 +32,20 @@ MAIN( test_geno_shock )
 
    {
    // Open curve:
-   dbsol_gshock_curve_2d c;
-   dbsol_geno::interpolate(&c,pts,false);  // plain geno
+   bsold_gshock_curve_2d c;
+   bsold_geno::interpolate(&c,pts,false);  // plain geno
 
-   dbsol_geno_shock::place_all_shocks(c); // shocks
+   bsold_geno_shock::place_all_shocks(c); // shocks
 
    vcl_cout << c << vcl_endl;
    }
 
 
    // Closed Curve:
-   dbsol_gshock_curve_2d c;
-   dbsol_geno::interpolate(&c,pts, true);
+   bsold_gshock_curve_2d c;
+   bsold_geno::interpolate(&c,pts, true);
 
-   dbsol_geno_shock:: place_all_shocks(c); // shocks
+   bsold_geno_shock:: place_all_shocks(c); // shocks
 
    vcl_cout << c << vcl_endl;
 

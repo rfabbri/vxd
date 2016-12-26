@@ -1,7 +1,7 @@
-// This is basic/dbsol/pro/dbsol_translate_2d_process.h
+// This is bbasd/bsold/pro/bsold_translate_2d_process.h
 
-#ifndef dbsol_translate_2d_process_h_
-#define dbsol_translate_2d_process_h_
+#ifndef bsold_translate_2d_process_h_
+#define bsold_translate_2d_process_h_
 
 //:
 // \file
@@ -18,12 +18,12 @@
 
 
 //: Derived video process class for translating vsol_2d objects
-class dbsol_translate_2d_process : public bpro1_process {
+class bsold_translate_2d_process : public bpro1_process {
 
 public:
 
-  dbsol_translate_2d_process();
-  virtual ~dbsol_translate_2d_process();
+  bsold_translate_2d_process();
+  virtual ~bsold_translate_2d_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -43,4 +43,4 @@ protected:
 
 };
 
-#endif //dbsol_translate_2d_process_h_
+#endif //bsold_translate_2d_process_h_

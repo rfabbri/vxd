@@ -1,6 +1,6 @@
-// This is dbsol/dbsol_algos.h
-#ifndef dbsol_algos_h
-#define dbsol_algos_h
+// This is bsold/bsold_algos.h
+#ifndef bsold_algos_h
+#define bsold_algos_h
 
 //:
 // \file
@@ -23,10 +23,10 @@
 #include <vsol/vsol_polygon_2d_sptr.h>
 
 
-class dbsol_algos
+class bsold_algos
 {
 public:
-  ~dbsol_algos(){};
+  ~bsold_algos(){};
 
   //: Break a polyline into two pieces, each is a polyline
   // Require: cut_position is a vertex on polyline
@@ -47,9 +47,9 @@ public:
     double & d);
 
 private:
-  dbsol_algos(){}
+  bsold_algos(){}
 
 };
 
 
-#endif // dbsol_algos_h
+#endif // bsold_algos_h

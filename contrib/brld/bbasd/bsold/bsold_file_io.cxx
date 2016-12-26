@@ -1,4 +1,4 @@
-// This is dbsol/dbsol_file_io.cxx
+// This is bsold/bsold_file_io.cxx
 #ifdef VCL_NEEDS_PRAGMA_INTERFACE
 #pragma implementation
 #endif
@@ -7,7 +7,7 @@
 // \file
 
 
-#include "dbsol_file_io.h"
+#include "bsold_file_io.h"
 
 #include <vcl_iostream.h>
 #include <vcl_cstring.h>
@@ -25,7 +25,7 @@
 #include <vil/vil_image_resource_sptr.h>
 #include <vil/vil_image_view_base.h>
 
-#include <dbsol/dbsol_config.h>
+#include <bsold/bsold_config.h>
 
 #ifdef HAS_BOOST
 #include <boost/iostreams/filtering_stream.hpp>
@@ -37,7 +37,7 @@
 // -----------------------------------------------------------------------------
 //: Load a .CON file and save results to a vector of points and whether the 
 // contour is closed. Return false if loading fails
-bool dbsol_load_con_file(char const* filename, 
+bool bsold_load_con_file(char const* filename, 
                          vcl_vector<vsol_point_2d_sptr >& points, 
                          bool & is_closed)
 {
@@ -101,11 +101,11 @@ bool dbsol_load_con_file(char const* filename,
 //: Load a .CON file and return a smart pointer to vsol_spatial_object_2d
 // This can be either a polyline or a polygon. Use cast function to get the
 // exact type
-vsol_spatial_object_2d_sptr dbsol_load_con_file(char const* filename)
+vsol_spatial_object_2d_sptr bsold_load_con_file(char const* filename)
 {  
   vcl_vector<vsol_point_2d_sptr > points;
   bool is_closed;
-  if (!dbsol_load_con_file(filename, points, is_closed))
+  if (!bsold_load_con_file(filename, points, is_closed))
     return 0;
 
   
@@ -124,7 +124,7 @@ vsol_spatial_object_2d_sptr dbsol_load_con_file(char const* filename)
 
 // ----------------------------------------------------------------------------
 //: Save a polyline to a .CON file. Return false if saving fails
-bool dbsol_save_con_file(char const* filename, vsol_polyline_2d_sptr polyline)
+bool bsold_save_con_file(char const* filename, vsol_polyline_2d_sptr polyline)
 {
   vcl_vector<vsol_point_2d_sptr > pts;
   pts.reserve(polyline->size());
@@ -132,13 +132,13 @@ bool dbsol_save_con_file(char const* filename, vsol_polyline_2d_sptr polyline)
   {
     pts.push_back(polyline->vertex(i));
   }
-  return dbsol_save_con_file(filename, pts, false);
+  return bsold_save_con_file(filename, pts, false);
 }
 
 
 // ----------------------------------------------------------------------------
 //: Save a polygon to a .CON file. Return false if saving fails
-bool dbsol_save_con_file(char const* filename, vsol_polygon_2d_sptr polygon)
+bool bsold_save_con_file(char const* filename, vsol_polygon_2d_sptr polygon)
 {
   vcl_vector<vsol_point_2d_sptr > pts;
   pts.reserve(polygon->size());
@@ -146,13 +146,13 @@ bool dbsol_save_con_file(char const* filename, vsol_polygon_2d_sptr polygon)
   {
     pts.push_back(polygon->vertex(i));
   }
-  return dbsol_save_con_file(filename, pts, true);
+  return bsold_save_con_file(filename, pts, true);
 }
 
 
 // ----------------------------------------------------------------------------
 //: Save a set of ordered points to a .CON file. Return false if saving fails
-bool dbsol_save_con_file(char const* filename, 
+bool bsold_save_con_file(char const* filename, 
                          const vcl_vector<vsol_point_2d_sptr >& pts,
                          bool is_closed)
 {
@@ -199,45 +199,45 @@ bool dbsol_save_con_file(char const* filename,
 
 
 #ifdef HAS_BOOST
-static bool dbsol_load_cem_gzip(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vcl_string filename);
-static bool dbsol_save_cem_gzip(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, vcl_string filename);
+static bool bsold_load_cem_gzip(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vcl_string filename);
+static bool bsold_save_cem_gzip(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, vcl_string filename);
 #endif
 
-static bool dbsol_load_cem_ascii(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vcl_string filename);
-static bool dbsol_save_cem_ascii(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, vcl_string filename);
+static bool bsold_load_cem_ascii(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vcl_string filename);
+static bool bsold_save_cem_ascii(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, vcl_string filename);
 
-bool dbsol_load_cem(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vcl_string filename)
+bool bsold_load_cem(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vcl_string filename)
 {
   vcl_string ext = vul_file::extension(filename);
 
   if (ext == ".gz") {
 #ifdef HAS_BOOST
-    return dbsol_load_cem_gzip(contours, filename);
+    return bsold_load_cem_gzip(contours, filename);
 #else
     vcl_cerr << "Error: .gz compressed file was provided, but boost wasn't found\n";
 #endif
   } else
-    return dbsol_load_cem_ascii(contours, filename);
+    return bsold_load_cem_ascii(contours, filename);
 }
 
-bool dbsol_save_cem(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, vcl_string filename)
+bool bsold_save_cem(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, vcl_string filename)
 {
   vcl_string ext = vul_file::extension(filename);
 
   if (ext == ".gz") {
 #ifdef HAS_BOOST
-    return dbsol_save_cem_gzip(vsol_list, filename);
+    return bsold_save_cem_gzip(vsol_list, filename);
 #else
     vcl_cerr << "Error: .gz compressed filename was provided, but boost wasn't found\n";
 #endif
   } else
-    return dbsol_save_cem_ascii(vsol_list, filename);
+    return bsold_save_cem_ascii(vsol_list, filename);
 }
 
 
 // -----------------------------------------------------------------------------
 // Load .CEM file
-bool dbsol_load_cem_ascii(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vcl_string filename)
+bool bsold_load_cem_ascii(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vcl_string filename)
 {
   float x, y;
   char lineBuffer[1024];
@@ -322,8 +322,8 @@ bool dbsol_load_cem_ascii(vcl_vector< vsol_spatial_object_2d_sptr >& contours, v
 // -----------------------------------------------------------------------------
 // Load .CEM file compressed with zlib, gzip style.
 // TODO: use templating and/or istream inheritance to avoid duplicating almost
-// identical code to dbsol_load_cem_ascii
-bool dbsol_load_cem_gzip(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vcl_string filename)
+// identical code to bsold_load_cem_ascii
+bool bsold_load_cem_gzip(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vcl_string filename)
 {
   float x, y;
   char lineBuffer[1024];
@@ -410,7 +410,7 @@ bool dbsol_load_cem_gzip(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vc
 
 // -----------------------------------------------------------------------------
 //: Save .CEM file
-bool dbsol_save_cem_ascii(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, vcl_string filename)
+bool bsold_save_cem_ascii(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, vcl_string filename)
 {
   //1)If file open fails, return.
   vcl_ofstream outfp(filename.c_str(), vcl_ios::out);
@@ -487,7 +487,7 @@ bool dbsol_save_cem_ascii(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, 
 #ifdef HAS_BOOST
 // -----------------------------------------------------------------------------
 //: Save .CEM file
-bool dbsol_save_cem_gzip(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, vcl_string filename)
+bool bsold_save_cem_gzip(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, vcl_string filename)
 {
   //1)If file open fails, return.
   vcl_ofstream outfp_orig(filename.c_str(), vcl_ios::out | vcl_ios::binary);
@@ -572,7 +572,7 @@ bool dbsol_save_cem_gzip(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, v
 // -----------------------------------------------------------------------------
 //: Write an image and a set of polygons to a ps file
 // TODO: we currently only handle polygons. Need to handle other types
-bool dbsol_save_ps_file(const vcl_string& filename,
+bool bsold_save_ps_file(const vcl_string& filename,
                         const vil_image_resource_sptr& img, 
                         const vcl_vector<vsol_spatial_object_2d_sptr >& vsol_data,
                         const vcl_vector<vil_rgb<float > >& colors,

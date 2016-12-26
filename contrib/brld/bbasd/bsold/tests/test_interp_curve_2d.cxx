@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
 
 #include <dbgl/dbgl_poly_curve_line.h>
-#include <dbsol/dbsol_interp_curve_2d.h>
+#include <bsold/bsold_interp_curve_2d.h>
 
 #include <vcl_iostream.h>
 #include <vcl_cmath.h>
@@ -29,7 +29,7 @@ MAIN( test_interp_curve_2d )
   ints[0] = new dbgl_poly_curve_line(p0, p1);
   ints[1] = new dbgl_poly_curve_line(p1, p2);
 
-  dbsol_interp_curve_2d c(ints);
+  bsold_interp_curve_2d c(ints);
   
   TEST("length() ", vcl_fabs(c.length()-(sqrt((double)2)+1))<NearZeroValue, true);
   TEST("point_at() start ", almost_equal3((c.point_at(0))->get_p(), p0), true);

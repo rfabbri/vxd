@@ -1,18 +1,18 @@
-// This is brcv/basic/dbsol/vis/dbsol_cut_contour_tool.cxx
+// This is brcv/bbasd/bsold/vis/bsold_cut_contour_tool.cxx
 //:
 // \file
 
-#include "dbsol_cut_contour_tool.h"
+#include "bsold_cut_contour_tool.h"
 
 #include <vgui/vgui_style.h>
 #include <bsol/bsol_algs.h>
-#include <dbsol/dbsol_algos.h>
+#include <bsold/bsold_algos.h>
 #include <bvis1/bvis1_manager.h>
 #include <vnl/vnl_math.h>
 
 
-dbsol_cut_contour_tool::
-dbsol_cut_contour_tool()
+bsold_cut_contour_tool::
+bsold_cut_contour_tool()
 {
   this->gesture_cut_polyline_ = 
     vgui_event_condition(vgui_LEFT, vgui_SHIFT, true);
@@ -44,7 +44,7 @@ dbsol_cut_contour_tool()
 
   
 //: This is called when the tool is activated
-void dbsol_cut_contour_tool::
+void bsold_cut_contour_tool::
 activate()
 {
   vcl_cout << "=============================================================================\n";
@@ -75,7 +75,7 @@ activate()
 //=========================================================
 
 //: Handle events coming to the tool
-bool dbsol_cut_contour_tool::
+bool bsold_cut_contour_tool::
 handle( const vgui_event & e, const bvis1_view_tableau_sptr& view )
 {
   float ix, iy;
@@ -85,7 +85,7 @@ handle( const vgui_event & e, const bvis1_view_tableau_sptr& view )
   // switch to NORMAL mode
   if (this->gesture_switch_normal_mode_(e))
   {
-    this->active_mode_ = dbsol_cut_contour_tool::NORMAL;
+    this->active_mode_ = bsold_cut_contour_tool::NORMAL;
     vcl_cout << "\nSwitched to mode NORMAL." << vcl_endl;
     return true;
   }
@@ -93,7 +93,7 @@ handle( const vgui_event & e, const bvis1_view_tableau_sptr& view )
   // swith to "CONNECT_POLYLINE" mode
   if (this->gesture_switch_connect_polyline_mode_(e))
   {
-    this->active_mode_ = dbsol_cut_contour_tool::CONNECT_POLYLINE;
+    this->active_mode_ = bsold_cut_contour_tool::CONNECT_POLYLINE;
     vcl_cout << "\nSwitched to mode CONNECT_POLYLINE." << vcl_endl;
     this->connect_polyline1_ = 0;
     this->connect_polyline2_ = 0;
@@ -101,7 +101,7 @@ handle( const vgui_event & e, const bvis1_view_tableau_sptr& view )
   }
 
   // Operating depending on the mode
-  if (this->active_mode_ == dbsol_cut_contour_tool::NORMAL)
+  if (this->active_mode_ == bsold_cut_contour_tool::NORMAL)
   {
 
     if (this->gesture_cut_polyline_(e))
@@ -124,7 +124,7 @@ handle( const vgui_event & e, const bvis1_view_tableau_sptr& view )
       return this->handle_close_polyline(ix, iy);
     }
   }
-  else if (this->active_mode_ == dbsol_cut_contour_tool::CONNECT_POLYLINE)
+  else if (this->active_mode_ == bsold_cut_contour_tool::CONNECT_POLYLINE)
   {
     if (this->gesture_pick_connect_polyline1_(e))
     {
@@ -163,7 +163,7 @@ handle( const vgui_event & e, const bvis1_view_tableau_sptr& view )
 
 
 // ----------------------------------------------------------------------------
-bool dbsol_cut_contour_tool::
+bool bsold_cut_contour_tool::
 handle_cut_polyline(float ix, float iy)
 {
   vcl_cout << "Action: Cut polyline\n";
@@ -191,7 +191,7 @@ handle_cut_polyline(float ix, float iy)
       bsol_algs::closest_point(new vsol_point_2d(ix, iy), pt_set, min_dist);
 
     vcl_vector<vsol_polyline_2d_sptr > new_polys = 
-      dbsol_algos::cut_polyline(polyline, closest_pt);
+      bsold_algos::cut_polyline(polyline, closest_pt);
 
     // convert to list of vsol_spatial_objects to add to the storage
     vcl_vector<vsol_spatial_object_2d_sptr > vsol_list;
@@ -225,7 +225,7 @@ handle_cut_polyline(float ix, float iy)
 
 // -----------------------------------------------------------------------------
 //:
-bool dbsol_cut_contour_tool::
+bool bsold_cut_contour_tool::
 handle_open_polygon(float ix, float iy)
 {
   vcl_cout << "Action: Open a polygon\n";
@@ -249,7 +249,7 @@ handle_open_polygon(float ix, float iy)
       bsol_algs::closest_point(new vsol_point_2d(ix, iy), pt_set, min_dist);
 
     vsol_polyline_2d_sptr new_poly = 
-      dbsol_algos::polyline_from_polygon(polygon, closest_pt);
+      bsold_algos::polyline_from_polygon(polygon, closest_pt);
 
   
     // add to the storage
@@ -279,7 +279,7 @@ handle_open_polygon(float ix, float iy)
 
 // -----------------------------------------------------------------------------
 //: Handle close a polyline and turn into a polygon
-bool dbsol_cut_contour_tool::
+bool bsold_cut_contour_tool::
 handle_close_polyline(float ix, float iy)
 {
   vcl_cout << "Action: Close a polyline\n";
@@ -293,7 +293,7 @@ handle_close_polyline(float ix, float iy)
     
   
     vsol_polygon_2d_sptr new_poly = 
-      dbsol_algos::polygon_from_polyline(polyline);
+      bsold_algos::polygon_from_polyline(polyline);
 
   
     // add to the storage
@@ -326,7 +326,7 @@ handle_close_polyline(float ix, float iy)
 
 
 // ----------------------------------------------------------------------------
-bool dbsol_cut_contour_tool::
+bool bsold_cut_contour_tool::
 handle_delete_vsol(float ix, float iy)
 {
   vcl_cout << "Action: Delete a polyline or a line segment\n";
@@ -366,7 +366,7 @@ handle_delete_vsol(float ix, float iy)
 
 
 // ----------------------------------------------------------------------------
-bool dbsol_cut_contour_tool::
+bool bsold_cut_contour_tool::
 handle_undo()
 {
   vcl_cout << "Action: Undo vsol deletion\n";
@@ -395,7 +395,7 @@ handle_undo()
 
 
 // ----------------------------------------------------------------------------
-bool dbsol_cut_contour_tool::
+bool bsold_cut_contour_tool::
 handle_pick_connect_polyline1(float ix, float iy)
 {
   vcl_cout << "Action: Pick polyline1 to connect\n";
@@ -435,7 +435,7 @@ handle_pick_connect_polyline1(float ix, float iy)
 
 // ----------------------------------------------------------------------------
 //:
-bool dbsol_cut_contour_tool::
+bool bsold_cut_contour_tool::
 handle_pick_connect_polyline2(float ix, float iy)
 {
   vcl_cout << "Action: Pick polyline2 to connect\n";
@@ -567,7 +567,7 @@ handle_pick_connect_polyline2(float ix, float iy)
 // ----------------------------------------------------------------------------
 // When cursor is moved, we want to display the start and end points of the
 // highlighted contour
-bool dbsol_cut_contour_tool::
+bool bsold_cut_contour_tool::
 handle_overlay_redraw(float ix, float iy)
 {
   vgui_soview* obj = this->tableau()->get_highlighted_soview();
@@ -587,7 +587,7 @@ handle_overlay_redraw(float ix, float iy)
 
 
   // connect-polyline-mode: draw a line from the start point of polyline 1
-  if (this->active_mode_ == dbsol_cut_contour_tool::CONNECT_POLYLINE && this->connect_polyline1_)
+  if (this->active_mode_ == bsold_cut_contour_tool::CONNECT_POLYLINE && this->connect_polyline1_)
   {
     vsol_point_2d_sptr start = (this->connect_polyline1_at_start_) ? 
       this->connect_polyline1_->p0() : this->connect_polyline1_->p1();
@@ -607,7 +607,7 @@ handle_overlay_redraw(float ix, float iy)
 
 
 // Draw a circle, estimated as a polygon
-void dbsol_cut_contour_tool::
+void bsold_cut_contour_tool::
 draw_point(float cx, float cy, float radius)
 {
   //float const rad = 0.0001f;
@@ -628,7 +628,7 @@ draw_point(float cx, float cy, float radius)
 
 
 //: This is called when the tool is deactivated
-void dbsol_cut_contour_tool::
+void bsold_cut_contour_tool::
 deactivate()
 {
 }

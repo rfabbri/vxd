@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
 
-#include <dbsol/algo/dbsol_geno.h>
-#include <dbsol/dbsol_interp_curve_2d.h>
+#include <bsold/algo/bsold_geno.h>
+#include <bsold/bsold_interp_curve_2d.h>
 #include <vsol/vsol_point_2d.h>
 #include <vgl/vgl_vector_2d.h>
 #include <vnl/vnl_math.h>
@@ -41,8 +41,8 @@ MAIN( test_geno )
   pts.push_back(new vsol_point_2d(-1,0));
   pts.push_back(new vsol_point_2d(0,-1));
 
-  dbsol_geno_curve_2d c;
-  dbsol_geno::interpolate(&c,pts,false);
+  bsold_geno_curve_2d c;
+  bsold_geno::interpolate(&c,pts,false);
 
   vcl_cout << c;
   TEST("#Intervals",c.size(),3);
@@ -100,8 +100,8 @@ MAIN( test_geno )
   pts.push_back(new vsol_point_2d(2,2));
   pts.push_back(new vsol_point_2d(3,3));
 
-  dbsol_geno_curve_2d c;
-  dbsol_geno::interpolate(&c,pts,false);
+  bsold_geno_curve_2d c;
+  bsold_geno::interpolate(&c,pts,false);
 
   vcl_cout << c;
 
@@ -163,8 +163,8 @@ MAIN( test_geno )
   pts.push_back(new vsol_point_2d(-1,0));
   pts.push_back(new vsol_point_2d(0,-1));
 
-  dbsol_geno_curve_2d c;
-  dbsol_geno::interpolate(&c,pts, true);
+  bsold_geno_curve_2d c;
+  bsold_geno::interpolate(&c,pts, true);
 
   vcl_cout << c;
   vcl_cout << "----------------------------\n";

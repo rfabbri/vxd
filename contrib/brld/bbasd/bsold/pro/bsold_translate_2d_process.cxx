@@ -1,18 +1,18 @@
-// This is basic/dbsol/pro/dbsol_translate_2d_process.cxx
+// This is bbasd/bsold/pro/bsold_translate_2d_process.cxx
 
 //:
 // \file
 
-#include "dbsol_translate_2d_process.h"
+#include "bsold_translate_2d_process.h"
 #include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 #include <vsol/vsol_spatial_object_2d.h>
 #include <vgl/vgl_vector_2d.h>
 
-#include <dbsol/algo/dbsol_linear_transform_2d.h>
+#include <bsold/algo/bsold_linear_transform_2d.h>
 
 //: Constructor
-dbsol_translate_2d_process::dbsol_translate_2d_process()
+bsold_translate_2d_process::bsold_translate_2d_process()
 {
   if( !parameters()->add( "Translate dx = " , "-dx" , (int)0 ) ||
       !parameters()->add( "Translate dy = " , "-dy" , (int)0 )) 
@@ -23,22 +23,22 @@ dbsol_translate_2d_process::dbsol_translate_2d_process()
 
 
 //: Destructor
-dbsol_translate_2d_process::~dbsol_translate_2d_process()
+bsold_translate_2d_process::~bsold_translate_2d_process()
 {
 }
 
 
 //: Clone the process
 bpro1_process*
-dbsol_translate_2d_process::clone() const
+bsold_translate_2d_process::clone() const
 {
-  return new dbsol_translate_2d_process(*this);
+  return new bsold_translate_2d_process(*this);
 }
 
 
 //: Return the name of this process
 vcl_string
-dbsol_translate_2d_process::name()
+bsold_translate_2d_process::name()
 {
   return "Translate vsol2D objects";
 }
@@ -46,7 +46,7 @@ dbsol_translate_2d_process::name()
 
 //: Return the number of input frame for this process
 int
-dbsol_translate_2d_process::input_frames()
+bsold_translate_2d_process::input_frames()
 {
   return 1;
 }
@@ -54,14 +54,14 @@ dbsol_translate_2d_process::input_frames()
 
 //: Return the number of output frames for this process
 int
-dbsol_translate_2d_process::output_frames()
+bsold_translate_2d_process::output_frames()
 {
   return 0;
 }
 
 
 //: Provide a vector of required input types
-vcl_vector< vcl_string > dbsol_translate_2d_process::get_input_type()
+vcl_vector< vcl_string > bsold_translate_2d_process::get_input_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "vsol2D" );
@@ -70,7 +70,7 @@ vcl_vector< vcl_string > dbsol_translate_2d_process::get_input_type()
 
 
 //: Provide a vector of output types
-vcl_vector< vcl_string > dbsol_translate_2d_process::get_output_type()
+vcl_vector< vcl_string > bsold_translate_2d_process::get_output_type()
 {
   vcl_vector<vcl_string > to_return;
   return to_return;
@@ -79,11 +79,11 @@ vcl_vector< vcl_string > dbsol_translate_2d_process::get_output_type()
 
 //: Execute the process
 bool
-dbsol_translate_2d_process::execute()
+bsold_translate_2d_process::execute()
 {
   if ( input_data_.size() != 1 )
   {
-    vcl_cout << "In dbsol_translate_2d_process::execute() - not exactly 1"
+    vcl_cout << "In bsold_translate_2d_process::execute() - not exactly 1"
              << " input frames \n";
     return false;
   }
@@ -109,7 +109,7 @@ dbsol_translate_2d_process::execute()
   
   for ( count = 0; count < vsol_data.size() && success; count ++ )
   {
-    success = success && dbsol_linear_transform_2d::translate(vsol_data.at(count), translate_v);
+    success = success && bsold_linear_transform_2d::translate(vsol_data.at(count), translate_v);
   }
   // check if all objects were translated succesfully. 
   // If not, put all input objects to their original status.
@@ -122,7 +122,7 @@ dbsol_translate_2d_process::execute()
   translate_v = -translate_v;
   for (unsigned int i = 0; i < count; i ++)
   {
-    dbsol_linear_transform_2d::translate(vsol_data.at(i), translate_v);
+    bsold_linear_transform_2d::translate(vsol_data.at(i), translate_v);
   }
   vcl_cout << "Translation failed. All objects remain at the original positions." << vcl_endl;
   return true;
@@ -131,7 +131,7 @@ dbsol_translate_2d_process::execute()
 
 
 bool
-dbsol_translate_2d_process::finish()
+bsold_translate_2d_process::finish()
 {
   return true;
 }

@@ -1,6 +1,6 @@
-// This is basic/dbsol/algo/dbsol_linear_transform_2d.h
-#ifndef dbsol_linear_transform_2d_h
-#define dbsol_linear_transform_2d_h
+// This is bbasd/bsold/algo/bsold_linear_transform_2d.h
+#ifndef bsold_linear_transform_2d_h
+#define bsold_linear_transform_2d_h
 //:
 //\file
 //\brief A class to perform linear transformation on vsol_2d objects (translation, rotation)
@@ -21,15 +21,15 @@
 //: A class to perform linear transformation on vsol_2d objects (translation, rotation)
 // All public functions in this class are static and the constructor is disabled
 // To perform operation on vsol_2d object v, use 
-// dbsol_linear_transform.function(v, ...)
-class dbsol_linear_transform_2d
+// bsold_linear_transform.function(v, ...)
+class bsold_linear_transform_2d
 {
 private:
   //: disable constructor
-  dbsol_linear_transform_2d();
+  bsold_linear_transform_2d();
 public:
   //: destructor
-  ~dbsol_linear_transform_2d();
+  ~bsold_linear_transform_2d();
 
   //: translate an vsol_spatial_object_2d with a vector
   // return false if the vsol_2d object type is unknown to the function
@@ -52,4 +52,4 @@ public:
 
 };
 
-#endif // dbsol_linear_transform_2d_h
+#endif // bsold_linear_transform_2d_h

@@ -1,5 +1,5 @@
-// This is basic/dbsol/dbsol_geno_curve_2d.cxx
-#include "dbsol_geno_curve_2d.h"
+// This is bbasd/bsold/bsold_geno_curve_2d.cxx
+#include "bsold_geno_curve_2d.h"
 
 #include <dbgl/algo/dbgl_eulerspiral.h>
 #include <dbgl/dbgl_arc.h>
@@ -7,12 +7,12 @@
 
 
 //: blanking parameter not supported
-void dbsol_geno_curve_2d::
+void bsold_geno_curve_2d::
 describe(vcl_ostream &strm, int blanking) const
 {
   if (blanking < 0) blanking = 0; while (blanking--) strm << ' ';
 
-  strm << "=== dbsol_geno_curve_2d ===\n";
+  strm << "=== bsold_geno_curve_2d ===\n";
   strm << "#intervals: " << ints_.size() << "\t length: " << length() << vcl_endl;
   for (unsigned int i=0; i<ints_.size(); ++i) {
      strm << "=== Interval " << i << " ===" << vcl_endl;
@@ -23,7 +23,7 @@ describe(vcl_ostream &strm, int blanking) const
 
 //: Returns the curvature at s arclength away from p0_
 // This is an auxiliary function for high order interpolation.
-double dbsol_geno_curve_2d::
+double bsold_geno_curve_2d::
 curvature_at(double s) const
 {
    unsigned is = interval_index(s,&s);
@@ -36,7 +36,7 @@ curvature_at(double s) const
 // This is an auxiliary function for high order interpolation.
 // \todo Make sure this is a high enough order interpolation.
 // Dynamic cast would be safer but is not used for speed purposes.
-double dbsol_geno_curve_2d::
+double bsold_geno_curve_2d::
 curvature_derivative_at(double s) const
 {
    unsigned is = interval_index(s);

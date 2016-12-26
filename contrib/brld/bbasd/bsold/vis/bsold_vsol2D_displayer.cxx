@@ -1,15 +1,15 @@
-// This is basic/dbsol/vis/dbsol_vsol2D_displayer.cxx
+// This is bbasd/bsold/vis/bsold_vsol2D_displayer.cxx
 
-#include "dbsol_vsol2D_displayer.h"
+#include "bsold_vsol2D_displayer.h"
 #include <bvis1/bvis1_displayer.h>
 #include <bvis1/bvis1_mapper.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
-#include <dbsol/vis/dbsol2D_tableau.h>
+#include <bsold/vis/bsold2D_tableau.h>
 #include <vgui/vgui_style.h>
 
 //: Create a tableau if the storage object is of type vsol2D
 vgui_tableau_sptr
-dbsol_vsol2D_displayer::make_tableau( bpro1_storage_sptr storage) const
+bsold_vsol2D_displayer::make_tableau( bpro1_storage_sptr storage) const
 {
   // Return a NULL tableau if the types don't match
   if( storage->type() != this->type() )
@@ -18,9 +18,9 @@ dbsol_vsol2D_displayer::make_tableau( bpro1_storage_sptr storage) const
   // Cast the storage object into an vsol2D storage object
   vidpro1_vsol2D_storage_sptr vsol2D_storage;
   vsol2D_storage.vertical_cast(storage);
-  // Create a new dbsol2D tableau
-  dbsol2D_tableau_sptr vsol2D_tab;
-  vsol2D_tab = dbsol2D_tableau_new();
+  // Create a new bsold2D tableau
+  bsold2D_tableau_sptr vsol2D_tab;
+  vsol2D_tab = bsold2D_tableau_new();
   vcl_vector< vcl_string > names = vsol2D_storage->groups();
   //the old way without attributes
   if(!vsol2D_storage->attributes_defined()||!mapper_)

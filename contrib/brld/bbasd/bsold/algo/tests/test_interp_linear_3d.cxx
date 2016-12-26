@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
 
-#include <dbsol/algo/dbsol_curve_3d_algs.h>
-#include <dbsol/dbsol_interp_curve_3d.h>
+#include <bsold/algo/bsold_curve_3d_algs.h>
+#include <bsold/bsold_interp_curve_3d.h>
 #include <vsol/vsol_point_3d.h>
 #include <vgl/vgl_vector_3d.h>
 #include <vnl/vnl_math.h>
@@ -27,8 +27,8 @@ MAIN( test_interp_linear_3d )
    pts.push_back(new vsol_point_3d(2, 0, 1));
    pts.push_back(new vsol_point_3d(3, 1, 2));
 
-   dbsol_interp_curve_3d c;
-   dbsol_curve_3d_algs::interpolate_linear_3d(&c, pts);
+   bsold_interp_curve_3d c;
+   bsold_curve_3d_algs::interpolate_linear_3d(&c, pts);
    vcl_cout << c;
 
    TEST_NEAR("point sample test 1x: ", (*(c.point_at_sample(3))).x(), 2, tolerance);

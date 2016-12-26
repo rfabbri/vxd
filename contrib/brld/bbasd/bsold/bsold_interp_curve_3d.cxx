@@ -1,5 +1,5 @@
-// This is basic/dbsol/dbsol_interp_curve_3d.cxx
-#include "dbsol_interp_curve_3d.h"
+// This is bbasd/bsold/bsold_interp_curve_3d.cxx
+#include "bsold_interp_curve_3d.h"
 #include <vsol/vsol_point_3d.h>
 #include <vcl_algorithm.h>  
 #include <vcl_cstring.h>
@@ -11,7 +11,7 @@
 //: Constructor
 // Caution: the user of this constructor SHALL NOT delete the dbgl_param_curve_3d objects
 // pointed to by the 'inter' vector 
-dbsol_interp_curve_3d::dbsol_interp_curve_3d(vcl_vector<dbgl_param_curve_3d *> inter)
+bsold_interp_curve_3d::bsold_interp_curve_3d(vcl_vector<dbgl_param_curve_3d *> inter)
     : ints_(inter), lengths_(ints_.size())
 {
    lengths_[0] = ints_[0]->length();
@@ -19,7 +19,7 @@ dbsol_interp_curve_3d::dbsol_interp_curve_3d(vcl_vector<dbgl_param_curve_3d *> i
      lengths_[i]=lengths_[i-1] + ints_[i]->length();
 }
 
-void dbsol_interp_curve_3d::make(const vcl_vector<dbgl_param_curve_3d *> &inter)
+void bsold_interp_curve_3d::make(const vcl_vector<dbgl_param_curve_3d *> &inter)
 {
    for (unsigned i = 0; i<ints_.size(); i++)
       delete ints_[i];
@@ -33,37 +33,37 @@ void dbsol_interp_curve_3d::make(const vcl_vector<dbgl_param_curve_3d *> &inter)
 }
 
 //: if s is out of bounds, we extrapolate using the interpolants at the endpoints.
-vsol_point_3d_sptr dbsol_interp_curve_3d::point_at(double s) const
+vsol_point_3d_sptr bsold_interp_curve_3d::point_at(double s) const
 {
    unsigned is = interval_index(s,&s);
    return new vsol_point_3d(ints_[is]->point_at_length(s));
 }
 
-vgl_vector_3d<double> dbsol_interp_curve_3d::tangent_at(double s) const
+vgl_vector_3d<double> bsold_interp_curve_3d::tangent_at(double s) const
 {
    unsigned is = interval_index(s,&s);
    return ints_[is]->tangent_at_length(s);
 }
 
-vgl_vector_3d<double> dbsol_interp_curve_3d::normal_at(double s) const
+vgl_vector_3d<double> bsold_interp_curve_3d::normal_at(double s) const
 {
    unsigned is = interval_index(s,&s);
    return ints_[is]->normal_at_length(s);
 }
 
-struct tangent_angles dbsol_interp_curve_3d::tangent_angles_at(double s) const
+struct tangent_angles bsold_interp_curve_3d::tangent_angles_at(double s) const
 {
    unsigned is = interval_index(s,&s);
    return ints_[is]->tangent_angles_at_length(s);
 }
 
-double dbsol_interp_curve_3d::curvature_at(double s) const
+double bsold_interp_curve_3d::curvature_at(double s) const
 {
    unsigned is = interval_index(s,&s);
    return ints_[is]->curvature_at_length(s);
 }
 
-double dbsol_interp_curve_3d::torsion_at(double s) const
+double bsold_interp_curve_3d::torsion_at(double s) const
 {
    unsigned is = interval_index(s,&s);
    return ints_[is]->torsion_at_length(s);
@@ -81,7 +81,7 @@ double dbsol_interp_curve_3d::torsion_at(double s) const
 // even though they both correspond to the same point.
 // If s is out of bounds, the result is undefined (or halt if macro NDEBUG is not
 // defined).
-unsigned dbsol_interp_curve_3d::interval_index(double s) const
+unsigned bsold_interp_curve_3d::interval_index(double s) const
 {
    if (s < 0 && is_almost_zero(s))
       s = 0.0;
@@ -103,7 +103,7 @@ unsigned dbsol_interp_curve_3d::interval_index(double s) const
 
 //: Same as interval_index(double s), but also returns the remaining
 // arclength parameter s on the parametric curve representing the interval.
-unsigned dbsol_interp_curve_3d::interval_index(double s, double *t) const
+unsigned bsold_interp_curve_3d::interval_index(double s, double *t) const
 {
    unsigned is = interval_index(s);
 
@@ -116,18 +116,18 @@ unsigned dbsol_interp_curve_3d::interval_index(double s, double *t) const
 }
 
 //: Print an ascii summary to the stream
-void dbsol_interp_curve_3d::print_summary(vcl_ostream &os) const
+void bsold_interp_curve_3d::print_summary(vcl_ostream &os) const
 {
   os << *this;
 }
 
 
 //: blanking parameter not supported
-void dbsol_interp_curve_3d::describe(vcl_ostream &strm, int blanking) const
+void bsold_interp_curve_3d::describe(vcl_ostream &strm, int blanking) const
 {
   if (blanking < 0) blanking = 0; while (blanking--) strm << ' ';
 
-  strm << "=== dbsol_interp_curve_3d ===\n";
+  strm << "=== bsold_interp_curve_3d ===\n";
   strm << "#intervals: " << ints_.size() << "\t length: " << length() << vcl_endl;
   for (unsigned int i=0; i<ints_.size(); ++i) 
   {

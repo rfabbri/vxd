@@ -1,5 +1,5 @@
-// This is basic/dbsol/dbsol_interp_curve_2d.cxx
-#include "dbsol_interp_curve_2d.h"
+// This is bbasd/bsold/bsold_interp_curve_2d.cxx
+#include "bsold_interp_curve_2d.h"
 #include <vsol/vsol_point_2d.h>
 #include <vcl_algorithm.h>  
 //:
@@ -11,8 +11,8 @@
 //: Constructor
 // Caution: the user of this constructor SHALL NOT delete the dbgl_param_curve objects
 // pointed to by the 'inter' vector 
-dbsol_interp_curve_2d::
-dbsol_interp_curve_2d(vcl_vector<dbgl_param_curve *> inter)
+bsold_interp_curve_2d::
+bsold_interp_curve_2d(vcl_vector<dbgl_param_curve *> inter)
     : ints_(inter), lengths_(ints_.size())
 {
    lengths_[0] = ints_[0]->length();
@@ -20,7 +20,7 @@ dbsol_interp_curve_2d(vcl_vector<dbgl_param_curve *> inter)
      lengths_[i]=lengths_[i-1] + ints_[i]->length();
 }
 
-void dbsol_interp_curve_2d::
+void bsold_interp_curve_2d::
 make(const vcl_vector<dbgl_param_curve *> &inter)
 {
   for (unsigned i = 0; i<ints_.size(); i++) {
@@ -40,7 +40,7 @@ make(const vcl_vector<dbgl_param_curve *> &inter)
 
 
 //: if s is out of bounds, we extrapolate using the interpolants at the endpoints.
-vsol_point_2d_sptr dbsol_interp_curve_2d::
+vsol_point_2d_sptr bsold_interp_curve_2d::
 point_at(double s) const
 {
   double s_from_beginning_of_interval;
@@ -54,7 +54,7 @@ point_at(double s) const
 }
 
 /*
-vgl_point_2d<double> dbsol_interp_curve_2d::
+vgl_point_2d<double> bsold_interp_curve_2d::
 point_at(double s) const
 {
    vsol_point_2d_sptr sp = point_at(s);
@@ -64,14 +64,14 @@ point_at(double s) const
 }
 */
 
-vgl_vector_2d<double> dbsol_interp_curve_2d:: 
+vgl_vector_2d<double> bsold_interp_curve_2d:: 
 tangent_at(double s) const
 {
    unsigned is = interval_index(s,&s);
    return ints_[is]->tangent_at_length(s);
 }
 
-double dbsol_interp_curve_2d:: 
+double bsold_interp_curve_2d:: 
 tangent_angle_at(double s) const
 {
    unsigned is = interval_index(s,&s);
@@ -90,7 +90,7 @@ tangent_angle_at(double s) const
 // even though they both correspond to the same point.
 // If s is out of bounds, the result is undefined (or halt if macro NDEBUG is not
 // defined).
-unsigned dbsol_interp_curve_2d::
+unsigned bsold_interp_curve_2d::
 interval_index(double s) const
 {
   if (s < 0 || is_almost_zero(s)) {
@@ -124,7 +124,7 @@ interval_index(double s) const
 
 //: Same as interval_index(double s), but also returns the remaining
 // arclength parameter s on the parametric curve representing the interval.
-unsigned dbsol_interp_curve_2d::
+unsigned bsold_interp_curve_2d::
 interval_index(double s, double *t) const
 {
    unsigned is = interval_index(s);
@@ -138,7 +138,7 @@ interval_index(double s, double *t) const
 }
 
 //: Print an ascii summary to the stream
-void dbsol_interp_curve_2d::
+void bsold_interp_curve_2d::
 print_summary(vcl_ostream &os) const
 {
   os << *this;
@@ -146,12 +146,12 @@ print_summary(vcl_ostream &os) const
 
 
 //: blanking parameter not supported
-void dbsol_interp_curve_2d::
+void bsold_interp_curve_2d::
 describe(vcl_ostream &strm, int blanking) const
 {
   if (blanking < 0) blanking = 0; while (blanking--) strm << ' ';
 
-  strm << "=== dbsol_interp_curve_2d ===\n";
+  strm << "=== bsold_interp_curve_2d ===\n";
   strm << "#intervals: " << ints_.size() << "\t length: " << length() << vcl_endl;
   for (unsigned int i=0; i<ints_.size(); ++i) {
      strm << "=== Interval " << i << " ===" << vcl_endl;

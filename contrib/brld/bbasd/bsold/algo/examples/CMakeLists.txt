@@ -1,4 +1,4 @@
-link_libraries( dbsol_algo bdgl)
+link_libraries( bsold_algo bdgl)
 
 add_executable( interp interp.cxx )
-add_executable( dbsol_algo_corner_finder_example corner_finder_example.cxx )
+add_executable( bsold_algo_corner_finder_example corner_finder_example.cxx )

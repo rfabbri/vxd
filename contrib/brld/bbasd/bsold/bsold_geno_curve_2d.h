@@ -1,6 +1,6 @@
-// This is dbsol_geno_curve_2d.h
-#ifndef dbsol_geno_curve_2d_h
-#define dbsol_geno_curve_2d_h
+// This is bsold_geno_curve_2d.h
+#ifndef bsold_geno_curve_2d_h
+#define bsold_geno_curve_2d_h
 //:
 //\file
 //\brief Curve that has been interpolated with GENO
@@ -8,7 +8,7 @@
 //\date 03/03/2005 09:45:01 AM EST
 //
 
-#include <dbsol/dbsol_interp_curve_2d.h>
+#include <bsold/bsold_interp_curve_2d.h>
 #include <vcl_vector.h>
 
 
@@ -22,25 +22,25 @@
 // Do not reuse this class after first interpolation. If you want to run
 // interpolation again, use another instance.
 //
-// \sa dbsol_geno : the actual interpolator class
+// \sa bsold_geno : the actual interpolator class
 //
-class dbsol_geno_curve_2d : public dbsol_interp_curve_2d {
+class bsold_geno_curve_2d : public bsold_interp_curve_2d {
  public:
-   dbsol_geno_curve_2d() : 
-     dbsol_interp_curve_2d(), 
+   bsold_geno_curve_2d() : 
+     bsold_interp_curve_2d(), 
      order_(2) //:< just a default order; the interpolator algo may change this
       { }
 
-   dbsol_geno_curve_2d(vcl_vector<dbgl_param_curve *> inter,bool closed) :
-      dbsol_interp_curve_2d(inter),
+   bsold_geno_curve_2d(vcl_vector<dbgl_param_curve *> inter,bool closed) :
+      bsold_interp_curve_2d(inter),
       closed_(closed),order_(2) { }
 
 
    virtual void make(const vcl_vector<dbgl_param_curve *> &inter, bool closed) 
-      { dbsol_interp_curve_2d::make(inter); closed_=closed;}
+      { bsold_interp_curve_2d::make(inter); closed_=closed;}
 
    //: algorithms
-   friend class dbsol_geno;
+   friend class bsold_geno;
 
    virtual void describe(vcl_ostream &strm, int blanking) const;
 
@@ -87,4 +87,4 @@ class dbsol_geno_curve_2d : public dbsol_interp_curve_2d {
 };
 
 
-#endif // dbsol_geno_curve_2d_h
+#endif // bsold_geno_curve_2d_h

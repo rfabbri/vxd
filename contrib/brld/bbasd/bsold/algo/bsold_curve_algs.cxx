@@ -3,8 +3,8 @@
 
 #include <vcl_cmath.h>
 
-#include "dbsol_curve_algs.h"
-#include <dbsol/dbsol_interp_curve_2d.h>
+#include "bsold_curve_algs.h"
+#include <bsold/bsold_interp_curve_2d.h>
 #include <dbgl/dbgl_poly_curve_line.h>
 #include <dbgl/dbgl_arc.h>
 #include <dbgl/dbgl_eno_curve.h>
@@ -24,14 +24,14 @@
 #include <vcl_ctime.h>
 
 //: Destructor
-dbsol_curve_algs::~dbsol_curve_algs()
+bsold_curve_algs::~bsold_curve_algs()
 {
 }
 
 //-------------------------------------------------------------
 //: sample the input curve at the rate length()/size
-bool dbsol_curve_algs::
-sample(dbsol_interp_curve_2d const &c, int size,
+bool bsold_curve_algs::
+sample(bsold_interp_curve_2d const &c, int size,
        vcl_vector<vsol_point_2d_sptr>& pts)
 {
   double L = c.length();
@@ -68,8 +68,8 @@ sample(dbsol_interp_curve_2d const &c, int size,
 //: sample the input curve at the rate length()/size
 //: return the samples and the tangents (in radian) at those samples
 //  no max length threshold to sample if negative
-bool dbsol_curve_algs::
-sample(dbsol_interp_curve_2d const &c, double ds,
+bool bsold_curve_algs::
+sample(bsold_interp_curve_2d const &c, double ds,
        vcl_vector<vsol_point_2d_sptr>& pts, vcl_vector<double>& tangents, double length_threshold)
 {
   double L;
@@ -93,8 +93,8 @@ sample(dbsol_interp_curve_2d const &c, double ds,
 
 //: sample a "region" evenly around this interp curve, 
 // (including the points right on the curve is optional, if not they start from delta away on the normal direction)
-void dbsol_curve_algs::
-sample_region_along_curve(dbsol_interp_curve_2d const &c, vcl_vector<vsol_point_2d_sptr>& region_pts, double delta, double length_threshold, float width, bool add_curve_points)
+void bsold_curve_algs::
+sample_region_along_curve(bsold_interp_curve_2d const &c, vcl_vector<vsol_point_2d_sptr>& region_pts, double delta, double length_threshold, float width, bool add_curve_points)
 {
   vcl_vector<double > tangents;
   vcl_vector<vsol_point_2d_sptr> curve_pts;
@@ -129,8 +129,8 @@ sample_region_along_curve(dbsol_interp_curve_2d const &c, vcl_vector<vsol_point_
   region_pts.insert(region_pts.end(), minus_pts.begin(), minus_pts.end());
 }
 
-bool dbsol_curve_algs::
-interpolate_linear(dbsol_interp_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const &pts, 
+bool bsold_curve_algs::
+interpolate_linear(bsold_interp_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const &pts, 
                    bool closed)
 {
   if (!closed) {
@@ -160,8 +160,8 @@ interpolate_linear(dbsol_interp_curve_2d *c, vcl_vector<vsol_point_2d_sptr> cons
   return true;
 }
 
-bool dbsol_curve_algs::
-interpolate_linear(dbsol_interp_curve_2d *c, vcl_vector<vgl_point_2d<double> > const &pts, bool closed)
+bool bsold_curve_algs::
+interpolate_linear(bsold_interp_curve_2d *c, vcl_vector<vgl_point_2d<double> > const &pts, bool closed)
 {
   if (!closed) {
     vcl_vector<dbgl_param_curve *> ints(pts.size()-1);
@@ -190,7 +190,7 @@ interpolate_linear(dbsol_interp_curve_2d *c, vcl_vector<vgl_point_2d<double> > c
   return true;
 }
 
-bool dbsol_curve_algs::interpolate_linear(dbsol_interp_curve_2d *c,
+bool bsold_curve_algs::interpolate_linear(bsold_interp_curve_2d *c,
                                           vsol_polygon_2d_sptr poly)
 {
   vcl_vector<dbgl_param_curve *> ints(poly->size());
@@ -206,7 +206,7 @@ bool dbsol_curve_algs::interpolate_linear(dbsol_interp_curve_2d *c,
 }
 
 
-bool dbsol_curve_algs::interpolate_linear(dbsol_interp_curve_2d *c,
+bool bsold_curve_algs::interpolate_linear(bsold_interp_curve_2d *c,
                                  vsol_polyline_2d_sptr poly)
 {
   vcl_vector<dbgl_param_curve *> ints(poly->size()-1);
@@ -220,8 +220,8 @@ bool dbsol_curve_algs::interpolate_linear(dbsol_interp_curve_2d *c,
   return true;
 }
 
-bool dbsol_curve_algs::
-interpolate_linear2(dbsol_interp_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const &pts, 
+bool bsold_curve_algs::
+interpolate_linear2(bsold_interp_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const &pts, 
                     bool closed, int time)
 {
   if (!closed) {
@@ -252,7 +252,7 @@ interpolate_linear2(dbsol_interp_curve_2d *c, vcl_vector<vsol_point_2d_sptr> con
   return true;
 }
 
-bool dbsol_curve_algs::interpolate_eno(dbsol_interp_curve_2d *c, 
+bool bsold_curve_algs::interpolate_eno(bsold_interp_curve_2d *c, 
                                        vcl_vector<vsol_point_2d_sptr> const &pts,
                                        vnl_vector<double> &sample_pts)
 {
@@ -270,7 +270,7 @@ bool dbsol_curve_algs::interpolate_eno(dbsol_interp_curve_2d *c,
   return interpolate_eno_main(c, data_x, data_y, sample_pts);
 }
 
-bool dbsol_curve_algs::interpolate_eno(dbsol_interp_curve_2d *c, 
+bool bsold_curve_algs::interpolate_eno(bsold_interp_curve_2d *c, 
                                        vcl_vector<vsol_point_2d> const &pts,
                                        vnl_vector<double> &sample_pts)
 {
@@ -288,7 +288,7 @@ bool dbsol_curve_algs::interpolate_eno(dbsol_interp_curve_2d *c,
   return interpolate_eno_main(c, data_x, data_y, sample_pts);
 }
 
-bool dbsol_curve_algs::interpolate_eno(dbsol_interp_curve_2d *c, 
+bool bsold_curve_algs::interpolate_eno(bsold_interp_curve_2d *c, 
                                        vcl_vector<vgl_point_2d<double> > const &pts,
                                        vnl_vector<double> &sample_pts)
 {
@@ -306,7 +306,7 @@ bool dbsol_curve_algs::interpolate_eno(dbsol_interp_curve_2d *c,
   return interpolate_eno_main(c, data_x, data_y, sample_pts);
 }
 
-bool dbsol_curve_algs::interpolate_eno_main(dbsol_interp_curve_2d *c,
+bool bsold_curve_algs::interpolate_eno_main(bsold_interp_curve_2d *c,
                                             vnl_vector<double> const &data_x,
                                             vnl_vector<double> const &data_y,
                                             vnl_vector<double> &sample_pts)
@@ -508,19 +508,19 @@ void fit_lines_to_contour(vcl_vector<vsol_point_2d_sptr>& poly, double rms,
 //: delete k = ~log_2(perc_d/divident) many segments from p whose total length is ~perc_d percent of the original length
 //  the mean length of each deleted segment is ~perc_d/k percent of the total length with variance perc_sigma
 //  fromula from [Ghosh, Petkov, PAMI05], the divident is fixed at 8 in that paper
-bool dbsol_curve_algs::
+bool bsold_curve_algs::
 segment_wise_deletion(const vsol_polygon_2d_sptr& p, 
              vcl_vector<vsol_polyline_2d_sptr>& pieces, 
              vcl_vector<vsol_polyline_2d_sptr>& del_pieces, float perc_d, float perc_sigma, float divident)
 {
   vcl_cout << "in segment_wise_deletion\n";
   if (!(p->size() > 3)) {
-    vcl_cout << "In dbsol_algos::segment_wise_deletion() - polygon has too few vertices\n";
+    vcl_cout << "In bsold_algos::segment_wise_deletion() - polygon has too few vertices\n";
     return false;
   }
 
-  dbsol_interp_curve_2d curve;
-  dbsol_curve_algs::interpolate_linear(&curve, p);
+  bsold_interp_curve_2d curve;
+  bsold_curve_algs::interpolate_linear(&curve, p);
 
   float length = (float)curve.length();
   vcl_cout << "curve length:" << length << vcl_endl;
@@ -695,19 +695,19 @@ segment_wise_deletion(const vsol_polygon_2d_sptr& p,
 //  the mean length of each newly added segment is ~perc_d/k percent of the total length with variance perc_sigma
 //  add the segment with a random orientation from x-axis at a random region in or out of the contour
 //  output is a spatial object vector to be saved as a .cem file
-bool dbsol_curve_algs::segment_addition(const vsol_polygon_2d_sptr& p,
+bool bsold_curve_algs::segment_addition(const vsol_polygon_2d_sptr& p,
                         vcl_vector<vsol_spatial_object_2d_sptr>& pieces,
                         float perc_d, float perc_sigma, float divident)
 {
 
   vcl_cout << "in segment_addition\n";
   if (!(p->size() > 3)) {
-    vcl_cout << "In dbsol_algos::segment_addition() - polygon has too few vertices\n";
+    vcl_cout << "In bsold_algos::segment_addition() - polygon has too few vertices\n";
     return false;
   }
 
-  dbsol_interp_curve_2d curve;
-  dbsol_curve_algs::interpolate_linear(&curve, p);
+  bsold_interp_curve_2d curve;
+  bsold_curve_algs::interpolate_linear(&curve, p);
 
   float length = (float)curve.length();
   vcl_cout << "curve length:" << length << vcl_endl;
@@ -788,7 +788,7 @@ bool dbsol_curve_algs::segment_addition(const vsol_polygon_2d_sptr& p,
 //  the mean length of each deleted segment is ~perc_d/k percent of the total length with variance perc_sigma
 //  fromula from [Ghosh, Petkov, PAMI05], the divident is fixed at 8 in that paper
 //  output is a spatial object vector to be saved as a .cem file
-bool dbsol_curve_algs::segment_addition_and_deletion(const vsol_polygon_2d_sptr& p, 
+bool bsold_curve_algs::segment_addition_and_deletion(const vsol_polygon_2d_sptr& p, 
                                             vcl_vector<vsol_spatial_object_2d_sptr>& pieces, 
                                             vcl_vector<vsol_polyline_2d_sptr>& del_pieces,
                                             float add_perc_d, float add_perc_sigma, float add_divident,
@@ -818,7 +818,7 @@ bool dbsol_curve_algs::segment_addition_and_deletion(const vsol_polygon_2d_sptr&
 
 //: This function subsamples the points in the contour according to the c_ds value
 //  just like Thomas sebastian did
-vsol_polygon_2d_sptr dbsol_subsample_contour(vsol_polygon_2d_sptr poly, double c_ds)
+vsol_polygon_2d_sptr bsold_subsample_contour(vsol_polygon_2d_sptr poly, double c_ds)
 {
   vcl_vector<vsol_point_2d_sptr > new_pts;
 
@@ -836,7 +836,7 @@ vsol_polygon_2d_sptr dbsol_subsample_contour(vsol_polygon_2d_sptr poly, double c
 }
 
 //: This function subsamples the points in the contour according to the c_ds value
-vsol_polygon_2d_sptr dbsol_subsample_contour_smart(vsol_polygon_2d_sptr poly, double c_ds)
+vsol_polygon_2d_sptr bsold_subsample_contour_smart(vsol_polygon_2d_sptr poly, double c_ds)
 {
   vcl_vector<vsol_point_2d_sptr > new_pts;
   double d = 0;

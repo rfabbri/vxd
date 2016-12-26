@@ -2,14 +2,14 @@
 // \file
 // \author Ricardo Fabbri
 
-#include "dbsol_geno.h"
+#include "bsold_geno.h"
 #include <dbgl/algo/dbgl_eulerspiral.h>
 #include <vnl/vnl_math.h>
 #include <vcl_cmath.h>
 
 //: 2nd order GENO (Geometric Non-Oscillatory) Interpolation
-void dbsol_geno::
-interpolate(dbsol_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const &pts, bool closed) 
+void bsold_geno::
+interpolate(bsold_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const &pts, bool closed) 
 {
    if (pts.size() <= 2){
       vcl_cerr << "geno interpolation currently needs at least 2 points";
@@ -83,8 +83,8 @@ interpolate(dbsol_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const &pts, b
 // 2) For each tangent pair, get the Euler spiral
 //
 // TODO: should call interpolate3_from_tangents, to avoid repetition of code
-void dbsol_geno::
-interpolate3_approx(dbsol_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const &pts, bool closed) 
+void bsold_geno::
+interpolate3_approx(bsold_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const &pts, bool closed) 
 {
   if (pts.size() <= 2){
      vcl_cerr << "interpolation needs least 2 points\n";
@@ -98,7 +98,7 @@ interpolate3_approx(dbsol_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const
 
   double delta_angle_threshold=vnl_math::pi/2;
 
-  dbsol_geno_curve_2d arc_geno;
+  bsold_geno_curve_2d arc_geno;
   interpolate(&arc_geno,pts,closed);
 
   vcl_vector<double> tangents(pts.size());
@@ -199,9 +199,9 @@ interpolate3_approx(dbsol_geno_curve_2d *c, vcl_vector<vsol_point_2d_sptr> const
 //
 // 2) For each tangent pair, get the Euler spiral
 //
-void dbsol_geno::
+void bsold_geno::
 interpolate3_from_tangents(
-    dbsol_geno_curve_2d *c, 
+    bsold_geno_curve_2d *c, 
     vcl_vector<vsol_point_2d_sptr> const &pts, 
     vcl_vector<double> const &tangent_angles,
     bool closed) 

@@ -1,6 +1,6 @@
-// This is basic/dbsol/vis/dbsol_arc_tool.h
-#ifndef dbsol_arc_tool_h
-#define dbsol_arc_tool_h
+// This is bbasd/bsold/vis/bsold_arc_tool.h
+#ifndef bsold_arc_tool_h
+#define bsold_arc_tool_h
 //:
 // \file
 // \brief A tool for designing a circular arc - full circle for now
@@ -16,13 +16,13 @@
 #include <bvis1/tool/bvis1_vsol2D_tools.h>
 
 //: A tool for drawing lines
-class dbsol_arc_tool : public bvis1_vsol2D_tool {
+class bsold_arc_tool : public bvis1_vsol2D_tool {
 
 public:
   //: constructor
-  dbsol_arc_tool();
+  bsold_arc_tool();
   //: destructor
-  virtual ~dbsol_arc_tool();
+  virtual ~bsold_arc_tool();
   //: handle
   bool handle( const vgui_event & e, 
                const bvis1_view_tableau_sptr& view );
@@ -50,5 +50,5 @@ private:
 
 
 
-#endif // dbsol_arc_tool_h
+#endif // bsold_arc_tool_h
 

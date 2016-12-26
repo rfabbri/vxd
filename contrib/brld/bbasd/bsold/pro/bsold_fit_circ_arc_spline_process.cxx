@@ -1,10 +1,10 @@
-// This is basic/dbsol/pro/dbsol_fit_circ_arc_spline_process.cxx
+// This is bbasd/bsold/pro/bsold_fit_circ_arc_spline_process.cxx
 
 //:
 // \file
 
 
-#include "dbsol_fit_circ_arc_spline_process.h"
+#include "bsold_fit_circ_arc_spline_process.h"
 
 #include <vsol/vsol_polyline_2d.h>
 #include <vsol/vsol_polyline_2d_sptr.h>
@@ -35,8 +35,8 @@
 
 
 //: Constructor
-dbsol_fit_circ_arc_spline_process::
-dbsol_fit_circ_arc_spline_process(void)
+bsold_fit_circ_arc_spline_process::
+bsold_fit_circ_arc_spline_process(void)
 {
   if( 
     !parameters()->add("Tolerance (max error allowed)", "-tolerance", 1.0f )
@@ -48,22 +48,22 @@ dbsol_fit_circ_arc_spline_process(void)
 
 
 //: Destructor
-dbsol_fit_circ_arc_spline_process::
-~dbsol_fit_circ_arc_spline_process()
+bsold_fit_circ_arc_spline_process::
+~bsold_fit_circ_arc_spline_process()
 {
 }
 
 
 //: Clone the process
-bpro1_process* dbsol_fit_circ_arc_spline_process::
+bpro1_process* bsold_fit_circ_arc_spline_process::
 clone() const
 {
-  return new dbsol_fit_circ_arc_spline_process(*this);
+  return new bsold_fit_circ_arc_spline_process(*this);
 }
 
 
 //: Return the name of this process
-vcl_string dbsol_fit_circ_arc_spline_process::
+vcl_string bsold_fit_circ_arc_spline_process::
 name()
 {
   return "Fit circular arc spline";
@@ -71,7 +71,7 @@ name()
 
 
 //: Return the number of input frame for this process
-int dbsol_fit_circ_arc_spline_process::
+int bsold_fit_circ_arc_spline_process::
 input_frames()
 {
   return 1;
@@ -79,7 +79,7 @@ input_frames()
 
 
 //: Return the number of output frames for this process
-int dbsol_fit_circ_arc_spline_process::
+int bsold_fit_circ_arc_spline_process::
 output_frames()
 {
   return 1;
@@ -87,7 +87,7 @@ output_frames()
 
 
 //: Provide a vector of required input types
-vcl_vector< vcl_string > dbsol_fit_circ_arc_spline_process::
+vcl_vector< vcl_string > bsold_fit_circ_arc_spline_process::
 get_input_type()
 {
   vcl_vector< vcl_string > to_return;
@@ -97,7 +97,7 @@ get_input_type()
 
 
 //: Provide a vector of output types
-vcl_vector< vcl_string > dbsol_fit_circ_arc_spline_process::
+vcl_vector< vcl_string > bsold_fit_circ_arc_spline_process::
 get_output_type()
 {
   vcl_vector<vcl_string > to_return;
@@ -108,12 +108,12 @@ get_output_type()
 
 
 //: Execute the process
-bool dbsol_fit_circ_arc_spline_process::
+bool bsold_fit_circ_arc_spline_process::
 execute()
 {
   if ( input_data_.size() != 1 )
   {
-    vcl_cout << "In dbsol_fit_circ_arc_spline_process::execute() - not exactly 1"
+    vcl_cout << "In bsold_fit_circ_arc_spline_process::execute() - not exactly 1"
              << " input frames \n";
     return false;
   }
@@ -292,7 +292,7 @@ execute()
 
 
 bool
-dbsol_fit_circ_arc_spline_process::finish()
+bsold_fit_circ_arc_spline_process::finish()
 {
   return true;
 }

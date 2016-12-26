@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
 
 #include <dbgl/dbgl_eno_curve_3d.h>
-#include <dbsol/dbsol_interp_curve_3d.h>
+#include <bsold/bsold_interp_curve_3d.h>
 
 #include <vcl_iostream.h>
 #include <vcl_cmath.h>
@@ -38,7 +38,7 @@ MAIN( test_interp_curve_3d )
   ints[0] = new dbgl_eno_curve_3d(coefs_x, coefs_y, coefs_z, 0.0, 1.0);
   ints[1] = new dbgl_eno_curve_3d(coefs_x, coefs_y, coefs_z, 1.0, 2.0);
 
-  dbsol_interp_curve_3d c(ints);
+  bsold_interp_curve_3d c(ints);
 
   TEST("size test: ", c.size(), 2);
 

@@ -1,17 +1,17 @@
-// This is basic/dbsol/vis/dbsol_arc_tool.cxx
+// This is bbasd/bsold/vis/bsold_arc_tool.cxx
 //:
 // \file
 // \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date 4/9/2005
 
-#include "dbsol_arc_tool.h"
+#include "bsold_arc_tool.h"
 #include <vnl/vnl_math.h>
 #include <vgui/vgui.h>
 #include <vcl_ostream.h>
 
 
 //: constructor
-dbsol_arc_tool::dbsol_arc_tool()
+bsold_arc_tool::bsold_arc_tool()
 {
   this->choose_center_ = vgui_event_condition(vgui_LEFT, vgui_MODIFIER_NULL, true);
   this->choose_circle_point_ = vgui_event_condition(vgui_LEFT, vgui_MODIFIER_NULL, true);
@@ -20,13 +20,13 @@ dbsol_arc_tool::dbsol_arc_tool()
 
 
 //: destructor
-dbsol_arc_tool::~dbsol_arc_tool()
+bsold_arc_tool::~bsold_arc_tool()
 {
 }
 
 
 bool
-dbsol_arc_tool::handle( const vgui_event & e, 
+bsold_arc_tool::handle( const vgui_event & e, 
                                const bvis1_view_tableau_sptr& /*view*/ )
 {
   float ix, iy;
@@ -141,14 +141,14 @@ dbsol_arc_tool::handle( const vgui_event & e,
 
 //: name of the tool
 vcl_string
-dbsol_arc_tool::name() const
+bsold_arc_tool::name() const
 {
   return "Circle";
 }
 
 
 void
-dbsol_arc_tool::deactivate()
+bsold_arc_tool::deactivate()
 {
   this->active_ = false;
 }

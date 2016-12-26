@@ -1,8 +1,8 @@
-// This is dbsol/dbsol_algos.cxx
+// This is bsold/bsold_algos.cxx
 //:
 // \file
 
-#include "dbsol_algos.h"
+#include "bsold_algos.h"
 
 //#include <vcl_cstring.h>
 #include <vsol/vsol_point_2d.h>
@@ -12,11 +12,11 @@
 #include <vnl/vnl_random.h>
 #include <vcl_cmath.h>
 
-const double dbsol_algos_epsilon = 1e-10;
+const double bsold_algos_epsilon = 1e-10;
 
 
 //: Break a polyline into two pieces, each is a polyline
-vcl_vector<vsol_polyline_2d_sptr > dbsol_algos::
+vcl_vector<vsol_polyline_2d_sptr > bsold_algos::
 cut_polyline(const vsol_polyline_2d_sptr& polyline,
              const vsol_point_2d_sptr& cut_position)
 {
@@ -59,7 +59,7 @@ cut_polyline(const vsol_polyline_2d_sptr& polyline,
 
 
 // ----------------------------------------------------------------------------
-vsol_polyline_2d_sptr dbsol_algos::
+vsol_polyline_2d_sptr bsold_algos::
 polyline_from_polygon(const vsol_polygon_2d_sptr& polygon,
                       const vsol_point_2d_sptr& cut_position)
 {
@@ -99,7 +99,7 @@ polyline_from_polygon(const vsol_polygon_2d_sptr& polygon,
 
 
 
-vsol_polygon_2d_sptr dbsol_algos::
+vsol_polygon_2d_sptr bsold_algos::
 polygon_from_polyline(const vsol_polyline_2d_sptr& polyline)
 {
   // construct a new polygon using the vertices of the polyline
@@ -112,7 +112,7 @@ polygon_from_polyline(const vsol_polyline_2d_sptr& polyline)
 
   // check distance between the two end points. 
   // If they're too close, delete one to avoid duplicate points in the polygon
-  if (pt_set.front()->distance(pt_set.back()) < dbsol_algos_epsilon)
+  if (pt_set.front()->distance(pt_set.back()) < bsold_algos_epsilon)
   {
     pt_set.pop_back();
   }
@@ -124,7 +124,7 @@ polygon_from_polyline(const vsol_polyline_2d_sptr& polyline)
 
 // ----------------------------------------------------------------------------
 //: find the closest point on a polyline
-vsol_point_2d_sptr dbsol_algos::
+vsol_point_2d_sptr bsold_algos::
 closest_point(const vsol_point_2d_sptr& p,
               const vsol_polyline_2d_sptr& polyline,
               double & d)

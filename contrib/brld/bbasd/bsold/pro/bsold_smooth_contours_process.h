@@ -1,7 +1,7 @@
-// This is basic/dbsol/pro/dbsol_smooth_contours_process.h
+// This is bbasd/bsold/pro/bsold_smooth_contours_process.h
 
-#ifndef dbsol_smooth_contours_process_h_
-#define dbsol_smooth_contours_process_h_
+#ifndef bsold_smooth_contours_process_h_
+#define bsold_smooth_contours_process_h_
 
 //:
 // \file
@@ -26,13 +26,13 @@
 // will always simplify; one can even enter an entangled curve and the smoothing will disentangle
 // it after a sufficient number of times.
 //
-class dbsol_smooth_contours_process : public bpro1_process 
+class bsold_smooth_contours_process : public bpro1_process 
 {
 
 public:
 
-  dbsol_smooth_contours_process(void);
-  virtual ~dbsol_smooth_contours_process();
+  bsold_smooth_contours_process(void);
+  virtual ~bsold_smooth_contours_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -52,4 +52,4 @@ protected:
 
 };
 
-#endif //dbsol_smooth_contours_process_h_
+#endif //bsold_smooth_contours_process_h_

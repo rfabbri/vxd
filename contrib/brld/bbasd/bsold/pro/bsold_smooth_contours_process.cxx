@@ -1,10 +1,10 @@
-// This is basic/dbsol/pro/dbsol_smooth_contours_process.cxx
+// This is bbasd/bsold/pro/bsold_smooth_contours_process.cxx
 
 //:
 // \file
 
 
-#include "dbsol_smooth_contours_process.h"
+#include "bsold_smooth_contours_process.h"
 #include <vsol/vsol_polyline_2d.h>
 #include <vsol/vsol_polyline_2d_sptr.h>
 #include <vsol/vsol_point_2d.h>
@@ -19,8 +19,8 @@
 
 
 //: Constructor
-dbsol_smooth_contours_process::
-dbsol_smooth_contours_process(void)
+bsold_smooth_contours_process::
+bsold_smooth_contours_process(void)
 {
   if( 
     !parameters()->add("Gaussian smoothing?", "-gaussian", (bool) true ) ||
@@ -37,22 +37,22 @@ dbsol_smooth_contours_process(void)
 
 
 //: Destructor
-dbsol_smooth_contours_process::
-~dbsol_smooth_contours_process()
+bsold_smooth_contours_process::
+~bsold_smooth_contours_process()
 {
 }
 
 
 //: Clone the process
-bpro1_process* dbsol_smooth_contours_process::
+bpro1_process* bsold_smooth_contours_process::
 clone() const
 {
-  return new dbsol_smooth_contours_process(*this);
+  return new bsold_smooth_contours_process(*this);
 }
 
 
 //: Return the name of this process
-vcl_string dbsol_smooth_contours_process::
+vcl_string bsold_smooth_contours_process::
 name()
 {
   return "Smooth Contours";
@@ -60,7 +60,7 @@ name()
 
 
 //: Return the number of input frame for this process
-int dbsol_smooth_contours_process::
+int bsold_smooth_contours_process::
 input_frames()
 {
   return 1;
@@ -68,7 +68,7 @@ input_frames()
 
 
 //: Return the number of output frames for this process
-int dbsol_smooth_contours_process::
+int bsold_smooth_contours_process::
 output_frames()
 {
   return 1;
@@ -76,7 +76,7 @@ output_frames()
 
 
 //: Provide a vector of required input types
-vcl_vector< vcl_string > dbsol_smooth_contours_process::
+vcl_vector< vcl_string > bsold_smooth_contours_process::
 get_input_type()
 {
   vcl_vector< vcl_string > to_return;
@@ -86,7 +86,7 @@ get_input_type()
 
 
 //: Provide a vector of output types
-vcl_vector< vcl_string > dbsol_smooth_contours_process::
+vcl_vector< vcl_string > bsold_smooth_contours_process::
 get_output_type()
 {
   vcl_vector<vcl_string > to_return;
@@ -100,12 +100,12 @@ get_output_type()
 
 
 //: Execute the process
-bool dbsol_smooth_contours_process::
+bool bsold_smooth_contours_process::
 execute()
 {
   if ( input_data_.size() != 1 )
   {
-    vcl_cout << "In dbsol_smooth_contours_process::execute() - not exactly 1"
+    vcl_cout << "In bsold_smooth_contours_process::execute() - not exactly 1"
              << " input frames \n";
     return false;
   }
@@ -269,7 +269,7 @@ execute()
 
 
 bool
-dbsol_smooth_contours_process::finish()
+bsold_smooth_contours_process::finish()
 {
   return true;
 }

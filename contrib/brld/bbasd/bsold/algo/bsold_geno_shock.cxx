@@ -3,12 +3,12 @@
 // \author Ricardo Fabbri
 //
 
-#include "dbsol_geno_shock.h"
+#include "bsold_geno_shock.h"
 
 #if !VCL_STATIC_CONST_INIT_FLOAT_NO_DEFN
-const double dbsol_geno_shock::default_tangent_threshold
+const double bsold_geno_shock::default_tangent_threshold
    VCL_STATIC_CONST_INIT_FLOAT_DEFN(30.0);
-const double dbsol_geno_shock::default_curvature_threshold
+const double bsold_geno_shock::default_curvature_threshold
    VCL_STATIC_CONST_INIT_FLOAT_DEFN(0.3);
 #endif
 
@@ -22,7 +22,7 @@ const double dbsol_geno_shock::default_curvature_threshold
 // \return true if the current interval is classified as shock
 // This function may be used without actually having an instance (object) of
 // eno_shock_1d. 
-bool dbsol_geno_shock::
+bool bsold_geno_shock::
 test_change( dbgl_param_curve const   &prv,
       dbgl_param_curve const   &cur, 
       dbgl_param_curve const   &nxt,
@@ -30,7 +30,7 @@ test_change( dbgl_param_curve const   &prv,
       double curvature_threshold)
 {
 
-   dbsol_geno_measures prvm, curm, nxtm;
+   bsold_geno_measures prvm, curm, nxtm;
 
    prvm.compute(prv);
    curm.compute(cur);
@@ -40,10 +40,10 @@ test_change( dbgl_param_curve const   &prv,
                tangent_threshold, curvature_threshold);
 }
 
-bool dbsol_geno_shock::
-test_change( dbgl_param_curve const   &, dbsol_geno_measures const &prevm,
-      dbgl_param_curve const   &, dbsol_geno_measures const &currm,
-      dbgl_param_curve const   &, dbsol_geno_measures const &nextm,
+bool bsold_geno_shock::
+test_change( dbgl_param_curve const   &, bsold_geno_measures const &prevm,
+      dbgl_param_curve const   &, bsold_geno_measures const &currm,
+      dbgl_param_curve const   &, bsold_geno_measures const &nextm,
       double tangent_threshold, 
       double curv_threshold )
 {
@@ -68,8 +68,8 @@ test_change( dbgl_param_curve const   &, dbsol_geno_measures const &prevm,
       return delta_curv >= curv_threshold;
 }
 
-bool dbsol_geno_shock::
-test_change(dbsol_gshock_curve_2d const &c, unsigned iprv, unsigned icur, unsigned inxt,
+bool bsold_geno_shock::
+test_change(bsold_gshock_curve_2d const &c, unsigned iprv, unsigned icur, unsigned inxt,
       double tangent_threshold, 
       double curv_threshold )
 {
@@ -80,8 +80,8 @@ test_change(dbsol_gshock_curve_2d const &c, unsigned iprv, unsigned icur, unsign
 
 //: Try to mark c[icur] as shock, but if previous is already marked, we
 // keep only the one with larger curvature.
-void dbsol_geno_shock::
-mark_and_untie( dbsol_gshock_curve_2d &c, unsigned iprv, unsigned i)
+void bsold_geno_shock::
+mark_and_untie( bsold_gshock_curve_2d &c, unsigned iprv, unsigned i)
 {
     double tc, prev_tc;
 
@@ -101,8 +101,8 @@ mark_and_untie( dbsol_gshock_curve_2d &c, unsigned iprv, unsigned i)
 }
 
 //: mark the intervals that pass a combination of tests as shocks
-void dbsol_geno_shock::
-mark_all_shocks(dbsol_gshock_curve_2d &c, double tt, double ct)
+void bsold_geno_shock::
+mark_all_shocks(bsold_gshock_curve_2d &c, double tt, double ct)
 {
    unsigned i;
    if (!c.closed()) {
@@ -125,8 +125,8 @@ mark_all_shocks(dbsol_gshock_curve_2d &c, double tt, double ct)
    }
 }
 
-bool dbsol_geno_shock::
-test_stencil(dbsol_geno_curve_2d const &c, unsigned i)
+bool bsold_geno_shock::
+test_stencil(bsold_geno_curve_2d const &c, unsigned i)
 {
    unsigned iprv, inxt;
    if (c.closed()) {
@@ -143,8 +143,8 @@ test_stencil(dbsol_geno_curve_2d const &c, unsigned i)
 }
 
 /* TODO
-inline bool dbsol_geno_shock::
-test_stencil(dbsol_gshock_curve const &c,
+inline bool bsold_geno_shock::
+test_stencil(bsold_gshock_curve const &c,
       unsigned i)
 {
    if (!c.closed() && i == 0 || i == c.size())
@@ -160,8 +160,8 @@ test_stencil(dbsol_gshock_curve const &c,
 }
 */
 
-bool dbsol_geno_shock::
-test_change(dbsol_gshock_curve_2d const &c, unsigned i, double tt, double ct)
+bool bsold_geno_shock::
+test_change(bsold_gshock_curve_2d const &c, unsigned i, double tt, double ct)
 {
    unsigned iprv,inxt;
    if (c.closed()) {
@@ -179,8 +179,8 @@ test_change(dbsol_gshock_curve_2d const &c, unsigned i, double tt, double ct)
 
 
 
-bool dbsol_geno_shock::
-test_change(dbsol_geno_curve_2d const &c, unsigned i, double tt, double ct)
+bool bsold_geno_shock::
+test_change(bsold_geno_curve_2d const &c, unsigned i, double tt, double ct)
 {
    unsigned iprv,inxt;
    if (c.closed()) {
@@ -196,8 +196,8 @@ test_change(dbsol_geno_curve_2d const &c, unsigned i, double tt, double ct)
    return test_change(c[iprv],c[i],c[inxt],tt,ct);
 }
 
-void  dbsol_geno_shock::
-make_all_shocks(dbsol_gshock_curve_2d &c, const double shk_dist_thresh)
+void  bsold_geno_shock::
+make_all_shocks(bsold_gshock_curve_2d &c, const double shk_dist_thresh)
 {
    unsigned i;
 
@@ -206,26 +206,26 @@ make_all_shocks(dbsol_gshock_curve_2d &c, const double shk_dist_thresh)
    if (!c.closed()) {
       for (i=1; i < c.size()-1; ++i)
          if (c.has_shock(i)) {
-            c.s_[i] = new dbsol_gshock(c.interval(i-1), c.interval(i), c.interval(i+1),
+            c.s_[i] = new bsold_gshock(c.interval(i-1), c.interval(i), c.interval(i+1),
                                        shk_dist_thresh);
          }
    } else {
 
       if ( c.has_shock(0) )
-            c.s_[0] = new dbsol_gshock(c.interval(c.size()-1), c.interval(0),
+            c.s_[0] = new bsold_gshock(c.interval(c.size()-1), c.interval(0),
                                        c.interval(1), shk_dist_thresh);
       for (i=1; i < c.size()-1; ++i)
          if ( c.has_shock(i) )
-            c.s_[i] = new dbsol_gshock(c.interval(i-1), c.interval(i), c.interval(i+1),
+            c.s_[i] = new bsold_gshock(c.interval(i-1), c.interval(i), c.interval(i+1),
                                        shk_dist_thresh);
       if ( c.has_shock(i) )
-         c.s_[i] = new dbsol_gshock(c.interval(i-1), c.interval(i), c.interval(0),
+         c.s_[i] = new bsold_gshock(c.interval(i-1), c.interval(i), c.interval(0),
                                        shk_dist_thresh);
    }
 }
 
-void dbsol_geno_shock::
-place_all_shocks( dbsol_gshock_curve_2d &c,
+void bsold_geno_shock::
+place_all_shocks( bsold_gshock_curve_2d &c,
                   double tangent_threshold, double curvature_threshold, 
                   double shock_threshold)
 {

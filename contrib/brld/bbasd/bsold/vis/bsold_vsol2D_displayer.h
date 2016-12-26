@@ -1,11 +1,11 @@
-// This is basic/dbsol/vis/dbsol_vsol2D_displayer.h
-#ifndef dbsol_vsol2D_displayer_h_
-#define dbsol_vsol2D_displayer_h_
+// This is bbasd/bsold/vis/bsold_vsol2D_displayer.h
+#ifndef bsold_vsol2D_displayer_h_
+#define bsold_vsol2D_displayer_h_
 
 //:
 // \file
 // \brief This file defines the displayer class that supports
-//        dbsol_circ_arc_2d
+//        bsold_circ_arc_2d
 // \author Based on original code by  Isabel Restrepo (@lems.brown.edu)
 // \date 09/26/06 
 //
@@ -20,10 +20,10 @@
 #include <bpro1/bpro1_storage_sptr.h>
 #include <bvis1/bvis1_mapper.h>
 
-class dbsol_vsol2D_displayer : public bvis1_displayer {
+class bsold_vsol2D_displayer : public bvis1_displayer {
 
 public:
-  dbsol_vsol2D_displayer(){}
+  bsold_vsol2D_displayer(){}
 
   //: Return type string "vsol2D"
   virtual vcl_string type() const { return "vsol2D"; }
@@ -33,4 +33,4 @@ public:
 
 };
 
-#endif // dbsol_vsol2D_displayer_h_
+#endif // bsold_vsol2D_displayer_h_

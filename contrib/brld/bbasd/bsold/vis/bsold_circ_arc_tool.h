@@ -1,15 +1,15 @@
 /**************************************************************/
 /*  Name: Isabel restrepo
-//  File: dbsol_circ_arc_tool.h
+//  File: bsold_circ_arc_tool.h
 //  Asgn: bvis
 //  Date: Thu Aug 14 15:24:53 EDT 2003
 ***************************************************************/
 
-#ifndef dbsol_circ_arc_tool_h
-#define dbsol_circ_arc_tool_h
+#ifndef bsold_circ_arc_tool_h
+#define bsold_circ_arc_tool_h
 
 #include <bvis1/tool/bvis1_vsol2D_tools.h>
-#include "dbsol2D_tableau_sptr.h"
+#include "bsold2D_tableau_sptr.h"
 
 
 
@@ -19,12 +19,12 @@
 
 
 
-class dbsol_circ_arc_tool : public bvis1_vsol2D_tool {
+class bsold_circ_arc_tool : public bvis1_vsol2D_tool {
 
 public:
 
-  dbsol_circ_arc_tool();
-  virtual ~dbsol_circ_arc_tool();
+  bsold_circ_arc_tool();
+  virtual ~bsold_circ_arc_tool();
 
   bool handle( const vgui_event & e, 
                const bvis1_view_tableau_sptr& view );
@@ -38,7 +38,7 @@ protected:
   vgui_event_condition gesture1;
   vgui_event_condition gesture2;
 
-  dbsol2D_tableau_sptr active_tableau_;
+  bsold2D_tableau_sptr active_tableau_;
   vidpro1_vsol2D_storage_sptr active_storage_;
   
 private:

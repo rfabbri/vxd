@@ -1,7 +1,7 @@
-// This is basic/dbsol/pro/dbsol_merge_storage_process.h
+// This is bbasd/bsold/pro/bsold_merge_storage_process.h
 
-#ifndef dbsol_merge_storage_process_h_
-#define dbsol_merge_storage_process_h_
+#ifndef bsold_merge_storage_process_h_
+#define bsold_merge_storage_process_h_
 
 //:
 // \file
@@ -17,13 +17,13 @@
 
 
 //: Process to Gaussian-smooth contours
-class dbsol_merge_storage_process : public bpro1_process 
+class bsold_merge_storage_process : public bpro1_process 
 {
 
 public:
 
-  dbsol_merge_storage_process();
-  virtual ~dbsol_merge_storage_process();
+  bsold_merge_storage_process();
+  virtual ~bsold_merge_storage_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -43,4 +43,4 @@ protected:
 
 };
 
-#endif //dbsol_merge_storage_process_h_
+#endif //bsold_merge_storage_process_h_

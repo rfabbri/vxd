@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
 
-#include <dbsol/algo/dbsol_curve_algs.h>
-#include <dbsol/dbsol_interp_curve_2d.h>
+#include <bsold/algo/bsold_curve_algs.h>
+#include <bsold/bsold_interp_curve_2d.h>
 #include <vsol/vsol_point_2d.h>
 #include <vgl/vgl_vector_2d.h>
 #include <vnl/vnl_math.h>
@@ -27,8 +27,8 @@ MAIN( test_interp_linear )
    pts.push_back(new vsol_point_2d(1,1));
    pts.push_back(new vsol_point_2d(1,0));
 
-   dbsol_interp_curve_2d c;
-   dbsol_curve_algs::interpolate_linear(&c,pts, false);
+   bsold_interp_curve_2d c;
+   bsold_curve_algs::interpolate_linear(&c,pts, false);
    vcl_cout << c;
 
    TEST("#Intervals",c.size(),2);
@@ -48,7 +48,7 @@ MAIN( test_interp_linear )
    // Closed 
    vcl_cout << "-------------------\n";
    vcl_cout << "Closed curve:\n";
-   dbsol_curve_algs::interpolate_linear(&c,pts, true);
+   bsold_curve_algs::interpolate_linear(&c,pts, true);
    vcl_cout << c;
    TEST("#Intervals",c.size(),3);
    TEST_NEAR("Total Length",c.length(),2+vcl_sqrt(2.0), 

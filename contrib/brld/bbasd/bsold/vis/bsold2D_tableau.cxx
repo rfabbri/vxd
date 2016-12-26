@@ -1,29 +1,29 @@
-#include "dbsol2D_tableau.h"
+#include "bsold2D_tableau.h"
 //:
 // \file
 #include <bgui/bgui_vsol_soview2D.h>
-#include <dbsol/vis/dbsol_soview2D_circ_arc.h>
+#include <bsold/vis/bsold_soview2D_circ_arc.h>
 #include <vgui/vgui.h>
 #include <vgui/vgui_style.h>
 #include <vsol/vsol_spatial_object_2d.h>
-#include <dbsol/dbsol_circ_arc_2d.h>
-#include <dbsol/dbsol_circ_arc_2d_sptr.h>
+#include <bsold/bsold_circ_arc_2d.h>
+#include <bsold/bsold_circ_arc_2d_sptr.h>
 #include <vcl_cassert.h>
 #include <vsol/vsol_curve_2d_sptr.h>
 
-dbsol2D_tableau::dbsol2D_tableau(const char* n) :
+bsold2D_tableau::bsold2D_tableau(const char* n) :
   bgui_vsol2D_tableau(n) {this->init(); }
 
-dbsol2D_tableau::dbsol2D_tableau(vgui_image_tableau_sptr const& it,
+bsold2D_tableau::bsold2D_tableau(vgui_image_tableau_sptr const& it,
                                          const char* n) :
   bgui_vsol2D_tableau(it, n) {this->init(); }
 
-dbsol2D_tableau::dbsol2D_tableau(vgui_tableau_sptr const& t,
+bsold2D_tableau::bsold2D_tableau(vgui_tableau_sptr const& t,
                                          const char* n) :
   bgui_vsol2D_tableau(t, n) { this->init(); }
 
 
-void dbsol2D_tableau::init()
+void bsold2D_tableau::init()
 {
   //define default soview styles
   //these can be overridden by later set_*_syle commands prior to drawing.
@@ -32,12 +32,12 @@ void dbsol2D_tableau::init()
 }
 
 
-dbsol_soview2D_circ_arc*
-dbsol2D_tableau::add_dbsol_circ_arc_2d(dbsol_circ_arc_2d_sptr const& circ_arc,
+bsold_soview2D_circ_arc*
+bsold2D_tableau::add_bsold_circ_arc_2d(bsold_circ_arc_2d_sptr const& circ_arc,
                                       const vgui_style_sptr& style)
 {
-  dbsol_soview2D_circ_arc* obj =
-      new dbsol_soview2D_circ_arc(circ_arc);
+  bsold_soview2D_circ_arc* obj =
+      new bsold_soview2D_circ_arc(circ_arc);
   add(obj);
   if (style)
     obj->set_style( style );
@@ -46,7 +46,7 @@ dbsol2D_tableau::add_dbsol_circ_arc_2d(dbsol_circ_arc_2d_sptr const& circ_arc,
   return obj;
 }
 
-void dbsol2D_tableau::
+void bsold2D_tableau::
 add_spatial_objects(vcl_vector<vsol_spatial_object_2d_sptr> const& sos,
                     const vgui_style_sptr& style)
 {
@@ -57,14 +57,14 @@ add_spatial_objects(vcl_vector<vsol_spatial_object_2d_sptr> const& sos,
   }
 }
 
-void dbsol2D_tableau::
+void bsold2D_tableau::
 add_spatial_object(vsol_spatial_object_2d_sptr const& sos,
                    const vgui_style_sptr& style)
 {
   if (sos->cast_to_curve())
   {
     if (sos->cast_to_curve()->cast_to_circ_arc()){
-      this->add_dbsol_circ_arc_2d(sos->cast_to_curve()->cast_to_circ_arc(), circ_arc_style_);
+      this->add_bsold_circ_arc_2d(sos->cast_to_curve()->cast_to_circ_arc(), circ_arc_style_);
       return;
     }
   }
@@ -73,7 +73,7 @@ add_spatial_object(vsol_spatial_object_2d_sptr const& sos,
   return;
 }
 
-void dbsol2D_tableau::set_vsol_spatial_object_2d_style(vsol_spatial_object_2d_sptr sos,
+void bsold2D_tableau::set_vsol_spatial_object_2d_style(vsol_spatial_object_2d_sptr sos,
                                                            const vgui_style_sptr& style)
 {
   if (sos->cast_to_point()) {
@@ -83,7 +83,7 @@ void dbsol2D_tableau::set_vsol_spatial_object_2d_style(vsol_spatial_object_2d_sp
   }
 }
 
-void dbsol2D_tableau::set_dbsol_circ_arc_2d_style(const vgui_style_sptr& style)
+void bsold2D_tableau::set_bsold_circ_arc_2d_style(const vgui_style_sptr& style)
 {
   circ_arc_style_->rgba[0] = style->rgba[0];
   circ_arc_style_->rgba[1] = style->rgba[1];

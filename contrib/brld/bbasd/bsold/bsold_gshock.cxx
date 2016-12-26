@@ -1,13 +1,13 @@
-#include "dbsol_gshock.h"
+#include "bsold_gshock.h"
 #include <vcl_cmath.h>
 #include <dbgl/algo/dbgl_arc_algo.h>
 
 #if !VCL_STATIC_CONST_INIT_FLOAT_NO_DEFN
-const double dbsol_gshock::default_shock_point_dist_threshold
+const double bsold_gshock::default_shock_point_dist_threshold
    VCL_STATIC_CONST_INIT_FLOAT_DEFN(1.5);
 #endif
 
-unsigned dbsol_gshock::
+unsigned bsold_gshock::
 make(const dbgl_param_curve *prv, const dbgl_param_curve *cur,
      const dbgl_param_curve *nxt, const double shock_point_dist_threshold)
 {
@@ -21,7 +21,7 @@ make(const dbgl_param_curve *prv, const dbgl_param_curve *cur,
    anxt = dynamic_cast<const dbgl_arc *> (nxt);
 
    if (!aprv || !acur || !anxt) {
-     vcl_cerr << "dbsol_shock::make - only arcs are currently supported" << vcl_endl;
+     vcl_cerr << "bsold_shock::make - only arcs are currently supported" << vcl_endl;
      return 0;
    }
 
@@ -66,7 +66,7 @@ make(const dbgl_param_curve *prv, const dbgl_param_curve *cur,
 }
 
 //: TODO: what does this do exactly?
-bool dbsol_gshock::
+bool bsold_gshock::
 fix_outofbound_shock(const dbgl_arc *prv, const dbgl_arc *cur, const dbgl_arc *nxt)
 {
    vgl_point_2d<double> pcenter, ncenter;
@@ -87,15 +87,15 @@ fix_outofbound_shock(const dbgl_arc *prv, const dbgl_arc *cur, const dbgl_arc *n
    if (vcl_fabs(pdist - (1.0/prv->curvature()) ) < 0.2) {
         // back
         theta = vcl_atan2(loc.y() - pcenter.y(), loc.x() - pcenter.x());
-        theta = dbsol_geno_measures::rad2deg(theta);
+        theta = bsold_geno_measures::rad2deg(theta);
 
         theta1 = vcl_atan2(prv->point_at(0).y() - pcenter.y(), 
                            prv->point_at(0).x() - pcenter.x());
-        theta1 = dbsol_geno_measures::rad2deg(theta1);
+        theta1 = bsold_geno_measures::rad2deg(theta1);
 
         theta2 = vcl_atan2(prv->point_at(1).y() - pcenter.y(), 
                            prv->point_at(1).x() - pcenter.x());
-        theta2 = dbsol_geno_measures::rad2deg(theta2);
+        theta2 = bsold_geno_measures::rad2deg(theta2);
 
         theta3 = patchspan(theta2 - theta1);
 
@@ -113,13 +113,13 @@ fix_outofbound_shock(const dbgl_arc *prv, const dbgl_arc *cur, const dbgl_arc *n
     if (vcl_fabs(ndist - (1/nxt->curvature())) < 0.2) {
          // forward
         theta = vcl_atan2(loc.y() - ncenter.y(), loc.x() - ncenter.x());
-        theta = dbsol_geno_measures::rad2deg(theta);
+        theta = bsold_geno_measures::rad2deg(theta);
 
         theta1 = vcl_atan2(nxt->point_at(0).y() - ncenter.y(), nxt->point_at(0).x() - ncenter.x());
-        theta1 = dbsol_geno_measures::rad2deg(theta1);
+        theta1 = bsold_geno_measures::rad2deg(theta1);
 
         theta2 = vcl_atan2(nxt->point_at(1).y() - ncenter.y(), nxt->point_at(1).x() - ncenter.x());
-        theta2 = dbsol_geno_measures::rad2deg(theta2);
+        theta2 = bsold_geno_measures::rad2deg(theta2);
 
         theta3 = patchspan(theta2 - theta1);
 

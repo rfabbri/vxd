@@ -1,7 +1,7 @@
-// This is basic/dbsol/dbsol_img_curve_algs_two.cxx
+// This is bbasd/bsold/bsold_img_curve_algs_two.cxx
 
-#include "dbsol_img_curve_algs_two.h"
-#include <dbsol/algo/dbsol_curve_algs.h>
+#include "bsold_img_curve_algs_two.h"
+#include <bsold/algo/bsold_curve_algs.h>
 
 #include <vnl/vnl_math.h>
 #include <vnl/vnl_vector_fixed.h>
@@ -10,7 +10,7 @@
 #include <vcl_cmath.h>
 #include <vbl/vbl_array_2d.h>
 
-vbl_array_2d<double> get_changed_color_distance_of_curve_regions(dbsol_interp_curve_2d_sptr curve, float region_width, 
+vbl_array_2d<double> get_changed_color_distance_of_curve_regions(bsold_interp_curve_2d_sptr curve, float region_width, 
                                             vil_image_view<float>& L, 
                                             vil_image_view<float>& A, 
                                             vil_image_view<float>& B, 
@@ -19,7 +19,7 @@ vbl_array_2d<double> get_changed_color_distance_of_curve_regions(dbsol_interp_cu
   vcl_vector<vsol_point_2d_sptr > region_pts;                                                     
   // get points on either side of the curve                                                      // do not use the points right on the curve
                                                                                                  // when this parameter is false, the plus and minus region pts are reliably all the newly added ones
-  dbsol_curve_algs::sample_region_along_curve(*curve, region_pts, 0.5f, curve->length(), region_width, false);
+  bsold_curve_algs::sample_region_along_curve(*curve, region_pts, 0.5f, curve->length(), region_width, false);
   //create two histograms using bilinearly interpolated image values
   vnl_vector_fixed<double, 3> plus_mean((double)0.0f), minus_mean((double)0.0f);
   vbl_array_2d<double> arr;
@@ -52,14 +52,14 @@ vbl_array_2d<double> get_changed_color_distance_of_curve_regions(dbsol_interp_cu
 }
 
 //function that gives the intensity difference around a curve
-double get_changed_intensity_distance_of_curve_regions(dbsol_interp_curve_2d_sptr curve, float region_width, 
+double get_changed_intensity_distance_of_curve_regions(bsold_interp_curve_2d_sptr curve, float region_width, 
                                                vil_image_view<vxl_byte>& img, double intensity_gamma)                                               
 {
   vcl_vector<vsol_point_2d_sptr > region_pts;     
 
   // get points on either side of the curve                                                      // do not use the points right on the curve
                                                                                                  // when this parameter is false, the plus and minus region pts are reliably all the newly added ones
-  dbsol_curve_algs::sample_region_along_curve(*curve, region_pts, 0.3f, curve->length(), region_width, false);
+  bsold_curve_algs::sample_region_along_curve(*curve, region_pts, 0.3f, curve->length(), region_width, false);
   //create two histograms using bilinearly interpolated image values
   double plus_mean = 0.0, minus_mean = 0.0;
 

@@ -1,9 +1,9 @@
-#include "dbsol_corner_finder.h"
+#include "bsold_corner_finder.h"
 #include <vnl/vnl_math.h>
 #include <vcl_algorithm.h>
 #include <vcl_iostream.h>
 
-void dbsol_corner_finder::find_corners(dbsol_interp_curve_2d *c, bool is_open, vcl_string out_angle_diffs)
+void bsold_corner_finder::find_corners(bsold_interp_curve_2d *c, bool is_open, vcl_string out_angle_diffs)
 {
   VICINITY_ = 35;
   DIST_STEP_ = 0.5;
@@ -16,7 +16,7 @@ void dbsol_corner_finder::find_corners(dbsol_interp_curve_2d *c, bool is_open, v
   find_extrema();
 }
 
-void dbsol_corner_finder::find_corners(dbsol_interp_curve_2d *c, bool is_open,
+void bsold_corner_finder::find_corners(bsold_interp_curve_2d *c, bool is_open,
                                        int vicinity, double dist_step, double min_tan_turn,
                                        vcl_string out_angle_diffs)
 {
@@ -31,7 +31,7 @@ void dbsol_corner_finder::find_corners(dbsol_interp_curve_2d *c, bool is_open,
   find_extrema();
 }
 
-void dbsol_corner_finder::get_tangent_angles()
+void bsold_corner_finder::get_tangent_angles()
 {
   for(unsigned i=0; i < curve_->size()+1; i++)
   {
@@ -40,7 +40,7 @@ void dbsol_corner_finder::get_tangent_angles()
   }
 }
 
-void dbsol_corner_finder::compute_average_tangent_angles()
+void bsold_corner_finder::compute_average_tangent_angles()
 {
   vcl_pair<double, double> temp;
   int tangent_size_int = static_cast<int>(_tangent.size());
@@ -53,7 +53,7 @@ void dbsol_corner_finder::compute_average_tangent_angles()
   }
 }
 
-double dbsol_corner_finder::aveTangent(int start, int count)
+double bsold_corner_finder::aveTangent(int start, int count)
 {   
   int size = curve_->size() + 1;
 
@@ -152,7 +152,7 @@ double dbsol_corner_finder::aveTangent(int start, int count)
   return (av_tangent);
 }
 
-void dbsol_corner_finder::find_extrema()
+void bsold_corner_finder::find_extrema()
 {
   vcl_ofstream outfp;
   if(out_angle_diffs_.empty() == 0)

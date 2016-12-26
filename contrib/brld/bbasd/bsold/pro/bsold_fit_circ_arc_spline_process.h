@@ -1,7 +1,7 @@
-// This is basic/dbsol/pro/dbsol_fit_circ_arc_spline_process.h
+// This is bbasd/bsold/pro/bsold_fit_circ_arc_spline_process.h
 
-#ifndef dbsol_fit_circ_arc_spline_process_h_
-#define dbsol_fit_circ_arc_spline_process_h_
+#ifndef bsold_fit_circ_arc_spline_process_h_
+#define bsold_fit_circ_arc_spline_process_h_
 
 //:
 // \file
@@ -17,11 +17,11 @@
 
 
 //: Process to fit a polyline or polygon with a circular arc spline
-class dbsol_fit_circ_arc_spline_process : public bpro1_process 
+class bsold_fit_circ_arc_spline_process : public bpro1_process 
 {
 public:
-  dbsol_fit_circ_arc_spline_process(void);
-  virtual ~dbsol_fit_circ_arc_spline_process();
+  bsold_fit_circ_arc_spline_process(void);
+  virtual ~bsold_fit_circ_arc_spline_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -41,4 +41,4 @@ protected:
 
 };
 
-#endif //dbsol_fit_circ_arc_spline_process_h_
+#endif //bsold_fit_circ_arc_spline_process_h_

@@ -1,6 +1,6 @@
-// This is basic/dbsol/dbsol_interp_curve_2d.h
-#ifndef dbsol_interp_curve_2d_h_
-#define dbsol_interp_curve_2d_h_
+// This is bbasd/bsold/bsold_interp_curve_2d.h
+#ifndef bsold_interp_curve_2d_h_
+#define bsold_interp_curve_2d_h_
 //:
 // \file
 // \brief Represents a 2D interpolated curve
@@ -54,24 +54,24 @@
 #include <vcl_limits.h>
 #include <vcl_cmath.h>  
 
-class dbsol_interp_curve_2d : public vsol_curve_2d
+class bsold_interp_curve_2d : public vsol_curve_2d
 {
  // PUBLIC INTERFACE----------------------------------------------------------
  public:
   // Constructors/Destructors--------------------------------------------------
-  dbsol_interp_curve_2d() {};
-  dbsol_interp_curve_2d(vcl_vector<dbgl_param_curve *> inter);
-  dbsol_interp_curve_2d( const dbsol_interp_curve_2d& that): vsol_curve_2d(that) { *this = that; }
+  bsold_interp_curve_2d() {};
+  bsold_interp_curve_2d(vcl_vector<dbgl_param_curve *> inter);
+  bsold_interp_curve_2d( const bsold_interp_curve_2d& that): vsol_curve_2d(that) { *this = that; }
   
   //: deletes internal storage
-  ~dbsol_interp_curve_2d() {
+  ~bsold_interp_curve_2d() {
     for (unsigned i = 0; i<ints_.size(); i++)
       delete ints_[i];
     ints_.clear();
   }
 
   //: Assignment operator
-  dbsol_interp_curve_2d& operator=( dbsol_interp_curve_2d const& that)
+  bsold_interp_curve_2d& operator=( bsold_interp_curve_2d const& that)
    {
      lengths_ = that.lengths_;
      ints_.resize(that.ints_.size());
@@ -84,7 +84,7 @@ class dbsol_interp_curve_2d : public vsol_curve_2d
   void make(const vcl_vector<dbgl_param_curve *> & inter);
    
   virtual vsol_spatial_object_2d* clone(void) const 
-   { return new dbsol_interp_curve_2d(*this); }
+   { return new bsold_interp_curve_2d(*this); }
 
   // Operators----------------------------------------------------------------
 
@@ -161,7 +161,7 @@ class dbsol_interp_curve_2d : public vsol_curve_2d
   unsigned interval_index(double s, double *t) const;
 
 
-  virtual vcl_string is_a() const { return vcl_string("dbsol_interp_curve_2d"); }
+  virtual vcl_string is_a() const { return vcl_string("bsold_interp_curve_2d"); }
 
 
   //: Print an ascii summary to the stream
@@ -195,4 +195,4 @@ class dbsol_interp_curve_2d : public vsol_curve_2d
  private:
 };
 
-#endif // dbsol_interp_curve_2d_h_
+#endif // bsold_interp_curve_2d_h_

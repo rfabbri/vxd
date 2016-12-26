@@ -1,6 +1,6 @@
-# This is basic/dbsol/algo/tests
+# This is bbasd/bsold/algo/tests
 
-add_executable ( dbsol_algo_test_all
+add_executable ( bsold_algo_test_all
    # Driver source and utilities
    test_driver.cxx
 
@@ -14,11 +14,11 @@ add_executable ( dbsol_algo_test_all
    test_interp_linear_3d.cxx
 )
 
-target_link_libraries( dbsol_algo_test_all dbsol_algo testlib )
+target_link_libraries( bsold_algo_test_all bsold_algo testlib )
 
-add_test( dbsol_algo_test_interp_linear dbsol_algo_test_all test_interp_linear)
-add_test( dbsol_algo_test_geno dbsol_algo_test_all test_geno)
-add_test( dbsol_algo_test_geno_shock dbsol_algo_test_all test_geno_shock)
+add_test( bsold_algo_test_interp_linear bsold_algo_test_all test_interp_linear)
+add_test( bsold_algo_test_geno bsold_algo_test_all test_geno)
+add_test( bsold_algo_test_geno_shock bsold_algo_test_all test_geno_shock)
 
-add_executable( dbsol_algo_test_include test_include.cxx )
-target_link_libraries( dbsol_algo_test_include dbsol_algo )
+add_executable( bsold_algo_test_include test_include.cxx )
+target_link_libraries( bsold_algo_test_include bsold_algo )

@@ -1,13 +1,13 @@
 //*****************************************************************************
 //:
 // \file
-// \brief Smart pointer on a dbsol_circ_arc_2d
+// \brief Smart pointer on a bsold_circ_arc_2d
 //*****************************************************************************
-#ifndef dbsol_circ_arc_2d_sptr_h
-#define dbsol_circ_arc_2d_sptr_h
+#ifndef bsold_circ_arc_2d_sptr_h
+#define bsold_circ_arc_2d_sptr_h
 
-class dbsol_circ_arc_2d;
+class bsold_circ_arc_2d;
 #include <vbl/vbl_smart_ptr.h>
-typedef vbl_smart_ptr<dbsol_circ_arc_2d> dbsol_circ_arc_2d_sptr;
+typedef vbl_smart_ptr<bsold_circ_arc_2d> bsold_circ_arc_2d_sptr;
 
-#endif // dbsol_circ_arc_2d_sptr_h
+#endif // bsold_circ_arc_2d_sptr_h

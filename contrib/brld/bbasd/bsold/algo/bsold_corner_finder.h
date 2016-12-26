@@ -1,11 +1,11 @@
-#ifndef dbsol_corner_finder_h_
-#define dbsol_corner_finder_h_
+#ifndef bsold_corner_finder_h_
+#define bsold_corner_finder_h_
 //-----------------------------------------------------------------------------
 //:
 // \file
 // \author Based on original code by  H. Can Aras
-// \brief Corner finder using dbsol_interp_curve_2d
-//        dbsol_interp_curve_2d that is passed to this class' constructor
+// \brief Corner finder using bsold_interp_curve_2d
+//        bsold_interp_curve_2d that is passed to this class' constructor
 //        was created from a set of data points and the corner finding 
 //        algorithm only checks if these points are corners. In other words, 
 //        this is not a generic corner finding algorithm that finds the corners
@@ -20,21 +20,21 @@
 // \endverbatim
 //
 //-----------------------------------------------------------------------------
-#include <dbsol/dbsol_interp_curve_2d.h>
+#include <bsold/bsold_interp_curve_2d.h>
 #include <vsol/vsol_point_2d.h>
 #include <vcl_vector.h>
 
-class dbsol_corner_finder {
+class bsold_corner_finder {
 public:
-  dbsol_corner_finder(){};
-  ~dbsol_corner_finder(){};
+  bsold_corner_finder(){};
+  ~bsold_corner_finder(){};
   // pre-defined thresholds are used
-  void find_corners(dbsol_interp_curve_2d *c, bool is_open, vcl_string out_angle_diffs="");
-  void find_corners(dbsol_interp_curve_2d *c, bool is_open, 
+  void find_corners(bsold_interp_curve_2d *c, bool is_open, vcl_string out_angle_diffs="");
+  void find_corners(bsold_interp_curve_2d *c, bool is_open, 
                     int vicinity, double dist_step, double min_tan_turn, 
                     vcl_string out_angle_diffs="");
   // threshold are specified by user
-/*  void find_corners(dbsol_interp_curve_2d *c, bool is_open,
+/*  void find_corners(bsold_interp_curve_2d *c, bool is_open,
                     int VICINITY, double DIST_STEP, double MIN_TAN_TURN,
                     vcl_string out_angle_diffs="");*/
   vcl_vector<int> *get_corner_indices() { return &_extrema; };
@@ -44,7 +44,7 @@ protected:
   double aveTangent(int start, int count);
   void find_extrema();
 
-  dbsol_interp_curve_2d *curve_;
+  bsold_interp_curve_2d *curve_;
   bool is_open_;
   vcl_vector<double> _tangent;
   vcl_vector< vcl_pair<double, double> > _aveTangent;
@@ -55,4 +55,4 @@ private:
   double DIST_STEP_;
   double MIN_TAN_TURN_;
 };
-#endif  // dbsol_corner_finder_h
+#endif  // bsold_corner_finder_h

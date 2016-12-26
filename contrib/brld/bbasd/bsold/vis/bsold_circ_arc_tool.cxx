@@ -1,10 +1,10 @@
 /*************************************************************************
  *    NAME: Isabel Restrepo
  *    USER: mrj
- *    FILE: dbsol_circ_arc_tool.cxx
+ *    FILE: bsold_circ_arc_tool.cxx
  *    DATE: Aug 25  2006
  *************************************************************************/
-#include "dbsol_circ_arc_tool.h"
+#include "bsold_circ_arc_tool.h"
 #include <dbgl/algo/dbgl_arc_center.h> 
 #include <bvis1/tool/bvis1_vsol2D_tools.h>
 #include <bvis1/bvis1_manager.h>
@@ -13,8 +13,8 @@
 #include <vgui/vgui_dialog.h>
 #include <vsol/vsol_point_2d.h>
 #include <vsol/vsol_conic_2d.h>
-#include <dbsol/dbsol_circ_arc_2d.h>
-#include "dbsol2D_tableau.h"
+#include <bsold/bsold_circ_arc_2d.h>
+#include "bsold2D_tableau.h"
 
 #include <vdgl/vdgl_digital_curve_sptr.h>
 #include <vdgl/vdgl_edgel_chain_sptr.h>
@@ -39,12 +39,12 @@
 
 
 /*************************************************************************
- * Function Name: dbsol_circ_arc_tool::dbsol_circ_arc_tool
+ * Function Name: bsold_circ_arc_tool::bsold_circ_arc_tool
  * Parameters:
  * Effects:
  *************************************************************************/
 
-dbsol_circ_arc_tool::dbsol_circ_arc_tool()
+bsold_circ_arc_tool::bsold_circ_arc_tool()
 {
   active = false;
   event_count=0;
@@ -55,12 +55,12 @@ dbsol_circ_arc_tool::dbsol_circ_arc_tool()
 }
 
 /*************************************************************************
- * Function Name: dbsol_circ_arc_tool::~dbsol_circ_arc_tool
+ * Function Name: bsold_circ_arc_tool::~bsold_circ_arc_tool
  * Parameters:
  * Effects:
  *************************************************************************/
 
-dbsol_circ_arc_tool::~dbsol_circ_arc_tool()
+bsold_circ_arc_tool::~bsold_circ_arc_tool()
 {
  
   arc_point_list.clear();
@@ -68,13 +68,13 @@ dbsol_circ_arc_tool::~dbsol_circ_arc_tool()
 
 
 /*************************************************************************
- * Function Name: dbsol_circ_arc_tool::handle
+ * Function Name: bsold_circ_arc_tool::handle
  * Parameters:  const vgui_event & e
  * Returns: bool
  * Effects:
  *************************************************************************/
 bool
-dbsol_circ_arc_tool::handle( const vgui_event & e, 
+bsold_circ_arc_tool::handle( const vgui_event & e, 
                                    const bvis1_view_tableau_sptr& view )
 {
   float ix, iy;
@@ -199,8 +199,8 @@ dbsol_circ_arc_tool::handle( const vgui_event & e,
       p2=vsol_point_2d((center.x() + radius * cos(angle_v1+dir*theta/4)),(center.y() + radius * sin(angle_v1+dir*theta/4)));
       p3=vsol_point_2d((center.x() + radius * cos(angle_v1+dir*3*theta/4)),(center.y() + radius * sin(angle_v1+dir*3*theta/4)));
       
-      dbsol_circ_arc_2d_sptr newarc= new dbsol_circ_arc_2d(p0,p2,p4);
-      dbsol_circ_arc_2d_sptr newarc1= new dbsol_circ_arc_2d(p4,p3,p1);
+      bsold_circ_arc_2d_sptr newarc= new bsold_circ_arc_2d(p0,p2,p4);
+      bsold_circ_arc_2d_sptr newarc1= new bsold_circ_arc_2d(p4,p3,p1);
       
       vsol_point_2d_sptr tp0 = new vsol_point_2d(p0);
       vsol_point_2d_sptr tp2 = new vsol_point_2d(p2);
@@ -219,8 +219,8 @@ dbsol_circ_arc_tool::handle( const vgui_event & e,
       
       //add to the tableau
       active_tableau_->set_current_grouping( active_group_ );
-      active_tableau_->add_dbsol_circ_arc_2d( newarc );
-      active_tableau_->add_dbsol_circ_arc_2d( newarc1 );
+      active_tableau_->add_bsold_circ_arc_2d( newarc );
+      active_tableau_->add_bsold_circ_arc_2d( newarc1 );
       active_tableau_->set_current_grouping( "default" );
       
       active_tableau_->post_redraw();
@@ -241,26 +241,26 @@ dbsol_circ_arc_tool::handle( const vgui_event & e,
 
 
 /*************************************************************************
- * Function Name: dbsol_circ_arc_tool::name
+ * Function Name: bsold_circ_arc_tool::name
  * Parameters:
  * Returns: vcl_string
  * Effects:
  *************************************************************************/
 vcl_string
-dbsol_circ_arc_tool::name() const
+bsold_circ_arc_tool::name() const
 {
   return "arc";
 }
 
 
 /*************************************************************************
- * Function Name: dbsol_circ_arc_tool::reset
+ * Function Name: bsold_circ_arc_tool::reset
  * Parameters:
  * Returns: void
  * Effects:
  *************************************************************************/
 void
-dbsol_circ_arc_tool::deactivate()
+bsold_circ_arc_tool::deactivate()
 {
   active = false;
 

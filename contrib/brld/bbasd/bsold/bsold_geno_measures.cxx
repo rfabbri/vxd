@@ -2,10 +2,10 @@
 //\file
 //\author Ricardo Fabbri
 //
-#include "dbsol_geno_measures.h"
+#include "bsold_geno_measures.h"
 
 #if !VCL_STATIC_CONST_INIT_FLOAT_NO_DEFN
-const double  dbsol_geno_measures::degrees_per_radian 
+const double  bsold_geno_measures::degrees_per_radian 
       VCL_STATIC_CONST_INIT_FLOAT_DEFN(180.0/vnl_math::pi);
 #endif
 
@@ -14,7 +14,7 @@ const double  dbsol_geno_measures::degrees_per_radian
  * Computes start_tangent/curvature, end_tangent/curvature
  * and total_curvature.
  */
-void dbsol_geno_measures::
+void bsold_geno_measures::
 compute(const dbgl_param_curve &c)
 {
    start_tangent_ = c.tangent_angle_at(0);
@@ -25,7 +25,7 @@ compute(const dbgl_param_curve &c)
 
 
 
-void dbsol_geno_measures::
+void bsold_geno_measures::
 print(vcl_ostream& strm) const
 {
    strm << "       tangents(deg): " << start_tangent_ << "  " << end_tangent_ 

@@ -1,6 +1,6 @@
-// This is basic/dbsol/dbsol_interp_curve_3d.h
-#ifndef dbsol_interp_curve_3d_h_
-#define dbsol_interp_curve_3d_h_
+// This is bbasd/bsold/bsold_interp_curve_3d.h
+#ifndef bsold_interp_curve_3d_h_
+#define bsold_interp_curve_3d_h_
 //:
 // \file
 // \brief  Represents a 3D interpolated curve
@@ -23,17 +23,17 @@
 #include <vcl_limits.h>
 #include <vcl_cmath.h>  
 
-class dbsol_interp_curve_3d : public vsol_curve_3d
+class bsold_interp_curve_3d : public vsol_curve_3d
 {
  // PUBLIC INTERFACE----------------------------------------------------------
  public:
 
   // Constructors/Destructors--------------------------------------------------
-  dbsol_interp_curve_3d() {};
-  dbsol_interp_curve_3d(vcl_vector<dbgl_param_curve_3d *> inter);
+  bsold_interp_curve_3d() {};
+  bsold_interp_curve_3d(vcl_vector<dbgl_param_curve_3d *> inter);
   
   //: deletes internal storage
-  ~dbsol_interp_curve_3d() {
+  ~bsold_interp_curve_3d() {
     for (unsigned i = 0; i<ints_.size(); i++)
       delete ints_[i];
     ints_.clear();
@@ -43,7 +43,7 @@ class dbsol_interp_curve_3d : public vsol_curve_3d
   void make(const vcl_vector<dbgl_param_curve_3d *> & inter);
 
   virtual vsol_spatial_object_3d* clone(void) const 
-   { return new dbsol_interp_curve_3d(*this); }
+   { return new bsold_interp_curve_3d(*this); }
    
   // Operators----------------------------------------------------------------
   virtual vsol_point_3d_sptr point_at(double s) const;
@@ -124,7 +124,7 @@ class dbsol_interp_curve_3d : public vsol_curve_3d
   //: variant that also returns parameter t for the corresp. parametric curve
   unsigned interval_index(double s, double *t) const;
 
-  virtual vcl_string is_a() const { return vcl_string("dbsol_interp_curve_3d"); }
+  virtual vcl_string is_a() const { return vcl_string("bsold_interp_curve_3d"); }
 
   //: access to the lengths array
   double lengths(int index) { return lengths_[index]; };
@@ -160,4 +160,4 @@ class dbsol_interp_curve_3d : public vsol_curve_3d
  private:
 };
 
-#endif // dbsol_interp_curve_3d_h_
+#endif // bsold_interp_curve_3d_h_

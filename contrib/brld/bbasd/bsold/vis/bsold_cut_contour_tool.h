@@ -1,6 +1,6 @@
-// This is brcv/basic/dbsol/vis/dbsol_cut_contour_tool.h
-#ifndef dbsol_cut_contour_tool_h_
-#define dbsol_cut_contour_tool_h_
+// This is brcv/bbasd/bsold/vis/bsold_cut_contour_tool.h
+#ifndef bsold_cut_contour_tool_h_
+#define bsold_cut_contour_tool_h_
 //:
 // \file
 // \brief 
@@ -17,15 +17,15 @@
 
 
 // =============================================================================
-// dbsol_cut_contour_tool
+// bsold_cut_contour_tool
 // =============================================================================
 
 //: An abstract base class for tools in this file
-class dbsol_cut_contour_tool : public bvis1_vsol2D_tool
+class bsold_cut_contour_tool : public bvis1_vsol2D_tool
 {
 public:
 
-  dbsol_cut_contour_tool();
+  bsold_cut_contour_tool();
 
 
   virtual vcl_string name() const {return "Cut contour"; }
@@ -136,4 +136,4 @@ protected:
 
 
 
-#endif // dbsol_cut_contour_tool_h_
+#endif // bsold_cut_contour_tool_h_

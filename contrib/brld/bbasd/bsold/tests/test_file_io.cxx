@@ -1,4 +1,4 @@
-// This is dbsol/tests/test_file_io.cxx
+// This is bsold/tests/test_file_io.cxx
 // \author Based on original code by  Nhon Trinh
 // \date May 31, 2006
 
@@ -16,7 +16,7 @@
 #include <vsol/vsol_polygon_2d.h>
 #include <vsol/vsol_polygon_2d_sptr.h>
 
-#include <dbsol/dbsol_file_io.h>
+#include <bsold/bsold_file_io.h>
 
 
 void test_file_io()
@@ -30,11 +30,11 @@ void test_file_io()
   // TEST Polyline IO
   vsol_polyline_2d_sptr polyline = new vsol_polyline_2d(pts);
   vcl_string polyline_filename = "test_polyline.con";
-  dbsol_save_con_file(polyline_filename.c_str(), polyline);
+  bsold_save_con_file(polyline_filename.c_str(), polyline);
 
 
   vsol_spatial_object_2d_sptr loaded_contour = 
-    dbsol_load_con_file(polyline_filename.c_str());
+    bsold_load_con_file(polyline_filename.c_str());
 
   bool polyline_io_success = false;
   if (loaded_contour)
@@ -72,10 +72,10 @@ void test_file_io()
   // TEST Polygon IO
   vsol_polygon_2d_sptr polygon = new vsol_polygon_2d(pts);
   vcl_string polygon_filename = "test_polygon.con";
-  dbsol_save_con_file(polygon_filename.c_str(), polygon);
+  bsold_save_con_file(polygon_filename.c_str(), polygon);
 
 
-  loaded_contour = dbsol_load_con_file(polygon_filename.c_str());
+  loaded_contour = bsold_load_con_file(polygon_filename.c_str());
 
   bool polygon_io_success = false;
   if (loaded_contour)

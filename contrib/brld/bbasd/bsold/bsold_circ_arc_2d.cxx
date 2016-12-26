@@ -1,5 +1,5 @@
-// This is basic/dbsol/vis/dbsol_circ_arc_2d.cxx
-#include "dbsol_circ_arc_2d.h"
+// This is bbasd/bsold/vis/bsold_circ_arc_2d.cxx
+#include "bsold_circ_arc_2d.h"
 
 #include <vcl_cassert.h>
 #include <vcl_cmath.h>
@@ -17,7 +17,7 @@
 
 //: Constructor - from starting point (P1), circular center (O)
 // and normal vector at the ending point.
-dbsol_circ_arc_2d::dbsol_circ_arc_2d( vsol_point_2d const& P1, 
+bsold_circ_arc_2d::bsold_circ_arc_2d( vsol_point_2d const& P1, 
                    vsol_point_2d const& O, 
                    vgl_vector_2d<double >const& end_normal_vector)
 {
@@ -26,7 +26,7 @@ dbsol_circ_arc_2d::dbsol_circ_arc_2d( vsol_point_2d const& P1,
 
 
 //: Constructor - from 3 points
-dbsol_circ_arc_2d::dbsol_circ_arc_2d(vsol_point_2d const& p1, 
+bsold_circ_arc_2d::bsold_circ_arc_2d(vsol_point_2d const& p1, 
                    vsol_point_2d const& p2, 
                    vsol_point_2d const& end_point)
 {
@@ -38,9 +38,9 @@ dbsol_circ_arc_2d::dbsol_circ_arc_2d(vsol_point_2d const& p1,
 //: Clone `this': creation of a new object and initialization
 // See Prototype pattern
 //---------------------------------------------------------------------------
-vsol_spatial_object_2d* dbsol_circ_arc_2d::clone() const
+vsol_spatial_object_2d* bsold_circ_arc_2d::clone() const
 {
-  return new dbsol_circ_arc_2d(*this);
+  return new bsold_circ_arc_2d(*this);
 }
 
 //***************************************************************************
@@ -51,7 +51,7 @@ vsol_spatial_object_2d* dbsol_circ_arc_2d::clone() const
 //: Set the first point of the curve
 // Require: in(new_p0)
 //---------------------------------------------------------------------------
-void dbsol_circ_arc_2d::set_p0(vsol_point_2d_sptr const& new_p0)
+void bsold_circ_arc_2d::set_p0(vsol_point_2d_sptr const& new_p0)
 {
   // require
   //assert(in(new_p0));
@@ -63,7 +63,7 @@ void dbsol_circ_arc_2d::set_p0(vsol_point_2d_sptr const& new_p0)
 //: Set the last point of the curve
 // Require: in(new_p1)
 //---------------------------------------------------------------------------
-void dbsol_circ_arc_2d::set_p1(vsol_point_2d_sptr const& new_p1)
+void bsold_circ_arc_2d::set_p1(vsol_point_2d_sptr const& new_p1)
 {
   // require
   //assert(in(new_p1));
@@ -74,7 +74,7 @@ void dbsol_circ_arc_2d::set_p1(vsol_point_2d_sptr const& new_p1)
 //---------------------------------------------------------------------------
 //: Return the length of `this'
 //---------------------------------------------------------------------------
-double dbsol_circ_arc_2d::length() const
+double bsold_circ_arc_2d::length() const
 {
   return this->len();
 }
@@ -83,7 +83,7 @@ double dbsol_circ_arc_2d::length() const
 //--------------------------------------------------------------------
 //: compute a dbgl arc corresponding to *this
 //--------------------------------------------------------------------
-dbgl_circ_arc dbsol_circ_arc_2d::dbgl_arc() const
+dbgl_circ_arc bsold_circ_arc_2d::dbgl_arc() const
 {
   vsol_point_2d_sptr pnt0= this->p0();
   vsol_point_2d_sptr pnt1= this->p1();
@@ -100,7 +100,7 @@ dbgl_circ_arc dbsol_circ_arc_2d::dbgl_arc() const
 //---------------------------------------------------------------------------
 //: Return the centre of the circle containing the arc
 //---------------------------------------------------------------------------
-vsol_point_2d_sptr dbsol_circ_arc_2d :: arc_center() const
+vsol_point_2d_sptr bsold_circ_arc_2d :: arc_center() const
 
 {
   return new vsol_point_2d(this->center());
@@ -109,7 +109,7 @@ vsol_point_2d_sptr dbsol_circ_arc_2d :: arc_center() const
 //---------------------------------------------------------------------------
 //: Return the the curvature of the arc
 //---------------------------------------------------------------------------
-double dbsol_circ_arc_2d :: curvature() const
+double bsold_circ_arc_2d :: curvature() const
 {
   return this->k();
 }
@@ -118,7 +118,7 @@ double dbsol_circ_arc_2d :: curvature() const
 //: Is `p' in `this' ? (ie `p' verifies the equation, within some margin)
 //---------------------------------------------------------------------------
 
-int dbsol_circ_arc_2d::in(vsol_point_2d_sptr const& p) const
+int bsold_circ_arc_2d::in(vsol_point_2d_sptr const& p) const
 {
   return this->circ_region(vgl_point_2d<double>(p->x(),p->y()));
 }
@@ -127,7 +127,7 @@ int dbsol_circ_arc_2d::in(vsol_point_2d_sptr const& p) const
 //: Get tangent of the point at arclength s away from starting point
 //---------------------------------------------------------------------------
 
-vgl_vector_2d<double> dbsol_circ_arc_2d::
+vgl_vector_2d<double> bsold_circ_arc_2d::
 tangent(double s) const
 {
   vgl_vector_2d<double > t = this->tangent_at_length(s);
@@ -137,7 +137,7 @@ tangent(double s) const
 //---------------------------------------------------------------------------
 //: Return the shortest distance of the point to the arc boundary
 //---------------------------------------------------------------------------
-double dbsol_circ_arc_2d::distance(vsol_point_2d_sptr const& query_pt) const
+double bsold_circ_arc_2d::distance(vsol_point_2d_sptr const& query_pt) const
 {
   return query_pt->distance(*(this->closest_point_on_curve(query_pt))); 
 }
@@ -146,7 +146,7 @@ double dbsol_circ_arc_2d::distance(vsol_point_2d_sptr const& query_pt) const
 ////: Return the set of (real) intersection points of this arc with a line
 ////---------------------------------------------------------------------------
 //vcl_list<vsol_point_2d_sptr>
-//dbsol_circ_arc_2d::intersection(vsol_line_2d const& l) const
+//bsold_circ_arc_2d::intersection(vsol_line_2d const& l) const
 //{
 //  vgl_homg_point_2d<double> p0(l.p0()->x(), l.p0()->y(), 1.0),
 //                            p1(l.p1()->x(), l.p1()->y(), 1.0);
@@ -165,7 +165,7 @@ double dbsol_circ_arc_2d::distance(vsol_point_2d_sptr const& query_pt) const
 //: Return the point on the arc boundary which is closest to the given point
 //---------------------------------------------------------------------------
 vsol_point_2d_sptr
-dbsol_circ_arc_2d::closest_point_on_curve(vsol_point_2d_sptr const& pt) const
+bsold_circ_arc_2d::closest_point_on_curve(vsol_point_2d_sptr const& pt) const
 {
  double ret_ratio;
  double length_at_query;

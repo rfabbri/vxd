@@ -1,21 +1,21 @@
-# This is dbsol/algo/CMakeLists.txt
+# This is bsold/algo/CMakeLists.txt
 # The Development Brown Spatial Object Library - Specific Algorithms
 
-set( dbsol_algo_sources
-  dbsol_curve_algs.cxx            dbsol_curve_algs.h
-  dbsol_geno.cxx                  dbsol_geno.h
-  dbsol_geno_shock.cxx            dbsol_geno_shock.h
-  dbsol_linear_transform_2d.cxx   dbsol_linear_transform_2d.h
-  dbsol_corner_finder.cxx         dbsol_corner_finder.h
+set( bsold_algo_sources
+  bsold_curve_algs.cxx            bsold_curve_algs.h
+  bsold_geno.cxx                  bsold_geno.h
+  bsold_geno_shock.cxx            bsold_geno_shock.h
+  bsold_linear_transform_2d.cxx   bsold_linear_transform_2d.h
+  bsold_corner_finder.cxx         bsold_corner_finder.h
 
-  dbsol_curve_3d_algs.cxx         dbsol_curve_3d_algs.h
-  dbsol_img_curve_algs.cxx        dbsol_img_curve_algs.h
-  dbsol_img_curve_algs_two.cxx       dbsol_img_curve_algs_two.h
+  bsold_curve_3d_algs.cxx         bsold_curve_3d_algs.h
+  bsold_img_curve_algs.cxx        bsold_img_curve_algs.h
+  bsold_img_curve_algs_two.cxx       bsold_img_curve_algs_two.h
 )
 
-add_library( dbsol_algo ${dbsol_algo_sources} )
+add_library( bsold_algo ${bsold_algo_sources} )
 
-target_link_libraries( dbsol_algo dbsol dbnl_algo bil_algo)
+target_link_libraries( bsold_algo bsold dbnl_algo bil_algo)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)

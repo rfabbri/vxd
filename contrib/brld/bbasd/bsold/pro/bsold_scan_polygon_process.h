@@ -1,6 +1,6 @@
-// This is basic/dbsol/pro/dbsol_scan_polygon_process.h
-#ifndef dbsol_scan_polygon_process_h_
-#define dbsol_scan_polygon_process_h_
+// This is bbasd/bsold/pro/bsold_scan_polygon_process.h
+#ifndef bsold_scan_polygon_process_h_
+#define bsold_scan_polygon_process_h_
 
 //:
 // \file
@@ -17,12 +17,12 @@
 #include <vcl_string.h>
 
 //: Process that scan converts polygons a label image
-class dbsol_scan_polygon_process : public bpro1_process {
+class bsold_scan_polygon_process : public bpro1_process {
 
 public:
 
-  dbsol_scan_polygon_process();
-  virtual ~dbsol_scan_polygon_process();
+  bsold_scan_polygon_process();
+  virtual ~bsold_scan_polygon_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;

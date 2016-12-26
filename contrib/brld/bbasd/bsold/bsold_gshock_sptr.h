@@ -11,8 +11,8 @@
 
 #include <vbl/vbl_smart_ptr.h>
 
-class dbsol_gshock;
-typedef vbl_smart_ptr<dbsol_gshock> dbsol_gshock_sptr;
+class bsold_gshock;
+typedef vbl_smart_ptr<bsold_gshock> bsold_gshock_sptr;
 
 
 #endif // dbgl_gshock_sptr_h

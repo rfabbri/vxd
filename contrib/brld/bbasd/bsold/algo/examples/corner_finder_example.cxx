@@ -1,7 +1,7 @@
 //: Corner finder example
 
-#include <dbsol/algo/dbsol_curve_algs.h>
-#include <dbsol/algo/dbsol_corner_finder.h>
+#include <bsold/algo/bsold_curve_algs.h>
+#include <bsold/algo/bsold_corner_finder.h>
 #include <vul/vul_file_iterator.h>
 #include <bdgl/bdgl_curve_algs.h>
 #include <dbgl/algo/dbgl_curve_smoothing.h>
@@ -9,7 +9,7 @@
 #include <vcl_cstdlib.h>
 
 // Can says: In the future, it would be better to write an I/O class 
-// for dbsol curve class. I am re-using these functions for the time-being.
+// for bsold curve class. I am re-using these functions for the time-being.
 void loadCON(vcl_string fileName, vcl_vector<vsol_point_2d_sptr> &points)
 {
   vcl_ifstream infp(fileName.c_str());
@@ -50,7 +50,7 @@ void loadCON(vcl_string fileName, vcl_vector<vsol_point_2d_sptr> &points)
   infp.close();
 }
 
-void writeCON(vcl_string fileName, dbsol_interp_curve_2d &c, int numpoints)
+void writeCON(vcl_string fileName, bsold_interp_curve_2d &c, int numpoints)
 {
   vcl_ofstream outfp(fileName.c_str());
   assert(outfp != NULL);
@@ -90,9 +90,9 @@ int main()
     vcl_vector<vsol_point_2d_sptr> smoothed;
     for(unsigned i=0; i<pts.size();i++)
       smoothed.push_back(new vsol_point_2d(pts[i].x(), pts[i].y()));
-    dbsol_interp_curve_2d curve;
+    bsold_interp_curve_2d curve;
     vnl_vector<double> samples;
-    dbsol_curve_algs::interpolate_eno(&curve, smoothed, samples);
+    bsold_curve_algs::interpolate_eno(&curve, smoothed, samples);
 
     writeCON(out, curve, curve.size()+1);
   }
@@ -113,9 +113,9 @@ int main()
   // If you want to apply smoothing to the given set of points, there are three different algorithms
   // below: averaging, Gaussian smoothing, discrete curvature-based smoothing (Ricardo's idea).
   // Uncomment one of these smoothing techniques below and change the line 
-  // dbsol_curve_algs::interpolate_eno(&curve, points, samples);
+  // bsold_curve_algs::interpolate_eno(&curve, points, samples);
   // with
-  // dbsol_curve_algs::interpolate_eno(&curve, smoothed, samples);
+  // bsold_curve_algs::interpolate_eno(&curve, smoothed, samples);
   // The smoothing parameters of the algorithms, if applicable, are straightforward to find in the code.
   //
   // Contact @lems.brown.edu for questions...
@@ -142,9 +142,9 @@ int main()
     /*RESAMPLE EVENLY*/
     
     vcl_vector<vsol_point_2d_sptr> evenly_sampled_points;
-    dbsol_interp_curve_2d curve_temp;
+    bsold_interp_curve_2d curve_temp;
     vnl_vector<double> samples_temp;
-    dbsol_curve_algs::interpolate_eno(&curve_temp, points, samples_temp);
+    bsold_curve_algs::interpolate_eno(&curve_temp, points, samples_temp);
     for(int i=0; i<curve_temp.length(); i++)
     {
       vsol_point_2d_sptr p = curve_temp.point_at(i);
@@ -267,11 +267,11 @@ int main()
     }
     /************************************************************************************************************/
 
-    dbsol_interp_curve_2d curve;
+    bsold_interp_curve_2d curve;
     vnl_vector<double> samples;
-    dbsol_curve_algs::interpolate_eno(&curve, smoothed, samples);
+    bsold_curve_algs::interpolate_eno(&curve, smoothed, samples);
 
-    dbsol_corner_finder cf;
+    bsold_corner_finder cf;
     cf.find_corners(&curve, true);
     vcl_vector<int> *indices;
     indices = cf.get_corner_indices();

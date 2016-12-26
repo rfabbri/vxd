@@ -1,7 +1,7 @@
-// This is basic/dbsol/pro/dbsol_roi_image_process.h
+// This is bbasd/bsold/pro/bsold_roi_image_process.h
 
-#ifndef dbsol_roi_image_process_h_
-#define dbsol_roi_image_process_h_
+#ifndef bsold_roi_image_process_h_
+#define bsold_roi_image_process_h_
 
 //:
 // \file
@@ -19,13 +19,13 @@
 
 //: Process that takes in a list of vsol regions objects
 // (polygons and ellipse) and turn into a binary image
-class dbsol_roi_image_process : public bpro1_process 
+class bsold_roi_image_process : public bpro1_process 
 {
 
 public:
 
-  dbsol_roi_image_process();
-  virtual ~dbsol_roi_image_process();
+  bsold_roi_image_process();
+  virtual ~bsold_roi_image_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -45,4 +45,4 @@ protected:
 
 };
 
-#endif //dbsol_roi_image_process_h_
+#endif //bsold_roi_image_process_h_

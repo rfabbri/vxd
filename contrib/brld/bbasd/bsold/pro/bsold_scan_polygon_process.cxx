@@ -1,9 +1,9 @@
-// This is basic/dbsol/pro/dbsol_scan_polygon_process.cxx
+// This is bbasd/bsold/pro/bsold_scan_polygon_process.cxx
 
 //:
 // \file
 
-#include "dbsol_scan_polygon_process.h"
+#include "bsold_scan_polygon_process.h"
 #include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_image_storage.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
@@ -18,7 +18,7 @@
 
 
 //: Constructor
-dbsol_scan_polygon_process::dbsol_scan_polygon_process()
+bsold_scan_polygon_process::bsold_scan_polygon_process()
 {
 
   if( !parameters()->add( "Label Step" ,   "-label_step" ,  (unsigned int)1 ) ||
@@ -31,22 +31,22 @@ dbsol_scan_polygon_process::dbsol_scan_polygon_process()
 
 
 //: Destructor
-dbsol_scan_polygon_process::~dbsol_scan_polygon_process()
+bsold_scan_polygon_process::~bsold_scan_polygon_process()
 {
 }
 
 
 //: Clone the process
 bpro1_process* 
-dbsol_scan_polygon_process::clone() const
+bsold_scan_polygon_process::clone() const
 {
-  return new dbsol_scan_polygon_process(*this);
+  return new bsold_scan_polygon_process(*this);
 }
 
 
 //: Return the name of this process
 vcl_string
-dbsol_scan_polygon_process::name()
+bsold_scan_polygon_process::name()
 {
   return "Scan Convert Polygons";
 }
@@ -54,7 +54,7 @@ dbsol_scan_polygon_process::name()
 
 //: Return the number of input frame for this process
 int
-dbsol_scan_polygon_process::input_frames()
+bsold_scan_polygon_process::input_frames()
 {
   return 1;
 }
@@ -62,14 +62,14 @@ dbsol_scan_polygon_process::input_frames()
 
 //: Return the number of output frames for this process
 int
-dbsol_scan_polygon_process::output_frames()
+bsold_scan_polygon_process::output_frames()
 {
   return 1;
 }
 
 
 //: Provide a vector of required input types
-vcl_vector< vcl_string > dbsol_scan_polygon_process::get_input_type()
+vcl_vector< vcl_string > bsold_scan_polygon_process::get_input_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "vsol2D" );
@@ -78,7 +78,7 @@ vcl_vector< vcl_string > dbsol_scan_polygon_process::get_input_type()
 
 
 //: Provide a vector of output types
-vcl_vector< vcl_string > dbsol_scan_polygon_process::get_output_type()
+vcl_vector< vcl_string > bsold_scan_polygon_process::get_output_type()
 {  
   vcl_vector<vcl_string > to_return;
   to_return.push_back( "image" );
@@ -88,10 +88,10 @@ vcl_vector< vcl_string > dbsol_scan_polygon_process::get_output_type()
 
 //: Execute the process
 bool
-dbsol_scan_polygon_process::execute()
+bsold_scan_polygon_process::execute()
 {
   if ( input_data_.size() != 1 ){
-    vcl_cout << "In dbsol_scan_polygon_process::execute() - "
+    vcl_cout << "In bsold_scan_polygon_process::execute() - "
              << "not exactly one input image \n";
     return false;
   }
@@ -154,7 +154,7 @@ dbsol_scan_polygon_process::execute()
 
 
 bool
-dbsol_scan_polygon_process::finish()
+bsold_scan_polygon_process::finish()
 {
   return true;
 }

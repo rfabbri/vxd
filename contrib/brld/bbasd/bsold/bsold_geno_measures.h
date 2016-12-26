@@ -1,6 +1,6 @@
-// This is dbsol_geno_measures.h
-#ifndef dbsol_geno_measures_h
-#define dbsol_geno_measures_h
+// This is bsold_geno_measures.h
+#ifndef bsold_geno_measures_h
+#define bsold_geno_measures_h
 //:
 //\file
 //\brief Code to compute and store/cache some differential measures from
@@ -17,10 +17,10 @@
 
 //: Given a dbgl_param_curve, this class computes and stores/cache some useful
 // measures.  Their primary purpose is to be used in shock detection.
-class dbsol_geno_measures {
+class bsold_geno_measures {
 public:
-   dbsol_geno_measures() {}
-   ~dbsol_geno_measures() {}
+   bsold_geno_measures() {}
+   ~bsold_geno_measures() {}
 
    void compute(const dbgl_param_curve &c);
    void print(vcl_ostream& = vcl_cerr) const;

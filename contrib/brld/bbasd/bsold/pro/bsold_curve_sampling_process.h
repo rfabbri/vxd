@@ -1,10 +1,10 @@
-// This is basic/dbsol/pro/dbsol_curve_sampling_process_h_
-#ifndef dbsol_curve_sampling_process_h_
-#define dbsol_curve_sampling_process_h_
+// This is bbasd/bsold/pro/bsold_curve_sampling_process_h_
+#ifndef bsold_curve_sampling_process_h_
+#define bsold_curve_sampling_process_h_
 
 //:
 // \file
-// \brief A process for upsampling a dbsol_interp_curve_2d object
+// \brief A process for upsampling a bsold_interp_curve_2d object
 // \author Based on original code by  Ozge Can Ozcanli
 // \date 07/07/04
 //
@@ -20,11 +20,11 @@
 #include <vidpro1/storage/vidpro1_vsol2D_storage_sptr.h>
 #include <vcl_vector.h>
 
-class dbsol_curve_sampling_process : public bpro1_process
+class bsold_curve_sampling_process : public bpro1_process
 {
 public:
-  dbsol_curve_sampling_process();
-  ~dbsol_curve_sampling_process() {}
+  bsold_curve_sampling_process();
+  ~bsold_curve_sampling_process() {}
   
   vcl_string name() {
     return "Sample Curve";
@@ -53,4 +53,4 @@ public:
 protected:
 };
 
-#endif // dbsol_curve_sampling_process_h_
+#endif // bsold_curve_sampling_process_h_

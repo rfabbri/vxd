@@ -1,6 +1,6 @@
-// This is basic/dbsol/pro/dbsol_save_ps_file_process.h
-#ifndef dbsol_save_ps_file_process_h_
-#define dbsol_save_ps_file_process_h_
+// This is bbasd/bsold/pro/bsold_save_ps_file_process.h
+#ifndef bsold_save_ps_file_process_h_
+#define bsold_save_ps_file_process_h_
 //--------------------------------------------------------------------------------
 //:
 // \file
@@ -18,12 +18,12 @@
 #include <vcl_string.h>
 #include <bpro1/bpro1_process.h>
 
-class dbsol_save_ps_file_process : public bpro1_process 
+class bsold_save_ps_file_process : public bpro1_process 
 {
 public:
 
-  dbsol_save_ps_file_process();
-  virtual ~dbsol_save_ps_file_process();
+  bsold_save_ps_file_process();
+  virtual ~bsold_save_ps_file_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -43,4 +43,4 @@ protected:
 };
 
 
-#endif // dbsol_save_ps_file_process_h_
+#endif // bsold_save_ps_file_process_h_

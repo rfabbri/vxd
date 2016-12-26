@@ -1,6 +1,6 @@
-// This is dbsol_gshock.h
-#ifndef dbsol_gshock_h
-#define dbsol_gshock_h
+// This is bsold_gshock.h
+#ifndef bsold_gshock_h
+#define bsold_gshock_h
 //:
 //\file
 //\brief GENO shock structure
@@ -8,21 +8,21 @@
 //\date 03/09/2005 06:59:04 PM EST
 //
 #include <dbgl/dbgl_arc.h>
-#include <dbsol/dbsol_geno_measures.h>
+#include <bsold/bsold_geno_measures.h>
 #include <vbl/vbl_ref_count.h>
 
 
 //: Holds shock information for one interval
-// See also dbsol_gshock_curve_2d
+// See also bsold_gshock_curve_2d
 // \todo write routines to measure shock tangents and speed, if ever needed
-class dbsol_gshock : public vbl_ref_count {
+class bsold_gshock : public vbl_ref_count {
 public:
    
    static const double default_shock_point_dist_threshold
       VCL_STATIC_CONST_INIT_FLOAT_DECL(1.5);
    
    //: default constructor
-   dbsol_gshock(const dbgl_param_curve *prv, const dbgl_param_curve *cur, 
+   bsold_gshock(const dbgl_param_curve *prv, const dbgl_param_curve *cur, 
                 const dbgl_param_curve *nxt, 
                 const double st=default_shock_point_dist_threshold) 
    { make (prv, cur, nxt, st); }
@@ -56,16 +56,16 @@ private:
 };
 
 // ------ Inlined definitions ----------------------------------------
-//: simply a shortcut to implementation in dbsol_geno_measures
-inline double dbsol_gshock::patchspan(double x)
-{ return dbsol_geno_measures::patchspan(x); }
+//: simply a shortcut to implementation in bsold_geno_measures
+inline double bsold_gshock::patchspan(double x)
+{ return bsold_geno_measures::patchspan(x); }
 
-inline void dbsol_gshock::place_shock_at_endpoints(const dbgl_arc *cur)
+inline void bsold_gshock::place_shock_at_endpoints(const dbgl_arc *cur)
 {
    loc_.resize(2);
    loc_[0] = cur->point_at(0);
    loc_[1] = cur->point_at(1);
 }
 
-#endif // dbsol_gshock_h
+#endif // bsold_gshock_h
 

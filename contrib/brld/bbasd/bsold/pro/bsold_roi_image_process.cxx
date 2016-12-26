@@ -1,10 +1,10 @@
-// This is basic/dbsol/pro/dbsol_roi_image_process.cxx
+// This is bbasd/bsold/pro/bsold_roi_image_process.cxx
 
 //:
 // \file
 
 
-#include "dbsol_roi_image_process.h"
+#include "bsold_roi_image_process.h"
 #include <vil/vil_image_resource.h>
 #include <vil/vil_image_view.h>
 #include <vil/vil_new.h>
@@ -23,10 +23,10 @@
 
 //#include <vgl/vgl_vector_2d.h>
 
-#include <dbsol/algo/dbsol_linear_transform_2d.h>
+#include <bsold/algo/bsold_linear_transform_2d.h>
 
 //: Constructor
-dbsol_roi_image_process::dbsol_roi_image_process()
+bsold_roi_image_process::bsold_roi_image_process()
 {
   if( !parameters()->add("Override default size ", "-override", false ) ||
     !parameters()->add("Image width " , "-width" , (unsigned)100 ) ||
@@ -39,21 +39,21 @@ dbsol_roi_image_process::dbsol_roi_image_process()
 
 
 //: Destructor
-dbsol_roi_image_process::~dbsol_roi_image_process()
+bsold_roi_image_process::~bsold_roi_image_process()
 {
 }
 
 
 //: Clone the process
-bpro1_process* dbsol_roi_image_process::
+bpro1_process* bsold_roi_image_process::
 clone() const
 {
-  return new dbsol_roi_image_process(*this);
+  return new bsold_roi_image_process(*this);
 }
 
 
 //: Return the name of this process
-vcl_string dbsol_roi_image_process::
+vcl_string bsold_roi_image_process::
 name()
 {
   return "ROI Image";
@@ -61,7 +61,7 @@ name()
 
 
 //: Return the number of input frame for this process
-int dbsol_roi_image_process::
+int bsold_roi_image_process::
 input_frames()
 {
   return 1;
@@ -69,7 +69,7 @@ input_frames()
 
 
 //: Return the number of output frames for this process
-int dbsol_roi_image_process::
+int bsold_roi_image_process::
 output_frames()
 {
   return 1;
@@ -77,7 +77,7 @@ output_frames()
 
 
 //: Provide a vector of required input types
-vcl_vector< vcl_string > dbsol_roi_image_process::
+vcl_vector< vcl_string > bsold_roi_image_process::
 get_input_type()
 {
   vcl_vector< vcl_string > to_return;
@@ -88,7 +88,7 @@ get_input_type()
 
 
 //: Provide a vector of output types
-vcl_vector< vcl_string > dbsol_roi_image_process::
+vcl_vector< vcl_string > bsold_roi_image_process::
 get_output_type()
 {
   vcl_vector<vcl_string > to_return;
@@ -98,12 +98,12 @@ get_output_type()
 
 
 //: Execute the process
-bool dbsol_roi_image_process::
+bool bsold_roi_image_process::
 execute()
 {
   if ( input_data_.size() != 1 )
   {
-    vcl_cout << "In dbsol_roi_image_process::execute() - not exactly 1"
+    vcl_cout << "In bsold_roi_image_process::execute() - not exactly 1"
              << " input frames \n";
     return false;
   }
@@ -196,7 +196,7 @@ execute()
 
 
 bool
-dbsol_roi_image_process::finish()
+bsold_roi_image_process::finish()
 {
   return true;
 }

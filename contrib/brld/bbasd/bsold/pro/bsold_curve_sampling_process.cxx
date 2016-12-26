@@ -1,12 +1,12 @@
-// This is basic/dbsol/pro/dbsol_curve_sampling_process.cxx
+// This is bbasd/bsold/pro/bsold_curve_sampling_process.cxx
 
 #include <vcl_iostream.h>
 #include <vcl_fstream.h>
 
-#include <dbsol/pro/dbsol_curve_sampling_process.h>
-#include <dbsol/algo/dbsol_curve_algs.h>
-#include <dbsol/algo/dbsol_geno.h>
-#include <dbsol/dbsol_interp_curve_2d_sptr.h>
+#include <bsold/pro/bsold_curve_sampling_process.h>
+#include <bsold/algo/bsold_curve_algs.h>
+#include <bsold/algo/bsold_geno.h>
+#include <bsold/bsold_interp_curve_2d_sptr.h>
 #include <vsol/vsol_polyline_2d.h>
 #include <vsol/vsol_polyline_2d_sptr.h>
 #include <vsol/vsol_point_2d.h>
@@ -14,38 +14,38 @@
 #include <vsol/vsol_polygon_2d.h>
 #include <vnl/vnl_math.h>
 
-dbsol_curve_sampling_process::dbsol_curve_sampling_process() : bpro1_process()
+bsold_curve_sampling_process::bsold_curve_sampling_process() : bpro1_process()
 {
   if( !parameters()->add(  "Number of samples in new curve (negative for resampling factor):" , "-size" , 150 ) ||
       !parameters()->add(  "Type of interpolation to create curve: (1:linear, 2:geno, 3:geno-eulerspiral)" , "-type" , 2 ))
   {
     vcl_cerr << 
-       "ERROR: Adding parameters in dbsol_curve_sampling_process::dbsol_curve_sampling_process()\n";
+       "ERROR: Adding parameters in bsold_curve_sampling_process::bsold_curve_sampling_process()\n";
   }
 }
 
 //: Clone the process
 bpro1_process*
-dbsol_curve_sampling_process::clone() const
+bsold_curve_sampling_process::clone() const
 {
-  return new dbsol_curve_sampling_process(*this);
+  return new bsold_curve_sampling_process(*this);
 }
 
-vcl_vector< vcl_string > dbsol_curve_sampling_process::get_input_type()
-{
-  vcl_vector< vcl_string > to_return;
-  to_return.push_back( "vsol2D" );
-  return to_return;
-}
-
-vcl_vector< vcl_string > dbsol_curve_sampling_process::get_output_type()
+vcl_vector< vcl_string > bsold_curve_sampling_process::get_input_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "vsol2D" );
   return to_return;
 }
 
-bool dbsol_curve_sampling_process::execute()
+vcl_vector< vcl_string > bsold_curve_sampling_process::get_output_type()
+{
+  vcl_vector< vcl_string > to_return;
+  to_return.push_back( "vsol2D" );
+  return to_return;
+}
+
+bool bsold_curve_sampling_process::execute()
 {
   int new_size=0;
   parameters()->get_value( "-size" , new_size);
@@ -56,7 +56,7 @@ bool dbsol_curve_sampling_process::execute()
 }
 
 
-bool dbsol_curve_sampling_process::curveUpsample (int new_size, int type)
+bool bsold_curve_sampling_process::curveUpsample (int new_size, int type)
 {
   // get input storage class
   vidpro1_vsol2D_storage_sptr input_vsol;
@@ -110,22 +110,22 @@ bool dbsol_curve_sampling_process::curveUpsample (int new_size, int type)
     new_size = inp.size()*(-new_size);
 
 
-  dbsol_interp_curve_2d_sptr curve;
+  bsold_interp_curve_2d_sptr curve;
   if (type == 1 || (type == 2 && inp.size() < 3)) {
-     curve = new dbsol_interp_curve_2d;
-     dbsol_curve_algs::interpolate_linear(&(*curve),inp, closed);
+     curve = new bsold_interp_curve_2d;
+     bsold_curve_algs::interpolate_linear(&(*curve),inp, closed);
   } else if (type == 2) {
-     dbsol_geno_curve_2d *gcurve = new dbsol_geno_curve_2d;
-     dbsol_geno::interpolate(gcurve,inp, closed);
+     bsold_geno_curve_2d *gcurve = new bsold_geno_curve_2d;
+     bsold_geno::interpolate(gcurve,inp, closed);
      curve = gcurve;
   } else {
-     dbsol_geno_curve_2d *gcurve = new dbsol_geno_curve_2d;
-     dbsol_geno::interpolate3_approx(gcurve,inp, false);
+     bsold_geno_curve_2d *gcurve = new bsold_geno_curve_2d;
+     bsold_geno::interpolate3_approx(gcurve,inp, false);
      curve = gcurve;
   }
 
   vcl_vector < vsol_point_2d_sptr> points;
-  dbsol_curve_algs::sample(*curve, new_size, points);
+  bsold_curve_algs::sample(*curve, new_size, points);
   
   if (!points.size()) {
        vcl_cout << "Problems in upsampling process!\n";

@@ -3,8 +3,8 @@
 
 #include <vcl_cmath.h>
 
-#include "dbsol_curve_3d_algs.h"
-#include <dbsol/dbsol_interp_curve_3d.h>
+#include "bsold_curve_3d_algs.h"
+#include <bsold/bsold_interp_curve_3d.h>
 #include <dbgl/dbgl_eno_curve_3d.h>
 #include <dbgl/dbgl_linear_curve_3d.h>
 #include <vsol/vsol_polygon_2d.h>
@@ -14,14 +14,14 @@
 
 
 //: Destructor
-dbsol_curve_3d_algs::~dbsol_curve_3d_algs()
+bsold_curve_3d_algs::~bsold_curve_3d_algs()
 {
 }
 
 //-------------------------------------------------------------
 //: sample the input curve at the rate length()/size
-bool dbsol_curve_3d_algs::
-sample(dbsol_interp_curve_3d const &c, int size,
+bool bsold_curve_3d_algs::
+sample(bsold_interp_curve_3d const &c, int size,
        vcl_vector<vsol_point_3d_sptr>& pts)
 {
   double L = c.length();
@@ -50,7 +50,7 @@ sample(dbsol_interp_curve_3d const &c, int size,
 
 }
 
-bool dbsol_curve_3d_algs::interpolate_linear_3d(dbsol_interp_curve_3d *c, vcl_vector<vsol_point_3d_sptr> const &pts)
+bool bsold_curve_3d_algs::interpolate_linear_3d(bsold_interp_curve_3d *c, vcl_vector<vsol_point_3d_sptr> const &pts)
 {
   int num_points = pts.size();
   vcl_vector<dbgl_param_curve_3d *> ints(num_points-1);
@@ -66,7 +66,7 @@ bool dbsol_curve_3d_algs::interpolate_linear_3d(dbsol_interp_curve_3d *c, vcl_ve
   return true;
 }
 
-bool dbsol_curve_3d_algs::interpolate_eno_3d(dbsol_interp_curve_3d *c, 
+bool bsold_curve_3d_algs::interpolate_eno_3d(bsold_interp_curve_3d *c, 
                                              vcl_vector<vsol_point_3d_sptr> const &pts,
                                              vcl_vector<double> &sample_pts)
 {
