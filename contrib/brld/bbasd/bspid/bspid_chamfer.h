@@ -1,6 +1,6 @@
-// This is basic/dbspi/dbspi_chamfer.h
-#ifndef dbspi_chamfer_h_
-#define dbspi_chamfer_h_
+// This is basic/bspid/bspid_chamfer.h
+#ifndef bspid_chamfer_h_
+#define bspid_chamfer_h_
 
 //:
 // \file
@@ -37,7 +37,7 @@
 // vcl_numeric_limits<DIST_T>::max().  They must also exibit
 // a strict weak ordering.  Distance types are typically \pint or \pfloat.
 template<class OBJ_T, class DIST_T>
-class dbspi_chamfer
+class bspid_chamfer
 {
  public:
 
@@ -49,9 +49,9 @@ class dbspi_chamfer
   // \param dist2 is the distance in the diagonal directions between elements.
   // \note typically \pdist2 = \pdist1 * sqrt(2) but this must be approximated if
   //       \pDIST_T is descrete (i.e. dist1=3 and dist2=4)
-  dbspi_chamfer(const vbl_array_2d<OBJ_T>& object_map, DIST_T dist1, DIST_T dist2);
+  bspid_chamfer(const vbl_array_2d<OBJ_T>& object_map, DIST_T dist1, DIST_T dist2);
   //: Destructor
-  ~dbspi_chamfer();
+  ~bspid_chamfer();
 
   //: Distance to the nearest object at (x,y)
   DIST_T distance(int x, int y) const { return distance_[y][x]; }
@@ -92,4 +92,4 @@ class dbspi_chamfer
 
 };
 
-#endif // dbspi_chamfer_h_ 
+#endif // bspid_chamfer_h_ 

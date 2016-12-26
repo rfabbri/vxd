@@ -1,21 +1,21 @@
-// This is basic/dbspi/dbspi_chamfer.hxx
-#ifndef dbspi_chamfer_txx_
-#define dbspi_chamfer_txx_
+// This is basic/bspid/bspid_chamfer.hxx
+#ifndef bspid_chamfer_txx_
+#define bspid_chamfer_txx_
 //:
 // \file
-// \brief Templated definition of dbspi_chamfer.
+// \brief Templated definition of bspid_chamfer.
 // \author Based on original code by  Matt Leotta, (@lems.brown.edu)
 // \date 7/19/2004
 
 
-#include "dbspi_chamfer.h"
+#include "bspid_chamfer.h"
 #include <vcl_limits.h>
 #include <vcl_algorithm.h>
 
 
 //:  Constructor
 template<class OBJ_T, class DIST_T>
-dbspi_chamfer<OBJ_T, DIST_T>::dbspi_chamfer( const vbl_array_2d<OBJ_T>& object_map, 
+bspid_chamfer<OBJ_T, DIST_T>::bspid_chamfer( const vbl_array_2d<OBJ_T>& object_map, 
                                              DIST_T dist1, DIST_T dist2 )
  : dist1_(dist1), dist2_(dist2),
    xsize_(object_map.cols()), ysize_(object_map.rows()), 
@@ -39,7 +39,7 @@ dbspi_chamfer<OBJ_T, DIST_T>::dbspi_chamfer( const vbl_array_2d<OBJ_T>& object_m
 
 //: Destructor
 template<class OBJ_T, class DIST_T>
-dbspi_chamfer<OBJ_T, DIST_T>::~dbspi_chamfer()
+bspid_chamfer<OBJ_T, DIST_T>::~bspid_chamfer()
 {
 }
 
@@ -47,7 +47,7 @@ dbspi_chamfer<OBJ_T, DIST_T>::~dbspi_chamfer()
 //: Inline Helper - find which distance is minimum
 template<class DIST_T>
 inline unsigned char 
-dbspi_chamfer_minimum_5(DIST_T a, DIST_T b, DIST_T c, DIST_T d, DIST_T e)
+bspid_chamfer_minimum_5(DIST_T a, DIST_T b, DIST_T c, DIST_T d, DIST_T e)
 {
   if ( (a<=b) && (a<=c) && (a<=d) && (a<=e) )
     return 1;
@@ -65,7 +65,7 @@ dbspi_chamfer_minimum_5(DIST_T a, DIST_T b, DIST_T c, DIST_T d, DIST_T e)
 //: Performs a forward chamfer convolution on the distance_ and objects_ images
 template<class OBJ_T, class DIST_T>
 void 
-dbspi_chamfer<OBJ_T, DIST_T>::forward_chamfer()
+bspid_chamfer<OBJ_T, DIST_T>::forward_chamfer()
 {
   int i,j;
   unsigned char ind;
@@ -73,7 +73,7 @@ dbspi_chamfer<OBJ_T, DIST_T>::forward_chamfer()
   for (j=1;j<xsize_-1;j++)
     for (i=1;i<ysize_-1;i++)
     {
-      ind = dbspi_chamfer_minimum_5<DIST_T>( distance_[i-1][j-1]+dist2_, 
+      ind = bspid_chamfer_minimum_5<DIST_T>( distance_[i-1][j-1]+dist2_, 
                                              distance_[i-1][j]+dist1_,
                                              distance_[i-1][j+1]+dist2_, 
                                              distance_[i][j-1]+dist1_,
@@ -109,7 +109,7 @@ dbspi_chamfer<OBJ_T, DIST_T>::forward_chamfer()
 //: Performs a backward chamfer convolution on the distance_ and objects_ images
 template<class OBJ_T, class DIST_T>
 void 
-dbspi_chamfer<OBJ_T, DIST_T>::backward_chamfer()
+bspid_chamfer<OBJ_T, DIST_T>::backward_chamfer()
 {
   int i,j;
   unsigned char ind;
@@ -117,7 +117,7 @@ dbspi_chamfer<OBJ_T, DIST_T>::backward_chamfer()
   for (j=xsize_-2;j>0;j--)
     for (i=ysize_-2;i>0;i--)
     {
-      ind = dbspi_chamfer_minimum_5<DIST_T>( distance_[i][j],
+      ind = bspid_chamfer_minimum_5<DIST_T>( distance_[i][j],
                                              distance_[i][j+1]+dist1_,
                                              distance_[i+1][j-1]+dist2_,
                                              distance_[i+1][j]+dist1_,
@@ -151,8 +151,8 @@ dbspi_chamfer<OBJ_T, DIST_T>::backward_chamfer()
 
 //===========================================================================================
 
-//: Use this macro to instantiate dbspi_chamfer
-#define DBSPI_CHAMFER_INSTANTIATE(OBJ_T, DIST_T) \
-template class dbspi_chamfer< OBJ_T, DIST_T >;
+//: Use this macro to instantiate bspid_chamfer
+#define BSPID_CHAMFER_INSTANTIATE(OBJ_T, DIST_T) \
+template class bspid_chamfer< OBJ_T, DIST_T >;
 
-#endif // dbspi_chamfer_txx_
+#endif // bspid_chamfer_txx_

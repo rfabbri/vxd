@@ -1,25 +1,25 @@
-// This is basic/dbspi/pro/dbspi_curvemap_storage.h
-#ifndef dbspi_curvemap_storage_h_
-#define dbspi_curvemap_storage_h_
+// This is basic/bspid/pro/bspid_curvemap_storage.h
+#ifndef bspid_curvemap_storage_h_
+#define bspid_curvemap_storage_h_
 
 //:
 // \file
-// \brief Stores a dbspi_curve_map and a vil image of it
+// \brief Stores a bspid_curve_map and a vil image of it
 // \author Based on original code by  Matt Leotta
 // \date 7/19/04
 
 #include <bpro1/bpro1_storage.h>
-#include "dbspi_curvemap_storage_sptr.h"
+#include "bspid_curvemap_storage_sptr.h"
 #include <vil/vil_image_resource_sptr.h>
-#include <dbspi/dbspi_curve_map.h>
+#include <bspid/bspid_curve_map.h>
 
 
-class dbspi_curvemap_storage : public bpro1_storage {
+class bspid_curvemap_storage : public bpro1_storage {
 
 public:
 
-  dbspi_curvemap_storage();
-  virtual ~dbspi_curvemap_storage();
+  bspid_curvemap_storage();
+  virtual ~bspid_curvemap_storage();
   virtual vcl_string type() const { return "curvemap"; }
   
   //: Return IO version number;
@@ -36,31 +36,31 @@ public:
   virtual bpro1_storage* clone() const;
   
   //: Return a platform independent string identifying the class
-  virtual vcl_string is_a() const { return "dbspi_curvemap_storage"; }
+  virtual vcl_string is_a() const { return "bspid_curvemap_storage"; }
 
   
 
   void set_image( const vil_image_resource_sptr& img );
-  void set_curvemap( dbspi_curve_map * cmap);
+  void set_curvemap( bspid_curve_map * cmap);
   vil_image_resource_sptr get_image();
-  dbspi_curve_map *get_curvemap();
+  bspid_curve_map *get_curvemap();
   
 protected:
 
 private:
   
   vil_image_resource_sptr image_;
-  dbspi_curve_map * cmap_;
+  bspid_curve_map * cmap_;
   
 };
 
-//: Create a smart-pointer to a dbspi_curvemap_storage.
-struct dbspi_curvemap_storage_new : public dbspi_curvemap_storage_sptr
+//: Create a smart-pointer to a bspid_curvemap_storage.
+struct bspid_curvemap_storage_new : public bspid_curvemap_storage_sptr
 {
-  typedef dbspi_curvemap_storage_sptr base;
+  typedef bspid_curvemap_storage_sptr base;
 
-  //: Constructor - creates a default dbspi_curvemap_storage_sptr.
-  dbspi_curvemap_storage_new() : base(new dbspi_curvemap_storage()) { }
+  //: Constructor - creates a default bspid_curvemap_storage_sptr.
+  bspid_curvemap_storage_new() : base(new bspid_curvemap_storage()) { }
 };
 
-#endif // dbspi_curvemap_storage_h_
+#endif // bspid_curvemap_storage_h_

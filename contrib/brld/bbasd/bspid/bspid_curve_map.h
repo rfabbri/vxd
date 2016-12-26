@@ -1,6 +1,6 @@
-// This is basic/dbspi/dbspi_curve_map.h
-#ifndef dbspi_curve_map_h_
-#define dbspi_curve_map_h_
+// This is basic/bspid/bspid_curve_map.h
+#ifndef bspid_curve_map_h_
+#define bspid_curve_map_h_
 
 //:
 // \file
@@ -18,7 +18,7 @@
 // \endverbatim
 //
 
-#include "dbspi_chamfer.h"
+#include "bspid_chamfer.h"
 #include <vcl_utility.h>
 #include <vcl_vector.h>
 #include <vsol/vsol_digital_curve_2d_sptr.h>
@@ -27,7 +27,7 @@
 
 
 //: A distance map for vsol_digital_curves
-class dbspi_curve_map
+class bspid_curve_map
 {
  public: 
    //: The element of data at each point of the map describing the nearest curve
@@ -45,14 +45,14 @@ class dbspi_curve_map
   };
 
   //: Constructor 
-  dbspi_curve_map(const vcl_vector<vsol_digital_curve_2d_sptr>& curves);
+  bspid_curve_map(const vcl_vector<vsol_digital_curve_2d_sptr>& curves);
   //: Constructor - specify the map size and offset
   // \note all curves must lie within the map array
-  dbspi_curve_map(const vcl_vector<vsol_digital_curve_2d_sptr>& curves,
+  bspid_curve_map(const vcl_vector<vsol_digital_curve_2d_sptr>& curves,
                   unsigned int width, unsigned int height,
                   int x_offset=0, int y_offset=0);
   //: Destructor
-  ~dbspi_curve_map();
+  ~bspid_curve_map();
 
   //: Return the approximate distance to a curve at (x,y)
   float distance(int x, int y) const;
@@ -99,9 +99,9 @@ class dbspi_curve_map
   //: access offset in y
   int y_offset_;
   //: The distance map
-  dbspi_chamfer<map_element, float> map_;
+  bspid_chamfer<map_element, float> map_;
 
 };
 
 
-#endif // dbspi_curve_map_h_ 
+#endif // bspid_curve_map_h_ 

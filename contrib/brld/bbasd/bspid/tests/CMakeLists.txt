@@ -1,13 +1,13 @@
-# This is basic/dbspi/tests
+# This is basic/bspid/tests
 
-add_executable ( dbspi_test_all
+add_executable ( bspid_test_all
   test_driver.cxx
   test_curve_distance.cxx
 )
 
-target_link_libraries( dbspi_test_all dbspi  dbil_algo testlib )
+target_link_libraries( bspid_test_all bspid  dbil_algo testlib )
 
-add_test( dbspi_test_curve_distance dbspi_test_all test_curve_distance )
+add_test( bspid_test_curve_distance bspid_test_all test_curve_distance )
 
-add_executable( dbspi_test_include test_include.cxx )
-target_link_libraries( dbspi_test_include dbspi)
+add_executable( bspid_test_include test_include.cxx )
+target_link_libraries( bspid_test_include bspid)

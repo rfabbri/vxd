@@ -1,20 +1,20 @@
-# This is basic/dbspi/CMakeLists.txt
+# This is basic/bspid/CMakeLists.txt
 # Brown Spatial Index Library
 
 
 include_directories(${VXL_GEL_INCLUDE_DIR} )
 
-set(dbspi_sources
-    dbspi_chamfer.hxx          dbspi_chamfer.h
-    dbspi_curve_map.cxx        dbspi_curve_map.h
-    dbspi_curve_distance.cxx   dbspi_curve_distance.h
+set(bspid_sources
+    bspid_chamfer.hxx          bspid_chamfer.h
+    bspid_curve_map.cxx        bspid_curve_map.h
+    bspid_curve_distance.cxx   bspid_curve_distance.h
 )
 
-aux_source_directory(Templates dbspi_sources)
+aux_source_directory(Templates bspid_sources)
 
-add_library(dbspi ${dbspi_sources})
+add_library(bspid ${bspid_sources})
 
-target_link_libraries(dbspi vsol vil)
+target_link_libraries(bspid vsol vil)
 
 # Processing Library
 add_subdirectory(pro)

@@ -1,6 +1,6 @@
-// This is dbspi_curve_distance.h
-#ifndef dbspi_curve_distance_h
-#define dbspi_curve_distance_h
+// This is bspid_curve_distance.h
+#ifndef bspid_curve_distance_h
+#define bspid_curve_distance_h
 //:
 //\file
 //\brief Functions to integrate distance costs along a curve
@@ -12,7 +12,7 @@
 #include <vil/vil_image_view.h>
 #include <vcl_set.h>
 
-class dbspi_curve_distance {
+class bspid_curve_distance {
 public:
   //: returns the number of distinct feature points within a distance threshold
   // from the input curve.  We assume c is such that a point (x,y) has dt(x,y)
@@ -43,4 +43,4 @@ public:
       const vil_image_view<vxl_uint_32> &dt);
 };
 
-#endif // dbspi_curve_distance_h
+#endif // bspid_curve_distance_h

@@ -1,6 +1,6 @@
-// This is basic/dbspi/pro/dbspi_curvemap_process.h
-#ifndef dbspi_curvemap_process_h_
-#define dbspi_curvemap_process_h_
+// This is basic/bspid/pro/bspid_curvemap_process.h
+#ifndef bspid_curvemap_process_h_
+#define bspid_curvemap_process_h_
 
 //:
 // \file
@@ -18,12 +18,12 @@
 
 //: Derived video process class for computing a distance map
 //  image for vsol_digital_curve_2d
-class dbspi_curvemap_process : public bpro1_process {
+class bspid_curvemap_process : public bpro1_process {
 
 public:
 
-  dbspi_curvemap_process();
-  virtual ~dbspi_curvemap_process();
+  bspid_curvemap_process();
+  virtual ~bspid_curvemap_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;

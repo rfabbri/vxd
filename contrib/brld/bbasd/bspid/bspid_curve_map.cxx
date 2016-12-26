@@ -1,9 +1,9 @@
-// This is basic/dbspi/dbspi_curve_map.cxx
+// This is basic/bspid/bspid_curve_map.cxx
 
 //:
 // \file
 
-#include "dbspi_curve_map.h"
+#include "bspid_curve_map.h"
 #include <vsol/vsol_digital_curve_2d.h>
 #include <vsol/vsol_point_2d.h>
 #include <vcl_limits.h>
@@ -12,7 +12,7 @@
 
 
 //: Constructor
-dbspi_curve_map::dbspi_curve_map(const vcl_vector<vsol_digital_curve_2d_sptr>& curves,
+bspid_curve_map::bspid_curve_map(const vcl_vector<vsol_digital_curve_2d_sptr>& curves,
                                  unsigned int width, unsigned int height,
                                  int x_offset, int y_offset)
  : x_offset_(x_offset), y_offset_(y_offset),
@@ -22,7 +22,7 @@ dbspi_curve_map::dbspi_curve_map(const vcl_vector<vsol_digital_curve_2d_sptr>& c
 
 
 //: Constructor
-dbspi_curve_map::dbspi_curve_map(const vcl_vector<vsol_digital_curve_2d_sptr>& curves)
+bspid_curve_map::bspid_curve_map(const vcl_vector<vsol_digital_curve_2d_sptr>& curves)
  : x_offset_(0), y_offset_(0),
    map_(make_array(x_offset_, y_offset_, curves), 3.0, 4.242641f)
 {
@@ -30,14 +30,14 @@ dbspi_curve_map::dbspi_curve_map(const vcl_vector<vsol_digital_curve_2d_sptr>& c
 
 
 //: Destructor
-dbspi_curve_map::~dbspi_curve_map()
+bspid_curve_map::~bspid_curve_map()
 {
 }
 
 
 //: Return the approximate distance to a curve at (x,y)
 float 
-dbspi_curve_map::distance(int x, int y) const
+bspid_curve_map::distance(int x, int y) const
 {
   if( x < x_offset_ || x >= (int(width())+x_offset_) ||
       y < y_offset_ || y >= (int(height())+y_offset_) )
@@ -48,7 +48,7 @@ dbspi_curve_map::distance(int x, int y) const
 
 //: Return a smart pointer to the closest curve at (x,y)
 vsol_digital_curve_2d_sptr 
-dbspi_curve_map::closest(int x, int y) const
+bspid_curve_map::closest(int x, int y) const
 {
   if( x < x_offset_ || x >= (int(width())+x_offset_) ||
       y < y_offset_ || y >= (int(height())+y_offset_) )
@@ -59,7 +59,7 @@ dbspi_curve_map::closest(int x, int y) const
 
 //: Return the label of the closest curve pixel to (x,y)
 unsigned int 
-dbspi_curve_map::label(int x, int y) const
+bspid_curve_map::label(int x, int y) const
 {
   if( x < x_offset_ || x >= (int(width())+x_offset_) ||
       y < y_offset_ || y >= (int(height())+y_offset_) )
@@ -70,7 +70,7 @@ dbspi_curve_map::label(int x, int y) const
 
 //: Recursive helper function to fill in the gaps between sample points
 void
-dbspi_curve_map::fill_between(vbl_array_2d<map_element>& array,
+bspid_curve_map::fill_between(vbl_array_2d<map_element>& array,
                               const vsol_digital_curve_2d_sptr dc,
                               const vgl_point_2d<int>& min_pt, 
                               const vgl_point_2d<int>& max_pt )
@@ -88,8 +88,8 @@ dbspi_curve_map::fill_between(vbl_array_2d<map_element>& array,
 
 
 //: Make an array from these curves
-vbl_array_2d<dbspi_curve_map::map_element> 
-dbspi_curve_map::make_array_fixed(const vcl_vector<vsol_digital_curve_2d_sptr>& curves,
+vbl_array_2d<bspid_curve_map::map_element> 
+bspid_curve_map::make_array_fixed(const vcl_vector<vsol_digital_curve_2d_sptr>& curves,
                                   unsigned int width, unsigned int height,
                                   int x_offset, int y_offset)
 {
@@ -134,8 +134,8 @@ dbspi_curve_map::make_array_fixed(const vcl_vector<vsol_digital_curve_2d_sptr>& 
 
 
 //: Make an array from these curves
-vbl_array_2d<dbspi_curve_map::map_element> 
-dbspi_curve_map::make_array(int& x_offset, int& y_offset,
+vbl_array_2d<bspid_curve_map::map_element> 
+bspid_curve_map::make_array(int& x_offset, int& y_offset,
                             const vcl_vector<vsol_digital_curve_2d_sptr>& curves)
 {
   int x_min = vcl_numeric_limits<int>::max();

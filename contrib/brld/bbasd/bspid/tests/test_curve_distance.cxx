@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
 
 #include <vsol/vsol_point_2d.h>
-#include <dbspi/dbspi_curve_distance.h>
+#include <bspid/bspid_curve_distance.h>
 #include <dbil/algo/dbil_exact_distance_transform.h>
 
 void
@@ -22,7 +22,7 @@ test_num_inliers(
       vcl_cout << "distance threshold " << d_threshold[i] << vcl_endl;
 
     unsigned num_inliers_computed = 
-      dbspi_curve_distance::num_inliers_dt(curve, d_threshold[i], feature_map, label);
+      bspid_curve_distance::num_inliers_dt(curve, d_threshold[i], feature_map, label);
 
     TEST("Number inliers equals ground truth", num_inliers_computed, num_inliers[i]);
 
@@ -34,7 +34,7 @@ test_num_inliers(
 
 MAIN( test_curve_distance )
 {
-  START ("dbspi curve distance aggregation");
+  START ("bspid curve distance aggregation");
 
 
   { 

@@ -1,29 +1,29 @@
-// This is basic/dbspi/pro/dbspi_curvemap_storage.cxx
+// This is basic/bspid/pro/bspid_curvemap_storage.cxx
 
 //:
 // \file
 
-#include "dbspi_curvemap_storage.h"
+#include "bspid_curvemap_storage.h"
 #include <vil/io/vil_io_image_view.h>
 #include <vil/vil_image_view.h>
 #include <vil/vil_new.h>
 
 
 //: Constructor
-dbspi_curvemap_storage::dbspi_curvemap_storage()
+bspid_curvemap_storage::bspid_curvemap_storage()
 {
 }
 
 
 //: Destructor
-dbspi_curvemap_storage::~dbspi_curvemap_storage()
+bspid_curvemap_storage::~bspid_curvemap_storage()
 {
 }
 
 
 //: Return IO version number;
 short 
-dbspi_curvemap_storage::version() const
+bspid_curvemap_storage::version() const
 {
   return 2;
 }
@@ -32,15 +32,15 @@ dbspi_curvemap_storage::version() const
 //: Create a copy of the object on the heap.
 // The caller is responsible for deletion
 bpro1_storage* 
-dbspi_curvemap_storage::clone() const
+bspid_curvemap_storage::clone() const
 {
-  return new dbspi_curvemap_storage(*this);
+  return new bspid_curvemap_storage(*this);
 }
 
 
 //: Binary save self to stream.
 void 
-dbspi_curvemap_storage::b_write(vsl_b_ostream &os) const
+bspid_curvemap_storage::b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
   bpro1_storage::b_write(os);
@@ -56,7 +56,7 @@ dbspi_curvemap_storage::b_write(vsl_b_ostream &os) const
 
 //: Binary load self from stream.
 void 
-dbspi_curvemap_storage::b_read(vsl_b_istream &is)
+bspid_curvemap_storage::b_read(vsl_b_istream &is)
 {
   if (!is) return;
 
@@ -99,13 +99,13 @@ dbspi_curvemap_storage::b_read(vsl_b_istream &is)
 
 //: Return a smart pointer to the image resource
 vil_image_resource_sptr
-dbspi_curvemap_storage::get_image()
+bspid_curvemap_storage::get_image()
 {
   return image_;
 }
-//: Return dbspi_curve_map object
-dbspi_curve_map *
-dbspi_curvemap_storage::get_curvemap()
+//: Return bspid_curve_map object
+bspid_curve_map *
+bspid_curvemap_storage::get_curvemap()
 {
   return cmap_;
 }
@@ -113,14 +113,14 @@ dbspi_curvemap_storage::get_curvemap()
 
 //: Store the image in the storage class
 void
-dbspi_curvemap_storage::set_image( const vil_image_resource_sptr& img )
+bspid_curvemap_storage::set_image( const vil_image_resource_sptr& img )
 {
   image_ = img;
 }
 
 //: Store the image in the storage class
 void
-dbspi_curvemap_storage::set_curvemap(  dbspi_curve_map * cmap )
+bspid_curvemap_storage::set_curvemap(  bspid_curve_map * cmap )
 {
   cmap_ = cmap;
 }

@@ -1,3 +1,3 @@
-#include <dbspi/dbspi_chamfer.hxx>
+#include <bspid/bspid_chamfer.hxx>
 
-DBSPI_CHAMFER_INSTANTIATE(int, float);
+BSPID_CHAMFER_INSTANTIATE(int, float);

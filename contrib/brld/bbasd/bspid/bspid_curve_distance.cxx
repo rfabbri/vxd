@@ -1,7 +1,7 @@
-#include "dbspi_curve_distance.h"
+#include "bspid_curve_distance.h"
 #include <vsol/vsol_point_2d.h>
 
-unsigned dbspi_curve_distance::
+unsigned bspid_curve_distance::
 num_inliers_dt(
     const vsol_digital_curve_2d &c, double d_threshold,
     const vil_image_view<vxl_uint_32> &dt,
@@ -12,7 +12,7 @@ num_inliers_dt(
   return inliers_dt(c, d_threshold, dt, label, &inliers);
 }
 
-unsigned dbspi_curve_distance::
+unsigned bspid_curve_distance::
 inliers_dt(
     const vsol_digital_curve_2d &c, double d_threshold,
     const vil_image_view<vxl_uint_32> &dt,
@@ -30,7 +30,7 @@ inliers_dt(
   return inliers->size();
 }
 
-unsigned long dbspi_curve_distance::
+unsigned long bspid_curve_distance::
 sum_dt(
     const vsol_digital_curve_2d &c,
     const vil_image_view<vxl_uint_32> &dt

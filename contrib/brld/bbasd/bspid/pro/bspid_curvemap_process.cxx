@@ -1,24 +1,24 @@
-// This is basic/dbspi/pro/dbspi_curvemap_process.cxx
+// This is basic/bspid/pro/bspid_curvemap_process.cxx
 
 //:
 // \file
 
-#include "dbspi_curvemap_process.h"
+#include "bspid_curvemap_process.h"
 #include <bpro1/bpro1_parameters.h>
 #include <vidpro1/storage/vidpro1_image_storage.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
 #include <vsol/vsol_digital_curve_2d.h>
-#include <dbspi/dbspi_curve_map.h>
+#include <bspid/bspid_curve_map.h>
 #include <vil/vil_image_view.h>
 #include <vil/vil_image_resource.h>
 #include <vil/vil_convert.h>
 #include <vil/vil_math.h>
 #include <vil/vil_new.h>
 
-#include <dbspi/dbspi_compare.h>
+#include <bspid/bspid_compare.h>
 
 //: Constructor
-dbspi_curvemap_process::dbspi_curvemap_process()
+bspid_curvemap_process::bspid_curvemap_process()
 {
   if( !parameters()->add( "width" ,  "-width" ,  (int)1024) ||
       !parameters()->add( "height" , "-height" ,  (int)768) ) {
@@ -28,22 +28,22 @@ dbspi_curvemap_process::dbspi_curvemap_process()
 
 
 //: Destructor
-dbspi_curvemap_process::~dbspi_curvemap_process()
+bspid_curvemap_process::~bspid_curvemap_process()
 {
 }
 
 
 //: Clone the process
 bpro1_process*
-dbspi_curvemap_process::clone() const
+bspid_curvemap_process::clone() const
 {
-  return new dbspi_curvemap_process(*this);
+  return new bspid_curvemap_process(*this);
 }
 
 
 //: Return the name of this process
 vcl_string
-dbspi_curvemap_process::name()
+bspid_curvemap_process::name()
 {
   return "Curve Distance Map";
 }
@@ -51,7 +51,7 @@ dbspi_curvemap_process::name()
 
 //: Return the number of input frame for this process
 int
-dbspi_curvemap_process::input_frames()
+bspid_curvemap_process::input_frames()
 {
   return 1;
 }
@@ -59,14 +59,14 @@ dbspi_curvemap_process::input_frames()
 
 //: Return the number of output frames for this process
 int
-dbspi_curvemap_process::output_frames()
+bspid_curvemap_process::output_frames()
 {
   return 1;
 }
 
 
 //: Provide a vector of required input types
-vcl_vector< vcl_string > dbspi_curvemap_process::get_input_type()
+vcl_vector< vcl_string > bspid_curvemap_process::get_input_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "vsol2D" );
@@ -76,7 +76,7 @@ vcl_vector< vcl_string > dbspi_curvemap_process::get_input_type()
 
 
 //: Provide a vector of output types
-vcl_vector< vcl_string > dbspi_curvemap_process::get_output_type()
+vcl_vector< vcl_string > bspid_curvemap_process::get_output_type()
 {
   vcl_vector<vcl_string > to_return;
   to_return.push_back( "image" );
@@ -86,10 +86,10 @@ vcl_vector< vcl_string > dbspi_curvemap_process::get_output_type()
 
 //: Execute the process
 bool
-dbspi_curvemap_process::execute()
+bspid_curvemap_process::execute()
 {
   if ( input_data_.size() != 1 ){
-    vcl_cout << "In dbspi_curvemap_process::execute() - not exactly one"
+    vcl_cout << "In bspid_curvemap_process::execute() - not exactly one"
              << " input images \n";
     return false;
   }
@@ -114,7 +114,7 @@ dbspi_curvemap_process::execute()
   int width, height;
   parameters()->get_value( "-width" ,  width );
   parameters()->get_value( "-height" , height );
-  dbspi_curve_map map(curves, width, height);
+  bspid_curve_map map(curves, width, height);
 
   int ni = map.width();
   int nj = map.height();
@@ -140,7 +140,7 @@ dbspi_curvemap_process::execute()
         curves2.push_back(dc);
     }
   }
-  dbspi_compare comp(curves);
+  bspid_compare comp(curves);
 
   double tp, fp;
   comp.eval(curves2, tp, fp);
@@ -159,7 +159,7 @@ dbspi_curvemap_process::execute()
 
 
 bool
-dbspi_curvemap_process::finish()
+bspid_curvemap_process::finish()
 {
   return true;
 }
