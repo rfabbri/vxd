@@ -9,6 +9,7 @@ include_directories( ${VXL_OXL_INCLUDE_DIR} )
 
 
 if (VXL_VGUI_FOUND)
+find_package(OpenGL)
 
 set(bvis1_sources 
 
@@ -47,7 +48,7 @@ aux_source_directory(Templates bvis1_sources)
 
 add_library(bvis1  ${bvis1_sources})
 
-target_link_libraries(bvis1 vidpro1 bgui mvl)
+target_link_libraries(bvis1 vidpro1 bgui mvl ${OPENGL_LIBRARIES})
 
 
 if( BUILD_EXAMPLES )
