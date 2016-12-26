@@ -1,0 +1,38 @@
+SHORT TERM
+
+- rename dbnl_eno_zerox_label to dbnl_eno_zerox_label_1d
+-  " "   dbnl_eno_zerox_label to dbnl_eno_zerox_label_1d
+
+- write down weak cases of the algorithm (e.g. shocks with no intersection, etc)
+
+- use of stride?
+
+
+- general order ENO
+   - general order root finding-- better use vnl_real_poly
+
+MEDIUM TERM
+
+- better error treatment
+- improve doc
+- see remaining funs in original ENO, whichever I dont understand
+- see TODO and XXX in:
+   vision-code/eno/documentation-rfabbri.txt
+
+
+=========================
+VERY MINOR POINTS
+
+- polynomial implementation could be made much more efficient by
+making it totally specific for 2nd order polynomials. E.G.:
+   instead of:
+      interpolant.poly_.coef[i]
+   do just:
+      intepolant.coef_1
+      intepolant.coef_2
+      intepolant.coef_3
+
+   This way we could save a lot of indirections and space for pointers.
+
+- if you think this ENO is too slow for you app, let me know and
+perhaps I'll try to optimize it.

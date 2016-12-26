@@ -1,0 +1,9 @@
+// The following text is included in the main documentation page by doxygen
+/*! \mainpage dbnl : Development Brown Numerical Library
+* A collection of numerical routines augmenting vnl
+*
+* \section ENO Interpolation
+* - dbnl_eno_1d : Plain 1D ENO interpolation class
+* - dbnl_eno_shock_1d : Shock-placing 1D ENO interpolation class
+* - dbnl_eno_zerox_vector : Compute zero-crossings of eno-interpolated function
+*/
