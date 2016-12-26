@@ -15,7 +15,6 @@
 // \verbatim
 //  Modifications
 //   05/31/2006 Nhon Trinh  Initial version.
-//   03/08/2008 Nhon Trinh  Added bsold_save_ps_file function
 //   09/16/2009 Ricardo Fabbri Added support for loading gzipped cem files
 //   09/29/2009 Ricardo Fabbri Added support for savinng gzipped cem files
 // \endverbatim
@@ -26,9 +25,6 @@
 #include <vsol/vsol_point_2d_sptr.h>
 #include <vsol/vsol_polygon_2d_sptr.h>
 #include <vsol/vsol_polyline_2d_sptr.h>
-
-#include <vil/vil_rgb.h>
-#include <vil/vil_image_resource_sptr.h>
 
 
 //: Load a .CON file and save results to a vector of points and whether the 
@@ -59,14 +55,5 @@ bool bsold_save_cem(vcl_vector< vsol_spatial_object_2d_sptr >& vsol_list, vcl_st
 //: Load .CEM file. Compressed files are supported, in the zlib/gzip format with
 // extension .gz, but for that you must have Boost installed.
 bool bsold_load_cem(vcl_vector< vsol_spatial_object_2d_sptr >& contours, vcl_string filename);
-
-//: Write an image and a vsol 2D objects to a ps file
-// TODO: we currently only handle polygons. Need to handle other types
-bool bsold_save_ps_file(const vcl_string& filename,
-                        const vil_image_resource_sptr& img, 
-                        const vcl_vector<vsol_spatial_object_2d_sptr >& vsol_data,
-                        const vcl_vector<vil_rgb<float > >& colors,
-                        float line_width = 2.0f,
-                        float point_size = 3.0f);
 
 #endif // bsold_file_io_h

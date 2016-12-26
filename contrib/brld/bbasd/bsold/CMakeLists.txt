@@ -30,10 +30,10 @@ aux_source_directory(Templates bsold_sources)
 add_library(bsold ${bsold_sources})
 
 if(Boost_FOUND)
-  target_link_libraries( bsold dbgl dbgl_algo vgl vsol vil ${Boost_LIBRARIES} )
+  target_link_libraries(bsold dbgl dbgl_algo vgl vsol ${Boost_LIBRARIES})
   include_directories( ${Boost_INCLUDE_DIRS} )
 else()
-  target_link_libraries( bsold dbgl dbgl_algo vgl vsol vil )
+  target_link_libraries(bsold dbgl dbgl_algo vgl vsol)
 endif()
 
 if( Boost_FOUND )
@@ -44,12 +44,10 @@ if( BUILD_TESTING )
   add_subdirectory(tests)
 endif( BUILD_TESTING )
 
-add_subdirectory( algo )
-
-add_subdirectory( pro )
-
-add_subdirectory( vis )
-
+add_subdirectory(io)
+add_subdirectory(algo)
+add_subdirectory(pro)
+add_subdirectory(vis)
 
 #if( BUILD_EXAMPLES )
 #  add_subdirectory( examples )
