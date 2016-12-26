@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Stores a dbspi_curve_map and a vil image of it
-// \author Matt Leotta
+// \author Based on original code by  Matt Leotta
 // \date 7/19/04
 
 #include <bpro1/bpro1_storage.h>

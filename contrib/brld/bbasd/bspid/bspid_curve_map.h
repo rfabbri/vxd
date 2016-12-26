@@ -4,7 +4,7 @@
 
 //:
 // \file
-// \author Matt Leotta
+// \author Based on original code by  Matt Leotta
 // \date   7/19/04
 // \brief computes a distance transform for vsol_digital_curve_2d
 //

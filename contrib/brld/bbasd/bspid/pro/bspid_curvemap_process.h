@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Process that computes a distance map for curves
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 7/19/04
 //
 // \verbatim
