@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief A tool for designing a circular arc - full circle for now
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date 4/9/2005
 //
 // \verbatim

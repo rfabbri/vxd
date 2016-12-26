@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief A process to smooth contours
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date 11/16/2006
 //
 // \verbatim

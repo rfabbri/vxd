@@ -1,7 +1,7 @@
 // This is basic/dbsol/vis/dbsol_arc_tool.cxx
 //:
 // \file
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date 4/9/2005
 
 #include "dbsol_arc_tool.h"

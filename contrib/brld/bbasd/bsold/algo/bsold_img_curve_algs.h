@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Functions to that works on curves and images
-// \author Ozge C. Ozcanli
+// \author Based on original code by  Ozge C. Ozcanli
 //
 // \verbatim
 //  Modifications

@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief A process to fit a polyline or polygon with an arc spline
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date Sep 8, 2008
 //
 // \verbatim

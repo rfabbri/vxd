@@ -9,7 +9,7 @@
 // \file
 // \brief File I/O for vsol_spatial_object_2d
 //
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date May 31, 2006
 //
 // \verbatim

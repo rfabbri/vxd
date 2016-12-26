@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief A class to perform linear transformation on vsol_2d objects (translation, rotation)
-//\author Nhon Trinh (ntrinh@lems.brown.edu)
+//\author Based on original code by  Nhon Trinh (@lems.brown.edu)
 //\date April 11, 2005
 
 

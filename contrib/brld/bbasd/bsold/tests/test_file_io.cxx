@@ -1,5 +1,5 @@
 // This is dbsol/tests/test_file_io.cxx
-// \author Nhon Trinh
+// \author Based on original code by  Nhon Trinh
 // \date May 31, 2006
 
 #include <testlib/testlib_test.h>

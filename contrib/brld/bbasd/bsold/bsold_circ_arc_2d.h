@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief  circular arc in a 2D space
-// \author Isa Restrepo (mir@lems.brwon.edu)
+// \author Based on original code by  Isa Restrepo (@lems.brwon.edu)
 // \date 4/9/2005
 //
 // \verbatim

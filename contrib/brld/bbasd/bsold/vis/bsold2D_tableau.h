@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A child tableau of bgui_vsol2D_tableau to display a circular arc vsol object.
-// \author
+// \author Based on original code by 
 //  Isa Restrepo
 //
 //   Default styles are defined for each geometry object soview.

@@ -1,6 +1,6 @@
 //:
 // \file
-// \author Nhon Trinh
+// \author Based on original code by  Nhon Trinh
 
 #include "dbsol_linear_transform_2d.h"
 #include <vsol/vsol_point_2d.h>

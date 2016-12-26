@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 //:
 // \file
-// \author H. Can Aras
+// \author Based on original code by  H. Can Aras
 // \brief  dbsol_interp_curve_3d algorithms
 // \date   2006-12-04
 //

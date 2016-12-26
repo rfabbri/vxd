@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A vgui_soview2D circular arc object
-// \author
+// \author Based on original code by 
 //   Isabel Restrepo
 //
 // \verbatim

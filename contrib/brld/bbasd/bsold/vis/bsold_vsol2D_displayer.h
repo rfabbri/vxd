@@ -6,7 +6,7 @@
 // \file
 // \brief This file defines the displayer class that supports
 //        dbsol_circ_arc_2d
-// \author Isabel Restrepo (mir@lems.brown.edu)
+// \author Based on original code by  Isabel Restrepo (@lems.brown.edu)
 // \date 09/26/06 
 //
 // \verbatim

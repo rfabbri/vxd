@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Represents a 2D interpolated curve
-// \author Ozge Can Ozcanli
+// \author Based on original code by  Ozge Can Ozcanli
 // \date 02/23/05
 //
 //  An interpolated curve is a series of intervals, each of which is a

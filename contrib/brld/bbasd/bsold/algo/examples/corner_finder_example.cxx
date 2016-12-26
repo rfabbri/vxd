@@ -118,7 +118,7 @@ int main()
   // dbsol_curve_algs::interpolate_eno(&curve, smoothed, samples);
   // The smoothing parameters of the algorithms, if applicable, are straightforward to find in the code.
   //
-  // Contact can@lems.brown.edu for questions...
+  // Contact @lems.brown.edu for questions...
   vcl_string folder = "S:/tile c con/";
   vcl_string ftype = folder;
   ftype.append("*.con");

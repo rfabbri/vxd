@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 //:
 // \file
-// \author Ozge Can Ozcanli
+// \author Based on original code by  Ozge Can Ozcanli
 // \brief dbsol_interp_curve_2d algorithms
 // \date 02/25/05
 //

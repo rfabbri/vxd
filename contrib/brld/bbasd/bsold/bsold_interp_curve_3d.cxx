@@ -6,7 +6,7 @@
 #include <vcl_cstdio.h>
 //:
 // \file
-// \author H. Can Aras (design/declarations) 
+// \author Based on original code by  H. Can Aras (design/declarations) 
 
 //: Constructor
 // Caution: the user of this constructor SHALL NOT delete the dbgl_param_curve_3d objects

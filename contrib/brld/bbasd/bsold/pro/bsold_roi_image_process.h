@@ -7,7 +7,7 @@
 // \file
 // \brief Process that takes in a list of vsol regions objects
 // (polygons and ellipse) and turn into a binary image
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date 12/07/2005
 //
 // \verbatim

@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief  Represents a 3D interpolated curve
-// \author H. Can Aras (can@lems.brown.edu)
+// \author Based on original code by  H. Can Aras (@lems.brown.edu)
 // \date   2006-12-03
 //
 // Implementation is parallel to the 2D case

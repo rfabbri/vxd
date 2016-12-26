@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief Process that translate all vsol objects with a vector
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date 4/12/2005
 //
 // \verbatim

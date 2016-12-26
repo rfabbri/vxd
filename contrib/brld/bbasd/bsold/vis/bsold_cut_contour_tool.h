@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief 
-// author Nhon Trinh (ntrinh@lems.brown.edu)
+// author Nhon Trinh (@lems.brown.edu)
 // date Oct 30, 2006
 //
 // \verbatim

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 //:
 // \file
-// \author H. Can Aras
+// \author Based on original code by  H. Can Aras
 // \brief Corner finder using dbsol_interp_curve_2d
 //        dbsol_interp_curve_2d that is passed to this class' constructor
 //        was created from a set of data points and the corner finding 

@@ -6,7 +6,7 @@
 // \file
 // \brief  A process to write an image and vsol objects to a PS file
 //
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date Mar 8, 2008
 //
 // \verbatim

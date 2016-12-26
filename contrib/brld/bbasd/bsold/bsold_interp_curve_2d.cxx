@@ -4,8 +4,8 @@
 #include <vcl_algorithm.h>  
 //:
 // \file
-// \author Ozge Can Ozcanli (design/declarations) 
-// \author Ricardo Fabbri (definitions)
+// \author Based on original code by  Ozge Can Ozcanli (design/declarations) 
+// \author Based on original code by  Ricardo Fabbri (definitions)
  
 
 //: Constructor

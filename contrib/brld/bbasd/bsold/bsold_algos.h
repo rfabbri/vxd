@@ -8,7 +8,7 @@
 // This is essentially a namespace for static methods;
 // there is no public constructor
 //
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date Oct 30, 2006
 //
 // \verbatim

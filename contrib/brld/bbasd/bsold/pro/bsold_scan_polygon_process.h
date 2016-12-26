@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief Process that scan converts polygons a label image
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 3/14/06
 //
 // \verbatim
