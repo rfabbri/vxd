@@ -17,5 +17,5 @@ add_subdirectory(bsold)
 add_subdirectory(buld)
 
 # The Brown Spatial Indexing Library (vxd development version)
-add_subdirectory(dbspi)
+add_subdirectory(bspid)
 

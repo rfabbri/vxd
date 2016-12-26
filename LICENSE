@@ -1,0 +1,16 @@
+VXD is released under the termos of the VXL License:
+https://sourceforge.net/p/vxl/git/ci/master/tree/core/vxl_copyright.h
+
+Since VXD is a heavily experimental codebase, it may use fragments
+of GPL or LGPL code. The user is responsible to carfully consider this prior to
+releasing other code based on VXD.
+
+One example is contrib/brld/bbasd/bild, which uses a modification of LGPL code.
+Therefore, any code that links against bild diretly or indirectly must observe
+the terms of the LGPL.
+
+Any modification of code originally authored by Ricardo Fabbri under the GPL
+is hereby granted by Ricardo Fabbri any further freedom by the VXL license.
+
+If you want to be absolutely clean about copyright issues, when releasing
+commercial code you should kindly contact the authors of the relevant files.
