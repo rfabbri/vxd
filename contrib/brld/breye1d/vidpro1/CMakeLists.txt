@@ -71,9 +71,9 @@ aux_source_directory(Templates vidpro1_sources)
 add_library(vidpro1  ${vidpro1_sources})
 
 if(DIRECTSHOW_FOUND)
-  target_link_libraries(vidpro1 bpro1 sdet vil_io mvl dbsol_algo vnl_io vidl vgui)
+  target_link_libraries(vidpro1 bpro1 sdet vil_io mvl bsold_algo vnl_io vidl vgui)
 else(DIRECTSHOW_FOUND)
-  target_link_libraries(vidpro1 bpro1 sdet vil_io mvl dbsol_algo vnl_io vidl vgui)
+  target_link_libraries(vidpro1 bpro1 sdet vil_io mvl bsold_algo vnl_io vidl vgui)
 endif(DIRECTSHOW_FOUND)
 
 
