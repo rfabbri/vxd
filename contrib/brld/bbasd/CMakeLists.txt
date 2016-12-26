@@ -19,3 +19,5 @@ add_subdirectory(buld)
 # The Brown Spatial Indexing Library (vxd development version)
 add_subdirectory(bspid)
 
+# The Brown Image Library (vxd development version)
+add_subdirectory(bild) 
