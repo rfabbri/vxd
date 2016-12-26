@@ -20,7 +20,7 @@ add_executable( bgld_algo_test_all
   test_diffgeom.cxx
 )
 
-target_link_libraries( bgld_algo_test_all vsl vnl_algo bgld_algo bgld dbnl testlib )
+target_link_libraries( bgld_algo_test_all vsl vnl_algo bgld_algo bgld bnld testlib )
 
 add_test( bgld_algo_test_circ_arc        bgld_algo_test_all test_circ_arc )
 add_test( bgld_algo_test_biarc           bgld_algo_test_all test_biarc )
@@ -38,4 +38,4 @@ add_test( bgld_algo_test_diffgeom bgld_algo_test_all test_diffgeom )
 
 add_executable( bgld_algo_test_include test_include.cxx )
 
-target_link_libraries( bgld_algo_test_include bgld_algo bgld dbnl ray_tri )
+target_link_libraries( bgld_algo_test_include bgld_algo bgld bnld ray_tri )

@@ -13,7 +13,7 @@ configure_file(
   ${LIBRARY_OUTPUT_PATH}/bgld_eulerspiral_lookup_table.bvl COPYONLY
 )
 
-add_definitions(-DBGLD_WHERE_BRLD_LIB_DIR_H_EXISTS)
+add_definitions(-BGLDD_WHERE_BRLD_LIB_DIR_H_EXISTS)
 
 include_directories( ${BRLD_BINARY_DIR}/bbasd/bgld/algo/ )
 include_directories( ${BRLD_BINARY_DIR}/bbasd/bgld/ )
@@ -53,7 +53,7 @@ set( bgld_algo_sources
 
 add_library( bgld_algo ${bgld_algo_sources} )
 
-target_link_libraries(bgld_algo vnl_algo vsl vgl_algo dbnl bgld vul ray_tri)
+target_link_libraries(bgld_algo vnl_algo vsl vgl_algo bnld bgld vul ray_tri)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)
