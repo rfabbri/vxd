@@ -1,12 +1,12 @@
-#ifndef mw_util_txx_
-#define mw_util_txx_
+#ifndef bmcsd_util_txx_
+#define bmcsd_util_txx_
 
-#include "mw_util.h"
+#include "bmcsd_util.h"
 #include <vcl_sstream.h>
 
-// Most non-template implementations are in mw_util_defs.cxx
+// Most non-template implementations are in bmcsd_util_defs.cxx
 
-template <typename T>  void mw_util::
+template <typename T>  void bmcsd_util::
 parse_num_list(const vcl_string &stringlist, vcl_vector<T> *values)
 {
   vcl_istringstream istream;
@@ -19,6 +19,6 @@ parse_num_list(const vcl_string &stringlist, vcl_vector<T> *values)
 
 #undef MW_UTIL_INSTANTIATE
 #define MW_UTIL_INSTANTIATE(T) \
-template void mw_util::parse_num_list(const vcl_string &stringlist, vcl_vector<T> *values);
+template void bmcsd_util::parse_num_list(const vcl_string &stringlist, vcl_vector<T> *values);
 
-#endif // mw_util_txx_
+#endif // bmcsd_util_txx_

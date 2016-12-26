@@ -1,6 +1,6 @@
-// This is mw_util.h
-#ifndef mw_util_h
-#define mw_util_h
+// This is bmcsd_util.h
+#ifndef bmcsd_util_h
+#define bmcsd_util_h
 //:
 //\file
 //\brief General utilities (probably to be moved into some vxl libs)
@@ -18,7 +18,7 @@
 #include <vcl_algorithm.h>
 
 #include <vil/vil_image_view.h>
-#include <dbsol/algo/dbsol_geno.h>
+#include <bsold/algo/bsold_geno.h>
 
 // Header files that are generally needed, but not necessarily here:
 
@@ -33,15 +33,15 @@
 // #include <dvpgl/io/dvpgl_io_cameras.h>
 #include <vsol/vsol_polyline_2d_sptr.h>
 #include <vsol/vsol_polyline_2d.h>
-#include <dbdif/dbdif_frenet.h>
+#include <bdifd/bdifd_frenet.h>
 #include <bbld/bbld_subsequence.h>
 
 
-#define mw_vector_3d vnl_vector_fixed<double,3>
-#define mw_vector_2d vnl_vector_fixed<double,2>
+#define bmcsd_vector_3d vnl_vector_fixed<double,3>
+#define bmcsd_vector_2d vnl_vector_fixed<double,2>
 
 // --- Globals --- 
-// Defined in mw_util_defs.cxx
+// Defined in bmcsd_util_defs.cxx
 extern int n8[8][2];
 extern int n4[4][2];
 
@@ -59,21 +59,21 @@ bool con_filenames(vcl_string image_fname,vcl_vector<vcl_string> &con_fnames);
 bool myread(vcl_string fname, vcl_vector<double> &pts);
 bool myreadv(vcl_string fname, vcl_vector<vsol_point_2d_sptr> &pts);
 bool myreadv(vcl_string fname, vcl_vector<vgl_point_3d<double> > &pts);
-bool myreadv(vcl_string fname, vcl_vector<mw_vector_3d> &pts);
+bool myreadv(vcl_string fname, vcl_vector<bmcsd_vector_3d> &pts);
 //: Reads 3D curves to many files whose prefix and extension are given.
 // The output files will be named like $prefix-3dcurve-$crv_id-{points|tangents}$ext.
 // the input vcl_vector is assumed to be already resized to the correct number
 // of curves.
-bool myreadv(vcl_string prefix, vcl_string ext, vcl_vector<dbdif_1st_order_curve_3d> &crv_3d);
+bool myreadv(vcl_string prefix, vcl_string ext, vcl_vector<bdifd_1st_order_curve_3d> &crv_3d);
 
 bool mywrite(vcl_string fname, const vcl_vector<double> &v);
 bool mywrite_ascii(vcl_string fname, const vcl_vector<double> &v);
 bool mywritev(vcl_string fname, const vcl_vector<vsol_point_2d_sptr> &pts);
-bool mywritev(vcl_string fname, const vcl_vector<mw_vector_3d> &crv_3d);
+bool mywritev(vcl_string fname, const vcl_vector<bmcsd_vector_3d> &crv_3d);
 bool mywritev(vcl_string fname, const vcl_vector<vgl_point_3d<double> > &crv_3d);
 //: Writes 3D curves to many files whose prefix and extension are given.
 // The output files will be named like $prefix-3dcurve-$crv_id-{points|tangents}$ext
-bool mywritev(vcl_string prefix, vcl_string ext, const vcl_vector<dbdif_1st_order_curve_3d> &crv_3d);
+bool mywritev(vcl_string prefix, vcl_string ext, const vcl_vector<bdifd_1st_order_curve_3d> &crv_3d);
 
 bool read_cam(vcl_string img_name1, vcl_string img_name2, 
       vpgl_perspective_camera <double> *P1out,
@@ -83,9 +83,9 @@ bool read_cam( vcl_string img_name1,
 bool read_3x4_matrix_into_cam( vcl_string img_name1, 
       vpgl_perspective_camera <double> *P1out);
 
-bool mw_get_prefix(vcl_string img_name, vcl_string *dir, vcl_string *noext);
+bool bmcsd_get_prefix(vcl_string img_name, vcl_string *dir, vcl_string *noext);
 
-vgl_homg_point_2d<double> mw_epipolar_point_transfer( 
+vgl_homg_point_2d<double> bmcsd_epipolar_point_transfer( 
       const vgl_homg_point_2d<double> &p1, 
       const vgl_homg_point_2d<double> &p2, 
       const vpgl_fundamental_matrix<double> &f13,
@@ -99,27 +99,27 @@ d_sqr(double x1, double y1, double x2, double y2)
 }
 
 void
-get_normal(const dbsol_geno_curve_2d &c, unsigned i, double *normal_x, double *normal_y);
+get_normal(const bsold_geno_curve_2d &c, unsigned i, double *normal_x, double *normal_y);
 
 void
-get_normal_arc(const dbsol_geno_curve_2d &c, unsigned i, double *normal_x, double *normal_y);
+get_normal_arc(const bsold_geno_curve_2d &c, unsigned i, double *normal_x, double *normal_y);
 
 inline vgl_homg_line_2d<double>
-mw_normal_correspondence_line(
+bmcsd_normal_correspondence_line(
   const vcl_vector<vsol_point_2d_sptr>  &con,
   unsigned k
     );
 
 
-#define mw_tolerance 1e-7
+#define bmcsd_tolerance 1e-7
 #define MW_ROUND(X)        ((int)((X)+0.5))
 
-class mw_util {
+class bmcsd_util {
 public:
 
   typedef enum {MW_INTRINSIC_EXTRINSIC, MW_3X4} camera_file_type;
 
-  static bool near_zero(double x) { return vcl_fabs(x) < mw_tolerance; }
+  static bool near_zero(double x) { return vcl_fabs(x) < bmcsd_tolerance; }
   static bool near_zero(double x,double tol) { return vcl_fabs(x) < tol; }
 
   //: takes two angles and return the smallest angle between them in the range [0,2pi)
@@ -145,7 +145,7 @@ public:
   static inline double median(const vcl_vector<double> &v);
 
   //: angle between two unit vectors
-  static inline double angle_unit(const mw_vector_3d &t1, const mw_vector_3d &t2);
+  static inline double angle_unit(const bmcsd_vector_3d &t1, const bmcsd_vector_3d &t2);
 
   //: Returns only the points of the curve that fall within bounds of the image.
   // After this operation, ordering along the curve doesn't matter anymore as
@@ -159,7 +159,7 @@ public:
   // there might be multiple connected components.
   static void clip_to_img_bounds(
       const vil_image_view<vxl_uint_32> &img,
-      dbdif_1st_order_curve_2d *curve); 
+      bdifd_1st_order_curve_2d *curve); 
 
   //: \return true if all points of the curve are within bounds.
   static bool
@@ -179,13 +179,13 @@ public:
 
   //: \return true if all points of the curve are within bounds.
   static bool 
-  in_img_bounds(const dbdif_1st_order_curve_2d &curve,
+  in_img_bounds(const bdifd_1st_order_curve_2d &curve,
       const vil_image_view<vxl_uint_32> &img);
 
   //: \return true if all points of the curve are within a rectangle 
   // with distance \p radius from the borders of img
   static bool 
-  in_img_bounds(const dbdif_1st_order_curve_2d &curve,
+  in_img_bounds(const bdifd_1st_order_curve_2d &curve,
       const vil_image_view<vxl_uint_32> &img, unsigned radius);
 
   //: return sub-polyline from c(ini) to c(end); ini can be greater or smaller
@@ -233,7 +233,7 @@ public:
 };
 
 //: smallest angle between two unit vectors
-inline double mw_util::angle_unit(const mw_vector_3d &t1, const mw_vector_3d &t2)
+inline double bmcsd_util::angle_unit(const bmcsd_vector_3d &t1, const bmcsd_vector_3d &t2)
 {
   return vcl_acos(clump_to_acos(dot_product(t1,t2)));
 }
@@ -241,14 +241,14 @@ inline double mw_util::angle_unit(const mw_vector_3d &t1, const mw_vector_3d &t2
 
 //: takes two angles and return the smallest angle between them in the range
 //[0,2pi)
-inline double mw_util::angle_difference(double angle1, double angle2) 
+inline double bmcsd_util::angle_difference(double angle1, double angle2) 
 { 
    double dt_angle = vcl_fabs(angle1 - angle2);
    return (dt_angle > vnl_math::pi)? (2*vnl_math::pi - dt_angle) : dt_angle;
 }
 
 //: user must ensure vector is not empty
-inline double mw_util::median(const vcl_vector<double> &v)
+inline double bmcsd_util::median(const vcl_vector<double> &v)
 {
   vcl_vector<double> v_sorted = v;
 
@@ -269,7 +269,7 @@ inline double mw_util::median(const vcl_vector<double> &v)
 }
 
 //: user must ensure vector is not empty
-template <class T> double mw_util::max(const vcl_vector<T> &v, unsigned &idx)
+template <class T> double bmcsd_util::max(const vcl_vector<T> &v, unsigned &idx)
 {
   idx = 0;
   T maxval = v[0];
@@ -283,7 +283,7 @@ template <class T> double mw_util::max(const vcl_vector<T> &v, unsigned &idx)
 }
 
 //: user must ensure vector is not empty
-inline double mw_util::mean(const vcl_vector<double> &v)
+inline double bmcsd_util::mean(const vcl_vector<double> &v)
 {
   double meanval = 0.0;
   for (unsigned i=0; i < v.size(); ++i) {
@@ -295,7 +295,7 @@ inline double mw_util::mean(const vcl_vector<double> &v)
 }
 
 //: user must ensure vector is not empty
-inline double mw_util::min(const vcl_vector<double> &v, unsigned &idx)
+inline double bmcsd_util::min(const vcl_vector<double> &v, unsigned &idx)
 {
   idx = 0;
   double minval = v[0];
@@ -308,7 +308,7 @@ inline double mw_util::min(const vcl_vector<double> &v, unsigned &idx)
   return minval;
 }
 
-inline double mw_util::clump_to_acos(double x)
+inline double bmcsd_util::clump_to_acos(double x)
 { 
   if (x > 1.0 || x < -1.0) {
     assert(vcl_fabs(vcl_fabs(x)-1) < 1e-5);
@@ -321,7 +321,7 @@ inline double mw_util::clump_to_acos(double x)
 }
 
 //: Copied from dbdet_sel1.h
-inline double mw_util::
+inline double bmcsd_util::
 angle0To2Pi (double angle)
 {
   double a;
@@ -347,16 +347,16 @@ angle0To2Pi (double angle)
 }
 
 inline vgl_homg_line_2d<double>
-mw_normal_correspondence_line(
+bmcsd_normal_correspondence_line(
   const vcl_vector<vsol_point_2d_sptr>  &con,
   unsigned k
     )
 {
-  mw_vector_2d p0;
+  bmcsd_vector_2d p0;
   
   p0[0] = con[k]->x();
   p0[1] = con[k]->y();
-  mw_vector_2d n;
+  bmcsd_vector_2d n;
 
   if (k < con.size()-1) {
     n[0] = con[k]->x()-con[k+1]->x();
@@ -371,13 +371,13 @@ mw_normal_correspondence_line(
   return vgl_homg_line_2d<double> (n[0],n[1],d);
 }
 
-inline vnl_vector_fixed<double,3> mw_util::
+inline vnl_vector_fixed<double,3> bmcsd_util::
 vgl_to_vnl(const vgl_point_3d<double> &p)
 {
   return vnl_vector_fixed<double,3> (p.x(),p.y(),p.z());
 }
 
-inline vsol_polyline_2d_sptr mw_util::
+inline vsol_polyline_2d_sptr bmcsd_util::
 get_subcurve(const vsol_polyline_2d_sptr &c, unsigned ini, unsigned end)
 {
   vsol_polyline_2d *c_short = new vsol_polyline_2d();
@@ -392,7 +392,7 @@ get_subcurve(const vsol_polyline_2d_sptr &c, unsigned ini, unsigned end)
   return c_short;
 }
 
-inline vsol_polyline_2d_sptr  mw_util::
+inline vsol_polyline_2d_sptr  bmcsd_util::
 reverse_order(const vsol_polyline_2d_sptr &c)
 {
   vsol_polyline_2d *c_rev = new vsol_polyline_2d();
@@ -404,7 +404,7 @@ reverse_order(const vsol_polyline_2d_sptr &c)
 }
 
 //: For use in for_each
-struct mw_delete_object {
+struct bmcsd_delete_object {
 public:
   template <typename T>
   void operator()(const T *ptr) const {
@@ -412,7 +412,7 @@ public:
   }
 };
 
-struct mw_dereference_equal {
+struct bmcsd_dereference_equal {
   template <typename PtrType> bool
   operator()(PtrType pt1, PtrType pt2) const
   {
@@ -420,7 +420,7 @@ struct mw_dereference_equal {
   }
 };
 
-struct mw_dereference_less {
+struct bmcsd_dereference_less {
   template <typename PtrType> bool
   operator()(PtrType pt1, PtrType pt2) const
   {
@@ -429,6 +429,6 @@ struct mw_dereference_less {
 };
 
 
-#define MW_UTIL_INSTANTIATE(T) extern "please include mw/mw_util.hxx first"
+#define MW_UTIL_INSTANTIATE(T) extern "please include mw/bmcsd_util.hxx first"
 
-#endif // mw_util_h
+#endif // bmcsd_util_h

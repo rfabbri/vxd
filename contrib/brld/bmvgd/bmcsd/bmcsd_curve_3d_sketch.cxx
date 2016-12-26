@@ -1,10 +1,10 @@
-#include "dbmcs_curve_3d_sketch.h"
+#include "bmcsd_curve_3d_sketch.h"
 #include <vul/vul_file.h>
 #include <vul/vul_file.h>
 #include <vsl/vsl_vector_io.h>
 
 
-bool dbmcs_curve_3d_sketch::
+bool bmcsd_curve_3d_sketch::
 write_dir_format(vcl_string dir) const
 {
   vul_file::make_directory(dir);
@@ -37,7 +37,7 @@ write_dir_format(vcl_string dir) const
   return true;
 }
 
-bool dbmcs_curve_3d_sketch::
+bool bmcsd_curve_3d_sketch::
 read_dir_format(vcl_string dir)
 {
   // Optionally tar-gzip the directory. Perhaps using an external shell script.
@@ -85,7 +85,7 @@ read_dir_format(vcl_string dir)
 
     } break;
     default:
-      vcl_cerr << "I/O ERROR: dbmcs_curve_3d_sketch::read_dir_format\n"
+      vcl_cerr << "I/O ERROR: bmcsd_curve_3d_sketch::read_dir_format\n"
            << "           Unknown version number "<< ver << '\n';
   }
 

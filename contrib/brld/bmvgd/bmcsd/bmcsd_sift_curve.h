@@ -1,4 +1,4 @@
-// This is mw_sift_curve.h
+// This is bmcsd_sift_curve.h
 #ifndef MW_SIFT_CURVE_H
 #define MW_SIFT_CURVE_H
 //:
@@ -14,7 +14,7 @@
 
 #define MW_SIFT_CURVE_NUM_DIMS 128
 
-class mw_sift_curve {
+class bmcsd_sift_curve {
 private:
   static const unsigned num_dims_=128;
 
@@ -25,11 +25,11 @@ public:
     descriptor_vector;
 
 
-  mw_sift_curve()
+  bmcsd_sift_curve()
   {}
 
   #define RF_UNINITIALIZED_HISTOGRAM_BIN 1
-  mw_sift_curve(unsigned num_scales, unsigned num_samples) 
+  bmcsd_sift_curve(unsigned num_scales, unsigned num_samples) 
     :
       descriptors_(num_scales),
       num_samples_(num_samples),
@@ -44,7 +44,7 @@ public:
   }
   #undef RF_UNINITIALIZED_HISTOGRAM_BIN
 
-  ~mw_sift_curve()
+  ~bmcsd_sift_curve()
   {}
 
   void print_all_descriptors() const

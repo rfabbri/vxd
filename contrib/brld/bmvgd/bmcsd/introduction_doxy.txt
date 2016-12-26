@@ -4,12 +4,12 @@
 * This library contains experimental research code by Ricardo Fabbri.
 *
 * More mature parts are routinely migrated to: 
-*   - dbdif: multiview differential geometry lib
+*   - bdifd: multiview differential geometry lib
 *   - dvpgl: traditional photogrammetry/MVG algorithms,
 *   - dbecl: Epipolar curve library
 *   - dbkpr: key point recognition, matching & reconstruction
 *
-* \todo rename algo/mw_match_position_band and mw_match_tangent_band to a common
+* \todo rename algo/bmcsd_match_position_band and bmcsd_match_tangent_band to a common
 * naming scheme
 *
 *
@@ -18,17 +18,17 @@
 *   
 *  Multiview curve frag lib
 *   
-*   - mw_intersection_sets
+*   - bmcsd_intersection_sets
 *     todo: try to find my notes about the motivations behind it
 *   
 *   Multiview Edgel lib
 *   
 *   Pointset Multiview matching lib - dbkpr_algo?
-*   - mw_epi_interceptor. See also bdgl_curve_algos for line-curve intersect.
-*   - mw_match_position_band 
-*   - mw_match_tangent_band ?
+*   - bmcsd_epi_interceptor. See also bdgl_curve_algos for line-curve intersect.
+*   - bmcsd_match_position_band 
+*   - bmcsd_match_tangent_band ?
 *   
-*   dbdif
+*   bdifd
 *   
 *   dbecl
 *   
@@ -38,13 +38,13 @@
 *   brct
 *   
 *   Generic correspondence lib - for any type of object
-*   - mw_discrete_corresp_n
+*   - bmcsd_discrete_corresp_n
 *
 *   Geometric photogrammetry lib (a geometric version of dvpgl)
-*   - algo/mw_qualitative_epipolar
+*   - algo/bmcsd_qualitative_epipolar
 *   
 *   Don't know where it goes:
-*   - load_con_file (from mw_util.h) 
+*   - load_con_file (from bmcsd_util.h) 
 *   - pro/vidpro_save_vsol_process
 *   - pro/dbdet_combine_curves_process
 * 

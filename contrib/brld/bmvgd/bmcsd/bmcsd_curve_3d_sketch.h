@@ -1,6 +1,6 @@
-// This is dbmcs_curve_3d_sketch.h
-#ifndef dbmcs_curve_3d_sketch_h
-#define dbmcs_curve_3d_sketch_h
+// This is bmcsd_curve_3d_sketch.h
+#ifndef bmcsd_curve_3d_sketch_h
+#define bmcsd_curve_3d_sketch_h
 //:
 //\file
 //\brief File to hold 3D curves and attributes
@@ -8,25 +8,25 @@
 //\date 11/11/09 18:24:24 EST
 //
 
-#include <dbdif/dbdif_frenet.h>
-#include <mw/dbmcs_view_set.h>
-#include <mw/dbmcs_curve_3d_attributes.h>
-#include <mw/mw_util.h>
+#include <bdifd/bdifd_frenet.h>
+#include <mw/bmcsd_view_set.h>
+#include <mw/bmcsd_curve_3d_attributes.h>
+#include <mw/bmcsd_util.h>
 
 // This class holds 3D curves together with attributes such as pointers to which
 // views were used to reconstruct them, etc. It is used as a basic
 // representation for communicating between multiview curve stereo and multiview
 // curve photogrammetry
-class dbmcs_curve_3d_sketch {
+class bmcsd_curve_3d_sketch {
 public:
 
-  dbmcs_curve_3d_sketch() {}
+  bmcsd_curve_3d_sketch() {}
 
   //: You should be using this always with attributes, otherwise just use the
   // curve itself.
-  dbmcs_curve_3d_sketch(
-      const vcl_vector< dbdif_1st_order_curve_3d > &crv3d,
-      const vcl_vector< dbmcs_curve_3d_attributes > &attr)
+  bmcsd_curve_3d_sketch(
+      const vcl_vector< bdifd_1st_order_curve_3d > &crv3d,
+      const vcl_vector< bmcsd_curve_3d_attributes > &attr)
   : 
     crv3d_(crv3d),
     attr_(attr)
@@ -35,8 +35,8 @@ public:
   }
 
 
-  void set(const vcl_vector< dbdif_1st_order_curve_3d > &crv3d,
-      const vcl_vector< dbmcs_curve_3d_attributes > &attr)
+  void set(const vcl_vector< bdifd_1st_order_curve_3d > &crv3d,
+      const vcl_vector< bmcsd_curve_3d_attributes > &attr)
   {
     crv3d_ = crv3d;
     attr_ = attr;
@@ -59,9 +59,9 @@ public:
   }
 
   //: Getters and setters. Setters should assert for consistency.
-  const vcl_vector< dbdif_1st_order_curve_3d > & curves_3d() const
+  const vcl_vector< bdifd_1st_order_curve_3d > & curves_3d() const
   { return crv3d_; }
-  const vcl_vector< dbmcs_curve_3d_attributes > &attributes() const
+  const vcl_vector< bmcsd_curve_3d_attributes > &attributes() const
   { return attr_; }
 
   typedef vcl_vector<vgl_point_3d<double> > curve_points;
@@ -75,21 +75,21 @@ public:
     for (unsigned c=0; c < num_curves(); ++c) {
       pts3d[c].resize(crv3d_[c].size());
       for (unsigned p=0; p < crv3d_[c].size(); ++p) {
-        const mw_vector_3d &pt = crv3d_[c][p].Gama;
+        const bmcsd_vector_3d &pt = crv3d_[c][p].Gama;
         pts3d[c][p] = vgl_point_3d<double>(pt[0], pt[1], pt[2]);
       }
     }
   }
 
-  bool operator==(const dbmcs_curve_3d_sketch &o) const { 
+  bool operator==(const bmcsd_curve_3d_sketch &o) const { 
     return crv3d_ == o.crv3d_ && attr_ == o.attr_;
   }
 
   //: prune
   void prune_by_total_support(double tau_support)
   {
-    vcl_vector< dbdif_1st_order_curve_3d > crv3d_new;
-    vcl_vector< dbmcs_curve_3d_attributes > attr_new;
+    vcl_vector< bdifd_1st_order_curve_3d > crv3d_new;
+    vcl_vector< bmcsd_curve_3d_attributes > attr_new;
 
     crv3d_new.reserve(num_curves());
     attr_new.reserve(num_curves());
@@ -109,8 +109,8 @@ public:
   unsigned totalReconCount_;
 
 //private:
-  vcl_vector< dbdif_1st_order_curve_3d > crv3d_;
-  vcl_vector< dbmcs_curve_3d_attributes > attr_;
+  vcl_vector< bdifd_1st_order_curve_3d > crv3d_;
+  vcl_vector< bmcsd_curve_3d_attributes > attr_;
 };
 
-#endif // dbmcs_curve_3d_sketch_h
+#endif // bmcsd_curve_3d_sketch_h

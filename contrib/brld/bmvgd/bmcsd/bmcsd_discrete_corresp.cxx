@@ -1,17 +1,17 @@
-#include "mw_discrete_corresp.h"
+#include "bmcsd_discrete_corresp.h"
 #include <vsl/vsl_vector_io.h>
 #include <vsl/vsl_list_io.h>
 #include <vcl_algorithm.h>
 #include <vcl_set.h>
 #include <dborl/dborl_evaluation.h>
-#include <mw/mw_util.h>
+#include <mw/bmcsd_util.h>
 
-bool  mw_discrete_corresp::
-add_unique(const mw_attributed_object &e, unsigned i, 
-    vcl_list<mw_attributed_object>::iterator *itr
+bool  bmcsd_discrete_corresp::
+add_unique(const bmcsd_attributed_object &e, unsigned i, 
+    vcl_list<bmcsd_attributed_object>::iterator *itr
     )
 {
-  vcl_list<mw_attributed_object>::iterator 
+  vcl_list<bmcsd_attributed_object>::iterator 
     result = find(corresp_[i].begin(), corresp_[i].end(), e); 
 
   if (result != corresp_[i].end()) {
@@ -20,7 +20,7 @@ add_unique(const mw_attributed_object &e, unsigned i,
   }
 
   if (i >= corresp_.size()) {
-    vcl_cout << "mw_discrete_corresp:: resizing list\n";
+    vcl_cout << "bmcsd_discrete_corresp:: resizing list\n";
     corresp_.resize(i+1);
   }
 
@@ -30,7 +30,7 @@ add_unique(const mw_attributed_object &e, unsigned i,
   return true;
 }
 
-vcl_ostream&  operator<<(vcl_ostream& s, const mw_match_attribute &c)
+vcl_ostream&  operator<<(vcl_ostream& s, const bmcsd_match_attribute &c)
 {
 
   c.print_summary(s);
@@ -39,7 +39,7 @@ vcl_ostream&  operator<<(vcl_ostream& s, const mw_match_attribute &c)
 }
 
 //: Print an ascii summary to the stream
-void mw_match_attribute::
+void bmcsd_match_attribute::
 print_summary(vcl_ostream &os) const
 {
   os << "[" << is_a() << ": " << 
@@ -48,19 +48,19 @@ print_summary(vcl_ostream &os) const
 }
 
 //: Return a platform independent string identifying the class
-vcl_string mw_match_attribute::
+vcl_string bmcsd_match_attribute::
 is_a() const 
-{return "mw_match_attribute";}
+{return "bmcsd_match_attribute";}
 
-vcl_ostream&  operator<<(vcl_ostream& s, const mw_attributed_object &c)
+vcl_ostream&  operator<<(vcl_ostream& s, const bmcsd_attributed_object &c)
 {
   c.print_summary(s);
   return s;
 }
 
-vcl_ostream&  operator<<(vcl_ostream& s, const mw_discrete_corresp &c)
+vcl_ostream&  operator<<(vcl_ostream& s, const bmcsd_discrete_corresp &c)
 {
-  s << "===========  mw_discrete_corresp ===========\n";
+  s << "===========  bmcsd_discrete_corresp ===========\n";
   s << "# of Domain objects = num_objs0 + 1 = " << c.corresp_.size() << vcl_endl;
 
   unsigned  max_domain_elts=20, count_nonzero=0;
@@ -70,7 +70,7 @@ vcl_ostream&  operator<<(vcl_ostream& s, const mw_discrete_corresp &c)
     if (i < max_domain_elts) {
       s << "obj_id: " << i << " #corresp: " << c.corresp_[i].size() << vcl_endl;
 
-      vcl_list< mw_attributed_object >::const_iterator  itr;
+      vcl_list< bmcsd_attributed_object >::const_iterator  itr;
       const unsigned  max_elts=3; 
       unsigned  nn=1;
       for (itr = c.corresp_[i].begin(); itr != c.corresp_[i].end(); ++itr, ++nn) {
@@ -89,7 +89,7 @@ vcl_ostream&  operator<<(vcl_ostream& s, const mw_discrete_corresp &c)
 
   unsigned n_finite=0;
   for (i=0; i < c.corresp_.size(); ++i) {
-      vcl_list< mw_attributed_object >::const_iterator  itr;
+      vcl_list< bmcsd_attributed_object >::const_iterator  itr;
       for (itr = c.corresp_[i].begin(); itr != c.corresp_[i].end(); ++itr) {
         if (vnl_math_isfinite(itr->cost_))
           n_finite++;
@@ -113,7 +113,7 @@ vcl_ostream&  operator<<(vcl_ostream& s, const mw_discrete_corresp &c)
 
 //: Binary save self to stream.
 void 
-mw_match_attribute::
+bmcsd_match_attribute::
 b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
@@ -123,7 +123,7 @@ b_write(vsl_b_ostream &os) const
 
 //: Binary load self from stream.
 void 
-mw_match_attribute::
+bmcsd_match_attribute::
 b_read(vsl_b_istream &is)
 {
   if (!is) return;
@@ -139,7 +139,7 @@ b_read(vsl_b_istream &is)
     break;
 
     default:
-        vcl_cerr << "I/O ERROR: mw_match_attribute::b_read(vsl_b_istream&)\n"
+        vcl_cerr << "I/O ERROR: bmcsd_match_attribute::b_read(vsl_b_istream&)\n"
              << "           Unknown version number "<< ver << '\n';
     is.is().clear(vcl_ios::badbit); // Set an unrecoverable IO error on stream
     return;
@@ -148,7 +148,7 @@ b_read(vsl_b_istream &is)
 
 //: Return IO version number;
 short 
-mw_match_attribute::
+bmcsd_match_attribute::
 version() const
 {
   return 1;
@@ -157,7 +157,7 @@ version() const
 
 //: Binary save self to stream.
 void 
-mw_attributed_object::
+bmcsd_attributed_object::
 b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
@@ -168,7 +168,7 @@ b_write(vsl_b_ostream &os) const
 
 //: Binary load self from stream.
 void 
-mw_attributed_object::
+bmcsd_attributed_object::
 b_read(vsl_b_istream &is)
 {
   if (!is) return;
@@ -185,7 +185,7 @@ b_read(vsl_b_istream &is)
     break;
 
     default:
-        vcl_cerr << "I/O ERROR: mw_attributed_object::b_read(vsl_b_istream&)\n"
+        vcl_cerr << "I/O ERROR: bmcsd_attributed_object::b_read(vsl_b_istream&)\n"
              << "           Unknown version number "<< ver << '\n';
     is.is().clear(vcl_ios::badbit); // Set an unrecoverable IO error on stream
     return;
@@ -194,7 +194,7 @@ b_read(vsl_b_istream &is)
 
 //: Return IO version number;
 short 
-mw_attributed_object::
+bmcsd_attributed_object::
 version() const
 {
   return 1;
@@ -202,7 +202,7 @@ version() const
 
 //: Print an ascii summary to the stream
 void 
-mw_attributed_object::
+bmcsd_attributed_object::
 print_summary(vcl_ostream &os) const
 {
   os << "[" << is_a() << ": " << 
@@ -212,14 +212,14 @@ print_summary(vcl_ostream &os) const
 
 //: Return a platform independent string identifying the class
 vcl_string 
-mw_attributed_object::
+bmcsd_attributed_object::
 is_a() const 
-{return "mw_attributed_object";}
+{return "bmcsd_attributed_object";}
 
 
 //: Binary save self to stream.
 void 
-mw_discrete_corresp::
+bmcsd_discrete_corresp::
 b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
@@ -229,13 +229,13 @@ b_write(vsl_b_ostream &os) const
   n = n1();
   vsl_b_write(os, n);
   for (unsigned i=0; i < corresp_.size(); ++i) {
-    vsl_b_write<mw_attributed_object>(os, corresp_[i]);
+    vsl_b_write<bmcsd_attributed_object>(os, corresp_[i]);
   }
 }
 
 //: Binary load self from stream.
 void 
-mw_discrete_corresp::
+bmcsd_discrete_corresp::
 b_read(vsl_b_istream &is)
 {
   if (!is) return;
@@ -251,7 +251,7 @@ b_read(vsl_b_istream &is)
       vsl_b_read(is, size);
       corresp_.resize(size);
       for (unsigned i=0; i < size; ++i)
-        vsl_b_read<mw_attributed_object>(is, corresp_[i]);
+        vsl_b_read<bmcsd_attributed_object>(is, corresp_[i]);
     } break;
 
     case 2: {
@@ -261,7 +261,7 @@ b_read(vsl_b_istream &is)
       assert (n0 != 0 && n1 != 0);
       set_size(n0-1, n1-1);
       for (unsigned i=0; i < n0; ++i)
-        vsl_b_read<mw_attributed_object>(is, corresp_[i]);
+        vsl_b_read<bmcsd_attributed_object>(is, corresp_[i]);
     } break;
     case 3: {
       unsigned long cksum;
@@ -273,11 +273,11 @@ b_read(vsl_b_istream &is)
       assert (n0 != 0 && n1 != 0);
       set_size(n0-1, n1-1);
       for (unsigned i=0; i < n0; ++i)
-        vsl_b_read<mw_attributed_object>(is, corresp_[i]);
+        vsl_b_read<bmcsd_attributed_object>(is, corresp_[i]);
     } break;
 
     default:
-        vcl_cerr << "I/O ERROR: mw_discrete_corresp::b_read(vsl_b_istream&)\n"
+        vcl_cerr << "I/O ERROR: bmcsd_discrete_corresp::b_read(vsl_b_istream&)\n"
              << "           Unknown version number "<< ver << '\n';
     is.is().clear(vcl_ios::badbit); // Set an unrecoverable IO error on stream
     return;
@@ -286,7 +286,7 @@ b_read(vsl_b_istream &is)
 
 //: Return IO version number;
 short 
-mw_discrete_corresp::
+bmcsd_discrete_corresp::
 version() const
 {
   return 3;
@@ -294,7 +294,7 @@ version() const
 
 //: Print an ascii summary to the stream
 void 
-mw_discrete_corresp::
+bmcsd_discrete_corresp::
 print_summary(vcl_ostream &os) const
 {
   os << *this;
@@ -302,17 +302,17 @@ print_summary(vcl_ostream &os) const
 
 //: Return a platform independent string identifying the class
 vcl_string 
-mw_discrete_corresp::
+bmcsd_discrete_corresp::
 is_a() const 
-{return "mw_discrete_corresp";}
+{return "bmcsd_discrete_corresp";}
 
 //: remove every element whose cost is above threshold
 //\todo test
-void mw_discrete_corresp::
+void bmcsd_discrete_corresp::
 threshold_by_cost(double max_cost)
 {
   for (unsigned i=0; i < corresp_.size(); ++i) {
-    vcl_list< mw_attributed_object >::iterator  itr;
+    vcl_list< bmcsd_attributed_object >::iterator  itr;
     for (itr = corresp_[i].begin(); itr != corresp_[i].end();) {
       if (itr->cost_ > max_cost)
         itr = corresp_[i].erase(itr);
@@ -323,11 +323,11 @@ threshold_by_cost(double max_cost)
 }
 
 //: remove every element whose cost is below or equal to threshold
-void mw_discrete_corresp::
+void bmcsd_discrete_corresp::
 threshold_by_cost_lteq(double min_cost)
 {
   for (unsigned i=0; i < corresp_.size(); ++i) {
-    vcl_list< mw_attributed_object >::iterator  itr;
+    vcl_list< bmcsd_attributed_object >::iterator  itr;
     for (itr = corresp_[i].begin(); itr != corresp_[i].end();) {
       if (itr->cost_ <= min_cost)
         itr = corresp_[i].erase(itr);
@@ -337,7 +337,7 @@ threshold_by_cost_lteq(double min_cost)
   }
 }
 
-void mw_discrete_corresp::
+void bmcsd_discrete_corresp::
 sort()
 {
   for (unsigned i=0; i < corresp_.size(); ++i) {
@@ -346,8 +346,8 @@ sort()
 }
 
 //: \param[in] gt : ground-truth correspondences
-void mw_discrete_corresp::
-compare_and_print( const mw_discrete_corresp *gt) const
+void bmcsd_discrete_corresp::
+compare_and_print( const bmcsd_discrete_corresp *gt) const
 {
   assert(this->size() == gt->size());
 
@@ -374,7 +374,7 @@ compare_and_print( const mw_discrete_corresp *gt) const
            found_gt_in_top_half=false, has_finite=false;
       unsigned ncorr_atual = 0;
       double corresp_i_size = (double)(corresp_[i].size());
-      vcl_list< mw_attributed_object >::const_iterator  itr;
+      vcl_list< bmcsd_attributed_object >::const_iterator  itr;
       for (itr = corresp_[i].begin(); itr != corresp_[i].end(); ++itr) {
         if (!vnl_math_isfinite(itr->cost_))
           continue;
@@ -385,8 +385,8 @@ compare_and_print( const mw_discrete_corresp *gt) const
         ++ncorr_atual;
 
 
-        vcl_list<mw_attributed_object>::const_iterator 
-          result = find_if(gt->corresp_[i].begin(), gt->corresp_[i].end(), mw_attributed_object_eq(itr->obj_)); 
+        vcl_list<bmcsd_attributed_object>::const_iterator 
+          result = find_if(gt->corresp_[i].begin(), gt->corresp_[i].end(), bmcsd_attributed_object_eq(itr->obj_)); 
 
         if (result != gt->corresp_[i].end()) {
           if (vnl_math_isfinite(result->cost_)) {
@@ -442,21 +442,21 @@ compare_and_print( const mw_discrete_corresp *gt) const
 // means it has finite cost. 
 //
 // TODO: test further
-void mw_discrete_corresp::
-percentage_of_matches_above_truth(unsigned &n, unsigned &n_valid, const mw_discrete_corresp *gt) const
+void bmcsd_discrete_corresp::
+percentage_of_matches_above_truth(unsigned &n, unsigned &n_valid, const bmcsd_discrete_corresp *gt) const
 {
 //for each object p1 in image 1
 
   n = n_valid = 0;
   for (unsigned p1_idx=0; p1_idx < this->corresp_.size(); ++p1_idx) {
-    vcl_list<mw_attributed_object>::const_iterator  result;
+    vcl_list<bmcsd_attributed_object>::const_iterator  result;
     result = this->find_right_corresp_mincost(p1_idx,gt);
     if (result != this->corresp_[p1_idx].end()) { // found
 
       //  For each wrong correspondence
       //    If its cost is greater than result->cost_, n++;
 
-      vcl_list< mw_attributed_object >::const_iterator  itr = corresp_[p1_idx].begin();
+      vcl_list< bmcsd_attributed_object >::const_iterator  itr = corresp_[p1_idx].begin();
       for (; itr != corresp_[p1_idx].end(); ++itr) {
         if (vnl_math_isfinite(itr->cost_) && itr->obj_ != result->obj_) {
           ++n_valid;
@@ -477,12 +477,12 @@ percentage_of_matches_above_truth(unsigned &n, unsigned &n_valid, const mw_discr
 // If the list of candidates is non-empty, and gt is empty, then we do not
 // count.
 //
-void mw_discrete_corresp::
-number_of_pts1_with_gt_among_any_candidates(unsigned &n_w_gt, const mw_discrete_corresp *gt) const
+void bmcsd_discrete_corresp::
+number_of_pts1_with_gt_among_any_candidates(unsigned &n_w_gt, const bmcsd_discrete_corresp *gt) const
 {
   n_w_gt = 0;
   for (unsigned p1_idx=0; p1_idx < this->size(); ++p1_idx) {
-    vcl_list< mw_attributed_object >::const_iterator  itr;
+    vcl_list< bmcsd_attributed_object >::const_iterator  itr;
 
     // Special cases
     if (corresp_[p1_idx].empty()) {
@@ -492,8 +492,8 @@ number_of_pts1_with_gt_among_any_candidates(unsigned &n_w_gt, const mw_discrete_
       if (!gt->corresp_[p1_idx].empty()) {
         bool found=false;
         for (itr = corresp_[p1_idx].begin(); itr != corresp_[p1_idx].end() && !found; ++itr) {
-          vcl_list<mw_attributed_object>::const_iterator 
-            result = find_if(gt->corresp_[p1_idx].begin(), gt->corresp_[p1_idx].end(), mw_attributed_object_eq(itr->obj_)); 
+          vcl_list<bmcsd_attributed_object>::const_iterator 
+            result = find_if(gt->corresp_[p1_idx].begin(), gt->corresp_[p1_idx].end(), bmcsd_attributed_object_eq(itr->obj_)); 
 
           if (result != gt->corresp_[p1_idx].end()) {
             found = true;
@@ -508,26 +508,26 @@ number_of_pts1_with_gt_among_any_candidates(unsigned &n_w_gt, const mw_discrete_
 //: returns pointer to the right match (p2) having the lowest cost in gt
 // returned iterator is equal to corresp_[p1_idx].last() in case nothing was
 // found.
-vcl_list<mw_attributed_object>::const_iterator mw_discrete_corresp::
-find_right_corresp_mincost(unsigned p1_idx, const mw_discrete_corresp *gt) const
+vcl_list<bmcsd_attributed_object>::const_iterator bmcsd_discrete_corresp::
+find_right_corresp_mincost(unsigned p1_idx, const bmcsd_discrete_corresp *gt) const
 {
   // run through containing all the candidates of p1_idx
   // also appearing in the ground-truth.
 
   unsigned i = p1_idx;
-  vcl_list<mw_attributed_object>::const_iterator min_cost_itr = corresp_[i].end();
+  vcl_list<bmcsd_attributed_object>::const_iterator min_cost_itr = corresp_[i].end();
   double min_cost = vcl_numeric_limits<double>::infinity();
 
   if (gt->corresp_[i].empty())
     return min_cost_itr;
 
-  vcl_list< mw_attributed_object >::const_iterator  itr;
+  vcl_list< bmcsd_attributed_object >::const_iterator  itr;
   for (itr = corresp_[i].begin(); itr != corresp_[i].end(); ++itr) {
     if (!vnl_math_isfinite(itr->cost_))
       continue;
 
-    vcl_list<mw_attributed_object>::const_iterator 
-      result = find_if(gt->corresp_[i].begin(), gt->corresp_[i].end(), mw_attributed_object_eq(itr->obj_)); 
+    vcl_list<bmcsd_attributed_object>::const_iterator 
+      result = find_if(gt->corresp_[i].begin(), gt->corresp_[i].end(), bmcsd_attributed_object_eq(itr->obj_)); 
 
     if (result != gt->corresp_[i].end()) {
       if (vnl_math_isfinite(result->cost_)) {
@@ -555,24 +555,24 @@ find_right_corresp_mincost(unsigned p1_idx, const mw_discrete_corresp *gt) const
 //
 // \remarks: in the special case of an empty gt for p1_idx, return true
 //
-bool mw_discrete_corresp::
-is_gt_among_top5(unsigned p1_idx, const mw_discrete_corresp *gt) const
+bool bmcsd_discrete_corresp::
+is_gt_among_top5(unsigned p1_idx, const bmcsd_discrete_corresp *gt) const
 {
 
   unsigned i = p1_idx;
-  vcl_list<mw_attributed_object>::const_iterator min_cost_itr = corresp_[i].end();
+  vcl_list<bmcsd_attributed_object>::const_iterator min_cost_itr = corresp_[i].end();
 
   if (gt->corresp_[i].empty())
     return true;
 
   unsigned ncorr_atual = 0;
-  vcl_list< mw_attributed_object >::const_iterator  itr;
+  vcl_list< bmcsd_attributed_object >::const_iterator  itr;
   for (itr = corresp_[i].begin(); itr != corresp_[i].end() && ncorr_atual < 5; ++itr, ++ncorr_atual) {
     if (!vnl_math_isfinite(itr->cost_))
       continue;
 
-    vcl_list<mw_attributed_object>::const_iterator 
-      result = find_if(gt->corresp_[i].begin(), gt->corresp_[i].end(), mw_attributed_object_eq(itr->obj_)); 
+    vcl_list<bmcsd_attributed_object>::const_iterator 
+      result = find_if(gt->corresp_[i].begin(), gt->corresp_[i].end(), bmcsd_attributed_object_eq(itr->obj_)); 
 
     if (result != gt->corresp_[i].end()) {
       if (vnl_math_isfinite(result->cost_)) { 
@@ -586,7 +586,7 @@ is_gt_among_top5(unsigned p1_idx, const mw_discrete_corresp *gt) const
   return false;
 }
 
-void mw_discrete_corresp::
+void bmcsd_discrete_corresp::
 keep_only_unambiguous_max(double ratio, double lonely_threshold)
 {
   //  vcl_cout << "Using lowe's criterion with ratio " << ratio << vcl_endl;
@@ -596,7 +596,7 @@ keep_only_unambiguous_max(double ratio, double lonely_threshold)
     if ( sz == 0)
       continue;
 
-    mw_attributed_object attr = corresp_[i].back();
+    bmcsd_attributed_object attr = corresp_[i].back();
 
     if (sz == 1) {
       corresp_[i].clear();
@@ -608,7 +608,7 @@ keep_only_unambiguous_max(double ratio, double lonely_threshold)
 
     // sz >= 2
 
-    mw_attributed_object 
+    bmcsd_attributed_object 
       attr_second = *(--(--corresp_[i].end()));
 
     corresp_[i].clear();

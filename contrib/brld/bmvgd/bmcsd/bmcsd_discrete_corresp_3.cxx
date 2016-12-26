@@ -1,10 +1,10 @@
-#include "mw_discrete_corresp_3.h"
-#include <mw/mw_discrete_corresp_n.h> // just for conversion
-#include <mw/mw_util.h>
+#include "bmcsd_discrete_corresp_3.h"
+#include <mw/bmcsd_discrete_corresp_n.h> // just for conversion
+#include <mw/bmcsd_util.h>
 #include <vbl/io/vbl_io_sparse_array_3d.h>
 
-mw_discrete_corresp_3::
-mw_discrete_corresp_3 (unsigned npts0, unsigned npts1, unsigned npts2)
+bmcsd_discrete_corresp_3::
+bmcsd_discrete_corresp_3 (unsigned npts0, unsigned npts1, unsigned npts2)
   :
   n0_(npts0), 
   n1_(npts1), 
@@ -13,18 +13,18 @@ mw_discrete_corresp_3 (unsigned npts0, unsigned npts1, unsigned npts2)
 {
 }
 
-mw_discrete_corresp_3::
-mw_discrete_corresp_3 (const mw_discrete_corresp_n &cn)
+bmcsd_discrete_corresp_3::
+bmcsd_discrete_corresp_3 (const bmcsd_discrete_corresp_n &cn)
   :
   n0_(cn.n_[0]),
   n1_(cn.n_[1]),
   n2_(cn.n_[2]),
   hash_(3)
 {
-  vbl_sparse_array_base<mw_match_attribute,mw_ntuplet>::const_iterator p;
+  vbl_sparse_array_base<bmcsd_match_attribute,bmcsd_ntuplet>::const_iterator p;
 
   for (p = cn.l_.begin(); p != cn.l_.end(); ++p) {
-    const mw_ntuplet &tup = p->first;
+    const bmcsd_ntuplet &tup = p->first;
     l_.put(tup[0],tup[1],tup[2],p->second);
   }
 
@@ -32,7 +32,7 @@ mw_discrete_corresp_3 (const mw_discrete_corresp_n &cn)
     hash();
 }
 
-void mw_discrete_corresp_3::
+void bmcsd_discrete_corresp_3::
 set_size(unsigned npts0, unsigned npts1, unsigned npts2) 
 {  
   n0_=npts0; 
@@ -44,9 +44,9 @@ set_size(unsigned npts0, unsigned npts1, unsigned npts2)
   }
 }
 
-vcl_ostream&  operator<<(vcl_ostream& s, const mw_discrete_corresp_3 &c)
+vcl_ostream&  operator<<(vcl_ostream& s, const bmcsd_discrete_corresp_3 &c)
 {
-  s << "===========  mw_discrete_corresp_3 ===========\n";
+  s << "===========  bmcsd_discrete_corresp_3 ===========\n";
   s << "# of domain points: " << c.n0() << "," << c.n1() << "," << c.n2() << vcl_endl;
 
   unsigned  total_n_corresp= c.l_.count_nonempty();
@@ -54,7 +54,7 @@ vcl_ostream&  operator<<(vcl_ostream& s, const mw_discrete_corresp_3 &c)
   unsigned  max_domain_elts=5;
 
   unsigned n_finite=0, count =1;
-  vbl_sparse_array_3d<mw_match_attribute>::const_iterator p;
+  vbl_sparse_array_3d<bmcsd_match_attribute>::const_iterator p;
   for (p = c.l_.begin(); p != c.l_.end(); ++p,++count) {
     if (count <= max_domain_elts) {
       s   << '(' << (*p).first.first
@@ -79,17 +79,17 @@ vcl_ostream&  operator<<(vcl_ostream& s, const mw_discrete_corresp_3 &c)
   return s;
 }
 
-bool mw_discrete_corresp_3::
-equal(vbl_sparse_array_3d<mw_match_attribute> l1, vbl_sparse_array_3d<mw_match_attribute> l2)
+bool bmcsd_discrete_corresp_3::
+equal(vbl_sparse_array_3d<bmcsd_match_attribute> l1, vbl_sparse_array_3d<bmcsd_match_attribute> l2)
 {
   //same number of non zero elements?
   if (l1.count_nonempty() != l2.count_nonempty())
     return false;
   else {
     //check every key/data pair, require same order too.
-    vbl_sparse_array_3d<mw_match_attribute>::const_iterator s = l2.begin();
-    vbl_sparse_array_3d<mw_match_attribute>::const_iterator r;
-    //N.B. relies on sensible == operator for mw_match_attribute
+    vbl_sparse_array_3d<bmcsd_match_attribute>::const_iterator s = l2.begin();
+    vbl_sparse_array_3d<bmcsd_match_attribute>::const_iterator r;
+    //N.B. relies on sensible == operator for bmcsd_match_attribute
     for (r = l1.begin(); r != l1.end(); ++r){
       if (!((*s).first == (*r).first) || !((*s).second == (*r).second))
         return false;
@@ -100,8 +100,8 @@ equal(vbl_sparse_array_3d<mw_match_attribute> l1, vbl_sparse_array_3d<mw_match_a
   return true;
 }
 
-void mw_discrete_corresp_3::
-number_of_correct_triplets(unsigned &n_correct, unsigned &n_valid, const mw_discrete_corresp_3 *gt) const
+void bmcsd_discrete_corresp_3::
+number_of_correct_triplets(unsigned &n_correct, unsigned &n_valid, const bmcsd_discrete_corresp_3 *gt) const
 {
   vcl_vector<bool> p0s, p1s, p2s;
 
@@ -110,7 +110,7 @@ number_of_correct_triplets(unsigned &n_correct, unsigned &n_valid, const mw_disc
   n_valid   = 0;
   n_correct = 0;
 
-  vbl_sparse_array_3d<mw_match_attribute>::const_iterator p;
+  vbl_sparse_array_3d<bmcsd_match_attribute>::const_iterator p;
   for (p = l_.begin(); p != l_.end(); ++p) {
     // if the triplet is finite 
     // and the first point has a ground-truth triplet
@@ -125,8 +125,8 @@ number_of_correct_triplets(unsigned &n_correct, unsigned &n_valid, const mw_disc
   }
 }
 
-void mw_discrete_corresp_3::
-compare_and_print( const mw_discrete_corresp_3 *gt) const
+void bmcsd_discrete_corresp_3::
+compare_and_print( const bmcsd_discrete_corresp_3 *gt) const
 {
   assert(this->n0() == gt->n0());
   assert(this->n1() == gt->n1());
@@ -172,7 +172,7 @@ compare_and_print( const mw_discrete_corresp_3 *gt) const
 // p0s[i] == true if i is part of some triplet (i,a,b) with finite cost
 // p1s[i] == true if i is part of some triplet (a,b,i) with finite cost
 // p2s[i] == true if i is part of some triplet (a,b,i) with finite cost
-void mw_discrete_corresp_3::
+void bmcsd_discrete_corresp_3::
 participating_points(vcl_vector<bool> &p0s,vcl_vector<bool> &p1s,vcl_vector<bool> &p2s) const
 {
   // resize
@@ -180,7 +180,7 @@ participating_points(vcl_vector<bool> &p0s,vcl_vector<bool> &p1s,vcl_vector<bool
   p1s.resize(n1_,false);
   p2s.resize(n2_,false);
 
-  vbl_sparse_array_3d<mw_match_attribute>::const_iterator p;
+  vbl_sparse_array_3d<bmcsd_match_attribute>::const_iterator p;
   for (p = l_.begin(); p != l_.end(); ++p) {
     if (vnl_math_isfinite(p->second.cost_)) {
       p0s[p->first.first] = true;
@@ -194,7 +194,7 @@ participating_points(vcl_vector<bool> &p0s,vcl_vector<bool> &p1s,vcl_vector<bool
 
 //: Return IO version number;
 short 
-mw_discrete_corresp_3::
+bmcsd_discrete_corresp_3::
 version() const
 {
   return 1;
@@ -202,22 +202,22 @@ version() const
 
 //: Print an ascii summary to the stream
 void 
-mw_discrete_corresp_3::
+bmcsd_discrete_corresp_3::
 print_summary(vcl_ostream &os) const
 {
   os << *this;
 }
 
 //: Return a platform independent string identifying the class
-vcl_string mw_discrete_corresp_3::
+vcl_string bmcsd_discrete_corresp_3::
 is_a() const 
 { 
-  return "mw_discrete_corresp_3";
+  return "bmcsd_discrete_corresp_3";
 }
 
 //: Binary save self to stream.
 void 
-mw_discrete_corresp_3::
+bmcsd_discrete_corresp_3::
 b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
@@ -225,12 +225,12 @@ b_write(vsl_b_ostream &os) const
   vsl_b_write(os, n1_); 
   vsl_b_write(os, n2_); 
 
-  vsl_b_write<mw_match_attribute>(os, l_); //:< TODO indicate template??
+  vsl_b_write<bmcsd_match_attribute>(os, l_); //:< TODO indicate template??
 }
 
 //: Binary load self from stream.
 void 
-mw_discrete_corresp_3::
+bmcsd_discrete_corresp_3::
 b_read(vsl_b_istream &is)
 {
   if (!is) return;
@@ -243,11 +243,11 @@ b_read(vsl_b_istream &is)
       vsl_b_read(is, n0_);
       vsl_b_read(is, n1_);
       vsl_b_read(is, n2_);
-      vsl_b_read<mw_match_attribute>(is, l_); //:< TODO indicate template?
+      vsl_b_read<bmcsd_match_attribute>(is, l_); //:< TODO indicate template?
     break;
 
     default:
-        vcl_cerr << "I/O ERROR: mw_discrete_corresp_3::b_read(vsl_b_istream&)\n"
+        vcl_cerr << "I/O ERROR: bmcsd_discrete_corresp_3::b_read(vsl_b_istream&)\n"
              << "           Unknown version number "<< ver << '\n';
     is.is().clear(vcl_ios::badbit); // Set an unrecoverable IO error on stream
     return;
@@ -255,7 +255,7 @@ b_read(vsl_b_istream &is)
 }
 
 void 
-mw_discrete_corresp_3::
+bmcsd_discrete_corresp_3::
 hash()
 {
   hash_[0].clear();
@@ -265,7 +265,7 @@ hash()
   hash_[1].resize(n1_);
   hash_[2].resize(n2_);
 
-  vbl_sparse_array_3d<mw_match_attribute>::const_iterator p;
+  vbl_sparse_array_3d<bmcsd_match_attribute>::const_iterator p;
   for (p = l_.begin(); p != l_.end(); ++p) {
     if (vnl_math_isfinite(p->second.cost_)) {
       unsigned const i = p->first.first;

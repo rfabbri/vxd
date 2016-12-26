@@ -1,14 +1,14 @@
-// This is brl/dbpro/dbmcs_stereo_views_sptr.h
-#ifndef dbmcs_stereo_views_sptr_h
-#define dbmcs_stereo_views_sptr_h
+// This is brl/dbpro/bmcsd_stereo_views_sptr.h
+#ifndef bmcsd_stereo_views_sptr_h
+#define bmcsd_stereo_views_sptr_h
 
 //:
 // \file
 
-class dbmcs_stereo_views;
+class bmcsd_stereo_views;
 
 #include <vbl/vbl_smart_ptr.h>
 
-typedef vbl_smart_ptr<dbmcs_stereo_views> dbmcs_stereo_views_sptr;
+typedef vbl_smart_ptr<bmcsd_stereo_views> bmcsd_stereo_views_sptr;
 
-#endif // dbmcs_stereo_views_sptr_h
+#endif // bmcsd_stereo_views_sptr_h

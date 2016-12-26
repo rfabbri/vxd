@@ -1,6 +1,6 @@
-// This is dbmcs_curve_3d_attributes.h
-#ifndef dbmcs_curve_3d_attributes_h
-#define dbmcs_curve_3d_attributes_h
+// This is bmcsd_curve_3d_attributes.h
+#ifndef bmcsd_curve_3d_attributes_h
+#define bmcsd_curve_3d_attributes_h
 //:
 //\file
 //\brief Attributes to a 3D curve
@@ -8,24 +8,24 @@
 //\date 08/31/2009 04:05:46 PM PDT
 //
 
-#include <mw/mw_util.h>
-#include <mw/dbmcs_view_set.h>
-#include <mw/dbmcs_stereo_views_sptr.h>
+#include <mw/bmcsd_util.h>
+#include <mw/bmcsd_view_set.h>
+#include <mw/bmcsd_stereo_views_sptr.h>
 #include <vsl/vsl_binary_io.h>
 
-class dbmcs_curve_3d_attributes {
+class bmcsd_curve_3d_attributes {
 public:
-  dbmcs_curve_3d_attributes()
+  bmcsd_curve_3d_attributes()
     :
       total_support_ (static_cast<unsigned>(-1)),
       i0_(static_cast<unsigned>(-1)),
       i1_(static_cast<unsigned>(-1))
   {
   }
-  void set_views(const dbmcs_stereo_views_sptr &v) { v_ = v; }
+  void set_views(const bmcsd_stereo_views_sptr &v) { v_ = v; }
 
   //: the views it was reconstructed from.
-  dbmcs_stereo_views_sptr v_;
+  bmcsd_stereo_views_sptr v_;
 
   //: the inlier views when available.
   vcl_vector<unsigned> inlier_views_;
@@ -42,7 +42,7 @@ public:
     i1_ = i1;
   }
 
-  bool operator==(const dbmcs_curve_3d_attributes &o) const {
+  bool operator==(const bmcsd_curve_3d_attributes &o) const {
     return *v_ == *o.v_ && inlier_views_ == o.inlier_views_
       && o.i0_ == i0_ && o.i1_ == i1_ && o.total_support_ == total_support_;
   }
@@ -55,28 +55,28 @@ public:
   //: Print an ascii summary to the stream
   void print_summary(vcl_ostream &os) const;
 
-  vcl_string is_a() const { return "dbmcs_curve_3d_attributes"; }
+  vcl_string is_a() const { return "bmcsd_curve_3d_attributes"; }
 private:
   unsigned i0_;
   unsigned i1_;
 };
 
 //: Binary save
-inline void vsl_b_write(vsl_b_ostream &os, const dbmcs_curve_3d_attributes &p)
+inline void vsl_b_write(vsl_b_ostream &os, const bmcsd_curve_3d_attributes &p)
 {
   p.b_write(os);
 }
   
 //: Binary read
-inline void vsl_b_read(vsl_b_istream &is,  dbmcs_curve_3d_attributes &p)
+inline void vsl_b_read(vsl_b_istream &is,  bmcsd_curve_3d_attributes &p)
 {
   p.b_read(is);
 }
 
-inline void vsl_print_summary(vcl_ostream &os, const dbmcs_curve_3d_attributes &p)
+inline void vsl_print_summary(vcl_ostream &os, const bmcsd_curve_3d_attributes &p)
 {
   p.print_summary(os);
 }
 
 
-#endif // dbmcs_curve_3d_attributes_h
+#endif // bmcsd_curve_3d_attributes_h

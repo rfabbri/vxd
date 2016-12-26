@@ -19,27 +19,27 @@ include_directories( ${lems_SOURCE_DIR}/contrib/rfabbri )
 
 # Personal Multiview Lib
 
-set( mw_sources
-   mw_util.hxx       mw_util_defs.cxx mw_util.h
-   mw_curves.cxx      mw_curves.h
-   mw_subpixel_point_set.cxx mw_subpixel_point_set.h
-   mw_epi_interceptor.cxx mw_epi_interceptor.h
-   mw_intersection_sets.cxx mw_intersection_sets.h
-   mw_discrete_corresp.cxx      mw_discrete_corresp.h
-   mw_discrete_corresp_3.cxx      mw_discrete_corresp_3.h
-   mw_discrete_corresp_n.cxx      mw_discrete_corresp_n.h
-   mw_dist.cxx       mw_dist.h
-   dbmcs_view_set.cxx dbmcs_view_set.h dbmcs_stereo_views_sptr.h 
-   dbmcs_curve_3d_attributes.cxx dbmcs_curve_3d_attributes.h 
-   dbmcs_curve_3d_sketch.cxx dbmcs_curve_3d_sketch.h 
+set( bmcsd_sources
+   bmcsd_util.hxx       bmcsd_util_defs.cxx bmcsd_util.h
+   bmcsd_curves.cxx      bmcsd_curves.h
+   bmcsd_subpixel_point_set.cxx bmcsd_subpixel_point_set.h
+   bmcsd_epi_interceptor.cxx bmcsd_epi_interceptor.h
+   bmcsd_intersection_sets.cxx bmcsd_intersection_sets.h
+   bmcsd_discrete_corresp.cxx      bmcsd_discrete_corresp.h
+   bmcsd_discrete_corresp_3.cxx      bmcsd_discrete_corresp_3.h
+   bmcsd_discrete_corresp_n.cxx      bmcsd_discrete_corresp_n.h
+   bmcsd_dist.cxx       bmcsd_dist.h
+   bmcsd_view_set.cxx bmcsd_view_set.h bmcsd_stereo_views_sptr.h 
+   bmcsd_curve_3d_attributes.cxx bmcsd_curve_3d_attributes.h 
+   bmcsd_curve_3d_sketch.cxx bmcsd_curve_3d_sketch.h 
 )
 
-aux_source_directory(Templates mw_sources)
+aux_source_directory(Templates bmcsd_sources)
 aux_source_directory(Templates bvis1_sources)
 
-add_library(mw ${mw_sources})
+add_library(mw ${bmcsd_sources})
 
-target_link_libraries(mw vpgl dbsol_algo dbnl vil dbul vbl_io)
+target_link_libraries(mw vpgl bsold_algo bnld vil buld vbl_io)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)

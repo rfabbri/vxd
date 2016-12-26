@@ -1,6 +1,6 @@
-// This is mw_discrete_corresp.h
-#ifndef mw_discrete_corresp_h
-#define mw_discrete_corresp_h
+// This is bmcsd_discrete_corresp.h
+#ifndef bmcsd_discrete_corresp_h
+#define bmcsd_discrete_corresp_h
 //:
 //\file
 //\brief Data structure representing correspondence between two sets of objects
@@ -19,27 +19,27 @@
 
 class dborl_exp_stat;
 
-struct mw_match_attribute {
+struct bmcsd_match_attribute {
 public:
-   mw_match_attribute(bool isnull=false, double cost=0)
+   bmcsd_match_attribute(bool isnull=false, double cost=0)
     :
      null_(isnull),
      cost_(cost)
    {
    }
 
-   ~mw_match_attribute() {}
+   ~bmcsd_match_attribute() {}
 
   double cost() const { return cost_; }
 
   //: Equality test
-  inline bool operator==(mw_match_attribute const &that) const
+  inline bool operator==(bmcsd_match_attribute const &that) const
   { 
     return (null_ == true && that.null_ == true) || (cost_ == that.cost_ && null_ == that.null_);
   }
 
   //: Cost comparison test
-  inline bool operator<(mw_match_attribute const &that) const
+  inline bool operator<(bmcsd_match_attribute const &that) const
   { 
     return cost_ < that.cost_;
   }
@@ -60,7 +60,7 @@ public:
 
   vcl_string is_a() const;
 
-  friend vcl_ostream&  operator<<(vcl_ostream& s, const mw_match_attribute &c);
+  friend vcl_ostream&  operator<<(vcl_ostream& s, const bmcsd_match_attribute &c);
 
 public:
    bool null_;
@@ -73,35 +73,35 @@ public:
 };
 
 //: Binary save vnl_my_class to stream.
-inline void vsl_b_write(vsl_b_ostream &os, const mw_match_attribute & v)
+inline void vsl_b_write(vsl_b_ostream &os, const bmcsd_match_attribute & v)
 {
   v.b_write(os);
 }
 
 //: Binary load vnl_my_class from stream.
-inline void vsl_b_read(vsl_b_istream &is, mw_match_attribute & v)
+inline void vsl_b_read(vsl_b_istream &is, bmcsd_match_attribute & v)
 {
   v.b_read(is);
 }
 
-inline void vsl_print_summary(vcl_ostream &os, const mw_match_attribute &p)
+inline void vsl_print_summary(vcl_ostream &os, const bmcsd_match_attribute &p)
 {
   p.print_summary(os);
 }
 
-//: This is to be used within the mw_discrete_corresp class;
-struct mw_attributed_object : public mw_match_attribute {
+//: This is to be used within the bmcsd_discrete_corresp class;
+struct bmcsd_attributed_object : public bmcsd_match_attribute {
 public:
-  mw_attributed_object() { }
+  bmcsd_attributed_object() { }
 
-  mw_attributed_object(unsigned obj_idx, bool isnull=false, double cost=0)
+  bmcsd_attributed_object(unsigned obj_idx, bool isnull=false, double cost=0)
    :
-    mw_match_attribute(isnull, cost),
+    bmcsd_match_attribute(isnull, cost),
     obj_(obj_idx)
   {
   }
 
-  ~mw_attributed_object() {}
+  ~bmcsd_attributed_object() {}
   
   //: the id of the stored object
   unsigned id() const { return obj_; }
@@ -110,13 +110,13 @@ public:
   unsigned obj() const { return obj_; }
 
   //: Equality test
-  inline bool operator==(mw_attributed_object const &that) const
+  inline bool operator==(bmcsd_attributed_object const &that) const
   { 
     return (null_ == true && that.null_ == true) || (obj_ == that.obj_  && cost_ == that.cost_ && null_ == that.null_);
   }
 
   //: Cost comparison test
-  inline bool operator<(mw_attributed_object const &that) const
+  inline bool operator<(bmcsd_attributed_object const &that) const
   { 
     return cost_ < that.cost_;
   }
@@ -136,7 +136,7 @@ public:
   //: Print an ascii summary to the stream
   void print_summary(vcl_ostream &os) const;
 
-  friend vcl_ostream&  operator<<(vcl_ostream& s, const mw_attributed_object &c);
+  friend vcl_ostream&  operator<<(vcl_ostream& s, const bmcsd_attributed_object &c);
 
   vcl_string is_a() const;
 
@@ -144,26 +144,26 @@ public:
    unsigned obj_; //:< objects are represented by some arbitrary numbering
 };
 
-class mw_attributed_object_eq : public vcl_unary_function<mw_attributed_object_eq, bool> {
+class bmcsd_attributed_object_eq : public vcl_unary_function<bmcsd_attributed_object_eq, bool> {
   unsigned p_;
 public:
-  explicit mw_attributed_object_eq(const unsigned pp) : p_(pp) { }; 
-  bool operator() (const mw_attributed_object &e) const { return e.obj_ == p_; }
+  explicit bmcsd_attributed_object_eq(const unsigned pp) : p_(pp) { }; 
+  bool operator() (const bmcsd_attributed_object &e) const { return e.obj_ == p_; }
 };
 
 //: Binary save vnl_my_class to stream.
-inline void vsl_b_write(vsl_b_ostream &os, const mw_attributed_object & v)
+inline void vsl_b_write(vsl_b_ostream &os, const bmcsd_attributed_object & v)
 {
   v.b_write(os);
 }
 
 //: Binary load vnl_my_class from stream.
-inline void vsl_b_read(vsl_b_istream &is, mw_attributed_object & v)
+inline void vsl_b_read(vsl_b_istream &is, bmcsd_attributed_object & v)
 {
   v.b_read(is);
 }
 
-inline void vsl_print_summary(vcl_ostream &os, const mw_attributed_object &p)
+inline void vsl_print_summary(vcl_ostream &os, const bmcsd_attributed_object &p)
 {
   p.print_summary(os);
 }
@@ -179,21 +179,21 @@ inline void vsl_print_summary(vcl_ostream &os, const mw_attributed_object &p)
 // can be anything having an id. Each object can be a single point, or a SIFT
 // point, or a curve fragment. Anything goes.
 //
-struct mw_discrete_corresp {
+struct bmcsd_discrete_corresp {
 public:
-  typedef vcl_list< mw_attributed_object > one_corresp_list;
-  typedef vcl_list< mw_attributed_object >::iterator one_corresp_list_iter;
-  typedef vcl_list< mw_attributed_object >::const_iterator one_corresp_list_const_iter;
-  typedef vcl_vector < vcl_list< mw_attributed_object > > corresp_data;
+  typedef vcl_list< bmcsd_attributed_object > one_corresp_list;
+  typedef vcl_list< bmcsd_attributed_object >::iterator one_corresp_list_iter;
+  typedef vcl_list< bmcsd_attributed_object >::const_iterator one_corresp_list_const_iter;
+  typedef vcl_vector < vcl_list< bmcsd_attributed_object > > corresp_data;
 
-  mw_discrete_corresp(unsigned num_objs0, unsigned num_objs1) 
+  bmcsd_discrete_corresp(unsigned num_objs0, unsigned num_objs1) 
      :
      corresp_(num_objs0+1),
      num_counterdomain_(num_objs1+1),
      cksum_(num_objs0+2*num_objs1) // arbitrary hash.
   { }
-  mw_discrete_corresp() {}
-  ~mw_discrete_corresp() {}
+  bmcsd_discrete_corresp() {}
+  ~bmcsd_discrete_corresp() {}
 
   void set_size(unsigned num_objs0, unsigned num_objs1) 
   { corresp_.resize(num_objs0+1); num_counterdomain_ = num_objs1+1; }
@@ -204,8 +204,8 @@ public:
   unsigned long checksum() const {return cksum_; }
 
   //: adds object, testing if is unique, and also resize corresp. list if needed
-  bool add_unique(const mw_attributed_object &e, unsigned i, 
-      vcl_list<mw_attributed_object>::iterator *itr);
+  bool add_unique(const bmcsd_attributed_object &e, unsigned i, 
+      vcl_list<bmcsd_attributed_object>::iterator *itr);
 
   void threshold_by_cost(double cost);
   void threshold_by_cost_lteq(double cost);
@@ -219,7 +219,7 @@ public:
     for (unsigned i=0; i < n0(); ++i) {
       if (corresp_[i].empty())
         continue;
-      mw_attributed_object attr;
+      bmcsd_attributed_object attr;
       if (keep_max)
         attr = corresp_[i].back();
       else
@@ -267,23 +267,23 @@ public:
 
   // Functions to be moved to algo ----------------------------------------
 
-  vcl_list<mw_attributed_object>::const_iterator 
-  find_right_corresp_mincost(unsigned p1_idx, const mw_discrete_corresp *gt) const;
+  vcl_list<bmcsd_attributed_object>::const_iterator 
+  find_right_corresp_mincost(unsigned p1_idx, const bmcsd_discrete_corresp *gt) const;
 
   void 
-  percentage_of_matches_above_truth(unsigned &n, unsigned &n_valid, const mw_discrete_corresp *gt) const;
+  percentage_of_matches_above_truth(unsigned &n, unsigned &n_valid, const bmcsd_discrete_corresp *gt) const;
 
   void
-  number_of_pts1_with_gt_among_any_candidates(unsigned &n_w_gt, const mw_discrete_corresp *gt) const;
+  number_of_pts1_with_gt_among_any_candidates(unsigned &n_w_gt, const bmcsd_discrete_corresp *gt) const;
 
-  bool is_gt_among_top5(unsigned p1_idx, const mw_discrete_corresp *gt) const;
+  bool is_gt_among_top5(unsigned p1_idx, const bmcsd_discrete_corresp *gt) const;
 
   //: \todo functional access
 
-  friend vcl_ostream&  operator<<(vcl_ostream& s, const mw_discrete_corresp &c);
+  friend vcl_ostream&  operator<<(vcl_ostream& s, const bmcsd_discrete_corresp &c);
 
   //: Equality test
-  inline bool operator==(mw_discrete_corresp const &that) const
+  inline bool operator==(bmcsd_discrete_corresp const &that) const
   { return corresp_ == that.corresp_; }
 
   // I/O ------------------------------------------------------------------
@@ -319,7 +319,7 @@ public:
                         vcl_mem_fun_ref(&one_corresp_list::empty )); 
   }
 
-  void compare_and_print( const mw_discrete_corresp *gt) const;
+  void compare_and_print( const bmcsd_discrete_corresp *gt) const;
 
 public:
    corresp_data corresp_;
@@ -329,15 +329,15 @@ private:
 };
 
 //: Binary save vnl_my_class to stream.
-inline void vsl_b_write(vsl_b_ostream &os, const mw_discrete_corresp & v)
+inline void vsl_b_write(vsl_b_ostream &os, const bmcsd_discrete_corresp & v)
 {
   v.b_write(os);
 }
 
 //: Binary load vnl_my_class from stream.
-inline void vsl_b_read(vsl_b_istream &is, mw_discrete_corresp & v)
+inline void vsl_b_read(vsl_b_istream &is, bmcsd_discrete_corresp & v)
 {
   v.b_read(is);
 }
 
-#endif // mw_discrete_corresp_h
+#endif // bmcsd_discrete_corresp_h

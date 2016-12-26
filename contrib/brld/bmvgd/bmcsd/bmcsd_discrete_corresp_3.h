@@ -1,6 +1,6 @@
-// This is mw_discrete_corresp_3.h
-#ifndef mw_discrete_corresp_3_h
-#define mw_discrete_corresp_3_h
+// This is bmcsd_discrete_corresp_3.h
+#ifndef bmcsd_discrete_corresp_3_h
+#define bmcsd_discrete_corresp_3_h
 //:
 //\file
 //\brief Class for storing trinocular correspondences.
@@ -10,29 +10,29 @@
 
 
 #include <vbl/vbl_sparse_array_3d.h>
-#include <mw/mw_discrete_corresp.h>
+#include <mw/bmcsd_discrete_corresp.h>
 #include <vcl_set.h>
 #include <vcl_algorithm.h>
 #include <assert.h>
 
-class mw_discrete_corresp_n; // just for conversion constructor
+class bmcsd_discrete_corresp_n; // just for conversion constructor
 
 typedef vbl_triple<unsigned,unsigned,unsigned> triplet_uuu;
 
 //: 
 // In the future, we might move stuff to a base class and this might be a
 // specialization.
-class mw_discrete_corresp_3 {
+class bmcsd_discrete_corresp_3 {
 public:
-  mw_discrete_corresp_3 (unsigned npts0, unsigned npts1, unsigned npts2);
+  bmcsd_discrete_corresp_3 (unsigned npts0, unsigned npts1, unsigned npts2);
   
-  mw_discrete_corresp_3 (const mw_discrete_corresp_n &cn);
+  bmcsd_discrete_corresp_3 (const bmcsd_discrete_corresp_n &cn);
 
-  mw_discrete_corresp_3(): hash_(3) {}
+  bmcsd_discrete_corresp_3(): hash_(3) {}
 
   void set_size(unsigned npts0, unsigned npts1, unsigned npts2);
 
-  ~mw_discrete_corresp_3() {}
+  ~bmcsd_discrete_corresp_3() {}
 
   unsigned n0() const { return n0_; }
   unsigned n1() const { return n1_; }
@@ -47,7 +47,7 @@ public:
 
   void 
   number_of_correct_triplets(
-      unsigned &n_correct, unsigned &n_valid, const mw_discrete_corresp_3 *gt) const;
+      unsigned &n_correct, unsigned &n_valid, const bmcsd_discrete_corresp_3 *gt) const;
 
   unsigned size() const {return l_.count_nonempty();}
 
@@ -72,10 +72,10 @@ public:
       vcl_set_intersection(s1.begin(),s1.end(), s2.begin(), s2.end(), inserter(t, t.begin()));
     }
 
-  mw_match_attribute & operator() (unsigned i, unsigned j, unsigned k)
+  bmcsd_match_attribute & operator() (unsigned i, unsigned j, unsigned k)
     {return l_(i,j,k);}
 
-  const mw_match_attribute & operator() (unsigned i, unsigned j, unsigned k) const
+  const bmcsd_match_attribute & operator() (unsigned i, unsigned j, unsigned k) const
     {return l_(i,j,k);}
 
   /*
@@ -83,24 +83,24 @@ public:
 
   // Functions to be moved to algo ----------------------------------------
 
-  vcl_list<mw_attributed_point>::const_iterator 
-  find_right_corresp_mincost(unsigned p1_idx, const mw_discrete_corresp *gt) const;
+  vcl_list<bmcsd_attributed_point>::const_iterator 
+  find_right_corresp_mincost(unsigned p1_idx, const bmcsd_discrete_corresp *gt) const;
 
   void 
-  percentage_of_matches_above_truth(unsigned &n, unsigned &n_valid, const mw_discrete_corresp *gt) const;
+  percentage_of_matches_above_truth(unsigned &n, unsigned &n_valid, const bmcsd_discrete_corresp *gt) const;
 
   void
-  number_of_pts1_with_gt_among_any_candidates(unsigned &n_w_gt, const mw_discrete_corresp *gt) const;
+  number_of_pts1_with_gt_among_any_candidates(unsigned &n_w_gt, const bmcsd_discrete_corresp *gt) const;
 
   bool 
-  is_gt_among_top5(unsigned p1_idx, const mw_discrete_corresp *gt) const;
+  is_gt_among_top5(unsigned p1_idx, const bmcsd_discrete_corresp *gt) const;
 
   //: \todo functional access
 
   */
 
   //: Equality test
-  inline bool operator==(mw_discrete_corresp_3 const &that) const
+  inline bool operator==(bmcsd_discrete_corresp_3 const &that) const
   { return equal(l_, that.l_) && n0_ == that.n0_ && n1_ == that.n1_ && n2_ == that.n2_; }
 
   // I/O ------------------------------------------------------------------
@@ -117,9 +117,9 @@ public:
   //: Return a platform independent string identifying the class
   vcl_string is_a() const;
 
-  void compare_and_print( const mw_discrete_corresp_3 *gt) const;
+  void compare_and_print( const bmcsd_discrete_corresp_3 *gt) const;
 
-  friend vcl_ostream&  operator<<(vcl_ostream& s, const mw_discrete_corresp_3 &c);
+  friend vcl_ostream&  operator<<(vcl_ostream& s, const bmcsd_discrete_corresp_3 &c);
   
   //: Print an ascii summary to the stream
   void print_summary(vcl_ostream &os) const;
@@ -129,7 +129,7 @@ public:
   //: Corresp stored as sparse array for now. However, this sparse array doesn't
   // seem very good if you want to traverse only non-null elements row-wise,
   // column-wise, depth-wise etc.
-  vbl_sparse_array_3d<mw_match_attribute> l_;
+  vbl_sparse_array_3d<bmcsd_match_attribute> l_;
   unsigned n0_;
   unsigned n1_;
   unsigned n2_;
@@ -139,17 +139,17 @@ public:
   //  hash_[2][i] == set of triplets (*,*,i)
   vcl_vector<vcl_vector<vcl_set<triplet_uuu> > > hash_;
 protected:
-  static bool equal(vbl_sparse_array_3d<mw_match_attribute> l1, vbl_sparse_array_3d<mw_match_attribute> l2);
+  static bool equal(vbl_sparse_array_3d<bmcsd_match_attribute> l1, vbl_sparse_array_3d<bmcsd_match_attribute> l2);
 };
 
 //: Binary save vnl_my_class to stream.
-inline void vsl_b_write(vsl_b_ostream &os, const mw_discrete_corresp_3 & v)
+inline void vsl_b_write(vsl_b_ostream &os, const bmcsd_discrete_corresp_3 & v)
 {
   v.b_write(os);
 }
 
 //: Binary load vnl_my_class from stream.
-inline void vsl_b_read(vsl_b_istream &is, mw_discrete_corresp_3 & v)
+inline void vsl_b_read(vsl_b_istream &is, bmcsd_discrete_corresp_3 & v)
 {
   v.b_read(is);
 }
@@ -160,4 +160,4 @@ inline vcl_ostream&  operator<<(vcl_ostream& s, const triplet_uuu  &x)
   return s;
 }
 
-#endif // mw_discrete_corresp_3_h
+#endif // bmcsd_discrete_corresp_3_h

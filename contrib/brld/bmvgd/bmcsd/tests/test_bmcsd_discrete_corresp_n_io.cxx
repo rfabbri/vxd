@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
-#include <mw/mw_discrete_corresp_3.h>
-#include <mw/mw_discrete_corresp_n.h>
-#include <mw/algo/mw_discrete_corresp_algo.h>
+#include <mw/bmcsd_discrete_corresp_3.h>
+#include <mw/bmcsd_discrete_corresp_n.h>
+#include <mw/algo/bmcsd_discrete_corresp_algo.h>
 #include <vcl_limits.h>
 #include <vcl_set.h>
 #include <vnl/vnl_math.h>
@@ -15,10 +15,10 @@ static void test_discrete_corresp_n();
 
 
 
-//: Currently tests both IO and other functions of mw_discrete_corresp_3
+//: Currently tests both IO and other functions of bmcsd_discrete_corresp_3
 MAIN( test_discrete_corresp_n_io )
 {
-  START ("mw_discrete_corresp_n io");
+  START ("bmcsd_discrete_corresp_n io");
 
   test_discrete_corresp_n();
 
@@ -32,20 +32,20 @@ test_discrete_corresp_n()
   npts.push_back(7);
   npts.push_back(8);
   npts.push_back(8);
-  mw_discrete_corresp_n gt(npts);
+  bmcsd_discrete_corresp_n gt(npts);
   
-  mw_ntuplet tup(3);
+  bmcsd_ntuplet tup(3);
 
-  tup[0] = 1; tup[1] = 2; tup[2] = 3; gt.l_.put(tup,mw_match_attribute());
-  tup[0] = 2; tup[1] = 2; tup[2] = 2; gt.l_.put(tup,mw_match_attribute());
-  tup[0] = 2; tup[1] = 3; tup[2] = 3; gt.l_.put(tup,mw_match_attribute());
+  tup[0] = 1; tup[1] = 2; tup[2] = 3; gt.l_.put(tup,bmcsd_match_attribute());
+  tup[0] = 2; tup[1] = 2; tup[2] = 2; gt.l_.put(tup,bmcsd_match_attribute());
+  tup[0] = 2; tup[1] = 3; tup[2] = 3; gt.l_.put(tup,bmcsd_match_attribute());
 
   vcl_cout << gt << vcl_endl;
 
 //  double inf = vcl_numeric_limits<double>::infinity();
-  mw_discrete_corresp_n cp(npts);
-  tup[0] = 1; tup[1] = 2; tup[2]= 3; cp.l_.put(tup,mw_match_attribute(false,0));
-  tup[0] = 2; tup[1] = 2; tup[2]= 2; cp.l_.put(tup,mw_match_attribute(false,23.2));
+  bmcsd_discrete_corresp_n cp(npts);
+  tup[0] = 1; tup[1] = 2; tup[2]= 3; cp.l_.put(tup,bmcsd_match_attribute(false,0));
+  tup[0] = 2; tup[1] = 2; tup[2]= 2; cp.l_.put(tup,bmcsd_match_attribute(false,23.2));
 
   // Equality operator
 
@@ -59,17 +59,17 @@ test_discrete_corresp_n()
   vcl_cout << cp;
 
   // ------ Writing -------
-  vsl_b_ofstream bfs_out("mw_discrete_corresp_n.tmp");
-  TEST("Created mw_discrete_corresp_n.tmp for writing", (!bfs_out), false);
+  vsl_b_ofstream bfs_out("bmcsd_discrete_corresp_n.tmp");
+  TEST("Created bmcsd_discrete_corresp_n.tmp for writing", (!bfs_out), false);
   vsl_b_write(bfs_out, cp);
   bfs_out.close();
 
   // ------ Reading -------
 
-  mw_discrete_corresp_n cp_in;
+  bmcsd_discrete_corresp_n cp_in;
 
-  vsl_b_ifstream bfs_in("mw_discrete_corresp_n.tmp");
-  TEST("Opened mw_discrete_corresp_n.tmp for reading", (!bfs_in), false);
+  vsl_b_ifstream bfs_in("bmcsd_discrete_corresp_n.tmp");
+  TEST("Opened bmcsd_discrete_corresp_n.tmp for reading", (!bfs_in), false);
   vsl_b_read(bfs_in, cp_in);
   TEST("Finished reading file successfully", (!bfs_in), false);
   bfs_in.close();
@@ -87,29 +87,29 @@ void
 test_discrete_corresp_3()
 {
   vcl_cout << "\nTesting statistics ----------------------------------------\n";
-  mw_discrete_corresp_3 gt(7,8,8);
+  bmcsd_discrete_corresp_3 gt(7,8,8);
 
-  gt.l_.put(1,2,3,mw_match_attribute());
-  gt.l_.put(2,2,2,mw_match_attribute());
-  gt.l_.put(2,3,3,mw_match_attribute());
-  gt.l_.put(5,3,7,mw_match_attribute());
-  gt.l_.put(4,4,4,mw_match_attribute());
-  gt.l_.put(3,4,4,mw_match_attribute());
+  gt.l_.put(1,2,3,bmcsd_match_attribute());
+  gt.l_.put(2,2,2,bmcsd_match_attribute());
+  gt.l_.put(2,3,3,bmcsd_match_attribute());
+  gt.l_.put(5,3,7,bmcsd_match_attribute());
+  gt.l_.put(4,4,4,bmcsd_match_attribute());
+  gt.l_.put(3,4,4,bmcsd_match_attribute());
 
 
   double inf = vcl_numeric_limits<double>::infinity();
-  mw_discrete_corresp_3 cp(7,8,8);
-  cp.l_.put(1,2,3,mw_match_attribute(false,0));
-  cp.l_.put(2,2,2,mw_match_attribute(false,23.2));
-  cp.l_.put(4,5,6,mw_match_attribute(false,4.45));
-  cp.l_.put(4,4,4,mw_match_attribute(false,29.8));
-  cp.l_.put(4,7,1,mw_match_attribute(false,10.33));
+  bmcsd_discrete_corresp_3 cp(7,8,8);
+  cp.l_.put(1,2,3,bmcsd_match_attribute(false,0));
+  cp.l_.put(2,2,2,bmcsd_match_attribute(false,23.2));
+  cp.l_.put(4,5,6,bmcsd_match_attribute(false,4.45));
+  cp.l_.put(4,4,4,bmcsd_match_attribute(false,29.8));
+  cp.l_.put(4,7,1,bmcsd_match_attribute(false,10.33));
 
   //: Infinite cost doesn't count.
-  cp.l_.put(5,3,7,mw_match_attribute(false,inf));
+  cp.l_.put(5,3,7,bmcsd_match_attribute(false,inf));
 
   //: empty g-t doesn't count.
-  cp.l_.put(6,7,4,mw_match_attribute(false,10.33));
+  cp.l_.put(6,7,4,bmcsd_match_attribute(false,10.33));
 
   // compare
   cp.compare_and_print(&gt);
@@ -183,17 +183,17 @@ test_discrete_corresp_3()
   vcl_cout << cp;
 
   // ------ Writing -------
-  vsl_b_ofstream bfs_out("mw_discrete_corresp_3.tmp");
-  TEST("Created mw_discrete_corresp_3.tmp for writing", (!bfs_out), false);
+  vsl_b_ofstream bfs_out("bmcsd_discrete_corresp_3.tmp");
+  TEST("Created bmcsd_discrete_corresp_3.tmp for writing", (!bfs_out), false);
   vsl_b_write(bfs_out, cp);
   bfs_out.close();
 
   // ------ Reading -------
 
-  mw_discrete_corresp_3 cp_in;
+  bmcsd_discrete_corresp_3 cp_in;
 
-  vsl_b_ifstream bfs_in("mw_discrete_corresp_3.tmp");
-  TEST("Opened mw_discrete_corresp_3.tmp for reading", (!bfs_in), false);
+  vsl_b_ifstream bfs_in("bmcsd_discrete_corresp_3.tmp");
+  TEST("Opened bmcsd_discrete_corresp_3.tmp for reading", (!bfs_in), false);
   vsl_b_read(bfs_in, cp_in);
   TEST("Finished reading file successfully", (!bfs_in), false);
   bfs_in.close();

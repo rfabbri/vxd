@@ -1,4 +1,4 @@
-#include "mw_util.h"
+#include "bmcsd_util.h"
 #include <vcl_cstring.h>
 #include <vcl_sstream.h>
 #include <vcl_fstream.h>
@@ -36,10 +36,10 @@ int n4[4][2] = {
 
 
 static bool
-mw_read_offset(vcl_string noext,vnl_double_3x3 *m);
+bmcsd_read_offset(vcl_string noext,vnl_double_3x3 *m);
 
 static bool
-mw_read_scaling(vcl_string noext,vnl_double_3x3 *m);
+bmcsd_read_scaling(vcl_string noext,vnl_double_3x3 *m);
 
 //:  Loads one sequence of points from a .con file into a vector of points
 // \param[out] points:  reference to user-provided vector; it will be resized to
@@ -118,7 +118,7 @@ con_filenames(vcl_string image_fname,vcl_vector<vcl_string> &con_fnames)
    }
 
    // output of script:
-   vcl_string con_filenames="/tmp/lemsvxl_mw_confiles";
+   vcl_string con_filenames="/tmp/lemsvxl_bmcsd_confiles";
    vcl_ifstream infp(con_filenames.c_str(), vcl_ios::in);
    if (!infp) {
      vcl_cout << " Error opening output of script, file  " << con_filenames << vcl_endl;
@@ -149,7 +149,7 @@ con_filenames(vcl_string image_fname,vcl_vector<vcl_string> &con_fnames)
 // \return true if no bad errors; false if any bad errors. (this has nothing to
 // do with the existence of a .scale file)
 bool
-mw_read_scaling(vcl_string noext,vnl_double_3x3 *m)
+bmcsd_read_scaling(vcl_string noext,vnl_double_3x3 *m)
 {
    vcl_ifstream infp((noext+".scale").c_str(), vcl_ios::in);
    if (!infp) {
@@ -176,7 +176,7 @@ mw_read_scaling(vcl_string noext,vnl_double_3x3 *m)
 // \return true if no bad errors; false if any bad errors. (this has nothing to
 // do with the existence of a .origin file)
 bool
-mw_read_offset(vcl_string noext,vnl_double_3x3 *m)
+bmcsd_read_offset(vcl_string noext,vnl_double_3x3 *m)
 {
    vcl_ifstream infp((noext+".origin").c_str(), vcl_ios::in);
    if (!infp) {
@@ -201,7 +201,7 @@ mw_read_offset(vcl_string noext,vnl_double_3x3 *m)
 //: returns directory of the file name, as well as the prefix, which is the
 //common prefix to all filenames of data relating to the file
 bool
-mw_get_prefix(vcl_string img_name, vcl_string *dir, vcl_string *noext)
+bmcsd_get_prefix(vcl_string img_name, vcl_string *dir, vcl_string *noext)
 {
 //   vcl_cout << "Parsing image name: " << img_name << vcl_endl;
 
@@ -267,7 +267,7 @@ read_cam(vcl_string img_name1, vcl_string img_name2, vpgl_perspective_camera <do
    bool stat;
 
    vcl_string dir, noext;
-   if (!mw_get_prefix(img_name1,&dir,&noext)) {
+   if (!bmcsd_get_prefix(img_name1,&dir,&noext)) {
       vcl_cerr << "Error in read_cam: couldn't get prefix\n";
       return false;
    }
@@ -285,7 +285,7 @@ read_cam(vcl_string img_name1, vcl_string img_name2, vpgl_perspective_camera <do
    infp.close();
    m1 = m2 = m;
 
-   if (!mw_read_offset(noext,&m1))
+   if (!bmcsd_read_offset(noext,&m1))
      return false;
 
    vpgl_calibration_matrix<double> K1(m1);
@@ -308,12 +308,12 @@ read_cam(vcl_string img_name1, vcl_string img_name2, vpgl_perspective_camera <do
    *P1out = P1;
 
    // File 2
-   if (!mw_get_prefix(img_name2,&dir,&noext)) {
+   if (!bmcsd_get_prefix(img_name2,&dir,&noext)) {
       vcl_cerr << "Error in read_cam: couldn't get prefix file 2\n";
       return false;
    }
 
-   if (!mw_read_offset(noext,&m2))
+   if (!bmcsd_read_offset(noext,&m2))
      return false;
 
    vpgl_calibration_matrix<double> K2(m2);
@@ -342,7 +342,7 @@ read_cam( vcl_string img_name1,
    bool stat;
 
    vcl_string dir, noext;
-   if (!mw_get_prefix(img_name1,&dir,&noext)) {
+   if (!bmcsd_get_prefix(img_name1,&dir,&noext)) {
       vcl_cerr << "Error in read_cam: couln't get prefix\n";
       return false;
    }
@@ -362,11 +362,11 @@ read_cam( vcl_string img_name1,
    m1 = m;
 
    // Try to read offset, if exists
-   if (!mw_read_offset(noext,&m1))
+   if (!bmcsd_read_offset(noext,&m1))
      return false;
 
    // Try to read scaling, if exists
-   if (!mw_read_scaling(noext,&m1))
+   if (!bmcsd_read_scaling(noext,&m1))
      return false;
 
    vpgl_calibration_matrix<double> K(m1);
@@ -400,7 +400,7 @@ read_3x4_matrix_into_cam( vcl_string img_name1,
 {
 
    vcl_string dir, noext;
-   if (!mw_get_prefix(img_name1,&dir,&noext)) {
+   if (!bmcsd_get_prefix(img_name1,&dir,&noext)) {
       vcl_cerr << "Error in read_3x4_matrix_into_cam\n";
       return false;
    }
@@ -436,7 +436,7 @@ read_3x4_matrix_into_cam( vcl_string img_name1,
 // the epipolar lines l13 and l23 on the 3rd image, returning p3.
 // \todo move to vpgl/algo
 vgl_homg_point_2d<double>
-mw_epipolar_point_transfer( 
+bmcsd_epipolar_point_transfer( 
       const vgl_homg_point_2d<double> &p1, 
       const vgl_homg_point_2d<double> &p2, 
       const vpgl_fundamental_matrix<double> &f13,
@@ -456,8 +456,8 @@ mw_epipolar_point_transfer(
 bool
 reconstruct_pt_tangents(
       // Input:
-      dbsol_interp_curve_2d *curve1, 
-      dbsol_interp_curve_2d *curve2,
+      bsold_interp_curve_2d *curve1, 
+      bsold_interp_curve_2d *curve2,
       const vnl_matrix <double> &s,  // nx2 w/ pairs of arc lengths of pts to reconstruct
       const vpgl_perspective_camera <double> &Pr1,
       const vpgl_perspective_camera <double> &Pr2,
@@ -468,12 +468,12 @@ reconstruct_pt_tangents(
       )
       */
 
-/* Doing mw_rig ...
+/* Doing bmcsd_rig ...
 bool
 reconstruct_pt_tangents(
       // Input:
-      dbsol_interp_curve_2d *curve1, 
-      dbsol_interp_curve_2d *curve2,
+      bsold_interp_curve_2d *curve1, 
+      bsold_interp_curve_2d *curve2,
       double s1p, double s2p, double s1, double s2,
       const vpgl_perspective_camera <double> &Pr1,
       const vpgl_perspective_camera <double> &Pr2,
@@ -701,7 +701,7 @@ myreadv(vcl_string fname, vcl_vector<vgl_point_3d<double> > &pts)
 }
 
 bool
-myreadv(vcl_string fname, vcl_vector<mw_vector_3d> &pts)
+myreadv(vcl_string fname, vcl_vector<bmcsd_vector_3d> &pts)
 {
   vcl_ifstream infp(fname.c_str(), vcl_ios::in | vcl_ios::binary);
 
@@ -799,7 +799,7 @@ mywritev(vcl_string fname, const vcl_vector<vsol_point_2d_sptr> &pts)
 }
 
 bool
-mywritev(vcl_string fname, const vcl_vector<mw_vector_3d> &crv_3d)
+mywritev(vcl_string fname, const vcl_vector<bmcsd_vector_3d> &crv_3d)
 {
   vcl_ofstream 
     fcrv_3d;
@@ -832,7 +832,7 @@ mywritev(vcl_string fname, const vcl_vector<vgl_point_3d<double> > &crv_3d)
   }
 
   for (unsigned k=0; k<crv_3d.size(); ++k) {
-    mw_vector_3d v  = mw_util::vgl_to_vnl(crv_3d[k]);
+    bmcsd_vector_3d v  = bmcsd_util::vgl_to_vnl(crv_3d[k]);
 
     fcrv_3d.write((char *)(v.data_block()),3*sizeof(double));
   }
@@ -841,7 +841,7 @@ mywritev(vcl_string fname, const vcl_vector<vgl_point_3d<double> > &crv_3d)
 }
 
 bool 
-mywritev(vcl_string prefix, vcl_string ext, const vcl_vector<dbdif_1st_order_curve_3d> &crv_3d)
+mywritev(vcl_string prefix, vcl_string ext, const vcl_vector<bdifd_1st_order_curve_3d> &crv_3d)
 {
 // The output files will be named like $prefix-3dcurve-$crv_id-{points|tangents}$ext
 
@@ -854,7 +854,7 @@ mywritev(vcl_string prefix, vcl_string ext, const vcl_vector<dbdif_1st_order_cur
       continue;
     }
 
-    vcl_vector<mw_vector_3d> tgts(np), pts(np);
+    vcl_vector<bmcsd_vector_3d> tgts(np), pts(np);
     for (unsigned p=0; p < np; ++p) {
       pts[p] = crv_3d[c][p].Gama;
       tgts[p] = crv_3d[c][p].T;
@@ -878,7 +878,7 @@ mywritev(vcl_string prefix, vcl_string ext, const vcl_vector<dbdif_1st_order_cur
 }
 
 bool 
-myreadv(vcl_string prefix, vcl_string ext, vcl_vector<dbdif_1st_order_curve_3d> &crv_3d)
+myreadv(vcl_string prefix, vcl_string ext, vcl_vector<bdifd_1st_order_curve_3d> &crv_3d)
 {
   vcl_string myprefix = prefix + vcl_string("-3dcurve-");
 
@@ -892,7 +892,7 @@ myreadv(vcl_string prefix, vcl_string ext, vcl_vector<dbdif_1st_order_curve_3d> 
     
     vcl_string newprefix = myprefix + crv_id.str();
 
-    vcl_vector<mw_vector_3d> tgts(crv_3d.size()), pts(crv_3d.size());
+    vcl_vector<bmcsd_vector_3d> tgts(crv_3d.size()), pts(crv_3d.size());
 
     vcl_string p_fname = newprefix + vcl_string("-points") + ext;
 #ifndef NDEBUG
@@ -979,11 +979,11 @@ mywrite_ascii(vcl_string fname, const vcl_vector<double> &v)
 //
 // \param[in] i : the sample index (samples are indexed from 0 to c.size() inclusive)
 //
-//TODO move to dbsol_geno_curve2d or a derived class based on approx.
+//TODO move to bsold_geno_curve2d or a derived class based on approx.
 //eulerspirals
 //
 void
-get_normal_arc(const dbsol_geno_curve_2d &c, unsigned i, double *normal_x, double *normal_y)
+get_normal_arc(const bsold_geno_curve_2d &c, unsigned i, double *normal_x, double *normal_y)
 {
     vgl_vector_2d<double> tgt;
 
@@ -1033,11 +1033,11 @@ get_normal_arc(const dbsol_geno_curve_2d &c, unsigned i, double *normal_x, doubl
 //
 // \param[in] i : the sample index (samples are indexed from 0 to c.size() inclusive)
 //
-//TODO move to dbsol_geno_curve2d or a derived class based on approx.
+//TODO move to bsold_geno_curve2d or a derived class based on approx.
 //eulerspirals
 //
 void
-get_normal(const dbsol_geno_curve_2d &c, unsigned i, double *normal_x, double *normal_y)
+get_normal(const bsold_geno_curve_2d &c, unsigned i, double *normal_x, double *normal_y)
 {
     vgl_vector_2d<double> tgt;
 
@@ -1069,7 +1069,7 @@ get_normal(const dbsol_geno_curve_2d &c, unsigned i, double *normal_x, double *n
     *normal_y =  sign_k * tgt.x();
 }
 
-void mw_util::
+void bmcsd_util::
 clip_to_img_bounds(
       const vil_image_view<vxl_uint_32> &img,
       vcl_vector<vsol_point_2d_sptr> *curve_ptr) 
@@ -1088,14 +1088,14 @@ clip_to_img_bounds(
   *curve_ptr = points_clip;
 }
 
-void mw_util::
+void bmcsd_util::
 clip_to_img_bounds(
     const vil_image_view<vxl_uint_32> &img,
-    dbdif_1st_order_curve_2d *curve_ptr)
+    bdifd_1st_order_curve_2d *curve_ptr)
 {
-  const dbdif_1st_order_curve_2d &curve = *curve_ptr;
+  const bdifd_1st_order_curve_2d &curve = *curve_ptr;
 
-  dbdif_1st_order_curve_2d points_clip;
+  bdifd_1st_order_curve_2d points_clip;
 
   points_clip.reserve(curve.size()); 
 
@@ -1108,8 +1108,8 @@ clip_to_img_bounds(
   *curve_ptr = points_clip;
 }
 
-bool mw_util::
-in_img_bounds(const dbdif_1st_order_curve_2d &curve, 
+bool bmcsd_util::
+in_img_bounds(const bdifd_1st_order_curve_2d &curve, 
     const vil_image_view<vxl_uint_32> &img)
 {
   for (unsigned i=0; i < curve.size(); ++i) {
@@ -1121,8 +1121,8 @@ in_img_bounds(const dbdif_1st_order_curve_2d &curve,
   return true;
 }
 
-bool mw_util::
-in_img_bounds(const dbdif_1st_order_curve_2d &curve, 
+bool bmcsd_util::
+in_img_bounds(const bdifd_1st_order_curve_2d &curve, 
     const vil_image_view<vxl_uint_32> &img, unsigned radius)
 {
   for (unsigned i=0; i < curve.size(); ++i) {
@@ -1138,7 +1138,7 @@ in_img_bounds(const dbdif_1st_order_curve_2d &curve,
   return true;
 }
 
-bool mw_util::
+bool bmcsd_util::
 in_img_bounds( const vcl_vector<vsol_point_2d_sptr> &curve, 
     const vil_image_view<vxl_uint_32> &img)
 {
@@ -1151,7 +1151,7 @@ in_img_bounds( const vcl_vector<vsol_point_2d_sptr> &curve,
   return true;
 }
 
-bool mw_util::
+bool bmcsd_util::
 in_img_bounds(const vsol_polyline_2d &curve,
     const vil_image_view<vxl_uint_32> &img)
 {
@@ -1164,7 +1164,7 @@ in_img_bounds(const vsol_polyline_2d &curve,
   return true;
 }
 
-bool mw_util::
+bool bmcsd_util::
 in_img_bounds(const vsol_polyline_2d &curve,
     const vil_image_view<vxl_uint_32> &img, unsigned radius)
 {
@@ -1181,7 +1181,7 @@ in_img_bounds(const vsol_polyline_2d &curve,
   return true;
 }
 
-void mw_util::
+void bmcsd_util::
 get_vsol_point_vector(const vsol_polyline_2d &crv, vcl_vector<vsol_point_2d_sptr> *pts_ptr)
 {
   vcl_vector<vsol_point_2d_sptr> &pts = *pts_ptr;
@@ -1191,7 +1191,7 @@ get_vsol_point_vector(const vsol_polyline_2d &crv, vcl_vector<vsol_point_2d_sptr
     pts.push_back(crv.vertex(k));
 }
 
-unsigned mw_util::
+unsigned bmcsd_util::
 find_nearest_pt(const vsol_point_2d_sptr &pt, const vsol_polyline_2d_sptr &crv, unsigned &mindist)
 {
   unsigned min_idx,d;
@@ -1216,7 +1216,7 @@ find_nearest_pt(const vsol_point_2d_sptr &pt, const vsol_polyline_2d_sptr &crv, 
   return min_idx;
 }
 
-unsigned mw_util::
+unsigned bmcsd_util::
 find_nearest_pt_using_double(const vsol_point_2d_sptr &pt, const vsol_polyline_2d_sptr &crv, double &mindist)
 {
   unsigned min_idx;
@@ -1243,7 +1243,7 @@ find_nearest_pt_using_double(const vsol_point_2d_sptr &pt, const vsol_polyline_2
 }
 
 
-void mw_util::
+void bmcsd_util::
 prune_curves(
     unsigned min_num_samples, 
     vcl_vector< vsol_polyline_2d_sptr > *pcurves,
@@ -1269,7 +1269,7 @@ prune_curves(
   ss->trim_memory();
 }
 
-void mw_util::
+void bmcsd_util::
 prune_curves_by_length(
     double min_length, 
     vcl_vector< vsol_polyline_2d_sptr > *pcurves,
@@ -1295,18 +1295,18 @@ prune_curves_by_length(
   ss->trim_memory();
 }
 
-bool mw_util::
+bool bmcsd_util::
 read_cam_anytype(vcl_string fname, camera_file_type type, 
   vpgl_perspective_camera<double> *cam)
 {
   switch (type) {
-    case mw_util::MW_INTRINSIC_EXTRINSIC:
+    case bmcsd_util::MW_INTRINSIC_EXTRINSIC:
       vcl_cout << "Reading camera: intrinsic/extrinsic, fname = " << fname << vcl_endl;
       if (! read_cam(fname, cam) )
         return false;
     break;
 
-    case mw_util::MW_3X4:
+    case bmcsd_util::MW_3X4:
       vcl_cout << "Reading camera: 3x4 matrix, fname = " << fname << vcl_endl;
       if (! read_3x4_matrix_into_cam(fname, cam) )
          return false;
@@ -1318,7 +1318,7 @@ read_cam_anytype(vcl_string fname, camera_file_type type,
   return true;
 }
 
-bool mw_util::
+bool bmcsd_util::
 write_cams(vcl_string dir, vcl_string prefix, camera_file_type type, 
     const vcl_vector<vpgl_perspective_camera<double> > &cam)
 {
@@ -1328,7 +1328,7 @@ write_cams(vcl_string dir, vcl_string prefix, camera_file_type type,
   }
 
   switch (type) {
-    case mw_util::MW_INTRINSIC_EXTRINSIC: {
+    case bmcsd_util::MW_INTRINSIC_EXTRINSIC: {
       vcl_cout << "Writing camera: intrinsic/extrinsic, dir = " << dir << vcl_endl;
 
       { // Intrinsics
@@ -1369,7 +1369,7 @@ write_cams(vcl_string dir, vcl_string prefix, camera_file_type type,
       return true;
     } break;
 
-    case mw_util::MW_3X4:
+    case bmcsd_util::MW_3X4:
       vcl_cout << "Writing camera: 3x4 matrix, dir = " << dir << vcl_endl;
       vcl_cerr << "Error: Not supported\n";
       return false;
@@ -1381,7 +1381,7 @@ write_cams(vcl_string dir, vcl_string prefix, camera_file_type type,
   return true;
 }
 
-bool mw_util::
+bool bmcsd_util::
 write_cams(
       vcl_string dir, 
       vcl_vector<vcl_string> cam_fname_noexts, 
@@ -1396,7 +1396,7 @@ write_cams(
   assert(cam_fname_noexts.size() == cam.size());
 
   switch (type) {
-    case mw_util::MW_INTRINSIC_EXTRINSIC: {
+    case bmcsd_util::MW_INTRINSIC_EXTRINSIC: {
       vcl_cout << "Writing camera: intrinsic/extrinsic, dir = " << dir << vcl_endl;
 
       { // Intrinsics
@@ -1435,7 +1435,7 @@ write_cams(
       return true;
     } break;
 
-    case mw_util::MW_3X4:
+    case bmcsd_util::MW_3X4:
       vcl_cout << "Writing camera: 3x4 matrix, dir = " << dir << vcl_endl;
       vcl_cerr << "Error: Not supported\n";
       return false;

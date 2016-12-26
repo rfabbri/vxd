@@ -1,9 +1,9 @@
 #include <testlib/testlib_test.h>
 
-#include <mw/mw_util.h>
+#include <mw/bmcsd_util.h>
 #include <vcl_algorithm.h>
-#include <mw/dbmcs_view_set.h>
-#include <dbul/dbul_parse_simple_file.h>
+#include <mw/bmcsd_view_set.h>
+#include <buld/buld_parse_simple_file.h>
 
 static const double tolerance=vcl_numeric_limits<double>::epsilon()*100;
 
@@ -12,7 +12,7 @@ static void test_small_things();
 // static void test_view_set_io();
 
 //: tests multiview projection + reconstruction of differential geometry
-MAIN( test_mw_util )
+MAIN( test_bmcsd_util )
 {
   START ("General Utilities");
 
@@ -28,28 +28,28 @@ MAIN( test_mw_util )
 void test_small_things()
 {
   {
-  mw_vector_3d v1(0,1,0);
-  mw_vector_3d v2(1,0,0);
-  TEST_NEAR("E1 angle E2",mw_util::angle_unit(v1,v2),vnl_math::pi/2,1e-7);
+  bmcsd_vector_3d v1(0,1,0);
+  bmcsd_vector_3d v2(1,0,0);
+  TEST_NEAR("E1 angle E2",bmcsd_util::angle_unit(v1,v2),vnl_math::pi/2,1e-7);
   }
 
   {
-  mw_vector_3d v1(0,1,0);
-  mw_vector_3d v2(1,0,0);
-  TEST_NEAR("E2 angle E1",mw_util::angle_unit(v2,v1),vnl_math::pi/2,1e-7);
+  bmcsd_vector_3d v1(0,1,0);
+  bmcsd_vector_3d v2(1,0,0);
+  TEST_NEAR("E2 angle E1",bmcsd_util::angle_unit(v2,v1),vnl_math::pi/2,1e-7);
   }
 
   {
-  mw_vector_3d v1(0,1,0);
-  mw_vector_3d v2(1,0,0);
-  TEST_NEAR("E2 angle E1",mw_util::angle_unit(v2,v1),vnl_math::pi/2,1e-7);
+  bmcsd_vector_3d v1(0,1,0);
+  bmcsd_vector_3d v2(1,0,0);
+  TEST_NEAR("E2 angle E1",bmcsd_util::angle_unit(v2,v1),vnl_math::pi/2,1e-7);
   }
 
   {
-  mw_vector_3d v1(1,1,0);
+  bmcsd_vector_3d v1(1,1,0);
   v1.normalize();
-  mw_vector_3d v2(1,0,0);
-  TEST_NEAR("E2 angle E1",mw_util::angle_unit(v2,v1),vnl_math::pi/4,1e-7);
+  bmcsd_vector_3d v2(1,0,0);
+  TEST_NEAR("E2 angle E1",bmcsd_util::angle_unit(v2,v1),vnl_math::pi/4,1e-7);
   }
 }
 
@@ -85,10 +85,10 @@ test_min_max_median()
     unsigned imax, imin;
 
     vcl_cout 
-      <<   "Max: " << (max = mw_util::max(v,imax)) << "," << imax
-      << "\tMin: " << (min = mw_util::min(v,imin)) << "," << imin
-      << "\tAvg: " << (mean = mw_util::mean(v))
-      << "\tMed: " << (median = mw_util::median(v))
+      <<   "Max: " << (max = bmcsd_util::max(v,imax)) << "," << imax
+      << "\tMin: " << (min = bmcsd_util::min(v,imin)) << "," << imin
+      << "\tAvg: " << (mean = bmcsd_util::mean(v))
+      << "\tMed: " << (median = bmcsd_util::median(v))
       << vcl_endl;
 
     TEST("Max", max,25);
@@ -125,10 +125,10 @@ test_min_max_median()
     unsigned imax, imin;
 
     vcl_cout 
-      <<   "Max: " << (max = mw_util::max(v,imax)) << "," << imax
-      << "\tMin: " << (min = mw_util::min(v,imin)) << "," << imin
-      << "\tAvg: " << (mean = mw_util::mean(v))
-      << "\tMed: " << (median = mw_util::median(v))
+      <<   "Max: " << (max = bmcsd_util::max(v,imax)) << "," << imax
+      << "\tMin: " << (min = bmcsd_util::min(v,imin)) << "," << imin
+      << "\tAvg: " << (mean = bmcsd_util::mean(v))
+      << "\tMed: " << (median = bmcsd_util::median(v))
       << vcl_endl;
 
     TEST("Max", max,25);
@@ -143,9 +143,9 @@ test_min_max_median()
 /*
 void test_view_set_io()
 {
-  dbmcs_stereo_instance_views frames_to_match;
+  bmcsd_stereo_instance_views frames_to_match;
 
-  dbmcs_view_set::read_txt("mcs_stereo_instances_example.txt", &frames_to_match);
+  bmcsd_view_set::read_txt("mcs_stereo_instances_example.txt", &frames_to_match);
 
   vcl_cout << frames_to_match << vcl_endl;
 }

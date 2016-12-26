@@ -1,8 +1,8 @@
-#include "dbmcs_curve_3d_attributes.h"
+#include "bmcsd_curve_3d_attributes.h"
 #include <vsl/vsl_vector_io.h>
-#include <mw/dbmcs_view_set.h>
+#include <mw/bmcsd_view_set.h>
 
-void dbmcs_curve_3d_attributes::
+void bmcsd_curve_3d_attributes::
 b_write(vsl_b_ostream &os) const
 {
   // print_summary(vcl_cout);
@@ -14,7 +14,7 @@ b_write(vsl_b_ostream &os) const
   vsl_b_write(os, i1_);
 }
 
-void dbmcs_curve_3d_attributes::
+void bmcsd_curve_3d_attributes::
 b_read(vsl_b_istream &is)
 {
   if (!is) return;
@@ -25,12 +25,12 @@ b_read(vsl_b_istream &is)
   {
     case 1:
       abort();
-      v_ = new dbmcs_stereo_views();
+      v_ = new bmcsd_stereo_views();
       vsl_b_read(is, *v_); // urghhhh, nasty
       vsl_b_read(is, inlier_views_);
     break;
     case 2:
-      v_ = new dbmcs_stereo_views();
+      v_ = new bmcsd_stereo_views();
       vsl_b_read(is, *v_); // urghhhh, nasty
       vsl_b_read(is, inlier_views_);
       vsl_b_read(is, total_support_);
@@ -39,7 +39,7 @@ b_read(vsl_b_istream &is)
     break;
 
     default:
-        vcl_cerr << "I/O ERROR: dbmcs_curve_2d_attributes::b_read(vsl_b_istream&)\n"
+        vcl_cerr << "I/O ERROR: bmcsd_curve_2d_attributes::b_read(vsl_b_istream&)\n"
              << "           Unknown version number "<< ver << '\n';
     is.is().clear(vcl_ios::badbit); // Set an unrecoverable IO error on stream
     return;
@@ -47,7 +47,7 @@ b_read(vsl_b_istream &is)
 }
 
 //: Print an ascii summary to the stream
-void dbmcs_curve_3d_attributes::
+void bmcsd_curve_3d_attributes::
 print_summary(vcl_ostream &os) const
 {
   os << "[" << is_a() << ": " << *v_
