@@ -665,9 +665,9 @@ compute_es_params_use_levenberg_marquardt(bool use_lookup_table ){
 // ------------ bgld_eulerspiral_lookup_table functions ----------------------//
 //
 
-#ifdef BGLD_WHERE_LEMSVXL_LIB_DIR_H_EXISTS
-  #include <bgld_where_lemsvxl_lib_dir.h>
-  const vcl_string bgld_eulerspiral_lookup_table::file_path = vcl_string(LEMSVXL_LIB_DIR);
+#ifdef BGLD_WHERE_BRLD_LIB_DIR_H_EXISTS
+  #include <bgld_where_brld_lib_dir.h>
+  const vcl_string bgld_eulerspiral_lookup_table::file_path = vcl_string(BRLD_LIB_DIR);
 #else
   const vcl_string bgld_eulerspiral_lookup_table::file_path = vcl_string();
 #endif

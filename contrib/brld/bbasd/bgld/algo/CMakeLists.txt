@@ -1,25 +1,25 @@
 # This is bgld/algo/CMakeLists.txt
 # The Development Brown Geometry Library - Specific Algorithms
 
-# Set up bgld_where_lemsvxl_lib_dir.h to have a macro set to $LIBRARY_OUTPUT_PATH
+# Set up bgld_where_brld_lib_dir.h to have a macro set to $LIBRARY_OUTPUT_PATH
 configure_file(
-  ${lems_SOURCE_DIR}/bbasd/bgld/algo/bgld_where_lemsvxl_lib_dir.h.in
-  ${lems_BINARY_DIR}/bbasd/bgld/algo/bgld_where_lemsvxl_lib_dir.h ESCAPE_QUOTES
+  ${BRLD_SOURCE_DIR}/bbasd/bgld/algo/bgld_where_brld_lib_dir.h.in
+  ${BRLD_BINARY_DIR}/bbasd/bgld/algo/bgld_where_brld_lib_dir.h ESCAPE_QUOTES
 )
 
-# Copy the Eulerspiral lookup-table file to the LEMSVXL library folder
+# Copy the Eulerspiral lookup-table file to the BRLD library folder
 configure_file(
-  ${lems_SOURCE_DIR}/bbasd/bgld/algo/bgld_eulerspiral_lookup_table.bvl
+  ${BRLD_SOURCE_DIR}/bbasd/bgld/algo/bgld_eulerspiral_lookup_table.bvl
   ${LIBRARY_OUTPUT_PATH}/bgld_eulerspiral_lookup_table.bvl COPYONLY
 )
 
-add_definitions(-DBGLD_WHERE_LEMSVXL_LIB_DIR_H_EXISTS)
+add_definitions(-DBGLD_WHERE_BRLD_LIB_DIR_H_EXISTS)
 
-include_directories( ${lems_BINARY_DIR}/bbasd/bgld/algo/ )
-include_directories( ${lems_BINARY_DIR}/bbasd/bgld/ )
+include_directories( ${BRLD_BINARY_DIR}/bbasd/bgld/algo/ )
+include_directories( ${BRLD_BINARY_DIR}/bbasd/bgld/ )
 
 set( bgld_algo_sources
-  bgld_where_lemsvxl_lib_dir.h.in
+  bgld_where_brld_lib_dir.h.in
   bgld_biarc.cxx               bgld_biarc.h
   bgld_eulerspiral.cxx         bgld_eulerspiral.h
   bgld_arc_algo.cxx            bgld_arc_algo.h

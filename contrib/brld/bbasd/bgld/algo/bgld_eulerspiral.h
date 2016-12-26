@@ -292,7 +292,7 @@ private:
   static bgld_eulerspiral_lookup_table * instance_;
   
   static const vcl_string file_name; //("bgld_eulerspiral_lookup_table.bvl");
-  static const vcl_string file_path; // (LEMSVXL_LIB_DIR)
+  static const vcl_string file_path; // (BRLD_LIB_DIR)
 
   // ----------- THE LOOK-UP TABLE ----------------------------------
   //: size of the lookup tables (npts_ x npts_) 
