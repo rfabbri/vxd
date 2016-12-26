@@ -1,9 +1,9 @@
-// This is basic/dbil/pro/dbil_gaussian_blur_process.cxx
+// This is basic/bild/pro/bild_gaussian_blur_process.cxx
 
 //:
 // \file
 
-#include "dbil_gaussian_blur_process.h"
+#include "bild_gaussian_blur_process.h"
 
 #include <dbpro/dbpro_parameters.h>
 #include <dbpro/dbpro_storage.h>
@@ -16,7 +16,7 @@
 
 //: Return the default set of parameters for the process
 dbpro_parameters_sptr
-dbil_gaussian_blur_process::factory::default_params() const
+bild_gaussian_blur_process::factory::default_params() const
 {
   dbpro_parameters_sptr p = new dbpro_parameters();
   if(p->add("Gaussian Blur Sigma" , "sigma" , 1.0f ))
@@ -29,20 +29,20 @@ dbil_gaussian_blur_process::factory::default_params() const
 
 //: Construct a process from a set of parameters
 dbpro_process_sptr
-dbil_gaussian_blur_process::factory::create(const dbpro_parameters_sptr& params) const
+bild_gaussian_blur_process::factory::create(const dbpro_parameters_sptr& params) const
 {
   float sigma=0;
   if( !params->get_value( "sigma" , sigma ) ){
     return NULL;
   }
 
-  return new dbil_gaussian_blur_process(sigma);
+  return new bild_gaussian_blur_process(sigma);
 }
 
 
 //: Run the process on the current frame
 dbpro_signal
-dbil_gaussian_blur_process::execute()
+bild_gaussian_blur_process::execute()
 {
   assert(input_type_id(0) == typeid(vil_image_resource_sptr));
   vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);

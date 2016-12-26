@@ -1,4 +1,4 @@
-#include "dbil_wshed2d_process.h"
+#include "bild_wshed2d_process.h"
 
 #include <vcl_cstdio.h>
 
@@ -18,7 +18,7 @@
 #include <bil/algo/bil_wshed2d.h>
 
 //: Constructor
-dbil_wshed2d_process::dbil_wshed2d_process()
+bild_wshed2d_process::bild_wshed2d_process()
 {
   if( !parameters()->add( "Gaussian Smoothing Sigma On Input Image"    , "-gssigma1" , 2.0f   ) ||
       !parameters()->add( "Gaussian Smoothing Sigma On Gradient Image" , "-gssigma2" , 0.0f   ) ||
@@ -32,37 +32,37 @@ dbil_wshed2d_process::dbil_wshed2d_process()
 }
 
 //: Destructor
-dbil_wshed2d_process::~dbil_wshed2d_process()
+bild_wshed2d_process::~bild_wshed2d_process()
 {
 }
 
 bpro1_process*
-dbil_wshed2d_process::clone() const
+bild_wshed2d_process::clone() const
 {
-  return new dbil_wshed2d_process(*this);
+  return new bild_wshed2d_process(*this);
 }
 
 //: Return the name of this process
 vcl_string 
-dbil_wshed2d_process::name()
+bild_wshed2d_process::name()
 {
   return "Watershed Transform 2D";
 }
 
 int
-dbil_wshed2d_process::input_frames()
+bild_wshed2d_process::input_frames()
 {
   return 1;
 }
 
 int
-dbil_wshed2d_process::output_frames()
+bild_wshed2d_process::output_frames()
 {
   return 1;
 }
 
 vcl_vector< vcl_string >
-dbil_wshed2d_process::get_input_type()
+bild_wshed2d_process::get_input_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "image" );
@@ -70,7 +70,7 @@ dbil_wshed2d_process::get_input_type()
 }
 
 vcl_vector< vcl_string >
-dbil_wshed2d_process::get_output_type()
+bild_wshed2d_process::get_output_type()
 {
   vcl_vector<vcl_string > to_return;
   to_return.push_back( "image" );
@@ -79,7 +79,7 @@ dbil_wshed2d_process::get_output_type()
 }
 
 bool
-dbil_wshed2d_process::execute()
+bild_wshed2d_process::execute()
 {
   if ( input_data_.size() != 1 ){
     vcl_cout << "In vidpro1_can_test_process::execute() - not exactly one" << " input image" << vcl_endl;
@@ -179,12 +179,12 @@ dbil_wshed2d_process::execute()
     return false;
   }
 
-  bil_wshed_2d dbil_wshed_2d;    
+  bil_wshed_2d bild_wshed_2d;    
   vcl_vector< vil_image_view< unsigned char > > watershed_result_vector;
   vil_image_view< unsigned char > watershed_result;
   vil_image_view< vil_rgb< unsigned char > > watershed_result_rgb(image_view.ni(), image_view.nj());
   vil_image_view< vil_rgb< unsigned char > > watershed_result_rgb_2(image_view.ni(), image_view.nj());
-  watershed_result_vector = dbil_wshed_2d.bil_wshed_2d_main(greyscale_view, sigma1, sigma2, min_x, min_y, max_x, max_y);
+  watershed_result_vector = bild_wshed_2d.bil_wshed_2d_main(greyscale_view, sigma1, sigma2, min_x, min_y, max_x, max_y);
   watershed_result = watershed_result_vector.front();
   for(unsigned j = 0; j < image_view.nj(); j++)
   {
@@ -244,7 +244,7 @@ dbil_wshed2d_process::execute()
       }
       else
       {
-        double region_mean_value = dbil_wshed_2d.wshed_regions_[region_id].mean_intensity;
+        double region_mean_value = bild_wshed_2d.wshed_regions_[region_id].mean_intensity;
         watershed_result_rgb_2(i, j).r = 0;//(int)region_mean_value;
         watershed_result_rgb_2(i, j).g = (int)region_mean_value;
         watershed_result_rgb_2(i, j).b = 0;//(int)region_mean_value;
@@ -260,7 +260,7 @@ dbil_wshed2d_process::execute()
 }
 
 bool
-dbil_wshed2d_process::finish()
+bild_wshed2d_process::finish()
 {
   return true;
 }

@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_diff_process.h
-#ifndef dbil_diff_process_h_
-#define dbil_diff_process_h_
+// This is basic/bild/pro/bild_diff_process.h
+#ifndef bild_diff_process_h_
+#define bild_diff_process_h_
 
 //:
 // \file
@@ -18,13 +18,13 @@
 #include <vcl_string.h>
 
 //: Process that computes absolute difference between images
-class dbil_diff_process : public dbpro_filter {
+class bild_diff_process : public dbpro_filter {
 
 public:
   //: Constructor
-  dbil_diff_process() {}
+  bild_diff_process() {}
   //: Destructor
-  virtual ~dbil_diff_process() {}
+  virtual ~bild_diff_process() {}
 
   class factory : public dbpro_process_factory
   {

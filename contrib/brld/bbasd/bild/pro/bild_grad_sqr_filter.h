@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_grad_sqr_filter.h
-#ifndef dbil_grad_sqr_filter_h_
-#define dbil_grad_sqr_filter_h_
+// This is basic/bild/pro/bild_grad_sqr_filter.h
+#ifndef bild_grad_sqr_filter_h_
+#define bild_grad_sqr_filter_h_
 
 //:
 // \file
@@ -23,11 +23,11 @@
 // The input is a 2-plane image containing Ix and Iy
 // The output is a 3-plane image containing Ix^2, Iy^2, and Ix*Iy
 template <class srcT, class destT>
-class dbil_grad_sqr_filter : public dbpro_filter
+class bild_grad_sqr_filter : public dbpro_filter
 {
 public:
   //: Constructor
-  dbil_grad_sqr_filter(bool reuse_output=true) 
+  bild_grad_sqr_filter(bool reuse_output=true) 
   : reuse_output_(reuse_output) {}
   
   class sqr_functor
@@ -67,4 +67,4 @@ public:
 };
 
 
-#endif // dbil_grad_sqr_filter_h_
+#endif // bild_grad_sqr_filter_h_

@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_subpix_edge_filter.h
-#ifndef dbil_subpix_edge_filter_h_
-#define dbil_subpix_edge_filter_h_
+// This is basic/bild/pro/bild_subpix_edge_filter.h
+#ifndef bild_subpix_edge_filter_h_
+#define bild_subpix_edge_filter_h_
 
 //:
 // \file
@@ -19,11 +19,11 @@
 
 //: Suppress all non-maximal edges and estimate subpixel locations
 template <class srcT, class destT>
-class dbil_subpix_edge_filter : public dbpro_filter
+class bild_subpix_edge_filter : public dbpro_filter
 {
 public:
   //: Constructor
-  dbil_subpix_edge_filter(double mag_thresh=2.0, bool reuse_output=true) 
+  bild_subpix_edge_filter(double mag_thresh=2.0, bool reuse_output=true) 
   : mag_thresh_(mag_thresh), reuse_output_(reuse_output) {}
   
   //: Execute this process
@@ -49,4 +49,4 @@ public:
 };
 
 
-#endif // dbil_subpix_edge_filter_h_
+#endif // bild_subpix_edge_filter_h_

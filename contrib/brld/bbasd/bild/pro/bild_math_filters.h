@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_math_filters.h
-#ifndef dbil_math_filters_h_
-#define dbil_math_filters_h_
+// This is basic/bild/pro/bild_math_filters.h
+#ifndef bild_math_filters_h_
+#define bild_math_filters_h_
 
 //:
 // \file
@@ -19,11 +19,11 @@
 //: Filter to cast the image to a new type
 // Warning this filter modifies the input data
 template <class T>
-class dbil_math_scale_filter : public dbpro_filter
+class bild_math_scale_filter : public dbpro_filter
 {
   public:
     //: Constructor
-    dbil_math_scale_filter(double scale) : scale_(scale) {}
+    bild_math_scale_filter(double scale) : scale_(scale) {}
     //: Execute this process
     dbpro_signal execute()
     {
@@ -43,11 +43,11 @@ class dbil_math_scale_filter : public dbpro_filter
 //: Filter to cast the image to a new type
 // Warning this filter modifies the input data
 template <class T>
-class dbil_math_scale_and_offset_filter : public dbpro_filter
+class bild_math_scale_and_offset_filter : public dbpro_filter
 {
   public:
     //: Constructor
-    dbil_math_scale_and_offset_filter(double scale, double offset)
+    bild_math_scale_and_offset_filter(double scale, double offset)
       : scale_(scale), offset_(offset) {}
     //: Execute this process
     dbpro_signal execute()
@@ -65,4 +65,4 @@ class dbil_math_scale_and_offset_filter : public dbpro_filter
 
 };
 
-#endif // dbil_math_filters_h_
+#endif // bild_math_filters_h_

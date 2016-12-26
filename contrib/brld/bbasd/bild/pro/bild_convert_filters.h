@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_convert_filters.h
-#ifndef dbil_convert_filters_h_
-#define dbil_convert_filters_h_
+// This is basic/bild/pro/bild_convert_filters.h
+#ifndef bild_convert_filters_h_
+#define bild_convert_filters_h_
 
 //:
 // \file
@@ -18,7 +18,7 @@
 
 //: Filter to cast the image to a new type
 template <class outP>
-class dbil_convert_cast_filter : public dbpro_filter
+class bild_convert_cast_filter : public dbpro_filter
 {
   public:
     //: Execute this process
@@ -35,7 +35,7 @@ class dbil_convert_cast_filter : public dbpro_filter
 
 //: Filter to cast the image to a new type
 template <class inP>
-class dbil_convert_stretch_range_filter : public dbpro_filter
+class bild_convert_stretch_range_filter : public dbpro_filter
 {
   public:
     //: Execute this process
@@ -52,4 +52,4 @@ class dbil_convert_stretch_range_filter : public dbpro_filter
 
 };
 
-#endif // dbil_convert_filters_h_
+#endif // bild_convert_filters_h_

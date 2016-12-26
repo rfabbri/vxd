@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_gauss_filter.h
-#ifndef dbil_gauss_filter_h_
-#define dbil_gauss_filter_h_
+// This is basic/bild/pro/bild_gauss_filter.h
+#ifndef bild_gauss_filter_h_
+#define bild_gauss_filter_h_
 
 //:
 // \file
@@ -18,11 +18,11 @@
 
 //: Filter to smooth with a Gaussian
 template <class srcT, class destT>
-class dbil_gauss_filter : public dbpro_filter
+class bild_gauss_filter : public dbpro_filter
 {
 public:
   //: Constructor
-  dbil_gauss_filter(double sigma=1.0, bool reuse_output=true) 
+  bild_gauss_filter(double sigma=1.0, bool reuse_output=true) 
   : gp_(sigma), reuse_output_(reuse_output) {}
   
   //: Execute this process
@@ -47,4 +47,4 @@ public:
 };
 
 
-#endif // dbil_gauss_filter_h_
+#endif // bild_gauss_filter_h_

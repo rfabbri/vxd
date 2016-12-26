@@ -1,21 +1,21 @@
-// This is basic/dbil/vis/dbil_image_patch_gradient_tool.cxx
+// This is basic/bild/vis/bild_image_patch_gradient_tool.cxx
 //:
 // \file
 
-#include "dbil_image_patch_gradient_tool.h"
+#include "bild_image_patch_gradient_tool.h"
 #include <bvis1/bvis1_manager.h>
 #include <vgui/vgui_style.h>
 
-dbil_image_patch_gradient_tool::dbil_image_patch_gradient_tool()
+bild_image_patch_gradient_tool::bild_image_patch_gradient_tool()
 {
   left_click = vgui_event_condition(vgui_LEFT, vgui_MODIFIER_NULL, true);
 }
 
-dbil_image_patch_gradient_tool::~dbil_image_patch_gradient_tool()
+bild_image_patch_gradient_tool::~bild_image_patch_gradient_tool()
 {
 }
 
-bool dbil_image_patch_gradient_tool::handle( const vgui_event & e, 
+bool bild_image_patch_gradient_tool::handle( const vgui_event & e, 
                                const bvis1_view_tableau_sptr& view )
 {
   float ix, iy;
@@ -45,7 +45,7 @@ bool dbil_image_patch_gradient_tool::handle( const vgui_event & e,
   return false;
 }
 
-vcl_string dbil_image_patch_gradient_tool::name() const
+vcl_string bild_image_patch_gradient_tool::name() const
 {
   return "Patch Gradient";
 }

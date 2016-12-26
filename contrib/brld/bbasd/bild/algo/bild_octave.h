@@ -1,12 +1,12 @@
 /*
- * dbil_octave.h
+ * bild_octave.h
  *
  *  Created on: Feb 24, 2010
  *      Author: firat
  */
 
-#ifndef DBIL_OCTAVE_H_
-#define DBIL_OCTAVE_H_
+#ifndef BILD_OCTAVE_H_
+#define BILD_OCTAVE_H_
 
 #include <buld/buld_octave.h>
 #include <vil/vil_image_view.h>
@@ -14,7 +14,7 @@
 #include <vcl_cmath.h>
 #include <vcl_vector.h>
 
-#define DBIL_CONVERT_IMAGE_VIEW_TO_ARRAY \
+#define BILD_CONVERT_IMAGE_VIEW_TO_ARRAY \
         for(int b = 0; b < nbands; b++) \
         {\
             for(int y = 0; y < height; y++)\
@@ -27,28 +27,28 @@
         }
 
 template <class T>
-buld_octave_value dbil_convert_image_view_to_octave_value(const vil_image_view<T>& image_src);
+buld_octave_value bild_convert_image_view_to_octave_value(const vil_image_view<T>& image_src);
 
-vil_image_resource_sptr dbil_convert_octave_array_to_image_resource(const buld_octave_uint8_array& oct_array);
-
-template <class T>
-vil_image_resource_sptr dbil_octave_imresize(const vil_image_view<T>& image_src, double factor, const vcl_string& interp);
+vil_image_resource_sptr bild_convert_octave_array_to_image_resource(const buld_octave_uint8_array& oct_array);
 
 template <class T>
-vil_image_resource_sptr dbil_octave_imresize(const vil_image_view<T>& image_src, double factor);
-
-vil_image_resource_sptr dbil_octave_imresize(const buld_octave_value& image_src, double factor, const vcl_string& interp);
-
-vil_image_resource_sptr dbil_octave_imresize(const buld_octave_value& image_src, double factor);
+vil_image_resource_sptr bild_octave_imresize(const vil_image_view<T>& image_src, double factor, const vcl_string& interp);
 
 template <class T>
-vcl_vector<vil_image_resource_sptr> dbil_octave_create_image_pyramid(const vil_image_view<T>& image_src, const vcl_string& interp, double step, int num_steps);
+vil_image_resource_sptr bild_octave_imresize(const vil_image_view<T>& image_src, double factor);
+
+vil_image_resource_sptr bild_octave_imresize(const buld_octave_value& image_src, double factor, const vcl_string& interp);
+
+vil_image_resource_sptr bild_octave_imresize(const buld_octave_value& image_src, double factor);
+
+template <class T>
+vcl_vector<vil_image_resource_sptr> bild_octave_create_image_pyramid(const vil_image_view<T>& image_src, const vcl_string& interp, double step, int num_steps);
 
 
 // IMPLEMENTATION
 
 template <class T>
-buld_octave_value dbil_convert_image_view_to_octave_value(const vil_image_view<T>& image_src)
+buld_octave_value bild_convert_image_view_to_octave_value(const vil_image_view<T>& image_src)
 {
     int width = image_src.ni();
     int height = image_src.nj();
@@ -59,55 +59,55 @@ buld_octave_value dbil_convert_image_view_to_octave_value(const vil_image_view<T
     if(pf == VIL_PIXEL_FORMAT_BYTE)
     {
         buld_octave_uint8_array array = buld_octave_get_empty_uint8_array(sizes);
-        DBIL_CONVERT_IMAGE_VIEW_TO_ARRAY
+        BILD_CONVERT_IMAGE_VIEW_TO_ARRAY
         return buld_octave_value(array);
     }
     else if(pf == VIL_PIXEL_FORMAT_UINT_16)
     {
         buld_octave_uint16_array array = buld_octave_get_empty_uint16_array(sizes);
-        DBIL_CONVERT_IMAGE_VIEW_TO_ARRAY
+        BILD_CONVERT_IMAGE_VIEW_TO_ARRAY
         return buld_octave_value(array);
     }
     else if(pf == VIL_PIXEL_FORMAT_UINT_32)
     {
         buld_octave_uint32_array array = buld_octave_get_empty_uint32_array(sizes);
-        DBIL_CONVERT_IMAGE_VIEW_TO_ARRAY
+        BILD_CONVERT_IMAGE_VIEW_TO_ARRAY
         return buld_octave_value(array);
     }
     else if(pf == VIL_PIXEL_FORMAT_DOUBLE)
     {
         buld_octave_double_array array = buld_octave_get_empty_double_array(sizes);
-        DBIL_CONVERT_IMAGE_VIEW_TO_ARRAY
+        BILD_CONVERT_IMAGE_VIEW_TO_ARRAY
         return buld_octave_value(array);
     }
 
 }
 
 template <class T>
-vil_image_resource_sptr dbil_octave_imresize(const vil_image_view<T>& image_src, double factor, const vcl_string& interp)
+vil_image_resource_sptr bild_octave_imresize(const vil_image_view<T>& image_src, double factor, const vcl_string& interp)
 {
-    buld_octave_value octave_image = dbil_convert_image_view_to_octave_value<T>(image_src);
-    dbil_octave_imresize(octave_image, factor, interp);
+    buld_octave_value octave_image = bild_convert_image_view_to_octave_value<T>(image_src);
+    bild_octave_imresize(octave_image, factor, interp);
 }
 
 template <class T>
-vil_image_resource_sptr dbil_octave_imresize(const vil_image_view<T>& image_src, double factor)
+vil_image_resource_sptr bild_octave_imresize(const vil_image_view<T>& image_src, double factor)
 {
-    return dbil_octave_imresize<T>(image_src, factor, "nearest");
+    return bild_octave_imresize<T>(image_src, factor, "nearest");
 }
 
 template <class T>
-vcl_vector<vil_image_resource_sptr> dbil_octave_create_image_pyramid(const vil_image_view<T>& image_src, const vcl_string& interp, double step, int num_steps)
+vcl_vector<vil_image_resource_sptr> bild_octave_create_image_pyramid(const vil_image_view<T>& image_src, const vcl_string& interp, double step, int num_steps)
 {
     vcl_vector<vil_image_resource_sptr> pyr_vec;
-    buld_octave_value octave_image = dbil_convert_image_view_to_octave_value<T>(image_src);
+    buld_octave_value octave_image = bild_convert_image_view_to_octave_value<T>(image_src);
     for(int i = 0; i < num_steps; i++)
     {
         double scale = 1 / vcl_pow(step, i);
-        vil_image_resource_sptr im_scaled = dbil_octave_imresize(octave_image, scale, interp);
+        vil_image_resource_sptr im_scaled = bild_octave_imresize(octave_image, scale, interp);
         pyr_vec.push_back(im_scaled);
     }
     return pyr_vec;
 }
 
-#endif /* DBIL_OCTAVE_H_ */
+#endif /* BILD_OCTAVE_H_ */

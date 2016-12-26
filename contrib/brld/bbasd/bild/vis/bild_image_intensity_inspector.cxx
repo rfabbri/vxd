@@ -1,8 +1,8 @@
-// This is basic/dbil/vis/dbil_image_intensity_inspector.cxx
+// This is basic/bild/vis/bild_image_intensity_inspector.cxx
 //:
 // \file
 
-#include "dbil_image_intensity_inspector.h"
+#include "bild_image_intensity_inspector.h"
 
 #include <vgui/vgui_projection_inspector.h>
 #include <vgui/vgui.h>
@@ -13,7 +13,7 @@
 #include <vil/vil_convert.h>
 #include <brip/brip_vil_float_ops.h>
 
-dbil_image_intensity_inspector::dbil_image_intensity_inspector()
+bild_image_intensity_inspector::bild_image_intensity_inspector()
  : dimage_(NULL),
    rgb_(false),
    ihs_(false),
@@ -23,9 +23,9 @@ dbil_image_intensity_inspector::dbil_image_intensity_inspector()
 
 
 bool 
-dbil_image_intensity_inspector::set_storage ( const bpro1_storage_sptr& storage)
+bild_image_intensity_inspector::set_storage ( const bpro1_storage_sptr& storage)
 {
-  if(!dbil_image_tool::set_storage(storage))
+  if(!bild_image_tool::set_storage(storage))
     return false;
   
   dimage_ = vil_convert_cast(double(), storage_->get_image()->get_view()); 
@@ -33,7 +33,7 @@ dbil_image_intensity_inspector::set_storage ( const bpro1_storage_sptr& storage)
 }
 
 
-bool dbil_image_intensity_inspector::handle(const vgui_event & e,
+bool bild_image_intensity_inspector::handle(const vgui_event & e,
                                             const bvis1_view_tableau_sptr& selector )
 {
   if(e.type==vgui_MOTION)
@@ -95,7 +95,7 @@ bool dbil_image_intensity_inspector::handle(const vgui_event & e,
 }
 
 
-void dbil_image_intensity_inspector::get_popup( const vgui_popup_params& params, 
+void bild_image_intensity_inspector::get_popup( const vgui_popup_params& params, 
                                                  vgui_menu &menu )
 {
   vcl_string on = "[x] ", off = "[ ] ";

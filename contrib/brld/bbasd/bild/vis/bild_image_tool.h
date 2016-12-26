@@ -1,6 +1,6 @@
-// This is basic/dbil/vis/dbil_image_tool.h
-#ifndef dbil_image_tool_h_
-#define dbil_image_tool_h_
+// This is basic/bild/vis/bild_image_tool.h
+#ifndef bild_image_tool_h_
+#define bild_image_tool_h_
 //:
 // \file
 // \brief Tools that work on images 
@@ -21,11 +21,11 @@
 #include <vgui/vgui_image_tableau.h>
 #include <vgui/vgui_image_tableau_sptr.h>
 
-class dbil_image_tool : public bvis1_tool
+class bild_image_tool : public bvis1_tool
 {
 public:
-  dbil_image_tool();
-  virtual ~dbil_image_tool();
+  bild_image_tool();
+  virtual ~bild_image_tool();
 
   virtual bool set_tableau ( const vgui_tableau_sptr& tableau );
   virtual bool set_storage ( const bpro1_storage_sptr& storage);
@@ -42,4 +42,4 @@ protected:
 
 };
 
-#endif //dbil_image_tool_h_
+#endif //bild_image_tool_h_

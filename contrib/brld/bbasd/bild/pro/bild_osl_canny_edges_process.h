@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_osl_canny_edges_process.h
-#ifndef dbil_osl_canny_edges_process_h
-#define dbil_osl_canny_edges_process_h
+// This is basic/bild/pro/bild_osl_canny_edges_process.h
+#ifndef bild_osl_canny_edges_process_h
+#define bild_osl_canny_edges_process_h
 
 
 //:
@@ -18,12 +18,12 @@
 
 #include <bpro1/bpro1_process.h>
 
-class dbil_osl_canny_edges_process : public bpro1_process {
+class bild_osl_canny_edges_process : public bpro1_process {
 
 public:
 
-  dbil_osl_canny_edges_process();
-  ~dbil_osl_canny_edges_process();
+  bild_osl_canny_edges_process();
+  ~bild_osl_canny_edges_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;

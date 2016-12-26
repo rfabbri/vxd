@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_sobel_1x3_filter.h
-#ifndef dbil_sobel_1x3_filter_h_
-#define dbil_sobel_1x3_filter_h_
+// This is basic/bild/pro/bild_sobel_1x3_filter.h
+#ifndef bild_sobel_1x3_filter_h_
+#define bild_sobel_1x3_filter_h_
 
 //:
 // \file
@@ -19,11 +19,11 @@
 //: A Sobel 1x3 filter to produce image gradients
 // The output is a 2-plane image containing Ix and Iy
 template <class srcT, class destT>
-class dbil_sobel_1x3_filter : public dbpro_filter
+class bild_sobel_1x3_filter : public dbpro_filter
 {
 public:
   //: Constructor
-  dbil_sobel_1x3_filter(bool reuse_output=true) 
+  bild_sobel_1x3_filter(bool reuse_output=true) 
   : reuse_output_(reuse_output) {}
   
   //: Execute this process
@@ -46,4 +46,4 @@ public:
 };
 
 
-#endif // dbil_sobel_1x3_filter_h_
+#endif // bild_sobel_1x3_filter_h_

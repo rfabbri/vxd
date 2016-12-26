@@ -1,9 +1,9 @@
-// This is basic/dbil/pro/dbil_monotone_process.cxx
+// This is basic/bild/pro/bild_monotone_process.cxx
 
 //:
 // \file
 
-#include "dbil_monotone_process.h"
+#include "bild_monotone_process.h"
 #include <dbpro/dbpro_parameters.h>
 #include <dbpro/dbpro_storage.h>
 #include <vil/vil_image_resource.h>
@@ -14,7 +14,7 @@
 
 //: Return the default set of parameters for the process
 dbpro_parameters_sptr
-dbil_monotone_process::factory::default_params() const
+bild_monotone_process::factory::default_params() const
 {
   dbpro_parameters_sptr p = new dbpro_parameters();
   if(p->add( "Red Weight" ,   "rw",  0.2125f ) &&
@@ -29,7 +29,7 @@ dbil_monotone_process::factory::default_params() const
 
 //: Construct a process from a set of parameters
 dbpro_process_sptr
-dbil_monotone_process::factory::create(const dbpro_parameters_sptr& params) const
+bild_monotone_process::factory::create(const dbpro_parameters_sptr& params) const
 {
   float rw=0,gw=0,bw=0;
   if( !params->get_value( "rw" , rw ) ||
@@ -38,14 +38,14 @@ dbil_monotone_process::factory::create(const dbpro_parameters_sptr& params) cons
     return NULL;
   }
 
-  return new dbil_monotone_process(rw,gw,bw);
+  return new bild_monotone_process(rw,gw,bw);
 }
 
 
 
 //: Execute this process
 dbpro_signal
-dbil_monotone_process::execute()
+bild_monotone_process::execute()
 {
   assert(input_type_id(0) == typeid(vil_image_resource_sptr));
   vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);

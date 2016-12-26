@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_wshed2d_process.h
-#ifndef dbil_wshed2d_process_h_
-#define dbil_wshed2d_process_h_
+// This is basic/bild/pro/bild_wshed2d_process.h
+#ifndef bild_wshed2d_process_h_
+#define bild_wshed2d_process_h_
 //--------------------------------------------------------------------------------
 //:
 // \file
@@ -18,12 +18,12 @@
 #include <vcl_string.h>
 #include <bpro1/bpro1_process.h>
 
-class dbil_wshed2d_process : public bpro1_process 
+class bild_wshed2d_process : public bpro1_process 
 {
 public:
 
-  dbil_wshed2d_process();
-  virtual ~dbil_wshed2d_process();
+  bild_wshed2d_process();
+  virtual ~bild_wshed2d_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -43,4 +43,4 @@ protected:
 };
 
 
-#endif // dbil_wshed2d_process_h_
+#endif // bild_wshed2d_process_h_

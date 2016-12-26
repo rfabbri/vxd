@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_morphology_filters.h
-#ifndef dbil_morphology_filters_h_
-#define dbil_morphology_filters_h_
+// This is basic/bild/pro/bild_morphology_filters.h
+#ifndef bild_morphology_filters_h_
+#define bild_morphology_filters_h_
 
 //:
 // \file
@@ -18,13 +18,13 @@
 
 
 //: Filter for binary erosion
-class dbil_binary_erode_filter : public dbpro_filter
+class bild_binary_erode_filter : public dbpro_filter
 {
   public:
     //: Constructor
-    dbil_binary_erode_filter(const vil_structuring_element& s) : se_(s) {}
+    bild_binary_erode_filter(const vil_structuring_element& s) : se_(s) {}
     //: Destructor
-    virtual ~dbil_binary_erode_filter() {}
+    virtual ~bild_binary_erode_filter() {}
 
     //: Execute this process
     dbpro_signal execute();
@@ -36,13 +36,13 @@ class dbil_binary_erode_filter : public dbpro_filter
 
 
 //: Filter for binary dilation
-class dbil_binary_dilate_filter : public dbpro_filter
+class bild_binary_dilate_filter : public dbpro_filter
 {
   public:
     //: Constructor
-    dbil_binary_dilate_filter(const vil_structuring_element& s) : se_(s) {}
+    bild_binary_dilate_filter(const vil_structuring_element& s) : se_(s) {}
     //: Destructor
-    virtual ~dbil_binary_dilate_filter() {}
+    virtual ~bild_binary_dilate_filter() {}
 
     //: Execute this process
     dbpro_signal execute();

@@ -1,9 +1,9 @@
-// This is basic/dbil/pro/dbil_distance_transform_process.cxx
+// This is basic/bild/pro/bild_distance_transform_process.cxx
 
 //:
 // \file
 
-#include "dbil_distance_transform_process.h"
+#include "bild_distance_transform_process.h"
 
 #include <vcl_cstdlib.h>
 #include <bpro1/bpro1_parameters.h>
@@ -14,13 +14,13 @@
 #include <vil/vil_image_resource.h>
 #include <vil/vil_new.h>
 #include <vil/vil_math.h>
-#include <dbil/algo/dbil_exact_distance_transform.h>
+#include <bild/algo/bild_exact_distance_transform.h>
 #include <bil/algo/bil_cedt.h>
 #include <brip/brip_vil_float_ops.h>
 
 
 //: Constructor
-dbil_distance_transform_process::dbil_distance_transform_process()
+bild_distance_transform_process::bild_distance_transform_process()
 {
   vcl_vector<vcl_string> algorithm_choices;
   algorithm_choices.push_back("Fast Exact (squared)"); // 0
@@ -38,21 +38,21 @@ dbil_distance_transform_process::dbil_distance_transform_process()
 
 
 //: Destructor
-dbil_distance_transform_process::~dbil_distance_transform_process()
+bild_distance_transform_process::~bild_distance_transform_process()
 {
 }
 
 
 //: Clone the process
 bpro1_process*
-dbil_distance_transform_process::clone() const
+bild_distance_transform_process::clone() const
 {
-  return new dbil_distance_transform_process(*this);
+  return new bild_distance_transform_process(*this);
 }
 
 
 //: Returns a vector of strings describing the input types to this process
-vcl_vector< vcl_string > dbil_distance_transform_process::get_input_type()
+vcl_vector< vcl_string > bild_distance_transform_process::get_input_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "image" );
@@ -61,7 +61,7 @@ vcl_vector< vcl_string > dbil_distance_transform_process::get_input_type()
 
 
 //: Returns a vector of strings describing the output types of this process
-vcl_vector< vcl_string > dbil_distance_transform_process::get_output_type()
+vcl_vector< vcl_string > bild_distance_transform_process::get_output_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "image" );
@@ -77,21 +77,21 @@ vcl_vector< vcl_string > dbil_distance_transform_process::get_output_type()
 
 //: Return the number of input frame for this process
 int
-dbil_distance_transform_process::input_frames()
+bild_distance_transform_process::input_frames()
 {
   return 1;
 }
 
 //: Return the number of output frames for this process
 int
-dbil_distance_transform_process::output_frames()
+bild_distance_transform_process::output_frames()
 {
   return 1;
 }
 
 //: Run the process on the current frame
 bool 
-dbil_distance_transform_process::execute()
+bild_distance_transform_process::execute()
 {
   bool is_black;
   parameters()->get_value( "-is_black" , is_black );
@@ -192,10 +192,10 @@ dbil_distance_transform_process::execute()
 
     if (!do_label) {
       if (dt_algo == 0) {
-        if (!dbil_exact_distance_transform_maurer(bool_image_view))
+        if (!bild_exact_distance_transform_maurer(bool_image_view))
           vcl_abort();
       } else { // brute 
-        if (!dbil_exact_distance_transform_brute_force_with_list(bool_image_view))
+        if (!bild_exact_distance_transform_brute_force_with_list(bool_image_view))
           vcl_abort();
       }
 
@@ -208,9 +208,9 @@ dbil_distance_transform_process::execute()
       bool retval=false;
      
       if (dt_algo == 0)
-        retval = dbil_exact_distance_transform_maurer_label( bool_image_view, imlabel);
+        retval = bild_exact_distance_transform_maurer_label( bool_image_view, imlabel);
       else
-        retval = dbil_exact_distance_transform_brute_force_with_list_label( bool_image_view, imlabel);
+        retval = bild_exact_distance_transform_brute_force_with_list_label( bool_image_view, imlabel);
 
       if (!retval)
         vcl_abort();
@@ -231,7 +231,7 @@ dbil_distance_transform_process::execute()
 }
 
 bool
-dbil_distance_transform_process::finish()
+bild_distance_transform_process::finish()
 {
   return true;
 }

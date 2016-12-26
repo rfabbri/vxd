@@ -1,4 +1,4 @@
-// This is basic/dbil/algo/dbil_octave.cxx
+// This is basic/bild/algo/bild_octave.cxx
 
 //:
 // \file
@@ -6,11 +6,11 @@
 // \author Based on original code by  Firat Kalaycilar (@lems.brown.edu)
 // \date Feb 24, 2010
 
-#include "dbil_octave.h"
+#include "bild_octave.h"
 
 #include <vcl_iostream.h>
 
-vil_image_resource_sptr dbil_convert_octave_array_to_image_resource(const buld_octave_uint8_array& oct_array)
+vil_image_resource_sptr bild_convert_octave_array_to_image_resource(const buld_octave_uint8_array& oct_array)
 {
     dim_vector dv = oct_array.dims();
     int height = dv(0);
@@ -35,7 +35,7 @@ vil_image_resource_sptr dbil_convert_octave_array_to_image_resource(const buld_o
     return img_ptr;
 }
 
-vil_image_resource_sptr dbil_octave_imresize(const buld_octave_value& image_src, double factor, const vcl_string& interp)
+vil_image_resource_sptr bild_octave_imresize(const buld_octave_value& image_src, double factor, const vcl_string& interp)
 {
     buld_octave_argument_list function_arguments;
     buld_octave_argument_list return_argument;
@@ -43,10 +43,10 @@ vil_image_resource_sptr dbil_octave_imresize(const buld_octave_value& image_src,
     function_arguments(1) = factor;
     function_arguments(2) = interp.c_str();
     buld_octave.run("", "imresize", function_arguments, return_argument);
-    return dbil_convert_octave_array_to_image_resource(buld_octave_value_to_octave_uint8_array(return_argument(0)));
+    return bild_convert_octave_array_to_image_resource(buld_octave_value_to_octave_uint8_array(return_argument(0)));
 }
 
-vil_image_resource_sptr dbil_octave_imresize(const buld_octave_value& image_src, double factor)
+vil_image_resource_sptr bild_octave_imresize(const buld_octave_value& image_src, double factor)
 {
-    return dbil_octave_imresize(image_src, factor, "nearest");
+    return bild_octave_imresize(image_src, factor, "nearest");
 }

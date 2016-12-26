@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_monotone_process.h
-#ifndef dbil_monotone_process_h_
-#define dbil_monotone_process_h_
+// This is basic/bild/pro/bild_monotone_process.h
+#ifndef bild_monotone_process_h_
+#define bild_monotone_process_h_
 
 //:
 // \file
@@ -18,14 +18,14 @@
 #include <dbpro/dbpro_process_factory.h>
 
 //: Process that converts an image into monotone (grey-scale)
-class dbil_monotone_process : public dbpro_filter
+class bild_monotone_process : public dbpro_filter
 {
 public:
   //: Constructor
-  dbil_monotone_process(float rw, float gw, float bw)
+  bild_monotone_process(float rw, float gw, float bw)
    : rw_(rw), gw_(gw), bw_(bw) {}
   //: Destructor
-  virtual ~dbil_monotone_process() {}
+  virtual ~bild_monotone_process() {}
 
   class factory : public dbpro_process_factory
   {
@@ -50,4 +50,4 @@ public:
   float rw_, gw_, bw_;
 };
 
-#endif // dbil_monotone_process_h_
+#endif // bild_monotone_process_h_

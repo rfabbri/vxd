@@ -1,6 +1,6 @@
-// This is basic/dbil/vis/dbil_image_patch_gradient_tool.h
-#ifndef dbil_image_patch_gradient_tool_h_
-#define dbil_image_patch_gradient_tool_h_
+// This is basic/bild/vis/bild_image_patch_gradient_tool.h
+#ifndef bild_image_patch_gradient_tool_h_
+#define bild_image_patch_gradient_tool_h_
 //:
 // \file
 // \brief A tool for looking at image gradients in a patch
@@ -11,15 +11,15 @@
 //  Modifications
 // \endverbatim
 
-#include "dbil_image_tool.h"
+#include "bild_image_tool.h"
 
 //: A tool for looking at image gradients in a patch
-class dbil_image_patch_gradient_tool : public dbil_image_tool 
+class bild_image_patch_gradient_tool : public bild_image_tool 
 {
 public:
 
-  dbil_image_patch_gradient_tool();
-  virtual ~dbil_image_patch_gradient_tool();
+  bild_image_patch_gradient_tool();
+  virtual ~bild_image_patch_gradient_tool();
 
   bool handle( const vgui_event & e, 
                const bvis1_view_tableau_sptr& view );
@@ -34,4 +34,4 @@ private:
 
 };
 
-#endif //dbil_image_patch_gradient_tool_h_
+#endif //bild_image_patch_gradient_tool_h_

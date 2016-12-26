@@ -1,9 +1,9 @@
-// This is basic/dbil/pro/dbil_osl_canny_edges_process.cxx
+// This is basic/bild/pro/bild_osl_canny_edges_process.cxx
 
 //:
 // \file
 
-#include "dbil_osl_canny_edges_process.h"
+#include "bild_osl_canny_edges_process.h"
 
 #include <vil/vil_image_view.h>
 #include <vil/vil_convert.h>
@@ -21,8 +21,8 @@
 
 // ------------------------------------------------------------------
 //: Constructor
-dbil_osl_canny_edges_process::
-dbil_osl_canny_edges_process() : bpro1_process()
+bild_osl_canny_edges_process::
+bild_osl_canny_edges_process() : bpro1_process()
 {
     if( !parameters()->add( "Sigma" ,"-sigma" ,(float)1.0 ) ||
         !parameters()->add( "Low threshold" ,  "-lowthresh" ,  float(2.0) ) ||
@@ -44,23 +44,23 @@ dbil_osl_canny_edges_process() : bpro1_process()
 
 // ------------------------------------------------------------------
 //: Destructor
-dbil_osl_canny_edges_process::
-~dbil_osl_canny_edges_process()
+bild_osl_canny_edges_process::
+~bild_osl_canny_edges_process()
 {
    
 }
 
 // ------------------------------------------------------------------
 //: Clone the process
-bpro1_process* dbil_osl_canny_edges_process::
+bpro1_process* bild_osl_canny_edges_process::
 clone() const
 {
-    return new dbil_osl_canny_edges_process(*this);
+    return new bild_osl_canny_edges_process(*this);
 }
 
 
 // ------------------------------------------------------------------
-vcl_string dbil_osl_canny_edges_process::
+vcl_string bild_osl_canny_edges_process::
 name()
 {
     return "Binary Osl Canny edges";
@@ -69,7 +69,7 @@ name()
 
 // ------------------------------------------------------------------
 //: Return input types
-vcl_vector< vcl_string > dbil_osl_canny_edges_process::
+vcl_vector< vcl_string > bild_osl_canny_edges_process::
 get_input_type()
 {
     vcl_vector< vcl_string > to_return;
@@ -79,7 +79,7 @@ get_input_type()
 
 // ------------------------------------------------------------------
 //: Return output types
-vcl_vector< vcl_string > dbil_osl_canny_edges_process::
+vcl_vector< vcl_string > bild_osl_canny_edges_process::
 get_output_type()
 {
     vcl_vector< vcl_string > to_return;
@@ -90,7 +90,7 @@ get_output_type()
 
 // ------------------------------------------------------------------
 //: Returns the number of input frames to this process
-int dbil_osl_canny_edges_process::
+int bild_osl_canny_edges_process::
 input_frames()
 {
     return 1;
@@ -98,7 +98,7 @@ input_frames()
 
 // ------------------------------------------------------------------
 //: Returns the number of output frames from this process
-int dbil_osl_canny_edges_process::
+int bild_osl_canny_edges_process::
 output_frames()
 {
     return 1;
@@ -107,12 +107,12 @@ output_frames()
 
 // ------------------------------------------------------------------
 //: Main function of the process 
-bool dbil_osl_canny_edges_process::
+bool bild_osl_canny_edges_process::
 execute()
 {
     if ( input_data_.size() != 1 )
     {
-        vcl_cout << "In dbil_osl_canny_edges_process::execute() - not exactly one"
+        vcl_cout << "In bild_osl_canny_edges_process::execute() - not exactly one"
             << " input image \n";
         return false;
     }
@@ -205,7 +205,7 @@ execute()
 
 // ------------------------------------------------------------------
 //: 
-bool dbil_osl_canny_edges_process::
+bool bild_osl_canny_edges_process::
 finish()
 {
     return true;

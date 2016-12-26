@@ -3,20 +3,20 @@
 // \file
 // \author Ricardo Fabbri
 
-#include <dbil/algo/dbil_exact_distance_transform.h>
+#include <bild/algo/bild_exact_distance_transform.h>
 #include <vil/vil_print.h>
 #include <vil/vil_copy.h>
 #include <vcl_cstdlib.h>
 
-void dbil_exact_distance_transform_test(vil_image_view<vxl_uint_32> &im, bool print, bool three_d=false);
+void bild_exact_distance_transform_test(vil_image_view<vxl_uint_32> &im, bool print, bool three_d=false);
 
-void dbil_exact_distance_transform_test_label(vil_image_view<vxl_uint_32> &im, bool print);
-
-void
-dbil_exact_distance_transform_test_3D(vil_image_view<vxl_uint_32> &im, bool print);
+void bild_exact_distance_transform_test_label(vil_image_view<vxl_uint_32> &im, bool print);
 
 void
-dbil_exact_distance_transform_test_specific(const vil_image_view<vxl_uint_32> &im, const vil_image_view<vxl_uint_32> dt_brute, bool print, vcl_string algo);
+bild_exact_distance_transform_test_3D(vil_image_view<vxl_uint_32> &im, bool print);
+
+void
+bild_exact_distance_transform_test_specific(const vil_image_view<vxl_uint_32> &im, const vil_image_view<vxl_uint_32> dt_brute, bool print, vcl_string algo);
 
 #define DATA(I) (I).top_left_ptr()
 
@@ -35,8 +35,8 @@ MAIN( test_exact_distance_transform )
   vcl_cout << "ORIGINAL IMAGE:\n" << vcl_endl;
   vil_print_all(vcl_cout,image);
 
-  dbil_exact_distance_transform_test(image,true);
-  dbil_exact_distance_transform_test_label(image,true);
+  bild_exact_distance_transform_test(image,true);
+  bild_exact_distance_transform_test_label(image,true);
   }
 
   {
@@ -52,8 +52,8 @@ MAIN( test_exact_distance_transform )
   vcl_cout << "ORIGINAL IMAGE:\n" << vcl_endl;
   vil_print_all(vcl_cout,image);
 
-  dbil_exact_distance_transform_test(image,true);
-  dbil_exact_distance_transform_test_label(image,true);
+  bild_exact_distance_transform_test(image,true);
+  bild_exact_distance_transform_test_label(image,true);
   }
 
   {
@@ -72,40 +72,40 @@ MAIN( test_exact_distance_transform )
   vcl_cout << "ORIGINAL IMAGE:\n" << vcl_endl;
   vil_print_all(vcl_cout,image);
 
-  dbil_exact_distance_transform_test(image,true);
-  dbil_exact_distance_transform_test_label(image,true);
+  bild_exact_distance_transform_test(image,true);
+  bild_exact_distance_transform_test_label(image,true);
   }
 
   {
   vil_image_view <vxl_uint_32> image(100,100,1);
   image.fill(1);
   image(0,0) = 0;
-  dbil_exact_distance_transform_test(image,false);
-  dbil_exact_distance_transform_test_label(image,false);
+  bild_exact_distance_transform_test(image,false);
+  bild_exact_distance_transform_test_label(image,false);
   }
 
   {
   vil_image_view <vxl_uint_32> image(100,100,1);
   image.fill(1);
   image(99,99) = 0;
-  dbil_exact_distance_transform_test(image,false);
-  dbil_exact_distance_transform_test_label(image,false);
+  bild_exact_distance_transform_test(image,false);
+  bild_exact_distance_transform_test_label(image,false);
   }
 
   {
   vil_image_view <vxl_uint_32> image(100,100,1);
   image.fill(1);
   image(0,99) = 0;
-  dbil_exact_distance_transform_test(image,false);
-  dbil_exact_distance_transform_test_label(image,false);
+  bild_exact_distance_transform_test(image,false);
+  bild_exact_distance_transform_test_label(image,false);
   }
 
   {
   vil_image_view <vxl_uint_32> image(100,100,1);
   image.fill(1);
   image(99,0) = 0;
-  dbil_exact_distance_transform_test(image,false);
-  dbil_exact_distance_transform_test_label(image,false);
+  bild_exact_distance_transform_test(image,false);
+  bild_exact_distance_transform_test_label(image,false);
   }
 
   { // 8-disconnected Voronoi region that breaks most DT algorithms that claim to be Euclidean
@@ -114,8 +114,8 @@ MAIN( test_exact_distance_transform )
   image(0,2)  = 0;
   image(1,6)  = 0;
   image(6,12) = 0;
-  dbil_exact_distance_transform_test(image,true);
-  dbil_exact_distance_transform_test_label(image,true);
+  bild_exact_distance_transform_test(image,true);
+  bild_exact_distance_transform_test_label(image,true);
   }
 
   // ----- 3D -----
@@ -132,7 +132,7 @@ MAIN( test_exact_distance_transform )
   vcl_cout << "ORIGINAL IMAGE:\n" << vcl_endl;
   vil_print_all(vcl_cout,image);
 
-  dbil_exact_distance_transform_test(image,true,true);
+  bild_exact_distance_transform_test(image,true,true);
   }
 
 
@@ -144,7 +144,7 @@ MAIN( test_exact_distance_transform )
   image.fill(1);
   image(2,3,1)=0;
   image(200,150,350)=0;
-  dbil_exact_distance_transform_saito(image);
+  bild_exact_distance_transform_saito(image);
   }
 #endif // 0
 
@@ -156,7 +156,7 @@ MAIN( test_exact_distance_transform )
   image(2,3,1)=0;
   image(0,0,0)=0;
   image(4,3,2)=0;
-  dbil_exact_distance_transform_test(image,false,true);
+  bild_exact_distance_transform_test(image,false,true);
   }
 
   SUMMARY();
@@ -164,14 +164,14 @@ MAIN( test_exact_distance_transform )
 
 //: test 2D EDT
 void
-dbil_exact_distance_transform_test(vil_image_view<vxl_uint_32> &im, bool print, bool three_d)
+bild_exact_distance_transform_test(vil_image_view<vxl_uint_32> &im, bool print, bool three_d)
 {
   vil_image_view <vxl_uint_32> dt_brute(vil_copy_deep(im));
 
   if (three_d)
-    dbil_exact_distance_transform_brute_force(dt_brute);
+    bild_exact_distance_transform_brute_force(dt_brute);
   else
-    dbil_exact_distance_transform_brute_force_with_list(dt_brute);
+    bild_exact_distance_transform_brute_force_with_list(dt_brute);
 
   if (print) {
      vcl_cout << "BRUTE DT:\n";
@@ -180,15 +180,15 @@ dbil_exact_distance_transform_test(vil_image_view<vxl_uint_32> &im, bool print, 
 
 
   if (three_d) {
-    dbil_exact_distance_transform_test_specific(im, dt_brute, print, "Saito 3D");
+    bild_exact_distance_transform_test_specific(im, dt_brute, print, "Saito 3D");
   } else {
-    dbil_exact_distance_transform_test_specific(im, dt_brute, print, "Maurer");
-    dbil_exact_distance_transform_test_specific(im, dt_brute, print, "Saito");
+    bild_exact_distance_transform_test_specific(im, dt_brute, print, "Maurer");
+    bild_exact_distance_transform_test_specific(im, dt_brute, print, "Saito");
   }
 }
 
 void
-dbil_exact_distance_transform_test_specific(
+bild_exact_distance_transform_test_specific(
     const vil_image_view<vxl_uint_32> &im,
     const vil_image_view<vxl_uint_32> dt_brute,
     bool print,
@@ -197,11 +197,11 @@ dbil_exact_distance_transform_test_specific(
   vil_image_view <vxl_uint_32> dt_algo(vil_copy_deep(im));
 
   if (algo == "Maurer")
-    dbil_exact_distance_transform_maurer(dt_algo);
+    bild_exact_distance_transform_maurer(dt_algo);
   else if (algo == "Saito")
-    dbil_exact_distance_transform_saito(dt_algo);
+    bild_exact_distance_transform_saito(dt_algo);
   else if (algo == "Saito 3D")
-    dbil_exact_distance_transform_saito_3D(dt_algo);
+    bild_exact_distance_transform_saito_3D(dt_algo);
   else
     vcl_abort();
 
@@ -228,15 +228,15 @@ dbil_exact_distance_transform_test_specific(
 
 //: test closest feature pixel (label) propagation
 void
-dbil_exact_distance_transform_test_label(vil_image_view<vxl_uint_32> &im, bool print)
+bild_exact_distance_transform_test_label(vil_image_view<vxl_uint_32> &im, bool print)
 {
   vil_image_view <vxl_uint_32> label_brute(im.ni(), im.nj(), 1);
   vil_image_view <vxl_uint_32> dt_brute(vil_copy_deep(im));
-  dbil_exact_distance_transform_brute_force_with_list_label(dt_brute, label_brute);
+  bild_exact_distance_transform_brute_force_with_list_label(dt_brute, label_brute);
 
   vil_image_view <vxl_uint_32> label_algo(im.ni(), im.nj(), 1);
   vil_image_view <vxl_uint_32> dt_algo(vil_copy_deep(im));
-  dbil_exact_distance_transform_maurer_label(dt_algo, label_algo);
+  bild_exact_distance_transform_maurer_label(dt_algo, label_algo);
 
   const vcl_string algo("Maurer");
   if (print) {

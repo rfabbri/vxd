@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_transform3_1_filter.h
-#ifndef dbil_transform3_1_filter_h_
-#define dbil_transform3_1_filter_h_
+// This is basic/bild/pro/bild_transform3_1_filter.h
+#ifndef bild_transform3_1_filter_h_
+#define bild_transform3_1_filter_h_
 
 //:
 // \file
@@ -17,11 +17,11 @@
 
 //: Apply a function of 3 variables to map 3 planes into 1
 template <class srcT, class destT, class Op>
-class dbil_transform3_1_filter : public dbpro_filter
+class bild_transform3_1_filter : public dbpro_filter
 {
 public:
   //: Constructor
-  dbil_transform3_1_filter(Op functor, bool reuse_output=true) 
+  bild_transform3_1_filter(Op functor, bool reuse_output=true) 
   : functor_(functor), reuse_output_(reuse_output) {}
   
   //: Execute this process
@@ -68,4 +68,4 @@ public:
 };
 
 
-#endif // dbil_transform3_1_filter_h_
+#endif // bild_transform3_1_filter_h_

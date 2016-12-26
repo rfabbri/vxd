@@ -1,21 +1,21 @@
-// This is basic/dbil/vis/dbil_image_tool.cxx
+// This is basic/bild/vis/bild_image_tool.cxx
 //:
 // \file
 
-#include "dbil_image_tool.h"
+#include "bild_image_tool.h"
 
 #include <bvis1/bvis1_manager.h>
 #include <vgui/vgui_style.h>
 
-dbil_image_tool::dbil_image_tool()
+bild_image_tool::bild_image_tool()
 {
 }
 
-dbil_image_tool::~dbil_image_tool()
+bild_image_tool::~bild_image_tool()
 {
 }
 
-bool dbil_image_tool::set_tableau( const vgui_tableau_sptr& tableau )
+bool bild_image_tool::set_tableau( const vgui_tableau_sptr& tableau )
 {
   vgui_image_tableau_sptr temp_tab;
   temp_tab.vertical_cast(tableau);
@@ -29,7 +29,7 @@ bool dbil_image_tool::set_tableau( const vgui_tableau_sptr& tableau )
   return false;
 }
 
-bool dbil_image_tool::set_storage ( const bpro1_storage_sptr& storage)
+bool bild_image_tool::set_storage ( const bpro1_storage_sptr& storage)
 {
   if (!storage.ptr())
     return false;
@@ -41,12 +41,12 @@ bool dbil_image_tool::set_storage ( const bpro1_storage_sptr& storage)
   return false;
 }
 
-vgui_image_tableau_sptr dbil_image_tool::tableau()
+vgui_image_tableau_sptr bild_image_tool::tableau()
 {
   return tableau_;
 }
 
-vidpro1_image_storage_sptr dbil_image_tool::storage()
+vidpro1_image_storage_sptr bild_image_tool::storage()
 {
   return storage_;
 }

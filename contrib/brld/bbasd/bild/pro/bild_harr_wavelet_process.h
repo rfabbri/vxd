@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_harr_wavelet_process.h
-#ifndef dbil_harr_wavelet_process_h_
-#define dbil_harr_wavelet_process_h_
+// This is basic/bild/pro/bild_harr_wavelet_process.h
+#ifndef bild_harr_wavelet_process_h_
+#define bild_harr_wavelet_process_h_
 //--------------------------------------------------------------------------------
 //:
 // \file
@@ -18,12 +18,12 @@
 #include <vcl_string.h>
 #include <bpro1/bpro1_process.h>
 
-class dbil_harr_wavelet_process : public bpro1_process 
+class bild_harr_wavelet_process : public bpro1_process 
 {
 public:
 
-  dbil_harr_wavelet_process();
-  virtual ~dbil_harr_wavelet_process();
+  bild_harr_wavelet_process();
+  virtual ~bild_harr_wavelet_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -43,4 +43,4 @@ protected:
 };
 
 
-#endif // dbil_harr_wavelet_process_h_
+#endif // bild_harr_wavelet_process_h_

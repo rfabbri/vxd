@@ -1,6 +1,6 @@
-// This is basic/dbil/vis/dbil_image_observer.h
-#ifndef dbil_image_observer_h_
-#define dbil_image_observer_h_
+// This is basic/bild/vis/bild_image_observer.h
+#ifndef bild_image_observer_h_
+#define bild_image_observer_h_
 //:
 // \file
 // \brief A dbpro image observer for vgui 
@@ -18,10 +18,10 @@
 #include <vgui/vgui_image_tableau.h>
 
 
-class dbil_image_observer: public dbpro_observer
+class bild_image_observer: public dbpro_observer
 {
   public:
-    dbil_image_observer(const vgui_image_tableau_sptr& itab)
+    bild_image_observer(const vgui_image_tableau_sptr& itab)
     : image_tab(itab) {}
     //: Called by the process when the data is ready
     virtual bool notify(const dbpro_storage_sptr& data, unsigned long timestamp)
@@ -40,4 +40,4 @@ class dbil_image_observer: public dbpro_observer
     vgui_image_tableau_sptr image_tab;
 };
 
-#endif //dbil_image_observer
+#endif //bild_image_observer

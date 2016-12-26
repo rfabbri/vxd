@@ -1,9 +1,9 @@
-// This is basic/dbil/pro/dbil_blob_tracker_process.cxx
+// This is basic/bild/pro/bild_blob_tracker_process.cxx
 
 //:
 // \file
 
-#include "dbil_blob_tracker_process.h"
+#include "bild_blob_tracker_process.h"
 
 #include <vil/vil_image_resource.h>
 #include <vil/vil_image_resource_sptr.h>
@@ -18,7 +18,7 @@
 #include <bil/algo/bil_blob_finder.h>
 
 //: Constructor
-dbil_blob_tracker_process::dbil_blob_tracker_process()
+bild_blob_tracker_process::bild_blob_tracker_process()
 {
 #if 0
   if( !parameters()->add( "Restore"    , "-restore" ,  false   ) 
@@ -29,37 +29,37 @@ dbil_blob_tracker_process::dbil_blob_tracker_process()
 }
 
 //: Destructor
-dbil_blob_tracker_process::~dbil_blob_tracker_process()
+bild_blob_tracker_process::~bild_blob_tracker_process()
 {
 }
 
 bpro1_process*
-dbil_blob_tracker_process::clone() const
+bild_blob_tracker_process::clone() const
 {
-  return new dbil_blob_tracker_process(*this);
+  return new bild_blob_tracker_process(*this);
 }
 
 //: Return the name of this process
 vcl_string 
-dbil_blob_tracker_process::name()
+bild_blob_tracker_process::name()
 {
   return "Blob Tracker";
 }
 
 int
-dbil_blob_tracker_process::input_frames()
+bild_blob_tracker_process::input_frames()
 {
   return 1;
 }
 
 int
-dbil_blob_tracker_process::output_frames()
+bild_blob_tracker_process::output_frames()
 {
   return 0;
 }
 
 vcl_vector< vcl_string >
-dbil_blob_tracker_process::get_input_type()
+bild_blob_tracker_process::get_input_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "image" );
@@ -67,7 +67,7 @@ dbil_blob_tracker_process::get_input_type()
 }
 
 vcl_vector< vcl_string >
-dbil_blob_tracker_process::get_output_type()
+bild_blob_tracker_process::get_output_type()
 {
   vcl_vector<vcl_string > to_return;
   //to_return.push_back( "image" );
@@ -76,7 +76,7 @@ dbil_blob_tracker_process::get_output_type()
 
 
 // Compute the area and center of a blob
-static void dbil_blob_center(const vcl_vector<int>& bi,
+static void bild_blob_center(const vcl_vector<int>& bi,
                              const vcl_vector<int>& bj,
                              int& area, double& xc, double& yc)
 {
@@ -117,7 +117,7 @@ static void dbil_blob_center(const vcl_vector<int>& bi,
 
 
 bool
-dbil_blob_tracker_process::execute()
+bild_blob_tracker_process::execute()
 {
   if ( input_data_.size() != 1 ){
     vcl_cout << "In vidpro1_can_test_process::execute() - not exactly one" << " input image" << vcl_endl;
@@ -153,7 +153,7 @@ dbil_blob_tracker_process::execute()
 
   bool detected = false;
   while (bf.next_4con_region(bi,bj)){
-    dbil_blob_center(bi,bj,area,xc,yc);
+    bild_blob_center(bi,bj,area,xc,yc);
 
     if(area < 100)
       continue;
@@ -190,7 +190,7 @@ dbil_blob_tracker_process::execute()
 }
 
 bool
-dbil_blob_tracker_process::finish()
+bild_blob_tracker_process::finish()
 {
   return true;
 }

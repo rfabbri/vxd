@@ -1,8 +1,8 @@
-// This is basic/dbil/vis/dbil_image_region_stats_tool.cxx
+// This is basic/bild/vis/bild_image_region_stats_tool.cxx
 //:
 // \file
 
-#include "dbil_image_region_stats_tool.h"
+#include "bild_image_region_stats_tool.h"
 #include <bvis1/bvis1_manager.h>
 #include <vgui/vgui_style.h>
 #include <vgui/vgui.h>
@@ -11,7 +11,7 @@
 #include <vil/vil_convert.h>
 
 //: Constructor
-dbil_image_region_stats_tool::dbil_image_region_stats_tool()
+bild_image_region_stats_tool::bild_image_region_stats_tool()
  : region_(),
    draw_mode_(false),
    left_button_down_(false)
@@ -21,14 +21,14 @@ dbil_image_region_stats_tool::dbil_image_region_stats_tool()
 
 
 //: Destructor
-dbil_image_region_stats_tool::~dbil_image_region_stats_tool()
+bild_image_region_stats_tool::~bild_image_region_stats_tool()
 {
 }
 
 bool 
-dbil_image_region_stats_tool::set_storage ( const bpro1_storage_sptr& storage)
+bild_image_region_stats_tool::set_storage ( const bpro1_storage_sptr& storage)
 {
-  if(!dbil_image_tool::set_storage(storage))
+  if(!bild_image_tool::set_storage(storage))
     return false;
   
   double dummy=0.0;
@@ -41,7 +41,7 @@ dbil_image_region_stats_tool::set_storage ( const bpro1_storage_sptr& storage)
 
 //: Handle all events
 bool 
-dbil_image_region_stats_tool::handle( const vgui_event & e, 
+bild_image_region_stats_tool::handle( const vgui_event & e, 
                                       const bvis1_view_tableau_sptr& view )
 {
   float ix, iy;
@@ -129,7 +129,7 @@ dbil_image_region_stats_tool::handle( const vgui_event & e,
 
 //: Calculate basic statistics and display in the status bar        
 void 
-dbil_image_region_stats_tool::display_stats_bar() const
+bild_image_region_stats_tool::display_stats_bar() const
 {
 
   vgl_polygon_scan_iterator<float> psi(region_);

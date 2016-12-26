@@ -1,6 +1,6 @@
-// This is basic/dbil/vis/dbil_image_intensity_inspector.h
-#ifndef  dbil_image_intensity_inspector_h_
-#define  dbil_image_intensity_inspector_h_
+// This is basic/bild/vis/bild_image_intensity_inspector.h
+#ifndef  bild_image_intensity_inspector_h_
+#define  bild_image_intensity_inspector_h_
 //:
 // \file
 // \brief tool to inspect the RGB,IHS values of images
@@ -9,20 +9,20 @@
 //
 // \verbatim
 //  Modifications
-//    Amir Tamrakar    Ported from dbvis1 to dbil_vis
+//    Amir Tamrakar    Ported from dbvis1 to bild_vis
 // \endverbatim
 
-#include "dbil_image_tool.h"
+#include "bild_image_tool.h"
 #include <vil/vil_image_view.h>
 
 //: tool to inspect the RGB,IHS values of images
-class  dbil_image_intensity_inspector : public dbil_image_tool
+class  bild_image_intensity_inspector : public bild_image_tool
 {
  public:
   //: Constructor
-  dbil_image_intensity_inspector();
+  bild_image_intensity_inspector();
   //: Destructor
-  virtual ~dbil_image_intensity_inspector(){}
+  virtual ~bild_image_intensity_inspector(){}
 
   //: Returns the string name of this tool
   virtual vcl_string name() const{return "Image Inspector";}
@@ -43,4 +43,4 @@ protected:
   bool raw_;
 };
 
-#endif //dbil_image_intensity_inspector_h_
+#endif //bild_image_intensity_inspector_h_

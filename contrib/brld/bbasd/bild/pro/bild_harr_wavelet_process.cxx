@@ -1,9 +1,9 @@
-// This is basic/dbil/pro/dbil_harr__process.cxx
+// This is basic/bild/pro/bild_harr__process.cxx
 
 //:
 // \file
 
-#include "dbil_harr_wavelet_process.h"
+#include "bild_harr_wavelet_process.h"
 
 #include <vil/vil_image_resource.h>
 #include <vil/vil_image_resource_sptr.h>
@@ -17,7 +17,7 @@
 #include <bil/algo/bil_harr_wavelet_transform.h>
 
 //: Constructor
-dbil_harr_wavelet_process::dbil_harr_wavelet_process()
+bild_harr_wavelet_process::bild_harr_wavelet_process()
 {
   if( !parameters()->add( "Restore"    , "-restore" ,  false   ) 
     ) {
@@ -26,37 +26,37 @@ dbil_harr_wavelet_process::dbil_harr_wavelet_process()
 }
 
 //: Destructor
-dbil_harr_wavelet_process::~dbil_harr_wavelet_process()
+bild_harr_wavelet_process::~bild_harr_wavelet_process()
 {
 }
 
 bpro1_process*
-dbil_harr_wavelet_process::clone() const
+bild_harr_wavelet_process::clone() const
 {
-  return new dbil_harr_wavelet_process(*this);
+  return new bild_harr_wavelet_process(*this);
 }
 
 //: Return the name of this process
 vcl_string 
-dbil_harr_wavelet_process::name()
+bild_harr_wavelet_process::name()
 {
   return "Harr Wavelet";
 }
 
 int
-dbil_harr_wavelet_process::input_frames()
+bild_harr_wavelet_process::input_frames()
 {
   return 1;
 }
 
 int
-dbil_harr_wavelet_process::output_frames()
+bild_harr_wavelet_process::output_frames()
 {
   return 1;
 }
 
 vcl_vector< vcl_string >
-dbil_harr_wavelet_process::get_input_type()
+bild_harr_wavelet_process::get_input_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "image" );
@@ -64,7 +64,7 @@ dbil_harr_wavelet_process::get_input_type()
 }
 
 vcl_vector< vcl_string >
-dbil_harr_wavelet_process::get_output_type()
+bild_harr_wavelet_process::get_output_type()
 {
   vcl_vector<vcl_string > to_return;
   to_return.push_back( "image" );
@@ -72,7 +72,7 @@ dbil_harr_wavelet_process::get_output_type()
 }
 
 bool
-dbil_harr_wavelet_process::execute()
+bild_harr_wavelet_process::execute()
 {
   if ( input_data_.size() != 1 ){
     vcl_cout << "In vidpro1_can_test_process::execute() - not exactly one" << " input image" << vcl_endl;
@@ -108,7 +108,7 @@ dbil_harr_wavelet_process::execute()
 }
 
 bool
-dbil_harr_wavelet_process::finish()
+bild_harr_wavelet_process::finish()
 {
   return true;
 }

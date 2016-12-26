@@ -1,6 +1,6 @@
-// This is core/vil/algo/dbil_exact_distance_transform.h
-#ifndef dbil_exact_distance_transform_h
-#define dbil_exact_distance_transform_h
+// This is core/vil/algo/bild_exact_distance_transform.h
+#ifndef bild_exact_distance_transform_h
+#define bild_exact_distance_transform_h
 //:
 // \file
 // \brief  Euclidean Distance Transform algorithms
@@ -27,9 +27,9 @@
 //    http://ltilib.sourceforge.net
 //
 // \relates vil_image_view
-bool dbil_exact_distance_transform_maurer(vil_image_view<vxl_uint_32> &im);
+bool bild_exact_distance_transform_maurer(vil_image_view<vxl_uint_32> &im);
 
-//: Same as dbil_exact_distance_transform_maurer, but also returns a label array indicating the closest 0-pixel.
+//: Same as bild_exact_distance_transform_maurer, but also returns a label array indicating the closest 0-pixel.
 //
 // \param[out] imlabel  An array indicating the closet feature pixel. imlabel[i] == row_major linear
 // index of the closest feature voxel. Assuming the image \p im is also stored in row_major order,
@@ -37,7 +37,7 @@ bool dbil_exact_distance_transform_maurer(vil_image_view<vxl_uint_32> &im);
 //
 // \relates vil_image_view
 bool
-dbil_exact_distance_transform_maurer_label( vil_image_view<vxl_uint_32> &im,
+bild_exact_distance_transform_maurer_label( vil_image_view<vxl_uint_32> &im,
                                            vil_image_view<vxl_uint_32> &imlabel);
 
 //: Cubic-time, exact Euclidean distance transform (Saito's algorithm)
@@ -63,24 +63,24 @@ dbil_exact_distance_transform_maurer_label( vil_image_view<vxl_uint_32> &im,
 // and Julio Torelli.
 //
 // \relates vil_image_view
-bool dbil_exact_distance_transform_saito(vil_image_view<vxl_uint_32> &im, unsigned plane_idx=0);
+bool bild_exact_distance_transform_saito(vil_image_view<vxl_uint_32> &im, unsigned plane_idx=0);
 
 //: Overload that assumes given a Lookup table of integer squares.
 // Also assumes the image im already has infinity in all non-zero points.
 //
-// \sa see documentation of dbil_exact_distance_transform_saito(
+// \sa see documentation of bild_exact_distance_transform_saito(
 // vil_image_view<vxl_uint_32> &im, unsigned plane_idx=0);
 //
 // \relates vil_image_view
-bool dbil_exact_distance_transform_saito(vil_image_view<vxl_uint_32> &im,
+bool bild_exact_distance_transform_saito(vil_image_view<vxl_uint_32> &im,
                                         unsigned plane_idx, const vcl_vector<unsigned > &sq);
 
 //: Exact 3D EDT
 //
-// \remarks See comment on dbil_exact_distance_transform_saito
+// \remarks See comment on bild_exact_distance_transform_saito
 //
 // \relates vil_image_view
-bool dbil_exact_distance_transform_saito_3D(vil_image_view<vxl_uint_32> &im);
+bool bild_exact_distance_transform_saito_3D(vil_image_view<vxl_uint_32> &im);
 
 //: Computes signed Euclidean distance transform by using the unsigned EDT of an image and its binary complement.
 //
@@ -97,7 +97,7 @@ bool dbil_exact_distance_transform_saito_3D(vil_image_view<vxl_uint_32> &im);
 // a legacy repository at Brown University (algo/contourtracing/signed_dt.cpp)
 //
 // \relates vil_image_view
-bool dbil_exact_distance_transform_signed( vil_image_view<vxl_uint_32>& input_image,
+bool bild_exact_distance_transform_signed( vil_image_view<vxl_uint_32>& input_image,
                                           vil_image_view<float>& signed_edt_image);
 
 
@@ -113,7 +113,7 @@ bool dbil_exact_distance_transform_signed( vil_image_view<vxl_uint_32>& input_im
 // distances are integers, assuming pixels are unit distance apart.
 //
 // \relates vil_image_view
-bool dbil_exact_distance_transform_brute_force(vil_image_view<vxl_uint_32> &im);
+bool bild_exact_distance_transform_brute_force(vil_image_view<vxl_uint_32> &im);
 
 //: Another Naive implementation of exact Euclidean distance transform (for ground-truth).
 //
@@ -122,19 +122,19 @@ bool dbil_exact_distance_transform_brute_force(vil_image_view<vxl_uint_32> &im);
 // the number of black pixels. In general, the complexity is between O(N) and
 // O(N^2) depending on the content (N is the total number of pixels).
 //
-// \sa description of dbil_exact_distance_transform_brute_force
+// \sa description of bild_exact_distance_transform_brute_force
 //
 // \relates vil_image_view
-bool dbil_exact_distance_transform_brute_force_with_list(vil_image_view<vxl_uint_32> &im);
+bool bild_exact_distance_transform_brute_force_with_list(vil_image_view<vxl_uint_32> &im);
 
-//: Same as dbil_exact_distance_transform_brute_force_with_list, but also returns a label array indicating the closest 0-pixel.
+//: Same as bild_exact_distance_transform_brute_force_with_list, but also returns a label array indicating the closest 0-pixel.
 //
 // \param[out] imlabel  An array indicating the closet feature pixel. imlabel[i] == row_major linear
 // index of the closest feature voxel. Assuming the image \p im is also stored in row_major order,
 // im[i] will contain the corresponding distance.
 //
 // \relates vil_image_view
-bool dbil_exact_distance_transform_brute_force_with_list_label(
+bool bild_exact_distance_transform_brute_force_with_list_label(
     vil_image_view<vxl_uint_32> &im,
     vil_image_view<vxl_uint_32> &imlabel);
 
@@ -154,7 +154,7 @@ bool dbil_exact_distance_transform_brute_force_with_list_label(
 // and Image Processing, pages 100-105. IEEE Computer Society, 2001.
 //
 // \relates vil_image_view
-void dbil_exact_distance_transform_1d_horizontal(vil_image_view<vxl_uint_32> &im);
+void bild_exact_distance_transform_1d_horizontal(vil_image_view<vxl_uint_32> &im);
 
 
-#endif // dbil_exact_distance_transform_h
+#endif // bild_exact_distance_transform_h

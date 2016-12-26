@@ -1,7 +1,7 @@
-// This is bbasd/bgld/algo/dbil_gradient_color.h
+// This is bbasd/bgld/algo/bild_gradient_color.h
 
-#ifndef dbil_gradient_color_h_
-#define dbil_gradient_color_h_
+#ifndef bild_gradient_color_h_
+#define bild_gradient_color_h_
 
 //:
 // \file
@@ -25,10 +25,10 @@
 #include <vil/vil_image_view.h>
 
 //: Compute the gradient of a color image by taking the strongest component among three planes
-bool dbil_gradient_rgb_Linf(const vil_image_view<double >& src, 
+bool bild_gradient_rgb_Linf(const vil_image_view<double >& src, 
                           vil_image_view<double >& Gx,
                           vil_image_view<double >& Gy);
 
 
-#endif // bbasd/bgld/algo/dbil_gradient_color.h
+#endif // bbasd/bgld/algo/bild_gradient_color.h
 

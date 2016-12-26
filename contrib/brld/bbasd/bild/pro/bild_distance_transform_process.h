@@ -1,6 +1,6 @@
-// This is basic/dbil/pro/dbil_distance_transform_process.h
-#ifndef dbil_distance_transform_process_h_
-#define dbil_distance_transform_process_h_
+// This is basic/bild/pro/bild_distance_transform_process.h
+#ifndef bild_distance_transform_process_h_
+#define bild_distance_transform_process_h_
 
 //:
 // \file
@@ -23,13 +23,13 @@
 //
 // \todo square the output of CEDT and don't convert it to byte anymore.
 // \todo label output for CEDT
-class dbil_distance_transform_process : public bpro1_process
+class bild_distance_transform_process : public bpro1_process
 {
 public:
   //: Constructor
-  dbil_distance_transform_process();
+  bild_distance_transform_process();
   //: Destructor
-  virtual ~dbil_distance_transform_process();
+  virtual ~bild_distance_transform_process();
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -48,4 +48,4 @@ public:
   bool finish();
 };
 
-#endif // dbil_distance_transform_process_h_
+#endif // bild_distance_transform_process_h_
