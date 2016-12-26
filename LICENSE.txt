@@ -1,4 +1,4 @@
-VXD is released under the termos of the VXL License:
+VXD is released under the terms of the VXL License:
 https://sourceforge.net/p/vxl/git/ci/master/tree/core/vxl_copyright.h
 
 Since VXD is a heavily experimental codebase, it may use fragments
