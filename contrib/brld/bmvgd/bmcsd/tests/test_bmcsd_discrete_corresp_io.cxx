@@ -3,8 +3,6 @@
 #include <bmcsd/bmcsd_discrete_corresp.h>
 #include <vcl_limits.h>
 #include <vnl/vnl_math.h>
-#include <dborl/dborl_evaluation.h>
-
 
 
 static const double tolerance=vcl_numeric_limits<double>::epsilon()*100;
