@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief General utilities (probably to be moved into some vxl libs)
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 04/25/2005 10:28:03 AM EDT
 //
 //\modifications:

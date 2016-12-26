@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief A sequence of sift features along a curve
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 12/02/2008 03:45:22 PM EST
 //
 

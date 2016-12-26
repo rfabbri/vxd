@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Class for storing trinocular correspondences.
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 09/22/06 11:31:26 EDT
 //
 

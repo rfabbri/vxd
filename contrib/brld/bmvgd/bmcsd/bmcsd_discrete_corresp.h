@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Data structure representing correspondence between two sets of objects
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 04/25/2005 06:41:03 PM EDT
 // 
 // Modifications:

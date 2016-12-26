@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Class to represent indexes of the views to be matched.
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 08/31/2009 03:34:25 PM PDT
 //
 

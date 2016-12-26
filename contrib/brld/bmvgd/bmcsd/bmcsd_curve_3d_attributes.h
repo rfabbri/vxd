@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Attributes to a 3D curve
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 08/31/2009 04:05:46 PM PDT
 //
 
