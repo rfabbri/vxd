@@ -11,7 +11,7 @@
 #include <bnld/algo/bnld_eno.h>
 #include <bnld/algo/bnld_eno_shock.h>
 //: used in bnld_eno_zero_crossing; cant be static const in all platforms
-#define DBNL_ENO_MAX_ZEROX   2*DBNL_ENO_MAX_ORDER    
+#define BNLD_ENO_MAX_ZEROX   2*BNLD_ENO_MAX_ORDER    
 
 // ---------------------------------------------------------------------------
 //: This class finds and stores the roots of polynomials(bnld_eno_poly) and
@@ -40,7 +40,7 @@ class bnld_eno_zero_crossing {
 
 protected:
    unsigned number_;
-   vnl_vector_fixed <double,DBNL_ENO_MAX_ZEROX + 1> loc_;
+   vnl_vector_fixed <double,BNLD_ENO_MAX_ZEROX + 1> loc_;
 // double slope_[eno::max_zerox + 1];  (removed: not used)
 
    bool is_almost_zero(double x) const {return vcl_fabs(x) < bnld_eno::near_zero_value;}

@@ -172,7 +172,7 @@ combine(const bnld_eno_zero_crossing *z1, const bnld_eno_zero_crossing *z2)
       // these asserts here attest that the original authors didn't tought it was
       // barely possible to have more than two intersections in a shock
       // interpolant, although we are merging zeros of two degree 2 polynomials
-      assert (number_ <= DBNL_ENO_MAX_ZEROX);
+      assert (number_ <= BNLD_ENO_MAX_ZEROX);
    }
 
    for (i=0; i < z2->number(); ++i) {
@@ -183,7 +183,7 @@ combine(const bnld_eno_zero_crossing *z1, const bnld_eno_zero_crossing *z2)
       if (!found)
          loc_[number_++] = z2->location(i);
 
-      assert (number_ <= DBNL_ENO_MAX_ZEROX);
+      assert (number_ <= BNLD_ENO_MAX_ZEROX);
    }
 
    return true;

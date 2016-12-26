@@ -23,7 +23,7 @@ interpolate(double const *data, unsigned len, ptrdiff_t stride)
    /* if don't have enough data to interpolate intervals, nothing to
       do here */
 #ifndef NDEBUG
-   if (len < DBNL_ENO_DATA_LENGTH) {
+   if (len < BNLD_ENO_DATA_LENGTH) {
       // better err treatment TODO
       printf("data gridline too short to interpolate.\n");
       printf("in: enointerv_compute_interpolants\n");
@@ -32,7 +32,7 @@ interpolate(double const *data, unsigned len, ptrdiff_t stride)
 #endif
 
 
-   double nhood[DBNL_ENO_DATA_LENGTH]; /* storage for copying
+   double nhood[BNLD_ENO_DATA_LENGTH]; /* storage for copying
                                            local neighborhood */
 
    vcl_vector<bnld_eno_interp>::iterator interp_ptr;
@@ -96,7 +96,7 @@ interpolate(double const *data, double const *x, unsigned len, ptrdiff_t stride)
    /* if don't have enough data to interpolate intervals, nothing to
       do here */
 #ifndef NDEBUG
-   if (len < DBNL_ENO_DATA_LENGTH) {
+   if (len < BNLD_ENO_DATA_LENGTH) {
       // better err treatment TODO
       printf("data gridline too short to interpolate.\n");
       printf("in: enointerv_compute_interpolants\n");
@@ -104,7 +104,7 @@ interpolate(double const *data, double const *x, unsigned len, ptrdiff_t stride)
    }
 #endif
 
-   double nhood[DBNL_ENO_DATA_LENGTH]; /* storage for copying
+   double nhood[BNLD_ENO_DATA_LENGTH]; /* storage for copying
                                            local neighborhood */
 
    vcl_vector<bnld_eno_interp>::iterator interp_ptr;

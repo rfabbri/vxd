@@ -6,7 +6,7 @@
 
 //: interpolation code for non-integral coords
 void bnld_eno_interp ::
-interpolate(double const data[DBNL_ENO_DATA_LENGTH], double const x[DBNL_ENO_DATA_LENGTH])
+interpolate(double const data[BNLD_ENO_DATA_LENGTH], double const x[BNLD_ENO_DATA_LENGTH])
 {
   double
     a2,      /* 2nd order coefficient of forward polynomial */
@@ -85,7 +85,7 @@ interpolate(double d1, double d2, double d3, double x1, double x2, double x3)
 
 //: specific interpolation code for integer coords
 void bnld_eno_interp ::
-interpolate(double const data[DBNL_ENO_DATA_LENGTH])
+interpolate(double const data[BNLD_ENO_DATA_LENGTH])
 {
   double
     a2,      /* 2nd order coefficient of forward polynomial */

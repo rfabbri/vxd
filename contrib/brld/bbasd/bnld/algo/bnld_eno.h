@@ -34,8 +34,8 @@
 // The code looks ugly so that it works with VS 6.0
 class bnld_eno {
 public:
-#define DBNL_ENO_MAX_ORDER 2
-#define DBNL_ENO_DATA_LENGTH (DBNL_ENO_MAX_ORDER + 2)
+#define BNLD_ENO_MAX_ORDER 2
+#define BNLD_ENO_DATA_LENGTH (BNLD_ENO_MAX_ORDER + 2)
 //: Maximum number of zero crossings in an interval.
 // A shock interval has 2 polys, and, hence, twice the number of max roots
    static const double near_zero_value
@@ -72,7 +72,7 @@ public:
    double  operator [] (unsigned i) const { return coeffs_[i]; }
  
 protected:
-   double coeffs_[DBNL_ENO_MAX_ORDER+1];
+   double coeffs_[BNLD_ENO_MAX_ORDER+1];
    unsigned order_;
 };
 
@@ -103,9 +103,9 @@ public:
    ~bnld_eno_interp() {}
 
    //: was compute_polynomial
-   void interpolate (double const data[DBNL_ENO_DATA_LENGTH]);
-   void interpolate(double const data[DBNL_ENO_DATA_LENGTH], 
-                    double const    x[DBNL_ENO_DATA_LENGTH]);
+   void interpolate (double const data[BNLD_ENO_DATA_LENGTH]);
+   void interpolate(double const data[BNLD_ENO_DATA_LENGTH], 
+                    double const    x[BNLD_ENO_DATA_LENGTH]);
 
    void interpolate(double d1, double d2, double d3, double x1, double x2, double x3);
 

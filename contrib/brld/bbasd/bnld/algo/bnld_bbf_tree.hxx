@@ -427,7 +427,7 @@ bnld_bbf_tree<T,n>::bounded_at_leaf( const vnl_vector_fixed<T,n>& query_point,
   return true;
 }
 
-#define DBNL_BBF_TREE_INSTANTIATE(T,n) \
+#define BNLD_BBF_TREE_INSTANTIATE(T,n) \
 template class bnld_bbf_box< T,n >; \
 template class bnld_bbf_node< T,n >; \
 template class bnld_bbf_queue_entry< T,n >; \
