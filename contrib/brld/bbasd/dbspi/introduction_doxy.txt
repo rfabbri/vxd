@@ -1,0 +1,12 @@
+// The following text is included in the main documentation page by doxygen
+/*! \mainpage dbspi : Brown Spatial Indexing Library
+*
+* This library contains functions for proximity computations of geometric
+* objects. One example is computing the distance of a given polyline to a set of
+* pixels using Distance Transform.
+*
+* More functions of this type can be found in brcv/rec/dbcsi, which uses higher
+* level libraries and primitives than the present one.
+*
+*/
+
