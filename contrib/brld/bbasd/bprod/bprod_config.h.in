@@ -1,20 +1,20 @@
-#ifndef dbpro_config_h_
-#define dbpro_config_h_
+#ifndef bprod_config_h_
+#define bprod_config_h_
 
 // If the suffix of this file is ".in", this is the source file used
 // to generate the actual configuration file.  To examine the actual
-// configuration of the library, look at the dbpro_config.h file in
+// configuration of the library, look at the bprod_config.h file in
 // the _build_ tree.
 
 #cmakedefine CMAKE_USE_PTHREADS_INIT
 #ifdef CMAKE_USE_PTHREADS_INIT
-#define DBPRO_HAS_PTHREADS 1
+#define BPROD_HAS_PTHREADS 1
 #else
-#define DBPRO_HAS_PTHREADS 0
+#define BPROD_HAS_PTHREADS 0
 #endif
 #undef CMAKE_USE_PTHREADS_INIT
 
 
 
-#endif //dbpro_config_h_
+#endif //bprod_config_h_
 
