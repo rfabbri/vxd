@@ -32,5 +32,5 @@ aux_source_directory(Templates bild_pro_sources)
 
 add_library(bild_pro ${bild_pro_sources})
 
-target_link_libraries(bild_pro bild_algo vidpro1 bpro1 bil vil vil_algo dbpro bil_algo osl )
+target_link_libraries(bild_pro bild_algo vidpro1 bpro1 bil vil vil_algo bprod bil_algo osl )
 

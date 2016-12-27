@@ -14,12 +14,12 @@
 
 #include <vil/vil_new.h>
 #include <vil/algo/vil_sobel_1x3.h>
-#include <dbpro/dbpro_process.h>
+#include <bprod/bprod_process.h>
 
 //: A Sobel 1x3 filter to produce image gradients
 // The output is a 2-plane image containing Ix and Iy
 template <class srcT, class destT>
-class bild_sobel_1x3_filter : public dbpro_filter
+class bild_sobel_1x3_filter : public bprod_filter
 {
 public:
   //: Constructor
@@ -27,7 +27,7 @@ public:
   : reuse_output_(reuse_output) {}
   
   //: Execute this process
-  dbpro_signal execute()
+  bprod_signal execute()
   {
     assert(input_type_id(0) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);
@@ -37,7 +37,7 @@ public:
       grad_ij_ = vil_image_view<destT>();
     vil_sobel_1x3(image,grad_ij_);
     output(0, vil_new_image_resource_of_view(grad_ij_));
-    return DBPRO_VALID;
+    return BPROD_VALID;
   }
 
   bool reuse_output_;

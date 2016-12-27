@@ -3,7 +3,7 @@
 #define bild_image_observer_h_
 //:
 // \file
-// \brief A dbpro image observer for vgui 
+// \brief A bprod image observer for vgui 
 // \author Based on original code by  Matt Leotta
 // \date 01/21/2008
 //
@@ -12,23 +12,23 @@
 // \endverbatim
 
 
-#include <dbpro/dbpro_observer.h>
+#include <bprod/bprod_observer.h>
 
 #include <vil/vil_image_resource.h>
 #include <vgui/vgui_image_tableau.h>
 
 
-class bild_image_observer: public dbpro_observer
+class bild_image_observer: public bprod_observer
 {
   public:
     bild_image_observer(const vgui_image_tableau_sptr& itab)
     : image_tab(itab) {}
     //: Called by the process when the data is ready
-    virtual bool notify(const dbpro_storage_sptr& data, unsigned long timestamp)
+    virtual bool notify(const bprod_storage_sptr& data, unsigned long timestamp)
     {
       assert(image_tab);
       assert(data);
-      if(data->info() != DBPRO_VALID)
+      if(data->info() != BPROD_VALID)
         image_tab->set_image_resource(NULL);
       else{
         assert(data->type_id() == typeid(vil_image_resource_sptr));

@@ -12,7 +12,7 @@
 
 
 //: Execute this process
-dbpro_signal
+bprod_signal
 bild_binary_erode_filter::execute()
 {
   assert(input_type_id(0) == typeid(vil_image_resource_sptr));
@@ -28,12 +28,12 @@ bild_binary_erode_filter::execute()
   vil_image_resource_sptr out_img =  vil_new_image_resource_of_view(image_out);
   output(0,out_img);
 
-  return DBPRO_VALID;
+  return BPROD_VALID;
 }
 
 
 //: Execute this process
-dbpro_signal
+bprod_signal
 bild_binary_dilate_filter::execute()
 {
   assert(input_type_id(0) == typeid(vil_image_resource_sptr));
@@ -49,7 +49,7 @@ bild_binary_dilate_filter::execute()
   vil_image_resource_sptr out_img =  vil_new_image_resource_of_view(image_out);
   output(0,out_img);
 
-  return DBPRO_VALID;
+  return BPROD_VALID;
 }
 
 

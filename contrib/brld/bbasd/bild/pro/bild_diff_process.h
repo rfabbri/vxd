@@ -12,13 +12,13 @@
 //  Modifications
 // \endverbatim
 
-#include <dbpro/dbpro_process.h>
-#include <dbpro/dbpro_process_factory.h>
+#include <bprod/bprod_process.h>
+#include <bprod/bprod_process_factory.h>
 #include <vcl_vector.h>
 #include <vcl_string.h>
 
 //: Process that computes absolute difference between images
-class bild_diff_process : public dbpro_filter {
+class bild_diff_process : public bprod_filter {
 
 public:
   //: Constructor
@@ -26,14 +26,14 @@ public:
   //: Destructor
   virtual ~bild_diff_process() {}
 
-  class factory : public dbpro_process_factory
+  class factory : public bprod_process_factory
   {
     public:
     //: Return the default set of parameters for the process
-      virtual dbpro_parameters_sptr default_params() const;
+      virtual bprod_parameters_sptr default_params() const;
 
     //: Construct a process from a set of parameters
-      virtual dbpro_process_sptr create(const dbpro_parameters_sptr& params) const;
+      virtual bprod_process_sptr create(const bprod_parameters_sptr& params) const;
 
     //: The name of the process
       virtual vcl_string name() const { return "Image Difference"; }
@@ -43,7 +43,7 @@ public:
 
 
   //: Execute this process
-  dbpro_signal execute();
+  bprod_signal execute();
 
 };
 

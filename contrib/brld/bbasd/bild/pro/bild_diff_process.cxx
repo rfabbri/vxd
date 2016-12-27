@@ -4,8 +4,8 @@
 // \file
 
 #include "bild_diff_process.h"
-#include <dbpro/dbpro_storage.h>
-#include <dbpro/dbpro_parameters.h>
+#include <bprod/bprod_storage.h>
+#include <bprod/bprod_parameters.h>
 #include <vil/vil_image_resource.h>
 #include <vil/vil_new.h>
 #include <vil/vil_image_view.h>
@@ -13,25 +13,25 @@
 
 
 //: Return the default set of parameters for the process
-dbpro_parameters_sptr
+bprod_parameters_sptr
 bild_diff_process::factory::default_params() const
 {
   // no parameters to add
-  dbpro_parameters_sptr p = new dbpro_parameters();
+  bprod_parameters_sptr p = new bprod_parameters();
   return p;
 }
 
 
 //: Construct a process from a set of parameters
-dbpro_process_sptr
-bild_diff_process::factory::create(const dbpro_parameters_sptr& params) const
+bprod_process_sptr
+bild_diff_process::factory::create(const bprod_parameters_sptr& params) const
 {
   return new bild_diff_process();
 }
 
 
 //: Execute this process
-dbpro_signal
+bprod_signal
 bild_diff_process::execute()
 {
   assert(input_type_id(0) == typeid(vil_image_resource_sptr));
@@ -51,7 +51,7 @@ bild_diff_process::execute()
   vil_image_resource_sptr out_img =  vil_new_image_resource_of_view(diff_img);
   output(0,out_img);
 
-  return DBPRO_VALID;
+  return BPROD_VALID;
 }
 
 

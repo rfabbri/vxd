@@ -14,32 +14,32 @@
 
 #include <vil/vil_convert.h>
 #include <vil/vil_new.h>
-#include <dbpro/dbpro_process.h>
+#include <bprod/bprod_process.h>
 
 //: Filter to cast the image to a new type
 template <class outP>
-class bild_convert_cast_filter : public dbpro_filter
+class bild_convert_cast_filter : public bprod_filter
 {
   public:
     //: Execute this process
-    dbpro_signal execute()
+    bprod_signal execute()
     {
       assert(input_type_id(0) == typeid(vil_image_resource_sptr));
       vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);
 
       output(0, vil_new_image_resource_of_view(*vil_convert_cast(outP(), in_img->get_view())));
-      return DBPRO_VALID;
+      return BPROD_VALID;
     }
 
 };
 
 //: Filter to cast the image to a new type
 template <class inP>
-class bild_convert_stretch_range_filter : public dbpro_filter
+class bild_convert_stretch_range_filter : public bprod_filter
 {
   public:
     //: Execute this process
-    dbpro_signal execute()
+    bprod_signal execute()
     {
       assert(input_type_id(0) == typeid(vil_image_resource_sptr));
       vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);
@@ -47,7 +47,7 @@ class bild_convert_stretch_range_filter : public dbpro_filter
       vil_image_view<vxl_byte> out;
       vil_convert_stretch_range(in, out);
       output(0, vil_new_image_resource_of_view(out));
-      return DBPRO_VALID;
+      return BPROD_VALID;
     }
 
 };

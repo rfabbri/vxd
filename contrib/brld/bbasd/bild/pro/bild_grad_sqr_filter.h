@@ -15,7 +15,7 @@
 #include <vil/vil_new.h>
 #include <vil/vil_plane.h>
 #include <vil/vil_math.h>
-#include <dbpro/dbpro_process.h>
+#include <bprod/bprod_process.h>
 
 
 //: Compute the squares and cross terms of gradient.
@@ -23,7 +23,7 @@
 // The input is a 2-plane image containing Ix and Iy
 // The output is a 3-plane image containing Ix^2, Iy^2, and Ix*Iy
 template <class srcT, class destT>
-class bild_grad_sqr_filter : public dbpro_filter
+class bild_grad_sqr_filter : public bprod_filter
 {
 public:
   //: Constructor
@@ -37,7 +37,7 @@ public:
   };
   
   //: Execute this process
-  dbpro_signal execute()
+  bprod_signal execute()
   {
     assert(input_type_id(0) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);
@@ -58,7 +58,7 @@ public:
     vil_math_image_product(grad_i,grad_j,grad_ij);
     
     output(0, vil_new_image_resource_of_view(grad_sqr_));
-    return DBPRO_VALID;
+    return BPROD_VALID;
   }
 
   bool reuse_output_;

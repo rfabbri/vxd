@@ -13,12 +13,12 @@
 // \endverbatim
 
 
-#include <dbpro/dbpro_process.h>
+#include <bprod/bprod_process.h>
 #include <vil/algo/vil_structuring_element.h>
 
 
 //: Filter for binary erosion
-class bild_binary_erode_filter : public dbpro_filter
+class bild_binary_erode_filter : public bprod_filter
 {
   public:
     //: Constructor
@@ -27,7 +27,7 @@ class bild_binary_erode_filter : public dbpro_filter
     virtual ~bild_binary_erode_filter() {}
 
     //: Execute this process
-    dbpro_signal execute();
+    bprod_signal execute();
 
   private:
     vil_structuring_element se_;
@@ -36,7 +36,7 @@ class bild_binary_erode_filter : public dbpro_filter
 
 
 //: Filter for binary dilation
-class bild_binary_dilate_filter : public dbpro_filter
+class bild_binary_dilate_filter : public bprod_filter
 {
   public:
     //: Constructor
@@ -45,7 +45,7 @@ class bild_binary_dilate_filter : public dbpro_filter
     virtual ~bild_binary_dilate_filter() {}
 
     //: Execute this process
-    dbpro_signal execute();
+    bprod_signal execute();
 
   private:
     vil_structuring_element se_;

@@ -15,11 +15,11 @@
 #include <vil/vil_new.h>
 #include <vil/vil_plane.h>
 #include <vil/algo/vil_suppress_non_max_edges.h>
-#include <dbpro/dbpro_process.h>
+#include <bprod/bprod_process.h>
 
 //: Suppress all non-maximal edges and estimate subpixel locations
 template <class srcT, class destT>
-class bild_subpix_edge_filter : public dbpro_filter
+class bild_subpix_edge_filter : public bprod_filter
 {
 public:
   //: Constructor
@@ -27,7 +27,7 @@ public:
   : mag_thresh_(mag_thresh), reuse_output_(reuse_output) {}
   
   //: Execute this process
-  dbpro_signal execute()
+  bprod_signal execute()
   {
     assert(input_type_id(0) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);
@@ -39,7 +39,7 @@ public:
       grad_moo_ = vil_image_view<destT>();
     vil_suppress_non_max_edges_subpixel(grad_i,grad_j,mag_thresh_,grad_moo_);
     output(0, vil_new_image_resource_of_view(grad_moo_));
-    return DBPRO_VALID;
+    return BPROD_VALID;
   }
 
   double mag_thresh_;
