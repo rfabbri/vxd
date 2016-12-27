@@ -21,3 +21,6 @@ add_subdirectory(bspid)
 
 # The Brown Image Library (vxd development version)
 add_subdirectory(bild) 
+
+# The Development Brown Process Library : moved to VXD
+add_subdirectory(bprod)
