@@ -3,6 +3,7 @@
 
 
 if (VXL_VGUI_FOUND)
+find_package(OpenGL)
 
 set(bprod_vis_sources
 
@@ -16,6 +17,6 @@ set(bprod_vis_sources
 
 add_library(bprod_vis  ${bprod_vis_sources})
 
-target_link_libraries(bprod_vis bprod vgui)
+target_link_libraries(bprod_vis bprod vgui ${OPENGL_LIBRARIES})
 
 endif (VXL_VGUI_FOUND)
