@@ -1,3 +1,3 @@
-#include <dbpro/dbpro_parameters.hxx>
+#include <bprod/bprod_parameters.hxx>
 
-DBPRO_PARAMETERS_INSTANTIATE(float);
+BPROD_PARAMETERS_INSTANTIATE(float);

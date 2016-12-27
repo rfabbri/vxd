@@ -1,15 +1,15 @@
-// This is brl/dbpro/dbpro_storage_sptr.h
-#ifndef dbpro_storage_sptr_h
-#define dbpro_storage_sptr_h
+// This is brl/bprod/bprod_storage_sptr.h
+#ifndef bprod_storage_sptr_h
+#define bprod_storage_sptr_h
 
 //:
 // \file
 
-class dbpro_storage;
+class bprod_storage;
 
 #include <vbl/vbl_smart_ptr.h>
 
-typedef vbl_smart_ptr<dbpro_storage> dbpro_storage_sptr;
+typedef vbl_smart_ptr<bprod_storage> bprod_storage_sptr;
 
 
-#endif // dbpro_storage_sptr_h
+#endif // bprod_storage_sptr_h

@@ -1,41 +1,41 @@
-// This is basic/dbpro/dbpro_delay.cxx
+// This is basic/bprod/bprod_delay.cxx
 
 //:
 // \file
 
-#include "dbpro_delay.h"
+#include "bprod_delay.h"
 #include <vcl_iostream.h>
 #include <vcl_cstdlib.h>
 
-#include <dbpro/dbpro_config.h>
-#if DBPRO_HAS_PTHREADS
+#include <bprod/bprod_config.h>
+#if BPROD_HAS_PTHREADS
 #include <pthread.h>
 #endif
 
 
 //: Constructor
-dbpro_delay::dbpro_delay(unsigned int size) 
+bprod_delay::bprod_delay(unsigned int size) 
  : max_size_(size),
    recieved_timestamp_(0), 
-   recieved_signal_(DBPRO_WAIT) 
+   recieved_signal_(BPROD_WAIT) 
 {
 }
 
 
 //: Destructor
-dbpro_delay::~dbpro_delay()
+bprod_delay::~bprod_delay()
 {
 }
 
 
-#if DBPRO_HAS_PTHREADS
+#if BPROD_HAS_PTHREADS
 // helper code to launch and manage pthreads
 namespace{
   struct pthread_data
   {
-    dbpro_delay* delay;
+    bprod_delay* delay;
     unsigned long timestamp;
-    dbpro_debug_observer* debug;
+    bprod_debug_observer* debug;
   };
   
   void* pthread_launcher(void *arg)
@@ -50,9 +50,9 @@ namespace{
 
 
 //: Runs the filter
-dbpro_signal
-dbpro_delay::run(unsigned long timestamp,
-                 dbpro_debug_observer* const debug)
+bprod_signal
+bprod_delay::run(unsigned long timestamp,
+                 bprod_debug_observer* const debug)
 {
   // notify the debugger if available
   if (debug) debug->notify_enter(this, timestamp);
@@ -70,19 +70,19 @@ dbpro_delay::run(unsigned long timestamp,
     }
     this->last_signal_ = this->recieved_signal_;
 
-    if(this->last_signal_ == DBPRO_WAIT)
-      this->last_signal_ = DBPRO_VALID;
+    if(this->last_signal_ == BPROD_WAIT)
+      this->last_signal_ = BPROD_VALID;
 
 
     for(unsigned int i=0; i<queue_.size(); ++i){
       set_output(i,queue_[i]);
     }
-    if(!this->notify_observers(DBPRO_WAIT))
-      this->last_signal_ = DBPRO_WAIT;
+    if(!this->notify_observers(BPROD_WAIT))
+      this->last_signal_ = BPROD_WAIT;
     
     queue_mutex_.unlock();
     
-#if DBPRO_HAS_PTHREADS
+#if BPROD_HAS_PTHREADS
     // launch a thread to get the next round of data
     pthread_data* pd = new pthread_data();
     pd->delay = this;
@@ -111,22 +111,22 @@ dbpro_delay::run(unsigned long timestamp,
 }
 
 //: Run the process on the current frame
-dbpro_signal 
-dbpro_delay::execute()
+bprod_signal 
+bprod_delay::execute()
 {
-  return DBPRO_INVALID;
+  return BPROD_INVALID;
 }
 
 
 //: Request data from dependents and shift the queue  
 void 
-dbpro_delay::shift_queue(unsigned long timestamp,
-                         dbpro_debug_observer* const debug)
+bprod_delay::shift_queue(unsigned long timestamp,
+                         bprod_debug_observer* const debug)
 {
   queue_mutex_.lock();
   this->recieved_signal_ = this->request_inputs(timestamp,debug);
-  if( this->recieved_signal_ == DBPRO_VALID){
-    dbpro_connector_sptr connector = input_connectors_.begin()->second;
+  if( this->recieved_signal_ == BPROD_VALID){
+    bprod_connector_sptr connector = input_connectors_.begin()->second;
     recieved_timestamp_ = connector->timestamp();
     assert(recieved_timestamp_ == timestamp);
     queue_.push_front(connector->data());

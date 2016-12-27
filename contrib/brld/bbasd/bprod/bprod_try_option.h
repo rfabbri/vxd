@@ -1,6 +1,6 @@
-// This is basic/dbpro/dbpro_try_option.h
-#ifndef dbpro_try_option_h_
-#define dbpro_try_option_h_
+// This is basic/bprod/bprod_try_option.h
+#ifndef bprod_try_option_h_
+#define bprod_try_option_h_
 
 //:
 // \file
@@ -13,7 +13,7 @@
 // \endverbatim
 
 
-#include <dbpro/dbpro_process.h>
+#include <bprod/bprod_process.h>
 #include <vcl_deque.h>
 
 
@@ -24,24 +24,24 @@
 // the output from this pin is forwarded to output pin 0.  No further
 // input requests are made on the remaining pins.  The output of this
 // filter is invalid only if all inputs are invalid.
-class dbpro_try_option : public dbpro_process
+class bprod_try_option : public bprod_process
 {
  public:
 
   //: Constructor
-  dbpro_try_option() {}
+  bprod_try_option() {}
 
 
   //: Destructor
-  virtual ~dbpro_try_option() {}
+  virtual ~bprod_try_option() {}
 
   //: Runs the process
-  dbpro_signal run(unsigned long timestamp,
-                   dbpro_debug_observer* const debug = NULL);
+  bprod_signal run(unsigned long timestamp,
+                   bprod_debug_observer* const debug = NULL);
 
   //: Execute this process
-  dbpro_signal execute();
+  bprod_signal execute();
 
 };
 
-#endif // dbpro_try_option_h_
+#endif // bprod_try_option_h_

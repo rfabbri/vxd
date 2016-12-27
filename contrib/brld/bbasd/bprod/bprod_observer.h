@@ -1,6 +1,6 @@
-// This is basic/dbpro/dbpro_observer.h
-#ifndef dbpro_observer_h_
-#define dbpro_observer_h_
+// This is basic/bprod/bprod_observer.h
+#ifndef bprod_observer_h_
+#define bprod_observer_h_
 //--------------------------------------------------------------------------------
 //:
 // \file
@@ -19,31 +19,31 @@
 
 #include <vbl/vbl_ref_count.h>
 
-#include <dbpro/dbpro_process_sptr.h>
-#include <dbpro/dbpro_storage_sptr.h>
-#include <dbpro/dbpro_observer_sptr.h>
+#include <bprod/bprod_process_sptr.h>
+#include <bprod/bprod_storage_sptr.h>
+#include <bprod/bprod_observer_sptr.h>
 
 //: This abstract class is the base class for observer objects
 
-class dbpro_observer : public vbl_ref_count
+class bprod_observer : public vbl_ref_count
 {
  public:
 
   //: Called by the process when the data is ready
-  virtual bool notify(const dbpro_storage_sptr& data, unsigned long timestamp) = 0;
+  virtual bool notify(const bprod_storage_sptr& data, unsigned long timestamp) = 0;
 
   //: Indicate that the observer will no longer be notified
   virtual bool unlink() { return true; }
 
  protected:
   //: Disable direct construction and destruction of the base class
-  dbpro_observer(const dbpro_observer& /*other*/) : vbl_ref_count() {}
-  dbpro_observer(){}
-  virtual ~dbpro_observer(){}
+  bprod_observer(const bprod_observer& /*other*/) : vbl_ref_count() {}
+  bprod_observer(){}
+  virtual ~bprod_observer(){}
 
 };
 
 
 
 
-#endif // dbpro_observer_h_
+#endif // bprod_observer_h_

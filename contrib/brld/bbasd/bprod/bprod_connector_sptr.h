@@ -1,15 +1,15 @@
-// This is basic/dbpro/dbpro_connector_sptr.h
-#ifndef dbpro_connector_sptr_h
-#define dbpro_connector_sptr_h
+// This is basic/bprod/bprod_connector_sptr.h
+#ifndef bprod_connector_sptr_h
+#define bprod_connector_sptr_h
 
 //:
 // \file
 
-class dbpro_connector;
+class bprod_connector;
 
-#include <dbpro/dbpro_observer_sptr.h>
+#include <bprod/bprod_observer_sptr.h>
 
-//: Smart-pointer to a dbpro_connector.
-typedef dbpro_observer_sptr_t<dbpro_connector> dbpro_connector_sptr;
+//: Smart-pointer to a bprod_connector.
+typedef bprod_observer_sptr_t<bprod_connector> bprod_connector_sptr;
 
-#endif // dbpro_connector_sptr_h
+#endif // bprod_connector_sptr_h

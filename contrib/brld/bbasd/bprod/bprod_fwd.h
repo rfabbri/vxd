@@ -1,6 +1,6 @@
-// This is basic/dbpro/dbpro_fwd.h
-#ifndef dbpro_fwd_h_
-#define dbpro_fwd_h_
+// This is basic/bprod/bprod_fwd.h
+#ifndef bprod_fwd_h_
+#define bprod_fwd_h_
 //--------------------------------------------------------------------------------
 //:
 // \file
@@ -15,13 +15,13 @@
 //--------------------------------------------------------------------------------
 
 
-enum dbpro_signal { DBPRO_VALID, DBPRO_INVALID, DBPRO_EOS, DBPRO_WAIT };
+enum bprod_signal { BPROD_VALID, BPROD_INVALID, BPROD_EOS, BPROD_WAIT };
 
-class dbpro_process;
-class dbpro_storage;
-class dbpro_observer;
-class dbpro_connector;
+class bprod_process;
+class bprod_storage;
+class bprod_observer;
+class bprod_connector;
 
 
 
-#endif // dbpro_fwd_h_
+#endif // bprod_fwd_h_

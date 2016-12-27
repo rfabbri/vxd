@@ -1,45 +1,45 @@
-# breye/dbpro/CMakeLists.txt
+# breye/bprod/CMakeLists.txt
 
-project(dbpro)
+project(bprod)
 
 include_directories( ${VXL_BRL_INCLUDE_DIR} )
 include_directories( ${lems_SOURCE_DIR}/basic )
 
 find_package( Threads )
 
-configure_file( ${dbpro_SOURCE_DIR}/dbpro_config.h.in
-                ${dbpro_BINARY_DIR}/dbpro_config.h )
+configure_file( ${bprod_SOURCE_DIR}/bprod_config.h.in
+                ${bprod_BINARY_DIR}/bprod_config.h )
 
 
-set(dbpro_sources
-   dbpro_mutex.cxx                       dbpro_mutex.h 
-   dbpro_parameters.cxx                  dbpro_parameters.h                  dbpro_parameters_sptr.h
-   dbpro_parameters.hxx
-   dbpro_process.cxx                     dbpro_process.h                     dbpro_process_sptr.h
-                                         dbpro_basic_processes.h
-                                         dbpro_vsl_processes.h
-                                         dbpro_ios_processes.h
-   dbpro_process_factory.cxx             dbpro_process_factory.h
-                                         dbpro_storage.h                     dbpro_storage_sptr.h
-                                         dbpro_observer.h                    dbpro_observer_sptr.h
-   dbpro_connector.cxx                   dbpro_connector.h                   dbpro_connector_sptr.h
-   dbpro_delay.cxx                       dbpro_delay.h
-   dbpro_try_option.cxx                  dbpro_try_option.h
-   dbpro_executive.cxx                   dbpro_executive.h
+set(bprod_sources
+   bprod_mutex.cxx                       bprod_mutex.h 
+   bprod_parameters.cxx                  bprod_parameters.h                  bprod_parameters_sptr.h
+   bprod_parameters.hxx
+   bprod_process.cxx                     bprod_process.h                     bprod_process_sptr.h
+                                         bprod_basic_processes.h
+                                         bprod_vsl_processes.h
+                                         bprod_ios_processes.h
+   bprod_process_factory.cxx             bprod_process_factory.h
+                                         bprod_storage.h                     bprod_storage_sptr.h
+                                         bprod_observer.h                    bprod_observer_sptr.h
+   bprod_connector.cxx                   bprod_connector.h                   bprod_connector_sptr.h
+   bprod_delay.cxx                       bprod_delay.h
+   bprod_try_option.cxx                  bprod_try_option.h
+   bprod_executive.cxx                   bprod_executive.h
 )
 
 
 
-aux_source_directory(Templates dbpro_sources)
+aux_source_directory(Templates bprod_sources)
 
-add_library(dbpro  ${dbpro_sources})
+add_library(bprod  ${bprod_sources})
 
 
-target_link_libraries(dbpro vul vbl)
+target_link_libraries(bprod vul vbl)
 
 if( CMAKE_USE_PTHREADS_INIT )
-  set_target_properties(dbpro PROPERTIES COMPILE_FLAGS -pthread)
-  target_link_libraries(dbpro pthread)
+  set_target_properties(bprod PROPERTIES COMPILE_FLAGS -pthread)
+  target_link_libraries(bprod pthread)
 endif( CMAKE_USE_PTHREADS_INIT )
 
 

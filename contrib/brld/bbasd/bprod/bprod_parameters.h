@@ -1,9 +1,9 @@
-// This is breye/dbpro/dbpro_parameters.h
-#ifndef dbpro_parameters_h_
-#define dbpro_parameters_h_
+// This is breye/bprod/bprod_parameters.h
+#ifndef bprod_parameters_h_
+#define bprod_parameters_h_
 //:
 // \file
-// \brief classes to represent parameters to dbpro processes
+// \brief classes to represent parameters to bprod processes
 // \author Matt Leotta, (mleotta@lems.brown.edu)
 // \date 7/1/2004
 //
@@ -22,19 +22,19 @@
 
 #include <vbl/vbl_ref_count.h>
 
-#include <dbpro/dbpro_parameters_sptr.h>
+#include <bprod/bprod_parameters_sptr.h>
 
 
 //: The abstract base class for a parameter
-class dbpro_param
+class bprod_param
 {
  public:
 
   //: Destructor
-  virtual ~dbpro_param() {}
+  virtual ~bprod_param() {}
 
   //: Clone this parameter
-  virtual dbpro_param * clone() const = 0;
+  virtual bprod_param * clone() const = 0;
 
   //: Return the parameter name
   vcl_string name() const { return name_; }
@@ -62,7 +62,7 @@ class dbpro_param
 
  protected:
   //: Constructor
-  dbpro_param(bool has_bounds, const vcl_string& name, const vcl_string& desc)
+  bprod_param(bool has_bounds, const vcl_string& name, const vcl_string& desc)
    : has_bounds_(has_bounds), name_(name), description_(desc) {}
 
 
@@ -74,24 +74,24 @@ class dbpro_param
   const vcl_string description_;
 };
 
-//: Output stream operator for dbpro_params
-vcl_ostream& operator<<(vcl_ostream& os, const dbpro_param& p);
+//: Output stream operator for bprod_params
+vcl_ostream& operator<<(vcl_ostream& os, const bprod_param& p);
 
 //===========================================================================================
 
 //: A Templated parameter class
 template< class T >
-class dbpro_param_type : public dbpro_param
+class bprod_param_type : public bprod_param
 {
  public:
   // Constructor - with bounds
-  dbpro_param_type<T>(const vcl_string& name, const vcl_string& desc, const T& dflt, const T& min, const T& max)
-   : dbpro_param(true, name, desc), value_(dflt), default_(dflt), temp_value_(dflt),
+  bprod_param_type<T>(const vcl_string& name, const vcl_string& desc, const T& dflt, const T& min, const T& max)
+   : bprod_param(true, name, desc), value_(dflt), default_(dflt), temp_value_(dflt),
      min_value_(min), max_value_(max) { assert( value_ < max_value_ &&  min_value_ < value_ ); }
 
   // Constructor - without bounds
-  dbpro_param_type<T>(const vcl_string& name, const vcl_string& desc, const T& dflt)
-   : dbpro_param(false, name, desc), value_(dflt), default_(dflt), temp_value_(dflt),
+  bprod_param_type<T>(const vcl_string& name, const vcl_string& desc, const T& dflt)
+   : bprod_param(false, name, desc), value_(dflt), default_(dflt), temp_value_(dflt),
      min_value_(dflt), max_value_(dflt) {}
 
   //: Accessor for the default value;
@@ -114,7 +114,7 @@ class dbpro_param_type : public dbpro_param
   virtual void reset() { value_ = default_; }
 
   //: Clone the parameter
-  virtual dbpro_param * clone() const { return new dbpro_param_type<T>(*this); }
+  virtual bprod_param * clone() const { return new bprod_param_type<T>(*this); }
 
   //: Return a string representation of the current value
   virtual vcl_string value_str() const { return create_string(value_); }
@@ -150,17 +150,17 @@ class dbpro_param_type : public dbpro_param
 //===========================================================================================
 
 //: This class maintains all parameters for a process
-class dbpro_parameters : public vbl_ref_count
+class bprod_parameters : public vbl_ref_count
 {
  public:
 
   //: Constructor
-  dbpro_parameters();
+  bprod_parameters();
   //: Destructor
-  ~dbpro_parameters();
+  ~bprod_parameters();
 
   //: Deep psuedo copy constructor
-  dbpro_parameters( const dbpro_parameters_sptr& old_params);
+  bprod_parameters( const bprod_parameters_sptr& old_params);
 
   //: Returns true if a parameter exists with \p name
   bool valid_parameter( const vcl_string& name ) const;
@@ -169,30 +169,30 @@ class dbpro_parameters : public vbl_ref_count
   template<class T>
   bool valid_parameter_type( const vcl_string& name, const T&) const
   {
-    vcl_map< vcl_string, dbpro_param* >::const_iterator 
+    vcl_map< vcl_string, bprod_param* >::const_iterator 
       itr = name_param_map_.find( name );
     if( itr == name_param_map_.end() ) {
       return false; // Not Found
     }
-    return (dynamic_cast<dbpro_param_type<T> *>(itr->second) != NULL);
+    return (dynamic_cast<bprod_param_type<T> *>(itr->second) != NULL);
   }
 
   //: Add a new parameter with no bounds
   template<class T>
   bool add( const vcl_string& desc, const vcl_string& name, const T& default_val )
-  { return add(new dbpro_param_type<T>(name, desc, default_val)); }
+  { return add(new bprod_param_type<T>(name, desc, default_val)); }
 
   //: Add a new parameter with bounds
   template<class T>
   bool add( const vcl_string& desc, const vcl_string& name, const T& default_val,
             const T& min_val, const T& max_val )
-  { return add(new dbpro_param_type<T>(name, desc, default_val, min_val, max_val)); }
+  { return add(new bprod_param_type<T>(name, desc, default_val, min_val, max_val)); }
 
   //: Set the value of the existing parameter named \p name
   template<class T>
   bool set_value( const vcl_string& name , const T& value )
   {
-    dbpro_param_type<T> * param = NULL;
+    bprod_param_type<T> * param = NULL;
     if( get_param(name, param) && param ){
       return param->set_value(value);
     }
@@ -203,7 +203,7 @@ class dbpro_parameters : public vbl_ref_count
   template<class T>
   bool get_value( const vcl_string& name , T& value ) const
   {
-    dbpro_param_type<T> * param = NULL;
+    bprod_param_type<T> * param = NULL;
     if( get_param(name, param) && param ){
       value = param->value();
       return true;
@@ -215,7 +215,7 @@ class dbpro_parameters : public vbl_ref_count
   template<class T>
   bool get_default( const vcl_string& name , T& deflt ) const
   {
-    dbpro_param_type<T> * param = NULL;
+    bprod_param_type<T> * param = NULL;
     if( get_param(name, param) && param ){
       deflt = param->default_value();
       return true;
@@ -227,7 +227,7 @@ class dbpro_parameters : public vbl_ref_count
   template<class T>
   bool get_bounds( const vcl_string& name, T & min, T & max ) const
   {
-    dbpro_param_type<T> * param = NULL;
+    bprod_param_type<T> * param = NULL;
     if( get_param(name, param) && param ){
       min = param->min_value();
       max = param->max_value();
@@ -242,7 +242,7 @@ class dbpro_parameters : public vbl_ref_count
   bool reset( const vcl_string& name );
 
   //: Return a vector of base class pointers to the parameters
-  vcl_vector< dbpro_param* > get_param_list() const;
+  vcl_vector< bprod_param* > get_param_list() const;
   //: Return the description of the parameter named \p name
   vcl_string get_desc( const vcl_string& name ) const;
   //: Print all parameters to \p os
@@ -250,18 +250,18 @@ class dbpro_parameters : public vbl_ref_count
   
  private:
   //: Add parameter helper function
-  bool add( dbpro_param* param );
+  bool add( bprod_param* param );
 
   template<class T>
   bool get_param( const vcl_string& name, 
-                  dbpro_param_type<T> * &param) const
+                  bprod_param_type<T> * &param) const
   {
-    vcl_map< vcl_string, dbpro_param* >::const_iterator 
+    vcl_map< vcl_string, bprod_param* >::const_iterator 
       itr = name_param_map_.find( name );
     if( itr == name_param_map_.end() ) {
       return false; // Not Found
     }
-    param = dynamic_cast<dbpro_param_type<T> *>(itr->second);
+    param = dynamic_cast<bprod_param_type<T> *>(itr->second);
     if( !param )
       vcl_cerr << "WARNING: parameter \""<< name 
                << "\" was found but has incorrect type" << vcl_endl;
@@ -269,9 +269,9 @@ class dbpro_parameters : public vbl_ref_count
   }
 
   //: The map from names to parameters
-  vcl_map< vcl_string , dbpro_param* > name_param_map_;
+  vcl_map< vcl_string , bprod_param* > name_param_map_;
   //: The vector of parameters in order of declaration
-  vcl_vector< dbpro_param* > param_list_;
+  vcl_vector< bprod_param* > param_list_;
 };
 
 
@@ -279,23 +279,23 @@ class dbpro_parameters : public vbl_ref_count
 
 
 //: A simple class to represent a file (for use with parameters)
-class dbpro_filepath
+class bprod_filepath
 {
  public:
   //: Constructor
-  dbpro_filepath(const vcl_string& p = "", const vcl_string& e = "*")
+  bprod_filepath(const vcl_string& p = "", const vcl_string& e = "*")
    : path(p), ext(e) {}
 
   vcl_string path;
   vcl_string ext;
 };
 
-//: Less than operator for dbpro_filepath objects
-bool operator<( const dbpro_filepath& lhs, const dbpro_filepath& rhs );
-//: Output stream operator for dbpro_filepath objects
-vcl_ostream& operator<<( vcl_ostream& strm, const dbpro_filepath& fp );
-//: Input stream operator for dbpro_filepath objects
-vcl_istream& operator>>( vcl_istream& strm, const dbpro_filepath& fp );
+//: Less than operator for bprod_filepath objects
+bool operator<( const bprod_filepath& lhs, const bprod_filepath& rhs );
+//: Output stream operator for bprod_filepath objects
+vcl_ostream& operator<<( vcl_ostream& strm, const bprod_filepath& fp );
+//: Input stream operator for bprod_filepath objects
+vcl_istream& operator>>( vcl_istream& strm, const bprod_filepath& fp );
 
 
-#endif // dbpro_parameters_h_
+#endif // bprod_parameters_h_

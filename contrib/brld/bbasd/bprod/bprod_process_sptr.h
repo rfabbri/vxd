@@ -1,14 +1,14 @@
-// This is brl/dbpro/dbpro_process_sptr.h
-#ifndef dbpro_process_sptr_h
-#define dbpro_process_sptr_h
+// This is brl/bprod/bprod_process_sptr.h
+#ifndef bprod_process_sptr_h
+#define bprod_process_sptr_h
 
 //:
 // \file
 
-class dbpro_process;
+class bprod_process;
 
 #include <vbl/vbl_smart_ptr.h>
 
-typedef vbl_smart_ptr<dbpro_process> dbpro_process_sptr;
+typedef vbl_smart_ptr<bprod_process> bprod_process_sptr;
 
-#endif // dbpro_process_sptr_h
+#endif // bprod_process_sptr_h

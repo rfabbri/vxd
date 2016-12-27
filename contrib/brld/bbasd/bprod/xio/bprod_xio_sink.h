@@ -1,10 +1,10 @@
-// This is basic/dbpro/xio/dbpro_xio_sink.h
-#ifndef dbpro_xio_sink_h_
-#define dbpro_xio_sink_h_
+// This is basic/bprod/xio/bprod_xio_sink.h
+#ifndef bprod_xio_sink_h_
+#define bprod_xio_sink_h_
 //--------------------------------------------------------------------------------
 //:
 // \file
-// \brief dbpro process for streaming XML output
+// \brief bprod process for streaming XML output
 //
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 10/11/06
@@ -15,30 +15,30 @@
 //--------------------------------------------------------------------------------
 
 
-#include <dbpro/dbpro_process.h>
+#include <bprod/bprod_process.h>
 #include <vcl_string.h>
 #include <vcl_fstream.h>
 
 
 
 //: A source for streaming XML to a file
-class dbpro_xio_sink : public dbpro_sink
+class bprod_xio_sink : public bprod_sink
 {
   public:
     //: Constructor
-    dbpro_xio_sink();
+    bprod_xio_sink();
 
     //: Constructor
-    dbpro_xio_sink(const vcl_string& filename);
+    bprod_xio_sink(const vcl_string& filename);
 
     //: Destructor
-    ~dbpro_xio_sink();
+    ~bprod_xio_sink();
 
     //: Open a new file
     bool open(const vcl_string& filename);
 
     //: Runs the process
-    dbpro_signal execute();
+    bprod_signal execute();
 
     //: Only execute if the file stream is valid
     // the const_cast here is a workaround for a bug
@@ -55,4 +55,4 @@ class dbpro_xio_sink : public dbpro_sink
 
 
 
-#endif // dbpro_xio_sink_h_
+#endif // bprod_xio_sink_h_

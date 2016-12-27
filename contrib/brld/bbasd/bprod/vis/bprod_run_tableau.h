@@ -1,9 +1,9 @@
-// This is basic/dbpro/vis/dbpro_run_tableau.h
-#ifndef dbpro_run_tableau_h_
-#define dbpro_run_tableau_h_
+// This is basic/bprod/vis/bprod_run_tableau.h
+#ifndef bprod_run_tableau_h_
+#define bprod_run_tableau_h_
 //:
 // \file
-// \brief  Tableau that runs a dbpro process graph in its idle handler
+// \brief  Tableau that runs a bprod process graph in its idle handler
 // \author Matthew Leotta (mleotta@brown.lems.edu)
 // \date   July 14, 2006
 //
@@ -12,18 +12,18 @@
 // \endverbatim
 
 
-#include <dbpro/vis/dbpro_run_tableau_sptr.h>
-#include <dbpro/dbpro_executive.h>
+#include <bprod/vis/bprod_run_tableau_sptr.h>
+#include <bprod/bprod_executive.h>
 #include <vgui/vgui_tableau.h>
 #include <vul/vul_timer.h>
 
 
-//: Tableau that runs a dbpro process graph in its idle handler
-class dbpro_run_tableau: public vgui_tableau
+//: Tableau that runs a bprod process graph in its idle handler
+class bprod_run_tableau: public vgui_tableau
 {
   public:
     //: Constructor
-    dbpro_run_tableau(const dbpro_executive& g);
+    bprod_run_tableau(const bprod_executive& g);
 
     //: Enable idle events (start the processing)
     void enable_idle();
@@ -51,7 +51,7 @@ class dbpro_run_tableau: public vgui_tableau
     bool idle();
 
   private:
-    dbpro_executive graph_;
+    bprod_executive graph_;
     vul_timer time_;
     double fps_;
     unsigned int count_;
@@ -60,14 +60,14 @@ class dbpro_run_tableau: public vgui_tableau
 };
 
 
-//: Creates a smart-pointer to a dbpro_run_tableau tableau.
-struct dbpro_run_tableau_new : public dbpro_run_tableau_sptr
+//: Creates a smart-pointer to a bprod_run_tableau tableau.
+struct bprod_run_tableau_new : public bprod_run_tableau_sptr
 {
-  typedef dbpro_run_tableau_sptr base;
+  typedef bprod_run_tableau_sptr base;
 
   //: Constructor
-  dbpro_run_tableau_new(const dbpro_executive& g)
-    : base(new dbpro_run_tableau(g)) {}
+  bprod_run_tableau_new(const bprod_executive& g)
+    : base(new bprod_run_tableau(g)) {}
 };
 
-#endif // dbpro_run_tableau_h_
+#endif // bprod_run_tableau_h_

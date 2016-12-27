@@ -1,6 +1,6 @@
-// This is basic/dbpro/dbpro_mutex.h
-#ifndef dbpro_mutex_h_
-#define dbpro_mutex_h_
+// This is basic/bprod/bprod_mutex.h
+#ifndef bprod_mutex_h_
+#define bprod_mutex_h_
 //--------------------------------------------------------------------------------
 //:
 // \file
@@ -18,14 +18,14 @@
 
 //: A mutex used if threads are enabled 
 // If threads are not enabled, do nothing
-class dbpro_mutex
+class bprod_mutex
 {
 public:
   //: Default Constructor
-  dbpro_mutex();
+  bprod_mutex();
   
   //: Destructor
-  ~dbpro_mutex();
+  ~bprod_mutex();
   
   //: Lock the mutex
   void lock();
@@ -44,4 +44,4 @@ private:
 
 
 
-#endif // dbpro_mutex_h_
+#endif // bprod_mutex_h_

@@ -1,6 +1,6 @@
-// This is basic/dbpro/dbpro_ios_processes.h
-#ifndef dbpro_ios_processes_h_
-#define dbpro_ios_processes_h_
+// This is basic/bprod/bprod_ios_processes.h
+#ifndef bprod_ios_processes_h_
+#define bprod_ios_processes_h_
 //--------------------------------------------------------------------------------
 //:
 // \file
@@ -15,7 +15,7 @@
 //--------------------------------------------------------------------------------
 
 
-#include <dbpro/dbpro_process.h>
+#include <bprod/bprod_process.h>
 #include <vcl_vector.h>
 #include <vcl_iostream.h>
 #include <vcl_fstream.h>
@@ -32,28 +32,28 @@
 
 //: Read data of type T from an istream
 template <class T >
-class dbpro_istream_source : public dbpro_source
+class bprod_istream_source : public bprod_source
 {
  public:
-  dbpro_istream_source(const vcl_istream& istream) : is(istream) {}
+  bprod_istream_source(const vcl_istream& istream) : is(istream) {}
 
   //: Execute the process
-  dbpro_signal execute()
+  bprod_signal execute()
   {
     if(is.eof()){
-      return DBPRO_EOS;
+      return BPROD_EOS;
     }
     T data;
     is >> data;
     output(0, data);
-    return DBPRO_VALID;
+    return BPROD_VALID;
   }
   vcl_istream is;
 };
 
 
 //: Read data from an ifstream (base class)
-class dbpro_ifstream_source_base : public dbpro_source
+class bprod_ifstream_source_base : public bprod_source
 {
   public:
     virtual bool open(const vcl_string& filename) = 0;
@@ -62,10 +62,10 @@ class dbpro_ifstream_source_base : public dbpro_source
 
 //: Read data of type T from an ifstream
 template <class T >
-class dbpro_ifstream_source : public dbpro_ifstream_source_base
+class bprod_ifstream_source : public bprod_ifstream_source_base
 {
   public:
-    dbpro_ifstream_source(const vcl_string& filename) { open(filename.c_str()); }
+    bprod_ifstream_source(const vcl_string& filename) { open(filename.c_str()); }
         
     bool open(const vcl_string& filename)
     {
@@ -74,15 +74,15 @@ class dbpro_ifstream_source : public dbpro_ifstream_source_base
     }
     
     //: Execute the process
-    dbpro_signal execute()
+    bprod_signal execute()
     {
       if(ifs.eof()){
-        return DBPRO_EOS;
+        return BPROD_EOS;
       }
       T data;
       ifs >> data;
       output(0, data);
-      return DBPRO_VALID;
+      return BPROD_VALID;
     }
     
     vcl_ifstream ifs;
@@ -91,13 +91,13 @@ class dbpro_ifstream_source : public dbpro_ifstream_source_base
 
 //: Read data of type T using ifstream from a list of files
 template <class T >
-class dbpro_ifstream_list_source : public dbpro_ifstream_source_base
+class bprod_ifstream_list_source : public bprod_ifstream_source_base
 {
   public:
-    dbpro_ifstream_list_source(const vcl_string& glob) 
+    bprod_ifstream_list_source(const vcl_string& glob) 
     : index(0) { open(glob); }
   
-    dbpro_ifstream_list_source(const vcl_vector<vcl_string>& files) 
+    bprod_ifstream_list_source(const vcl_vector<vcl_string>& files) 
     : filenames(files), index(0) {}
   
     bool open(const vcl_string& glob)
@@ -124,21 +124,21 @@ class dbpro_ifstream_list_source : public dbpro_ifstream_source_base
     }
     
     //: Execute the process
-    dbpro_signal execute()
+    bprod_signal execute()
     {
       if(index >= filenames.size()){
-        return DBPRO_EOS;
+        return BPROD_EOS;
       }
       vcl_ifstream ifs(filenames[index++].c_str());
       if(!ifs.is_open()){
-        return DBPRO_INVALID;
+        return BPROD_INVALID;
       }
       T data;
       ifs >> data;
       ifs.close();
       
       output(0, data);
-      return DBPRO_VALID;
+      return BPROD_VALID;
     }
   
     vcl_vector<vcl_string> filenames;
@@ -156,17 +156,17 @@ class dbpro_ifstream_list_source : public dbpro_ifstream_source_base
 
 //: Write data of type T to an ostream
 template <class T >
-class dbpro_ostream_sink : public dbpro_sink
+class bprod_ostream_sink : public bprod_sink
 {
  public:
-  dbpro_ostream_sink(vcl_ostream& stream) : os(stream) {}
+  bprod_ostream_sink(vcl_ostream& stream) : os(stream) {}
 
   //: Execute the process
-  dbpro_signal execute()
+  bprod_signal execute()
   {
     assert(input_type_id(0) == typeid(T));
     os << input<T>(0);
-    return DBPRO_VALID;
+    return BPROD_VALID;
   }
   vcl_ostream& os;
 };
@@ -174,4 +174,4 @@ class dbpro_ostream_sink : public dbpro_sink
 
 
 
-#endif // dbpro_ios_processes_h_
+#endif // bprod_ios_processes_h_

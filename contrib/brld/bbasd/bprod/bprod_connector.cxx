@@ -1,15 +1,15 @@
-// This is basic/dbpro/dbpro_connector.cxx
+// This is basic/bprod/bprod_connector.cxx
 
 //:
 // \file
 
-#include <dbpro/dbpro_connector.h>
-#include <dbpro/dbpro_process.h>
+#include <bprod/bprod_connector.h>
+#include <bprod/bprod_process.h>
 
 
 //: Transmit the data to the input of a process
 bool
-dbpro_connector::notify(const dbpro_storage_sptr& data,
+bprod_connector::notify(const bprod_storage_sptr& data,
                         unsigned long timestamp)
 {
   data_ = data;
@@ -20,7 +20,7 @@ dbpro_connector::notify(const dbpro_storage_sptr& data,
 
 //: disconnect from a process output pin
 bool
-dbpro_connector::unlink()
+bprod_connector::unlink()
 {
   if(source_){
     if(!source_->remove_output_observer(source_pin_,this))
@@ -33,7 +33,7 @@ dbpro_connector::unlink()
 
 //: Connect this connector to the output of a process
 bool
-dbpro_connector::link(const dbpro_process_sptr& process, unsigned int pin)
+bprod_connector::link(const bprod_process_sptr& process, unsigned int pin)
 {
   if(!unlink() || !process )
     return false;
@@ -46,14 +46,14 @@ dbpro_connector::link(const dbpro_process_sptr& process, unsigned int pin)
 
 
 //: Make a request to the source for data
-dbpro_signal
-dbpro_connector::request_data(unsigned long timestamp,
-                              dbpro_debug_observer* const debug) const
+bprod_signal
+bprod_connector::request_data(unsigned long timestamp,
+                              bprod_debug_observer* const debug) const
 {
   if(!source_)
-    return DBPRO_INVALID;
-  dbpro_signal result = source_->run(timestamp,debug);
-  if(result == DBPRO_VALID && !data_)
-    return DBPRO_INVALID;
+    return BPROD_INVALID;
+  bprod_signal result = source_->run(timestamp,debug);
+  if(result == BPROD_VALID && !data_)
+    return BPROD_INVALID;
   return result;
 }

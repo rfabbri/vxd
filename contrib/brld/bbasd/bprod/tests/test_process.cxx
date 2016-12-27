@@ -1,19 +1,19 @@
 #include <testlib/testlib_test.h>
-#include <dbpro/dbpro_process.h>
-#include "dbpro_sample_processes.h"
+#include <bprod/bprod_process.h>
+#include "bprod_sample_processes.h"
 #include <vcl_iostream.h>
-#include <dbpro/dbpro_observer.h>
+#include <bprod/bprod_observer.h>
 
 
 //: Print a message when notified
 template <class T>
-class dbpro_message : public dbpro_observer
+class bprod_message : public bprod_observer
 {
   public:
     //: Transmit the data to the input of a process
-    bool notify(const dbpro_storage_sptr& data, unsigned long timestamp)
+    bool notify(const bprod_storage_sptr& data, unsigned long timestamp)
     {
-      if(data->info() == DBPRO_VALID)
+      if(data->info() == BPROD_VALID)
         vcl_cout << "Received: "<< data->template data<T>() <<" at time "<<timestamp<< vcl_endl;
       return true;
     }
@@ -31,18 +31,18 @@ MAIN( test_process )
   data.push_back(6);
   data.push_back(10);
 
-  dbpro_process_sptr iq = new dbpro_input_queue<int>(data);
+  bprod_process_sptr iq = new bprod_input_queue<int>(data);
 
-  dbpro_output_queue<double>* oq1_ptr = new dbpro_output_queue<double>;
-  dbpro_output_queue<float>* oq2_ptr = new dbpro_output_queue<float>;
-  dbpro_process_sptr oq1(oq1_ptr);
-  dbpro_process_sptr oq2(oq2_ptr);
+  bprod_output_queue<double>* oq1_ptr = new bprod_output_queue<double>;
+  bprod_output_queue<float>* oq2_ptr = new bprod_output_queue<float>;
+  bprod_process_sptr oq1(oq1_ptr);
+  bprod_process_sptr oq2(oq2_ptr);
 
-  dbpro_process_sptr conv = new dbpro_static_cast<int,double>;
-  dbpro_process_sptr root = new dbpro_sqrt;
-  dbpro_process_sptr sum = new dbpro_sum<double>;
+  bprod_process_sptr conv = new bprod_static_cast<int,double>;
+  bprod_process_sptr root = new bprod_sqrt;
+  bprod_process_sptr sum = new bprod_sum<double>;
 
-  dbpro_process_sptr conv2 = new dbpro_static_cast<double,float>;
+  bprod_process_sptr conv2 = new bprod_static_cast<double,float>;
 
   oq1->connect_input(0,sum,0);
   root->connect_input(0,conv,0);
@@ -53,11 +53,11 @@ MAIN( test_process )
   conv2->connect_input(0,root,0);
   oq2->connect_input(0,conv2,0);
 
-  conv->add_output_observer(0,new dbpro_message<double>);
+  conv->add_output_observer(0,new bprod_message<double>);
 
   unsigned int count = 0;
-  for(; count<100 && oq1->run(count+1) == DBPRO_VALID
-                  && oq2->run(count+1) == DBPRO_VALID; ++count);
+  for(; count<100 && oq1->run(count+1) == BPROD_VALID
+                  && oq2->run(count+1) == BPROD_VALID; ++count);
 
   TEST("number of iterations", count, data.size());
 

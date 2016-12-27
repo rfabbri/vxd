@@ -1,10 +1,10 @@
-// This is basic/dbpro/vis/dbpro_run_tableau.cxx
-#include <dbpro/vis/dbpro_run_tableau.h>
+// This is basic/bprod/vis/bprod_run_tableau.cxx
+#include <bprod/vis/bprod_run_tableau.h>
 //:
 // \file
 // \author Matthew Leotta
 // \date   July 14, 2006
-// \brief  See dbpro_run_tableau.h for a description of this file.
+// \brief  See bprod_run_tableau.h for a description of this file.
 
 
 #include <vcl_iostream.h>
@@ -16,8 +16,8 @@
 #include <vgui/vgui_text_put.h>
 
 //----------------------------------------------------------------------------
-//: Constructor - don't use this, use dbpro_run_tableau_new.
-dbpro_run_tableau::dbpro_run_tableau(const dbpro_executive& g)
+//: Constructor - don't use this, use bprod_run_tableau_new.
+bprod_run_tableau::bprod_run_tableau(const bprod_executive& g)
   : graph_(g), fps_(0.0), display_(false), running_(false)
 {
   graph_.init();
@@ -26,7 +26,7 @@ dbpro_run_tableau::dbpro_run_tableau(const dbpro_executive& g)
 
 //----------------------------------------------------------------------------
 //: Handle events
-bool dbpro_run_tableau::handle(const vgui_event& e)
+bool bprod_run_tableau::handle(const vgui_event& e)
 {
   if (display_ && e.type == vgui_DRAW)
   {
@@ -66,7 +66,7 @@ bool dbpro_run_tableau::handle(const vgui_event& e)
 
 //----------------------------------------------------------------------------
 //: Handle keypress
-bool dbpro_run_tableau::key_press (int x, int y, vgui_key key, vgui_modifier)
+bool bprod_run_tableau::key_press (int x, int y, vgui_key key, vgui_modifier)
 {
   switch(key){
     case ' ':
@@ -87,7 +87,7 @@ bool dbpro_run_tableau::key_press (int x, int y, vgui_key key, vgui_modifier)
 
 //----------------------------------------------------------------------------
 //: Enable idle events (start the processing)
-void dbpro_run_tableau::enable_idle()
+void bprod_run_tableau::enable_idle()
 {
   this->post_idle_request();
   running_ = true;
@@ -96,7 +96,7 @@ void dbpro_run_tableau::enable_idle()
 
 //----------------------------------------------------------------------------
 //: Enable idle events for one iteration
-void dbpro_run_tableau::enable_idle_once()
+void bprod_run_tableau::enable_idle_once()
 {
   run_step();
   running_ = false;
@@ -105,7 +105,7 @@ void dbpro_run_tableau::enable_idle_once()
 
 //----------------------------------------------------------------------------
 //: Toggle the text display
-void dbpro_run_tableau::toggle_display()
+void bprod_run_tableau::toggle_display()
 {
   this->display_ = !this->display_;
 }
@@ -113,13 +113,13 @@ void dbpro_run_tableau::toggle_display()
 
 //----------------------------------------------------------------------------
 //: Builds a popup menu
-void dbpro_run_tableau::get_popup(const vgui_popup_params& params,
+void bprod_run_tableau::get_popup(const vgui_popup_params& params,
                                         vgui_menu &menu)
 {
   vgui_menu submenu;
-  submenu.add("start processing",new vgui_command_simple<dbpro_run_tableau>(this,&dbpro_run_tableau::enable_idle));
-  submenu.add("process once",new vgui_command_simple<dbpro_run_tableau>(this,&dbpro_run_tableau::enable_idle_once));
-  submenu.add("toggle display",new vgui_command_simple<dbpro_run_tableau>(this,&dbpro_run_tableau::toggle_display));
+  submenu.add("start processing",new vgui_command_simple<bprod_run_tableau>(this,&bprod_run_tableau::enable_idle));
+  submenu.add("process once",new vgui_command_simple<bprod_run_tableau>(this,&bprod_run_tableau::enable_idle_once));
+  submenu.add("toggle display",new vgui_command_simple<bprod_run_tableau>(this,&bprod_run_tableau::toggle_display));
   menu.add("Process Control",submenu);
 
 }
@@ -127,7 +127,7 @@ void dbpro_run_tableau::get_popup(const vgui_popup_params& params,
 
 //----------------------------------------------------------------------------
 //: Handle idle events
-bool dbpro_run_tableau::idle()
+bool bprod_run_tableau::idle()
 {
   if((++count_)%10 == 0){
     fps_ = 10000.0/time_.real();
@@ -144,17 +144,17 @@ bool dbpro_run_tableau::idle()
 
 //----------------------------------------------------------------------------
 //: Run one step of the processing
-bool dbpro_run_tableau::run_step()
+bool bprod_run_tableau::run_step()
 {
   static bool semaphore = false;
   if(semaphore)
     return true;
   semaphore = true;
-  dbpro_signal s = graph_.run_step();
+  bprod_signal s = graph_.run_step();
   vgui::run_till_idle();
   semaphore = false;
-  assert(s != DBPRO_INVALID);
-  return (s == DBPRO_VALID || s == DBPRO_WAIT);
+  assert(s != BPROD_INVALID);
+  return (s == BPROD_VALID || s == BPROD_WAIT);
 }
 
 

@@ -1,6 +1,6 @@
-// This is basic/dbpro/dbpro_storage.h
-#ifndef dbpro_storage_h_
-#define dbpro_storage_h_
+// This is basic/bprod/bprod_storage.h
+#ifndef bprod_storage_h_
+#define bprod_storage_h_
 
 //:
 // \file
@@ -16,23 +16,23 @@
 #include <vcl_cassert.h>
 #include <vcl_iostream.h>
 #include <vbl/vbl_ref_count.h>
-#include "dbpro_fwd.h"
-#include "dbpro_storage_sptr.h"
+#include "bprod_fwd.h"
+#include "bprod_storage_sptr.h"
 
-template< class T > class dbpro_storage_type;
+template< class T > class bprod_storage_type;
 
 //: This abstract class is the base class for storage objects
-class dbpro_storage : public vbl_ref_count
+class bprod_storage : public vbl_ref_count
 {
  public:
   //: Constructor
-  dbpro_storage() {}
+  bprod_storage() {}
 
   //: Destructor
-  virtual ~dbpro_storage() {}
+  virtual ~bprod_storage() {}
 
-  //: Return a signal (DBPRO_VALID for valid data)
-  virtual dbpro_signal info() const = 0;
+  //: Return a signal (BPROD_VALID for valid data)
+  virtual bprod_signal info() const = 0;
 
   //: Return the type of the stored data
   virtual const vcl_type_info& type_id() const = 0;
@@ -41,11 +41,11 @@ class dbpro_storage : public vbl_ref_count
   template<class T>
   const T& data() const
   {
-    return static_cast<const dbpro_storage_type<T>*>(this)->data();
+    return static_cast<const bprod_storage_type<T>*>(this)->data();
   }
 
  private:
-  dbpro_storage(const dbpro_storage& other);
+  bprod_storage(const bprod_storage& other);
 
 };
 
@@ -55,18 +55,18 @@ class dbpro_storage : public vbl_ref_count
 
 //: A Templated parameter class
 template< class T >
-class dbpro_storage_type : public dbpro_storage
+class bprod_storage_type : public bprod_storage
 {
  public:
   //: Default Constructor
-  dbpro_storage_type<T>() {}
+  bprod_storage_type<T>() {}
 
   //: Constructor
-  dbpro_storage_type<T>(const T& data)
+  bprod_storage_type<T>(const T& data)
    : data_(data) {}
 
   //: Return a message flag
-  dbpro_signal info() const { return DBPRO_VALID; }
+  bprod_signal info() const { return BPROD_VALID; }
 
   //: Return a const reference to the data
   const T& data() const { return data_; }
@@ -82,26 +82,26 @@ class dbpro_storage_type : public dbpro_storage
 
 //=============================================================================
 
-typedef dbpro_storage_type<dbpro_signal> dbpro_storage_signal;
+typedef bprod_storage_type<bprod_signal> bprod_storage_signal;
 
 //: A storage class that contains only a message
 template <>
-class dbpro_storage_type<dbpro_signal> : public dbpro_storage
+class bprod_storage_type<bprod_signal> : public bprod_storage
 {
  public:
   //: Default Constructor
-  dbpro_storage_type<dbpro_signal>(dbpro_signal info=DBPRO_INVALID) : info_(info) {}
+  bprod_storage_type<bprod_signal>(bprod_signal info=BPROD_INVALID) : info_(info) {}
 
   //: Return a message flag
-  dbpro_signal info() const { return info_; }
+  bprod_signal info() const { return info_; }
 
   //: Return the type of the stored data
-  const vcl_type_info& type_id() const { return typeid(dbpro_signal); }
+  const vcl_type_info& type_id() const { return typeid(bprod_signal); }
 
   private:
   //: The message
-  dbpro_signal info_;
+  bprod_signal info_;
 };
 
 
-#endif // dbpro_storage_h_
+#endif // bprod_storage_h_
