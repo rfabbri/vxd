@@ -1,4 +1,4 @@
-# /basic/bbld/CMakeLists.txt
+# /bbasd/bbld/CMakeLists.txt
 # Development Brown Basics (templates) Library
 
 # set(bbld_sources 

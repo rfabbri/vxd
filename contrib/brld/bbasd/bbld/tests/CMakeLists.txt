@@ -1,4 +1,4 @@
-# basic/bbld/tests/CMakeLists.txt
+# bbasd/bbld/tests/CMakeLists.txt
 # Tests for bbld library
 
 include_directories( ${VXL_GEL_INCLUDE_DIR} )
