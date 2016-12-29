@@ -3,6 +3,7 @@
 
 include_directories(${VXL_BRL_INCLUDE_DIR}/bbas )
 include_directories(${VXL_GEL_INCLUDE_DIR}/mrc)
+include_directories( ${B3PD_INCLUDE_DIR} )
 
 set( vpgld_algo_sources
   vpgld_triangulation.h vpgld_triangulation.cxx 
