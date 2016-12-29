@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A process that applies lens distortion to an image
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 8/24/05
 //
 // \verbatim

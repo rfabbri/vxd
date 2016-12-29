@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief The vidpro1 storage class for projective cameras.
-// \author Thomas Pollard
+// \author Based on original code by  Thomas Pollard
 // \date 7/14/05
 //
 // \verbatim

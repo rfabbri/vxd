@@ -6,7 +6,7 @@
 //:
 // \file
 // \brief The dvpgl_camera_menu 
-// \author J.L. Mundy
+// \author Based on original code by  J.L. Mundy
 // \date April 23, 2007
 //
 // This menu contains all the menus related to creating and managing multiple cameras
