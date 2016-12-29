@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Multiview curve stereo using distance transforms
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 06/22/2009 05:30:17 PM EDT
 //
 

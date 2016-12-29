@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Multiview curve stereo
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 06/08/2009 08:08:46 PM EDT
 //
 
