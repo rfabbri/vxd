@@ -6,4 +6,4 @@ include_directories(${lems_SOURCE_DIR}/bmvgd/bmvl )
 include_directories(${VXL_GEL_INCLUDE_DIR} )
 
 add_executable(vpgld_optimize_cmd vpgld_optimize_cmd.cxx)
-target_link_libraries(vpgld_optimize_cmd vpgl_algo brct)
+target_link_libraries(vpgld_optimize_cmd vpgl_algo)

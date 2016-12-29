@@ -12,7 +12,7 @@ add_executable( vpgld_algo_test_all
   test_triangulation.cxx
 )
 
-target_link_libraries( vpgld_algo_test_all vpgld_algo bdifd_algo testlib )
+target_link_libraries( vpgld_algo_test_all vpgld_algo bdifd_algo mvl testlib )
 add_test( vpgld_algo_test_fm_estimation vpgld_algo_test_all test_fm_estimation)
 add_test( vpgld_algo_test_triangulation vpgld_algo_test_all test_triangulation)
 

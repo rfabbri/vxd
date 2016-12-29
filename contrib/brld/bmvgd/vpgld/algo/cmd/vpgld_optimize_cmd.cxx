@@ -8,11 +8,42 @@
 #include <vnl/vnl_double_3x4.h>
 #include <vnl/vnl_double_3x3.h>
 #include <vnl/vnl_inverse.h>
-#include <brct/brct_algos.h>
 #include <vpgl/algo/vpgl_optimize_camera.h>
 #include <vcl_iostream.h>
 #include <vcl_fstream.h>
 
+
+// Based on code originally written by Kongbin Kang (@Brown.edu) from 
+// lems/brcv/mvg/brct/brct_algos.h
+bool read_target_corrs(vcl_ifstream& str,
+                  vcl_vector<bool>& valid,
+                  vcl_vector<vgl_point_2d<double> >& image_points,
+                  vcl_vector<vgl_point_3d<double> >& world_points)
+{
+  vcl_string temp;
+  str >> temp;
+  if (temp != "NUMPOINTS:")
+    return false;
+  int n_corrs;
+  str >> n_corrs;
+  for (int i = 0; i<n_corrs; i++)
+  {
+    str >> temp;
+    if (temp != "CORRESP:")
+      return false;
+    bool val;
+    int junk;
+    vgl_point_2d<double> image_point;
+    vgl_point_3d<double> world_point;
+    str >> val >> junk
+        >> world_point >> image_point;
+    vcl_cout << "W " << world_point << "  I " << image_point << '\n';
+    valid.push_back(val);
+    image_points.push_back(image_point);
+    world_points.push_back(world_point);
+  }
+  return true;
+}
 
 
 int main(int argc, char** argv)
@@ -36,7 +67,7 @@ int main(int argc, char** argv)
   vcl_vector<bool> valid;
   vcl_vector<vgl_point_2d<double> > i_pts;
   vcl_vector<vgl_point_3d<double> > w_pts;
-  if(!brct_algos::read_target_corrs(istr, valid, i_pts, w_pts) )
+  if(!read_target_corrs(istr, valid, i_pts, w_pts) )
   {
     vcl_cout << "Failed to read correspondences" << vcl_endl;
     return -1;
