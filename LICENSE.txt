@@ -2,17 +2,19 @@ VXD is released under the terms of the VXL License:
   https://sourceforge.net/p/vxl/git/ci/master/tree/core/vxl_copyright.h,
 unless otherwise stated on the relavant files or subfolders.
 
-Since VXD is a heavily experimental codebase, it may use fragments of GPL or
-LGPL code in isolated libraries. The user is responsible to carfully consider
-this prior to releasing other code based on VXD.  One example is
-contrib/brld/bbasd/bild, which uses a modification of LGPL code.  Therefore, any
-code that includes or links against bild directly or indirectly must observe the
-terms of the LGPL.
+ATTENTION: Since VXD is a heavily experimental codebase, it may use fragments of
+GPL or LGPL or not-for-commecial-use code in isolated libraries. The user is
+responsible to carfully consider this prior to releasing other code based on
+VXD.  One example is contrib/brld/bbasd/bild, which uses a modification of LGPL
+code.  Therefore, any code that includes or links against bild directly or
+indirectly must observe the terms of the LGPL. Another example is
+contrib/brld/b3pd/triangulation_kanatani optimal triangulation code, which does
+not allow commercial use without explicit permission.
 
-Any modification of code originally authored by Ricardo Fabbri under the GPL
-is hereby granted by Ricardo Fabbri himself any further freedom by the VXL
+However, any modification of code originally authored by Ricardo Fabbri under the GPL
+is hereby granted by Ricardo Fabbri himself any further freedom given by the VXL
 license.
 
 VXD is a very diverse collection of libraries. Therefore, If you want to be
-absolutely clean about copyright issues, when releasing professional code based on
-VXD, kindly contact the authors of the relevant files.
+absolutely clean about copyright issues, kindly contact the authors of the relevant files
+when releasing professional code based on VXD.
