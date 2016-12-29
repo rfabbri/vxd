@@ -1,6 +1,6 @@
-// This is mw_odt_curve_stereo.h
-#ifndef mw_odt_curve_stereo_h
-#define mw_odt_curve_stereo_h
+// This is bmcsd_odt_curve_stereo.h
+#ifndef bmcsd_odt_curve_stereo_h
+#define bmcsd_odt_curve_stereo_h
 //:
 //\file
 //\brief Multiview curve stereo using distance transforms and orientation
@@ -10,10 +10,10 @@
 
 #include <dbdet/edge/dbdet_edgemap_sptr.h>
 #include <dbdet/pro/dbdet_sel_storage_sptr.h>
-#include <dbdif/dbdif_frenet.h>
+#include <bdifd/bdifd_frenet.h>
 #include <dbcsi/dbcsi_curve_distance.h>
 #include <mw/algo/mw_dt_curve_stereo.h>
-#include <mw/dbmcs_curve_3d_attributes.h>
+#include <mw/bmcsd_curve_3d_attributes.h>
 
 
 //: Matches curve fragments using costs based on the distance transform and
@@ -25,10 +25,10 @@
 
 class mw_discrete_corresp;
 
-class mw_odt_curve_stereo : public mw_dt_curve_stereo {
+class bmcsd_odt_curve_stereo : public mw_dt_curve_stereo {
 public:
-  mw_odt_curve_stereo();
-  virtual ~mw_odt_curve_stereo() {}
+  bmcsd_odt_curve_stereo();
+  virtual ~bmcsd_odt_curve_stereo() {}
 
   // Setters and Getters ------------------------------------------------------
 
@@ -132,7 +132,7 @@ public:
   // selected_crv_id(v0()), by assuming correspondence to candidate curve with index \p ic.
   // This version reconstructs the tangent information as well.
   void reconstruct_candidate_1st_order(unsigned ini_id, unsigned end_id, unsigned ic, 
-      const dbdif_rig &rig, dbdif_1st_order_curve_3d *crv_ptr);
+      const bdifd_rig &rig, bdifd_1st_order_curve_3d *crv_ptr);
 
   //: Reconstructs subcurve given by curve selected_crv_id(v0()) and endpoints with
   // index ini_id_sub, end_id_sub, using view[v0()] and the corresponding
@@ -141,8 +141,8 @@ public:
   void reconstruct_subcurve_1st_order(
       unsigned ini_id_sub, 
       unsigned end_id_sub, 
-      const dbdif_rig &rig,
-      dbdif_1st_order_curve_3d *curve_3d
+      const bdifd_rig &rig,
+      bdifd_1st_order_curve_3d *curve_3d
       ) const;
 
   //: Reconstructs a 3D point-tangent, given the 2D image point-tangent \c p_0
@@ -158,17 +158,17 @@ public:
       unsigned v,
       unsigned ini_id,
       unsigned di0, 
-      const dbdif_rig &rig,
-      dbdif_1st_order_point_3d *pt_3D
+      const bdifd_rig &rig,
+      bdifd_1st_order_point_3d *pt_3D
       ) const;
 
   //: Projects a 1st order curve from 3D world to 2D image coordinates on \p view.
-  // \todo this is a general-purpose utility. If dbdif was well-designed, it'd
+  // \todo this is a general-purpose utility. If bdifd was well-designed, it'd
   // have this.
   void project_curve_1st_order(
       unsigned view, 
-      const dbdif_1st_order_curve_3d &crv3d,
-      dbdif_1st_order_curve_2d *proj_ptr
+      const bdifd_1st_order_curve_3d &crv3d,
+      bdifd_1st_order_curve_2d *proj_ptr
       ) const;
 
   //: \return true in case edgemaps, labels, and a curve is selected in view 0,
@@ -223,7 +223,7 @@ private:
   //: symbolic edge linker structure for each view.
   vcl_vector<dbdet_sel_storage_sptr> sels_;
 
-  typedef vcl_vector<dbdif_1st_order_curve_2d> first_order_curve_map;
+  typedef vcl_vector<bdifd_1st_order_curve_2d> first_order_curve_map;
 
   //: curve map for each view with 1st order differential geometry
   // (point-tangents), already in world coordinates. Indexing goes
@@ -249,27 +249,27 @@ private:
 // curve vector to match the id of the curves in the first image.
 // \param[out] crv3d: crv3d[curve_id] == curve 3d for s.curves(v0(), curve_id);
 // \param[out] corresp: corresp[c] == correspondence of s.curves(v0(), c) used for crv3d[c]
-bool dbmcs_match_and_reconstruct_all_curves(
-    mw_odt_curve_stereo &s, 
-    vcl_vector<dbdif_1st_order_curve_3d> *crv3d,
+bool bmcsd_match_and_reconstruct_all_curves(
+    bmcsd_odt_curve_stereo &s, 
+    vcl_vector<bdifd_1st_order_curve_3d> *crv3d,
     mw_discrete_corresp *corresp
     );
 
-//: version of dbmcs_match_and_reconstruct_all_curves which fills an attribute
+//: version of bmcsd_match_and_reconstruct_all_curves which fills an attribute
 // for each curve.
-bool dbmcs_match_and_reconstruct_all_curves_attr(
-    mw_odt_curve_stereo &s, 
-    vcl_vector<dbdif_1st_order_curve_3d> *crv3d_ptr,
+bool bmcsd_match_and_reconstruct_all_curves_attr(
+    bmcsd_odt_curve_stereo &s, 
+    vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr,
     mw_discrete_corresp *corresp_ptr,
-    vcl_vector< dbmcs_curve_3d_attributes > *attr_ptr
+    vcl_vector< bmcsd_curve_3d_attributes > *attr_ptr
     );
 
 //: Matches all curves bewtween two views.
 // \param[in] s : must be all set and ready to match.
 // \param[out] corresp_ptr : discrete correspondence between the first two
 // views. Only the correspondences passing all thresholds are output.
-bool dbmcs_match_all_curves(
-  mw_odt_curve_stereo &s, 
+bool bmcsd_match_all_curves(
+  bmcsd_odt_curve_stereo &s, 
   mw_discrete_corresp *corresp_ptr);
 
 //: For each curve i, reconstructs from corresp[i].front(). If you want to
@@ -281,18 +281,18 @@ bool dbmcs_match_all_curves(
 //
 // \return true if success.
 bool reconstruct_from_corresp(
-    mw_odt_curve_stereo &s, 
+    bmcsd_odt_curve_stereo &s, 
     const mw_discrete_corresp &corresp,
-    vcl_vector<dbdif_1st_order_curve_3d> *crv3d_ptr
+    vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr
     );
 
 //: variant of reconstruct_from_corresp which also outputs attributes.
 bool 
 reconstruct_from_corresp_attr(
-    mw_odt_curve_stereo &s, 
+    bmcsd_odt_curve_stereo &s, 
     const mw_discrete_corresp &corresp,
-    vcl_vector<dbdif_1st_order_curve_3d> *crv3d_ptr,
-    vcl_vector< dbmcs_curve_3d_attributes > *attr_ptr
+    vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr,
+    vcl_vector< bmcsd_curve_3d_attributes > *attr_ptr
     );
 
-#endif // mw_odt_curve_stereo_h
+#endif // bmcsd_odt_curve_stereo_h

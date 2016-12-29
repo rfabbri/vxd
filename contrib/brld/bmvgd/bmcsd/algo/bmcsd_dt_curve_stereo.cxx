@@ -1,5 +1,5 @@
 #include "mw_dt_curve_stereo.h"
-#include <dbspi/dbspi_curve_distance.h>
+#include <bspid/bspid_curve_distance.h>
 
 
 mw_dt_curve_stereo::
@@ -85,7 +85,7 @@ match_using_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_ptr)
 
       // Compute match cost
 
-      unsigned d_vote = dbspi_curve_distance::num_inliers_dt(
+      unsigned d_vote = bspid_curve_distance::num_inliers_dt(
           reprojected_curve, tau_distance_squared_, dt_[v], label_[v]);
 
       votes[ic] += d_vote;

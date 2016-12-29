@@ -15,12 +15,12 @@
 #include <brct/brct_algos.h>
 #include <dvpgl/algo/dvpgl_triangulation.h>
 
-#include <dbecl/dbecl_episeg_sptr.h>
-#include <dbecl/dbecl_episeg.h>
-#include <dbecl/dbecl_epipole.h>
-#include <dbecl/dbecl_episeg_from_curve_converter.h>
+#include <becld/becld_episeg_sptr.h>
+#include <becld/becld_episeg.h>
+#include <becld/becld_epipole.h>
+#include <becld/becld_episeg_from_curve_converter.h>
 
-#include <mw/mw_epi_interceptor.h>
+#include <mw/becld_epiline_interceptor.h>
 
 
 mw_curve_stereo::
@@ -249,7 +249,7 @@ get_reconstructions(
     assert (other_views[v] < nviews_);
 
     vgl_point_2d<double> p;
-    mw_epi_interceptor::curve_line_intersection_simple(
+    becld_epiline_interceptor::curve_line_intersection_simple(
         *selected_crv_[other_views[v]], ep(other_views[v]-1)[di0], &p);
     pt_img[v+1] = new vsol_point_2d(p);
   }
@@ -292,7 +292,7 @@ reconstruct_curve_point_kanatani(
   vgl_point_2d<double> p_0 = selected_crv_[v0()]->vertex(ini_id + di0)->get_p();
   // Corresponding points
   vgl_point_2d<double> p_v;
-  mw_epi_interceptor::curve_line_intersection_simple(*(selected_crv_[v]), ep(v-1)[di0], &p_v);
+  becld_epiline_interceptor::curve_line_intersection_simple(*(selected_crv_[v]), ep(v-1)[di0], &p_v);
 
   // Reconstructions
   vgl_point_3d<double> pt_3D_vgl;
@@ -313,7 +313,7 @@ reconstruct_and_reproject(
     vcl_vector<mw_vector_3d> &crv3d, 
     vcl_vector<unsigned> &crv1_pt_id,
     vcl_vector<unsigned> &crv2_pt_id,
-    dbdif_rig &rig) const
+    bdifd_rig &rig) const
 {
   define_match_for_reconstruction(crv2_id, crv1_pt_id, crv2_pt_id, rig);
   reconstruct_one_candidate(crv2_id, crv3d, crv1_pt_id, crv2_pt_id, rig);
@@ -344,7 +344,7 @@ define_match_for_reconstruction(
     unsigned crv2_id,
     vcl_vector<unsigned> &crv1_pt_id,
     vcl_vector<unsigned> &crv2_pt_id,
-    dbdif_rig &/*rig*/
+    bdifd_rig &/*rig*/
     ) const
 {
   unsigned ini_id, 
@@ -359,7 +359,7 @@ define_match_for_reconstruction(
   j = crv_candidates_id_[crv2_id];
 
   // traverse L_[j] 
-  vcl_list<mw_intersection_sets::intersection_nhood_>::const_iterator ptr;
+  vcl_list<becld_intersection_sets::intersection_nhood_>::const_iterator ptr;
   for (ptr=isets_.L_[j].intercepts.begin(); ptr != isets_.L_[j].intercepts.end(); ++ptr) {
     unsigned k = ptr->ep_number;
     crv1_pt_id.push_back(ini_id + k);
@@ -393,7 +393,7 @@ reconstruct_one_candidate(
     vcl_vector<mw_vector_3d> &crv3d, 
     const vcl_vector<unsigned> &crv1_pt_id,
     const vcl_vector<unsigned> &crv2_pt_id,
-    dbdif_rig &rig) const
+    bdifd_rig &rig) const
 {
   crv3d.resize(crv1_pt_id.size());
   for (unsigned i=0; i<crv1_pt_id.size(); ++i) {
@@ -452,12 +452,12 @@ break_curves_into_episegs(
   // ----------------------------------------------------------------------
   // Break curve
 
-  dbecl_epipole_sptr epipole = new dbecl_epipole(e.x()/e.w(), e.y()/e.w());
-  dbecl_episeg_from_curve_converter factory(epipole);
+  becld_epipole_sptr epipole = new becld_epipole(e.x()/e.w(), e.y()/e.w());
+  becld_episeg_from_curve_converter factory(epipole);
 
   // A) For each vsol, do:
   
-  vcl_vector<dbecl_episeg_sptr> all_episegs;
+  vcl_vector<becld_episeg_sptr> all_episegs;
   all_episegs.reserve(2*vsols.size());
   ss.reserve(2*vsols.size());
   for (unsigned i=0; i < vsols.size(); ++i) {
@@ -469,10 +469,10 @@ break_curves_into_episegs(
 
     
     // A2 - apply episeg
-    vcl_vector<dbecl_episeg_sptr> eps = 
+    vcl_vector<becld_episeg_sptr> eps = 
       factory.convert_curve(new vsol_digital_curve_2d(samples));
 
-    for(vcl_vector<dbecl_episeg_sptr>::iterator itr = eps.begin(); 
+    for(vcl_vector<becld_episeg_sptr>::iterator itr = eps.begin(); 
         itr != eps.end();  ++itr) {
       all_episegs.push_back(*itr);
 
@@ -681,7 +681,7 @@ compute_epipolar_beam_candidates()
 }
   
 void mw_curve_stereo::
-set_cams(const vcl_vector<dbdif_camera> &cams)
+set_cams(const vcl_vector<bdifd_camera> &cams)
 {
   assert(cam_.size() == nviews());
   cam_ = cams;
@@ -790,7 +790,7 @@ reproject_in_all_views(unsigned crv2_id, vcl_vector< vcl_vector<vsol_point_2d_sp
   vcl_vector< vcl_vector<vsol_point_2d_sptr> > &reproj = *preproj;
   reproj.resize(nviews());
 
-  dbdif_rig rig(cams(v0()).Pr_, cams(v1()).Pr_);
+  bdifd_rig rig(cams(v0()).Pr_, cams(v1()).Pr_);
 
   for (unsigned v=2; v < nviews_; ++v) {
     vcl_vector<mw_vector_3d> crv3d; 
@@ -841,10 +841,10 @@ get_matching_subcurve(
   vcl_vector<bool> no_intersections(selected_subcurve_size, true);
 
   {
-    vcl_list<mw_intersection_sets::intersection_nhood_>::const_iterator  itr;
+    vcl_list<becld_intersection_sets::intersection_nhood_>::const_iterator  itr;
 
     assert(crv_candidates_id(candidate_index) < isets().L_.size());
-    const vcl_list<mw_intersection_sets::intersection_nhood_> &ilist 
+    const vcl_list<becld_intersection_sets::intersection_nhood_> &ilist 
       = isets().L_[ crv_candidates_id(candidate_index) ].intercepts;  
 
     for (itr = ilist.begin(); itr != ilist.end(); ++itr) {

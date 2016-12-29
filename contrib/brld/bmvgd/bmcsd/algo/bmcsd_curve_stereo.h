@@ -10,10 +10,10 @@
 
 #include <vsol/vsol_polyline_2d_sptr.h>
 #include <bbld/bbld_subsequence.h>
-#include <dbdif/dbdif_rig.h>
+#include <bdifd/bdifd_rig.h>
 
 #include <mw/mw_util.h>
-#include <mw/mw_intersection_sets.h>
+#include <mw/becld_intersection_sets.h>
 
 #define MW_INVALID_CURVE_ID ((unsigned)-1)
 
@@ -59,8 +59,8 @@ public:
   unsigned v1() const { return 1; }
 
   //: set the cameras for each view
-  void set_cams(const vcl_vector<dbdif_camera> &cams);
-  const dbdif_camera &cams(unsigned v) const { return cam_[v]; }
+  void set_cams(const vcl_vector<bdifd_camera> &cams);
+  const bdifd_camera &cams(unsigned v) const { return cam_[v]; }
 
   //: set the curve fragments from a vector of curves for each view.
   // curves[v0()] and curves[v1()] are required. The others are optional.
@@ -150,7 +150,7 @@ public:
   // needn't be in increasing order.
   void set_subcurve(unsigned ini_id, unsigned end_id);
 
-  const mw_intersection_sets &isets() const { return isets_; }
+  const becld_intersection_sets &isets() const { return isets_; }
 
   //: Returns the curve candiate \p ic, for \p ic = 0,...,num_candidates()-1,
   // from view[i2].
@@ -249,7 +249,7 @@ public:
       vcl_vector<mw_vector_3d> &crv3d, 
       vcl_vector<unsigned> &crv1_pt_id,
       vcl_vector<unsigned> &crv2_pt_id,
-      dbdif_rig &rig) const;
+      bdifd_rig &rig) const;
 
   //: 
   // \param[in] crv2_id: index into crv_candidates_ptrs_ of the candidate curve to consider
@@ -268,7 +268,7 @@ public:
       vcl_vector<mw_vector_3d> &crv3d, 
       const vcl_vector<unsigned> &crv1_pt_id,
       const vcl_vector<unsigned> &crv2_pt_id,
-      dbdif_rig &rig) const;
+      bdifd_rig &rig) const;
 
   //:
   // \param[in] crv2_id: index into crv_candidates_ptrs_ of the candidate curve to consider
@@ -284,7 +284,7 @@ public:
       unsigned crv2_id,
       vcl_vector<unsigned> &crv1_pt_id,
       vcl_vector<unsigned> &crv2_pt_id,
-      dbdif_rig &rig) const;
+      bdifd_rig &rig) const;
 
   //: Reconstructs subcurve given by curve selected_crv_[v0()] and endpoints with
   // index ini_id_sub, end_id_sub, using view[v0()] and the corresponding
@@ -416,7 +416,7 @@ protected:
 
 private:
   //: cameras for each view
-  vcl_vector<dbdif_camera> cam_; 
+  vcl_vector<bdifd_camera> cam_; 
   unsigned nviews_;
 
   //: \see selected_crv() 
@@ -462,7 +462,7 @@ private:
 
   //: a representation of the points of intersection of curves in view[v1()] with
   // the beam of epipolar lines of the selected subcurve of view[v0()].
-  mw_intersection_sets  isets_;
+  becld_intersection_sets  isets_;
 
   //: \see set_min_samples_per_curve_frag
   unsigned tau_min_samples_per_curve_frag_;

@@ -1,20 +1,20 @@
-#include "mw_odt_curve_stereo.h"
+#include "bmcsd_odt_curve_stereo.h"
 #include <dbdet/edge/dbdet_edgemap.h>
 #include <dbdet/pro/dbdet_sel_storage.h>
-#include <dbdif/dbdif_rig.h>
+#include <bdifd/bdifd_rig.h>
 
-#include <dbecl/dbecl_epipole.h>
-#include <dbecl/dbecl_episeg.h>
-#include <dbecl/dbecl_episeg_sptr.h>
-#include <dbecl/dbecl_episeg_from_curve_converter.h>
+#include <becld/becld_epipole.h>
+#include <becld/becld_episeg.h>
+#include <becld/becld_episeg_sptr.h>
+#include <becld/becld_episeg_from_curve_converter.h>
 
-#include <mw/mw_epi_interceptor.h>
+#include <mw/becld_epiline_interceptor.h>
 #include <mw/mw_discrete_corresp.h>
 #include <mw/algo/mw_algo_util.h>
 #include <mw/algo/mw_discrete_corresp_algo.h>
 
-mw_odt_curve_stereo::
-mw_odt_curve_stereo()
+bmcsd_odt_curve_stereo::
+bmcsd_odt_curve_stereo()
   :
     tau_dtheta_(vnl_math::pi/18.0),
     tau_min_inliers_per_view_(20),
@@ -26,7 +26,7 @@ mw_odt_curve_stereo()
 {
 }
 
-bool mw_odt_curve_stereo::
+bool bmcsd_odt_curve_stereo::
 set_nviews(unsigned nv)
 {
   if (!mw_dt_curve_stereo::set_nviews(nv))
@@ -37,7 +37,7 @@ set_nviews(unsigned nv)
   return true;
 }
 
-void mw_odt_curve_stereo::
+void bmcsd_odt_curve_stereo::
 set_all_edgemaps(const vcl_vector<dbdet_edgemap_sptr> &em)
 {
   assert(em.size() == nviews());
@@ -46,7 +46,7 @@ set_all_edgemaps(const vcl_vector<dbdet_edgemap_sptr> &em)
 }
 
 //: set the symbolic edge linker storages for each view.
-void mw_odt_curve_stereo::
+void bmcsd_odt_curve_stereo::
 set_all_sels(const vcl_vector<dbdet_sel_storage_sptr> &sels)
 {
   assert(sels.size() == nviews());
@@ -54,7 +54,7 @@ set_all_sels(const vcl_vector<dbdet_sel_storage_sptr> &sels)
   sels_ = sels;
 }
   
-void mw_odt_curve_stereo::
+void bmcsd_odt_curve_stereo::
 set_tangents(const vcl_vector<vcl_vector<vcl_vector<double> > > &tangents)
 {
   assert (tangents.size() >= 2);
@@ -72,7 +72,7 @@ set_tangents(const vcl_vector<vcl_vector<vcl_vector<double> > > &tangents)
 
       for (unsigned p=0; p < tangents[v][c].size(); ++p) {
         //: FIXME hack of using 3rd order when we don't need it.
-        dbdif_3rd_order_point_2d pimg;
+        bdifd_3rd_order_point_2d pimg;
         const vgl_point_2d<double> &pt = curves(v,c)->vertex(p)->get_p();
 
         pimg.gama[0] = pt.x();
@@ -80,7 +80,7 @@ set_tangents(const vcl_vector<vcl_vector<vcl_vector<double> > > &tangents)
         pimg.t[0] = vcl_cos(tangents[v][c][p]);
         pimg.t[1] = vcl_sin(tangents[v][c][p]);
 
-        dbdif_3rd_order_point_2d p3d_dummy;
+        bdifd_3rd_order_point_2d p3d_dummy;
         cams(v).img_to_world(&pimg, &p3d_dummy);
         pt_tgts_[v][c][p] = p3d_dummy; // intentional slicing.
       }
@@ -92,7 +92,7 @@ set_tangents(const vcl_vector<vcl_vector<vcl_vector<double> > > &tangents)
 //#define MW_VERBOSE_DEBUG 1
 //#endif
 
-bool mw_odt_curve_stereo::
+bool bmcsd_odt_curve_stereo::
 match_using_orientation_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_ptr)
 {
 #ifndef NDEBUG
@@ -113,12 +113,12 @@ match_using_orientation_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_pt
 
   get_increasing_endpoints(&ini_id, &end_id);
 
-  dbdif_rig rig(cams(v0()).Pr_, cams(v1()).Pr_);
+  bdifd_rig rig(cams(v0()).Pr_, cams(v1()).Pr_);
 
   // For each candidate curve
   reprojection_crv_.resize(num_candidates());
   for (unsigned ic=0; ic < num_candidates(); ++ic) {
-    dbdif_1st_order_curve_3d curve_3d;
+    bdifd_1st_order_curve_3d curve_3d;
     reconstruct_candidate_1st_order(ini_id, end_id, ic, rig, &curve_3d);
 
 #ifdef MW_VERBOSE_DEBUG
@@ -130,7 +130,7 @@ match_using_orientation_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_pt
         continue;
 
       // Compute reprojected_curve into view v
-      dbdif_1st_order_curve_2d reprojected_curve;
+      bdifd_1st_order_curve_2d reprojected_curve;
       project_curve_1st_order(v, curve_3d, &reprojected_curve);
       assert (reprojected_curve.size() == curve_3d.size());
 
@@ -138,7 +138,7 @@ match_using_orientation_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_pt
 
       // translate reproj. curve into edgel sequence
       dbcsi_edgel_seq reproj_edgels;
-      mw_algo_util::dbdif_to_dbdet(reprojected_curve, &reproj_edgels);
+      mw_algo_util::bdifd_to_dbdet(reprojected_curve, &reproj_edgels);
 
       assert (reproj_edgels.size() == reprojected_curve.size());
 
@@ -178,7 +178,7 @@ match_using_orientation_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_pt
   return true;
 }
 
-bool mw_odt_curve_stereo::
+bool bmcsd_odt_curve_stereo::
 match_using_orientation_dt_extras(unsigned *i_best, vcl_vector<unsigned long> *votes_ptr)
 {
   if (!match_using_orientation_dt_extras(votes_ptr))
@@ -198,7 +198,7 @@ match_using_orientation_dt_extras(unsigned *i_best, vcl_vector<unsigned long> *v
   return true;
 }
 
-bool mw_odt_curve_stereo::
+bool bmcsd_odt_curve_stereo::
 match_using_orientation_dt_extras(vcl_vector<unsigned long> *votes_ptr)
 {
 #ifndef NDEBUG
@@ -219,12 +219,12 @@ match_using_orientation_dt_extras(vcl_vector<unsigned long> *votes_ptr)
 
   get_increasing_endpoints(&ini_id, &end_id);
 
-  dbdif_rig rig(cams(v0()).Pr_, cams(v1()).Pr_);
+  bdifd_rig rig(cams(v0()).Pr_, cams(v1()).Pr_);
 
   // For each candidate curve
   reprojection_crv_.resize(num_candidates());
   for (unsigned ic=0; ic < num_candidates(); ++ic) {
-    dbdif_1st_order_curve_3d curve_3d;
+    bdifd_1st_order_curve_3d curve_3d;
     reconstruct_candidate_1st_order(ini_id, end_id, ic, rig, &curve_3d);
 
 #ifdef MW_VERBOSE_DEBUG
@@ -236,7 +236,7 @@ match_using_orientation_dt_extras(vcl_vector<unsigned long> *votes_ptr)
         continue;
 
       // Compute reprojected_curve into view v
-      dbdif_1st_order_curve_2d reprojected_curve;
+      bdifd_1st_order_curve_2d reprojected_curve;
       project_curve_1st_order(v, curve_3d, &reprojected_curve);
       assert (reprojected_curve.size() == curve_3d.size());
 
@@ -244,7 +244,7 @@ match_using_orientation_dt_extras(vcl_vector<unsigned long> *votes_ptr)
 
       // translate reproj. curve into edgel sequence
       dbcsi_edgel_seq reproj_edgels;
-      mw_algo_util::dbdif_to_dbdet(reprojected_curve, &reproj_edgels);
+      mw_algo_util::bdifd_to_dbdet(reprojected_curve, &reproj_edgels);
 
       assert (reproj_edgels.size() == reprojected_curve.size());
 
@@ -281,11 +281,11 @@ match_using_orientation_dt_extras(vcl_vector<unsigned long> *votes_ptr)
   return true;
 }
 
-void mw_odt_curve_stereo::
+void bmcsd_odt_curve_stereo::
 reconstruct_candidate_1st_order(unsigned ini_id, unsigned end_id, unsigned ic, 
-    const dbdif_rig &rig, dbdif_1st_order_curve_3d *crv_ptr)
+    const bdifd_rig &rig, bdifd_1st_order_curve_3d *crv_ptr)
 {
-  dbdif_1st_order_curve_3d &curve_3d = *crv_ptr;
+  bdifd_1st_order_curve_3d &curve_3d = *crv_ptr;
   unsigned ini_id_sub, end_id_sub;
   get_matching_subcurve(ic, ini_id, end_id, &ini_id_sub, &end_id_sub);
 
@@ -297,36 +297,36 @@ reconstruct_candidate_1st_order(unsigned ini_id, unsigned end_id, unsigned ic,
   assert(curve_3d.size() == end_id_sub - ini_id_sub  + 1);
 }
 
-void mw_odt_curve_stereo::
+void bmcsd_odt_curve_stereo::
 reconstruct_subcurve_1st_order(
     unsigned ini_id_sub, 
     unsigned end_id_sub, 
-    const dbdif_rig &rig,
-    dbdif_1st_order_curve_3d *curve_3d
+    const bdifd_rig &rig,
+    bdifd_1st_order_curve_3d *curve_3d
     ) const
 {
   static const unsigned second_view = 1;
 
   curve_3d->reserve(end_id_sub - ini_id_sub + 1);
   for (unsigned di0=0; di0 + ini_id_sub <= end_id_sub; ++di0) {
-    dbdif_1st_order_point_3d pt_3D;
+    bdifd_1st_order_point_3d pt_3D;
     reconstruct_curve_point_1st_order(second_view, ini_id_sub, di0, rig, &pt_3D);
     curve_3d->push_back(pt_3D);
   }
 }
 
-void mw_odt_curve_stereo::
+void bmcsd_odt_curve_stereo::
 reconstruct_curve_point_1st_order(
     unsigned v,
     unsigned ini_id,
     unsigned di0, 
-    const dbdif_rig &rig,
-    dbdif_1st_order_point_3d *pt_3D
+    const bdifd_rig &rig,
+    bdifd_1st_order_point_3d *pt_3D
     ) const
 {
   static const unsigned id_v0 = 0;
 
-  dbdif_1st_order_point_2d p0_w
+  bdifd_1st_order_point_2d p0_w
     = pt_tgts_[id_v0][selected_crv_id(id_v0)][ini_id + di0];
 
   // Corresponding points
@@ -334,11 +334,11 @@ reconstruct_curve_point_1st_order(
   unsigned nearest_sample_id;
   {
   vgl_point_2d<double> pt;
-  mw_epi_interceptor::curve_line_intersection_simple(
+  becld_epiline_interceptor::curve_line_intersection_simple(
       *selected_crv(v), ep(v-1)[di0], &pt, &nearest_sample_id);
   }
 
-  dbdif_1st_order_point_2d 
+  bdifd_1st_order_point_2d 
     p1_w = pt_tgts_[v][selected_crv_id(v)][nearest_sample_id];
 
   if (!p0_w.valid || !p1_w.valid)
@@ -348,14 +348,14 @@ reconstruct_curve_point_1st_order(
   rig.reconstruct_1st_order(p0_w, p1_w, pt_3D);
 }
 
-void mw_odt_curve_stereo::
+void bmcsd_odt_curve_stereo::
 project_curve_1st_order(
     unsigned view, 
-    const dbdif_1st_order_curve_3d &crv3d,
-    dbdif_1st_order_curve_2d *proj_ptr
+    const bdifd_1st_order_curve_3d &crv3d,
+    bdifd_1st_order_curve_2d *proj_ptr
     ) const
 {
-  dbdif_1st_order_curve_2d &proj = *proj_ptr;
+  bdifd_1st_order_curve_2d &proj = *proj_ptr;
 
   // Reproject into 3rd view
   proj.resize(crv3d.size());
@@ -366,7 +366,7 @@ project_curve_1st_order(
   }
 }
 
-bool mw_odt_curve_stereo::
+bool bmcsd_odt_curve_stereo::
 ready_for_oriented_matching()
 {
   if (!ready_for_matching()) {
@@ -386,7 +386,7 @@ ready_for_oriented_matching()
   return true;
 }
 
-void mw_odt_curve_stereo::
+void bmcsd_odt_curve_stereo::
 break_curves_into_episegs_pairwise(
     vcl_vector<vcl_vector< vsol_polyline_2d_sptr > > *broken_vsols,
     vcl_vector<bbld_subsequence_set> *ss_ptr
@@ -449,7 +449,7 @@ break_curves_into_episegs_pairwise(
   }
 }
 
-void mw_odt_curve_stereo::
+void bmcsd_odt_curve_stereo::
 break_curves_into_episegs_angle(
   const vcl_vector< vsol_polyline_2d_sptr >  &vsols,
   const vcl_vector<vcl_vector<double> > &tgts,
@@ -463,14 +463,14 @@ break_curves_into_episegs_angle(
   // ----------------------------------------------------------------------
   // Break curve
 
-  dbecl_epipole_sptr epipole = new dbecl_epipole(e.x()/e.w(), e.y()/e.w());
-  dbecl_episeg_from_curve_converter factory(epipole);
+  becld_epipole_sptr epipole = new becld_epipole(e.x()/e.w(), e.y()/e.w());
+  becld_episeg_from_curve_converter factory(epipole);
 
   factory.set_tangent_threshold(min_epiangle);
 
   // A) For each vsol, do:
   
-  vcl_vector<dbecl_episeg_sptr> all_episegs;
+  vcl_vector<becld_episeg_sptr> all_episegs;
   all_episegs.reserve(2*vsols.size());
   ss.reserve(2*vsols.size());
   for (unsigned i=0; i < vsols.size(); ++i) {
@@ -483,7 +483,7 @@ break_curves_into_episegs_angle(
     vsol_digital_curve_2d_sptr dc = new vsol_digital_curve_2d(samples);
     // A2 - apply episeg
     bbld_subsequence_set ss_partition;
-    vcl_vector<dbecl_episeg_sptr> eps = 
+    vcl_vector<becld_episeg_sptr> eps = 
       factory.convert_curve_using_tangents(
           dc,
           tgts[i],
@@ -493,7 +493,7 @@ break_curves_into_episegs_angle(
     assert(ss_partition.num_subsequences() == eps.size());
     assert(!(vsols[i]->size() && eps.empty()));
 
-    dbecl_delta_angle_predicate 
+    becld_delta_angle_predicate 
       is_angle_acceptable(dc, tgts[i], epipole, min_epiangle);
 
     // Keep only the episegs that are transversal to epilines.
@@ -520,7 +520,7 @@ break_curves_into_episegs_angle(
   }
 }
 
-void mw_odt_curve_stereo::
+void bmcsd_odt_curve_stereo::
 break_into_episegs_and_replace_curve(
     vcl_vector<bbld_subsequence_set> *pcurves_ss)
 {
@@ -538,8 +538,8 @@ break_into_episegs_and_replace_curve(
 }
 
 bool 
-dbmcs_match_all_curves(
-  mw_odt_curve_stereo &s, 
+bmcsd_match_all_curves(
+  bmcsd_odt_curve_stereo &s, 
   mw_discrete_corresp *corresp_ptr)
 {
   mw_discrete_corresp &corresp = *corresp_ptr;
@@ -589,16 +589,16 @@ dbmcs_match_all_curves(
 }
 
 bool 
-dbmcs_match_and_reconstruct_all_curves_attr(
-    mw_odt_curve_stereo &s, 
-    vcl_vector<dbdif_1st_order_curve_3d> *crv3d_ptr,
+bmcsd_match_and_reconstruct_all_curves_attr(
+    bmcsd_odt_curve_stereo &s, 
+    vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr,
     mw_discrete_corresp *corresp_ptr,
-    vcl_vector< dbmcs_curve_3d_attributes > *attr_ptr
+    vcl_vector< bmcsd_curve_3d_attributes > *attr_ptr
     )
 {
   // TODO: this is were we should pass attr so that we can gent the inlier
   // views.
-  dbmcs_match_all_curves(s, corresp_ptr);
+  bmcsd_match_all_curves(s, corresp_ptr);
 
   corresp_ptr->keep_only_unambiguous_max(
       s.min_first_to_second_best_ratio(), 
@@ -613,22 +613,22 @@ dbmcs_match_and_reconstruct_all_curves_attr(
 
 bool 
 reconstruct_from_corresp_attr(
-    mw_odt_curve_stereo &s, 
+    bmcsd_odt_curve_stereo &s, 
     const mw_discrete_corresp &corresp,
-    vcl_vector<dbdif_1st_order_curve_3d> *crv3d_ptr,
-    vcl_vector< dbmcs_curve_3d_attributes > *attr_ptr
+    vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr,
+    vcl_vector< bmcsd_curve_3d_attributes > *attr_ptr
     )
 {
   vcl_cout << "Reconstructing curves\n";
 
-  vcl_vector<dbdif_1st_order_curve_3d> &crv3d = *crv3d_ptr;
-  vcl_vector< dbmcs_curve_3d_attributes > &attr = *attr_ptr;
+  vcl_vector<bdifd_1st_order_curve_3d> &crv3d = *crv3d_ptr;
+  vcl_vector< bmcsd_curve_3d_attributes > &attr = *attr_ptr;
   unsigned const ncurves = s.num_curves(s.v0());
   assert (ncurves == corresp.size());
   crv3d.reserve(ncurves);
   attr.reserve(ncurves);
 
-  dbdif_rig rig(s.cams(s.v0()).Pr_, s.cams(s.v1()).Pr_);
+  bdifd_rig rig(s.cams(s.v0()).Pr_, s.cams(s.v1()).Pr_);
   for (unsigned c=0; c < ncurves; ++c) {
     if (corresp[c].empty())
       continue;
@@ -654,13 +654,13 @@ reconstruct_from_corresp_attr(
 }
 
 bool 
-dbmcs_match_and_reconstruct_all_curves(
-    mw_odt_curve_stereo &s, 
-    vcl_vector<dbdif_1st_order_curve_3d> *crv3d_ptr,
+bmcsd_match_and_reconstruct_all_curves(
+    bmcsd_odt_curve_stereo &s, 
+    vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr,
     mw_discrete_corresp *corresp_ptr
     )
 {
-  dbmcs_match_all_curves(s, corresp_ptr);
+  bmcsd_match_all_curves(s, corresp_ptr);
 
   corresp_ptr->keep_only_unambiguous_max(
       s.min_first_to_second_best_ratio(), 
@@ -675,18 +675,18 @@ dbmcs_match_and_reconstruct_all_curves(
 
 bool 
 reconstruct_from_corresp(
-    mw_odt_curve_stereo &s, 
+    bmcsd_odt_curve_stereo &s, 
     const mw_discrete_corresp &corresp,
-    vcl_vector<dbdif_1st_order_curve_3d> *crv3d_ptr)
+    vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr)
 {
   vcl_cout << "Reconstructing curves\n";
 
-  vcl_vector<dbdif_1st_order_curve_3d> &crv3d = *crv3d_ptr;
+  vcl_vector<bdifd_1st_order_curve_3d> &crv3d = *crv3d_ptr;
   unsigned const ncurves = s.num_curves(s.v0());
   assert (ncurves == corresp.size());
   crv3d.reserve(ncurves);
 
-  dbdif_rig rig(s.cams(s.v0()).Pr_, s.cams(s.v1()).Pr_);
+  bdifd_rig rig(s.cams(s.v0()).Pr_, s.cams(s.v1()).Pr_);
   for (unsigned c=0; c < ncurves; ++c) {
     if (corresp[c].empty())
       continue;
