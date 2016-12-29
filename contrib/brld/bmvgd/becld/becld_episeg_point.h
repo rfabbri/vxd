@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief  A point a long an episegment.
-// \author dapachec
+// \author Based on original code by  dapachec
 // \date   8/18/2004
 
 #include <vbl/vbl_ref_count.h>

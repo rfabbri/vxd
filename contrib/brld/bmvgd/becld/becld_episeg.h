@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief A segment of a 2D curve with added epipolar parameterization
-// \author Matt Leotta, (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta, (@lems.brown.edu)
 // \date 7/13/04
 //
 // \verbatim

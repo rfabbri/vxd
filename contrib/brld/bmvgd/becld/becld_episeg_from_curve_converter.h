@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief  Converts a vsol_digital_curve_2d to a set of episegments
-// \author dapachec
+// \author Based on original code by  dapachec
 // \date   8/25/2004
 
 #include <vcl_vector.h>

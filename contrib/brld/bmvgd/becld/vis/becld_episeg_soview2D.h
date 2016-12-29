@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief vgui_soview2D objects for dbecl classes
-// \author Matt Leotta (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 11/8/04
 //
 // \verbatim

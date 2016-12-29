@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Tools that work on dbecl_episegs
-// \author Matt Leotta, (mleotta@lems.brown.edu)
+// \author Based on original code by  Matt Leotta, (@lems.brown.edu)
 // \date 11/10/04
 //
 // \verbatim

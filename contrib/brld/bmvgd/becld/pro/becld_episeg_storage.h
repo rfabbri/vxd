@@ -4,7 +4,7 @@
 
 // \file
 // \brief A storage class for dbecl episegments
-// \author  mleotta
+// \author Based on original code by   mleotta
 // \date  11/8/2004
 
 #include <bpro1/bpro1_storage.h>
