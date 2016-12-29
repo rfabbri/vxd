@@ -1,8 +1,8 @@
 #include <testlib/testlib_test.h>
 #include <vgl/vgl_distance.h>
-#include <dbdif/algo/dbdif_data.h>
+#include <bdifd/algo/bdifd_data.h>
 #include <brct/brct_algos.h>
-#include <dvpgl/algo/dvpgl_triangulation.h>
+#include <vpgld/algo/vpgld_triangulation.h>
 #include <vcl_algorithm.h>
 
 static void test_two_view_triangulation();
@@ -112,7 +112,7 @@ test_two_view_triangulation_on_gt_data(
 }
 
 //: Test some optimal algorithms against linear triangulation.
-// \todo eliminate dependence on dbdif_algo
+// \todo eliminate dependence on bdifd_algo
 void 
 test_two_view_triangulation()
 {
@@ -126,7 +126,7 @@ test_two_view_triangulation()
   angles.push_back(30);
   angles.push_back(60);
 
-  dbdif_data::get_digital_camera_point_dataset(&gt_cams, &gt_image_pts, &gt_world_pts, angles);
+  bdifd_data::get_digital_camera_point_dataset(&gt_cams, &gt_image_pts, &gt_world_pts, angles);
   gt_image_pts.resize(vcl_min((size_t)500, gt_image_pts.size()));
   gt_world_pts.resize(vcl_min((size_t)500, gt_image_pts.size()));
   }
@@ -144,7 +144,7 @@ test_two_view_triangulation()
 
   vcl_vector<vcl_vector<vgl_point_2d<double> > > gt_image_pts_dummy;
   vcl_vector<vgl_point_3d<double> > gt_world_pts_dummy;
-  dbdif_data::get_digital_camera_point_dataset(&perturbed_cams, &gt_image_pts_dummy, &gt_world_pts_dummy, angles);
+  bdifd_data::get_digital_camera_point_dataset(&perturbed_cams, &gt_image_pts_dummy, &gt_world_pts_dummy, angles);
   gt_image_pts.resize(vcl_min((size_t)500, gt_image_pts.size()));
   gt_world_pts.resize(vcl_min((size_t)500, gt_image_pts.size()));
   }

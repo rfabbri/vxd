@@ -1,4 +1,4 @@
-#include "dvpgl_epipolar_tool.h"
+#include "vpgld_epipolar_tool.h"
 #include <vgui/vgui_projection_inspector.h>
 #include <vgui/vgui.h>
 #include <vgui/vgui_dialog.h>
@@ -7,29 +7,29 @@
 #include <bvis1/bvis1_view_tableau.h>
 #include <vidpro1/vidpro1_repository.h>
 
-#include <dvpgl/pro/dvpgl_camera_storage.h>
+#include <vpgld/pro/vpgld_camera_storage.h>
 
 
 #define MANAGER bvis1_manager::instance()
 
 
-dvpgl_epipolar_tool::
-dvpgl_epipolar_tool()
+vpgld_epipolar_tool::
+vpgld_epipolar_tool()
   : pt_(0),activated_(false)
 {
   gesture0 = vgui_event_condition(vgui_LEFT, vgui_MODIFIER_NULL, true);
 }
 
 vcl_string
-dvpgl_epipolar_tool::name() const
+vpgld_epipolar_tool::name() const
 {
   return "Epipolar";
 }
 
 void   
-dvpgl_epipolar_tool::activate ()
+vpgld_epipolar_tool::activate ()
 {
-  vcl_cout << "dvpgl_epipolar_tool ON\n";
+  vcl_cout << "vpgld_epipolar_tool ON\n";
 
 
   vcl_vector< bvis1_view_tableau_sptr > views;
@@ -65,7 +65,7 @@ dvpgl_epipolar_tool::activate ()
   bpro1_storage_sptr 
     p = MANAGER->repository()->get_data_at("vpgl camera", frame_v1);
 
-  dvpgl_camera_storage_sptr cam_storage;
+  vpgld_camera_storage_sptr cam_storage;
 
   cam_storage.vertical_cast(p);
 
@@ -199,20 +199,20 @@ dvpgl_epipolar_tool::activate ()
 }
 
 void   
-dvpgl_epipolar_tool::deactivate ()
+vpgld_epipolar_tool::deactivate ()
 {
   delete fm_;
-  vcl_cout << "dvpgl_epipolar_tool OFF\n";
+  vcl_cout << "vpgld_epipolar_tool OFF\n";
 }
 
 bool 
-dvpgl_epipolar_tool::set_tableau( const vgui_tableau_sptr& /*tableau*/ )
+vpgld_epipolar_tool::set_tableau( const vgui_tableau_sptr& /*tableau*/ )
 {
   return true;
 }
 
 bool
-dvpgl_epipolar_tool::handle( const vgui_event & e, 
+vpgld_epipolar_tool::handle( const vgui_event & e, 
                              const bvis1_view_tableau_sptr& /*view*/ )
 {
    if (!tab_l_)
@@ -257,7 +257,7 @@ dvpgl_epipolar_tool::handle( const vgui_event & e,
 }
 
 //: Display dialog to get params
-bool dvpgl_epipolar_tool::
+bool vpgld_epipolar_tool::
 get_epipolar_params(int *initial_view, int *final_view)
 {
   vgui_dialog* epipolar_dialog = new vgui_dialog("Epipolar Explorer Tool");

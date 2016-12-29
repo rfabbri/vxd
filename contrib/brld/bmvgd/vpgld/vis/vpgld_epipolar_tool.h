@@ -1,6 +1,6 @@
-// This is dvpgl_epipolar_tool.h
-#ifndef dvpgl_epipolar_tool_h
-#define dvpgl_epipolar_tool_h
+// This is vpgld_epipolar_tool.h
+#ifndef vpgld_epipolar_tool_h
+#define vpgld_epipolar_tool_h
 //:
 //\file
 //\brief Tool for displaying epipolar lines across frames
@@ -41,13 +41,13 @@
 // - enable to draw two epipolars or point-epipolar
 // - make it work with more than two frames
 //
-class dvpgl_epipolar_tool : public bvis1_tool {
+class vpgld_epipolar_tool : public bvis1_tool {
 public:
   //: Constructor
-  dvpgl_epipolar_tool();
+  vpgld_epipolar_tool();
  
   //: Destructor
-  virtual ~dvpgl_epipolar_tool() {}
+  virtual ~vpgld_epipolar_tool() {}
   
   //: Returns the string name of this tool
   vcl_string name() const;
@@ -87,5 +87,5 @@ protected:
 };
 
 
-#endif // dvpgl_epipolar_tool_h
+#endif // vpgld_epipolar_tool_h
 

@@ -1,6 +1,6 @@
-// This is dvpgl_camera_compute_ransac.h
-#ifndef dvpgl_camera_compute_ransac_h
-#define dvpgl_camera_compute_ransac_h
+// This is vpgld_camera_compute_ransac.h
+#ifndef vpgld_camera_compute_ransac_h
+#define vpgld_camera_compute_ransac_h
 //:
 //\file
 //\brief Compute camera matrix from 3D-2D point correspondences and RANSAC
@@ -23,10 +23,10 @@
 //
 // \todo 
 // Include methods for setting ransac parameters
-class dvpgl_camera_compute_ransac
+class vpgld_camera_compute_ransac
 {
  public:
-  dvpgl_camera_compute_ransac() {}
+  vpgld_camera_compute_ransac() {}
 
   //: Compute from two sets of corresponding points.
   // Put the resulting camera into camera, return true if successful.
@@ -39,7 +39,7 @@ class dvpgl_camera_compute_ransac
 };
 
 
-//: Helper class for dvpgl_camera_compute_ransac using rrel.
+//: Helper class for vpgld_camera_compute_ransac using rrel.
 class rrel_proj_problem : public rrel_estimation_problem
 {
  public:
@@ -86,5 +86,5 @@ class rrel_proj_problem : public rrel_estimation_problem
   const vcl_vector< vgl_homg_point_2d<double> > *world_pts_;
 };
 
-#endif // dvpgl_camera_compute_ransac_h
+#endif // vpgld_camera_compute_ransac_h
 

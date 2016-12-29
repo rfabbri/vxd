@@ -1,4 +1,4 @@
-#include "dvpgl_epipolar_region_tool.h"
+#include "vpgld_epipolar_region_tool.h"
 
 #include <vgui/vgui_projection_inspector.h>
 #include <vgui/vgui.h>
@@ -13,30 +13,30 @@
 #include <vnl/vnl_random.h>
 
 
-#include <dvpgl/pro/dvpgl_camera_storage.h>
+#include <vpgld/pro/vpgld_camera_storage.h>
 
 static vnl_random myrand;
 
 #define MANAGER bvis1_manager::instance()
 
 
-dvpgl_epipolar_region_tool::
-dvpgl_epipolar_region_tool()
+vpgld_epipolar_region_tool::
+vpgld_epipolar_region_tool()
   : pt_(0), activated_(false)
 {
   gesture0 = vgui_event_condition(vgui_LEFT, vgui_MODIFIER_NULL, true);
 }
 
 vcl_string
-dvpgl_epipolar_region_tool::name() const
+vpgld_epipolar_region_tool::name() const
 {
   return "Epipolar Region";
 }
 
 void   
-dvpgl_epipolar_region_tool::activate ()
+vpgld_epipolar_region_tool::activate ()
 {
-  vcl_cout << "dvpgl_epipolar_region_tool ON\n";
+  vcl_cout << "vpgld_epipolar_region_tool ON\n";
   
   vcl_vector< bvis1_view_tableau_sptr > views;
   views = MANAGER->get_views();
@@ -69,7 +69,7 @@ dvpgl_epipolar_region_tool::activate ()
   bpro1_storage_sptr 
     p = MANAGER->repository()->get_data_at("vpgl camera", frame_v1);
 
-  dvpgl_camera_storage_sptr cam_storage;
+  vpgld_camera_storage_sptr cam_storage;
 
   cam_storage.vertical_cast(p);
 
@@ -151,20 +151,20 @@ dvpgl_epipolar_region_tool::activate ()
 }
 
 void   
-dvpgl_epipolar_region_tool::deactivate ()
+vpgld_epipolar_region_tool::deactivate ()
 {
   delete fm_;
   vcl_cout << "vpgl_epipolar_region_tool OFF\n";
 }
 
 bool 
-dvpgl_epipolar_region_tool::set_tableau( const vgui_tableau_sptr& /*tableau*/ )
+vpgld_epipolar_region_tool::set_tableau( const vgui_tableau_sptr& /*tableau*/ )
 {
   return true;
 }
 
 bool
-dvpgl_epipolar_region_tool::handle( const vgui_event & e, 
+vpgld_epipolar_region_tool::handle( const vgui_event & e, 
                              const bvis1_view_tableau_sptr& view )
 {
    if (!tab_l_)
@@ -261,7 +261,7 @@ dvpgl_epipolar_region_tool::handle( const vgui_event & e,
 
 
 //: Display dialog to get params
-bool dvpgl_epipolar_region_tool::
+bool vpgld_epipolar_region_tool::
 get_epipolar_params(int *initial_view, int *final_view, float *radius)
 {
   vgui_dialog* epipolar_dialog = new vgui_dialog("Epipolar Region Explorer Tool");
@@ -283,7 +283,7 @@ get_epipolar_params(int *initial_view, int *final_view, float *radius)
 }
 
 
-void dvpgl_epipolar_region_tool::
+void vpgld_epipolar_region_tool::
 perturb(vsol_point_2d_sptr &pt, double max_radius) const
 {
   // 1 - generate uniformly random vector inside unit disc

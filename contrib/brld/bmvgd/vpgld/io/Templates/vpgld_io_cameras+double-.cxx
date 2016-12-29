@@ -1,4 +1,4 @@
-#include "../dvpgl_io_cameras.hxx"
+#include "../vpgld_io_cameras.hxx"
 
-DVPGL_IO_CAMERAS_INSTANTIATE(double);
+VPGLD_IO_CAMERAS_INSTANTIATE(double);
 

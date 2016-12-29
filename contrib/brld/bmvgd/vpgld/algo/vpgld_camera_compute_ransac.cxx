@@ -11,7 +11,7 @@
 
 //------------------------------------------
 bool
-dvpgl_camera_compute_ransac::
+vpgld_camera_compute_ransac::
 compute( const vcl_vector< vgl_homg_point_2d<double> >& image_pts,
          const vcl_vector< vgl_homg_point_3d<double> >& world_pts,
          vpgl_proj_camera<double>& camera )

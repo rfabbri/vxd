@@ -1,4 +1,4 @@
-# brcv/mvg/dvpgl/vis/CMakeLists.txt
+# brcv/mvg/vpgld/vis/CMakeLists.txt
 
 include_directories( ${lems_SOURCE_DIR}/breye1 )
 include_directories( ${VXL_BRL_INCLUDE_DIR}/bbas )
@@ -8,26 +8,26 @@ include_directories( ${lems_SOURCE_DIR}/breye )
 
 
 if(BUILD_BREYE)
-set( dvpgl_vis_sources
-dvpgl_epipolar_tool.cxx      dvpgl_epipolar_tool.h   
-dvpgl_epipolar_region_tool.cxx dvpgl_epipolar_region_tool.h
-#dvpgl_image_correspondence_tool.cxx dvpgl_image_correspondence_tool.h
-menu/dvpgl_camera_menu.cxx   menu/dvpgl_camera_menu.h
+set( vpgld_vis_sources
+vpgld_epipolar_tool.cxx      vpgld_epipolar_tool.h   
+vpgld_epipolar_region_tool.cxx vpgld_epipolar_region_tool.h
+#vpgld_image_correspondence_tool.cxx vpgld_image_correspondence_tool.h
+menu/vpgld_camera_menu.cxx   menu/vpgld_camera_menu.h
 )
 else(BUILD_BREYE)
-set( dvpgl_vis_sources
-dvpgl_epipolar_tool.cxx      dvpgl_epipolar_tool.h   
-dvpgl_epipolar_region_tool.cxx dvpgl_epipolar_region_tool.h
+set( vpgld_vis_sources
+vpgld_epipolar_tool.cxx      vpgld_epipolar_tool.h   
+vpgld_epipolar_region_tool.cxx vpgld_epipolar_region_tool.h
 )
 endif(BUILD_BREYE)
 
-add_library(dvpgl_vis ${dvpgl_vis_sources})
+add_library(vpgld_vis ${vpgld_vis_sources})
 
 if(BUILD_BREYE)
-  target_link_libraries(dvpgl_vis bvis vpgl)
+  target_link_libraries(vpgld_vis bvis vpgl)
 else(BUILD_BREYE)
   if(BUILD_BREYE1)
-    target_link_libraries(dvpgl_vis bvis1 vpgl)
+    target_link_libraries(vpgld_vis bvis1 vpgl)
   endif(BUILD_BREYE1)
 endif(BUILD_BREYE)
 

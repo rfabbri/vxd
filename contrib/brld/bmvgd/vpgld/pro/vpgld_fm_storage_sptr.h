@@ -1,12 +1,12 @@
-#ifndef dvpgl_fm_storage_sptr_h_
-#define dvpgl_fm_storage_sptr_h_
+#ifndef vpgld_fm_storage_sptr_h_
+#define vpgld_fm_storage_sptr_h_
 
 //:
 // \file
 
 #include <bpro1/bpro1_storage_sptr.h>
 
-class dvpgl_fm_storage;
-typedef bpro1_storage_sptr_t<dvpgl_fm_storage> dvpgl_fm_storage_sptr;
+class vpgld_fm_storage;
+typedef bpro1_storage_sptr_t<vpgld_fm_storage> vpgld_fm_storage_sptr;
 
-#endif // dvpgl_fm_storage_sptr_h
+#endif // vpgld_fm_storage_sptr_h

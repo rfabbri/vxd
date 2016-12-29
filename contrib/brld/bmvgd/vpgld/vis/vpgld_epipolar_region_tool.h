@@ -1,6 +1,6 @@
-// This is dvpgl_epipolar_region_tool.h
-#ifndef dvpgl_epipolar_region_tool_h
-#define dvpgl_epipolar_region_tool_h
+// This is vpgld_epipolar_region_tool.h
+#ifndef vpgld_epipolar_region_tool_h
+#define vpgld_epipolar_region_tool_h
 //:
 //\file
 //\brief Tool for displaying simulated epipolar error bands across frames
@@ -26,17 +26,17 @@
 // It uses Monte Carlo simulation to sample epipolar lines corresponding to points in a localization
 // error neighborhood around a given point.  
 //
-// \seealso The basic tool is similar to dvpgl_epipolar_tool.
+// \seealso The basic tool is similar to vpgld_epipolar_tool.
 //
 // \todo extend with perturbations in calibration as well.
 //
-class dvpgl_epipolar_region_tool : public bvis1_tool {
+class vpgld_epipolar_region_tool : public bvis1_tool {
 public:
   //: Constructor
-  dvpgl_epipolar_region_tool();
+  vpgld_epipolar_region_tool();
  
   //: Destructor
-  virtual ~dvpgl_epipolar_region_tool() {}
+  virtual ~vpgld_epipolar_region_tool() {}
   
   //: Returns the string name of this tool
   vcl_string name() const;
@@ -82,5 +82,5 @@ protected:
 };
 
 
-#endif // dvpgl_epipolar_region_tool_h
+#endif // vpgld_epipolar_region_tool_h
 

@@ -1,4 +1,4 @@
-#include "dvpgl_io_cameras.h"
+#include "vpgld_io_cameras.h"
 #include <vgl/vgl_point_2d.h>
 #include <vgl/vgl_point_3d.h>
 #include <vgl/algo/vgl_rotation_3d.h>
@@ -37,14 +37,14 @@
 //  vsl_binary_loader<vpgl_proj_camera<T> >::instance().add(b);
 //}
 
-// dvpgl_calibration_matrix I/O -----------------------------------------------
+// vpgld_calibration_matrix I/O -----------------------------------------------
 
 template <class T> void 
-b_read_dvpgl(vsl_b_istream &is, vpgl_calibration_matrix<T>* self)
+b_read_vpgld(vsl_b_istream &is, vpgl_calibration_matrix<T>* self)
 {
   if (!is) return;
   assert(self);
-  vcl_cerr << "[dvpgl_io] Warning: using legacy I/O format\n";
+  vcl_cerr << "[vpgld_io] Warning: using legacy I/O format\n";
 
   vgl_point_2d<T> pp;
 
@@ -77,10 +77,10 @@ b_read_dvpgl(vsl_b_istream &is, vpgl_calibration_matrix<T>* self)
 
 //: Binary save self to stream.
 template <class T> void 
-b_write_dvpgl(vsl_b_ostream &os, const vpgl_calibration_matrix<T>* self)
+b_write_vpgld(vsl_b_ostream &os, const vpgl_calibration_matrix<T>* self)
 {
-  vcl_cerr << "[dvpgl_io] Warning: using legacy I/O format\n";
-  vsl_b_write(os, 1);  // matches latest in b_read_dvpgl
+  vcl_cerr << "[vpgld_io] Warning: using legacy I/O format\n";
+  vsl_b_write(os, 1);  // matches latest in b_read_vpgld
   vsl_b_write(os, self->focal_length());
   vsl_b_write(os, self->principal_point());
   vsl_b_write(os, self->x_scale());
@@ -90,40 +90,40 @@ b_write_dvpgl(vsl_b_ostream &os, const vpgl_calibration_matrix<T>* self)
 
 //: Binary save
 template <class T> void
-vsl_b_write_dvpgl(vsl_b_ostream &os, const vpgl_calibration_matrix<T> * p)
+vsl_b_write_vpgld(vsl_b_ostream &os, const vpgl_calibration_matrix<T> * p)
 {
   if (p==0) {
     vsl_b_write(os, false); // Indicate null pointer stored
   }
   else {
     vsl_b_write(os,true); // Indicate non-null pointer stored
-    b_write_dvpgl(os, p);
+    b_write_vpgld(os, p);
   }
 }
 
 
 //: Binary load
 template <class T> void
-vsl_b_read_dvpgl(vsl_b_istream &is, vpgl_calibration_matrix<T>* &p)
+vsl_b_read_vpgld(vsl_b_istream &is, vpgl_calibration_matrix<T>* &p)
 {
   delete p;
   bool not_null_ptr;
   vsl_b_read(is, not_null_ptr);
   if (not_null_ptr) {
     p = new vpgl_calibration_matrix<T>();
-    b_read_dvpgl(is, p);
+    b_read_vpgld(is, p);
   }
   else
     p = 0;
 }
 
-// dvpgl_perspective_camera I/O -----------------------------------------------
+// vpgld_perspective_camera I/O -----------------------------------------------
 
 template <class T> void 
-b_read_dvpgl(vsl_b_istream &is, vpgl_perspective_camera<T>* self)
+b_read_vpgld(vsl_b_istream &is, vpgl_perspective_camera<T>* self)
 {
   if (!is) return;
-  vcl_cerr << "[dvpgl_io] Warning: using legacy I/O format\n";
+  vcl_cerr << "[vpgld_io] Warning: using legacy I/O format\n";
 
   vnl_matrix_fixed<T,4,4> Rot;
   vgl_rotation_3d<T> vglRot;
@@ -136,10 +136,10 @@ b_read_dvpgl(vsl_b_istream &is, vpgl_perspective_camera<T>* self)
   switch (ver)
   {
    case 1:
-     vcl_cerr << "[dvpgl_io] warning: camera i/o version 1 might also currently be the new vpgl I/O\n"; 
+     vcl_cerr << "[vpgld_io] warning: camera i/o version 1 might also currently be the new vpgl I/O\n"; 
      // vpgl_proj_camera<T>::b_read(is);
      vsl_b_read(is, * (static_cast<vpgl_proj_camera<T> *>(self)));
-     b_read_dvpgl(is, &K); // K.b_read(is);
+     b_read_vpgld(is, &K); // K.b_read(is);
      self->set_calibration(K);
      vsl_b_read(is, camera_center);
      self->set_camera_center(camera_center);
@@ -150,7 +150,7 @@ b_read_dvpgl(vsl_b_istream &is, vpgl_perspective_camera<T>* self)
    case 2:
      //vpgl_proj_camera<T>::b_read(is);
      vsl_b_read(is, *static_cast<vpgl_proj_camera<T> *>(self));
-     b_read_dvpgl(is, &K); // K.b_read(is);
+     b_read_vpgld(is, &K); // K.b_read(is);
      self->set_calibration(K);
      vsl_b_read(is, camera_center);
      self->set_camera_center(camera_center);
@@ -167,52 +167,52 @@ b_read_dvpgl(vsl_b_istream &is, vpgl_perspective_camera<T>* self)
 
 //: Binary save self to stream.
 template <class T> void
-b_write_dvpgl(vsl_b_ostream &os, const vpgl_perspective_camera<T>* self)
+b_write_vpgld(vsl_b_ostream &os, const vpgl_perspective_camera<T>* self)
 {
-  vcl_cerr << "[dvpgl_io] Warning: using legacy I/O format\n";
-  vsl_b_write(os, 2); // matches version 2 in b_read_dvpgl
+  vcl_cerr << "[vpgld_io] Warning: using legacy I/O format\n";
+  vsl_b_write(os, 2); // matches version 2 in b_read_vpgld
   vsl_b_write(os, *static_cast<const vpgl_proj_camera<T> *>(self));
-  b_write_dvpgl(os, &(self->get_calibration())); // K.b_read(is);
+  b_write_vpgld(os, &(self->get_calibration())); // K.b_read(is);
   vsl_b_write(os, self->get_camera_center());
   vsl_b_write(os, static_cast<vnl_vector_fixed<T,4> >(self->get_rotation().as_quaternion()));
 }
 
 //: Binary save
 template <class T> void
-vsl_b_write_dvpgl(vsl_b_ostream &os, const vpgl_perspective_camera<T> * p)
+vsl_b_write_vpgld(vsl_b_ostream &os, const vpgl_perspective_camera<T> * p)
 {
   if (p==0) {
     vsl_b_write(os, false); // Indicate null pointer stored
   }
   else{
     vsl_b_write(os,true); // Indicate non-null pointer stored
-    b_write_dvpgl(os, p);
+    b_write_vpgld(os, p);
   }
 }
 
 
 //: Binary load
 template <class T> void
-vsl_b_read_dvpgl(vsl_b_istream &is, vpgl_perspective_camera<T>* &p)
+vsl_b_read_vpgld(vsl_b_istream &is, vpgl_perspective_camera<T>* &p)
 {
   delete p;
   bool not_null_ptr;
   vsl_b_read(is, not_null_ptr);
   if (not_null_ptr) {
     p = new vpgl_perspective_camera<T>();
-    b_read_dvpgl(is, p);
+    b_read_vpgld(is, p);
   }
   else
     p = 0;
 }
 
-// dvpgl_camera basepointer I/O -----------------------------------------------
+// vpgld_camera basepointer I/O -----------------------------------------------
 
 //: Binary save camera to stream
 template <class T>
-void vsl_b_write_dvpgl(vsl_b_ostream & os, vpgl_camera<T>* const camera)
+void vsl_b_write_vpgld(vsl_b_ostream & os, vpgl_camera<T>* const camera)
 {
-  vcl_cerr << "[dvpgl_io] Warning: using legacy I/O format\n";
+  vcl_cerr << "[vpgld_io] Warning: using legacy I/O format\n";
   if ( camera->type_name() == "vpgl_proj_camera" ){
     // projective camera
     vpgl_proj_camera<T>* procam = static_cast<vpgl_proj_camera<T>*>(camera);
@@ -224,7 +224,7 @@ void vsl_b_write_dvpgl(vsl_b_ostream & os, vpgl_camera<T>* const camera)
     vpgl_perspective_camera<T>* percam =
       static_cast<vpgl_perspective_camera<T>*>(camera);
     vsl_b_write(os,percam->type_name());
-    vsl_b_write_dvpgl(os,percam); // use the old I/O
+    vsl_b_write_vpgld(os,percam); // use the old I/O
   }
   else if ( camera->type_name() == "vpgl_affine_camera" ) {
     // affine camera
@@ -258,11 +258,11 @@ void vsl_b_write_dvpgl(vsl_b_ostream & os, vpgl_camera<T>* const camera)
 
 //: Binary load camera from stream.
 template <class T>
-void vsl_b_read_dvpgl(vsl_b_istream & is, vpgl_camera<T>* &camera)
+void vsl_b_read_vpgld(vsl_b_istream & is, vpgl_camera<T>* &camera)
 {
   vcl_string cam_type;
   vsl_b_read(is,cam_type);
-  vcl_cerr << "[dvpgl_io] Warning: using legacy I/O format\n";
+  vcl_cerr << "[vpgld_io] Warning: using legacy I/O format\n";
 
   if (cam_type == "vpgl_proj_camera") {
     // projective camera
@@ -273,7 +273,7 @@ void vsl_b_read_dvpgl(vsl_b_istream & is, vpgl_camera<T>* &camera)
   else if (cam_type == "vpgl_perspective_camera") {
     // perspective camera
     vpgl_perspective_camera<T>* percam = new vpgl_perspective_camera<T>();
-    vsl_b_read_dvpgl(is,percam);  // uses old I/O
+    vsl_b_read_vpgld(is,percam);  // uses old I/O
     camera = percam;
   }
   else if (cam_type == "vpgl_affine_camera") {
@@ -305,18 +305,18 @@ void vsl_b_read_dvpgl(vsl_b_istream & is, vpgl_camera<T>* &camera)
 
 
 
-#undef DVPGL_IO_CAMERAS_INSTANTIATE
-#define DVPGL_IO_CAMERAS_INSTANTIATE(T) \
-template void vsl_b_read_dvpgl(vsl_b_istream &, vpgl_calibration_matrix<T >* &); \
-template void vsl_b_write_dvpgl(vsl_b_ostream &, const vpgl_calibration_matrix<T > *); \
-template void b_read_dvpgl(vsl_b_istream &, vpgl_calibration_matrix<T>* ); \
-template void b_write_dvpgl(vsl_b_ostream &, const vpgl_calibration_matrix<T>* ); \
-template void vsl_b_read_dvpgl(vsl_b_istream &, vpgl_perspective_camera<T >* &); \
-template void vsl_b_write_dvpgl(vsl_b_ostream &, const vpgl_perspective_camera<T > *); \
-template void b_read_dvpgl(vsl_b_istream &, vpgl_perspective_camera<T>* ); \
-template void b_write_dvpgl(vsl_b_ostream &, const vpgl_perspective_camera<T>* );\
-template void vsl_b_read_dvpgl(vsl_b_istream &, vpgl_camera<T >* &); \
-template void vsl_b_write_dvpgl(vsl_b_ostream &, vpgl_camera<T >* const)
+#undef VPGLD_IO_CAMERAS_INSTANTIATE
+#define VPGLD_IO_CAMERAS_INSTANTIATE(T) \
+template void vsl_b_read_vpgld(vsl_b_istream &, vpgl_calibration_matrix<T >* &); \
+template void vsl_b_write_vpgld(vsl_b_ostream &, const vpgl_calibration_matrix<T > *); \
+template void b_read_vpgld(vsl_b_istream &, vpgl_calibration_matrix<T>* ); \
+template void b_write_vpgld(vsl_b_ostream &, const vpgl_calibration_matrix<T>* ); \
+template void vsl_b_read_vpgld(vsl_b_istream &, vpgl_perspective_camera<T >* &); \
+template void vsl_b_write_vpgld(vsl_b_ostream &, const vpgl_perspective_camera<T > *); \
+template void b_read_vpgld(vsl_b_istream &, vpgl_perspective_camera<T>* ); \
+template void b_write_vpgld(vsl_b_ostream &, const vpgl_perspective_camera<T>* );\
+template void vsl_b_read_vpgld(vsl_b_istream &, vpgl_camera<T >* &); \
+template void vsl_b_write_vpgld(vsl_b_ostream &, vpgl_camera<T >* const)
 
   
 //template void vsl_add_to_binary_loader(vpgl_proj_camera<T > const& b);

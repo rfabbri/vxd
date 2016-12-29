@@ -1,18 +1,18 @@
 //:
 // \file
 
-#include "dvpgl_fm_storage.h"
+#include "vpgld_fm_storage.h"
 #include <vsl/vsl_map_io.h>
 
 
 //: Constructor
-dvpgl_fm_storage::dvpgl_fm_storage(const vcl_string& from_name)
+vpgld_fm_storage::vpgld_fm_storage(const vcl_string& from_name)
  : from_name_(from_name)
 {
 }
 
 //: Destructor
-dvpgl_fm_storage::~dvpgl_fm_storage()
+vpgld_fm_storage::~vpgld_fm_storage()
 {
 }
 
@@ -20,15 +20,15 @@ dvpgl_fm_storage::~dvpgl_fm_storage()
 //: Create a copy of the object on the heap.
 // The caller is responsible for deletion
 bpro1_storage* 
-dvpgl_fm_storage::clone() const
+vpgld_fm_storage::clone() const
 {
-  return new dvpgl_fm_storage(*this);
+  return new vpgld_fm_storage(*this);
 }
 
 
 //: Return IO version number;
 short 
-dvpgl_fm_storage::version() const
+vpgld_fm_storage::version() const
 {
   return 1;
 }
@@ -36,7 +36,7 @@ dvpgl_fm_storage::version() const
 
 //: Binary save self to stream.
 void 
-dvpgl_fm_storage::b_write(vsl_b_ostream &os) const
+vpgld_fm_storage::b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
   bpro1_storage::b_write(os);
@@ -46,7 +46,7 @@ dvpgl_fm_storage::b_write(vsl_b_ostream &os) const
 
 //: Binary load self from stream.
 void 
-dvpgl_fm_storage::b_read(vsl_b_istream &is)
+vpgld_fm_storage::b_read(vsl_b_istream &is)
 {
   if (!is) return;
 
@@ -62,7 +62,7 @@ dvpgl_fm_storage::b_read(vsl_b_istream &is)
   }
 
   default:
-    vcl_cerr << "I/O ERROR: dvpgl_fm_storage::b_read(vsl_b_istream&)\n"
+    vcl_cerr << "I/O ERROR: vpgld_fm_storage::b_read(vsl_b_istream&)\n"
              << "           Unknown version number "<< ver << '\n';
     is.is().clear(vcl_ios::badbit); // Set an unrecoverable IO error on stream
     return;
@@ -71,7 +71,7 @@ dvpgl_fm_storage::b_read(vsl_b_istream &is)
 
 
 void 
-dvpgl_fm_storage::add_fm( const vpgl_fundamental_matrix<double>& fm, 
+vpgld_fm_storage::add_fm( const vpgl_fundamental_matrix<double>& fm, 
                                      int frame, const vcl_string& name )
 {
   f_map_[frame][name] = fm.get_matrix();
@@ -79,7 +79,7 @@ dvpgl_fm_storage::add_fm( const vpgl_fundamental_matrix<double>& fm,
 
 
 bool
-dvpgl_fm_storage::get_fm( vpgl_fundamental_matrix<double>& fm, 
+vpgld_fm_storage::get_fm( vpgl_fundamental_matrix<double>& fm, 
                                      int frame, const vcl_string& name ) const
 {
   data_map::const_iterator s1 = f_map_.find(frame);

@@ -1,6 +1,6 @@
-// This is dvpgl_distmap_bundle_adjust.h
-#ifndef dvpgl_distmap_bundle_adjust_h
-#define dvpgl_distmap_bundle_adjust_h
+// This is vpgld_distmap_bundle_adjust.h
+#ifndef vpgld_distmap_bundle_adjust_h
+#define vpgld_distmap_bundle_adjust_h
 //:
 //\file
 //\brief Bundle adjustment using distance tranforms.
@@ -32,14 +32,14 @@
 // into it so that the closest feature can be looked up and the actual distance
 // computed. In the case of edgels, this can use orientation to measure only
 // distance along the normal direction.
-class dvpgl_distmap_bundle_adj_lsqr : public vnl_sparse_lst_sqr_function
+class vpgld_distmap_bundle_adj_lsqr : public vnl_sparse_lst_sqr_function
 {
   //: Constructor
   //
   // \remarks We may want to smooth the distance map a little and convert to a
   // floating point version, so that the Jacobian can make more sense near
   // Voronoi boundaries.
-  dvpgl_distmap_bundle_adj_lsqr(
+  vpgld_distmap_bundle_adj_lsqr(
       const vcl_vector<vpgl_calibration_matrix<double> >& K,
       const vcl_vector<vil_image_view<vxl_uint_32> > &dt,
       const vcl_vector<vcl_vector<bool> >& mask);
@@ -136,4 +136,4 @@ private:
   }
 };
 
-#endif // dvpgl_distmap_bundle_adjust_h
+#endif // vpgld_distmap_bundle_adjust_h

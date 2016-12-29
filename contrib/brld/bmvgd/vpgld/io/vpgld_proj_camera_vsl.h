@@ -1,5 +1,5 @@
-#ifndef dvpgl_proj_camera_vsl_h_
-#define dvpgl_proj_camera_vsl_h_
+#ifndef vpgld_proj_camera_vsl_h_
+#define vpgld_proj_camera_vsl_h_
 
 #include <vpgl/vpgl_proj_camera.h>
 #include <vpgl/vpgl_perspective_camera.h>
@@ -10,15 +10,15 @@
 //: Wrapper class on the new vpgl_perspective_camera to allow for old binary
 // I/O
 template <class T>
-class dvpgl_proj_camera_vsl
+class vpgld_proj_camera_vsl
 {
  public:
   // ----------------- Constructors:----------------------
 
-  dvpgl_proj_camera_vsl() : cam_(0) { }
+  vpgld_proj_camera_vsl() : cam_(0) { }
 
   //: Copy constructor.
-  dvpgl_proj_camera_vsl( const dvpgl_proj_camera_vsl& c ) :
+  vpgld_proj_camera_vsl( const vpgld_proj_camera_vsl& c ) :
       cam_(c.cam_)
   {}
   
@@ -59,7 +59,7 @@ class dvpgl_proj_camera_vsl
   virtual vpgl_perspective_camera<T> *cast_to_perspective_camera() {return 0;}
   virtual const vpgl_perspective_camera<T> *cast_to_perspective_camera() const {return 0;}
 
-  virtual ~dvpgl_proj_camera_vsl() { delete cam_; }
+  virtual ~vpgld_proj_camera_vsl() { delete cam_; }
 
   vpgl_proj_camera<T> * get() { return cam_; }
   const vpgl_proj_camera<T> * get() const { return cam_; }
@@ -67,7 +67,7 @@ class dvpgl_proj_camera_vsl
 
   //: Clone `this': creation of a new object and initialization
   //  See Prototype pattern
-  virtual dvpgl_proj_camera_vsl<T>* clone(void) const { return new dvpgl_proj_camera_vsl<T>(*this); }
+  virtual vpgld_proj_camera_vsl<T>* clone(void) const { return new vpgld_proj_camera_vsl<T>(*this); }
 
 
  protected:
@@ -84,7 +84,7 @@ class dvpgl_proj_camera_vsl
 //  found.  This function gives the model class to
 //  the appropriate loader.
 template <class T>
-void vsl_add_to_binary_loader(dvpgl_proj_camera_vsl<T> const& b);
+void vsl_add_to_binary_loader(vpgld_proj_camera_vsl<T> const& b);
 
 
-#endif // dvpgl_proj_camera_vsl_h_
+#endif // vpgld_proj_camera_vsl_h_

@@ -1,11 +1,11 @@
-//This is dvpgl/menu/dvpgl_camera_menu.h
+//This is vpgld/menu/vpgld_camera_menu.h
 
-#ifndef dvpgl_camera_menu_header
-#define dvpgl_camera_menu_header
+#ifndef vpgld_camera_menu_header
+#define vpgld_camera_menu_header
 
 //:
 // \file
-// \brief The dvpgl_camera_menu 
+// \brief The vpgld_camera_menu 
 // \author Based on original code by  J.L. Mundy
 // \date April 23, 2007
 //
@@ -16,13 +16,13 @@
 // \endverbatim
 
 #include <vgui/vgui_menu.h>
-class dvpgl_camera_menu : public vgui_menu
+class vpgld_camera_menu : public vgui_menu
 {
 
 public:
 
-  dvpgl_camera_menu() {}
-  virtual ~dvpgl_camera_menu() {}
+  vpgld_camera_menu() {}
+  virtual ~vpgld_camera_menu() {}
 
   void add_to_menu( vgui_menu & menu );
 

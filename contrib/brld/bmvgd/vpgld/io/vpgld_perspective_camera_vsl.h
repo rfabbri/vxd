@@ -1,22 +1,22 @@
-#ifndef dvpgl_perspective_camera_vsl_h_
-#define dvpgl_perspective_camera_vsl_h_
+#ifndef vpgld_perspective_camera_vsl_h_
+#define vpgld_perspective_camera_vsl_h_
 
 #include <vpgl/vpgl_perspective_camera.h>
-#include <dvpgl/io/dvpgl_proj_camera_vsl.h>
-#include <dvpgl/io/dvpgl_io_cameras.h>
+#include <vpgld/io/vpgld_proj_camera_vsl.h>
+#include <vpgld/io/vpgld_io_cameras.h>
 
 
 //: Wrapper class on the new vpgl_perspective_camera to allow for old binary
 // I/O
 template <class T>
-class dvpgl_perspective_camera_vsl : public dvpgl_proj_camera_vsl<T>
+class vpgld_perspective_camera_vsl : public vpgld_proj_camera_vsl<T>
 {
  public:
   //: Default constructor
-  dvpgl_perspective_camera_vsl() {}
+  vpgld_perspective_camera_vsl() {}
 
   //: Destructor
-  virtual ~dvpgl_perspective_camera_vsl() {}
+  virtual ~vpgld_perspective_camera_vsl() {}
 
   //: Return `this' if `this' is a vpgl_perspective_camera, 0 otherwise
   // This is used by e.g. the storage class
@@ -27,13 +27,13 @@ class dvpgl_perspective_camera_vsl : public dvpgl_proj_camera_vsl<T>
   //: Binary save self to stream.
   virtual void b_write(vsl_b_ostream &os) const {
     assert(this->get() != 0);
-    b_write_dvpgl(os, cast_to_perspective_camera());
+    b_write_vpgld(os, cast_to_perspective_camera());
   }
 
   //: Binary load self from stream.
   virtual void b_read(vsl_b_istream &is)  {
     assert(this->get() != 0);
-    b_read_dvpgl(is, cast_to_perspective_camera());
+    b_read_vpgld(is, cast_to_perspective_camera());
   }
 
   //: IO version number
@@ -48,18 +48,18 @@ class dvpgl_perspective_camera_vsl : public dvpgl_proj_camera_vsl<T>
 
   //: Return true if the argument matches the string identifying the class or any parent class
   virtual bool is_class(vcl_string const& cls) const
-  { return cls==is_a() || dvpgl_proj_camera_vsl<T>::is_class(cls); }
+  { return cls==is_a() || vpgld_proj_camera_vsl<T>::is_class(cls); }
 
 };
 
 //: Binary save
 template <class T>
-void vsl_b_write(vsl_b_ostream &os, const dvpgl_perspective_camera_vsl<T>* p);
+void vsl_b_write(vsl_b_ostream &os, const vpgld_perspective_camera_vsl<T>* p);
 
 
 //: Binary read
 template <class T>
-void vsl_b_read(vsl_b_istream &is, dvpgl_perspective_camera_vsl<T>* &p);
+void vsl_b_read(vsl_b_istream &is, vpgld_perspective_camera_vsl<T>* &p);
 
 
-#endif // dvpgl_perspective_camera_vsl_h_
+#endif // vpgld_perspective_camera_vsl_h_

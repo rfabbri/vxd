@@ -1,9 +1,9 @@
-// This is brcv/mvg/dvpgl/algo/pro/dvpgl_image_lens_warp_process.cxx
+// This is brcv/mvg/vpgld/algo/pro/vpgld_image_lens_warp_process.cxx
 
 //:
 // \file
 
-#include "dvpgl_image_lens_warp_process.h"
+#include "vpgld_image_lens_warp_process.h"
 #include <vgl/vgl_point_2d.h>
 #include <vidpro1/storage/vidpro1_image_storage.h>
 #include <vidpro1/storage/vidpro1_vsol2D_storage.h>
@@ -19,7 +19,7 @@
 
 
 //: Constructor
-dvpgl_image_lens_warp_process::dvpgl_image_lens_warp_process()
+vpgld_image_lens_warp_process::vpgld_image_lens_warp_process()
 {
   if( !parameters()->add( "center x" , "-cx" ,  160.0 ) ||
       !parameters()->add( "center y" , "-cy" ,  120.0 ) ||
@@ -40,15 +40,15 @@ dvpgl_image_lens_warp_process::dvpgl_image_lens_warp_process()
 
 //: Clone the process
 bpro1_process* 
-dvpgl_image_lens_warp_process::clone() const
+vpgld_image_lens_warp_process::clone() const
 {
-  return new dvpgl_image_lens_warp_process(*this);
+  return new vpgld_image_lens_warp_process(*this);
 }
 
 
 //: Return the name of the process
 vcl_string
-dvpgl_image_lens_warp_process::name()
+vpgld_image_lens_warp_process::name()
 {
   return "Lens Distort Image";
 }
@@ -56,7 +56,7 @@ dvpgl_image_lens_warp_process::name()
 
 //: Returns a vector of strings describing the input types to this process
 vcl_vector< vcl_string > 
-dvpgl_image_lens_warp_process::get_input_type()
+vpgld_image_lens_warp_process::get_input_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "image" );
@@ -70,7 +70,7 @@ dvpgl_image_lens_warp_process::get_input_type()
 
 //: Returns a vector of strings describing the output types of this process
 vcl_vector< vcl_string > 
-dvpgl_image_lens_warp_process::get_output_type()
+vpgld_image_lens_warp_process::get_output_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "image" );
@@ -84,7 +84,7 @@ dvpgl_image_lens_warp_process::get_output_type()
 
 //: Returns the number of input frames to this process
 int
-dvpgl_image_lens_warp_process::input_frames()
+vpgld_image_lens_warp_process::input_frames()
 {
   return 1;
 }
@@ -92,7 +92,7 @@ dvpgl_image_lens_warp_process::input_frames()
 
 //: Returns the number of output frames from this process
 int
-dvpgl_image_lens_warp_process::output_frames()
+vpgld_image_lens_warp_process::output_frames()
 {
   return 1;
 }
@@ -110,7 +110,7 @@ interpolator(vil_image_view<float> const& view,
 
 //: Run the process on the current frame
 bool
-dvpgl_image_lens_warp_process::execute()
+vpgld_image_lens_warp_process::execute()
 {
   if ( input_data_.size() != 1 ){
     vcl_cerr << __FILE__ << " - not exactly one input frame" << vcl_endl;
@@ -226,7 +226,7 @@ dvpgl_image_lens_warp_process::execute()
 
 //: Finish
 bool
-dvpgl_image_lens_warp_process::finish()
+vpgld_image_lens_warp_process::finish()
 {
   return true;
 }

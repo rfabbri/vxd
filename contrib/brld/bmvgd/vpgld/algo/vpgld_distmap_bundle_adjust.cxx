@@ -1,4 +1,4 @@
-#include "dvpgl_distmap_bundle_adjust.h"
+#include "vpgld_distmap_bundle_adjust.h"
 
 #include <vnl/vnl_vector_ref.h>
 #include <vnl/vnl_double_3.h>
@@ -13,8 +13,8 @@
 #include <vcl_cassert.h>
 
 //: Constructor
-dvpgl_distmap_bundle_adj_lsqr::
-dvpgl_distmap_bundle_adj_lsqr(
+vpgld_distmap_bundle_adj_lsqr::
+vpgld_distmap_bundle_adj_lsqr(
   const vcl_vector<vpgl_calibration_matrix<double> >& K,
   const vcl_vector<vil_image_view<vxl_uint_32> > &dt,
   const vcl_vector<vcl_vector<bool> >& mask
@@ -53,7 +53,7 @@ dvpgl_distmap_bundle_adj_lsqr(
     Km_.push_back(K_[i].get_matrix());
 }
 
-void dvpgl_distmap_bundle_adj_lsqr::
+void vpgld_distmap_bundle_adj_lsqr::
 f(vnl_vector<double> const& a,
   vnl_vector<double> const& b,
   vnl_vector<double>& e)
@@ -83,7 +83,7 @@ f(vnl_vector<double> const& a,
   }
 }
 
-void dvpgl_distmap_bundle_adj_lsqr::
+void vpgld_distmap_bundle_adj_lsqr::
 fij(int i, int /*j*/, vnl_vector<double> const& ai,
     vnl_vector<double> const& bj, vnl_vector<double>& fij)
 {

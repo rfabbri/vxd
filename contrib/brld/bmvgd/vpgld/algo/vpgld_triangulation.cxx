@@ -1,4 +1,4 @@
-#include "dvpgl_triangulation.h"
+#include "vpgld_triangulation.h"
 
 #include <vgl/vgl_point_2d.h>
 #include <vgl/vgl_point_3d.h>
@@ -6,7 +6,7 @@
 #include <vpgl/vpgl_fundamental_matrix.h>
 
 
-#include <dvpgl/algo/triangulation_kanatani/twoview_triangulation.h>
+#include <vpgld/algo/triangulation_kanatani/twoview_triangulation.h>
 
 
 vgl_point_3d<double>

@@ -1,7 +1,7 @@
-#ifndef dvpgl_proj_camera_vsl_hxx_
-#define dvpgl_proj_camera_vsl_hxx_
+#ifndef vpgld_proj_camera_vsl_hxx_
+#define vpgld_proj_camera_vsl_hxx_
 
-#include "dvpgl_proj_camera_vsl.h"
+#include "vpgld_proj_camera_vsl.h"
 #include <vsl/vsl_binary_loader.h>
 
 
@@ -15,16 +15,16 @@
 //  found.  This function gives the model class to
 //  the appropriate loader.
 template <class T>
-void vsl_add_to_binary_loader(dvpgl_proj_camera_vsl<T> const& b)
+void vsl_add_to_binary_loader(vpgld_proj_camera_vsl<T> const& b)
 {
-  vsl_binary_loader<dvpgl_proj_camera_vsl<T> >::instance().add(b);
+  vsl_binary_loader<vpgld_proj_camera_vsl<T> >::instance().add(b);
 }
 
-#undef DVPGL_PROJ_CAMERA_VSL_INSTANTIATE
-#define DVPGL_PROJ_CAMERA_VSL_INSTANTIATE(T) \
-template class dvpgl_proj_camera_vsl<T >; \
-template void vsl_add_to_binary_loader(dvpgl_proj_camera_vsl<T > const& b);
+#undef VPGLD_PROJ_CAMERA_VSL_INSTANTIATE
+#define VPGLD_PROJ_CAMERA_VSL_INSTANTIATE(T) \
+template class vpgld_proj_camera_vsl<T >; \
+template void vsl_add_to_binary_loader(vpgld_proj_camera_vsl<T > const& b);
 
 
 
-#endif // dvpgl_proj_camera_vsl_hxx_
+#endif // vpgld_proj_camera_vsl_hxx_

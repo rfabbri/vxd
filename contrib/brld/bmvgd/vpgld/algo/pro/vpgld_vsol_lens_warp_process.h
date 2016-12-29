@@ -1,6 +1,6 @@
-// This is brcv/mvg/dvpgl/algo/pro/dvpgl_vsol_lens_warp_process.h
-#ifndef dvpgl_vsol_lens_warp_process_h_
-#define dvpgl_vsol_lens_warp_process_h_
+// This is brcv/mvg/vpgld/algo/pro/vpgld_vsol_lens_warp_process.h
+#ifndef vpgld_vsol_lens_warp_process_h_
+#define vpgld_vsol_lens_warp_process_h_
 
 //:
 // \file
@@ -20,12 +20,12 @@
 #include <bpro1/bpro1_parameters.h>
 
 
-class dvpgl_vsol_lens_warp_process : public bpro1_process
+class vpgld_vsol_lens_warp_process : public bpro1_process
 {
 public:
 
-  dvpgl_vsol_lens_warp_process();
-  ~dvpgl_vsol_lens_warp_process(){}
+  vpgld_vsol_lens_warp_process();
+  ~vpgld_vsol_lens_warp_process(){}
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -46,4 +46,4 @@ private:
 
 };
 
-#endif // dvpgl_vsol_lens_warp_process_h_
+#endif // vpgld_vsol_lens_warp_process_h_

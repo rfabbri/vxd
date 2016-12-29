@@ -1,5 +1,5 @@
-#ifndef dvpgl_fm_storage_h_
-#define dvpgl_fm_storage_h_
+#ifndef vpgld_fm_storage_h_
+#define vpgld_fm_storage_h_
 
 //:
 // \file
@@ -16,26 +16,26 @@
 
 
 #include <bpro1/bpro1_storage.h>
-#include "dvpgl_fm_storage_sptr.h"
+#include "vpgld_fm_storage_sptr.h"
 #include <vpgl/vpgl_fundamental_matrix.h>
 
 #include <vcl_map.h>
 #include <vcl_string.h>
 
-class dvpgl_fm_storage : public bpro1_storage {
+class vpgld_fm_storage : public bpro1_storage {
 
 public:
 
   
-  // Data is stored as vnl_double_3x3 rather than dvpgl_fundamental_matrix, since 
+  // Data is stored as vnl_double_3x3 rather than vpgld_fundamental_matrix, since 
   // all attempts at doing this properly have been rewarded only by SUFFERING.
   typedef vcl_map< int, vcl_map< vcl_string, vnl_double_3x3 > > data_map;
 
   //: Constructor
-  dvpgl_fm_storage(const vcl_string& from_name = "");
+  vpgld_fm_storage(const vcl_string& from_name = "");
 
   //: Destructor
-  virtual ~dvpgl_fm_storage();
+  virtual ~vpgld_fm_storage();
 
   //: Return the type identifier string
   virtual vcl_string type() const { return "vpgl fm"; }
@@ -57,7 +57,7 @@ public:
   virtual bpro1_storage* clone() const;
   
   //: Return a platform independent string identifying the class
-  virtual vcl_string is_a() const { return "dvpgl_fm_storage"; }
+  virtual vcl_string is_a() const { return "vpgld_fm_storage"; }
 
   //: Add a fundamental matrix related to an object with \p name at \p frame
   void add_fm( const vpgl_fundamental_matrix<double>& fm, int frame, const vcl_string& name );
@@ -75,15 +75,15 @@ private:
 };
 
 
-//: Create a smart-pointer to a dvpgl_fm_storage.
-struct dvpgl_fm_storage_new : public dvpgl_fm_storage_sptr
+//: Create a smart-pointer to a vpgld_fm_storage.
+struct vpgld_fm_storage_new : public vpgld_fm_storage_sptr
 {
-  typedef dvpgl_fm_storage_sptr base;
+  typedef vpgld_fm_storage_sptr base;
 
   //: Constructor - creates a default vidpro1_fmatrix_storage_sptr.
-  dvpgl_fm_storage_new(const vcl_string& from_name = "") 
-    : base(new dvpgl_fm_storage(from_name)) { }
+  vpgld_fm_storage_new(const vcl_string& from_name = "") 
+    : base(new vpgld_fm_storage(from_name)) { }
 };
 
 
-#endif //dvpgl_fm_storage_h_
+#endif //vpgld_fm_storage_h_

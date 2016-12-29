@@ -1,6 +1,6 @@
-// This is dvpgl_triangulation.h
-#ifndef dvpgl_triangulation_h
-#define dvpgl_triangulation_h
+// This is vpgld_triangulation.h
+#ifndef vpgld_triangulation_h
+#define vpgld_triangulation_h
 //:
 //\file
 //\brief Algorithms for multiview triangulation
@@ -37,5 +37,5 @@ triangulate_3d_point_optimal_kanatani(
     const vpgl_proj_camera<double> &cam1);
 
 
-#endif // dvpgl_triangulation_h
+#endif // vpgld_triangulation_h
 
