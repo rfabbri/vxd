@@ -1,4 +1,4 @@
-# Curve Multiview Lib (Curve Sketch System Base, VXD version)
+# Brown Multiview Curve Stereo Lib (Curve Sketch System Base, VXD version)
 
 include_directories(${VXL_GEL_INCLUDE_DIR} )
 include_directories(${VXL_GEL_INCLUDE_DIR}/mrc )
@@ -24,3 +24,5 @@ target_link_libraries(bmcsd vpgl bsold_algo bnld vil buld vbl_io)
 if( BUILD_TESTING )
   add_subdirectory(tests)
 endif( BUILD_TESTING )
+
+add_subdirectory(algo)

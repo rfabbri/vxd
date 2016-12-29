@@ -1,14 +1,12 @@
-# This is brcv/mvg/bdifd/algo/CMakeLists.txt
-# Brown Multiview Differential Geometry Algorithms Library
+# Brown Multiview Curve Stereo Lib (Curve Sketch System Algorithms, VXD version)
 
-set(bdifd_algo_sources
-  bdifd_data.cxx bdifd_data.h
-  bdifd_transfer.cxx bdifd_transfer.h
+set(bmcsd_algo_sources
+  bmcsd_curve_stereo.cxx bmcsd_curve_stereo.h
 )
 
-add_library(bdifd_algo ${bdifd_algo_sources})
+add_library(bmcsd_algo ${bmcsd_algo_sources})
 
-target_link_libraries(bdifd_algo bdifd)
+target_link_libraries(bmcsd_algo bmcsd)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)
