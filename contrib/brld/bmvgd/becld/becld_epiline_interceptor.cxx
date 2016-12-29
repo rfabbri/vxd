@@ -3,8 +3,6 @@
 #include <vgl/vgl_distance.h>
 
 
-#include <mw/mw_util.h>
-
 void becld_epiline_interceptor_brute::
 points_intercepting_epipolar(
     const vgl_homg_line_2d<double> *ep_l,

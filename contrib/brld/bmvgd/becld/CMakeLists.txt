@@ -12,6 +12,8 @@ set(becld_sources
     becld_epiband.cxx becld_epiband.h
     becld_epiband_iterator.cxx becld_epiband_iterator.h
     becld_epiband_builder.cxx becld_epiband_builder.h
+    becld_epiline_interceptor.cxx becld_epiline_interceptor.h
+    becld_intersection_sets.cxx becld_intersection_sets.h
 )
 
 aux_source_directory(Templates becld_sources)
