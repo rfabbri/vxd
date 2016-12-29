@@ -198,8 +198,8 @@ public:
       const vcl_vector<unsigned> &other_views, 
       unsigned ini_id, 
       unsigned di0, 
-      mw_vector_3d *pt_3D, 
-      mw_vector_3d *pt_3D_linear) const;
+      bmcsd_vector_3d *pt_3D, 
+      bmcsd_vector_3d *pt_3D_linear) const;
 
   //: Reconstructs a 3D point, given the 2D image point \p p_0 in the first view
   // and the index \p v of the second view to use. The point in the second view is
@@ -214,11 +214,11 @@ public:
       unsigned v,
       unsigned ini_id,
       unsigned di0, 
-      mw_vector_3d *pt_3D) const;
+      bmcsd_vector_3d *pt_3D) const;
 
   void project_curve(
       unsigned view, 
-      const vcl_vector<mw_vector_3d> &crv3d,
+      const vcl_vector<bmcsd_vector_3d> &crv3d,
       vcl_vector<vsol_point_2d_sptr> *proj
       ) const;
 
@@ -245,7 +245,7 @@ public:
       unsigned crv2_id, 
       unsigned view, 
       vcl_vector<vsol_point_2d_sptr> &reproj, 
-      vcl_vector<mw_vector_3d> &crv3d, 
+      vcl_vector<bmcsd_vector_3d> &crv3d, 
       vcl_vector<unsigned> &crv1_pt_id,
       vcl_vector<unsigned> &crv2_pt_id,
       bdifd_rig &rig) const;
@@ -264,7 +264,7 @@ public:
   //
   void reconstruct_one_candidate(
       unsigned crv2_id, 
-      vcl_vector<mw_vector_3d> &crv3d, 
+      vcl_vector<bmcsd_vector_3d> &crv3d, 
       const vcl_vector<unsigned> &crv1_pt_id,
       const vcl_vector<unsigned> &crv2_pt_id,
       bdifd_rig &rig) const;
@@ -291,7 +291,7 @@ public:
   void reconstruct_subcurve(
       unsigned ini_id_sub, 
       unsigned end_id_sub, 
-      vcl_vector<mw_vector_3d> *curve_3d) const;
+      vcl_vector<bmcsd_vector_3d> *curve_3d) const;
 
   //: Input:
   //   - a selected subcurve curve in view_[v0()] specified by the

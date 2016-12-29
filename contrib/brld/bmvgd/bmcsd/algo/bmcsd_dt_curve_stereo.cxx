@@ -66,7 +66,7 @@ match_using_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_ptr)
 
     set_selected_crv(1, crv_candidates_ptrs(ic));
 
-    vcl_vector<mw_vector_3d> curve_3d;
+    vcl_vector<bmcsd_vector_3d> curve_3d;
     reconstruct_subcurve(ini_id_sub, end_id_sub, &curve_3d);
 
     vcl_cout << "Accumulating votes for curve[" << ic << "]" << vcl_endl;

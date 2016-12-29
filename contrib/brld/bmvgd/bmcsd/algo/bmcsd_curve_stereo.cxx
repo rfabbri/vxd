@@ -136,7 +136,7 @@ reconstruct_multiview()
   // Now traverse selected curve in view[v0()]
 
   for (unsigned di0=0; di0 + ini_id <= end_id; ++di0) {
-    mw_vector_3d pt_3D, pt_3D_linear;
+    bmcsd_vector_3d pt_3D, pt_3D_linear;
 
     { // reconstruct from all views
       vcl_cout << "reconstruct from all views\n";
@@ -235,8 +235,8 @@ get_reconstructions(
     const vcl_vector<unsigned> &other_views, 
     unsigned ini_id, 
     unsigned di0, 
-    mw_vector_3d *pt_3D, 
-    mw_vector_3d *pt_3D_linear
+    bmcsd_vector_3d *pt_3D, 
+    bmcsd_vector_3d *pt_3D_linear
     ) const 
 {
   // Corresponding points
@@ -271,11 +271,11 @@ void bmcsd_curve_stereo::
 reconstruct_subcurve(
     unsigned ini_id_sub, 
     unsigned end_id_sub, 
-    vcl_vector<mw_vector_3d> *curve_3d) const
+    vcl_vector<bmcsd_vector_3d> *curve_3d) const
 {
   curve_3d->reserve(end_id_sub - ini_id_sub + 1);
   for (unsigned di0=0; di0 + ini_id_sub <= end_id_sub; ++di0) {
-    mw_vector_3d pt_3D;
+    bmcsd_vector_3d pt_3D;
     static const unsigned second_view = 1;
     reconstruct_curve_point_kanatani(second_view, ini_id_sub, di0, &pt_3D);
     curve_3d->push_back(pt_3D);
@@ -287,7 +287,7 @@ reconstruct_curve_point_kanatani(
     unsigned v,
     unsigned ini_id,
     unsigned di0, 
-    mw_vector_3d *pt_3D) const
+    bmcsd_vector_3d *pt_3D) const
 {
   vgl_point_2d<double> p_0 = selected_crv_[v0()]->vertex(ini_id + di0)->get_p();
   // Corresponding points
@@ -310,7 +310,7 @@ reconstruct_and_reproject(
     unsigned view, 
     vcl_vector<vsol_point_2d_sptr> &reproj, 
 
-    vcl_vector<mw_vector_3d> &crv3d, 
+    vcl_vector<bmcsd_vector_3d> &crv3d, 
     vcl_vector<unsigned> &crv1_pt_id,
     vcl_vector<unsigned> &crv2_pt_id,
     bdifd_rig &rig) const
@@ -323,7 +323,7 @@ reconstruct_and_reproject(
 void bmcsd_curve_stereo::
 project_curve(
     unsigned view, 
-    const vcl_vector<mw_vector_3d> &crv3d,
+    const vcl_vector<bmcsd_vector_3d> &crv3d,
     vcl_vector<vsol_point_2d_sptr> *proj_ptr
     ) const
 {
@@ -333,7 +333,7 @@ project_curve(
   proj.resize(crv3d.size());
   for (unsigned i=0; i<crv3d.size(); ++i) {
     // - get image coordinates
-    mw_vector_2d p_aux;
+    bmcsd_vector_2d p_aux;
     p_aux = cam_[view].project_to_image(crv3d[i]);
     proj[i] = new vsol_point_2d(p_aux[0], p_aux[1]);
   }
@@ -390,7 +390,7 @@ define_match_for_reconstruction(
 void bmcsd_curve_stereo::
 reconstruct_one_candidate(
     unsigned crv2_id, 
-    vcl_vector<mw_vector_3d> &crv3d, 
+    vcl_vector<bmcsd_vector_3d> &crv3d, 
     const vcl_vector<unsigned> &crv1_pt_id,
     const vcl_vector<unsigned> &crv2_pt_id,
     bdifd_rig &rig) const
@@ -401,7 +401,7 @@ reconstruct_one_candidate(
 
     vsol_point_2d_sptr pt_img2 = crv_candidates_ptrs_[crv2_id]->vertex(crv2_pt_id[i]);
 
-    mw_vector_3d pt_3D;
+    bmcsd_vector_3d pt_3D;
 
     // ---- Reconstruct ---
     vgl_point_3d<double> pt_3D_vgl;
@@ -793,7 +793,7 @@ reproject_in_all_views(unsigned crv2_id, vcl_vector< vcl_vector<vsol_point_2d_sp
   bdifd_rig rig(cams(v0()).Pr_, cams(v1()).Pr_);
 
   for (unsigned v=2; v < nviews_; ++v) {
-    vcl_vector<mw_vector_3d> crv3d; 
+    vcl_vector<bmcsd_vector_3d> crv3d; 
 
     //: These indicate an 1-1 alignment between the selected curve in view[v0()] and the
     // selected curve in view[v1()]. Both these vectors have the same size, and
