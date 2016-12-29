@@ -1,4 +1,4 @@
-# This is brcv/mvg/vpgld/pro/CMakeLists.txt
+# This is bmvgd/vpgld/pro/CMakeLists.txt
 
 include_directories( ${lems_SOURCE_DIR}/breye1 )
 

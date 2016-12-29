@@ -1,4 +1,4 @@
-# brcv/mvg/vpgld/algo/CMakeLists.txt
+# bmvgd/vpgld/algo/CMakeLists.txt
 # Photogrametry Algorithms Library.
 
 include_directories(${VXL_BRL_INCLUDE_DIR}/bbas )

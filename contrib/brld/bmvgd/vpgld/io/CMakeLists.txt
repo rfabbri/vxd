@@ -1,4 +1,4 @@
-# This is brcv/mvg/vpgld/io/CMakeLists.txt
+# This is bmvgd/vpgld/io/CMakeLists.txt
 
 
 set(vpgld_io_sources

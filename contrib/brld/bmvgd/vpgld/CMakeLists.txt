@@ -1,7 +1,7 @@
-# brcv/mvg/vpgld/CMakeLists.txt
+# bmvgd/vpgld/CMakeLists.txt
 # Photogrametry Library.
 
-include_directories( ${lems_SOURCE_DIR}/brcv/mvg )
+include_directories( ${lems_SOURCE_DIR}/bmvgd )
 include_directories(${VXL_BRL_INCLUDE_DIR}/bbas)
 include_directories(${VXL_GEL_INCLUDE_DIR})
 include_directories(${VXL_GEL_INCLUDE_DIR}/mrc)

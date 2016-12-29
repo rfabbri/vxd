@@ -1,4 +1,4 @@
-# brcv/mvg/vpgld/vis/CMakeLists.txt
+# bmvgd/vpgld/vis/CMakeLists.txt
 
 include_directories( ${lems_SOURCE_DIR}/breye1 )
 include_directories( ${VXL_BRL_INCLUDE_DIR}/bbas )

@@ -1,4 +1,4 @@
-# This is brcv/mvg/vpgld/pro/algo/CMakeLists.txt
+# This is bmvgd/vpgld/pro/algo/CMakeLists.txt
 
 include_directories( ${lems_SOURCE_DIR}/breye1 )
 

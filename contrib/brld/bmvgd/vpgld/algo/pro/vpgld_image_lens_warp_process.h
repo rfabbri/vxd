@@ -1,4 +1,4 @@
-// This is brcv/mvg/vpgld/algo/pro/vpgld_image_lens_warp_process.h
+// This is bmvgd/vpgld/algo/pro/vpgld_image_lens_warp_process.h
 #ifndef vpgld_image_lens_warp_process_h_
 #define vpgld_image_lens_warp_process_h_
 

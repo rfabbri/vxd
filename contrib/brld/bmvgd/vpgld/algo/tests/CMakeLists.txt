@@ -2,7 +2,7 @@
 # Tests for vpgld_algo library
 
 include_directories(${VXL_OXL_INCLUDE_DIR} )
-include_directories( ${lems_SOURCE_DIR}/brcv/mvg/bmvl)
+include_directories( ${lems_SOURCE_DIR}/bmvgd/bmvl)
 
 add_executable( vpgld_algo_test_all
   # Driver source and utilities

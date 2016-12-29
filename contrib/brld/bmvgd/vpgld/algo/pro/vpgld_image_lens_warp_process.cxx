@@ -1,4 +1,4 @@
-// This is brcv/mvg/vpgld/algo/pro/vpgld_image_lens_warp_process.cxx
+// This is bmvgd/vpgld/algo/pro/vpgld_image_lens_warp_process.cxx
 
 //:
 // \file
