@@ -2,11 +2,12 @@
 
 set(bmcsd_algo_sources
   bmcsd_curve_stereo.cxx bmcsd_curve_stereo.h
+  bmcsd_dt_curve_stereo.cxx bmcsd_dt_curve_stereo.h
 )
 
 add_library(bmcsd_algo ${bmcsd_algo_sources})
 
-target_link_libraries(bmcsd_algo bmcsd vpgld_algo becld bdifd)
+target_link_libraries(bmcsd_algo bmcsd vpgld_algo becld bdifd bspid)
 
 # if( BUILD_TESTING )
 #   add_subdirectory(tests)
