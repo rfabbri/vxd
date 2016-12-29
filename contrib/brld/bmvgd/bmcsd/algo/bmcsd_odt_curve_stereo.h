@@ -12,7 +12,7 @@
 #include <dbdet/pro/dbdet_sel_storage_sptr.h>
 #include <bdifd/bdifd_frenet.h>
 #include <dbcsi/dbcsi_curve_distance.h>
-#include <mw/algo/mw_dt_curve_stereo.h>
+#include <mw/algo/bmcsd_dt_curve_stereo.h>
 #include <mw/bmcsd_curve_3d_attributes.h>
 
 
@@ -25,7 +25,7 @@
 
 class mw_discrete_corresp;
 
-class bmcsd_odt_curve_stereo : public mw_dt_curve_stereo {
+class bmcsd_odt_curve_stereo : public bmcsd_dt_curve_stereo {
 public:
   bmcsd_odt_curve_stereo();
   virtual ~bmcsd_odt_curve_stereo() {}

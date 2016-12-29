@@ -8,6 +8,6 @@ add_library(bmcsd_algo ${bmcsd_algo_sources})
 
 target_link_libraries(bmcsd_algo bmcsd)
 
-if( BUILD_TESTING )
-  add_subdirectory(tests)
-endif( BUILD_TESTING )
+# if( BUILD_TESTING )
+#   add_subdirectory(tests)
+# endif( BUILD_TESTING )

@@ -1,6 +1,6 @@
-// This is mw_curve_stereo.h
-#ifndef mw_curve_stereo_h
-#define mw_curve_stereo_h
+// This is bmcsd_curve_stereo.h
+#ifndef bmcsd_curve_stereo_h
+#define bmcsd_curve_stereo_h
 //:
 //\file
 //\brief Multiview curve stereo
@@ -33,13 +33,13 @@
 // \todo URGENT the initial curve candidates by bounding box intersection are
 // wrong.
 //
-class mw_curve_stereo {
+class bmcsd_curve_stereo {
 public:
   //: Constructor
-  mw_curve_stereo();
+  bmcsd_curve_stereo();
  
   //: Destructor
-  virtual ~mw_curve_stereo() {}
+  virtual ~bmcsd_curve_stereo() {}
 
   // Setters and Getters ------------------------------------------------------
 
@@ -479,7 +479,7 @@ private:
   mutable vcl_map<vsol_polyline_2d_sptr, unsigned> curve_v0_id_from_sptr_;
 };
 
-inline void mw_curve_stereo::
+inline void bmcsd_curve_stereo::
 get_increasing_endpoints(unsigned *ini, unsigned *end) const
 {
   if (p0_id_ < pn_id_) {
@@ -491,4 +491,4 @@ get_increasing_endpoints(unsigned *ini, unsigned *end) const
   }
 }
 
-#endif // mw_curve_stereo_h
+#endif // bmcsd_curve_stereo_h

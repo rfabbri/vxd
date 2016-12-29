@@ -29,7 +29,7 @@ bmcsd_odt_curve_stereo()
 bool bmcsd_odt_curve_stereo::
 set_nviews(unsigned nv)
 {
-  if (!mw_dt_curve_stereo::set_nviews(nv))
+  if (!bmcsd_dt_curve_stereo::set_nviews(nv))
     return false;
 
   em_.reserve(nviews());
@@ -526,7 +526,7 @@ break_into_episegs_and_replace_curve(
 {
   vcl_vector<bbld_subsequence_set> &sseq = *pcurves_ss;
 
-  mw_curve_stereo::break_into_episegs_and_replace_curve(pcurves_ss);
+  bmcsd_curve_stereo::break_into_episegs_and_replace_curve(pcurves_ss);
 
   typedef vcl_vector<vcl_vector<double> > view_tangents;
   vcl_vector< view_tangents > new_tangents(2);

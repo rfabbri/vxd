@@ -1,4 +1,4 @@
-#include "mw_curve_stereo.h"
+#include "bmcsd_curve_stereo.h"
 #include <vnl/vnl_math.h>
 
 #include <vgl/vgl_line_2d.h>
@@ -23,8 +23,8 @@
 #include <mw/becld_epiline_interceptor.h>
 
 
-mw_curve_stereo::
-mw_curve_stereo()
+bmcsd_curve_stereo::
+bmcsd_curve_stereo()
   :
     isets_(),
     tau_min_samples_per_curve_frag_(0),
@@ -35,7 +35,7 @@ mw_curve_stereo()
 {
 }
 
-bool mw_curve_stereo::
+bool bmcsd_curve_stereo::
 set_nviews(unsigned nv)
 {
   if (nv < 3) {
@@ -63,7 +63,7 @@ set_nviews(unsigned nv)
 }
 
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 reconstruct_multiview()
 {
   //: Pick triplets
@@ -178,7 +178,7 @@ reconstruct_multiview()
   fcrv_3d_3v.close();
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 linearly_reconstruct_pts(
     const vcl_vector<vsol_point_2d_sptr> &pt_img,
     const vcl_vector<unsigned> &other_views,
@@ -201,7 +201,7 @@ linearly_reconstruct_pts(
   *pt_3D = brct_algos::bundle_reconstruct_3d_point(pts, projs);
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 nonlinearly_optimize_reconstruction(
     const vcl_vector<vsol_point_2d_sptr> &pt_img,
     const vcl_vector<unsigned> &other_views,
@@ -230,7 +230,7 @@ nonlinearly_optimize_reconstruction(
     delete projs[v];
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 get_reconstructions(
     const vcl_vector<unsigned> &other_views, 
     unsigned ini_id, 
@@ -267,7 +267,7 @@ get_reconstructions(
   *pt_3D = mw_util::vgl_to_vnl(pt_3D_vgl);
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 reconstruct_subcurve(
     unsigned ini_id_sub, 
     unsigned end_id_sub, 
@@ -282,7 +282,7 @@ reconstruct_subcurve(
   }
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 reconstruct_curve_point_kanatani(
     unsigned v,
     unsigned ini_id,
@@ -304,7 +304,7 @@ reconstruct_curve_point_kanatani(
   *pt_3D = mw_util::vgl_to_vnl(pt_3D_vgl);
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 reconstruct_and_reproject(
     unsigned crv2_id, 
     unsigned view, 
@@ -320,7 +320,7 @@ reconstruct_and_reproject(
   project_curve(view, crv3d, &reproj); 
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 project_curve(
     unsigned view, 
     const vcl_vector<mw_vector_3d> &crv3d,
@@ -339,7 +339,7 @@ project_curve(
   }
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 define_match_for_reconstruction(
     unsigned crv2_id,
     vcl_vector<unsigned> &crv1_pt_id,
@@ -387,7 +387,7 @@ define_match_for_reconstruction(
   }
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 reconstruct_one_candidate(
     unsigned crv2_id, 
     vcl_vector<mw_vector_3d> &crv3d, 
@@ -414,14 +414,14 @@ reconstruct_one_candidate(
   }
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 break_curves_into_episegs_pairwise(
     vcl_vector<vcl_vector< vsol_polyline_2d_sptr > > *broken_vsols,
     vcl_vector<bbld_subsequence_set> *ss_ptr
     ) const
 {
 #ifndef NDEBUG
-  vcl_cout << "mw_curve_stereo::break_curves_into_episegs_pairwise" << vcl_endl;
+  vcl_cout << "bmcsd_curve_stereo::break_curves_into_episegs_pairwise" << vcl_endl;
 #endif
   vcl_vector<bbld_subsequence_set> &ss = *ss_ptr;
   broken_vsols->resize(nviews_);
@@ -440,7 +440,7 @@ break_curves_into_episegs_pairwise(
   }
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 break_curves_into_episegs(
   const vcl_vector< vsol_polyline_2d_sptr >  &vsols,
   vcl_vector<vsol_polyline_2d_sptr> *vsols2,
@@ -499,7 +499,7 @@ break_curves_into_episegs(
   }
 }
 
-const vsol_point_2d_sptr mw_curve_stereo::
+const vsol_point_2d_sptr bmcsd_curve_stereo::
 advance_endpoint() 
 {
   if (pn_id_ > p0_id_ && (pn_id_+1) < selected_crv_[v0()]->size()) {
@@ -515,7 +515,7 @@ advance_endpoint()
   return selected_crv_[v0()]->vertex(pn_id_);
 }
 
-const vsol_point_2d_sptr mw_curve_stereo::
+const vsol_point_2d_sptr bmcsd_curve_stereo::
 recede_endpoint() 
 {
   if (pn_id_ >= p0_id_ && (pn_id_-1) != 0) {
@@ -530,14 +530,14 @@ recede_endpoint()
   return selected_crv_[v0()]->vertex(pn_id_);
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 set_subcurve(unsigned ini_id, unsigned end_id)
 {
   initialize_subcurve(ini_id);
   update_endpoint(end_id);
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 initialize_subcurve(unsigned pt_id)
 {
   p0_id_ = pn_id_ = pt_id;
@@ -555,7 +555,7 @@ initialize_subcurve(unsigned pt_id)
   subcurve_->add_vertex(pt);
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 update_endpoint(unsigned end_id)
 {
   pn_id_ = end_id;
@@ -572,7 +572,7 @@ update_endpoint(unsigned end_id)
   }
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 swap_endpoints() 
 {
   unsigned id_aux;
@@ -590,7 +590,7 @@ swap_endpoints()
   }
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 compute_epipolar_beam_candidates()
 {
   //: index into s->vsols_[1] of candidate (whole) curves
@@ -680,7 +680,7 @@ compute_epipolar_beam_candidates()
   // \todo perhaps trim vectors here using the swap trick
 }
   
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 set_cams(const vcl_vector<bdifd_camera> &cams)
 {
   assert(cam_.size() == nviews());
@@ -696,14 +696,14 @@ set_cams(const vcl_vector<bdifd_camera> &cams)
   }
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 set_curves(const vcl_vector<vcl_vector< vsol_polyline_2d_sptr > > &curves)
 {
   assert (curves.size() == nviews());
   vsols_ = curves;
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 break_into_episegs_and_replace_curve(vcl_vector<bbld_subsequence_set> *pcurves_ss)
 {
   vcl_vector<vcl_vector< vsol_polyline_2d_sptr > > curves;
@@ -740,7 +740,7 @@ break_into_episegs_and_replace_curve(vcl_vector<bbld_subsequence_set> *pcurves_s
   vcl_cout << "Final  #curves in view 1: " << num_curves(1) << vcl_endl;
 }
 
-bool mw_curve_stereo::
+bool bmcsd_curve_stereo::
 get_index_of_candidate_curve(const vsol_polyline_2d_sptr & select_crv, unsigned *crv2_id) const
 {
   for (unsigned i=0; i<crv_candidates_ptrs_.size(); ++i) {
@@ -752,7 +752,7 @@ get_index_of_candidate_curve(const vsol_polyline_2d_sptr & select_crv, unsigned 
   return false;
 }
 
-bool mw_curve_stereo::
+bool bmcsd_curve_stereo::
 get_index_of_curve(
     const vsol_polyline_2d_sptr & select_crv, unsigned view, unsigned *crv2_id) const
 {
@@ -784,7 +784,7 @@ get_index_of_curve(
   return false;
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 reproject_in_all_views(unsigned crv2_id, vcl_vector< vcl_vector<vsol_point_2d_sptr> > *preproj)
 {
   vcl_vector< vcl_vector<vsol_point_2d_sptr> > &reproj = *preproj;
@@ -822,7 +822,7 @@ reproject_in_all_views(unsigned crv2_id, vcl_vector< vcl_vector<vsol_point_2d_sp
   }
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 get_matching_subcurve(
     unsigned candidate_index,
     unsigned ini_idx,
@@ -877,7 +877,7 @@ get_matching_subcurve(
   *end_idx_sub = end_idx;
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 get_candidate_intercepts(vcl_vector<vcl_vector<unsigned> > *cand_pt_id_ptr)
 {
   vcl_vector<vcl_vector<unsigned> > &pts_id_cand = *cand_pt_id_ptr;
@@ -901,7 +901,7 @@ get_candidate_intercepts(vcl_vector<vcl_vector<unsigned> > *cand_pt_id_ptr)
   }
 }
 
-void mw_curve_stereo::
+void bmcsd_curve_stereo::
 set_selected_crv(unsigned iview, const vsol_polyline_2d_sptr &scrv)
 { 
   selected_crv_[iview] = scrv; 

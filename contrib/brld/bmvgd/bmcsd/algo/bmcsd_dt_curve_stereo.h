@@ -1,6 +1,6 @@
-// This is mw_dt_curve_stereo.h
-#ifndef mw_dt_curve_stereo_h
-#define mw_dt_curve_stereo_h
+// This is bmcsd_dt_curve_stereo.h
+#ifndef bmcsd_dt_curve_stereo_h
+#define bmcsd_dt_curve_stereo_h
 //:
 //\file
 //\brief Multiview curve stereo using distance transforms
@@ -8,17 +8,17 @@
 //\date 06/22/2009 05:30:17 PM EDT
 //
 
-#include <mw/algo/mw_curve_stereo.h>
+#include <mw/algo/bmcsd_curve_stereo.h>
 
 //: Matches curve fragments using costs based on the distance transform and
 // closest feature map (label map) of the edge map at each image. This class
 // assumes the user provides precomputed distance transform maps and label maps
 // for each image. The reason is that we want to run this class repeatedly for
 // different pairs of views without having to recompute the DT.
-class mw_dt_curve_stereo : public mw_curve_stereo {
+class bmcsd_dt_curve_stereo : public bmcsd_curve_stereo {
 public:
-  mw_dt_curve_stereo();
-  virtual ~mw_dt_curve_stereo() {}
+  bmcsd_dt_curve_stereo();
+  virtual ~bmcsd_dt_curve_stereo() {}
 
   // Setters and Getters ------------------------------------------------------
 
@@ -67,4 +67,4 @@ private:
   double tau_distance_squared_;
 };
 
-#endif // mw_dt_curve_stereo_h
+#endif // bmcsd_dt_curve_stereo_h

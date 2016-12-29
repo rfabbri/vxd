@@ -1,25 +1,25 @@
-#include "mw_dt_curve_stereo.h"
+#include "bmcsd_dt_curve_stereo.h"
 #include <bspid/bspid_curve_distance.h>
 
 
-mw_dt_curve_stereo::
-mw_dt_curve_stereo()
+bmcsd_dt_curve_stereo::
+bmcsd_dt_curve_stereo()
   :
     tau_distance_squared_(10.0*10.0)
 {
 }
 
-bool mw_dt_curve_stereo::
+bool bmcsd_dt_curve_stereo::
 set_nviews(unsigned nv)
 {
-  if (!mw_curve_stereo::set_nviews(nv))
+  if (!bmcsd_curve_stereo::set_nviews(nv))
     return false;
   dt_.reserve(nviews());
   label_.reserve(nviews());
   return true;
 }
 
-void mw_dt_curve_stereo::
+void bmcsd_dt_curve_stereo::
 set_all_dt_label(
     const vcl_vector<vil_image_view<vxl_uint_32> > &dt,  
     const vcl_vector<vil_image_view<unsigned> > &label)
@@ -30,14 +30,14 @@ set_all_dt_label(
   label_ = label;
 }
 
-bool mw_dt_curve_stereo::
+bool bmcsd_dt_curve_stereo::
 match_using_dt(unsigned *i_best) 
 {
   vcl_vector<unsigned long> votes;
   return match_using_dt(i_best, &votes);
 }
 
-bool mw_dt_curve_stereo::
+bool bmcsd_dt_curve_stereo::
 match_using_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_ptr)
 {
   // Selected curve in img_[0] is  selected_crv_[0]; the selected segment is subcurve_
@@ -106,7 +106,7 @@ match_using_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_ptr)
   return true;
 }
 
-bool mw_dt_curve_stereo::
+bool bmcsd_dt_curve_stereo::
 ready_for_matching()
 {
   if (!subcurve()) {
