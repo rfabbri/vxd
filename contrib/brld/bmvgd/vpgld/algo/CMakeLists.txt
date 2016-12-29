@@ -12,7 +12,7 @@ set( vpgld_algo_sources
 )
 
 add_library(vpgld_algo ${vpgld_algo_sources})
-target_link_libraries(vpgld_algo vpgl_algo triangulation_kanatani)
+target_link_libraries(vpgld_algo vpgl_algo triangulation_kanatani vnl)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)

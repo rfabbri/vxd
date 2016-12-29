@@ -1,7 +1,6 @@
 #include <testlib/testlib_test.h>
 #include <vgl/vgl_distance.h>
 #include <bdifd/algo/bdifd_data.h>
-#include <brct/brct_algos.h>
 #include <vpgld/algo/vpgld_triangulation.h>
 #include <vcl_algorithm.h>
 
@@ -64,7 +63,7 @@ test_two_view_triangulation_on_gt_data(
     corresp_pts.push_back(vnl_double_2(gt_image_pts[0][ip].x(), gt_image_pts[0][ip].y()));
     corresp_pts.push_back(vnl_double_2(gt_image_pts[1][ip].x(), gt_image_pts[1][ip].y()));
 
-    linear_world_pts[ip] = brct_algos::bundle_reconstruct_3d_point(corresp_pts, projs);
+    linear_world_pts[ip] = reconstruct_3d_points_nviews_linear(corresp_pts, projs);
   }
   }
 
