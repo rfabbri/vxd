@@ -1,7 +1,6 @@
 # bmvgd/vpgld/CMakeLists.txt
-# Photogrametry Library.
+# Photogrametry Library (VXD version of VXL/core/vpgl additions).
 
-include_directories( ${lems_SOURCE_DIR}/bmvgd )
 include_directories(${VXL_BRL_INCLUDE_DIR}/bbas)
 include_directories(${VXL_GEL_INCLUDE_DIR})
 include_directories(${VXL_GEL_INCLUDE_DIR}/mrc)
