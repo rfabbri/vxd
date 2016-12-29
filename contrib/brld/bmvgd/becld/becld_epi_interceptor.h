@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Epipolar line-to-pointset intersection
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date Mon Apr 24 20:47:25 EDT 2006
 //
 

@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Intersection sets of epipolar pencils
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 11/21/2005 11:05:03 PM EST
 //
 
