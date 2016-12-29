@@ -1,0 +1,8 @@
+// The following text is included in the main documentation page by doxygen
+/*! \mainpage dbecl : Development Brown Epipolar Curve Library
+*
+* This library deals with methods that treat the epipole geometrically. Although
+* the name has "curve" in it, some functionality is not necessarily related to
+* curves and are more generally applicable, such as dbecl_epipole and
+* dbecl_epiband.
+*/
