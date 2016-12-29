@@ -1,6 +1,6 @@
-// This is mw_epi_interceptor.h
-#ifndef mw_epi_interceptor_h
-#define mw_epi_interceptor_h
+// This is becld_epi_interceptor.h
+#ifndef becld_epi_interceptor_h
+#define becld_epi_interceptor_h
 //:
 //\file
 //\brief Epipolar line-to-pointset intersection
@@ -22,10 +22,10 @@
 
 //: A general class specifying an uniform interface to algorithms for epipolar
 // line intersection 
-class mw_epi_interceptor_base {
+class becld_epi_interceptor_base {
 public:
-  mw_epi_interceptor_base() {};
-  virtual ~mw_epi_interceptor_base() {};
+  becld_epi_interceptor_base() {};
+  virtual ~becld_epi_interceptor_base() {};
 
   virtual void points_intercepting_epipolar(
       const vgl_homg_line_2d<double> *ep_l,
@@ -35,9 +35,9 @@ public:
 };
 
 //: Bruteforce algo
-class mw_epi_interceptor_brute : public mw_epi_interceptor_base {
+class becld_epi_interceptor_brute : public becld_epi_interceptor_base {
 public:
-  virtual ~mw_epi_interceptor_brute() {}
+  virtual ~becld_epi_interceptor_brute() {}
   
   virtual void points_intercepting_epipolar(
       const vgl_homg_line_2d<double> *ep_l,
@@ -54,7 +54,7 @@ public:
 };
 
 //: General static utilities
-class mw_epi_interceptor {
+class becld_epi_interceptor {
 public:
   //: returns only one intersection of the line and the curve. This assumes that
   // the curve actually intersects the line only once. If there are multiple
@@ -80,12 +80,12 @@ public:
 //
 // TODO
 //  - XXX still under construction XXX
-class mw_epi_interceptor_fast_using_angle : mw_epi_interceptor_base {
+class becld_epi_interceptor_fast_using_angle : becld_epi_interceptor_base {
   public:
 
-  mw_epi_interceptor(unsigned long n_points, double maxdist=1.4);
+  becld_epi_interceptor(unsigned long n_points, double maxdist=1.4);
 
-  ~mw_epi_interceptor() {}
+  ~becld_epi_interceptor() {}
 
   //: Standard interface to intecection algorithm. This fn. will call the
   // current morst efficient algorithm
@@ -130,7 +130,7 @@ class mw_epi_interceptor_fast_using_angle : mw_epi_interceptor_base {
 // of l and p.
 //
 inline bool
-mw_epi_interceptor_brute::
+becld_epi_interceptor_brute::
 compute(
     const vgl_homg_line_2d<double> *l, 
     const vcl_vector<vsol_point_2d_sptr> &p,
@@ -155,4 +155,4 @@ compute(
   return has_intersection;
 }
 
-#endif // mw_epi_interceptor_h
+#endif // becld_epi_interceptor_h

@@ -1,11 +1,11 @@
-#include "mw_epi_interceptor.h"
-#include <dbgl/algo/dbgl_intersect.h>
+#include "becld_epi_interceptor.h"
+#include <bgld/algo/bgld_intersect.h>
 #include <vgl/vgl_distance.h>
 
 
 #include <mw/mw_util.h>
 
-void mw_epi_interceptor_brute::
+void becld_epi_interceptor_brute::
 points_intercepting_epipolar(
     const vgl_homg_line_2d<double> *ep_l,
     const vcl_vector<vsol_point_2d_sptr> &p,
@@ -23,30 +23,30 @@ points_intercepting_epipolar(
 }
 
 /*
-unsigned long mw_epi_interceptor_fast_using_angle::
+unsigned long becld_epi_interceptor_fast_using_angle::
 npoints() const
 {
   return npts_;
 }
 
-mw_epi_interceptor::
-mw_epi_interceptor_fast_using_angle(n_points, dist)
+becld_epi_interceptor::
+becld_epi_interceptor_fast_using_angle(n_points, dist)
   :
   npts_(n_points),
   d_err_(dist)
 {
 }
 
-void mw_epi_interceptor_fast_using_angle::
+void becld_epi_interceptor_fast_using_angle::
 print() const
 {
-  vcl_cout << "==== mw_epi_interceptor ====" << vcl_endl;
+  vcl_cout << "==== becld_epi_interceptor ====" << vcl_endl;
   vcl_cout << "npts: " << npts _ << ", angles.size(): " << angles.size() << vcl_endl;
   vcl_cout << "==============================" << vcl_endl;
 }
 */
 
-void mw_epi_interceptor::
+void becld_epi_interceptor::
 curve_line_intersection_simple(
     const vsol_polyline_2d &crv, 
     const vgl_line_2d<double> &l, 
@@ -84,7 +84,7 @@ curve_line_intersection_simple(
                                     crv.vertex(lmin)->get_p());
     vgl_point_2d<double> ipt;
 
-    intersects=dbgl_intersect::line_lineseg_intersect(l,seg,ipt);
+    intersects=bgld_intersect::line_lineseg_intersect(l,seg,ipt);
     if (intersects)
       *pt_img1 = ipt;
   }
@@ -94,7 +94,7 @@ curve_line_intersection_simple(
                                     crv.vertex(lmin+1)->get_p());
     vgl_point_2d<double> ipt;
 
-    intersects=dbgl_intersect::line_lineseg_intersect(l,seg,ipt);
+    intersects=bgld_intersect::line_lineseg_intersect(l,seg,ipt);
     if (intersects)
       *pt_img1 = ipt;
   }

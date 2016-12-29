@@ -1,8 +1,8 @@
-#include "mw_intersection_sets.h"
+#include "becld_intersection_sets.h"
 
 
-mw_intersection_sets::
-mw_intersection_sets()
+becld_intersection_sets::
+becld_intersection_sets()
 {
 }
 
@@ -12,7 +12,7 @@ mw_intersection_sets()
 // \param[in] epipolar_pencil associated with curve segment in another view
 //                - for each curvelet point i in view 1, epipolar_pencil[i] = ep_i
 //
-void mw_intersection_sets::
+void becld_intersection_sets::
 compute(
     const vcl_vector<vsol_polyline_2d_sptr> &c, //:< list of curves
     const vcl_vector<vgl_homg_line_2d<double> > &ep //:< list of epipolars
@@ -57,10 +57,10 @@ compute(
   }
 }
 
-void mw_intersection_sets::
+void becld_intersection_sets::
 print() const
 {
-  vcl_cout << "==== mw_intersection_sets ====" << vcl_endl;
+  vcl_cout << "==== becld_intersection_sets ====" << vcl_endl;
 
   unsigned intercepted_curve_cnt=0, i;
 
@@ -81,7 +81,7 @@ print() const
   vcl_cout << "==============================" << vcl_endl;
 }
 
-void mw_intersection_sets::
+void becld_intersection_sets::
 print(const curve_intersections_list_ & c) const
 {
   vcl_cout << "-- Intersections List --\n";
@@ -97,7 +97,7 @@ print(const curve_intersections_list_ & c) const
 }
 
 //: Lst[j] is a list of intersections (nhoods) of curve j and ep_i
-void mw_intersection_sets::
+void becld_intersection_sets::
 nhoods_intercepting_epipolar(
     unsigned ep_i, 
     vcl_vector< vcl_list<vcl_vector<unsigned> > > &Lst
@@ -125,7 +125,7 @@ nhoods_intercepting_epipolar(
   } 
 }
 
-void mw_intersection_sets::
+void becld_intersection_sets::
 points_intercepting_epipolar(unsigned ep_i, vcl_vector<vcl_list<unsigned> > &pts_idx) const
 {
   vcl_vector< vcl_list<vcl_vector<unsigned> > > Lst;
@@ -144,7 +144,7 @@ points_intercepting_epipolar(unsigned ep_i, vcl_vector<vcl_list<unsigned> > &pts
   }
 }
 
-//void mw_intersection_sets::
+//void becld_intersection_sets::
 //maxmin_index_iset(unsigned imin, unsigned imax, unsigned icrv)
 //{
 //  // traverse i-th curve's list, and get min and max indices
@@ -154,7 +154,7 @@ points_intercepting_epipolar(unsigned ep_i, vcl_vector<vcl_list<unsigned> > &pts
 //
 //}
 
-void mw_intersection_sets::
+void becld_intersection_sets::
 all_points(vcl_vector<vcl_vector<unsigned> > &pts_idx) const
 {
   pts_idx.resize(ncurves());
@@ -173,7 +173,7 @@ all_points(vcl_vector<vcl_vector<unsigned> > &pts_idx) const
 }
 
 //: return net number of intercection pts of curve i
-unsigned long mw_intersection_sets::
+unsigned long becld_intersection_sets::
 npoints(unsigned i) const
 {
   // traverse L_[i].intercepts
@@ -189,7 +189,7 @@ npoints(unsigned i) const
 }
 
 //: number of curves having non-zero # of intersections
-unsigned  mw_intersection_sets::
+unsigned  becld_intersection_sets::
 n_intersecting_curves() const
 {
   unsigned intercepted_curve_cnt=0, i;
@@ -201,7 +201,7 @@ n_intersecting_curves() const
   return intercepted_curve_cnt;
 }
 
-//unsigned long mw_intersection_sets::
+//unsigned long becld_intersection_sets::
 //count_points(vcl_vector<unsigned> &pts_idx) const
 //{
 //}

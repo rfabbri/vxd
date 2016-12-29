@@ -1,6 +1,6 @@
-// This is mw_intersection_sets.h
-#ifndef mw_intersection_sets_h
-#define mw_intersection_sets_h
+// This is becld_intersection_sets.h
+#ifndef becld_intersection_sets_h
+#define becld_intersection_sets_h
 //:
 //\file
 //\brief Intersection sets of epipolar pencils
@@ -21,24 +21,24 @@
 #include <vsol/vsol_point_2d.h>
 
 //:
-// mw_intersection_sets is;
+// becld_intersection_sets is;
 //
 // is[i][j] = intersection neighborhood at curve i with epipolar j
 //
 // \todo
 //  - later: function enlarge_intersection_sets (given an epipolar line and its
 //  number within the ordering)
-class mw_intersection_sets {
+class becld_intersection_sets {
   public:
 
-  mw_intersection_sets();
+  becld_intersection_sets();
 
   void compute(
       const vcl_vector<vsol_polyline_2d_sptr> &c, //:< list of curves
       const vcl_vector<vgl_homg_line_2d<double> > &ep //:< list of epipolars
       );
 
-  ~mw_intersection_sets() {}
+  ~becld_intersection_sets() {}
 
   void nhoods_intercepting_epipolar(
       unsigned ep_i, vcl_vector< vcl_list<vcl_vector<unsigned> > > &Lst) const;
@@ -106,7 +106,7 @@ class mw_intersection_sets {
 // \param[out] indices: indices[i] = true for the points i (in crv) that are sufficiently
 // close to l to be considered a "fuzzy" intersection of l and crv.
 inline bool
-mw_intersection_sets::
+becld_intersection_sets::
 mw_line_polyline_intersection_1(
     const vgl_homg_line_2d<double> *l, 
     const vsol_polyline_2d_sptr crv, 
@@ -134,4 +134,4 @@ mw_line_polyline_intersection_1(
 }
 
 
-#endif // mw_intersection_sets_h
+#endif // becld_intersection_sets_h
