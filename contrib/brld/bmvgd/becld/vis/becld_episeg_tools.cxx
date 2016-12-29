@@ -4,6 +4,7 @@
 
 #include "becld_episeg_tools.h"
 #include "becld_episeg_soview2D.h"
+#include <vcl_iostream.h>
 #include <bvis1/bvis1_manager.h>
 #include <bvis1/bvis1_view_tableau.h>
 #include <vgui/vgui.h> 
