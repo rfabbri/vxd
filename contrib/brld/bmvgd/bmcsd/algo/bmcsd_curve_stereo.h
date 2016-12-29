@@ -13,6 +13,8 @@
 #include <bdifd/bdifd_rig.h>
 
 #include <becld/becld_intersection_sets.h>
+#include <bmcsd/bmcsd_util.h>
+
 
 #define MW_INVALID_CURVE_ID ((unsigned)-1)
 
