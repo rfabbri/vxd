@@ -1,6 +1,6 @@
 #include <testlib/testlib_test.h>
-#include <dbecl/dbecl_episeg.h>
-#include <dbecl/dbecl_episeg_sptr.h>
+#include <becld/becld_episeg.h>
+#include <becld/becld_episeg_sptr.h>
 #include <vsol/vsol_point_2d.h>
 #include <vsol/vsol_digital_curve_2d.h>
 #include <vnl/vnl_math.h>
@@ -17,7 +17,7 @@ MAIN( test_episeg )
   START ("episeg");
 
   // make an epipole
-  dbecl_epipole_sptr epipole = new dbecl_epipole(-100.0,50.0);
+  becld_epipole_sptr epipole = new becld_epipole(-100.0,50.0);
 
   // make a curve
   vsol_digital_curve_2d_sptr dc1 = new vsol_digital_curve_2d;
@@ -31,7 +31,7 @@ MAIN( test_episeg )
   dc1->add_vertex(new vsol_point_2d(21.0,6.0));
 
   // make an episeg
-  dbecl_episeg_sptr episeg1 = new dbecl_episeg(epipole, dc1, 0.0, double(dc1->size()-1));
+  becld_episeg_sptr episeg1 = new becld_episeg(epipole, dc1, 0.0, double(dc1->size()-1));
 
   // make a second curve - with decreasing angle
   vsol_digital_curve_2d_sptr dc2 = new vsol_digital_curve_2d;
@@ -41,7 +41,7 @@ MAIN( test_episeg )
   dc2->add_vertex(new vsol_point_2d(50.5,27.0));
 
   // make a second episeg
-  dbecl_episeg_sptr episeg2 = new dbecl_episeg(epipole, dc2, 0.0, double(dc2->size()-1));
+  becld_episeg_sptr episeg2 = new becld_episeg(epipole, dc2, 0.0, double(dc2->size()-1));
 
   TEST("Epipole", episeg1->epipole(), epipole);
   TEST("Curve", episeg1->curve(), dc1);

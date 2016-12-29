@@ -1,8 +1,8 @@
-// This is brcv/mvg/dbecl/vis/bgui_dbecl_soview2D.cxx
+// This is brcv/mvg/becld/vis/bgui_becld_soview2D.cxx
 //:
 // \file
-#include "dbecl_episeg_soview2D.h"
-#include <dbecl/dbecl_episeg.h>
+#include "becld_episeg_soview2D.h"
+#include <becld/becld_episeg.h>
 #include <vsol/vsol_digital_curve_2d.h>
 #include <vsol/vsol_point_2d.h>
 
@@ -13,7 +13,7 @@
 
 
 // Constructor
-dbecl_episeg_soview2D::dbecl_episeg_soview2D( dbecl_episeg_sptr const & seg)
+becld_episeg_soview2D::becld_episeg_soview2D( becld_episeg_sptr const & seg)
  : episeg_(seg)
 {
   if(episeg_)
@@ -22,14 +22,14 @@ dbecl_episeg_soview2D::dbecl_episeg_soview2D( dbecl_episeg_sptr const & seg)
 
 
 //: Destructor
-dbecl_episeg_soview2D::~dbecl_episeg_soview2D() 
+becld_episeg_soview2D::~becld_episeg_soview2D() 
 {
 }
 
 
-//: Render the dbecl_episeg on the display.
+//: Render the becld_episeg on the display.
 void
-dbecl_episeg_soview2D::draw() const
+becld_episeg_soview2D::draw() const
 {
   glBegin(GL_LINE_STRIP);
   for( vcl_vector<vgl_point_2d<double> >::const_iterator p_itr = samples_.begin(); 
@@ -39,18 +39,18 @@ dbecl_episeg_soview2D::draw() const
 }
 
 
-//: Print details about this dbecl_episeg to the given stream.
+//: Print details about this becld_episeg to the given stream.
 vcl_ostream&
-dbecl_episeg_soview2D::print(vcl_ostream&s) const
+becld_episeg_soview2D::print(vcl_ostream&s) const
 {
-  return s << "dbecl_episeg[angle("<<episeg_->min_angle()<<","<<episeg_->max_angle()<<") "
+  return s << "becld_episeg[angle("<<episeg_->min_angle()<<","<<episeg_->max_angle()<<") "
            << "dist("<<episeg_->min_dist()<<","<<episeg_->max_dist()<<")]";
 }
 
 
-//: Returns the distance squared from this dbecl_episeg to the given position.
+//: Returns the distance squared from this becld_episeg to the given position.
 float
-dbecl_episeg_soview2D::distance_squared(float x, float y) const
+becld_episeg_soview2D::distance_squared(float x, float y) const
 {
   if(samples_.size() == 1){
     float dx = x - samples_[0].x();
@@ -71,9 +71,9 @@ dbecl_episeg_soview2D::distance_squared(float x, float y) const
 }
 
 
-//: Returns the centroid of this dbecl_episeg.
+//: Returns the centroid of this becld_episeg.
 void
-dbecl_episeg_soview2D::get_centroid(float* x, float* y) const
+becld_episeg_soview2D::get_centroid(float* x, float* y) const
 {
   *x = 0;
   *y = 0;
@@ -90,7 +90,7 @@ dbecl_episeg_soview2D::get_centroid(float* x, float* y) const
 
 //: Translate this soview2D by the given x and y distances.
 void
-dbecl_episeg_soview2D::translate(float x, float y)
+becld_episeg_soview2D::translate(float x, float y)
 {
   // WARNING - This updates x,y position of each point but DOES NOT
   //           adjust any other dependent variables such as s and alpha
@@ -109,7 +109,7 @@ dbecl_episeg_soview2D::translate(float x, float y)
 
 //: Update the sample points from the episeg
 void 
-dbecl_episeg_soview2D::update_sample_points()
+becld_episeg_soview2D::update_sample_points()
 {
   samples_.clear();
 

@@ -1,6 +1,6 @@
-// This is brcv/mvg/dbecl/dbecl_epipole.h
-#ifndef dbecl_epipole_h_
-#define dbecl_epipole_h_
+// This is brcv/mvg/becld/becld_epipole.h
+#ifndef becld_epipole_h_
+#define becld_epipole_h_
 //:
 // \file
 // \brief A representation of an epipole
@@ -20,13 +20,13 @@
 //: A representation of an epipole
 // Contains member function to convert between image
 // and epipolar coordinates
-class dbecl_epipole : public vul_timestamp, public vbl_ref_count
+class becld_epipole : public vul_timestamp, public vbl_ref_count
 {
  public:
   //: Constructor
-  dbecl_epipole();
-  dbecl_epipole(double u, double v);
-  dbecl_epipole(const vgl_point_2d<double>& epipole);
+  becld_epipole();
+  becld_epipole(double u, double v);
+  becld_epipole(const vgl_point_2d<double>& epipole);
 
   //: Update the epipole location
   void change_location( const vgl_point_2d<double>& pt );
@@ -78,7 +78,7 @@ class dbecl_epipole : public vul_timestamp, public vbl_ref_count
 
 //: Computed the distance from the epipole to a point (u,v)
 inline double
-dbecl_epipole::distance(double u, double v) const
+becld_epipole::distance(double u, double v) const
 {
   double du = u-location_.x();
   double dv = v-location_.y();
@@ -87,7 +87,7 @@ dbecl_epipole::distance(double u, double v) const
 
 //: Compute the angle (in radians) from the epipole to a point (u,v)
 inline double
-dbecl_epipole::angle(double u, double v) const
+becld_epipole::angle(double u, double v) const
 {
   double du = u-location_.x();
   double dv = v-location_.y();
@@ -96,7 +96,7 @@ dbecl_epipole::angle(double u, double v) const
 
 //: Conversion to epipolar coordinates from image coordinates
 inline void 
-dbecl_epipole::to_epi_coords(double u, double v, double &s, double &a) const
+becld_epipole::to_epi_coords(double u, double v, double &s, double &a) const
 {
   double du = u-location_.x();
   double dv = v-location_.y();
@@ -106,7 +106,7 @@ dbecl_epipole::to_epi_coords(double u, double v, double &s, double &a) const
 
 //: Conversion to epipolar coordinates from image coordinates
 inline vgl_point_2d<double> 
-dbecl_epipole::to_epi_coords(const vgl_point_2d<double>& u_v) const
+becld_epipole::to_epi_coords(const vgl_point_2d<double>& u_v) const
 { 
   double s,a;
   to_epi_coords(u_v.x(),u_v.y(),s,a); 
@@ -115,7 +115,7 @@ dbecl_epipole::to_epi_coords(const vgl_point_2d<double>& u_v) const
 
 //: Conversion to image coordinates from epipolar coordinates
 inline void 
-dbecl_epipole::to_img_coords(double s, double a, double &u, double &v) const
+becld_epipole::to_img_coords(double s, double a, double &u, double &v) const
 {
   u = location_.x() + s*vcl_cos(a);
   v = location_.y() + s*vcl_sin(a);
@@ -123,7 +123,7 @@ dbecl_epipole::to_img_coords(double s, double a, double &u, double &v) const
 
 //: Conversion to image coordinates from epipolar coordinates
 inline vgl_point_2d<double> 
-dbecl_epipole::to_img_coords(const vgl_point_2d<double>& s_a) const
+becld_epipole::to_img_coords(const vgl_point_2d<double>& s_a) const
 {
   double u,v;
   to_img_coords(s_a.x(),s_a.y(),u,v); 
@@ -131,4 +131,4 @@ dbecl_epipole::to_img_coords(const vgl_point_2d<double>& s_a) const
 }
 
 
-#endif // dbecl_epipole_h_
+#endif // becld_epipole_h_

@@ -1,4 +1,4 @@
-#include "dbecl_epiband_builder.h"
+#include "becld_epiband_builder.h"
 #include <vcl_stack.h>
 #include <vsol/vsol_point_2d.h>
 #include <vsol/vsol_box_2d.h>
@@ -54,12 +54,12 @@
 //: \param[in] v : view index being altered
 //
 //#define DEBUG 1
-void dbecl_epiband_builder::
+void becld_epiband_builder::
 build_epibands_iteratively(
       bool reinitialize, unsigned v,
       const vcl_vector<bool> &is_specified,
       const vcl_vector<vsol_point_2d_sptr> &points,
-      vcl_vector< vcl_vector<dbecl_epiband *> > &epband_,
+      vcl_vector< vcl_vector<becld_epiband *> > &epband_,
       const vcl_vector <vsol_box_2d_sptr> &bbox_,
       const vcl_vector< vcl_vector<vpgl_fundamental_matrix<double> > > &fm_,
       double err_pos_
@@ -95,9 +95,9 @@ build_epibands_iteratively(
         } else {
           if (k != v) {
             if (!epband_[i][i]) {
-              epband_[i][i] = new dbecl_epiband(*(epband_[k][i]));
+              epband_[i][i] = new becld_epiband(*(epband_[k][i]));
             } else {
-              dbecl_epiband prv(*(epband_[i][i]));
+              becld_epiband prv(*(epband_[i][i]));
               epband_[i][i]->intersect(prv,*(epband_[k][i]));
             }
           }
@@ -145,12 +145,12 @@ build_epibands_iteratively(
       double err_theta;
 
       if (is_specified[v]) {
-        epband_[v][i] = new dbecl_epiband(vgl_box_2d<double>(bbox_[i]->get_min_x(),bbox_[i]->get_max_x(), bbox_[i]->get_min_y(), bbox_[i]->get_max_y()));
+        epband_[v][i] = new becld_epiband(vgl_box_2d<double>(bbox_[i]->get_min_x(),bbox_[i]->get_max_x(), bbox_[i]->get_min_y(), bbox_[i]->get_max_y()));
         err_theta = epband_[v][i]->compute(points[v]->get_p(), fm_[v][i], err_pos_);
       } else {
         assert(epband_[v][v]);
         epband_[v][i] = new 
-        dbecl_epiband(vgl_box_2d<double>(bbox_[i]->get_min_x(),bbox_[i]->get_max_x(), bbox_[i]->get_min_y(), bbox_[i]->get_max_y()));
+        becld_epiband(vgl_box_2d<double>(bbox_[i]->get_min_x(),bbox_[i]->get_max_x(), bbox_[i]->get_min_y(), bbox_[i]->get_max_y()));
         // we store in epband_[v][v] the intersection of epband_[i][v] for all i
         err_theta = epband_[v][i]->compute(*(epband_[v][v]), fm_[v][i], err_pos_);
       }
@@ -162,7 +162,7 @@ build_epibands_iteratively(
       vcl_cout << "Err pos: " << err_pos_ << "  Epipolar band width view #" <<  i+1 <<  " (deg): " << (2.0*err_theta/vnl_math::pi)*180.0 << vcl_endl; 
 #endif
       if (epband_[i][i]) {
-        dbecl_epiband prv(*(epband_[i][i]));
+        becld_epiband prv(*(epband_[i][i]));
         epband_[i][i]->intersect(prv,*(epband_[v][i]));
         double area1 = epband_[i][i]->area();
         double area2 = prv.area();
@@ -173,7 +173,7 @@ build_epibands_iteratively(
           vcl_cout << "Area not smaller than what we had\n";
 #endif
       } else {
-        epband_[i][i] = new dbecl_epiband(*(epband_[v][i]));
+        epband_[i][i] = new becld_epiband(*(epband_[v][i]));
       }
 
       if ( !is_specified[i] && new_polygon && !is_in_stack[i] ) {

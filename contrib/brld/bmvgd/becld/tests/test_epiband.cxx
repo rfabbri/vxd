@@ -7,9 +7,9 @@
 #include <vgl/vgl_distance.h>
 #include <vgl/vgl_triangle_scan_iterator.h>
 #include <vgl/io/vgl_io_polygon.h>
-#include <dbecl/dbecl_epipole.h>
-#include <dbecl/dbecl_epiband.h>
-#include <dbecl/dbecl_epiband_iterator.h>
+#include <becld/becld_epipole.h>
+#include <becld/becld_epiband.h>
+#include <becld/becld_epiband_iterator.h>
 #include <vcl_iomanip.h>
 #include <vcl_algorithm.h>
 
@@ -39,7 +39,7 @@ void
 print_integers_cover_iterator(
     const vgl_polygon<double> &p,
     vcl_set<vgl_point_2d<int>,ltpt > &s_fast,
-    dbecl_grid_cover_window &w
+    becld_grid_cover_window &w
     ) ;
 
 static void get_ground_truth(int xmin, int xmax, int ymin, int ymax, 
@@ -83,9 +83,9 @@ print_integers_cover_iterator(
 {
   
   {
-  dbecl_grid_cover_window w(p);
+  becld_grid_cover_window w(p);
   // iterate
-  dbecl_polygon_grid_cover_iterator it(p,w); 
+  becld_polygon_grid_cover_iterator it(p,w); 
 
   vcl_cout << "Interior points (FAST cover iterator):\n";
   for (it.reset(); it.nxt(); ) {
@@ -99,7 +99,7 @@ print_integers_cover_iterator(
 
   {
   // iterate
-  dbecl_slow_polygon_grid_cover_iterator it(p); 
+  becld_slow_polygon_grid_cover_iterator it(p); 
 
   vcl_cout << "Interior points (SLOW cover iterator):\n";
   for (it.reset(); it.nxt(); ) {
@@ -116,11 +116,11 @@ void
 print_integers_cover_iterator(
     const vgl_polygon<double> &p,
     vcl_set<vgl_point_2d<int>,ltpt > &s_fast,
-    dbecl_grid_cover_window &w
+    becld_grid_cover_window &w
     ) 
 {
   // iterate
-  dbecl_polygon_grid_cover_iterator it(p,w); 
+  becld_polygon_grid_cover_iterator it(p,w); 
 
   vcl_cout << "Interior points (FAST cover iterator):\n";
   for (it.reset(); it.nxt(); ) {
@@ -570,7 +570,7 @@ test_vgl_polygon_iterators()
     //  - after each iteration, window's label buffer should be in the right state
     //  write  a function test_in_initial_state();
     
-  dbecl_grid_cover_window w(vgl_box_2d<double>(0,6,0,4),0);
+  becld_grid_cover_window w(vgl_box_2d<double>(0,6,0,4),0);
   {
     { // Test on vgl_polygon
       vgl_polygon<double> p1(1);
@@ -628,7 +628,7 @@ test_get_bounds()
 
   { // Test A
 
-    dbecl_epipole ep(vgl_point_2d<double>(0,0));
+    becld_epipole ep(vgl_point_2d<double>(0,0));
     vgl_polygon<double> poly(1);
     poly.push_back(1,0);
     poly.push_back(1,1);
@@ -637,15 +637,15 @@ test_get_bounds()
     double theta_plus;
     double theta_minus;
     double theta_mean;
-    dbecl_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
+    becld_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
 
-    TEST_NEAR("dbecl_epiband testcase A:",theta_minus,0,tolerance);
-    TEST_NEAR("dbecl_epiband testcase A:",theta_plus,vnl_math::pi/2.0,tolerance);
-    TEST_NEAR("dbecl_epiband testcase A:",theta_mean,vnl_math::pi/4.0,tolerance);
+    TEST_NEAR("becld_epiband testcase A:",theta_minus,0,tolerance);
+    TEST_NEAR("becld_epiband testcase A:",theta_plus,vnl_math::pi/2.0,tolerance);
+    TEST_NEAR("becld_epiband testcase A:",theta_mean,vnl_math::pi/4.0,tolerance);
   }
 
   { // Test B
-    dbecl_epipole ep(vgl_point_2d<double>(0,0));
+    becld_epipole ep(vgl_point_2d<double>(0,0));
     vgl_polygon<double> poly(1);
     poly.push_back(2.5,2.5);
     poly.push_back(0,3);
@@ -657,14 +657,14 @@ test_get_bounds()
     double theta_plus;
     double theta_minus;
     double theta_mean;
-    dbecl_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
-    TEST_NEAR("dbecl_epiband testcase B:",theta_minus,0,tolerance);
-    TEST_NEAR("dbecl_epiband testcase B:",theta_plus,3.0*vnl_math::pi/4.0,tolerance);
-    TEST_NEAR("dbecl_epiband testcase B:",theta_mean,3.0*vnl_math::pi/8.0,tolerance);
+    becld_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
+    TEST_NEAR("becld_epiband testcase B:",theta_minus,0,tolerance);
+    TEST_NEAR("becld_epiband testcase B:",theta_plus,3.0*vnl_math::pi/4.0,tolerance);
+    TEST_NEAR("becld_epiband testcase B:",theta_mean,3.0*vnl_math::pi/8.0,tolerance);
   }
 
   { // Test C
-    dbecl_epipole ep(vgl_point_2d<double>(0,0));
+    becld_epipole ep(vgl_point_2d<double>(0,0));
     vgl_polygon<double> poly(1);
     poly.push_back(0,2);  // A
     poly.push_back(-2,2); // B
@@ -673,18 +673,18 @@ test_get_bounds()
     double theta_plus;
     double theta_minus;
     double theta_mean;
-    dbecl_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
+    becld_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
 
 
     vcl_cout << "theta_plus: " << (theta_plus/vnl_math::pi)*180.0 << " theta_minus: " << (theta_minus/vnl_math::pi)*180.0 << " theta_mean: " << (theta_mean/vnl_math::pi)*180.0 << vcl_endl;
 
-    TEST("dbecl_epiband testcase C:",remainder_div_2pi(theta_minus - vnl_math::pi/2.0) < tolerance, true);
-    TEST("dbecl_epiband testcase C:",remainder_div_2pi(theta_plus - 5.0*vnl_math::pi/4.0) < tolerance, true);
-    TEST("dbecl_epiband testcase C:",remainder_div_2pi(theta_mean - (3.0*vnl_math::pi/8.0 + vnl_math::pi/2.0)) < tolerance, true);
+    TEST("becld_epiband testcase C:",remainder_div_2pi(theta_minus - vnl_math::pi/2.0) < tolerance, true);
+    TEST("becld_epiband testcase C:",remainder_div_2pi(theta_plus - 5.0*vnl_math::pi/4.0) < tolerance, true);
+    TEST("becld_epiband testcase C:",remainder_div_2pi(theta_mean - (3.0*vnl_math::pi/8.0 + vnl_math::pi/2.0)) < tolerance, true);
   }
 
   { // Test C other direction
-    dbecl_epipole ep(vgl_point_2d<double>(0,0));
+    becld_epipole ep(vgl_point_2d<double>(0,0));
     vgl_polygon<double> poly(1);
     poly.push_back(-2,-2); // C
     poly.push_back(-2,2); // B
@@ -693,16 +693,16 @@ test_get_bounds()
     double theta_plus;
     double theta_minus;
     double theta_mean;
-    dbecl_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
+    becld_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
 
-    TEST("dbecl_epiband testcase C:",remainder_div_2pi(theta_minus - vnl_math::pi/2.0) < tolerance, true);
-    TEST("dbecl_epiband testcase C:",remainder_div_2pi(theta_plus - 5.0*vnl_math::pi/4.0) < tolerance, true);
-    TEST("dbecl_epiband testcase C:",remainder_div_2pi(theta_mean - (3.0*vnl_math::pi/8.0 + vnl_math::pi/2.0)) < tolerance, true);
+    TEST("becld_epiband testcase C:",remainder_div_2pi(theta_minus - vnl_math::pi/2.0) < tolerance, true);
+    TEST("becld_epiband testcase C:",remainder_div_2pi(theta_plus - 5.0*vnl_math::pi/4.0) < tolerance, true);
+    TEST("becld_epiband testcase C:",remainder_div_2pi(theta_mean - (3.0*vnl_math::pi/8.0 + vnl_math::pi/2.0)) < tolerance, true);
 
   }
 
   { // Test D 
-    dbecl_epipole ep(vgl_point_2d<double>(0,0));
+    becld_epipole ep(vgl_point_2d<double>(0,0));
     vgl_polygon<double> poly(1);
     poly.push_back(-1,1); 
     poly.push_back(-2,-2); 
@@ -711,13 +711,13 @@ test_get_bounds()
     double theta_plus;
     double theta_minus;
     double theta_mean;
-    dbecl_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
+    becld_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
 
     vcl_cout << "theta_plus: " << (theta_plus/vnl_math::pi)*180.0 << " theta_minus: " << (theta_minus/vnl_math::pi)*180.0 << " theta_mean: " << (theta_mean/vnl_math::pi)*180.0 << vcl_endl;
   }
 
   { // Test E 
-    dbecl_epipole ep(vgl_point_2d<double>(0,0));
+    becld_epipole ep(vgl_point_2d<double>(0,0));
     vgl_polygon<double> poly(1);
     poly.push_back(3,-3); 
     poly.push_back(4,4); 
@@ -729,15 +729,15 @@ test_get_bounds()
     double theta_plus;
     double theta_minus;
     double theta_mean;
-    dbecl_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
+    becld_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
 
-    TEST("dbecl_epiband testcase E:",remainder_div_2pi(theta_minus - (-vnl_math::pi/4.0)) < tolerance, true);
-    TEST("dbecl_epiband testcase E:",remainder_div_2pi(theta_plus - 5.0*vnl_math::pi/4.0) < tolerance, true);
-    TEST("dbecl_epiband testcase E:",remainder_div_2pi(theta_mean - (vnl_math::pi/2.0)) < tolerance, true);
+    TEST("becld_epiband testcase E:",remainder_div_2pi(theta_minus - (-vnl_math::pi/4.0)) < tolerance, true);
+    TEST("becld_epiband testcase E:",remainder_div_2pi(theta_plus - 5.0*vnl_math::pi/4.0) < tolerance, true);
+    TEST("becld_epiband testcase E:",remainder_div_2pi(theta_mean - (vnl_math::pi/2.0)) < tolerance, true);
 
   }
   { // Test Whole plane degeneracy  - a polygon around the angle-discontinuity half-axis
-    dbecl_epipole ep(vgl_point_2d<double>(3731.58,422.944));
+    becld_epipole ep(vgl_point_2d<double>(3731.58,422.944));
     vgl_polygon<double> poly(1);
     poly.push_back(800.45,423.44); 
     poly.push_back(800.45,421.85); 
@@ -747,7 +747,7 @@ test_get_bounds()
     double theta_plus;
     double theta_minus;
     double theta_mean;
-    dbecl_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
+    becld_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
 
     vcl_cout << "\n\n=============================================\n";
     vcl_cout << "theta_minus : " <<  theta_minus
@@ -755,13 +755,13 @@ test_get_bounds()
              << "theta_med : " <<  theta_mean;
     vcl_cout << "\n=============================================\n";
 
-    TEST("dbecl_epiband testcase degen:",theta_plus - theta_minus < vnl_math::pi/8, true);
+    TEST("becld_epiband testcase degen:",theta_plus - theta_minus < vnl_math::pi/8, true);
   }
 
   { // Same as Test E  but with epipole not in origion
 
     double t[2] = {1000,-38900};
-    dbecl_epipole ep(vgl_point_2d<double>(t[0],t[1]));
+    becld_epipole ep(vgl_point_2d<double>(t[0],t[1]));
     vgl_polygon<double> poly(1);
     poly.push_back(3+t[0],t[1]-3); 
     poly.push_back(4+t[0],t[1]+4); 
@@ -773,11 +773,11 @@ test_get_bounds()
     double theta_plus;
     double theta_minus;
     double theta_mean;
-    dbecl_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
+    becld_epiband::get_bounds(poly, ep, theta_plus, theta_minus, theta_mean);
 
-    TEST("dbecl_epiband testcase E:",remainder_div_2pi(theta_minus - (-vnl_math::pi/4.0)) < tolerance, true);
-    TEST("dbecl_epiband testcase E:",remainder_div_2pi(theta_plus - 5.0*vnl_math::pi/4.0) < tolerance, true);
-    TEST("dbecl_epiband testcase E:",remainder_div_2pi(theta_mean - (vnl_math::pi/2.0)) < tolerance, true);
+    TEST("becld_epiband testcase E:",remainder_div_2pi(theta_minus - (-vnl_math::pi/4.0)) < tolerance, true);
+    TEST("becld_epiband testcase E:",remainder_div_2pi(theta_plus - 5.0*vnl_math::pi/4.0) < tolerance, true);
+    TEST("becld_epiband testcase E:",remainder_div_2pi(theta_mean - (vnl_math::pi/2.0)) < tolerance, true);
   }
 }
 

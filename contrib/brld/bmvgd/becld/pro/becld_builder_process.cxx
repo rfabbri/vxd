@@ -1,10 +1,10 @@
-// This is brcv/mvg/dbecl/pro/dbecl_builder_process.cxx
+// This is brcv/mvg/becld/pro/becld_builder_process.cxx
 
 //:
 // \file
 
-#include "dbecl_builder_process.h"
-#include "dbecl_episeg_storage.h"
+#include "becld_builder_process.h"
+#include "becld_episeg_storage.h"
 #include <bpro1/bpro1_parameters.h>
 
 #include <vidpro1/storage/vidpro1_vtol_storage.h>
@@ -16,11 +16,11 @@
 #include <vdgl/vdgl_edgel_chain.h>
 #include <vsol/vsol_point_2d.h>
 
-#include <dbecl/dbecl_episeg_from_curve_converter.h>
+#include <becld/becld_episeg_from_curve_converter.h>
 #include <vsol/vsol_digital_curve_2d.h>
 
 //: Constructor
-dbecl_builder_process::dbecl_builder_process()
+becld_builder_process::becld_builder_process()
  : bpro1_process()
 {
   if( !parameters()->add( "Epipole Position X", "-epix", -400.0f) ||
@@ -31,37 +31,37 @@ dbecl_builder_process::dbecl_builder_process()
 
 
 //: Copy Constructor
-dbecl_builder_process::
-dbecl_builder_process(const dbecl_builder_process& other)
+becld_builder_process::
+becld_builder_process(const becld_builder_process& other)
 : bpro1_process(other)
 {
 }
 
 
 //: Destructor
-dbecl_builder_process::~dbecl_builder_process()
+becld_builder_process::~becld_builder_process()
 {
 }
 
 
 //: Clone the process
 bpro1_process* 
-dbecl_builder_process::clone() const
+becld_builder_process::clone() const
 {
-  return new dbecl_builder_process(*this);
+  return new becld_builder_process(*this);
 }
 
 
 //: Return the name of the process
 vcl_string
-dbecl_builder_process::name()
+becld_builder_process::name()
 {
   return "Build Episegments";
 }
 
 
 //: Returns a vector of strings describing the input types to this process
-vcl_vector< vcl_string > dbecl_builder_process::get_input_type()
+vcl_vector< vcl_string > becld_builder_process::get_input_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "vtol" );
@@ -70,7 +70,7 @@ vcl_vector< vcl_string > dbecl_builder_process::get_input_type()
 
 
 //: Returns a vector of strings describing the output types of this process
-vcl_vector< vcl_string > dbecl_builder_process::get_output_type()
+vcl_vector< vcl_string > becld_builder_process::get_output_type()
 {
   vcl_vector< vcl_string > to_return;
   to_return.push_back( "episeg" );
@@ -80,7 +80,7 @@ vcl_vector< vcl_string > dbecl_builder_process::get_output_type()
 
 //: Returns the number of input frames to this process
 int
-dbecl_builder_process::input_frames()
+becld_builder_process::input_frames()
 {
   return 1;
 }
@@ -88,7 +88,7 @@ dbecl_builder_process::input_frames()
 
 //: Returns the number of output frames from this process
 int
-dbecl_builder_process::output_frames()
+becld_builder_process::output_frames()
 {
   return 1;
 }
@@ -96,7 +96,7 @@ dbecl_builder_process::output_frames()
 
 //: Run the process on the current frame
 bool
-dbecl_builder_process::execute()
+becld_builder_process::execute()
 {
   if ( input_data_.size() != 1 ){
     vcl_cerr << __FILE__ << " - not exactly one input frame" << vcl_endl;
@@ -106,10 +106,10 @@ dbecl_builder_process::execute()
   float epi_x=false, epi_y=false;
   parameters()->get_value( "-epix", epi_x );
   parameters()->get_value( "-epiy", epi_y );
-  dbecl_epipole_sptr epipole = new dbecl_epipole((double)epi_x, (double)epi_y);
+  becld_epipole_sptr epipole = new becld_epipole((double)epi_x, (double)epi_y);
 
-  dbecl_episeg_from_curve_converter factory(epipole);
-  vcl_vector<dbecl_episeg_sptr> episegs;
+  becld_episeg_from_curve_converter factory(epipole);
+  vcl_vector<becld_episeg_sptr> episegs;
 
   vidpro1_vtol_storage_sptr frame_vtol;
   frame_vtol.vertical_cast(input_data_[0][0]);
@@ -134,8 +134,8 @@ dbecl_builder_process::execute()
             dc->add_vertex(new vsol_point_2d(ec->edgel(i).get_pt()));
           }
           // Cover the digital curve with episegs
-          vcl_vector<dbecl_episeg_sptr> eps = factory.convert_curve(dc);
-          for(vcl_vector<dbecl_episeg_sptr>::iterator itr = eps.begin();
+          vcl_vector<becld_episeg_sptr> eps = factory.convert_curve(dc);
+          for(vcl_vector<becld_episeg_sptr>::iterator itr = eps.begin();
               itr != eps.end();  ++itr)
             episegs.push_back(*itr);
         }
@@ -145,7 +145,7 @@ dbecl_builder_process::execute()
 
 
   // create the output storage class
-  dbecl_episeg_storage_sptr output_episeg = dbecl_episeg_storage_new();
+  becld_episeg_storage_sptr output_episeg = becld_episeg_storage_new();
   output_episeg->set_episegs(episegs);
   output_data_[0].push_back(output_episeg);
 
@@ -155,7 +155,7 @@ dbecl_builder_process::execute()
 
 //: Finish
 bool
-dbecl_builder_process::finish()
+becld_builder_process::finish()
 {
   return true;
 }

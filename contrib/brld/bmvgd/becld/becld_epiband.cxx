@@ -1,4 +1,4 @@
-#include "dbecl_epiband.h"
+#include "becld_epiband.h"
 
 #include <vnl/vnl_vector_fixed.h>
 #include <vnl/vnl_math.h>
@@ -6,9 +6,9 @@
 #include <vgl/vgl_clip.h>
 #include <vgl/vgl_distance.h>
 #include <vgl/vgl_lineseg_test.h>
-#include <dbgl/algo/dbgl_intersect.h>
-#include <dbecl/dbecl_epipole_sptr.h>
-#include <dbecl/dbecl_epipole.h>
+#include <bgld/algo/bgld_intersect.h>
+#include <becld/becld_epipole_sptr.h>
+#include <becld/becld_epipole.h>
 #include <vcl_iostream.h>
 
 //: clump arg from minus 1 to 1; also assert abs(arg) not much bigger than 1
@@ -25,7 +25,7 @@ static inline double clump_to_acos(double x)
 }
 
 //: returns err_theta
-double dbecl_epiband::
+double becld_epiband::
 compute(const vgl_point_2d<double> &p, const vpgl_fundamental_matrix<double> &fm, double err_pos)
 {
   err_pos_ = err_pos;
@@ -58,8 +58,8 @@ compute(const vgl_point_2d<double> &p, const vpgl_fundamental_matrix<double> &fm
   // err_theta = get_err_theta(double err_pos, vgl_homg_line_2d<double> &l_minus, vgl_homg_line_2d<double> &l_plus)
   double err_theta;
   {
-    dbecl_epipole_sptr ep;
-    ep = new dbecl_epipole(vgl_point_2d<double>(er));
+    becld_epipole_sptr ep;
+    ep = new becld_epipole(vgl_point_2d<double>(er));
     vnl_vector_fixed<double,2> ep_v(ep->location().x(), ep->location().y());
 
     const double d = (vnl_vector_fixed<double,2>(p.x(),p.y()) - ep_v).two_norm(); 
@@ -93,8 +93,8 @@ compute(const vgl_point_2d<double> &p, const vpgl_fundamental_matrix<double> &fm
 
   vnl_vector_fixed<double,2> c(0.5*(box_.max_x() + box_.min_x()), 0.5*(box_.max_y() + box_.min_y()));
 
-  dbecl_epipole_sptr ep_l;
-  ep_l = new dbecl_epipole(vgl_point_2d<double>(el));
+  becld_epipole_sptr ep_l;
+  ep_l = new becld_epipole(vgl_point_2d<double>(el));
   vnl_vector_fixed<double,2> ep_l_v(ep_l->location().x(), ep_l->location().y());
 
   vnl_vector_fixed<double,2> r1(0.5*(box_.max_x() - box_.min_x()), 0.5*(box_.max_y() - box_.min_y()));
@@ -176,8 +176,8 @@ compute(const vgl_point_2d<double> &p, const vpgl_fundamental_matrix<double> &fm
 // \todo predict case where epipole itself is one of the polygon vertices?
 //
 //returns err_theta
-double dbecl_epiband::
-compute(const dbecl_epiband &eb_a, const vpgl_fundamental_matrix<double> &fm_ab, double err_pos)
+double becld_epiband::
+compute(const becld_epiband &eb_a, const vpgl_fundamental_matrix<double> &fm_ab, double err_pos)
 {
   err_pos_ = err_pos;
   if (eb_a.is_empty()) {
@@ -218,8 +218,8 @@ compute(const dbecl_epiband &eb_a, const vpgl_fundamental_matrix<double> &fm_ab,
   // err_theta = get_err_theta(double err_pos, vgl_homg_line_2d<double> &l_minus, vgl_homg_line_2d<double> &l_plus)
   double err_theta;
   {
-    dbecl_epipole_sptr ep;
-    ep = new dbecl_epipole(vgl_point_2d<double>(er));
+    becld_epipole_sptr ep;
+    ep = new becld_epipole(vgl_point_2d<double>(er));
     vnl_vector_fixed<double,2> ep_v(ep->location().x(), ep->location().y());
 
     const double d = eb_a.distance(vgl_point_2d<double>(er));
@@ -233,7 +233,7 @@ compute(const dbecl_epiband &eb_a, const vpgl_fundamental_matrix<double> &fm_ab,
     double theta_minus;
     double theta_mean;
 
-    dbecl_epiband::get_bounds(eb_a.polygon(),*ep,theta_plus,theta_minus,theta_mean);
+    becld_epiband::get_bounds(eb_a.polygon(),*ep,theta_plus,theta_minus,theta_mean);
 #ifdef DEBUG
     vcl_cout << "Epipolar band width view 'from' (computed deg): " << 180.0* ((theta_plus - theta_minus))/vnl_math::pi << vcl_endl;
 #endif
@@ -265,8 +265,8 @@ compute(const dbecl_epiband &eb_a, const vpgl_fundamental_matrix<double> &fm_ab,
 
   vnl_vector_fixed<double,2> c(0.5*(box_.max_x() + box_.min_x()), 0.5*(box_.max_y() + box_.min_y()));
 
-  dbecl_epipole_sptr ep_l;
-  ep_l = new dbecl_epipole(vgl_point_2d<double>(el));
+  becld_epipole_sptr ep_l;
+  ep_l = new becld_epipole(vgl_point_2d<double>(el));
   vnl_vector_fixed<double,2> ep_l_v(ep_l->location().x(), ep_l->location().y());
 
   vnl_vector_fixed<double,2> r1(0.5*(box_.max_x() - box_.min_x()), 0.5*(box_.max_y() - box_.min_y()));
@@ -335,10 +335,10 @@ compute(const dbecl_epiband &eb_a, const vpgl_fundamental_matrix<double> &fm_ab,
 // Outputs are not guaranteed to be within any specific angle interval.
 //
 // \param[out] theta_mean = middle between theta_plus and theta_minus
-void dbecl_epiband::
+void becld_epiband::
 get_bounds(
    const vgl_polygon<double> &poly,
-   const dbecl_epipole &ep,
+   const becld_epipole &ep,
    double &theta_plus,
    double &theta_minus,
    double &theta_mean
@@ -369,7 +369,7 @@ get_bounds(
     vgl_point_2d<double> intr;
 
     // intercept edge (i-1) with negative x-axis
-    bool has_intercept = dbgl_intersect::line_lineseg_intersect(yaxis,edge,intr);
+    bool has_intercept = bgld_intersect::line_lineseg_intersect(yaxis,edge,intr);
 
     if (has_intercept && intr.x() < ep.location().x() && ep.angle(vp)*ep.angle(vc) < 0)  { // edge (i-1) intercepts x-axis on negative value and crosses it
       if (ep.angle(vp) > ep.angle(vc)) {
@@ -397,7 +397,7 @@ get_bounds(
 }
 
 
-bool dbecl_epiband::
+bool becld_epiband::
 contains(const vgl_point_2d<double> &pt) const
 {
 
@@ -406,7 +406,7 @@ contains(const vgl_point_2d<double> &pt) const
 
 //: Minimum distance of pt to epipolar band.
 // Interior points DO NOT have distance zero!
-double dbecl_epiband::
+double becld_epiband::
 distance(const vgl_point_2d<double> &pt) const
 {
   if (is_empty())
@@ -419,8 +419,8 @@ distance(const vgl_point_2d<double> &pt) const
 // \return false in case any degeneracy was detected after intersection.
 //
 // TODO: use a specific algorithm for convex polygons
-bool dbecl_epiband::
-intersect( const dbecl_epiband &a, const dbecl_epiband &b)
+bool becld_epiband::
+intersect( const becld_epiband &a, const becld_epiband &b)
 { 
   this->poly_ = vgl_clip(a.poly_, b.poly_, vgl_clip_type_intersect);
   assert (this->box_ == a.box_ && b.box_ == a.box_);

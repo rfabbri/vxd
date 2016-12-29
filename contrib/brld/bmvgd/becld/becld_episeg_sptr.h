@@ -1,10 +1,10 @@
-// This is brcv/mvg/dbecl/dbecl_episeg_sptr.h
-#ifndef dbecl_episeg_sptr_h_ 
-#define dbecl_episeg_sptr_h_
+// This is brcv/mvg/becld/becld_episeg_sptr.h
+#ifndef becld_episeg_sptr_h_ 
+#define becld_episeg_sptr_h_
 
 #include <vbl/vbl_smart_ptr.h>
 
-class dbecl_episeg;
-typedef vbl_smart_ptr<dbecl_episeg> dbecl_episeg_sptr;
+class becld_episeg;
+typedef vbl_smart_ptr<becld_episeg> becld_episeg_sptr;
 
-#endif // dbecl_episeg_sptr_h_
+#endif // becld_episeg_sptr_h_

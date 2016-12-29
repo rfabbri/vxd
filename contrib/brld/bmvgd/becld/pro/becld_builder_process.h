@@ -1,10 +1,10 @@
-// This is brcv/mvg/dbecl/pro/dbecl_builder_process.h
-#ifndef dbecl_builder_process_h_
-#define dbecl_builder_process_h_
+// This is brcv/mvg/becld/pro/becld_builder_process.h
+#ifndef becld_builder_process_h_
+#define becld_builder_process_h_
 
 //:
 // \file
-// \brief A process that converts vtol edges to dbecl episegs
+// \brief A process that converts vtol edges to becld episegs
 // \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 11/8/04
 //
@@ -17,17 +17,17 @@
 #include <vcl_string.h>
 #include <bpro1/bpro1_process.h>
 
-#include <dbecl/dbecl_episeg.h>
+#include <becld/becld_episeg.h>
 
 
-class dbecl_builder_process : public bpro1_process
+class becld_builder_process : public bpro1_process
 {
 public:
 
-  dbecl_builder_process();
-  ~dbecl_builder_process();
+  becld_builder_process();
+  ~becld_builder_process();
 
-  dbecl_builder_process(const dbecl_builder_process& other);
+  becld_builder_process(const becld_builder_process& other);
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -45,4 +45,4 @@ public:
 
 };
 
-#endif // dbecl_builder_process_h_
+#endif // becld_builder_process_h_

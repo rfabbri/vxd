@@ -1,18 +1,18 @@
-# algo/dbecl/tests/CMakeLists.txt
+# algo/becld/tests/CMakeLists.txt
 
 
-add_executable( dbecl_test_all
+add_executable( becld_test_all
   test_driver.cxx
   test_epipole.cxx
   test_episeg.cxx
   test_epiband.cxx
 )
 
-target_link_libraries( dbecl_test_all dbecl testlib )
+target_link_libraries( becld_test_all becld testlib )
 
-add_test( dbecl_test_epipole           dbecl_test_all test_epipole )
-add_test( dbecl_test_episeg            dbecl_test_all test_episeg )
-add_test( dbecl_test_epiband           dbecl_test_all test_epiband )
+add_test( becld_test_epipole           becld_test_all test_epipole )
+add_test( becld_test_episeg            becld_test_all test_episeg )
+add_test( becld_test_epiband           becld_test_all test_epiband )
 
-add_executable( dbecl_test_include test_include.cxx )
-target_link_libraries( dbecl_test_include dbecl )
+add_executable( becld_test_include test_include.cxx )
+target_link_libraries( becld_test_include becld )

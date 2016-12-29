@@ -1,18 +1,18 @@
-# This is brcv/mvg/dbecl/pro/CMakeLists.txt
+# This is brcv/mvg/becld/pro/CMakeLists.txt
 # Brown Epipolar Curve Processing library
 
 include_directories( ${lems_SOURCE_DIR}/breye1 )
 
-set(dbecl_pro_sources
-   dbecl_builder_process.cxx   dbecl_builder_process.h
-   dbecl_episeg_storage.cxx    dbecl_episeg_storage.h     dbecl_episeg_storage_sptr.h
+set(becld_pro_sources
+   becld_builder_process.cxx   becld_builder_process.h
+   becld_episeg_storage.cxx    becld_episeg_storage.h     becld_episeg_storage_sptr.h
 )
 
-#aux_source_directory(Templates dbecl_pro_sources)
+#aux_source_directory(Templates becld_pro_sources)
 
-add_library(dbecl_pro ${dbecl_pro_sources})
+add_library(becld_pro ${becld_pro_sources})
 
-target_link_libraries(dbecl_pro dbecl vidpro1)
+target_link_libraries(becld_pro becld vidpro1)
 
 
 if(BUILD_TESTING)

@@ -1,5 +1,5 @@
-#include "dbecl_epiband_iterator.h"
-#include <dbecl/dbecl_epiband.h>
+#include "becld_epiband_iterator.h"
+#include <becld/becld_epiband.h>
 #include <vgl/vgl_distance.h>
 #include <vil/vil_print.h>
 #include <vcl_cstdlib.h>
@@ -17,24 +17,24 @@ static int n8[8][2] = {
   { 1,  1}  // 7
 };
 
-#define DBECL_ROUND(X)        ((int)((X)+0.5))
+#define BECLD_ROUND(X)        ((int)((X)+0.5))
 
 //: ATTENTION: User must check validity of returned coordinates. Polygon window
 // will not be used (currently, we assume output to be cliped within
-// dbecl_epiband::compute).
-dbecl_epiband_iterator::
-dbecl_epiband_iterator( const dbecl_epiband &band ,dbecl_grid_cover_window &win, double dmax)
+// becld_epiband::compute).
+becld_epiband_iterator::
+becld_epiband_iterator( const becld_epiband &band ,becld_grid_cover_window &win, double dmax)
   :
-  dbecl_polygon_grid_cover_iterator(band.polygon(), win,dmax)
+  becld_polygon_grid_cover_iterator(band.polygon(), win,dmax)
 {
 //  vgl_box_2d<double> win = band.window();
 //  set_window(win);
 }
 
-void dbecl_grid_cover_window::
+void becld_grid_cover_window::
 print() const
 { 
-  vcl_cout << "dbecl_grid_cover_window:\n";
+  vcl_cout << "becld_grid_cover_window:\n";
   vcl_cout << "clip window:";
   win_.print(vcl_cout);
   vcl_cout << vcl_endl;
@@ -45,7 +45,7 @@ print() const
   vcl_cout << vcl_endl;
 }
 
-bool dbecl_grid_cover_window::
+bool becld_grid_cover_window::
 is_label_buf_clean() const
 {
   // run trhu image and check if all pixels are marked as unvisited
@@ -77,8 +77,8 @@ is_label_buf_clean() const
 // coordinates as those having label != unvisited.
 //
 //
-dbecl_polygon_grid_cover_iterator::
-dbecl_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, dbecl_grid_cover_window &win, double dmax)
+becld_polygon_grid_cover_iterator::
+becld_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, becld_grid_cover_window &win, double dmax)
   : poly_(poly), win_(win), dmax_(dmax)
 {
   assert(dmax_ > 0.7); // sqrt(2)/2; otherwise our algorithm doesn't work
@@ -94,7 +94,7 @@ dbecl_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, dbecl_grid_c
 }
 
 
-bool dbecl_polygon_grid_cover_iterator::
+bool becld_polygon_grid_cover_iterator::
 nxt()
 {
   static const unsigned n_nhood = 8;
@@ -106,7 +106,7 @@ nxt()
 
   p_ = stk_.top();
   stk_.pop();
-  win_.set_label(p_,dbecl_grid_cover_window::removed);
+  win_.set_label(p_,becld_grid_cover_window::removed);
 
   for (unsigned i=0; i < n_nhood; ++i) {
     int qx,qy;
@@ -122,15 +122,15 @@ nxt()
       continue;
 
     vgl_point_2d<int> q(qx,qy);
-    dbecl_grid_cover_window::pixel_state label_q = win_.label(q); 
-    if (label_q != dbecl_grid_cover_window::removed && label_q != dbecl_grid_cover_window::in_stack) {
+    becld_grid_cover_window::pixel_state label_q = win_.label(q); 
+    if (label_q != becld_grid_cover_window::removed && label_q != becld_grid_cover_window::in_stack) {
       vgl_point_2d<double> q_double(qx,qy);
       if (poly_.contains(q_double) ||
           vgl_distance(poly_, q_double) < dmax_) {
         stk_.push(q);
-        win_.set_label(q,dbecl_grid_cover_window::in_stack);
+        win_.set_label(q,becld_grid_cover_window::in_stack);
       } else {
-        win_.set_label(q,dbecl_grid_cover_window::removed);
+        win_.set_label(q,becld_grid_cover_window::removed);
       }
       visited_pixels_.push(q);
     }
@@ -140,17 +140,17 @@ nxt()
 }
 
 
-void dbecl_polygon_grid_cover_iterator::
+void becld_polygon_grid_cover_iterator::
 clear_labels()
 {
   while (!visited_pixels_.empty()) {
     vgl_point_2d<int> p = visited_pixels_.top();
     visited_pixels_.pop();
-    win_.set_label(p,dbecl_grid_cover_window::unvisited);
+    win_.set_label(p,becld_grid_cover_window::unvisited);
   }
 }
 
-void dbecl_polygon_grid_cover_iterator::
+void becld_polygon_grid_cover_iterator::
 reset()
 {
   clear_labels();
@@ -168,7 +168,7 @@ reset()
   unsigned ip = 0;
   vcl_vector<vgl_point_2d<double> > &sheet = poly_[0];
 
-  while (ip < sheet.size() && !(win_.valid_x(DBECL_ROUND(sheet[ip].x())) && win_.valid_y(DBECL_ROUND(sheet[ip].y()))))
+  while (ip < sheet.size() && !(win_.valid_x(BECLD_ROUND(sheet[ip].x())) && win_.valid_y(BECLD_ROUND(sheet[ip].y()))))
     ip++;
 
   if (ip == sheet.size()) { // empty integer regions
@@ -179,12 +179,12 @@ reset()
   }
 
   // select initial point
-  stk_.push(vgl_point_2d<int> (DBECL_ROUND(sheet[ip].x()), DBECL_ROUND(sheet[ip].y())));
-  win_.set_label(stk_.top(),dbecl_grid_cover_window::in_stack);
+  stk_.push(vgl_point_2d<int> (BECLD_ROUND(sheet[ip].x()), BECLD_ROUND(sheet[ip].y())));
+  win_.set_label(stk_.top(),becld_grid_cover_window::in_stack);
   visited_pixels_.push(stk_.top());
 }
 
-unsigned dbecl_polygon_grid_cover_iterator::
+unsigned becld_polygon_grid_cover_iterator::
 count()
 {
   unsigned cnt = 0; reset();
@@ -198,11 +198,11 @@ count()
 
 //: ATTENTION: User must check validity of returned coordinates. Polygon window
 // will not be used (currently, we assume output to be cliped within
-// dbecl_epiband::compute).
-dbecl_slow_epipolar_band_iterator::
-dbecl_slow_epipolar_band_iterator( const dbecl_epiband &band , double dmax)
+// becld_epiband::compute).
+becld_slow_epipolar_band_iterator::
+becld_slow_epipolar_band_iterator( const becld_epiband &band , double dmax)
   :
-  dbecl_slow_polygon_grid_cover_iterator(band.polygon(),dmax)
+  becld_slow_polygon_grid_cover_iterator(band.polygon(),dmax)
 {
 //  vgl_box_2d<double> win = band.window();
 //  set_window(win);
@@ -215,8 +215,8 @@ dbecl_slow_epipolar_band_iterator( const dbecl_epiband &band , double dmax)
 
 
 //: Construct with a polygon and option indicating boundary conditions
-dbecl_slow_polygon_grid_cover_iterator::
-dbecl_slow_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, double dmax)
+becld_slow_polygon_grid_cover_iterator::
+becld_slow_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, double dmax)
   : poly_(poly), dmax_(dmax), no_win_(true)
 {
   if (!poly.num_sheets() || !poly.num_vertices()) 
@@ -232,7 +232,7 @@ dbecl_slow_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, double 
 
 
 
-bool dbecl_slow_polygon_grid_cover_iterator::
+bool becld_slow_polygon_grid_cover_iterator::
 nxt()
 {
   static const unsigned n_nhood = 8;
@@ -279,7 +279,7 @@ nxt()
   return true;
 }
 
-void dbecl_slow_polygon_grid_cover_iterator::
+void becld_slow_polygon_grid_cover_iterator::
 reset()
 {
   label_.clear();
@@ -293,11 +293,11 @@ reset()
 
   vgl_point_2d<double> p0 = poly_[0][0];
 
-  stk_.push(vgl_point_2d<int> (DBECL_ROUND(p0.x()), DBECL_ROUND(p0.y())));
+  stk_.push(vgl_point_2d<int> (BECLD_ROUND(p0.x()), BECLD_ROUND(p0.y())));
   label_[stk_.top()] = in_stack;
 }
 
-unsigned dbecl_slow_polygon_grid_cover_iterator::
+unsigned becld_slow_polygon_grid_cover_iterator::
 count()
 {
   unsigned cnt = 0; reset();

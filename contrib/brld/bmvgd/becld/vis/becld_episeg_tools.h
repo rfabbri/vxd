@@ -1,9 +1,9 @@
-// This is brcv/mvg/dbecl/vis/dbecl_episeg_tools.h
-#ifndef dbecl_episeg_tools_h_
-#define dbecl_episeg_tools_h_
+// This is brcv/mvg/becld/vis/becld_episeg_tools.h
+#ifndef becld_episeg_tools_h_
+#define becld_episeg_tools_h_
 //:
 // \file
-// \brief Tools that work on dbecl_episegs
+// \brief Tools that work on becld_episegs
 // \author Based on original code by  Matt Leotta, (@lems.brown.edu)
 // \date 11/10/04
 //
@@ -13,16 +13,16 @@
 
 #include <bvis1/bvis1_tool.h>
 #include <vgui/vgui_displaylist2D_tableau_sptr.h>
-#include <dbecl/pro/dbecl_episeg_storage_sptr.h>
-#include <dbecl/dbecl_epipole_sptr.h>
-#include <dbecl/dbecl_episeg_sptr.h>
+#include <becld/pro/becld_episeg_storage_sptr.h>
+#include <becld/becld_epipole_sptr.h>
+#include <becld/becld_episeg_sptr.h>
 
 //: forward declaration
-class dbecl_episeg_soview2D;
+class becld_episeg_soview2D;
 
 
 //: An abstract base class for tools in this file
-class dbecl_episeg_tool : public bvis1_tool
+class becld_episeg_tool : public bvis1_tool
 {
 public:
   //: Set the tableau to work with
@@ -32,19 +32,19 @@ public:
   virtual bool set_storage ( const bpro1_storage_sptr& storage);
   
 protected:
-  dbecl_episeg_tool();
+  becld_episeg_tool();
   
   vgui_displaylist2D_tableau_sptr tableau_;
-  dbecl_episeg_storage_sptr storage_;
+  becld_episeg_storage_sptr storage_;
 };
 
   
 //: A tool for inspecting episegs
-class dbecl_episeg_inspector_tool : public dbecl_episeg_tool
+class becld_episeg_inspector_tool : public becld_episeg_tool
 {
 public:
-  dbecl_episeg_inspector_tool();
-  virtual ~dbecl_episeg_inspector_tool();
+  becld_episeg_inspector_tool();
+  virtual ~becld_episeg_inspector_tool();
 
   //: Return the name of this tool
   virtual vcl_string name() const;
@@ -58,19 +58,19 @@ public:
   
 protected:
   //: Print stats about the episeg
-  void print_stats(const dbecl_episeg_sptr episeg) const;
+  void print_stats(const becld_episeg_sptr episeg) const;
 
   bool draw_bounds_;
   bool draw_neighbors_;
   bool draw_epipolar_line_;
   bool print_stats_;
-  dbecl_epipole_sptr epipole_;
+  becld_epipole_sptr epipole_;
   
 private:
-  dbecl_episeg_soview2D* object_;
+  becld_episeg_soview2D* object_;
   float last_x_, last_y_;
 
 };
 
 
-#endif // dbecl_episeg_tools_h_
+#endif // becld_episeg_tools_h_

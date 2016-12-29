@@ -1,6 +1,6 @@
-// This is brcv/mvg/dbecl/dbecl_episeg_point.h
-#ifndef dbecl_episeg_point_h_
-#define dbecl_episeg_point_h_
+// This is brcv/mvg/becld/becld_episeg_point.h
+#ifndef becld_episeg_point_h_
+#define becld_episeg_point_h_
 
 //:
 // \file
@@ -9,21 +9,21 @@
 // \date   8/18/2004
 
 #include <vbl/vbl_ref_count.h>
-#include "dbecl_episeg_sptr.h"
+#include "becld_episeg_sptr.h"
 #include <vcl_utility.h>
 #include <vgl/vgl_point_2d.h>
 
 //: A point along an episegment.
-class dbecl_episeg_point : public vbl_ref_count {
+class becld_episeg_point : public vbl_ref_count {
 public:
   //: Construct a point
-  dbecl_episeg_point(dbecl_episeg_sptr = NULL, double = 0.0);
+  becld_episeg_point(becld_episeg_sptr = NULL, double = 0.0);
   //: Convert to pair
-  vcl_pair<dbecl_episeg_sptr,double> to_pair() const;
+  vcl_pair<becld_episeg_sptr,double> to_pair() const;
   //: Set the point
-  void set_point(dbecl_episeg_sptr&, double);
+  void set_point(becld_episeg_sptr&, double);
   //: Get the curve
-  dbecl_episeg_sptr episeg() const;
+  becld_episeg_sptr episeg() const;
   //: Get the index
   double index() const;
 
@@ -32,9 +32,9 @@ public:
   
 protected:
   //: The curve
-  dbecl_episeg_sptr _episeg;
+  becld_episeg_sptr _episeg;
   //: The index
   double _index;
 };
 
-#endif // dbecl_episeg_point_h_
+#endif // becld_episeg_point_h_

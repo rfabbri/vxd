@@ -1,17 +1,17 @@
-// This is brcv/mvg/dbecl/dbecl_episeg.cxx
+// This is brcv/mvg/becld/becld_episeg.cxx
 //:
 // \file
 
 #include <vcl_cmath.h>
 #include <vcl_algorithm.h>
 #include <vcl_limits.h>
-#include "dbecl_episeg.h"
+#include "becld_episeg.h"
 #include <vsol/vsol_digital_curve_2d.h>
 #include <vgl/vgl_vector_2d.h>
 #include <vgl/vgl_distance.h>
 
 //: Default Constructor 
-dbecl_episeg::dbecl_episeg() :
+becld_episeg::becld_episeg() :
   epipole_(NULL),
   curve_(NULL),
   next_seg_(NULL),
@@ -25,7 +25,7 @@ dbecl_episeg::dbecl_episeg() :
 
 
 //: Constructor takes an epipole and a 2D digital curve
-dbecl_episeg::dbecl_episeg( const dbecl_epipole_sptr& epipole,
+becld_episeg::becld_episeg( const becld_epipole_sptr& epipole,
                           const vsol_digital_curve_2d_sptr& curve,
                           double min_index, double max_index) :
   epipole_(epipole),
@@ -44,7 +44,7 @@ dbecl_episeg::dbecl_episeg( const dbecl_epipole_sptr& epipole,
 
 
 //: Destructor cleans up next and previous pointers
-dbecl_episeg::~dbecl_episeg()  {
+becld_episeg::~becld_episeg()  {
   if(next_seg_ != NULL) {
     // The next one's "previous" field should be pointing to me.
     // Make sure first, then update it.
@@ -60,13 +60,13 @@ dbecl_episeg::~dbecl_episeg()  {
 
 
 //: Epipolar distance
-double dbecl_episeg::dist(double theta)  const {
+double becld_episeg::dist(double theta)  const {
   return epipole_->distance(this->point(theta));
 }
 
 
 //: Index of the point at the given angle
-double dbecl_episeg::index(double theta)  const
+double becld_episeg::index(double theta)  const
 {
   // Make sure that theta is actually in range
   assert(theta >= this->min_angle());
@@ -92,7 +92,7 @@ double dbecl_episeg::index(double theta)  const
 
 //: Binary search to find the index
 int
-dbecl_episeg::index_search(double theta, int lower, int upper) const
+becld_episeg::index_search(double theta, int lower, int upper) const
 {
   assert( upper > lower );
   int mid = (upper-lower)/2 + lower;
@@ -107,12 +107,12 @@ dbecl_episeg::index_search(double theta, int lower, int upper) const
 
 
 //: The point (possibly interpolated) at the given angle
-vgl_point_2d<double> dbecl_episeg::point(double theta)  const {
+vgl_point_2d<double> becld_episeg::point(double theta)  const {
   return curve_->interp( index(theta) );
 }
 
 //: Get the angle of the point at the given index on the real curve
-double dbecl_episeg::angle(double idx) const {
+double becld_episeg::angle(double idx) const {
   assert( epipole_ );
   assert( curve_ );
   assert( idx >= min_index_ );
@@ -121,28 +121,28 @@ double dbecl_episeg::angle(double idx) const {
 }
 
 // BOUNDS
-double dbecl_episeg::min_angle()  const {
+double becld_episeg::min_angle()  const {
   return dir_positive_ ? angle(min_index_) : angle(max_index_); 
 }
-double dbecl_episeg::max_angle()  const {
+double becld_episeg::max_angle()  const {
   return dir_positive_ ? angle(max_index_) : angle(min_index_);
 }
-double dbecl_episeg::min_dist()  const {
+double becld_episeg::min_dist()  const {
   return min_dist_;
 }
-double dbecl_episeg::max_dist()  const {
+double becld_episeg::max_dist()  const {
   return max_dist_;
 }
-double dbecl_episeg::min_index()  const {
+double becld_episeg::min_index()  const {
   return min_index_;
 }
-double dbecl_episeg::max_index()  const {
+double becld_episeg::max_index()  const {
   return max_index_;
 }
 
 
 //: Compute the bounds on distance
-void dbecl_episeg::compute_bounds() 
+void becld_episeg::compute_bounds() 
 {
   min_dist_ = vcl_numeric_limits<double>::infinity();
   max_dist_ = -vcl_numeric_limits<double>::infinity();

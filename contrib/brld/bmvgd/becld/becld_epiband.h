@@ -1,6 +1,6 @@
-// This is dbecl_epiband.h
-#ifndef dbecl_epiband_h
-#define dbecl_epiband_h
+// This is becld_epiband.h
+#ifndef becld_epiband_h
+#define becld_epiband_h
 //:
 //\file
 //\brief Epipolar error search region for matching
@@ -14,7 +14,7 @@
 #include <vgl/vgl_box_2d.h>
 #include <vgl/vgl_area.h>
 
-class dbecl_epipole;
+class becld_epipole;
 
 //: Represents epipolar search region as a 2D cone (sector) of epipolar lines
 // around the predicted epipolar line.  The width of the cone can be thought of as reflecting the
@@ -22,7 +22,7 @@ class dbecl_epipole;
 // supports efficient computation of the epipolar band, as well as its intersection with other
 // epipolar bands, determining an optimal region for correspondence search. 
 //
-// \seealso dbecl_epiband_iterator for a class that can traverse integer coordinates
+// \seealso becld_epiband_iterator for a class that can traverse integer coordinates
 // corresponding to the epipolar band, allowing for efficient search of image features along the
 // epipolar band.
 //
@@ -41,14 +41,14 @@ class dbecl_epipole;
 // 
 // \sealso notes at /vision/projects/kimia/multiview/rfabbri/doc/epipolar-constraint-coding.tex
 //
-class dbecl_epiband {
+class becld_epiband {
 public:
 
   //: example of bounding box: xmin = ymin = 0; xmax = ncols-1;  ymax = nrows-1 of an image
-  dbecl_epiband (const vgl_box_2d<double> &b) : box_(b) {}
+  becld_epiband (const vgl_box_2d<double> &b) : box_(b) {}
 
   //: Copy constructor
-  dbecl_epiband (dbecl_epiband const & b)
+  becld_epiband (becld_epiband const & b)
     :
       poly_(b.poly_),
       box_(b.box_),
@@ -60,7 +60,7 @@ public:
   compute(const vgl_point_2d<double> &p, const vpgl_fundamental_matrix<double> &fm, double err_pos);
 
   double 
-  compute(const dbecl_epiband &eb_a, const vpgl_fundamental_matrix<double> &fm_ab, double err_pos);
+  compute(const becld_epiband &eb_a, const vpgl_fundamental_matrix<double> &fm_ab, double err_pos);
 
   vgl_box_2d<double> window() const { return box_; }
 
@@ -68,13 +68,13 @@ public:
 
   double distance(const vgl_point_2d<double> &p) const;
 
-  bool intersect( const dbecl_epiband &a, const dbecl_epiband &b);
+  bool intersect( const becld_epiband &a, const becld_epiband &b);
 
   double get_err_theta(double err_pos, vgl_homg_line_2d<double> &l_minus, vgl_homg_line_2d<double> &l_plus);
 
   double err_pos() const {return err_pos_;}
 
-  friend class dbecl_epiband_iterator;
+  friend class becld_epiband_iterator;
   
   //: Implementation-dependent: 
   const vgl_polygon<double> &polygon() const { return poly_; }
@@ -85,7 +85,7 @@ public:
 
   static void get_bounds(
      const vgl_polygon<double> &poly,
-     const dbecl_epipole &ep,
+     const becld_epipole &ep,
      double &theta_plus,
      double &theta_minus,
      double &theta_mean
@@ -97,4 +97,4 @@ protected:
   double err_pos_;
 };
 
-#endif // dbecl_epiband_h
+#endif // becld_epiband_h

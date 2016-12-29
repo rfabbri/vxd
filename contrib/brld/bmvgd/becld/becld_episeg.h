@@ -1,6 +1,6 @@
-// This is brcv/mvg/dbecl/dbecl_episeg.h
-#ifndef dbecl_episeg_h_
-#define dbecl_episeg_h_
+// This is brcv/mvg/becld/becld_episeg.h
+#ifndef becld_episeg_h_
+#define becld_episeg_h_
 //:
 // \file
 // \brief A segment of a 2D curve with added epipolar parameterization
@@ -15,9 +15,9 @@
 #include <vbl/vbl_ref_count.h>
 #include <vgl/vgl_point_2d.h>
 #include <vsol/vsol_digital_curve_2d_sptr.h>
-#include "dbecl_epipole.h"
-#include "dbecl_epipole_sptr.h"
-#include "dbecl_episeg_sptr.h"
+#include "becld_epipole.h"
+#include "becld_epipole_sptr.h"
+#include "becld_episeg_sptr.h"
 
 
 //: A segment of a 2D curve with added epipolar parameterization
@@ -25,19 +25,19 @@
 // epipolar parameterization is monotonic in epipolar angle
 // over that section.  Each segment is also a link in a doubly-linked
 // list covering the underlying curve.
-class dbecl_episeg : public vbl_ref_count
+class becld_episeg : public vbl_ref_count
 {
  public:
-  friend class dbecl_episeg_from_curve_converter;
+  friend class becld_episeg_from_curve_converter;
 
   //: Constructor
-  dbecl_episeg();
-  dbecl_episeg(const dbecl_epipole_sptr& epipole,
+  becld_episeg();
+  becld_episeg(const becld_epipole_sptr& epipole,
               const vsol_digital_curve_2d_sptr& curve,
               double min_index,
               double max_index);
   //: Destructor
-  ~dbecl_episeg();
+  ~becld_episeg();
 
   //: Return the epipolar distance at the given angle 
   double dist(double angle) const;
@@ -50,7 +50,7 @@ class dbecl_episeg : public vbl_ref_count
   double angle(double index) const;
   
   //: Return the epipole
-  dbecl_epipole_sptr epipole() const { return epipole_; }
+  becld_epipole_sptr epipole() const { return epipole_; }
   //: Get the curve
   vsol_digital_curve_2d_sptr curve() const { return curve_; }
   //: Lower angle bound
@@ -67,21 +67,21 @@ class dbecl_episeg : public vbl_ref_count
   double max_index() const;
 
   //: Return a smart pointer to the next episeg along the curve
-  dbecl_episeg_sptr next() const { return next_seg_; }
+  becld_episeg_sptr next() const { return next_seg_; }
   //: Return a smart pointer to the previous episeg along the curve
-  dbecl_episeg_sptr prev() const { return prev_seg_; }
+  becld_episeg_sptr prev() const { return prev_seg_; }
 
  private:
   //: Indicates that angle increases with curve index
   bool dir_positive_;
   //: The epipole 
-  dbecl_epipole_sptr epipole_;
+  becld_epipole_sptr epipole_;
   //: Pointer to the curve
   vsol_digital_curve_2d_sptr curve_;
   //: Pointer to the next segment in the linked list
-  dbecl_episeg* next_seg_;
+  becld_episeg* next_seg_;
   //: Pointer to the previous segment in the linked list
-  dbecl_episeg* prev_seg_;
+  becld_episeg* prev_seg_;
   //: Lower distance bound
   double min_dist_;
   //: Upper distance bound
@@ -97,4 +97,4 @@ class dbecl_episeg : public vbl_ref_count
   int index_search(double angle, int lower, int upper) const;
 };
 
-#endif // dbecl_episeg_h_
+#endif // becld_episeg_h_

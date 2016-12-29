@@ -1,6 +1,6 @@
-// This is dbecl_epiband_iterator.h
-#ifndef dbecl_epiband_iterator_h
-#define dbecl_epiband_iterator_h
+// This is becld_epiband_iterator.h
+#ifndef becld_epiband_iterator_h
+#define becld_epiband_iterator_h
 //:
 //\file
 //\brief Iterator to go over all integer coordinates of an epipolar band
@@ -18,7 +18,7 @@
 #include <vcl_cmath.h>
 
 
-struct dbecl_grid_cover_window {
+struct becld_grid_cover_window {
   enum pixel_state {
     in_stack,
     unvisited,
@@ -36,7 +36,7 @@ struct dbecl_grid_cover_window {
   // If you want to cover all integer positions at a certain distance from the polygon,
   // we restrict cover_iterator to a window computed this from the polygon's bbox plus a distance
   // from it.
-  dbecl_grid_cover_window(const vgl_box_2d<double> &bbox, double dmax=1.5) 
+  becld_grid_cover_window(const vgl_box_2d<double> &bbox, double dmax=1.5) 
     :
     win_((int)vcl_floor(bbox.min_x() - dmax), (int)vcl_ceil(bbox.max_x() + dmax), (int)vcl_floor(bbox.min_y() - dmax), (int)vcl_ceil(bbox.max_y() + dmax)),
     label_buf_(win_.max_x() - win_.min_x()+1,win_.max_y() - win_.min_y()+1)
@@ -45,7 +45,7 @@ struct dbecl_grid_cover_window {
   }
 
   //: Convenience, based on computing bbox of the polygon
-  inline dbecl_grid_cover_window(const vgl_polygon<double> &poly, double dmax=1.5);
+  inline becld_grid_cover_window(const vgl_polygon<double> &poly, double dmax=1.5);
 
   pixel_state label(vgl_point_2d<int> &p) const 
   { 
@@ -69,8 +69,8 @@ public:
   vil_image_view<int> label_buf_;
 };
 
-inline dbecl_grid_cover_window::
-dbecl_grid_cover_window(const vgl_polygon<double> &poly, double dmax)
+inline becld_grid_cover_window::
+becld_grid_cover_window(const vgl_polygon<double> &poly, double dmax)
 {
     if (poly.num_sheets() && poly[0].size())  {
       double min_x = poly[0][0].x();
@@ -104,16 +104,16 @@ dbecl_grid_cover_window(const vgl_polygon<double> &poly, double dmax)
 // \todo support for multiple sheets. We currently support any non-simple
 // polygon with one sheet.
 //\remarks more info in my notes of oct 5 '06
-class dbecl_polygon_grid_cover_iterator {
+class becld_polygon_grid_cover_iterator {
 public:
 
-  dbecl_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, dbecl_grid_cover_window &win, double dmax=1.5);
+  becld_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, becld_grid_cover_window &win, double dmax=1.5);
 
   //: Construct with a polygon, option indicating boundary condition and window (area visible)
-//  dbecl_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, dbecl_rasterization_type opt,
+//  becld_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, becld_rasterization_type opt,
 //    vgl_box_2d<double> const &window);
 
-//  ~dbecl_polygon_grid_cover_iterator() {};
+//  ~becld_polygon_grid_cover_iterator() {};
 
   unsigned count();
   void reset();
@@ -131,20 +131,20 @@ private:
   vcl_stack<vgl_point_2d<int> > stk_;
   vcl_stack<vgl_point_2d<int> > visited_pixels_;
   vgl_point_2d<int> p_; //:< current point
-  dbecl_grid_cover_window &win_;
+  becld_grid_cover_window &win_;
   double dmax_;
 };
 
 
 
 
-class dbecl_epiband;
+class becld_epiband;
 //: 
-// \remarks This iterator becomes invalid once the original dbecl_epiband object is destroyed.
-class dbecl_epiband_iterator : public dbecl_polygon_grid_cover_iterator {
+// \remarks This iterator becomes invalid once the original becld_epiband object is destroyed.
+class becld_epiband_iterator : public becld_polygon_grid_cover_iterator {
 public:
 
-  dbecl_epiband_iterator( const dbecl_epiband &band , dbecl_grid_cover_window &win, double dmax=1.5);
+  becld_epiband_iterator( const becld_epiband &band , becld_grid_cover_window &win, double dmax=1.5);
 };
 
 
@@ -155,17 +155,17 @@ public:
 // \todo support for multiple sheets. We currently support any non-simple
 // polygon with one sheet.
 //\remarks more info in my notes of oct 5 '06
-class dbecl_slow_polygon_grid_cover_iterator {
+class becld_slow_polygon_grid_cover_iterator {
 public:
 
   //: Construct with a polygon and option indicating boundary condition.
-  dbecl_slow_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, double dmax=1.5);
+  becld_slow_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, double dmax=1.5);
   
   //: Construct with a polygon, option indicating boundary condition and window (area visible)
-//  dbecl_slow_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, dbecl_rasterization_type opt,
+//  becld_slow_polygon_grid_cover_iterator( vgl_polygon<double> const &poly, becld_rasterization_type opt,
 //    vgl_box_2d<double> const &window);
 
-//  ~dbecl_slow_polygon_grid_cover_iterator() {};
+//  ~becld_slow_polygon_grid_cover_iterator() {};
 
   unsigned count();
   void reset();
@@ -217,15 +217,15 @@ private:
 
 
 
-class dbecl_epiband;
+class becld_epiband;
 //: 
-// \remarks This iterator becomes invalid once the original dbecl_epiband object is destroyed.
-class dbecl_slow_epipolar_band_iterator : public dbecl_slow_polygon_grid_cover_iterator {
+// \remarks This iterator becomes invalid once the original becld_epiband object is destroyed.
+class becld_slow_epipolar_band_iterator : public becld_slow_polygon_grid_cover_iterator {
 public:
 
   //: Construct with a polygon and option indicating boundary condition.
-  dbecl_slow_epipolar_band_iterator( const dbecl_epiband &band , double dmax=1.5);
+  becld_slow_epipolar_band_iterator( const becld_epiband &band , double dmax=1.5);
 };
 
-#endif // dbecl_epiband_iterator_h
+#endif // becld_epiband_iterator_h
 

@@ -1,9 +1,9 @@
-// This is brcv/mvg/dbecl/vis/dbecl_episeg_tools.cxx 
+// This is brcv/mvg/becld/vis/becld_episeg_tools.cxx 
 //:
 // \file
 
-#include "dbecl_episeg_tools.h"
-#include "dbecl_episeg_soview2D.h"
+#include "becld_episeg_tools.h"
+#include "becld_episeg_soview2D.h"
 #include <bvis1/bvis1_manager.h>
 #include <bvis1/bvis1_view_tableau.h>
 #include <vgui/vgui.h> 
@@ -11,15 +11,15 @@
 #include <vgui/vgui_projection_inspector.h>
 #include <vgui/vgui_displaylist2D_tableau.h>
 #include <vgui/internals/vgui_draw_line.h>
-#include <dbecl/pro/dbecl_episeg_storage.h> 
-#include <dbecl/dbecl_episeg.h>
+#include <becld/pro/becld_episeg_storage.h> 
+#include <becld/becld_episeg.h>
 #include <vgl/vgl_line_2d.h>
 
 //------------------------------------
 
 
 //: Constructor - protected
-dbecl_episeg_tool::dbecl_episeg_tool()
+becld_episeg_tool::becld_episeg_tool()
  :  tableau_(NULL), storage_(NULL)
 {
 }
@@ -27,7 +27,7 @@ dbecl_episeg_tool::dbecl_episeg_tool()
 
 //: Set the tableau to work with
 bool
-dbecl_episeg_tool::set_tableau ( const vgui_tableau_sptr& tableau )
+becld_episeg_tool::set_tableau ( const vgui_tableau_sptr& tableau )
 {
   if( !this->set_storage(bvis1_manager::instance()->storage_from_tableau(tableau)) )
     return false;
@@ -42,7 +42,7 @@ dbecl_episeg_tool::set_tableau ( const vgui_tableau_sptr& tableau )
 
 //: Set the storage class for the active tableau
 bool
-dbecl_episeg_tool::set_storage ( const bpro1_storage_sptr& storage )
+becld_episeg_tool::set_storage ( const bpro1_storage_sptr& storage )
 {
   if (!storage.ptr())
     return false;
@@ -54,11 +54,11 @@ dbecl_episeg_tool::set_storage ( const bpro1_storage_sptr& storage )
   return false;
 }
 
-//----------------------dbecl_episeg_inspector_tool---------------------------
+//----------------------becld_episeg_inspector_tool---------------------------
 
 
 //: Constructor
-dbecl_episeg_inspector_tool::dbecl_episeg_inspector_tool()
+becld_episeg_inspector_tool::becld_episeg_inspector_tool()
  : draw_bounds_(true), draw_neighbors_(true), draw_epipolar_line_(true), 
    print_stats_(true), epipole_(NULL),
    object_(NULL), last_x_(0.0), last_y_(0.0)
@@ -67,14 +67,14 @@ dbecl_episeg_inspector_tool::dbecl_episeg_inspector_tool()
 
 
 //: Destructor
-dbecl_episeg_inspector_tool::~dbecl_episeg_inspector_tool()
+becld_episeg_inspector_tool::~becld_episeg_inspector_tool()
 {
 }
 
 
 //: Return the name of this tool
 vcl_string
-dbecl_episeg_inspector_tool::name() const
+becld_episeg_inspector_tool::name() const
 {
   return "Epi-Segment Inspector"; 
 }
@@ -82,20 +82,20 @@ dbecl_episeg_inspector_tool::name() const
 
 //: Print stats about the node 
 void 
-dbecl_episeg_inspector_tool::print_stats(const dbecl_episeg_sptr seg) const
+becld_episeg_inspector_tool::print_stats(const becld_episeg_sptr seg) const
 {
   vcl_cout << "Min Angle = " << seg->min_angle() << vcl_endl;
   vcl_cout << "Max Angle = " << seg->max_angle() << vcl_endl;
 }
 
 
-static void draw_bounds(const dbecl_episeg_sptr& episeg)
+static void draw_bounds(const becld_episeg_sptr& episeg)
 {
   double min_a = episeg->min_angle();
   double max_a = episeg->max_angle();
   double min_s = episeg->min_dist();
   double max_s = episeg->max_dist();
-  dbecl_epipole_sptr ep = episeg->epipole();
+  becld_epipole_sptr ep = episeg->epipole();
 
   double x,y;
 
@@ -136,7 +136,7 @@ static void draw_bounds(const dbecl_episeg_sptr& episeg)
 
 //: Handle events
 bool
-dbecl_episeg_inspector_tool::handle( const vgui_event & e, 
+becld_episeg_inspector_tool::handle( const vgui_event & e, 
                                   const bvis1_view_tableau_sptr& view )
 {
   if( !tableau_.ptr() )
@@ -151,15 +151,15 @@ dbecl_episeg_inspector_tool::handle( const vgui_event & e,
   // Draw neighbors as overlays
   if( e.type == vgui_DRAW_OVERLAY){
     if(object_){
-      dbecl_episeg_sptr episeg = object_->episeg();
+      becld_episeg_sptr episeg = object_->episeg();
       if(draw_bounds_)
         draw_bounds(episeg);
       if(draw_neighbors_){
         vgui_style::new_style(1.0f, 0.5f, 1.0f, 1.0f, 2.0f)->apply_all();
         if(episeg->next())
-          dbecl_episeg_soview2D(episeg->next()).draw();
+          becld_episeg_soview2D(episeg->next()).draw();
         if(episeg->prev())
-          dbecl_episeg_soview2D(episeg->prev()).draw();
+          becld_episeg_soview2D(episeg->prev()).draw();
       }
     }
      
@@ -205,7 +205,7 @@ dbecl_episeg_inspector_tool::handle( const vgui_event & e,
     
     vgui_soview2D* curr_obj =  (vgui_soview2D*)tableau_->get_highlighted_soview();
     if( curr_obj != object_ ){ 
-      object_ = (dbecl_episeg_soview2D*)curr_obj;
+      object_ = (becld_episeg_soview2D*)curr_obj;
       if(object_)
         epipole_ = object_->episeg()->epipole();
       tableau_->post_overlay_redraw();
@@ -230,7 +230,7 @@ dbecl_episeg_inspector_tool::handle( const vgui_event & e,
 
 //: Add popup menu items
 void 
-dbecl_episeg_inspector_tool::get_popup( const vgui_popup_params& /*params*/, 
+becld_episeg_inspector_tool::get_popup( const vgui_popup_params& /*params*/, 
                                      vgui_menu &menu )
 {
   vcl_string on = "[x] ", off = "[ ] ";

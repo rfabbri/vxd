@@ -1,6 +1,6 @@
 #include <testlib/testlib_test.h>
-#include <dbecl/dbecl_epipole.h>
-#include <dbecl/dbecl_epipole_sptr.h>
+#include <becld/becld_epipole.h>
+#include <becld/becld_epipole_sptr.h>
 #include <vnl/vnl_math.h>
 #include <vcl_iostream.h>
 
@@ -15,7 +15,7 @@ MAIN( test_epipole )
   START ("epipole");
 
   // make an epipole
-  dbecl_epipole_sptr epipole = new dbecl_epipole(-10.0,20.0);
+  becld_epipole_sptr epipole = new becld_epipole(-10.0,20.0);
   vcl_cout << "Epipole at (-10.0, 20.0)" << vcl_endl;
   
 

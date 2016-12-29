@@ -1,11 +1,11 @@
-// This is brcv/mvg/dbecl/vis/dbecl_episeg_displayer.h
-#ifndef dbecl_episeg_displayer_h_
-#define dbecl_episeg_displayer_h_
+// This is brcv/mvg/becld/vis/becld_episeg_displayer.h
+#ifndef becld_episeg_displayer_h_
+#define becld_episeg_displayer_h_
 
 //:
 // \file
 // \brief This file defines the displayer class that is responsible
-//        for generating a tableau out of dbecl_episeg_storage_sptr.
+//        for generating a tableau out of becld_episeg_storage_sptr.
 // \author Based on original code by  Matt Leotta (@lems.brown.edu)
 // \date 11/8/04 
 //
@@ -21,11 +21,11 @@
 
 #include <vgui/vgui_style.h>
 
-class dbecl_episeg_displayer : public bvis1_displayer {
+class becld_episeg_displayer : public bvis1_displayer {
 
 public:
   // Constructor
-  dbecl_episeg_displayer();
+  becld_episeg_displayer();
 
   //: Return type string "episeg"
   virtual vcl_string type() const { return "episeg"; }
@@ -38,4 +38,4 @@ public:
 
 };
 
-#endif // dbecl_episeg_displayer_h_
+#endif // becld_episeg_displayer_h_
