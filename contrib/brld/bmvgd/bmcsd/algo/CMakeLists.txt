@@ -6,7 +6,7 @@ set(bmcsd_algo_sources
 
 add_library(bmcsd_algo ${bmcsd_algo_sources})
 
-target_link_libraries(bmcsd_algo bmcsd)
+target_link_libraries(bmcsd_algo bmcsd vpgld_algo becld bdifd)
 
 # if( BUILD_TESTING )
 #   add_subdirectory(tests)

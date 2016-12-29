@@ -211,10 +211,10 @@ nonlinearly_optimize_reconstruction(
   vcl_cout << "  Reconstructing optimized.\n";
   assert(pt_img.size() > 1);
   assert(other_views.size() > 0);
-  vpgl_ray_intersect isect(other_views.size()+1);
+  vpgl_ray_intersect<double> isect(other_views.size()+1);
 
   vcl_vector<vgl_point_2d<double> > pts;
-  vcl_vector<vpgl_camera<double> * > projs;
+  vcl_vector<vpgl_camera<double> const * > projs;
 
   pts.push_back(pt_img[0]->get_p());
   projs.push_back(new vpgl_perspective_camera <double> (cam_[v0()].Pr_) );
