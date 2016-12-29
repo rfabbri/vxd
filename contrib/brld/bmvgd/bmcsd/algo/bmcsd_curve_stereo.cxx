@@ -18,7 +18,6 @@
 #include <becld/becld_episeg.h>
 #include <becld/becld_epipole.h>
 #include <becld/becld_episeg_from_curve_converter.h>
-
 #include <becld/becld_epiline_interceptor.h>
 
 
