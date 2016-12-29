@@ -8,7 +8,7 @@
 //\date 06/22/2009 05:30:17 PM EDT
 //
 
-#include <mw/algo/bmcsd_curve_stereo.h>
+#include <bmcsd/algo/bmcsd_curve_stereo.h>
 
 //: Matches curve fragments using costs based on the distance transform and
 // closest feature map (label map) of the edge map at each image. This class

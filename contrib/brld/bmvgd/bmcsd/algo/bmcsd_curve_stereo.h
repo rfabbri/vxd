@@ -12,7 +12,6 @@
 #include <bbld/bbld_subsequence.h>
 #include <bdifd/bdifd_rig.h>
 
-#include <mw/mw_util.h>
 #include <mw/becld_intersection_sets.h>
 
 #define MW_INVALID_CURVE_ID ((unsigned)-1)

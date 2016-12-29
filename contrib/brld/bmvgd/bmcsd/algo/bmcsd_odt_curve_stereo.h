@@ -12,7 +12,7 @@
 #include <dbdet/pro/dbdet_sel_storage_sptr.h>
 #include <bdifd/bdifd_frenet.h>
 #include <dbcsi/dbcsi_curve_distance.h>
-#include <mw/algo/bmcsd_dt_curve_stereo.h>
+#include <bmcsd/algo/bmcsd_dt_curve_stereo.h>
 #include <mw/bmcsd_curve_3d_attributes.h>
 
 
