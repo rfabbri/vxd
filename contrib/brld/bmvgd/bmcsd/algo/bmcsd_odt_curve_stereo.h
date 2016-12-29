@@ -8,12 +8,12 @@
 //\date 06/22/2009 05:30:17 PM EDT
 //
 
+#include <bdifd/bdifd_frenet.h>
 #include <dbdet/edge/dbdet_edgemap_sptr.h>
 #include <dbdet/pro/dbdet_sel_storage_sptr.h>
-#include <bdifd/bdifd_frenet.h>
 #include <dbcsi/dbcsi_curve_distance.h>
 #include <bmcsd/algo/bmcsd_dt_curve_stereo.h>
-#include <mw/bmcsd_curve_3d_attributes.h>
+#include <bmcsd/bmcsd_curve_3d_attributes.h>
 
 
 //: Matches curve fragments using costs based on the distance transform and
