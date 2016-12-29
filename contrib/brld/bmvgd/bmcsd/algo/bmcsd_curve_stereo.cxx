@@ -12,8 +12,7 @@
 #include <vsol/vsol_box_2d.h>
 
 #include <vpgl/algo/vpgl_ray_intersect.h>
-#include <brct/brct_algos.h>
-#include <dvpgl/algo/dvpgl_triangulation.h>
+#include <vpgld/algo/vpgld_triangulation.h>
 
 #include <becld/becld_episeg_sptr.h>
 #include <becld/becld_episeg.h>
@@ -198,7 +197,7 @@ linearly_reconstruct_pts(
     pts.push_back(vnl_double_2(pt_img[v+1]->x(), pt_img[v+1]->y()));
     projs.push_back(cam_[other_views[v]].Pr_.get_matrix());
   }
-  *pt_3D = brct_algos::bundle_reconstruct_3d_point(pts, projs);
+  *pt_3D = reconstruct_3d_points_nviews_linear(pts, projs);
 }
 
 void bmcsd_curve_stereo::
