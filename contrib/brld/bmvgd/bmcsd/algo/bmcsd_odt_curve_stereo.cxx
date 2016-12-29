@@ -10,7 +10,7 @@
 
 #include <becld/becld_epiline_interceptor.h>
 #include <mw/mw_discrete_corresp.h>
-#include <mw/algo/mw_algo_util.h>
+#include <bmcsd/algo/mw_algo_util.h>
 #include <mw/algo/mw_discrete_corresp_algo.h>
 
 bmcsd_odt_curve_stereo::
@@ -134,7 +134,7 @@ match_using_orientation_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_pt
       project_curve_1st_order(v, curve_3d, &reprojected_curve);
       assert (reprojected_curve.size() == curve_3d.size());
 
-      mw_util::clip_to_img_bounds(dt(v), &reprojected_curve);
+      bmcsd_util::clip_to_img_bounds(dt(v), &reprojected_curve);
 
       // translate reproj. curve into edgel sequence
       dbcsi_edgel_seq reproj_edgels;
@@ -162,7 +162,7 @@ match_using_orientation_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_pt
   }
 
   assert(!votes.empty());
-  mw_util::max(votes, *i_best);
+  bmcsd_util::max(votes, *i_best);
 
 #ifdef MW_VERBOSE_DEBUG
   vcl_cout << "Best curve has index " << *i_best << 
@@ -184,7 +184,7 @@ match_using_orientation_dt_extras(unsigned *i_best, vcl_vector<unsigned long> *v
   if (!match_using_orientation_dt_extras(votes_ptr))
     return false;
 
-  mw_util::max(*votes_ptr, *i_best);
+  bmcsd_util::max(*votes_ptr, *i_best);
 
 #ifdef MW_VERBOSE_DEBUG
   vcl_cout << "Best curve has index " << *i_best << 
@@ -240,7 +240,7 @@ match_using_orientation_dt_extras(vcl_vector<unsigned long> *votes_ptr)
       project_curve_1st_order(v, curve_3d, &reprojected_curve);
       assert (reprojected_curve.size() == curve_3d.size());
 
-      mw_util::clip_to_img_bounds(dt(v), &reprojected_curve);
+      bmcsd_util::clip_to_img_bounds(dt(v), &reprojected_curve);
 
       // translate reproj. curve into edgel sequence
       dbcsi_edgel_seq reproj_edgels;

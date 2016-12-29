@@ -259,12 +259,12 @@ get_reconstructions(
   vgl_point_3d<double> pt_3D_vgl, pt_3D_linear_vgl;
 
   linearly_reconstruct_pts(pt_img, other_views, &pt_3D_linear_vgl);
-  *pt_3D_linear = mw_util::vgl_to_vnl(pt_3D_linear_vgl);
+  *pt_3D_linear = bmcsd_util::vgl_to_vnl(pt_3D_linear_vgl);
 
   nonlinearly_optimize_reconstruction(
       pt_img, other_views, pt_3D_linear_vgl, &pt_3D_vgl);
 
-  *pt_3D = mw_util::vgl_to_vnl(pt_3D_vgl);
+  *pt_3D = bmcsd_util::vgl_to_vnl(pt_3D_vgl);
 }
 
 void bmcsd_curve_stereo::
@@ -301,7 +301,7 @@ reconstruct_curve_point_kanatani(
   pt_3D_vgl = triangulate_3d_point_optimal_kanatani_fast(
       p_0, p_v, cam_[v0()].Pr_, cam_[v].Pr_);
 
-  *pt_3D = mw_util::vgl_to_vnl(pt_3D_vgl);
+  *pt_3D = bmcsd_util::vgl_to_vnl(pt_3D_vgl);
 }
 
 void bmcsd_curve_stereo::
@@ -409,7 +409,7 @@ reconstruct_one_candidate(
     pt_3D_vgl = triangulate_3d_point_optimal_kanatani_fast(
         pt_img1->get_p(), pt_img2->get_p(), rig.cam[v0()].Pr_, rig.cam[v1()].Pr_);
 
-    crv3d[i] = mw_util::vgl_to_vnl(pt_3D_vgl);
+    crv3d[i] = bmcsd_util::vgl_to_vnl(pt_3D_vgl);
     // --------------------
   }
 }
@@ -559,7 +559,7 @@ void bmcsd_curve_stereo::
 update_endpoint(unsigned end_id)
 {
   pn_id_ = end_id;
-  subcurve_ = mw_util::get_subcurve(selected_crv(v0()), p0_id_, pn_id_);
+  subcurve_ = bmcsd_util::get_subcurve(selected_crv(v0()), p0_id_, pn_id_);
 
   const vsol_point_2d &pt = *selected_crv(v0())->vertex(pn_id_);
 
@@ -579,7 +579,7 @@ swap_endpoints()
   id_aux = p0_id_;
   p0_id_ = pn_id_;
   pn_id_ = id_aux;
-  subcurve_ = mw_util::reverse_order(subcurve_);
+  subcurve_ = bmcsd_util::reverse_order(subcurve_);
 
   for (unsigned i=0; i+1 < nviews(); ++i) {
     vgl_homg_line_2d<double> ep_tmp;
@@ -726,10 +726,10 @@ break_into_episegs_and_replace_curve(vcl_vector<bbld_subsequence_set> *pcurves_s
   for (unsigned i=0; i < num_curve_sets; ++i) {
     assert(ss_break[i].num_subsequences() == curves[i].size());
     if (prune_by_length_)
-      mw_util::prune_curves_by_length(tau_min_length_per_curve_frag_, 
+      bmcsd_util::prune_curves_by_length(tau_min_length_per_curve_frag_, 
           &curves[i], &curves_ss[i]);
     else
-      mw_util::prune_curves(tau_min_samples_per_curve_frag_, 
+      bmcsd_util::prune_curves(tau_min_samples_per_curve_frag_, 
           &curves[i], &curves_ss[i]);
     compose_subsequences(ss_break[i], &curves_ss[i]);
   }

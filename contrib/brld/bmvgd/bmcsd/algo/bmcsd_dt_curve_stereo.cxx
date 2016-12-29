@@ -81,7 +81,7 @@ match_using_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_ptr)
 
       project_curve(v, curve_3d, &reprojected_curve);
 
-      mw_util::clip_to_img_bounds(dt_[v], &reprojected_curve);
+      bmcsd_util::clip_to_img_bounds(dt_[v], &reprojected_curve);
 
       // Compute match cost
 
@@ -97,7 +97,7 @@ match_using_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_ptr)
   }
   set_selected_crv(1, original_selected_crv);
 
-  mw_util::max(votes, *i_best);
+  bmcsd_util::max(votes, *i_best);
 
   vcl_cout << "Best curve has index " << *i_best << 
     " among candidates, with #votes = " << votes[*i_best] << vcl_endl;
