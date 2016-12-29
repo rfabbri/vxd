@@ -19,7 +19,6 @@
 // Optimal 2-view triangulation by Kanatani and students, BMVC08. The difference to the conventional
 // svd approach is more significant for cameras in projective reconstructions, as well as in cases
 // where one camera is closer to the 3D point than the other.
-
 vgl_point_3d<double>
 triangulate_3d_point_optimal_kanatani_fast(
     const vgl_point_2d<double> &pt_img0,
@@ -36,6 +35,10 @@ triangulate_3d_point_optimal_kanatani(
     const vpgl_proj_camera<double> &cam0,
     const vpgl_proj_camera<double> &cam1);
 
+// Given a set of perspective views of a point reconstruct the point according to least squares (SVD).
+// The cameras for each view are given.
+vgl_point_3d<double> 
+reconstruct_3d_points_nviews_linear(const vcl_vector<vnl_double_2> &pts, const vcl_vector<vnl_double_3x4> &P);
 
 #endif // vpgld_triangulation_h
 

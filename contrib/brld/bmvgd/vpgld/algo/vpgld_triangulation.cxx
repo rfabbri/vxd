@@ -104,3 +104,22 @@ triangulate_3d_point_optimal_kanatani(
       cam0, vgl_point_2d<double>(x1_out[0]/x1_out[2], x1_out[1]/x1_out[2]), 
       cam1, vgl_point_2d<double>(x2_out[0]/x2_out[2], x2_out[1]/x2_out[2]));
 }
+
+// Based on code by Kongbin Kang 2003 (@Brown.edu) from bmvl/brct
+vgl_point_3d<double> 
+reconstruct_3d_points_nviews_linear(const vcl_vector<vnl_double_2> &pts, const vcl_vector<vnl_double_3x4> &P)
+{
+  assert(pts.size() == Ps.size());
+  unsigned int nviews = pts.size();
+
+  vnl_matrix<double> A(2*nviews, 4, 0.0);
+
+  for (unsigned int v = 0; v<nviews; v++)
+    for (unsigned int i=0; i<4; i++) {
+      A[2*v  ][i] = pts[v][0]*Ps[v][2][i] - Ps[v][0][i];
+      A[2*v+1][i] = pts[v][1]*Ps[v][2][i] - Ps[v][1][i];
+    }
+  vnl_svd<double> svd_solver(A);
+  vnl_double_4 p = svd_solver.nullvector();
+  return vgl_homg_point_3d<double>(p[0],p[1],p[2],p[3]);
+}
