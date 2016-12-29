@@ -20,7 +20,7 @@
 #include <becld/becld_epipole.h>
 #include <becld/becld_episeg_from_curve_converter.h>
 
-#include <mw/becld_epiline_interceptor.h>
+#include <becld/becld_epiline_interceptor.h>
 
 
 bmcsd_curve_stereo::

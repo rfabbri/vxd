@@ -8,7 +8,7 @@
 #include <becld/becld_episeg_sptr.h>
 #include <becld/becld_episeg_from_curve_converter.h>
 
-#include <mw/becld_epiline_interceptor.h>
+#include <becld/becld_epiline_interceptor.h>
 #include <mw/mw_discrete_corresp.h>
 #include <mw/algo/mw_algo_util.h>
 #include <mw/algo/mw_discrete_corresp_algo.h>
