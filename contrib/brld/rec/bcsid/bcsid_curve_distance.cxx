@@ -1,11 +1,11 @@
-#include "dbcsi_curve_distance.h"
-#include <dbgl/dbgl_dist.h>
+#include "bcsid_curve_distance.h"
+#include <bgld/bgld_dist.h>
 #include <dbdet/sel/dbdet_edgel.h>
 #include <dbdet/edge/dbdet_edgemap.h>
 
-#include <dbspi/dbspi_curve_distance.h>
+#include <bspid/bspid_curve_distance.h>
 
-unsigned dbcsi_curve_distance::
+unsigned bcsid_curve_distance::
 inlier_curvelets_dt(
     const vsol_digital_curve_2d &crv, double d_threshold, 
     const vil_image_view<vxl_uint_32> &dt,
@@ -16,7 +16,7 @@ inlier_curvelets_dt(
 {
   //: compute inlier edgels
   vcl_set<unsigned> inliers;
-  dbspi_curve_distance::inliers_dt(crv, d_threshold, dt, label, &inliers); 
+  bspid_curve_distance::inliers_dt(crv, d_threshold, dt, label, &inliers); 
 
   // For each inlier edgel
   //      Check that all edgels are also inliers
@@ -70,9 +70,9 @@ inlier_curvelets_dt(
   return inlier_curvelets->size();
 }
 
-unsigned dbcsi_curve_distance::
+unsigned bcsid_curve_distance::
 inlier_curvelets_dt_oriented(
-    const dbcsi_edgel_seq &c, double d_threshold, double dtheta_threshold, 
+    const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold, 
     const vil_image_view<vxl_uint_32> &dt,
     const vil_image_view<vxl_uint_32> &label,
     const dbdet_curvelet_map &cm,
@@ -82,7 +82,7 @@ inlier_curvelets_dt_oriented(
 {
   //: compute inlier edgels
   vcl_set<unsigned> inliers;
-  dbcsi_curve_distance::inliers_dt_oriented(c, d_threshold, dtheta_threshold,
+  bcsid_curve_distance::inliers_dt_oriented(c, d_threshold, dtheta_threshold,
       dt, label, *cm.EM_, &inliers); 
 
   // For each inlier edgel
@@ -145,9 +145,9 @@ inlier_curvelets_dt_oriented(
 }
 
 
-unsigned dbcsi_curve_distance::
+unsigned bcsid_curve_distance::
 inliers_dt_oriented(
-    const dbcsi_edgel_seq &c, double d_threshold, double dtheta_threshold,
+    const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
     const vil_image_view<vxl_uint_32> &dt,
     const vil_image_view<vxl_uint_32> &label,
     const dbdet_edgemap &em,
@@ -158,7 +158,7 @@ inliers_dt_oriented(
   if (dtheta_threshold > vnl_math::pi/2)
     vcl_cerr << "Warning: a threshold of > vnl_math::pi/2 means no threshold.\n";
 #endif
-  for (dbcsi_edgel_seq_const_iter ep = c.begin(); ep != c.end(); ++ep) {
+  for (bcsid_edgel_seq_const_iter ep = c.begin(); ep != c.end(); ++ep) {
     unsigned p_i = static_cast<unsigned>(ep->pt.x()+0.5);
     unsigned p_j = static_cast<unsigned>(ep->pt.y()+0.5);
 
@@ -167,7 +167,7 @@ inliers_dt_oriented(
       const vcl_vector<dbdet_edgel*> &ev = em.edge_cells.begin()[l];
 
       for (unsigned i=0; i < ev.size(); ++i) {
-        double dtheta = dbgl_undirected_angle_distance(ev[i]->tangent, ep->tangent);
+        double dtheta = bgld_undirected_angle_distance(ev[i]->tangent, ep->tangent);
         /*
 #ifndef NDEBUG
         vcl_cout 
@@ -190,9 +190,9 @@ inliers_dt_oriented(
   return inliers->size();
 }
 
-unsigned dbcsi_curve_distance::
+unsigned bcsid_curve_distance::
 num_inliers_dt_oriented(
-    const dbcsi_edgel_seq &c, double d_threshold, double dtheta_threshold,
+    const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
     const vil_image_view<vxl_uint_32> &dt,
     const vil_image_view<vxl_uint_32> &label,
     const dbdet_edgemap &em)
@@ -203,9 +203,9 @@ num_inliers_dt_oriented(
       &inliers);
 }
 
-unsigned dbcsi_curve_distance::
+unsigned bcsid_curve_distance::
 inliers_dt_oriented_all_samples(
-    const dbcsi_edgel_seq &c, double d_threshold, double dtheta_threshold,
+    const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
     const vil_image_view<vxl_uint_32> &dt,
     const vil_image_view<vxl_uint_32> &label,
     const dbdet_edgemap &em,
@@ -216,7 +216,7 @@ inliers_dt_oriented_all_samples(
   if (dtheta_threshold > vnl_math::pi/2)
     vcl_cerr << "Warning: a threshold of > vnl_math::pi/2 means no threshold.\n";
 #endif
-  for (dbcsi_edgel_seq_const_iter ep = c.begin(); ep != c.end(); ++ep) {
+  for (bcsid_edgel_seq_const_iter ep = c.begin(); ep != c.end(); ++ep) {
     unsigned p_i = static_cast<unsigned>(ep->pt.x()+0.5);
     unsigned p_j = static_cast<unsigned>(ep->pt.y()+0.5);
 
@@ -225,7 +225,7 @@ inliers_dt_oriented_all_samples(
       const vcl_vector<dbdet_edgel*> &ev = em.edge_cells.begin()[l];
 
       for (unsigned i=0; i < ev.size(); ++i) {
-        double dtheta = dbgl_undirected_angle_distance(ev[i]->tangent, ep->tangent);
+        double dtheta = bgld_undirected_angle_distance(ev[i]->tangent, ep->tangent);
         /*
 #ifndef NDEBUG
         vcl_cout 
@@ -249,9 +249,9 @@ inliers_dt_oriented_all_samples(
 }
 
 
-unsigned dbcsi_curve_distance::
+unsigned bcsid_curve_distance::
 num_inliers_dt_oriented_all_samples(
-    const dbcsi_edgel_seq &c, double d_threshold, double dtheta_threshold,
+    const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
     const vil_image_view<vxl_uint_32> &dt,
     const vil_image_view<vxl_uint_32> &label,
     const dbdet_edgemap &em)

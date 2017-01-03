@@ -1,7 +1,7 @@
 #include <testlib/testlib_test.h>
 
 #include <vsol/vsol_point_2d.h>
-#include <dbcsi/dbcsi_curve_distance.h>
+#include <bcsid/bcsid_curve_distance.h>
 #include <vil/algo/vil_exact_distance_transform.h>
 #include <dbdet/algo/dbdet_convert_edgemap.h>
 
@@ -42,7 +42,7 @@ test_num_inliers(
     }
 
     unsigned num_inliers_computed = 
-      dbcsi_curve_distance::num_inliers_dt_oriented(curve, 
+      bcsid_curve_distance::num_inliers_dt_oriented(curve, 
           d_threshold[i], dtheta_threshold[i], 
           edt, label, em);
 
@@ -56,7 +56,7 @@ test_num_inliers(
 
 MAIN( test_curve_distance )
 {
-  START ("dbcsi curve distance aggregation");
+  START ("bcsid curve distance aggregation");
 
   { 
   vcl_cout << "2x2 image with two features at different distances from the curve,\n";

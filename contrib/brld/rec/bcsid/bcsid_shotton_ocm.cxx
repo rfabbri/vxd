@@ -1,9 +1,9 @@
-// This is file seg/dbsks/dbcsi_shotton_ocm.cxx
+// This is file seg/dbsks/bcsid_shotton_ocm.cxx
 
 //:
 // \file
 
-#include "dbcsi_shotton_ocm.h"
+#include "bcsid_shotton_ocm.h"
 
 
 #include <dbdet/algo/dbdet_subpix_convolution.h>
@@ -14,13 +14,13 @@
 
 
 // ============================================================================
-//  dbcsi_shotton_ocm
+//  bcsid_shotton_ocm
 // ============================================================================
 
 
 // ------------------------------------------------------------------------------
 //: Compute chamfer cost for the whole image
-void dbcsi_shotton_ocm::
+void bcsid_shotton_ocm::
 compute()
 {
   //: Compute distance transform of the edge map 
@@ -41,7 +41,7 @@ compute()
 
 // ------------------------------------------------------------------------------
 //: Cost of a oriented point
-float dbcsi_shotton_ocm::
+float bcsid_shotton_ocm::
 f(double x, double y, double tx, double ty)
 {
   int im_i = vnl_math::rnd(x);
@@ -77,7 +77,7 @@ f(double x, double y, double tx, double ty)
 
 // -----------------------------------------------------------------------------
 //: cost of an oriented point, represented by its index
-float dbcsi_shotton_ocm::
+float bcsid_shotton_ocm::
 f(int i, int j, int orient_channel)
 {
   if (i < 0 || (i+1) >= int(this->edgemap_.ni()) || 
@@ -102,7 +102,7 @@ f(int i, int j, int orient_channel)
 
 // -----------------------------------------------------------------------------
 //: cost of an oriented point, represented by its index
-float dbcsi_shotton_ocm::
+float bcsid_shotton_ocm::
 f(vcl_vector<int >& x, vcl_vector<int >& y, vcl_vector<int >& orient_channel)
 {
   if (x.empty())
@@ -121,7 +121,7 @@ f(vcl_vector<int >& x, vcl_vector<int >& y, vcl_vector<int >& orient_channel)
 
 // ----------------------------------------------------------------------------
 //: Compute distance transform of an edgemap
-void dbcsi_shotton_ocm::
+void bcsid_shotton_ocm::
 compute_dt(const vil_image_view<float >& edgemap, float edge_threshold,
            vil_image_view<float >& dt_edgemap)
 {
@@ -144,7 +144,7 @@ compute_dt(const vil_image_view<float >& edgemap, float edge_threshold,
 
 // ----------------------------------------------------------------------------
 //: Compute gradient of an image using Gaussian kernel
-void dbcsi_shotton_ocm::
+void bcsid_shotton_ocm::
 compute_gradient(vil_image_view<float >& dt,
                  vil_image_view<float >& dt_grad_x,
                  vil_image_view<float >& dt_grad_y,
@@ -178,7 +178,7 @@ compute_gradient(vil_image_view<float >& dt,
 // -----------------------------------------------------------------------------
 //: Compute chamfer cost at every pixel on the image
 // Requirements: DT and gradients of DT have been computed
-void dbcsi_shotton_ocm::
+void bcsid_shotton_ocm::
 compute_chamfer_cost()
 {
   unsigned ni = this->edgemap_.ni();
@@ -217,7 +217,7 @@ compute_chamfer_cost()
 // Requirements: DT and gradients of DT have been computed
 // "num_angle_channels" is the number of bins to conver [0, 2pi]
 // Requirements: num_angle_channels should be an even number
-void dbcsi_shotton_ocm::
+void bcsid_shotton_ocm::
 compute_orientation_cost()
 {
   // allocate memory

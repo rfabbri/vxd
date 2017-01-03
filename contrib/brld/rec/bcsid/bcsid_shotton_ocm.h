@@ -1,6 +1,6 @@
-// This is seg/dbsks/dbcsi_shotton_ocm.h
-#ifndef dbcsi_shotton_ocm_h_
-#define dbcsi_shotton_ocm_h_
+// This is seg/dbsks/bcsid_shotton_ocm.h
+#ifndef bcsid_shotton_ocm_h_
+#define bcsid_shotton_ocm_h_
 
 //:
 // \file
@@ -24,16 +24,16 @@
 
 
 // ============================================================================
-class dbcsi_shotton_ocm
+class bcsid_shotton_ocm
 {
 public:
   // Constructor / destructor -------------------------------------------------
   
   //: constructor
-  dbcsi_shotton_ocm(){};
+  bcsid_shotton_ocm(){};
 
   //: destructor
-  virtual ~dbcsi_shotton_ocm(){};
+  virtual ~bcsid_shotton_ocm(){};
 
   // User-interface functions -------------------------------------------------
 
@@ -116,6 +116,6 @@ protected:
 };
 
 
-#endif // seg/dbsks/dbcsi_shotton_ocm.h
+#endif // seg/dbsks/bcsid_shotton_ocm.h
 
 

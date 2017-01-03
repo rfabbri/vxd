@@ -1,6 +1,6 @@
-// This is dbcsi_curve_distance.h
-#ifndef dbcsi_curve_distance_h
-#define dbcsi_curve_distance_h
+// This is bcsid_curve_distance.h
+#ifndef bcsid_curve_distance_h
+#define bcsid_curve_distance_h
 //:
 //\file
 //\brief Functions to integrate distance/grouping costs along a curve
@@ -18,11 +18,11 @@
 class dbdet_edgel_chain;
 class dbdet_edgemap;
 
-typedef vcl_vector<dbdet_edgel> dbcsi_edgel_seq;
-typedef vcl_vector<dbdet_edgel>::iterator dbcsi_edgel_seq_iter;
-typedef vcl_vector<dbdet_edgel>::const_iterator dbcsi_edgel_seq_const_iter;
+typedef vcl_vector<dbdet_edgel> bcsid_edgel_seq;
+typedef vcl_vector<dbdet_edgel>::iterator bcsid_edgel_seq_iter;
+typedef vcl_vector<dbdet_edgel>::const_iterator bcsid_edgel_seq_const_iter;
 
-class dbcsi_curve_distance {
+class bcsid_curve_distance {
 public:
   //: \return the number of distinct edgels points within a distance threshold
   // from the input curve, that also pass an orientation distance threshold.  We
@@ -31,7 +31,7 @@ public:
   //
   // \param[in] dt_threshold: squared distance threshold
   static unsigned inliers_dt_oriented(
-      const dbcsi_edgel_seq &c, double d_threshold, double dtheta_threshold,
+      const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
       const dbdet_edgemap &em,
@@ -40,7 +40,7 @@ public:
 
   //: Convenience function that does not return the inlier set.
   static unsigned num_inliers_dt_oriented(
-      const dbcsi_edgel_seq &c, double d_threshold, double dtheta_threshold,
+      const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
       const dbdet_edgemap &em
@@ -59,7 +59,7 @@ public:
   //
   // \param[in] dt_threshold: squared distance threshold
   static unsigned inliers_dt_oriented_all_samples(
-      const dbcsi_edgel_seq &c, double d_threshold, double dtheta_threshold,
+      const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
       const dbdet_edgemap &em,
@@ -68,7 +68,7 @@ public:
 
   //: Convenience function that does not return the inlier set.
   static unsigned num_inliers_dt_oriented_all_samples(
-      const dbcsi_edgel_seq &c, double d_threshold, double dtheta_threshold,
+      const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
       const dbdet_edgemap &em
@@ -97,7 +97,7 @@ public:
   //
   // \param[in] dt_threshold: squared distance threshold
   static unsigned inlier_curvelets_dt_oriented(
-      const dbcsi_edgel_seq &c, double d_threshold, double dtheta_threshold, 
+      const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold, 
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
       const dbdet_curvelet_map &cm,
@@ -106,7 +106,7 @@ public:
       );
 
   static unsigned num_inlier_curvelets_dt_oriented(
-      const dbcsi_edgel_seq &c, double d_threshold, double dtheta_threshold, 
+      const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold, 
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
       const dbdet_curvelet_map &cm,
@@ -150,4 +150,4 @@ public:
   */
 };
 
-#endif // dbcsi_curve_distance_h
+#endif // bcsid_curve_distance_h
