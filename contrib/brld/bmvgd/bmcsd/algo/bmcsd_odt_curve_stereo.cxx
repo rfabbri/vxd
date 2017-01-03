@@ -1,17 +1,18 @@
 #include "bmcsd_odt_curve_stereo.h"
-#include <dbdet/edge/dbdet_edgemap.h>
-#include <dbdet/pro/dbdet_sel_storage.h>
 #include <bdifd/bdifd_rig.h>
 
 #include <becld/becld_epipole.h>
 #include <becld/becld_episeg.h>
 #include <becld/becld_episeg_sptr.h>
 #include <becld/becld_episeg_from_curve_converter.h>
-
 #include <becld/becld_epiline_interceptor.h>
+
 #include <mw/mw_discrete_corresp.h>
 #include <bmcsd/algo/mw_algo_util.h>
 #include <mw/algo/mw_discrete_corresp_algo.h>
+
+#include <dbdet/edge/dbdet_edgemap.h>
+#include <dbdet/pro/dbdet_sel_storage.h>
 
 bmcsd_odt_curve_stereo::
 bmcsd_odt_curve_stereo()

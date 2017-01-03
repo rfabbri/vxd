@@ -12,8 +12,8 @@
 #include <dbdet/edge/dbdet_edgemap_sptr.h>
 #include <dbdet/pro/dbdet_sel_storage_sptr.h>
 #include <dbcsi/dbcsi_curve_distance.h>
-#include <bmcsd/algo/bmcsd_dt_curve_stereo.h>
 #include <bmcsd/bmcsd_curve_3d_attributes.h>
+#include <bmcsd/algo/bmcsd_dt_curve_stereo.h>
 
 
 //: Matches curve fragments using costs based on the distance transform and
