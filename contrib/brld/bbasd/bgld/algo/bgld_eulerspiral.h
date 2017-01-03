@@ -3,8 +3,7 @@
 #ifndef bgld_eulerspiral_h_
 #define bgld_eulerspiral_h_
 
-
-
+// **** SEE ALSO: vxl/.../bvgl/algo/bvgl_eulerspiral.h
 //:
 // \file
 // \brief Euler spiral - a curve with linear curvature
