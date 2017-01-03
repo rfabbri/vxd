@@ -15,7 +15,7 @@ aux_source_directory(Templates bcsid_sources)
 
 add_library(bcsid  ${bcsid_sources})
 
-target_link_libraries(bcsid bspid dbdet_algo )
+target_link_libraries(bcsid bspid sdet_algo )
 
 # algorithms library
 #add_subdirectory(algo)

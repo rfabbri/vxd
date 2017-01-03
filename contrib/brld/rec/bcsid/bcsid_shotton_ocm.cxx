@@ -6,8 +6,8 @@
 #include "bcsid_shotton_ocm.h"
 
 
-#include <dbdet/algo/dbdet_subpix_convolution.h>
-#include <dbdet/edge/dbdet_gaussian_kernel.h>
+#include <sdet/algo/sdet_subpix_convolution.h>
+#include <sdet/edge/sdet_gaussian_kernel.h>
 #include <bil/algo/bil_edt.h>
 #include <vnl/vnl_math.h>
 #include <vnl/vnl_numeric_traits.h>
@@ -153,10 +153,10 @@ compute_gradient(vil_image_view<float >& dt,
   // Compute gradient of DT
   float sigma = 1.0f;
   int N = 0;
-  dbdet_subpix_convolve_2d_sep(dt, dt_grad_x, 
-    dbdet_Gx_kernel(sigma), float(), N);
-  dbdet_subpix_convolve_2d_sep(dt, dt_grad_y, 
-    dbdet_Gy_kernel(sigma), float(), N);
+  sdet_subpix_convolve_2d_sep(dt, dt_grad_x, 
+    sdet_Gx_kernel(sigma), float(), N);
+  sdet_subpix_convolve_2d_sep(dt, dt_grad_y, 
+    sdet_Gy_kernel(sigma), float(), N);
 
   //compute gradient magnitude
   dt_grad_mag.set_size(dt_grad_x.ni(), dt_grad_x.nj());

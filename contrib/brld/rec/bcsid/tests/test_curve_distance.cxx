@@ -3,15 +3,15 @@
 #include <vsol/vsol_point_2d.h>
 #include <bcsid/bcsid_curve_distance.h>
 #include <vil/algo/vil_exact_distance_transform.h>
-#include <dbdet/algo/dbdet_convert_edgemap.h>
+#include <sdet/algo/sdet_convert_edgemap.h>
 
 void
 test_num_inliers(
     const vcl_vector<double> &d_threshold, 
     const vcl_vector<double> &dtheta_threshold, 
     const vcl_vector<unsigned> &num_inliers, 
-    dbdet_edgemap &em, 
-    const vcl_vector<dbdet_edgel> &curve, 
+    sdet_edgemap &em, 
+    const vcl_vector<sdet_edgel> &curve, 
     bool verbose)
 {
   assert(d_threshold.size() == num_inliers.size());
@@ -20,7 +20,7 @@ test_num_inliers(
   // rasterize edge map
 
   vil_image_view<vxl_byte > feature_map;
-  dbdet_convert_edgemap_to_image(em, feature_map);
+  sdet_convert_edgemap_to_image(em, feature_map);
 
   vil_image_view<vxl_uint_32> edt(feature_map.ni(), feature_map.nj(), 1);
 
@@ -62,16 +62,16 @@ MAIN( test_curve_distance )
   vcl_cout << "2x2 image with two features at different distances from the curve,\n";
   vcl_cout << "but the nearest edgel has a very different orientation.\n";
   // -- Data
-  vcl_vector<dbdet_edgel *> edgels;
+  vcl_vector<sdet_edgel *> edgels;
 
-  edgels.push_back(new dbdet_edgel(vgl_point_2d<double>(0.,0.), vnl_math::pi/4.0));
-  edgels.push_back(new dbdet_edgel(vgl_point_2d<double>(0.,1.), 2*vnl_math::pi/3.0));
+  edgels.push_back(new sdet_edgel(vgl_point_2d<double>(0.,0.), vnl_math::pi/4.0));
+  edgels.push_back(new sdet_edgel(vgl_point_2d<double>(0.,1.), 2*vnl_math::pi/3.0));
 
   unsigned r=2,c=2;
-  dbdet_edgemap em(c,r, edgels); // this destroys the newed edgels.
+  sdet_edgemap em(c,r, edgels); // this destroys the newed edgels.
 
-  vcl_vector<dbdet_edgel> curve;
-  curve.push_back(dbdet_edgel(vgl_point_2d<double>(1,0), 3*vnl_math::pi/4));
+  vcl_vector<sdet_edgel> curve;
+  curve.push_back(sdet_edgel(vgl_point_2d<double>(1,0), 3*vnl_math::pi/4));
   
   // -- Ground truth
   vcl_vector <double> d_threshold;
@@ -102,16 +102,16 @@ MAIN( test_curve_distance )
   { 
   vcl_cout << "2x2 image with two features at different distances from the curve\n";
   // -- Data
-  vcl_vector<dbdet_edgel *> edgels;
+  vcl_vector<sdet_edgel *> edgels;
 
-  edgels.push_back(new dbdet_edgel(vgl_point_2d<double>(0.,0.), vnl_math::pi/4.0));
-  edgels.push_back(new dbdet_edgel(vgl_point_2d<double>(0.,1.), 2*vnl_math::pi/3.0));
+  edgels.push_back(new sdet_edgel(vgl_point_2d<double>(0.,0.), vnl_math::pi/4.0));
+  edgels.push_back(new sdet_edgel(vgl_point_2d<double>(0.,1.), 2*vnl_math::pi/3.0));
 
   unsigned r=2,c=2;
-  dbdet_edgemap em(c,r, edgels); // this destroys the newed edgels.
+  sdet_edgemap em(c,r, edgels); // this destroys the newed edgels.
 
-  vcl_vector<dbdet_edgel> curve;
-  curve.push_back(dbdet_edgel(vgl_point_2d<double>(1,0), 3*vnl_math::pi/4));
+  vcl_vector<sdet_edgel> curve;
+  curve.push_back(sdet_edgel(vgl_point_2d<double>(1,0), 3*vnl_math::pi/4));
   
   // -- Ground truth
   vcl_vector <double> d_threshold;
@@ -143,16 +143,16 @@ MAIN( test_curve_distance )
   vcl_cout << "2x2 image with two equidistant features from the curve and with \n"
     << "similar orientations. One of them will count (but _which_ one is undefined).\n";
   // -- Data
-  vcl_vector<dbdet_edgel *> edgels;
+  vcl_vector<sdet_edgel *> edgels;
 
-  edgels.push_back(new dbdet_edgel(vgl_point_2d<double>(0.,0.), 60.*vnl_math::pi/180.));
-  edgels.push_back(new dbdet_edgel(vgl_point_2d<double>(1.,1.), 30.*vnl_math::pi/180.));
+  edgels.push_back(new sdet_edgel(vgl_point_2d<double>(0.,0.), 60.*vnl_math::pi/180.));
+  edgels.push_back(new sdet_edgel(vgl_point_2d<double>(1.,1.), 30.*vnl_math::pi/180.));
 
   unsigned r=2,c=2;
-  dbdet_edgemap em(c,r, edgels); // this destroys the newed edgels.
+  sdet_edgemap em(c,r, edgels); // this destroys the newed edgels.
 
-  vcl_vector<dbdet_edgel> curve;
-  curve.push_back(dbdet_edgel(vgl_point_2d<double>(1,0), vnl_math::pi/4));
+  vcl_vector<sdet_edgel> curve;
+  curve.push_back(sdet_edgel(vgl_point_2d<double>(1,0), vnl_math::pi/4));
   
   // -- Ground truth
   vcl_vector <double> d_threshold;
@@ -186,23 +186,23 @@ MAIN( test_curve_distance )
   { 
   vcl_cout << "4x5 image\n";
   // -- Data
-  vcl_vector<dbdet_edgel *> edgels;
+  vcl_vector<sdet_edgel *> edgels;
 
-  edgels.push_back(new dbdet_edgel(vgl_point_2d<double>(2.,1.4), 210.*vnl_math::pi/180.));
-  edgels.push_back(new dbdet_edgel(vgl_point_2d<double>(2.3,0.7), 70.*vnl_math::pi/180.));
-  edgels.push_back(new dbdet_edgel(vgl_point_2d<double>(0.,2.), 2.*vnl_math::pi/3.));
-  edgels.push_back(new dbdet_edgel(vgl_point_2d<double>(0.,4.), 100.*vnl_math::pi/180.));
-  edgels.push_back(new dbdet_edgel(vgl_point_2d<double>(3.,3.), 150.*vnl_math::pi/180.));
+  edgels.push_back(new sdet_edgel(vgl_point_2d<double>(2.,1.4), 210.*vnl_math::pi/180.));
+  edgels.push_back(new sdet_edgel(vgl_point_2d<double>(2.3,0.7), 70.*vnl_math::pi/180.));
+  edgels.push_back(new sdet_edgel(vgl_point_2d<double>(0.,2.), 2.*vnl_math::pi/3.));
+  edgels.push_back(new sdet_edgel(vgl_point_2d<double>(0.,4.), 100.*vnl_math::pi/180.));
+  edgels.push_back(new sdet_edgel(vgl_point_2d<double>(3.,3.), 150.*vnl_math::pi/180.));
 
   unsigned r=5, c=4;
-  dbdet_edgemap em(c,r, edgels); // this destroys the newed edgels.
+  sdet_edgemap em(c,r, edgels); // this destroys the newed edgels.
 
-  vcl_vector<dbdet_edgel> curve;
-  curve.push_back(dbdet_edgel(vgl_point_2d<double>(3,0), 0.));
-  curve.push_back(dbdet_edgel(vgl_point_2d<double>(2,0), 0.01));
-  curve.push_back(dbdet_edgel(vgl_point_2d<double>(1,1), vnl_math::pi/3.0));
-  curve.push_back(dbdet_edgel(vgl_point_2d<double>(1,2), vnl_math::pi/2.0));
-  curve.push_back(dbdet_edgel(vgl_point_2d<double>(2.2,3.4), 160.*vnl_math::pi/180.0));
+  vcl_vector<sdet_edgel> curve;
+  curve.push_back(sdet_edgel(vgl_point_2d<double>(3,0), 0.));
+  curve.push_back(sdet_edgel(vgl_point_2d<double>(2,0), 0.01));
+  curve.push_back(sdet_edgel(vgl_point_2d<double>(1,1), vnl_math::pi/3.0));
+  curve.push_back(sdet_edgel(vgl_point_2d<double>(1,2), vnl_math::pi/2.0));
+  curve.push_back(sdet_edgel(vgl_point_2d<double>(2.2,3.4), 160.*vnl_math::pi/180.0));
   
   // -- Ground truth
   vcl_vector <double> d_threshold;

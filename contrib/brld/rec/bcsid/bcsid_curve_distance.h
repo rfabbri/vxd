@@ -11,16 +11,16 @@
 #include <vsol/vsol_digital_curve_2d.h>
 #include <vil/vil_image_view.h>
 #include <vcl_vector.h>
-#include <dbdet/sel/dbdet_curvelet.h>
-#include <dbdet/sel/dbdet_curvelet_map.h>
+#include <sdet/sdet_curvelet.h>
+#include <sdet/sdet_curvelet_map.h>
 #include <vcl_set.h>
 
-class dbdet_edgel_chain;
-class dbdet_edgemap;
+class sdet_edgel_chain;
+class sdet_edgemap;
 
-typedef vcl_vector<dbdet_edgel> bcsid_edgel_seq;
-typedef vcl_vector<dbdet_edgel>::iterator bcsid_edgel_seq_iter;
-typedef vcl_vector<dbdet_edgel>::const_iterator bcsid_edgel_seq_const_iter;
+typedef vcl_vector<sdet_edgel> bcsid_edgel_seq;
+typedef vcl_vector<sdet_edgel>::iterator bcsid_edgel_seq_iter;
+typedef vcl_vector<sdet_edgel>::const_iterator bcsid_edgel_seq_const_iter;
 
 class bcsid_curve_distance {
 public:
@@ -34,7 +34,7 @@ public:
       const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
-      const dbdet_edgemap &em,
+      const sdet_edgemap &em,
       vcl_set<unsigned> *inliers
     );
 
@@ -43,7 +43,7 @@ public:
       const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
-      const dbdet_edgemap &em
+      const sdet_edgemap &em
     );
 
   //: \return the number of edgels per sample within a distance threshold
@@ -62,7 +62,7 @@ public:
       const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
-      const dbdet_edgemap &em,
+      const sdet_edgemap &em,
       vcl_list<unsigned> *inliers
     );
 
@@ -71,7 +71,7 @@ public:
       const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold,
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
-      const dbdet_edgemap &em
+      const sdet_edgemap &em
     );
 
   //: \return the number of distinct curvelets all of whose edgels are within a
@@ -85,7 +85,7 @@ public:
       const vsol_digital_curve_2d &crv, double d_threshold, 
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
-      const dbdet_curvelet_map &cm,
+      const sdet_curvelet_map &cm,
       curvelet_list *inlier_curvelets
       );
 
@@ -100,7 +100,7 @@ public:
       const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold, 
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
-      const dbdet_curvelet_map &cm,
+      const sdet_curvelet_map &cm,
       unsigned min_num_inlier_edgels,
       curvelet_list *inlier_curvelets
       );
@@ -109,7 +109,7 @@ public:
       const bcsid_edgel_seq &c, double d_threshold, double dtheta_threshold, 
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
-      const dbdet_curvelet_map &cm,
+      const sdet_curvelet_map &cm,
       unsigned min_num_inlier_edgels
       )
   {
@@ -125,7 +125,7 @@ public:
       const vsol_digital_curve_2d &crv, double d_threshold, 
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
-      const dbdet_curvelet_map &cm,
+      const sdet_curvelet_map &cm,
       curvelet_list *inlier_curvelets
       )
   {
@@ -138,7 +138,7 @@ public:
       const vsol_digital_curve_2d &crv, double d_threshold, 
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
-      const dbdet_curvelet_map &cm,
+      const sdet_curvelet_map &cm,
       unsigned min_num_inlier_edgels,
       curvelet_list *inlier_curvelets
       )
