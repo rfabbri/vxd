@@ -11,7 +11,7 @@ inlier_curvelets_dt(
     const vil_image_view<vxl_uint_32> &dt,
     const vil_image_view<vxl_uint_32> &label,
     const sdet_curvelet_map &cm,
-    curvelet_list *inlier_curvelets
+    sdet_curvelet_list *inlier_curvelets
     )
 {
   //: compute inlier edgels
@@ -41,9 +41,9 @@ inlier_curvelets_dt(
 
       bool all_inliers = true;
 
-      const curvelet_list &curvelets = cm.curvelets(edgels_in_cell[ie]->id);
+      const sdet_curvelet_list &curvelets = cm.curvelets(edgels_in_cell[ie]->id);
       for (
-        curvelet_list_const_iter cv_it = curvelets.begin();
+        sdet_curvelet_list_const_iter cv_it = curvelets.begin();
         cv_it != curvelets.end(); 
         cv_it++) {
 
@@ -77,7 +77,7 @@ inlier_curvelets_dt_oriented(
     const vil_image_view<vxl_uint_32> &label,
     const sdet_curvelet_map &cm,
     unsigned min_num_inlier_edgels,
-    curvelet_list *inlier_curvelets
+    sdet_curvelet_list *inlier_curvelets
     )
 {
   //: compute inlier edgels
@@ -107,9 +107,9 @@ inlier_curvelets_dt_oriented(
 #endif
 
 
-      const curvelet_list &curvelets = cm.curvelets(edgels_in_cell[ie]->id);
+      const sdet_curvelet_list &curvelets = cm.curvelets(edgels_in_cell[ie]->id);
       for (
-        curvelet_list_const_iter cv_it = curvelets.begin();
+        sdet_curvelet_list_const_iter cv_it = curvelets.begin();
         cv_it != curvelets.end(); 
         cv_it++) {
 

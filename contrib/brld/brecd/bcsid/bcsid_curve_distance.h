@@ -86,7 +86,7 @@ public:
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
       const sdet_curvelet_map &cm,
-      curvelet_list *inlier_curvelets
+      sdet_curvelet_list *inlier_curvelets
       );
 
   //: \return the number of distinct curvelets all of whose edgels are within a
@@ -102,7 +102,7 @@ public:
       const vil_image_view<vxl_uint_32> &label,
       const sdet_curvelet_map &cm,
       unsigned min_num_inlier_edgels,
-      curvelet_list *inlier_curvelets
+      sdet_curvelet_list *inlier_curvelets
       );
 
   static unsigned num_inlier_curvelets_dt_oriented(
@@ -113,7 +113,7 @@ public:
       unsigned min_num_inlier_edgels
       )
   {
-    curvelet_list inlier_curvelets;
+    sdet_curvelet_list inlier_curvelets;
     return inlier_curvelets_dt_oriented(
         c, d_threshold, dtheta_threshold, dt, label, cm, min_num_inlier_edgels,
         &inlier_curvelets);
@@ -126,7 +126,7 @@ public:
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<vxl_uint_32> &label,
       const sdet_curvelet_map &cm,
-      curvelet_list *inlier_curvelets
+      sdet_curvelet_list *inlier_curvelets
       )
   {
      return inlier_curvelets_dt_oriented(
@@ -140,7 +140,7 @@ public:
       const vil_image_view<vxl_uint_32> &label,
       const sdet_curvelet_map &cm,
       unsigned min_num_inlier_edgels,
-      curvelet_list *inlier_curvelets
+      sdet_curvelet_list *inlier_curvelets
       )
   {
      return inlier_curvelets_dt_oriented(
