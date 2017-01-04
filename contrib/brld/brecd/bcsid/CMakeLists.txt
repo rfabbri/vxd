@@ -13,7 +13,7 @@ set(bcsid_sources
 
 add_library(bcsid  ${bcsid_sources})
 
-target_link_libraries(bcsid bspid sdet_algo )
+target_link_libraries(bcsid bspid sdet brip)
 
 # algorithms library
 #add_subdirectory(algo)

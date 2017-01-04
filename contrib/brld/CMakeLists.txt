@@ -9,7 +9,7 @@ doxygen_add_package(contrib/brld "Brown University Libraries: Development Versio
 # Setting BRLD_INCLUDE_DIR in this way allows #include <foo/foo.h> without
 # having to know the internal directory structure.
 # The root directory should be listed last in case anyone tries to append to this path
-set(BRLD_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/bbasd;${CMAKE_CURRENT_BINARY_DIR}/bbasd;${CMAKE_CURRENT_SOURCE_DIR}/bmvgd;${CMAKE_CURRENT_BINARY_DIR}/bmvgd;${CMAKE_CURRENT_SOURCE_DIR}/breye1d;${CMAKE_CURRENT_BINARY_DIR}/breye1d" CACHE STATIC "Brown University development package include files" FORCE)
+set(BRLD_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/bbasd;${CMAKE_CURRENT_BINARY_DIR}/bbasd;${CMAKE_CURRENT_SOURCE_DIR}/bmvgd;${CMAKE_CURRENT_BINARY_DIR}/bmvgd;${CMAKE_CURRENT_SOURCE_DIR}/brecd;${CMAKE_CURRENT_BINARY_DIR}/brecd;${CMAKE_CURRENT_SOURCE_DIR}/breye1d;${CMAKE_CURRENT_BINARY_DIR}/breye1d" CACHE STATIC "Brown University development package include files" FORCE)
 
 set(BRLD_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 set(BRLD_SOURCE_DIR "${vxd_SOURCE_DIR}/contrib/brld")

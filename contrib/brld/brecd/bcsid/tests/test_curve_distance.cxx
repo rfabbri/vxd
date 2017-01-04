@@ -2,7 +2,7 @@
 
 #include <vsol/vsol_point_2d.h>
 #include <bcsid/bcsid_curve_distance.h>
-#include <vil/algo/vil_exact_distance_transform.h>
+#include <bild/algo/bild_exact_distance_transform.h>
 #include <sdet/algo/sdet_convert_edgemap.h>
 
 void
@@ -33,7 +33,7 @@ test_num_inliers(
 
   // compute dt + label
   vil_image_view <vxl_uint_32> label(edt.ni(), edt.nj(), 1);
-  vil_exact_distance_transform_maurer_label(edt, label);
+  bild_exact_distance_transform_maurer_label(edt, label);
 
   for (unsigned i=0; i < d_threshold.size(); ++i) {
     if (verbose) {
