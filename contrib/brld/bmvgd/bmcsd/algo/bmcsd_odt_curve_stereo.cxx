@@ -7,12 +7,12 @@
 #include <becld/becld_episeg_from_curve_converter.h>
 #include <becld/becld_epiline_interceptor.h>
 
-#include <mw/mw_discrete_corresp.h>
-#include <bmcsd/algo/mw_algo_util.h>
-#include <mw/algo/mw_discrete_corresp_algo.h>
+#include <bmcsd/bmcsd_discrete_corresp.h>
+#include <bmcsd/algo/bmcsd_algo_util.h>
+#include <bmcsd/algo/bmcsd_discrete_corresp_algo.h>
 
-#include <dbdet/edge/dbdet_edgemap.h>
-#include <dbdet/pro/dbdet_sel_storage.h>
+#include <sdet/sdet_edgemap.h>
+#include <sdet/sdet_sel_storage.h>
 
 bmcsd_odt_curve_stereo::
 bmcsd_odt_curve_stereo()
@@ -39,7 +39,7 @@ set_nviews(unsigned nv)
 }
 
 void bmcsd_odt_curve_stereo::
-set_all_edgemaps(const vcl_vector<dbdet_edgemap_sptr> &em)
+set_all_edgemaps(const vcl_vector<sdet_edgemap_sptr> &em)
 {
   assert(em.size() == nviews());
 
@@ -48,7 +48,7 @@ set_all_edgemaps(const vcl_vector<dbdet_edgemap_sptr> &em)
 
 //: set the symbolic edge linker storages for each view.
 void bmcsd_odt_curve_stereo::
-set_all_sels(const vcl_vector<dbdet_sel_storage_sptr> &sels)
+set_all_sels(const vcl_vector<sdet_sel_storage_sptr> &sels)
 {
   assert(sels.size() == nviews());
 
@@ -90,7 +90,7 @@ set_tangents(const vcl_vector<vcl_vector<vcl_vector<double> > > &tangents)
 }
 
 //#ifndef NDEBUG
-//#define MW_VERBOSE_DEBUG 1
+//#define BMCSD_VERBOSE_DEBUG 1
 //#endif
 
 bool bmcsd_odt_curve_stereo::
@@ -122,7 +122,7 @@ match_using_orientation_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_pt
     bdifd_1st_order_curve_3d curve_3d;
     reconstruct_candidate_1st_order(ini_id, end_id, ic, rig, &curve_3d);
 
-#ifdef MW_VERBOSE_DEBUG
+#ifdef BMCSD_VERBOSE_DEBUG
     vcl_cout << "Votes for curve[" << ic << "] ===========" << vcl_endl;
 #endif
     reprojection_crv_[ic].resize(nviews());
@@ -138,8 +138,8 @@ match_using_orientation_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_pt
       bmcsd_util::clip_to_img_bounds(dt(v), &reprojected_curve);
 
       // translate reproj. curve into edgel sequence
-      dbcsi_edgel_seq reproj_edgels;
-      mw_algo_util::bdifd_to_dbdet(reprojected_curve, &reproj_edgels);
+      bcsid_edgel_seq reproj_edgels;
+      bmcsd_algo_util::bdifd_to_sdet(reprojected_curve, &reproj_edgels);
 
       assert (reproj_edgels.size() == reprojected_curve.size());
 
@@ -147,16 +147,16 @@ match_using_orientation_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_pt
       reprojection_crv_[ic][v] = reproj_edgels;
 
       // Compute match cost
-      unsigned d_vote = dbcsi_curve_distance::num_inliers_dt_oriented(
+      unsigned d_vote = bcsid_curve_distance::num_inliers_dt_oriented(
           reproj_edgels, tau_distance_squared(), tau_dtheta_, dt(v), label(v), *em_[v]);
 
       votes[ic] += d_vote;
 
-#ifdef MW_VERBOSE_DEBUG
+#ifdef BMCSD_VERBOSE_DEBUG
       vcl_cout << "\t\t\tinliers on view[" << v << "] = " << d_vote << vcl_endl;
 #endif
     }
-#ifdef MW_VERBOSE_DEBUG
+#ifdef BMCSD_VERBOSE_DEBUG
     vcl_cout << "\t\tcurve[" << ic << "] has " << votes[ic] << " total inliers\n";
     vcl_cout << "\t\tend ===========" << vcl_endl;
 #endif
@@ -165,13 +165,13 @@ match_using_orientation_dt(unsigned *i_best, vcl_vector<unsigned long> *votes_pt
   assert(!votes.empty());
   bmcsd_util::max(votes, *i_best);
 
-#ifdef MW_VERBOSE_DEBUG
+#ifdef BMCSD_VERBOSE_DEBUG
   vcl_cout << "Best curve has index " << *i_best << 
     " among candidates, with #votes = " << votes[*i_best] << vcl_endl;
   vcl_cout << "Finished curve matching using _oriented_ reprojection error" << vcl_endl;
 #endif
 
-#ifdef MW_VERBOSE_DEBUG
+#ifdef BMCSD_VERBOSE_DEBUG
   if (votes[*i_best] < 2)
     vcl_cerr << "Warning: match is not reliable\n";
 #endif
@@ -187,7 +187,7 @@ match_using_orientation_dt_extras(unsigned *i_best, vcl_vector<unsigned long> *v
 
   bmcsd_util::max(*votes_ptr, *i_best);
 
-#ifdef MW_VERBOSE_DEBUG
+#ifdef BMCSD_VERBOSE_DEBUG
   vcl_cout << "Best curve has index " << *i_best << 
     " among candidates, with #votes = " << (*votes_ptr)[*i_best] << vcl_endl;
   vcl_cout << "Finished curve matching using _oriented_ reprojection error" << vcl_endl;
@@ -228,7 +228,7 @@ match_using_orientation_dt_extras(vcl_vector<unsigned long> *votes_ptr)
     bdifd_1st_order_curve_3d curve_3d;
     reconstruct_candidate_1st_order(ini_id, end_id, ic, rig, &curve_3d);
 
-#ifdef MW_VERBOSE_DEBUG
+#ifdef BMCSD_VERBOSE_DEBUG
     vcl_cout << "Votes for curve[" << ic << "] ===========" << vcl_endl;
 #endif
     reprojection_crv_[ic].resize(nviews());
@@ -244,8 +244,8 @@ match_using_orientation_dt_extras(vcl_vector<unsigned long> *votes_ptr)
       bmcsd_util::clip_to_img_bounds(dt(v), &reprojected_curve);
 
       // translate reproj. curve into edgel sequence
-      dbcsi_edgel_seq reproj_edgels;
-      mw_algo_util::bdifd_to_dbdet(reprojected_curve, &reproj_edgels);
+      bcsid_edgel_seq reproj_edgels;
+      bmcsd_algo_util::bdifd_to_sdet(reprojected_curve, &reproj_edgels);
 
       assert (reproj_edgels.size() == reprojected_curve.size());
 
@@ -255,17 +255,17 @@ match_using_orientation_dt_extras(vcl_vector<unsigned long> *votes_ptr)
       // Compute match cost
       unsigned d_vote;
       if (sels_.empty()) {
-        d_vote = dbcsi_curve_distance::num_inliers_dt_oriented(
+        d_vote = bcsid_curve_distance::num_inliers_dt_oriented(
             reproj_edgels, tau_distance_squared(), tau_dtheta_, dt(v), label(v), *em_[v]);
       } else {
-        d_vote = dbcsi_curve_distance::num_inlier_curvelets_dt_oriented(
+        d_vote = bcsid_curve_distance::num_inlier_curvelets_dt_oriented(
             reproj_edgels, tau_distance_squared(), tau_dtheta_, dt(v), label(v), sels_[v]->CM(),
             tau_min_num_inlier_edgels_per_curvelet_);
       }
 
       votes[ic] += (d_vote < tau_min_inliers_per_view_)? 0 : d_vote;
 
-#ifdef MW_VERBOSE_DEBUG
+#ifdef BMCSD_VERBOSE_DEBUG
       vcl_cout << "\t\tinliers on view[" << v << "] = " << d_vote << vcl_endl;
 #endif
     }
@@ -273,7 +273,7 @@ match_using_orientation_dt_extras(vcl_vector<unsigned long> *votes_ptr)
     if (votes[ic] < tau_min_total_inliers_)
       votes[ic] = 0;
 
-#ifdef MW_VERBOSE_DEBUG
+#ifdef BMCSD_VERBOSE_DEBUG
     vcl_cout << "\t\tcurve[" << ic << "] has " << votes[ic] << " total inliers\n";
     vcl_cout << "\t\tend ===========" << vcl_endl;
 #endif
@@ -541,11 +541,11 @@ break_into_episegs_and_replace_curve(
 bool 
 bmcsd_match_all_curves(
   bmcsd_odt_curve_stereo &s, 
-  mw_discrete_corresp *corresp_ptr)
+  bmcsd_discrete_corresp *corresp_ptr)
 {
-  mw_discrete_corresp &corresp = *corresp_ptr;
+  bmcsd_discrete_corresp &corresp = *corresp_ptr;
   corresp.set_size(s.num_curves(s.v0()), s.num_curves(s.v1()));
-  corresp.set_checksum(mw_discrete_corresp_algo::compute_checksum(s));
+  corresp.set_checksum(bmcsd_discrete_corresp_algo::compute_checksum(s));
 
   unsigned const ncurves = s.num_curves(s.v0());
 
@@ -593,7 +593,7 @@ bool
 bmcsd_match_and_reconstruct_all_curves_attr(
     bmcsd_odt_curve_stereo &s, 
     vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr,
-    mw_discrete_corresp *corresp_ptr,
+    bmcsd_discrete_corresp *corresp_ptr,
     vcl_vector< bmcsd_curve_3d_attributes > *attr_ptr
     )
 {
@@ -615,7 +615,7 @@ bmcsd_match_and_reconstruct_all_curves_attr(
 bool 
 reconstruct_from_corresp_attr(
     bmcsd_odt_curve_stereo &s, 
-    const mw_discrete_corresp &corresp,
+    const bmcsd_discrete_corresp &corresp,
     vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr,
     vcl_vector< bmcsd_curve_3d_attributes > *attr_ptr
     )
@@ -658,7 +658,7 @@ bool
 bmcsd_match_and_reconstruct_all_curves(
     bmcsd_odt_curve_stereo &s, 
     vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr,
-    mw_discrete_corresp *corresp_ptr
+    bmcsd_discrete_corresp *corresp_ptr
     )
 {
   bmcsd_match_all_curves(s, corresp_ptr);
@@ -677,7 +677,7 @@ bmcsd_match_and_reconstruct_all_curves(
 bool 
 reconstruct_from_corresp(
     bmcsd_odt_curve_stereo &s, 
-    const mw_discrete_corresp &corresp,
+    const bmcsd_discrete_corresp &corresp,
     vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr)
 {
   vcl_cout << "Reconstructing curves\n";

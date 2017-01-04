@@ -9,9 +9,9 @@
 //
 
 #include <bdifd/bdifd_frenet.h>
-#include <dbdet/edge/dbdet_edgemap_sptr.h>
-#include <dbdet/pro/dbdet_sel_storage_sptr.h>
-#include <dbcsi/dbcsi_curve_distance.h>
+#include <sdet/sdet_edgemap_sptr.h>
+#include <sdet/sdet_sel_storage_sptr.h>
+#include <bcsid/bcsid_curve_distance.h>
 #include <bmcsd/bmcsd_curve_3d_attributes.h>
 #include <bmcsd/algo/bmcsd_dt_curve_stereo.h>
 
@@ -23,7 +23,7 @@
 // with the provided edge map. The reason is that we want to run this class
 // repeatedly for different pairs of views without having to recompute the DT.
 
-class mw_discrete_corresp;
+class bmcsd_discrete_corresp;
 
 class bmcsd_odt_curve_stereo : public bmcsd_dt_curve_stereo {
 public:
@@ -36,10 +36,10 @@ public:
   virtual bool set_nviews(unsigned nviews);
 
   //: set the edgemaps for each view.
-  void set_all_edgemaps(const vcl_vector<dbdet_edgemap_sptr> &em);
+  void set_all_edgemaps(const vcl_vector<sdet_edgemap_sptr> &em);
 
   //: set the symbolic edge linker storages for each view.
-  void set_all_sels(const vcl_vector<dbdet_sel_storage_sptr> &sels);
+  void set_all_sels(const vcl_vector<sdet_sel_storage_sptr> &sels);
 
   //: set the tangents for the samples of the curve fragments. The indexing goes
   // tangents[id_view][id_curve][id_sample]
@@ -179,7 +179,7 @@ public:
   // the subcurve in view[0] and the epipolar band candidate \p c in view[1].
   // \return the curve-tangent of the reprojection curve, indexed as
   // reprojection_crv(curve index, view index, point index)
-  dbdet_edgel reprojection_crv(unsigned c, unsigned v, unsigned p) const
+  sdet_edgel reprojection_crv(unsigned c, unsigned v, unsigned p) const
   { return reprojection_crv_[c][v][p]; }
 
   //: Size of the reprojection curve(candidate index, view index). 
@@ -218,10 +218,10 @@ protected:
 
 private:
   //: edgemap for each view.
-  vcl_vector<dbdet_edgemap_sptr> em_;
+  vcl_vector<sdet_edgemap_sptr> em_;
 
   //: symbolic edge linker structure for each view.
-  vcl_vector<dbdet_sel_storage_sptr> sels_;
+  vcl_vector<sdet_sel_storage_sptr> sels_;
 
   typedef vcl_vector<bdifd_1st_order_curve_2d> first_order_curve_map;
 
@@ -239,7 +239,7 @@ private:
 
   //: \see curve_tangents()
   vcl_vector<vcl_vector<vcl_vector<double> > > curve_tangents_;
-  vcl_vector<vcl_vector<dbcsi_edgel_seq> > reprojection_crv_;
+  vcl_vector<vcl_vector<bcsid_edgel_seq> > reprojection_crv_;
 };
 
 //: Reconstruct all curves that match bewtween two views. 
@@ -252,7 +252,7 @@ private:
 bool bmcsd_match_and_reconstruct_all_curves(
     bmcsd_odt_curve_stereo &s, 
     vcl_vector<bdifd_1st_order_curve_3d> *crv3d,
-    mw_discrete_corresp *corresp
+    bmcsd_discrete_corresp *corresp
     );
 
 //: version of bmcsd_match_and_reconstruct_all_curves which fills an attribute
@@ -260,7 +260,7 @@ bool bmcsd_match_and_reconstruct_all_curves(
 bool bmcsd_match_and_reconstruct_all_curves_attr(
     bmcsd_odt_curve_stereo &s, 
     vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr,
-    mw_discrete_corresp *corresp_ptr,
+    bmcsd_discrete_corresp *corresp_ptr,
     vcl_vector< bmcsd_curve_3d_attributes > *attr_ptr
     );
 
@@ -270,7 +270,7 @@ bool bmcsd_match_and_reconstruct_all_curves_attr(
 // views. Only the correspondences passing all thresholds are output.
 bool bmcsd_match_all_curves(
   bmcsd_odt_curve_stereo &s, 
-  mw_discrete_corresp *corresp_ptr);
+  bmcsd_discrete_corresp *corresp_ptr);
 
 //: For each curve i, reconstructs from corresp[i].front(). If you want to
 // reconstruct from the best curve, call corresp.keep_only_extreme_cost(true)
@@ -282,7 +282,7 @@ bool bmcsd_match_all_curves(
 // \return true if success.
 bool reconstruct_from_corresp(
     bmcsd_odt_curve_stereo &s, 
-    const mw_discrete_corresp &corresp,
+    const bmcsd_discrete_corresp &corresp,
     vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr
     );
 
@@ -290,7 +290,7 @@ bool reconstruct_from_corresp(
 bool 
 reconstruct_from_corresp_attr(
     bmcsd_odt_curve_stereo &s, 
-    const mw_discrete_corresp &corresp,
+    const bmcsd_discrete_corresp &corresp,
     vcl_vector<bdifd_1st_order_curve_3d> *crv3d_ptr,
     vcl_vector< bmcsd_curve_3d_attributes > *attr_ptr
     );
