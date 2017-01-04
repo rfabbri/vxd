@@ -5,6 +5,7 @@ include_directories(${VXL_BRL_INCLUDE_DIR})
 set(bmcsd_algo_sources
   bmcsd_curve_stereo.cxx bmcsd_curve_stereo.h
   bmcsd_dt_curve_stereo.cxx bmcsd_dt_curve_stereo.h
+  bmcsd_odt_curve_stereo.cxx bmcsd_odt_curve_stereo.h
   bmcsd_algo_util.cxx bmcsd_algo_util.h
 )
 

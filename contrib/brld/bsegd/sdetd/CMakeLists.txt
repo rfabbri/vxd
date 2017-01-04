@@ -25,6 +25,8 @@ project(sdetd)
 #endif(BUILD_TESTING)
 
 add_subdirectory(algo)
+add_subdirectory(pro)
+
 
 # if (VXL_VGUI_FOUND)
 #   add_subdirectory(vis)
