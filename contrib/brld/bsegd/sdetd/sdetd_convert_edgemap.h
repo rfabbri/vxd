@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Convert an edgemap (sets of edgels or linked edgels) to a (binary) image
-//\author Nhon Trinh (ntrinh@lems.brown.edu)
+//\author Based on original code by  Nhon Trinh (@lems.brown.edu)
 //\date May 29, 2008
 //
 //\verbatim
