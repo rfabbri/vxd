@@ -12,13 +12,11 @@
 #include <vgl/vgl_fwd.h>
 #include <vpgl/vpgl_perspective_camera.h>
 #include <vsol/vsol_box_2d.h>
-#include <sdet/sdet_frenet_keypoint.h>
-#include <sdet/sel/sdet_edgel.h>
+#include <sdet/sdet_edgel.h>
 #include <bdifd/bdifd_camera.h>
 #include <bdifd/bdifd_rig.h>
 
 #include <bmcsd/bmcsd_util.h>
-#include <mw/mw_subpixel_point_set.h>
 
 
 //: Some utility functions for mw_algo
@@ -79,38 +77,6 @@ public:
       double &dkdot,
       unsigned &n
       );
-  
-  //: convert from sdet to bdifd (point with differential geometry attributes)
-  inline static bdifd_3rd_order_point_2d
-    mw_get_3rd_order_point_2d(const sdet_frenet_keypoint &kp);
-
-  //: convert from bdifd to sdet (point with differential geometry attributes)
-  inline static sdet_frenet_keypoint
-    mw_get_frenet_keypoint(const bdifd_3rd_order_point_2d &fp);
-
-  //: Determines proper bbox to be passed to becld_epiband, given that the bbox of the vsols (edgel
-  // set) is pb, and that we have a subpixel point set sp
-  static inline vsol_box_2d_sptr
-    determine_right_bbox(const vsol_box_2d_sptr &/*poly_box*/, const mw_subpixel_point_set *sp) 
-    {
-      vsol_box_2d_sptr box = new vsol_box_2d();
-
-      box->add_point(0.0,0.0);
-      box->add_point(
-          (double)sp->ncols()-1.0, 
-          (double)sp->nrows()-1.0);
-
-      // TODO: why the settings bellow give asymmetric tuplets?
-      //  box->add_point(
-      //      vcl_max(vcl_floor(pb->get_min_x())-5.0, 0.0), 
-      //      vcl_max(vcl_floor(pb->get_min_y())-5.0, 0.0)
-      //      );
-      //  box->add_point(
-      //      vcl_min(vcl_ceil(pb->get_max_x())+5.0, (double)sp->ncols()-1.0), 
-      //      vcl_min(vcl_ceil(pb->get_max_y())+5.0, (double)sp->nrows()-1.0)
-      //      );
-      return box;
-    }
 
   //: Given 1st order bdifd point-tangents in image coordinates, 
   // returns the sdet_edgel with the correct position and orientation.
@@ -144,44 +110,5 @@ public:
 
   static void extract_edgel_chain(const vsol_polyline_2d &pts, sdet_edgel_chain *ec);
 };
-
-inline bdifd_3rd_order_point_2d bmcsd_algo_util::
-mw_get_3rd_order_point_2d(const sdet_frenet_keypoint &kp)
-{
-  bdifd_3rd_order_point_2d p;
-
-  p.gama[0] = kp.x();
-  p.gama[1] = kp.y();
-  p.gama[2] = 0;
-  p.t[0] = kp.tx_;
-  p.t[1] = kp.ty_;
-  p.t[2] = 0;
-  p.n[0] = kp.nx_;
-  p.n[1] = kp.ny_;
-  p.n[2] = 0;
-  p.valid = kp.valid_;
-  p.k = kp.k_;
-  p.kdot = kp.kdot_;
-
-  return p;
-}
-
-inline sdet_frenet_keypoint bmcsd_algo_util::
-mw_get_frenet_keypoint(const bdifd_3rd_order_point_2d &fp)
-{
-  sdet_frenet_keypoint kp;
-
-  kp.set(fp.gama[0],fp.gama[1]);
-
-  kp.tx_= fp.t[0];
-  kp.ty_= fp.t[1];
-  kp.nx_= fp.n[0];
-  kp.ny_= fp.n[1];
-  kp.k_=  fp.k;
-  kp.kdot_= fp.kdot;
-  kp.valid_= fp.valid;
-
-  return kp;
-}
 
 #endif // bmcsd_algo_util_h

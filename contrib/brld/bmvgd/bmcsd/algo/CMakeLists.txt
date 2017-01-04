@@ -1,8 +1,11 @@
 # Brown Multiview Curve Stereo Lib (Curve Sketch System Algorithms, VXD version)
 
+include_directories(${VXL_BRL_INCLUDE_DIR})
+
 set(bmcsd_algo_sources
   bmcsd_curve_stereo.cxx bmcsd_curve_stereo.h
   bmcsd_dt_curve_stereo.cxx bmcsd_dt_curve_stereo.h
+  bmcsd_algo_util.cxx bmcsd_algo_util.h
 )
 
 add_library(bmcsd_algo ${bmcsd_algo_sources})

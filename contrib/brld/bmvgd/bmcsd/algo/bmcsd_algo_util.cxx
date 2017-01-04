@@ -1,7 +1,6 @@
 #include "bmcsd_algo_util.h"
 
 #include <vnl/vnl_double_2.h>
-#include <brct/brct_algos.h>
 #include <bgld/algo/bgld_distance.h>
 #include <bgld/algo/bgld_curve_smoothing.h>
 #include <bsold/algo/bsold_geno.h>
