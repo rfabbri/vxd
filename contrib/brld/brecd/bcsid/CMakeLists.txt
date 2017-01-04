@@ -9,7 +9,7 @@ set(bcsid_sources
     bcsid_curve_distance.h          bcsid_curve_distance.cxx
 )
 
-aux_source_directory(Templates bcsid_sources)
+# aux_source_directory(Templates bcsid_sources)
 
 add_library(bcsid  ${bcsid_sources})
 
