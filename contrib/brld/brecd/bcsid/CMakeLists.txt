@@ -1,10 +1,8 @@
 # Brown Curve-based Spatial Indexing Library  
-# brcv/rec/bcsid/CMakeLists.txt
+# brld/rec/bcsid/CMakeLists.txt
 
 include_directories(${VXL_GEL_INCLUDE_DIR})
 include_directories(${VXL_BRL_INCLUDE_DIR})
-include_directories( ${lems_SOURCE_DIR}/brcv/seg )
-include_directories( ${lems_SOURCE_DIR}/brcv/rec )
 
 set(bcsid_sources
     bcsid_shotton_ocm.h             bcsid_shotton_ocm.cxx

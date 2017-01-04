@@ -31,8 +31,11 @@ include_directories(${BRLD_INCLUDE_DIR})
 # basic services package (basic stuff that may not readily aspire to be in vxl/core)
 add_subdirectory(bbasd)
 
-# brown multiview geometry (development version)
+# brown multiview geometry (vxd development version)
 add_subdirectory(bmvgd)
+
+# brown Recognition Libraries (vxd development version)
+add_subdirectory(brecd)
 
 option(BUILD_BREYE1D "Build Old Brown Eyes VXD" YES)
 if(BUILD_BREYE1D)
