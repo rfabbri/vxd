@@ -3,7 +3,7 @@
 #include <vsol/vsol_point_2d.h>
 #include <bcsid/bcsid_curve_distance.h>
 #include <bild/algo/bild_exact_distance_transform.h>
-#include <sdet/algo/sdet_convert_edgemap.h>
+#include <sdetd/algo/sdetd_convert_edgemap.h>
 
 void
 test_num_inliers(
@@ -20,7 +20,7 @@ test_num_inliers(
   // rasterize edge map
 
   vil_image_view<vxl_byte > feature_map;
-  sdet_convert_edgemap_to_image(em, feature_map);
+  sdetd_convert_edgemap_to_image(em, feature_map);
 
   vil_image_view<vxl_uint_32> edt(feature_map.ni(), feature_map.nj(), 1);
 

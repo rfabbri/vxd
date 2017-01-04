@@ -5,7 +5,7 @@ add_executable ( bcsid_test_all
   test_curve_distance.cxx
 )
 
-target_link_libraries( bcsid_test_all bcsid sdet_algo vil_algo testlib )
+target_link_libraries( bcsid_test_all bcsid sdetd_algo bild_algo vil_algo testlib )
 
 add_test( bcsid_test_curve_distance bcsid_test_all test_curve_distance )
 
