@@ -12,7 +12,7 @@
 #include <bmcsd/algo/bmcsd_discrete_corresp_algo.h>
 
 #include <sdet/sdet_edgemap.h>
-#include <sdetd/pro/sdet_sel_storage.h>
+#include <sdetd/pro/sdetd_sel_storage.h>
 
 bmcsd_odt_curve_stereo::
 bmcsd_odt_curve_stereo()
@@ -581,7 +581,7 @@ bmcsd_match_all_curves(
     assert(votes.size() == s.num_candidates());
     for (unsigned i=0; i < s.num_candidates(); ++i)
       if (votes[i] > 0)
-        corresp[c].push_back(mw_attributed_object(s.crv_candidates(i), false, votes[i]));
+        corresp[c].push_back(bmcsd_attributed_object(s.crv_candidates(i), false, votes[i]));
   }
 
   vcl_cout << "Ended: stereo matching " << ncurves << " curves in view[" << 
