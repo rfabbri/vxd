@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A templated directed edge class for a generic graph class
-// \author Amir Tamrakar
+// \author Based on original code by  Amir Tamrakar
 // \date 02/30/05
 //
 // This edge has pointers to its source and target vertices

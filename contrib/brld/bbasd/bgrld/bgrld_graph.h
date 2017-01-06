@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A templated generic graph class
-// \author Amir Tamrakar
+// \author Based on original code by  Amir Tamrakar
 // \date 02/30/05
 //
 // This is a templatized generic graph class that works with

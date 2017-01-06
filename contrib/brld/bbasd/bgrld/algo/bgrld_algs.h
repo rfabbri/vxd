@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Basic graph algorithms
-// \author Ozge C. Ozcanli
+// \author Based on original code by  Ozge C. Ozcanli
 //
 // \verbatim
 //  Modifications

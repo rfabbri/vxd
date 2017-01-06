@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Test code for using the templatized graph class
-// \author Amir Tamrakar
+// \author Based on original code by  Amir Tamrakar
 // \date 06/18/05
 //
 

@@ -5,7 +5,7 @@
 //:
 // \file
 // \brief A templated vertex class for a generic graph
-// \author Amir Tamrakar
+// \author Based on original code by  Amir Tamrakar
 // \date 02/30/05
 //
 // The vertex contains sets of incoming and outgoing 
