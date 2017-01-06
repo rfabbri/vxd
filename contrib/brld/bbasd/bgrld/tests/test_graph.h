@@ -1,4 +1,4 @@
-// This is basic/dbgrl/tests/test_graph.h
+// This is bbasd/bgrld/tests/test_graph.h
 #ifndef test_graph_h_
 #define test_graph_h_
 //:
@@ -8,7 +8,7 @@
 // \date 06/18/05
 //
 
-#include <dbgrl/dbgrl_graph.h>
+#include <bgrld/bgrld_graph.h>
 
 #include "test_edge.h"
 #include "test_node.h"
@@ -16,11 +16,11 @@
 //class test_node;
 //class test_edge;
 
-//: a test graph class subclasssed from dbgrl_graph
-class test_graph : public dbgrl_graph<test_node, test_edge>
+//: a test graph class subclasssed from bgrld_graph
+class test_graph : public bgrld_graph<test_node, test_edge>
 {
 public:
-  test_graph() : dbgrl_graph<test_node, test_edge>() {}
+  test_graph() : bgrld_graph<test_node, test_edge>() {}
   ~test_graph(){}
 
 };

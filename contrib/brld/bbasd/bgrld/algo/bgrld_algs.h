@@ -1,6 +1,6 @@
-// This is basic/dbgrl/algo/dbgrl_algs.h
-#ifndef dbgrl_algs_h_
-#define dbgrl_algs_h_
+// This is bbasd/bgrld/algo/bgrld_algs.h
+#ifndef bgrld_algs_h_
+#define bgrld_algs_h_
 //:
 // \file
 // \brief Basic graph algorithms
@@ -14,7 +14,7 @@
 
 #include <vcl_vector.h>
 
-#include "../dbgrl_graph.h"
+#include "../bgrld_graph.h"
 
 //: return the euler tour of the graph starting from the given edge and in the direction towards the given node
 //  (the given node should be either source or target of the given node)
@@ -29,4 +29,4 @@ template <class G, class E, class V>
 int depth_no_loop(vbl_smart_ptr<G> g, vbl_smart_ptr<E> e, vbl_smart_ptr<V> n); 
 
 
-#endif // dbgrl_algs_h_
+#endif // bgrld_algs_h_

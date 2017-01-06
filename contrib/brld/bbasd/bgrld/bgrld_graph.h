@@ -1,6 +1,6 @@
-// This is basic/dbgrl/dbgrl_graph.h
-#ifndef dbgrl_graph_h_
-#define dbgrl_graph_h_
+// This is bbasd/bgrld/bgrld_graph.h
+#ifndef bgrld_graph_h_
+#define bgrld_graph_h_
 
 //:
 // \file
@@ -9,7 +9,7 @@
 // \date 02/30/05
 //
 // This is a templatized generic graph class that works with
-// vertex and edge classes subclassed from dbgrl_vertex and dbgrl_edge
+// vertex and edge classes subclassed from bgrld_vertex and bgrld_edge
 // classes
 //
 // The clockwise and/or counterclockwise ordering of the edges are based on
@@ -62,7 +62,7 @@
 
 //: The templatized graph class
 template<class V, class E>
-class dbgrl_graph : public vbl_ref_count
+class bgrld_graph : public vbl_ref_count
 {
  protected:
   typedef vbl_smart_ptr<V> V_sptr;
@@ -76,17 +76,17 @@ class dbgrl_graph : public vbl_ref_count
   typedef typename V::edge_iterator vertex_edge_iterator;
 
   //: Constructor
-  dbgrl_graph() : vbl_ref_count(), vertices_(), edges_() {}
+  bgrld_graph() : vbl_ref_count(), vertices_(), edges_() {}
 
   //: Destructor
-  virtual ~dbgrl_graph() {}
+  virtual ~bgrld_graph() {}
 
   //-------------------------------------------------------------------
   // Standard Graph functions
   //-------------------------------------------------------------------
   
   //: Return true if the graph contains a cycle
-  //  This method can go to dbgl_algo
+  //  This method can go to bgld_algo
   bool has_cycle();
 
   //-------------------------------------------------------------------
@@ -245,4 +245,4 @@ class dbgrl_graph : public vbl_ref_count
 
 };
 
-#endif // dbgrl_graph_h_
+#endif // bgrld_graph_h_

@@ -1,14 +1,14 @@
-# basic/dbgrl/algo/CMakeLists.txt
+# bbasd/bgrld/algo/CMakeLists.txt
 
-set( dbgrl_algo_sources
-  dbgrl_algs.cxx              dbgrl_algs.h
+set( bgrld_algo_sources
+  bgrld_algs.cxx              bgrld_algs.h
 )
 
-#aux_source_directory(Templates dbgrl_algo_sources)
+#aux_source_directory(Templates bgrld_algo_sources)
 
-add_library( dbgrl_algo  ${dbgrl_algo_sources})
+add_library( bgrld_algo  ${bgrld_algo_sources})
 
-target_link_libraries( dbgrl_algo dbgrl )
+target_link_libraries( bgrld_algo bgrld )
 
 #if( BUILD_EXAMPLES )
 #  add_subdirectory( examples )

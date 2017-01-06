@@ -1,8 +1,8 @@
-// This is basic/dbgrl/algo/dbgrl_algs.cxx
+// This is bbasd/bgrld/algo/bgrld_algs.cxx
 
-#include "dbgrl_algs.h"
-#include <dbgrl/dbgrl_vertex.h>
-#include <dbgrl/dbgrl_edge.h>
+#include "bgrld_algs.h"
+#include <bgrld/bgrld_vertex.h>
+#include <bgrld/bgrld_edge.h>
 
 //: return the euler tour of the graph starting from the given edge and in the direction towards the given node
 //  (the given node should be either source or target of the given node)
@@ -74,9 +74,9 @@ int depth_no_loop(vbl_smart_ptr<G> g, vbl_smart_ptr<E> e, vbl_smart_ptr<V> n)
   return max_depth + 1;
 }
 
-#undef DBGRL_EULER_TOUR_INSTANTIATE
-#define DBGRL_EULER_TOUR_INSTANTIATE( G, E, V ) template void euler_tour(vbl_smart_ptr<G> g, vbl_smart_ptr<E> e, vbl_smart_ptr<V> n, vcl_vector<vbl_smart_ptr<E> >& edges)
+#undef BGRLD_EULER_TOUR_INSTANTIATE
+#define BGRLD_EULER_TOUR_INSTANTIATE( G, E, V ) template void euler_tour(vbl_smart_ptr<G> g, vbl_smart_ptr<E> e, vbl_smart_ptr<V> n, vcl_vector<vbl_smart_ptr<E> >& edges)
 
-#undef DBGRL_DEPTH_NO_LOOP_INSTANTIATE
-#define DBGRL_DEPTH_NO_LOOP_INSTANTIATE( G, E, V ) template int depth_no_loop(vbl_smart_ptr<G> g, vbl_smart_ptr<E> e, vbl_smart_ptr<V> n)
+#undef BGRLD_DEPTH_NO_LOOP_INSTANTIATE
+#define BGRLD_DEPTH_NO_LOOP_INSTANTIATE( G, E, V ) template int depth_no_loop(vbl_smart_ptr<G> g, vbl_smart_ptr<E> e, vbl_smart_ptr<V> n)
 

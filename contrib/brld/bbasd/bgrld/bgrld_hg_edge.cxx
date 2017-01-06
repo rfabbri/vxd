@@ -4,5 +4,5 @@
 // author: Ming-Ching Chang
 // date:   Apr 04, 2005
 
-#include <dbgrl/dbgrl_edge.h>
+#include <bgrld/bgrld_edge.h>
 

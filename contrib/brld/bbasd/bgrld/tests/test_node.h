@@ -1,4 +1,4 @@
-// This is basic/dbgrl/tests/test_node.h
+// This is bbasd/bgrld/tests/test_node.h
 #ifndef test_node_h_
 #define test_node_h_
 //:
@@ -8,19 +8,19 @@
 // \date 06/18/05
 //
 
-#include <dbgrl/dbgrl_vertex.h>
+#include <bgrld/bgrld_vertex.h>
 
 class test_edge;
 
-//: a test node class subclasssed from dbgrl_vertex
-class test_node : public dbgrl_vertex<test_edge>
+//: a test node class subclasssed from bgrld_vertex
+class test_node : public bgrld_vertex<test_edge>
 {
 protected:
   int id_;
 
 public:
-  test_node(): dbgrl_vertex<test_edge>(), id_(0) {}
-  test_node(int id): dbgrl_vertex<test_edge>(), id_(id) {}
+  test_node(): bgrld_vertex<test_edge>(), id_(0) {}
+  test_node(int id): bgrld_vertex<test_edge>(), id_(id) {}
   virtual ~test_node(){}
 
   int id(){return id_;}

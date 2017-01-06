@@ -1,7 +1,7 @@
 //if this file compiles, then the test passes
-#include <dbgrl/dbgrl_edge.h>
-#include <dbgrl/dbgrl_vertex.h>
-#include <dbgrl/dbgrl_graph.h>
+#include <bgrld/bgrld_edge.h>
+#include <bgrld/bgrld_vertex.h>
+#include <bgrld/bgrld_graph.h>
 #include "test_node.h"
 #include "test_edge.h"
 #include "test_graph.h"

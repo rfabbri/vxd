@@ -119,7 +119,7 @@ void graph_test()
 
 MAIN( graph_test )
 {
-  START( "dbgrl_graph" );
+  START( "bgrld_graph" );
   graph_test();
   SUMMARY();
 }

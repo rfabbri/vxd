@@ -1,15 +1,15 @@
-// This is basic/dbgrl/dbgrl_vertex.hxx
-#ifndef dbgrl_vertex_txx_
-#define dbgrl_vertex_txx_
+// This is bbasd/bgrld/bgrld_vertex.hxx
+#ifndef bgrld_vertex_txx_
+#define bgrld_vertex_txx_
 
 //:
 // \file
 
-#include <dbgrl/dbgrl_vertex.h>
+#include <bgrld/bgrld_vertex.h>
 
 //: delete an edge incident on this node
 template <class E>
-bool dbgrl_vertex<E>::del_edge(E_sptr e)
+bool bgrld_vertex<E>::del_edge(E_sptr e)
 {
   for ( edge_iterator itr = in_edges_.begin();
         itr != in_edges_.end(); ++itr )
@@ -37,7 +37,7 @@ bool dbgrl_vertex<E>::del_edge(E_sptr e)
 
 //: delete an edge from the incoming edge list
 template <class E>
-bool dbgrl_vertex<E>::del_in_edge(E_sptr e)
+bool bgrld_vertex<E>::del_in_edge(E_sptr e)
 {
   for ( edge_iterator itr = in_edges_.begin();
         itr != in_edges_.end(); ++itr )
@@ -54,7 +54,7 @@ bool dbgrl_vertex<E>::del_in_edge(E_sptr e)
 
 //: delete an edge from the outgoing edge list
 template <class E>
-bool dbgrl_vertex<E>::del_out_edge(E_sptr e)
+bool bgrld_vertex<E>::del_out_edge(E_sptr e)
 {
   for ( edge_iterator itr = out_edges_.begin();
         itr != out_edges_.end(); ++itr )
@@ -71,7 +71,7 @@ bool dbgrl_vertex<E>::del_out_edge(E_sptr e)
 
 //: delete all edges
 template <class E>
-void dbgrl_vertex<E>::del_all_edges()
+void bgrld_vertex<E>::del_all_edges()
 {
   del_all_in_edges();
   del_all_out_edges();
@@ -79,7 +79,7 @@ void dbgrl_vertex<E>::del_all_edges()
 
 //: delete all the incoming edges
 template <class E>
-void dbgrl_vertex<E>::del_all_in_edges()
+void bgrld_vertex<E>::del_all_in_edges()
 {
   //remove connections from all the in_edges to the node
   for ( edge_iterator itr = in_edges_.begin();
@@ -91,7 +91,7 @@ void dbgrl_vertex<E>::del_all_in_edges()
 
 //: delete all the outgoing edges
 template <class E>
-void dbgrl_vertex<E>::del_all_out_edges()
+void bgrld_vertex<E>::del_all_out_edges()
 {
   //remove connections from all the out_edges to the node
   for ( edge_iterator itr = out_edges_.begin();
@@ -103,13 +103,13 @@ void dbgrl_vertex<E>::del_all_out_edges()
 
 //: Print an ascii summary to the stream
 template <class E>
-void dbgrl_vertex<E>::print_summary( vcl_ostream& os ) const
+void bgrld_vertex<E>::print_summary( vcl_ostream& os ) const
 {
   os << "[" << this->degree() << "]" << vcl_endl;
 }
 
-#define DBGRL_VERTEX_INSTANTIATE(E) \
-template class dbgrl_vertex<E>
+#define BGRLD_VERTEX_INSTANTIATE(E) \
+template class bgrld_vertex<E>
 
-#endif // dbgrl_vertex_txx_
+#endif // bgrld_vertex_txx_
 

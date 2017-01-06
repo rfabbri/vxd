@@ -1,7 +1,7 @@
-// This is lemsvxlsrc/basic/dbgrl/dbgrl_hg_hyperedge.cxx
+// This is lemsvxlsrc/bbasd/bgrld/bgrld_hg_hyperedge.cxx
 //:
 // \file
 // author: Ming-Ching Chang
 // date:   Apr 04, 2005
 
-#include <dbgrl/dbgrl_hg_hyperedge.h>
+#include <bgrld/bgrld_hg_hyperedge.h>

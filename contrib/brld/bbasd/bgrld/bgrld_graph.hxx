@@ -1,6 +1,6 @@
-// This is basic/dbgrl/dbgrl_graph.hxx
-#ifndef dbgrl_graph_txx_
-#define dbgrl_graph_txx_
+// This is bbasd/bgrld/bgrld_graph.hxx
+#ifndef bgrld_graph_txx_
+#define bgrld_graph_txx_
 
 //:
 // \file
@@ -8,7 +8,7 @@
 #include <vcl_cassert.h>
 #include <vcl_vector.h>
 
-#include <dbgrl/dbgrl_graph.h>
+#include <bgrld/bgrld_graph.h>
 
 //-------------------------------------------------------------------
 // Graph building functions
@@ -16,7 +16,7 @@
 
 //: Adds a new vertex to the graph
 template<class V, class E>
-bool dbgrl_graph<V,E>::add_vertex(V_sptr v)
+bool bgrld_graph<V,E>::add_vertex(V_sptr v)
 {
   if (!v) return false;
   vertices_.push_back(v);
@@ -26,7 +26,7 @@ bool dbgrl_graph<V,E>::add_vertex(V_sptr v)
 
 //: check existence
 template<class V, class E>
-bool dbgrl_graph<V,E>::exists(V_sptr v)
+bool bgrld_graph<V,E>::exists(V_sptr v)
 {
   for ( vertex_iterator v_itr = vertices_.begin();
         v_itr != vertices_.end(); ++v_itr )
@@ -39,7 +39,7 @@ bool dbgrl_graph<V,E>::exists(V_sptr v)
 
 //: Deletes a vertex in the graph
 template<class V, class E>
-bool dbgrl_graph<V,E>::remove_vertex(V_sptr v)
+bool bgrld_graph<V,E>::remove_vertex(V_sptr v)
 {
   if (!v) return false;
   
@@ -57,7 +57,7 @@ bool dbgrl_graph<V,E>::remove_vertex(V_sptr v)
 
 //: Add an edge
 template<class V, class E>
-bool dbgrl_graph<V,E>::add_edge(E_sptr e)
+bool bgrld_graph<V,E>::add_edge(E_sptr e)
 {
   // verify that this edge is not already present
   vertex_edge_iterator e_itr = e->source()->out_edges_begin();
@@ -71,7 +71,7 @@ bool dbgrl_graph<V,E>::add_edge(E_sptr e)
 
 //: Add an edge with no duplicate checking
 template<class V, class E>
-bool dbgrl_graph<V,E>::add_edge_no_check(E_sptr e)
+bool bgrld_graph<V,E>::add_edge_no_check(E_sptr e)
 {
   if (!e)
     return false;
@@ -82,7 +82,7 @@ bool dbgrl_graph<V,E>::add_edge_no_check(E_sptr e)
 
 //: Add an edge between \p v1 and \p v2
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::add_edge(V_sptr v1, V_sptr v2)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::add_edge(V_sptr v1, V_sptr v2)
 {
   if (!v1 || !v2)
     return 0;
@@ -116,7 +116,7 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::add_edge(V_sptr v1, V_sptr v
 
 //: Remove an edge
 template<class V, class E>
-bool dbgrl_graph<V,E>::remove_edge(E_sptr e)
+bool bgrld_graph<V,E>::remove_edge(E_sptr e)
 {
   if (!e) return false;
   
@@ -135,7 +135,7 @@ bool dbgrl_graph<V,E>::remove_edge(E_sptr e)
 //: Remove the edge between \p v1 and \p v2
 // \todo {finish this.}
 template<class V, class E>
-bool dbgrl_graph<V,E>::remove_edge(V_sptr v1, V_sptr v2 )
+bool bgrld_graph<V,E>::remove_edge(V_sptr v1, V_sptr v2 )
 {
   if (!v1 || !v2) return false;
 
@@ -155,7 +155,7 @@ bool dbgrl_graph<V,E>::remove_edge(V_sptr v1, V_sptr v2 )
 
 //: delete all the vertices
 template<class V, class E>
-void  dbgrl_graph<V,E>::del_all_vertices()
+void  bgrld_graph<V,E>::del_all_vertices()
 {
   while (vertices_.size()>0){
     remove_vertex(*vertices_.begin());
@@ -164,7 +164,7 @@ void  dbgrl_graph<V,E>::del_all_vertices()
 
 //: delete all the edges
 template<class V, class E>
-void  dbgrl_graph<V,E>::del_all_edges()
+void  bgrld_graph<V,E>::del_all_edges()
 {
   while (edges_.size()>0){
     remove_edge(*edges_.begin());
@@ -173,7 +173,7 @@ void  dbgrl_graph<V,E>::del_all_edges()
 
 //: delete all vertices in the graph that are not adjacent to any edges
 template<class V, class E>
-void dbgrl_graph<V,E>::purge_isolated_vertices()
+void bgrld_graph<V,E>::purge_isolated_vertices()
 {
   vcl_vector<V_sptr> vert_to_del;
   for ( vertex_iterator v_itr = vertices_.begin();
@@ -192,7 +192,7 @@ void dbgrl_graph<V,E>::purge_isolated_vertices()
 
 //: return all vertices with degree one
 template<class V, class E>
-void dbgrl_graph<V,E>::get_all_degree_one_vertices(vcl_vector<V_sptr>& vertices)
+void bgrld_graph<V,E>::get_all_degree_one_vertices(vcl_vector<V_sptr>& vertices)
 {
   for ( vertex_iterator v_itr = vertices_.begin();
         v_itr != vertices_.end(); ++v_itr )
@@ -204,7 +204,7 @@ void dbgrl_graph<V,E>::get_all_degree_one_vertices(vcl_vector<V_sptr>& vertices)
   
 //: clear all the nodes and edges of this graph
 template<class V, class E>
-void dbgrl_graph<V,E>::clear()
+void bgrld_graph<V,E>::clear()
 {
   del_all_edges();
   del_all_vertices();
@@ -216,35 +216,35 @@ void dbgrl_graph<V,E>::clear()
 
 //:  returns the successor of edge e in the adjacency list of node source(e) (nil if it does not exist). 
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::adj_succ(E_sptr e)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::adj_succ(E_sptr e)
 {
   return adj_succ(e, e->source());
 }
 
 //:  returns the predecessor of edge e in the adjacency list of node source(e) (nil if it does not exist). 
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::adj_pred(E_sptr e)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::adj_pred(E_sptr e)
 {
   return adj_pred(e, e->source());
 }
 
 //:  returns the cyclic successor of edge e in the adjacency list of node source(e). 
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::cyclic_adj_succ(E_sptr e)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::cyclic_adj_succ(E_sptr e)
 {
   return cyclic_adj_succ(e, e->source());
 }
 
 //:  returns the cyclic predecessor of edge e in the adjacency list of node source(e). 
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::cyclic_adj_pred(E_sptr e)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::cyclic_adj_pred(E_sptr e)
 {
   return cyclic_adj_pred(e, e->source());
 }
 
 //: returns the first edge of in_edges(v) (nil if this list is empty). 
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::first_in_edge(V_sptr v)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::first_in_edge(V_sptr v)
 {
   if (v->in_edges().size()>0)
     return v->in_edges().front();
@@ -254,7 +254,7 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::first_in_edge(V_sptr v)
 
 //:  returns the last edge of in_edges(v) (nil if this list is empty).  
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::last_in_edge(V_sptr v)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::last_in_edge(V_sptr v)
 {
   if (v->in_edges().size()>0)
     return v->in_edges().back();
@@ -264,7 +264,7 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::last_in_edge(V_sptr v)
 
 //: returns the first edge of out_edges(v) (nil if this list is empty). 
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::first_out_edge(V_sptr v)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::first_out_edge(V_sptr v)
 {
   if (v->out_edges().size()>0)
     return v->out_edges().front();
@@ -274,7 +274,7 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::first_out_edge(V_sptr v)
 
 //:  returns the last edge of out_edges(v) (nil if this list is empty).  
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::last_out_edge(V_sptr v)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::last_out_edge(V_sptr v)
 {
   if (v->out_edges().size()>0)
     return v->out_edges().back();
@@ -284,28 +284,28 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::last_out_edge(V_sptr v)
 
 //:  returns the successor of edge e in in_edges(target(e)) (nil if it does not exist). 
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::in_succ(E_sptr e)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::in_succ(E_sptr e)
 {
   return adj_succ(e, e->target());
 }
 
 //:  returns the predecessor of edge e in in_edges(target(e)) (nil if it does not exist).
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::in_pred(E_sptr e)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::in_pred(E_sptr e)
 {
   return adj_pred(e, e->target());
 }
 
 //:  returns the cyclic successor of edge e in in_edges(target(e)) (nil if it does not exist). 
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::cyclic_in_succ(E_sptr e)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::cyclic_in_succ(E_sptr e)
 {
   return cyclic_adj_succ(e, e->target());
 }
 
 //:  returns the cyclic predecessor of edge e in in_edges(target(e)) (nil if it does not exist). 
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::cyclic_in_pred(E_sptr e)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::cyclic_in_pred(E_sptr e)
 {
   return cyclic_adj_pred(e, e->target());
 }
@@ -336,7 +336,7 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::cyclic_in_pred(E_sptr e)
 
 //:  returns the first edge in the adjacency list of v (nil if this list is empty). 
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::first_adj_edge(V_sptr v)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::first_adj_edge(V_sptr v)
 {
   if (first_in_edge(v))
     return first_in_edge(v);
@@ -346,7 +346,7 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::first_adj_edge(V_sptr v)
 
 //:  returns the last edge in the adjacency list of v (nil if this list is empty).
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::last_adj_edge(V_sptr v)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::last_adj_edge(V_sptr v)
 {
   if (last_out_edge(v))
     return last_out_edge(v);
@@ -357,7 +357,7 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::last_adj_edge(V_sptr v)
 //:  returns the successor of edge e in the adjacency list of v.
 //Precondition: e is incident to v. 
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::adj_succ(E_sptr e, V_sptr v)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::adj_succ(E_sptr e, V_sptr v)
 {
   return 0;
 }
@@ -365,7 +365,7 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::adj_succ(E_sptr e, V_sptr v)
 //:  returns the predecessor of edge e in the adjacency list of v.
 //Precondition: e is incident to v.
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::adj_pred(E_sptr e, V_sptr v)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::adj_pred(E_sptr e, V_sptr v)
 {  
   return 0;
 }
@@ -374,7 +374,7 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::adj_pred(E_sptr e, V_sptr v)
 // Precondition: e is incident to v. 
 // if this is a leaf edge, it should return itself
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::cyclic_adj_succ(E_sptr e, V_sptr v)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::cyclic_adj_succ(E_sptr e, V_sptr v)
 {
   E_sptr adj_edge=0;
   
@@ -433,7 +433,7 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::cyclic_adj_succ(E_sptr e, V_
 // Precondition: e is incident to v. 
 // if this is a leaf edge, it should return itself
 template<class V, class E>
-typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::cyclic_adj_pred(E_sptr e, V_sptr v)
+typename bgrld_graph<V,E>::E_sptr bgrld_graph<V,E>::cyclic_adj_pred(E_sptr e, V_sptr v)
 {
   E_sptr adj_edge=0;
   
@@ -497,9 +497,9 @@ typename dbgrl_graph<V,E>::E_sptr dbgrl_graph<V,E>::cyclic_adj_pred(E_sptr e, V_
 //-------------------------------------------------------------------
 
 //: Return true if the graph contains a cycle
-//  This method can go to dbgl_algo
+//  This method can go to bgld_algo
 template<class V, class E>
-bool dbgrl_graph<V,E>::has_cycle() {
+bool bgrld_graph<V,E>::has_cycle() {
   
   //: Theorem: given an undirected graph G(V,E), there exists a cycle within 
   //  the graph if |E| >= |V|
@@ -515,24 +515,24 @@ bool dbgrl_graph<V,E>::has_cycle() {
 
 //: Print an ascii summary to the stream
 template<class V, class E>
-void dbgrl_graph<V,E>::print_summary( vcl_ostream& os ) const
+void bgrld_graph<V,E>::print_summary( vcl_ostream& os ) const
 {
   os << this->number_of_vertices() << " vertices";
 }
 
-#define DBGRL_GRAPH_INSTANTIATE(V, E) \
-template class dbgrl_graph<V,E>
+#define BGRLD_GRAPH_INSTANTIATE(V, E) \
+template class bgrld_graph<V,E>
 
-#endif // dbgrl_graph_txx_
+#endif // bgrld_graph_txx_
 /*
 //: Return IO version number;
-short dbgrl_graph<V,E>::version() const
+short bgrld_graph<V,E>::version() const
 {
   return 1;
 }
 
 //: Binary save self to stream.
-void dbgrl_graph<V,E>::b_write(vsl_b_ostream &os) const
+void bgrld_graph<V,E>::b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
   vsl_b_write(os, vertices_);
@@ -540,7 +540,7 @@ void dbgrl_graph<V,E>::b_write(vsl_b_ostream &os) const
 }
 
 //: Binary load self from stream.
-void dbgrl_graph<V,E>::b_read(vsl_b_istream &is)
+void bgrld_graph<V,E>::b_read(vsl_b_istream &is)
 {
   if (!is) return;
 
@@ -555,7 +555,7 @@ void dbgrl_graph<V,E>::b_read(vsl_b_istream &is)
     break;
   }
   default:
-    vcl_cerr << "I/O ERROR: dbgrl_graph<V,E>::b_read(vsl_b_istream&)\n"
+    vcl_cerr << "I/O ERROR: bgrld_graph<V,E>::b_read(vsl_b_istream&)\n"
              << "           Unknown version number "<< ver << '\n';
     is.is().clear(vcl_ios::badbit); // Set an unrecoverable IO error on stream
   }

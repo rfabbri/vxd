@@ -1,15 +1,15 @@
-// This is basic/dbgrl/dbgrl_edge.hxx
-#ifndef dbgrl_edge_txx_
-#define dbgrl_edge_txx_
+// This is bbasd/bgrld/bgrld_edge.hxx
+#ifndef bgrld_edge_txx_
+#define bgrld_edge_txx_
 
 //:
 // \file
 
-#include <dbgrl/dbgrl_edge.h>
+#include <bgrld/bgrld_edge.h>
 
 //: Returns target(edge) if v = source(edge) and source(edge) otherwise. 
 template <class V>
-typename dbgrl_edge<V>::V_sptr dbgrl_edge<V>::opposite(V_sptr v)
+typename bgrld_edge<V>::V_sptr bgrld_edge<V>::opposite(V_sptr v)
 {
   if (v==source_)
     return target_;
@@ -20,8 +20,8 @@ typename dbgrl_edge<V>::V_sptr dbgrl_edge<V>::opposite(V_sptr v)
 //: Determine if ``this'' edge shares a vertex with other edge
 // Return the shared node if so, otherwise return 0
 template <class V>
-typename dbgrl_edge<V>::V_sptr dbgrl_edge<V>::
-shared_vertex(const dbgrl_edge<V >& other) const
+typename bgrld_edge<V>::V_sptr bgrld_edge<V>::
+shared_vertex(const bgrld_edge<V >& other) const
 {
   if (this->source() == other.source() || this->source() == other.target())
     return this->source();
@@ -33,12 +33,12 @@ shared_vertex(const dbgrl_edge<V >& other) const
 
 //: Print an ascii summary to the stream
 template <class V>
-void dbgrl_edge<V>::print_summary( vcl_ostream& os ) const
+void bgrld_edge<V>::print_summary( vcl_ostream& os ) const
 {
   os << vcl_endl;
 }
 
-#define DBGRL_EDGE_INSTANTIATE(E) \
-template class dbgrl_edge<E>
+#define BGRLD_EDGE_INSTANTIATE(E) \
+template class bgrld_edge<E>
 
-#endif // dbgrl_edge_txx_
+#endif // bgrld_edge_txx_

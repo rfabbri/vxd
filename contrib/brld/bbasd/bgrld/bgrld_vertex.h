@@ -1,6 +1,6 @@
-// This is basic/dbgrl/dbgrl_vertex.h
-#ifndef dbgrl_vertex_h_
-#define dbgrl_vertex_h_
+// This is bbasd/bgrld/bgrld_vertex.h
+#ifndef bgrld_vertex_h_
+#define bgrld_vertex_h_
 
 //:
 // \file
@@ -25,7 +25,7 @@
 
 //: A vertex in a graph
 template<class E>
-class dbgrl_vertex : public vbl_ref_count
+class bgrld_vertex : public vbl_ref_count
 {
 protected:
   typedef vbl_smart_ptr<E> E_sptr;
@@ -34,10 +34,10 @@ protected:
   typedef typename vcl_list<E_sptr>::iterator edge_iterator;
 
   //: Constructor
-  dbgrl_vertex() : vbl_ref_count(), out_edges_(), in_edges_() {}
+  bgrld_vertex() : vbl_ref_count(), out_edges_(), in_edges_() {}
 
   //: Destructor
-  virtual ~dbgrl_vertex(){}
+  virtual ~bgrld_vertex(){}
 
   //:  returns all outgoing edges of this vertex  
   const vcl_list<E_sptr>& out_edges() { return out_edges_; }
@@ -108,4 +108,4 @@ protected:
   vcl_list<E_sptr> in_edges_;
 };
 
-#endif // dbgrl_vertex_h_
+#endif // bgrld_vertex_h_

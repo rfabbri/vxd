@@ -1,6 +1,6 @@
-// This is basic/dbgrl/dbgrl_edge.h
-#ifndef dbgrl_edge_h_
-#define dbgrl_edge_h_
+// This is bbasd/bgrld/bgrld_edge.h
+#ifndef bgrld_edge_h_
+#define bgrld_edge_h_
 
 //:
 // \file
@@ -21,20 +21,20 @@
 
 //: A Directed edge in a graph
 template<class V>
-class dbgrl_edge : public vbl_ref_count
+class bgrld_edge : public vbl_ref_count
 {
 protected:
   typedef vbl_smart_ptr<V> V_sptr;
 
  public:
   // Constructor
-  dbgrl_edge() : vbl_ref_count(), source_(0), target_(0) {}
+  bgrld_edge() : vbl_ref_count(), source_(0), target_(0) {}
 
   // Constructor
-  dbgrl_edge(V_sptr v1, V_sptr v2) : vbl_ref_count(), source_(v1), target_(v2) {}
+  bgrld_edge(V_sptr v1, V_sptr v2) : vbl_ref_count(), source_(v1), target_(v2) {}
 
   // Destructor
-  virtual ~dbgrl_edge(){}
+  virtual ~bgrld_edge(){}
 
   //: Smart pointer to the vertex where this edge originates 
   V_sptr source() const { return source_; }
@@ -53,7 +53,7 @@ protected:
 
   //: Determine if ``this'' edge shares a vertex with other edge
   // Return the shared node if so, otherwise return 0
-  V_sptr shared_vertex(const dbgrl_edge<V >& other) const;
+  V_sptr shared_vertex(const bgrld_edge<V >& other) const;
 
   //: Print an ascii summary to the stream
   virtual void print_summary(vcl_ostream &os) const;
@@ -67,4 +67,4 @@ protected:
   V_sptr target_;
 };
 
-#endif // dbgrl_edge_h_
+#endif // bgrld_edge_h_
