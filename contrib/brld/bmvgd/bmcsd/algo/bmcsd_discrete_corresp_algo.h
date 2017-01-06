@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Code to deal with discrete corresp. structures.
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date Mon Nov 6  2006
 //
 #include <vcl_algorithm.h>
