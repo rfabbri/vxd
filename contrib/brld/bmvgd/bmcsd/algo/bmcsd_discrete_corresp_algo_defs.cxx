@@ -222,4 +222,4 @@ exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcs
   s.increment_TN_by(s.negative_cnt_ - s.FP_);
 }
 
-MW_DISCRETE_CORRESP_ALGO_INSTANTIATE(vsol_polyline_2d_sptr);
+BMCSD_DISCRETE_CORRESP_ALGO_INSTANTIATE(vsol_polyline_2d_sptr);

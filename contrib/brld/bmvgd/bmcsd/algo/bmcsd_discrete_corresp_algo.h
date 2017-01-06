@@ -151,6 +151,6 @@ class bmcsd_discrete_corresp_algo {
   static void exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt) const;
 };
 
-#define MW_DISCRETE_CORRESP_ALGO_INSTANTIATE(T) extern "please include mw/bmcsd_discrete_corresp_algo.hxx first"
+#define BMCSD_DISCRETE_CORRESP_ALGO_INSTANTIATE(T) extern "please include bmcsd_discrete_corresp_algo.hxx first"
 
 #endif // bmcsd_discrete_corresp_algo_h

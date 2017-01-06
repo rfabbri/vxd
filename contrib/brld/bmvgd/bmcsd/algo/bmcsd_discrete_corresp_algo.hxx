@@ -37,8 +37,8 @@ match_subcurves(const vcl_vector<Tptr> &from, const vcl_vector<Tptr> &to,
   }
 }
 
-#undef MW_DISCRETE_CORRESP_ALGO_INSTANTIATE
-#define MW_DISCRETE_CORRESP_ALGO_INSTANTIATE(T) \
+#undef BMCSD_DISCRETE_CORRESP_ALGO_INSTANTIATE
+#define BMCSD_DISCRETE_CORRESP_ALGO_INSTANTIATE(T) \
 template void bmcsd_discrete_corresp_algo::match_subcurves(\
     const vcl_vector<T> &from, const vcl_vector<T> &to, bmcsd_discrete_corresp *c_ptr);
 
