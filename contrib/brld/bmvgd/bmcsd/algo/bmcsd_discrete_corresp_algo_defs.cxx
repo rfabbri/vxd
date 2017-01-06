@@ -16,7 +16,7 @@ print_difference(const bmcsd_discrete_corresp_n &c1, const bmcsd_discrete_corres
     return;
   }
   
-  vbl_sparse_array_base<mw_match_attribute,mw_ntuplet>::const_iterator r;
+  vbl_sparse_array_base<bmcsd_match_attribute,bmcsd_ntuplet>::const_iterator r;
   for (r = c1.l_.begin(); r != c1.l_.end(); ++r){
     if (!c2.l_.fullp(r->first)) {
       vcl_cout << "C1 contains: " << (r->first)<< " but C2 doesn't\n";
