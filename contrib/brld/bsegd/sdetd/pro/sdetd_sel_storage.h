@@ -1,4 +1,4 @@
-// This is brcv/seg/sdetd/pro/sdetd_sel_storage.h
+// This is brld/bsegd/sdetd/pro/sdetd_sel_storage.h
 #ifndef sdetd_sel_storage_h_
 #define sdetd_sel_storage_h_
 
@@ -30,7 +30,6 @@
 // \endverbatim
 
 #include <bpro1/bpro1_storage.h>
-#include "sdetd_sel_storage_sptr.h"
 
 #include <vcl_vector.h>
 #include <vbl/vbl_array_2d.h>
@@ -41,6 +40,8 @@
 #include <sdet/sdet_curvelet_map.h>
 #include <sdet/sdet_edgel_link_graph.h>
 #include <sdet/sdet_curve_fragment_graph.h>
+
+#include <sdetd/pro/sdetd_sel_storage_sptr.h>
 
 //: Storage class for various edge linking data structures
 //  One idiosyncracy of this design: Since the various structures are
@@ -70,20 +71,20 @@ public:
   virtual vcl_string is_a() const { return "sdetd_sel_storage"; }
 
   // Data Access Functions
-  sdetd_edgemap_sptr EM() { return EM_; }
-  sdetd_curvelet_map& CM() {return CM_; }
-  sdetd_edgel_link_graph& ELG() { return ELG_; }
-  sdetd_curve_fragment_graph&  CFG() { return CFG_; }
+  sdet_edgemap_sptr EM() { return EM_; }
+  sdet_curvelet_map& CM() {return CM_; }
+  sdet_edgel_link_graph& ELG() { return ELG_; }
+  sdet_curve_fragment_graph&  CFG() { return CFG_; }
   vbl_array_2d<bool>& EULM() { return EULM_; }
-  vcl_list<sdetd_edgel_chain_list>& c_groups() {return c_groups_; }
+  vcl_list<sdet_edgel_chain_list>& c_groups() {return c_groups_; }
   vnl_matrix<double> color_mat(){return color_mat_;}
   vnl_vector_fixed<float, 3> prune_color(){return prune_color_;}
-  sdetd_edgel_chain_list& prune_frags(){return prune_frags_;}
+  sdet_edgel_chain_list& prune_frags(){return prune_frags_;}
 
-  void set_EM(sdetd_edgemap_sptr EM) { EM_ = EM; }
+  void set_EM(sdet_edgemap_sptr EM) { EM_ = EM; }
   void set_color_mat(vnl_matrix<double> color_mat) {color_mat_=color_mat;}
   void set_prune_color(float r, float g, float b) {prune_color_[0] =r; prune_color_[1]=g; prune_color_[2]=b;}
-  sdetd_edgel_chain_list& all_groups_frags();
+  sdet_edgel_chain_list& all_groups_frags();
   //void set_CFG(sdetd_curve_fragment_graph CFG) {CFG_ = CFG;} //By Yuliang Guo
 
 private:
@@ -95,9 +96,9 @@ private:
   vbl_array_2d<bool> EULM_; ///< The edge unlinked map (EULM) (temp structure for generic linker)
   //  Don't know if this ought to hidden away inside the generic linker class
   //  [[ The matrix of flags to keep track of the unlinked edgels (for tracing) ]]
-  vcl_list<sdetd_edgel_chain_list> c_groups_;
+  vcl_list<sdet_edgel_chain_list> c_groups_;
   vnl_matrix<double> color_mat_;
-  sdetd_edgel_chain_list prune_frags_;
+  sdet_edgel_chain_list prune_frags_;
   vnl_vector_fixed<float,3> prune_color_;
   sdet_edgel_chain_list all_groups_frags_;
 };

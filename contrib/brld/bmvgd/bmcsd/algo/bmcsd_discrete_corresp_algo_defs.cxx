@@ -96,14 +96,15 @@ compute_checksum(
   return cksum;
 }
 
+/* XXX Wait for DBORL to VXD
 void 
 bmcsd_discrete_corresp_algo::
-exp_stats(const bmcsd_discrete_corresp *cp, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr) const
+exp_stats(const bmcsd_discrete_corresp *cp, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr)
 {
-  assert(c->size() == gt_ptr->size());
+  assert(cp->size() == gt_ptr->size());
 
   const bmcsd_discrete_corresp &gt = *gt_ptr;
-  const bmcsd_discrete_corresp &c = *c;
+  const bmcsd_discrete_corresp &c = *cp;
 
   s.positive_cnt_ = gt.num_corresps();
   s.negative_cnt_ = gt.n0()*gt.n1() - s.positive_cnt_;
@@ -123,6 +124,7 @@ exp_stats(const bmcsd_discrete_corresp *cp, dborl_exp_stat &s, const bmcsd_discr
   s.increment_FN_by(s.positive_cnt_ - s.TP_);
   s.increment_TN_by(s.negative_cnt_ - s.FP_);
 }
+*/
 
 /*
 void 
@@ -166,9 +168,10 @@ exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcs
 }
 */
 
+/* XXX wait for DBORL to VXD
 void 
 bmcsd_discrete_corresp_algo::
-exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr) const
+exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr)
 {
 #ifndef NDEBUG
   vcl_cout << "This corresp size: " << this->size() << " gt size: " << gt_ptr->size() << vcl_endl;
@@ -221,5 +224,6 @@ exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcs
   s.increment_FN_by(s.positive_cnt_ - s.TP_);
   s.increment_TN_by(s.negative_cnt_ - s.FP_);
 }
+*/
 
 BMCSD_DISCRETE_CORRESP_ALGO_INSTANTIATE(vsol_polyline_2d_sptr);
