@@ -10,7 +10,7 @@
 
 #include <bdifd/bdifd_frenet.h>
 #include <sdet/sdet_edgemap_sptr.h>
-#include <sdet/sdet_sel_storage_sptr.h>
+#include <sdetd/pro/sdetd_sel_storage_sptr.h>
 #include <bcsid/bcsid_curve_distance.h>
 #include <bmcsd/bmcsd_curve_3d_attributes.h>
 #include <bmcsd/algo/bmcsd_dt_curve_stereo.h>
@@ -39,7 +39,7 @@ public:
   void set_all_edgemaps(const vcl_vector<sdet_edgemap_sptr> &em);
 
   //: set the symbolic edge linker storages for each view.
-  void set_all_sels(const vcl_vector<sdet_sel_storage_sptr> &sels);
+  void set_all_sels(const vcl_vector<sdetd_sel_storage_sptr> &sels);
 
   //: set the tangents for the samples of the curve fragments. The indexing goes
   // tangents[id_view][id_curve][id_sample]
@@ -221,7 +221,7 @@ private:
   vcl_vector<sdet_edgemap_sptr> em_;
 
   //: symbolic edge linker structure for each view.
-  vcl_vector<sdet_sel_storage_sptr> sels_;
+  vcl_vector<sdetd_sel_storage_sptr> sels_;
 
   typedef vcl_vector<bdifd_1st_order_curve_2d> first_order_curve_map;
 

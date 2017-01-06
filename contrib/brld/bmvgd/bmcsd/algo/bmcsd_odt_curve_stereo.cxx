@@ -12,7 +12,7 @@
 #include <bmcsd/algo/bmcsd_discrete_corresp_algo.h>
 
 #include <sdet/sdet_edgemap.h>
-#include <sdet/sdet_sel_storage.h>
+#include <sdetd/pro/sdet_sel_storage.h>
 
 bmcsd_odt_curve_stereo::
 bmcsd_odt_curve_stereo()
@@ -48,7 +48,7 @@ set_all_edgemaps(const vcl_vector<sdet_edgemap_sptr> &em)
 
 //: set the symbolic edge linker storages for each view.
 void bmcsd_odt_curve_stereo::
-set_all_sels(const vcl_vector<sdet_sel_storage_sptr> &sels)
+set_all_sels(const vcl_vector<sdetd_sel_storage_sptr> &sels)
 {
   assert(sels.size() == nviews());
 
