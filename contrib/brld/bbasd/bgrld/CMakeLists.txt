@@ -1,5 +1,5 @@
-# This is lemsvxlsrc/bbasd/bgrld/CMakeLists.txt
-# Development Brown Graph/Hypergraph Library
+# This is vxd/bbasd/bgrld/CMakeLists.txt
+# Brown Graph/Hypergraph Library (vxd development version)
 
 set(bgrld_sources
          

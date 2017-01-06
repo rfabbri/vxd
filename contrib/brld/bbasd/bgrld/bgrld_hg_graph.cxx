@@ -1,7 +1,7 @@
 // This is lemsvxlsrc/brcv/shp/dbhg/bgrld_hg_graph.cxx
 //:
 // \file
-// author: Ming-Ching Chang
+// \author Based on original code by Ming-Ching Chang
 // date:   Apr 04, 2005
 
 #include <bgrld/bgrld_hg_graph.h>
