@@ -1,13 +1,13 @@
-#include "mw_discrete_corresp_algo.h"
-#include "mw_discrete_corresp_algo.hxx"
+#include "bmcsd_discrete_corresp_algo.h"
+#include "bmcsd_discrete_corresp_algo.hxx"
 
-#include <mw/mw_util.h>
-#include <mw/algo/mw_curve_stereo.h>
+#include <bmcsd/bmcsd_util.h>
+#include <bmcsd/algo/bmcsd_curve_stereo.h>
 #include <vsol/vsol_polyline_2d_sptr.h>
 
 //: ***beta version***
-void mw_discrete_corresp_algo::
-print_difference(const mw_discrete_corresp_n &c1, const mw_discrete_corresp_n &c2)
+void bmcsd_discrete_corresp_algo::
+print_difference(const bmcsd_discrete_corresp_n &c1, const bmcsd_discrete_corresp_n &c2)
 {
 
   vcl_cout << "------ Comparing ------\n";
@@ -30,18 +30,18 @@ print_difference(const mw_discrete_corresp_n &c1, const mw_discrete_corresp_n &c
   }
 }
 
-void mw_discrete_corresp_algo::
-compose(const mw_discrete_corresp &a, const mw_discrete_corresp &b, 
-    mw_discrete_corresp *ab_ptr)
+void bmcsd_discrete_corresp_algo::
+compose(const bmcsd_discrete_corresp &a, const bmcsd_discrete_corresp &b, 
+    bmcsd_discrete_corresp *ab_ptr)
 {
-  mw_discrete_corresp &ab = *ab_ptr;
+  bmcsd_discrete_corresp &ab = *ab_ptr;
   ab.set_size(b.n_objects_view_0(), a.n_objects_view_1());
 
   assert(b.n_objects_view_1() == a.n_objects_view_0());
 
   for (unsigned i=0; i < b.n0(); ++i) {
     // For each (i,k) given in b[i], traverse a[k] and insert.
-    for (mw_discrete_corresp::one_corresp_list_const_iter bitr = b[i].begin();
+    for (bmcsd_discrete_corresp::one_corresp_list_const_iter bitr = b[i].begin();
         bitr != b[i].end(); ++bitr) {
 
       unsigned k = bitr->id();
@@ -51,8 +51,8 @@ compose(const mw_discrete_corresp &a, const mw_discrete_corresp &b,
 }
 
 unsigned long 
-mw_discrete_corresp_algo::
-compute_checksum(const mw_curve_stereo &s)
+bmcsd_discrete_corresp_algo::
+compute_checksum(const bmcsd_curve_stereo &s)
 {
   unsigned long cksum=0;
   double len=0;
@@ -72,7 +72,7 @@ compute_checksum(const mw_curve_stereo &s)
 }
 
 unsigned long 
-mw_discrete_corresp_algo::
+bmcsd_discrete_corresp_algo::
 compute_checksum(
     const vcl_vector<vsol_polyline_2d_sptr> &pts0, 
     const vcl_vector<vsol_polyline_2d_sptr> &pts1)
@@ -97,13 +97,13 @@ compute_checksum(
 }
 
 void 
-mw_discrete_corresp_algo::
-exp_stats(const mw_discrete_corresp *cp, dborl_exp_stat &s, const mw_discrete_corresp *gt_ptr) const
+bmcsd_discrete_corresp_algo::
+exp_stats(const bmcsd_discrete_corresp *cp, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr) const
 {
   assert(c->size() == gt_ptr->size());
 
-  const mw_discrete_corresp &gt = *gt_ptr;
-  const mw_discrete_corresp &c = *c;
+  const bmcsd_discrete_corresp &gt = *gt_ptr;
+  const bmcsd_discrete_corresp &c = *c;
 
   s.positive_cnt_ = gt.num_corresps();
   s.negative_cnt_ = gt.n0()*gt.n1() - s.positive_cnt_;
@@ -126,13 +126,13 @@ exp_stats(const mw_discrete_corresp *cp, dborl_exp_stat &s, const mw_discrete_co
 
 /*
 void 
-mw_discrete_corresp_algo::
-exp_stats_hitmiss(const mw_discrete_corresp *c, dborl_exp_stat &s, const mw_discrete_corresp *gt_ptr) const
+bmcsd_discrete_corresp_algo::
+exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr) const
 {
   assert(this->size() == gt_ptr->size());
 
-  const mw_discrete_corresp &gt = *gt_ptr;
-  const mw_discrete_corresp &c = *this;
+  const bmcsd_discrete_corresp &gt = *gt_ptr;
+  const bmcsd_discrete_corresp &c = *this;
 
   s.negative_cnt_ = gt.count_empty();
   s.positive_cnt_ = gt.n0() - s.negative_cnt_;
@@ -167,16 +167,16 @@ exp_stats_hitmiss(const mw_discrete_corresp *c, dborl_exp_stat &s, const mw_disc
 */
 
 void 
-mw_discrete_corresp_algo::
-exp_stats_hitmiss(const mw_discrete_corresp *c, dborl_exp_stat &s, const mw_discrete_corresp *gt_ptr) const
+bmcsd_discrete_corresp_algo::
+exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr) const
 {
 #ifndef NDEBUG
   vcl_cout << "This corresp size: " << this->size() << " gt size: " << gt_ptr->size() << vcl_endl;
   assert(this->size() == gt_ptr->size());
 #endif
 
-  const mw_discrete_corresp &gt = *gt_ptr;
-  const mw_discrete_corresp &c = *c;
+  const bmcsd_discrete_corresp &gt = *gt_ptr;
+  const bmcsd_discrete_corresp &c = *c;
 
   s.positive_cnt_ = gt.num_corresps();
 
