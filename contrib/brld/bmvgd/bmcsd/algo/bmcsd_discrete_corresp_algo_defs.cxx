@@ -113,7 +113,7 @@ exp_stats(const bmcsd_discrete_corresp *cp, dborl_exp_stat &s, const bmcsd_discr
       if (!vnl_math_isfinite(itr->cost_))  // infinite cost equals no correspondence.
         continue;
       one_corresp_list_const_iter
-        result = find_if(gt[i].begin(), gt[i].end(), mw_attributed_object_eq(itr->obj_)); 
+        result = find_if(gt[i].begin(), gt[i].end(), bmcsd_attributed_object_eq(itr->obj_)); 
       if (result == gt[i].end() || !vnl_math_isfinite(itr->cost_))
         s.increment_FP();
       else
@@ -152,7 +152,7 @@ exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcs
           itr != c[i].end() && c_contained_in_gt; 
           ++itr) {
         one_corresp_list_const_iter
-          result = find_if(gt[i].begin(), gt[i].end(), mw_attributed_object_eq(itr->obj_)); 
+          result = find_if(gt[i].begin(), gt[i].end(), bmcsd_attributed_object_eq(itr->obj_)); 
         if (result == gt[i].end())
           c_contained_in_gt = false;
       }
@@ -193,7 +193,7 @@ exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcs
         continue;
       c_empty = false;
       one_corresp_list_const_iter
-        result = find_if(gt[i].begin(), gt[i].end(), mw_attributed_object_eq(itr->obj_)); 
+        result = find_if(gt[i].begin(), gt[i].end(), bmcsd_attributed_object_eq(itr->obj_)); 
       if (result == gt[i].end() || !vnl_math_isfinite(itr->cost_)) {
         c_contained_in_gt = false;
         break;
