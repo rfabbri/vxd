@@ -20,14 +20,14 @@ match_subcurves(const vcl_vector<Tptr> &from, const vcl_vector<Tptr> &to,
       bmcsd_util::get_vsol_point_vector(*to[k], &to_k_pts);
       if (vcl_search(from_i_pts.begin(), from_i_pts.end(), 
                      to_k_pts.begin(), to_k_pts.end(), 
-                     mw_dereference_equal()) != from_i_pts.end()) {
+                     bmcsd_dereference_equal()) != from_i_pts.end()) {
         c[i].push_back(bmcsd_attributed_object(k));
         from_contains_to = true;
       } else if (
           !from_contains_to && 
           vcl_search(to_k_pts.begin(), to_k_pts.end(), 
                      from_i_pts.begin(), from_i_pts.end(), 
-                     mw_dereference_equal()) != to_k_pts.end()) {
+                     bmcsd_dereference_equal()) != to_k_pts.end()) {
         c[i].push_back(bmcsd_attributed_object(k));
         // curve from[i] contained in curve to[k]. No more correspondences to
         // search that are affected by from[i].
