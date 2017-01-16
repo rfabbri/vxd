@@ -14,78 +14,75 @@
 #    message("VXD_DIR should be set to the VXD build directory.")
 #  endif()
 #
-# Read vxl/config/cmake/VXLConfig.cmake for the list of variables
+# Read vxd/config/cmake/VXDConfig.cmake for the list of variables
 # provided.  The names have changed to reduce namespace pollution.
 # The old names can be made available by placing this line before
-# including UseVXL.cmake:
+# including UseVXD.cmake:
 #
-# This UseVXL.cmake no longer adds options and testing features automatically
+# This UseVXD.cmake no longer adds options and testing features automatically
 # to projects including it unless this line appears before including it:
 #
-#  set(VXL_PROVIDE_STANDARD_OPTIONS 1)
+#  set(VXD_PROVIDE_STANDARD_OPTIONS 1)
 #
 # For example, in order to enable full backward-compatibility while
 # still using FIND_PACKAGE, use these lines:
 #
-#  find_package(VXL)
-#  if(VXL_FOUND)
-#    set(VXL_PROVIDE_STANDARD_OPTIONS 1)
-#    include(${VXL_CMAKE_DIR}/UseVXL.cmake)
+#  find_package(VXD)
+#  if(VXD_FOUND)
+#    set(VXD_PROVIDE_STANDARD_OPTIONS 1)
+#    include(${VXD_CMAKE_DIR}/UseVXD.cmake)
 #  else()
-#    message("VXL_DIR should be set to the VXL build directory.")
+#    message("VXD_DIR should be set to the VXD build directory.")
 #  endif()
 #
-# The old way to use VXL from an outside project with UseVXL.cmake is
+# The old way to use VXD from an outside project with UseVXD.cmake is
 # also supported for backward-compatibility:
 #
-#  set(VXL_BINARY_PATH "" CACHE PATH "VXL build directory (location of UseVXL.cmake)")
-#  if(VXL_BINARY_PATH)
-#    include(${VXL_BINARY_PATH}/UseVXL.cmake)
+#  set(VXD_BINARY_PATH "" CACHE PATH "VXD build directory (location of UseVXD.cmake)")
+#  if(VXD_BINARY_PATH)
+#    include(${VXD_BINARY_PATH}/UseVXD.cmake)
 #  else()
-#    message("VXL_BINARY_PATH should be set to the VXL build directory (location of UseVXL.cmake)" )
+#    message("VXD_BINARY_PATH should be set to the VXD build directory (location of UseVXD.cmake)" )
 #  endif()
 #
 
 # If this file has been included directly by a user project instead of
-# through VXL_USE_FILE from VXLConfig.cmake, simulate old behavior.
-if(NOT VXL_CONFIG_CMAKE)
-  if(VXL_BINARY_PATH)
+# through VXD_USE_FILE from VXDConfig.cmake, simulate old behavior.
+if(NOT VXD_CONFIG_CMAKE)
+  if(VXD_BINARY_PATH)
 
-    # Let FIND_PACKAGE import the VXLConfig.cmake module.
-    set(VXL_DIR ${VXL_BINARY_PATH})
-    find_package(VXL)
+    # Let FIND_PACKAGE import the VXDConfig.cmake module.
+    set(VXD_DIR ${VXD_BINARY_PATH})
+    find_package(VXD)
 
     # Enable compatibility mode.
-    set(VXL_PROVIDE_STANDARD_OPTIONS 1)
+    set(VXD_PROVIDE_STANDARD_OPTIONS 1)
 
   endif()
 endif()
 
-# VXLConfig.cmake has now been included.  Use its settings.
-if(VXL_CONFIG_CMAKE)
-  # Load the compiler settings used for VXL.
-  if(VXL_BUILD_SETTINGS_FILE)
-    option( VXL_IMPORT_BUILD_SETTINGS "Import build settings (compiler flags, generator) from VXL?" YES )
-    mark_as_advanced( VXL_IMPORT_BUILD_SETTINGS )
-    if( VXL_IMPORT_BUILD_SETTINGS )
+# VXDConfig.cmake has now been included.  Use its settings.
+if(VXD_CONFIG_CMAKE)
+  # Load the compiler settings used for VXD.
+  if(VXD_BUILD_SETTINGS_FILE)
+    option( VXD_IMPORT_BUILD_SETTINGS "Import build settings (compiler flags, generator) from VXD?" YES )
+    mark_as_advanced( VXD_IMPORT_BUILD_SETTINGS )
+    if( VXD_IMPORT_BUILD_SETTINGS )
       include(${CMAKE_ROOT}/Modules/CMakeImportBuildSettings.cmake)
-      CMAKE_IMPORT_BUILD_SETTINGS(${VXL_BUILD_SETTINGS_FILE})
+      CMAKE_IMPORT_BUILD_SETTINGS(${VXD_BUILD_SETTINGS_FILE})
     endif()
   endif()
 
-  # Use the standard VXL include directories.
-  include_directories(${VXL_VCL_INCLUDE_DIRS} ${VXL_CORE_INCLUDE_DIRS})
+  # Add link directories needed to use VXD.
+  link_directories(${VXD_LIBRARY_DIR})
 
-  # Add link directories needed to use VXL.
-  link_directories(${VXL_LIBRARY_DIR})
-
-  if(VXL_CMAKE_DOXYGEN_DIR)
-    # Allow use of VXL's cmake/doxygen framework
-    include(${VXL_CMAKE_DOXYGEN_DIR}/doxygen.cmake)
+  if(VXD_CMAKE_DOXYGEN_DIR)
+    # Allow use of VXD's cmake/doxygen framework
+    include(${VXD_CMAKE_DOXYGEN_DIR}/doxygen.cmake)
   endif()
 
-  if(VXL_PROVIDE_STANDARD_OPTIONS)
-    # Provide the standard set of VXL CMake options to the project.
-    include(${VXL_CMAKE_DIR}/VXLStandardOptions.cmake)
+  if(VXD_PROVIDE_STANDARD_OPTIONS)
+    # Provide the standard set of VXD CMake options to the project.
+    include(${VXD_CMAKE_DIR}/VXDStandardOptions.cmake)
   endif()
 endif()
