@@ -1,17 +1,17 @@
-# vxl/config/cmake/Modules/UseVXL.cmake
-# (also copied by CMake to the top-level of the vxl build tree)
+# vxd/config/cmake/Modules/UseVXD.cmake
+# (also copied by CMake to the top-level of the vxd build tree)
 #
-# This CMake file may be included by projects outside VXL.  It
-# configures them to make use of VXL headers and libraries.  The file
+# This CMake file may be included by projects outside VXD.  It
+# configures them to make use of VXD headers and libraries.  The file
 # is written to work in one of two ways.
 #
-# The preferred way to use VXL from an outside project with UseVXL.cmake:
+# The preferred way to use VXD from an outside project with UseVXD.cmake:
 #
-#  find_package(VXL)
-#  if(VXL_FOUND)
-#    include(${VXL_CMAKE_DIR}/UseVXL.cmake)
+#  find_package(VXD)
+#  if(VXD_FOUND)
+#    include(${VXD_CMAKE_DIR}/UseVXD.cmake)
 #  else()
-#    message("VXL_DIR should be set to the VXL build directory.")
+#    message("VXD_DIR should be set to the VXD build directory.")
 #  endif()
 #
 # Read vxl/config/cmake/VXLConfig.cmake for the list of variables
