@@ -1,9 +1,9 @@
-# vxl/config/cmake/VXLStandardOptions.cmake
+# vxd/config/cmake/VXDStandardOptions.cmake
 #
-# This CMake module is included by vxl/CMakeLists.txt.  It adds
-# several vxl-standard testing and build options to the project:
+# This CMake module is included by vxd/CMakeLists.txt.  It adds
+# several vxd-standard testing and build options to the project:
 #
-#  VXL_BUILD_SHARED_LIBS
+#  VXD_BUILD_SHARED_LIBS
 #  BUILD_TESTING
 #  BUILD_EXAMPLES
 #  WARN_DEPRECATED
@@ -12,13 +12,13 @@
 #
 # These options may be introduced into client projects with this line:
 #
-#  include(${VXL_CMAKE_DIR}/VXLStandardOptions.cmake)
+#  include(${VXD_CMAKE_DIR}/VXDStandardOptions.cmake)
 #
-# This module may be automatically included by UseVXL.cmake.
-# See vxl/config/cmake/UseVXL.cmake for details.
+# This module may be automatically included by UseVXD.cmake.
+# See vxd/config/cmake/UseVXD.cmake for details.
 #
 
-# Everything here should be valid for both the vxl source and for
+# Everything here should be valid for both the vxd source and for
 # client projects.
 
 include(CTest)
@@ -32,7 +32,7 @@ if( WIN32 )
 else()
   option( BUILD_SHARED_LIBS "Build shared libraries." OFF)
 endif()
-set( VXL_BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS} )
+set( VXD_BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS} )
 mark_as_advanced(BUILD_SHARED_LIBS)
 
 set( SOLARIS 0 )
@@ -48,42 +48,21 @@ option( WARN_DEPRECATED_ABORT "Abort on executing a deprecated function (if runt
 mark_as_advanced( WARN_DEPRECATED WARN_DEPRECATED_ONCE WARN_DEPRECATED_ABORT )
 
 if(WARN_DEPRECATED)
-  add_definitions( -DVXL_WARN_DEPRECATED )
+  add_definitions( -DVXD_WARN_DEPRECATED )
   if(WARN_DEPRECATED_ONCE)
-    add_definitions( -DVXL_WARN_DEPRECATED_ONCE )
+    add_definitions( -DVXD_WARN_DEPRECATED_ONCE )
   endif()
   if(WARN_DEPRECATED_ABORT)
-    add_definitions( -DVXL_WARN_DEPRECATED_ABORT )
+    add_definitions( -DVXD_WARN_DEPRECATED_ABORT )
   endif()
 endif()
 
-
-
-if(VCL_HAS_LFS OR WIN32)
-  option( VXL_USE_LFS "Should VXL use Large File Support?" NO)
-  mark_as_advanced( VXL_USE_LFS )
-endif()
-
-if(VXL_USE_LFS)
-  if(WIN32)
-    # TODO: MS Version Support
-    #  message( SEND_ERROR "Sorry - Large File Support is not quite working on Win32 yet. Turning VXL_USE_LFS off")
-    #  set(VXL_USE_LFS "NO" CACHE BOOL "Should VXL use Large File Support?" FORCE)
-  else()
-    if(VCL_HAS_LFS)
-      add_definitions( -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE)
-    else()
-      message( SEND_ERROR "This platform does not have Large File Support - turning VXL_USE_LFS off")
-      set(VXL_USE_LFS "NO" CACHE BOOL "Should VXL use Large File Support?" FORCE)
-    endif()
-  endif()
-endif()
 
 # Taken from ITK build environment
 # On Visual Studio 8 MS deprecated C. This removes many security warnings
 if(WIN32)
        if(NOT MINGW)
-         if(NOT VXL_ENABLE_VISUAL_STUDIO_DEPRECATED_C_WARNINGS)
+         if(NOT VXD_ENABLE_VISUAL_STUDIO_DEPRECATED_C_WARNINGS)
            add_definitions(
              -D_CRT_FAR_MAPPINGS_NO_DEPRECATE
              -D_CRT_IS_WCTYPE_NO_DEPRECATE
@@ -102,7 +81,7 @@ if(WIN32)
          # format.
          # see http://msdn.microsoft.com/en-us/library/ms173499.aspx
          if(MSVC_VERSION GREATER 1310)
-           set(VXL_REQUIRED_CXX_FLAGS "${VXL_REQUIRED_CXX_FLAGS} /bigobj")
+           set(VXD_REQUIRED_CXX_FLAGS "${VXD_REQUIRED_CXX_FLAGS} /bigobj")
          endif()
        endif()
 endif()
