@@ -139,3 +139,12 @@ configure_file( ${VXD_CMAKE_DIR}/UseVXD.cmake
                 ${vxd_BINARY_DIR}/UseVXD.cmake COPYONLY )
 # For use in client projects that call UseVXD.cmake
 set(VXD_LIBRARY_PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} CACHE STATIC "Where all the vxd libraries are, for clients to use." )
+
+# Copy CTestCustom.cmake to top of build tree
+#configure_file( ${VXD_CMAKE_DIR}/CTestCustom.cmake
+#  ${vxd_BINARY_DIR}/CTestCustom.cmake COPYONLY )
+
+# This command must be the last command in this file
+if(NOT VXD_NO_EXPORT)
+  include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/export/VXDCreateProject.cmake)
+endif()
