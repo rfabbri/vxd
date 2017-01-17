@@ -77,7 +77,9 @@ set(VXD_BRLD_INCLUDE_DIR "@BRLD_INCLUDE_DIR@")
 set(VXD_CONFIG_CMAKE 1)
 
 # Import VXD targets.
-if(NOT VXD_TARGETS_IMPORTED@VXD_CONFIG_TARGETS_CONDITION@)
-  set(VXD_TARGETS_IMPORTED 1)
-  include("${CMAKE_CURRENT_LIST_DIR}/VXDTargets.cmake")
-endif()
+# XXX To do this we'd need to use vxd_add_library and other vxl_utils,
+# only needed if we are going to use VXD as a system lib
+#if(NOT VXD_TARGETS_IMPORTED@VXD_CONFIG_TARGETS_CONDITION@)
+  #  set(VXD_TARGETS_IMPORTED 1)
+  #  include("${CMAKE_CURRENT_LIST_DIR}/VXDTargets.cmake")
+  #endif()

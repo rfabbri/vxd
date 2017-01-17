@@ -76,10 +76,11 @@ if(VXD_CONFIG_CMAKE)
   # Add link directories needed to use VXD.
   link_directories(${VXD_LIBRARY_DIR})
 
-  if(VXD_CMAKE_DOXYGEN_DIR)
+  # XXX for now, doxygen is not supported
+  #  if(VXD_CMAKE_DOXYGEN_DIR)
     # Allow use of VXD's cmake/doxygen framework
-    include(${VXD_CMAKE_DOXYGEN_DIR}/doxygen.cmake)
-  endif()
+    #    include(${VXD_CMAKE_DOXYGEN_DIR}/doxygen.cmake)
+    #  endif()
 
   if(VXD_PROVIDE_STANDARD_OPTIONS)
     # Provide the standard set of VXD CMake options to the project.
