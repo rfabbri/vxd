@@ -2,6 +2,7 @@
 #include <vcl_cmath.h>
 #include <vcl_cassert.h>
 #include "bgld_diffgeom.h"
+#define DIFFGEOM_EPS 2.2204e-16
 
 /**
  * Compute the inverse matrix of | 1.0, -Ta, Ta^2 |
