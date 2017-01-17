@@ -5,7 +5,7 @@
 * objects. One example is computing the distance of a given polyline to a set of
 * pixels using Distance Transform.
 *
-* More functions of this type can be found in brcv/rec/dbcsi, which uses higher
+* More functions of this type can be found in brcv/rec/bcsid, which uses higher
 * level libraries and primitives than the present one.
 *
 */

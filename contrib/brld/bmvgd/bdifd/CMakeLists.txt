@@ -1,4 +1,4 @@
-# This is brcv/mvg/bdifd/CMakeLists.txt
+# This is bmvgd/bdifd/CMakeLists.txt
 # Brown Multiview Differential Geometry Library
 
 include_directories(${VXL_GEL_INCLUDE_DIR} )

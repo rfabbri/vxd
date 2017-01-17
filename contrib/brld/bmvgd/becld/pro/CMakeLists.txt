@@ -1,4 +1,4 @@
-# This is brcv/mvg/becld/pro/CMakeLists.txt
+# This is bmvgd/becld/pro/CMakeLists.txt
 # Brown Epipolar Curve Processing library
 
 include_directories( ${lems_SOURCE_DIR}/breye1 )

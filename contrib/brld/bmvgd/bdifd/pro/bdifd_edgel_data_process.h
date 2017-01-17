@@ -1,4 +1,4 @@
-// This is brcv/seg/dbdet/pro/bdifd_edgel_data_process.h
+// This is brcv/seg/sdetd/pro/bdifd_edgel_data_process.h
 #ifndef bdifd_edgel_data_process_h_
 #define bdifd_edgel_data_process_h_
 

@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/becld_episeg.cxx
+// This is bmvgd/becld/becld_episeg.cxx
 //:
 // \file
 

@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/vis/bgui_becld_soview2D.h
+// This is bmvgd/becld/vis/bgui_becld_soview2D.h
 #ifndef becld_episeg_soview2D_h_
 #define becld_episeg_soview2D_h_
 //--------------------------------------------------------------------------------

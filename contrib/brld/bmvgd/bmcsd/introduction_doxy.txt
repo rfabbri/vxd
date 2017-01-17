@@ -7,6 +7,6 @@
 * More mature parts are routinely migrated to: 
 *   - bdifd: multiview differential geometry lib
 *   - vpgl: traditional photogrammetry/MVG algorithms,
-*   - dbecl: Epipolar curve library
+*   - becld: Epipolar curve library
 *   - dbkpr: key point recognition, matching & reconstruction
 */

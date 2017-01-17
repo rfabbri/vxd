@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/vis/becld_episeg_tools.h
+// This is bmvgd/becld/vis/becld_episeg_tools.h
 #ifndef becld_episeg_tools_h_
 #define becld_episeg_tools_h_
 //:

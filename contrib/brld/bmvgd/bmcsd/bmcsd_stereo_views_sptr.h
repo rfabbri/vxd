@@ -1,4 +1,4 @@
-// This is brl/dbpro/bmcsd_stereo_views_sptr.h
+// This is brl/bprod/bmcsd_stereo_views_sptr.h
 #ifndef bmcsd_stereo_views_sptr_h
 #define bmcsd_stereo_views_sptr_h
 

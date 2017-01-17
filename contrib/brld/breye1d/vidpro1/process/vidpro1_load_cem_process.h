@@ -20,9 +20,9 @@
 
 //: This process loads a .CEM file and produces vsol2D_storage class
 // \remarks The most recent and well-maintained version of the .CEM loader is in
-// dbdet/pro/dbdet_load_cem_process.h
+// sdetd/pro/sdetd_load_cem_process.h
 //
-// Use this version *only* if you don't want to link to dbdet.
+// Use this version *only* if you don't want to link to sdetd.
 class vidpro1_load_cem_process : public bpro1_process
 {
 public:

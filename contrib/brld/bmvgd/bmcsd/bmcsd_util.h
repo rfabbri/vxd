@@ -30,7 +30,7 @@
 #include <vpgl/vpgl_perspective_camera.h>
 #include <vpgl/vpgl_fundamental_matrix.h>
 #include <vgl/vgl_point_3d.h>
-// #include <dvpgl/io/dvpgl_io_cameras.h>
+// #include <vpgld/io/vpgld_io_cameras.h>
 #include <vsol/vsol_polyline_2d_sptr.h>
 #include <vsol/vsol_polyline_2d.h>
 #include <bdifd/bdifd_frenet.h>
@@ -320,7 +320,7 @@ inline double bmcsd_util::clump_to_acos(double x)
   return x;
 }
 
-//: Copied from dbdet_sel1.h
+//: Copied from sdetd_sel1.h
 inline double bmcsd_util::
 angle0To2Pi (double angle)
 {

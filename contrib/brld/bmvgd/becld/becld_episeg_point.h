@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/becld_episeg_point.h
+// This is bmvgd/becld/becld_episeg_point.h
 #ifndef becld_episeg_point_h_
 #define becld_episeg_point_h_
 

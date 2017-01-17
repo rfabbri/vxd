@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/vis/becld_episeg_displayer.cxx
+// This is bmvgd/becld/vis/becld_episeg_displayer.cxx
 
 #include "becld_episeg_displayer.h"
 #include <becld/pro/becld_episeg_storage.h>

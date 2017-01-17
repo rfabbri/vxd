@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/vis/becld_episeg_displayer.h
+// This is bmvgd/becld/vis/becld_episeg_displayer.h
 #ifndef becld_episeg_displayer_h_
 #define becld_episeg_displayer_h_
 

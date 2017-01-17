@@ -1,4 +1,4 @@
-// This is brcv/mvg/dvpgl/algo/pro/vidpro1_vsol_scale_process.h
+// This is bmvgd/vpgld/algo/pro/vidpro1_vsol_scale_process.h
 #ifndef vidpro1_vsol_scale_process_h_
 #define vidpro1_vsol_scale_process_h_
 

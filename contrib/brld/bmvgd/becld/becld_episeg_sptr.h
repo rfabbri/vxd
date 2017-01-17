@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/becld_episeg_sptr.h
+// This is bmvgd/becld/becld_episeg_sptr.h
 #ifndef becld_episeg_sptr_h_ 
 #define becld_episeg_sptr_h_
 

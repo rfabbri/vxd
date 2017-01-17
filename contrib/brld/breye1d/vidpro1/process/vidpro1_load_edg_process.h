@@ -22,9 +22,9 @@
 
 //: This process loads a .EDG file into the current frame
 // \remarks The most recent and well-maintained version of the .EDG loader is in
-// dbdet/pro/dbdet_load_edg_process.h
+// sdetd/pro/sdetd_load_edg_process.h
 //
-// Use this version only if you don't want to link to dbdet.
+// Use this version only if you don't want to link to sdetd.
 class vidpro1_load_edg_process : public bpro1_process
 {
 public:

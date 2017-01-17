@@ -1,4 +1,4 @@
-# This is brcv/mvg/bdifd/pro/CMakeLists.txt
+# This is bmvgd/bdifd/pro/CMakeLists.txt
 # Brown Multiview Differential Geometry Library
 
 set(bdifd_pro_sources

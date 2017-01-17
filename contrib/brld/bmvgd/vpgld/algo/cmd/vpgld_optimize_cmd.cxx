@@ -14,7 +14,7 @@
 
 
 // Based on code originally written by Kongbin Kang (@Brown.edu) from 
-// lems/brcv/mvg/brct/brct_algos.h
+// lems/bmvgd/brct/brct_algos.h
 bool read_target_corrs(vcl_ifstream& str,
                   vcl_vector<bool>& valid,
                   vcl_vector<vgl_point_2d<double> >& image_points,

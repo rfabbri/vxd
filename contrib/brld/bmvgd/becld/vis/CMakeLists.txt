@@ -1,4 +1,4 @@
-# This is brcv/mvg/becld/vis/CMakeLists.txt
+# This is bmvgd/becld/vis/CMakeLists.txt
 # Brown Epipolar Curve Visualization library
 
 include_directories( ${lems_SOURCE_DIR}/breye1 )

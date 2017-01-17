@@ -1,4 +1,4 @@
-# brcv/mvg/CMakeLists.txt
+# bmvgd/CMakeLists.txt
 # Brown Multi-View Geometry Libraries (vxd development version).
 
 # Brown Multiview Differential Geometry Library (vxd development version)

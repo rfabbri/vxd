@@ -1,4 +1,4 @@
-// This is basic/dbil/pro/vidpro1_split_into_RGB_process.cxx
+// This is basic/bild/pro/vidpro1_split_into_RGB_process.cxx
 
 //:
 // \file

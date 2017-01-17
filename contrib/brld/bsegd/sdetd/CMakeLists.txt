@@ -5,19 +5,19 @@ project(sdetd)
 # include directories into here if needed
 
 
-#configure_file( ${dbdet_SOURCE_DIR}/dbdet_config.h.in
-#                ${dbdet_BINARY_DIR}/dbdet_config.h )
+#configure_file( ${sdetd_SOURCE_DIR}/sdetd_config.h.in
+#                ${sdetd_BINARY_DIR}/sdetd_config.h )
 
 
-#set(dbdet_sources
+#set(sdetd_sources
 #)
 
-#aux_source_directory(Templates dbdet_sources)
+#aux_source_directory(Templates sdetd_sources)
 
-#add_library(dbdet ${dbdet_sources})
+#add_library(sdetd ${sdetd_sources})
 
 # add the required libraries into this list
-#target_link_libraries( dbdet vil1 vil bil_algo dbnl_algo osl vepl vepl vdgl vnl_io bdgl dbgl_algo brip pdf1d mbl)
+#target_link_libraries( sdetd vil1 vil bil_algo bnld_algo osl vepl vepl vdgl vnl_io bdgl bgld_algo brip pdf1d mbl)
 
 
 #if(BUILD_TESTING)

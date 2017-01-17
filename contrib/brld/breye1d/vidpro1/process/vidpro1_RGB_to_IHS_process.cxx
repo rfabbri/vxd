@@ -1,4 +1,4 @@
-// This is basic/dbil/pro/vidpro1_RGB_to_IHS_process.cxx
+// This is basic/bild/pro/vidpro1_RGB_to_IHS_process.cxx
 
 //:
 // \file

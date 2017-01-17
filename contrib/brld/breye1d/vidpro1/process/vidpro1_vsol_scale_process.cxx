@@ -1,4 +1,4 @@
-// This is brcv/mvg/dvpgl/algo/pro/vidpro1_vsol_scale_process.cxx
+// This is bmvgd/vpgld/algo/pro/vidpro1_vsol_scale_process.cxx
 
 //:
 // \file

@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/becld_epipole_sptr.h
+// This is bmvgd/becld/becld_epipole_sptr.h
 #ifndef becld_epipole_sptr_h_ 
 #define becld_epipole_sptr_h_
 

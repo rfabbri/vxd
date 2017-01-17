@@ -1,4 +1,4 @@
-# This is brcv/mvg/bdifd/algo/CMakeLists.txt
+# This is bmvgd/bdifd/algo/CMakeLists.txt
 # Brown Multiview Differential Geometry Algorithms Library
 
 set(bdifd_algo_sources

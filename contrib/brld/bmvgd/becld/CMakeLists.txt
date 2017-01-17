@@ -1,4 +1,4 @@
-# This is brcv/mvg/becld/CMakeLists.txt
+# This is bmvgd/becld/CMakeLists.txt
 # Brown Epipolar Curve Library
 
 include_directories(${VXL_GEL_INCLUDE_DIR} )

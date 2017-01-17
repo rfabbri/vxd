@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/becld_epipole.cxx
+// This is bmvgd/becld/becld_epipole.cxx
 //:
 // \file
 

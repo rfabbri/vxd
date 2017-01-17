@@ -1,6 +1,6 @@
-// This is brcv/mvg/becld/pro/becld_episeg_storage.h
-#ifndef dbecld_episeg_storage_h
-#define dbecld_episeg_storage_h
+// This is bmvgd/becld/pro/becld_episeg_storage.h
+#ifndef becldd_episeg_storage_h
+#define becldd_episeg_storage_h
 
 // \file
 // \brief A storage class for becld episegments

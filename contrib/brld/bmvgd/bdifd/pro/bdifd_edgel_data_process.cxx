@@ -1,4 +1,4 @@
-// This is brcv/seg/dbdet/pro/bdifd_edgel_data_process.cxx
+// This is brcv/seg/sdetd/pro/bdifd_edgel_data_process.cxx
 
 //:
 // \file

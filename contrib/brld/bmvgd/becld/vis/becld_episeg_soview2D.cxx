@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/vis/bgui_becld_soview2D.cxx
+// This is bmvgd/becld/vis/bgui_becld_soview2D.cxx
 //:
 // \file
 #include "becld_episeg_soview2D.h"

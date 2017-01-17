@@ -158,7 +158,7 @@ inline double bdifd_util::clump_to_acos(double x)
   return x;
 }
 
-//: Copied from dbdet_sel1.h
+//: Copied from sdetd_sel1.h
 inline double bdifd_util::
 angle0To2Pi (double angle)
 {

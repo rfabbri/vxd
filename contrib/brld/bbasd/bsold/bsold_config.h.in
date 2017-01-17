@@ -1,6 +1,6 @@
-// This is dbsol_config.h
-#ifndef dbsol_config_h
-#define dbsol_config_h
+// This is bsold_config.h
+#ifndef bsold_config_h
+#define bsold_config_h
 //:
 //\file
 //\brief 
@@ -13,5 +13,5 @@
 #define HAS_BOOST 1
 #endif
 
-#endif // dbsol_config_h
+#endif // bsold_config_h
 

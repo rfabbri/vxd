@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/becld_episeg_from_curve_converter.h
+// This is bmvgd/becld/becld_episeg_from_curve_converter.h
 #ifndef becld_episeg_from_curve_converter_h_
 #define becld_episeg_from_curve_converter_h_
 

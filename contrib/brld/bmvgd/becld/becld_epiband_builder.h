@@ -1,4 +1,4 @@
-// This is brcv/mvg/dbbecl/becld_epiband_builder.h
+// This is bmvgd/dbbecl/becld_epiband_builder.h
 #ifndef becld_epiband_builder_h
 #define becld_epiband_builder_h
 //:

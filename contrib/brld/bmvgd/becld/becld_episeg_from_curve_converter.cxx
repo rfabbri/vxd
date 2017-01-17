@@ -1,4 +1,4 @@
-// This is brcv/mvg/becld/becld_episeg_from_curve_converter.cxx
+// This is bmvgd/becld/becld_episeg_from_curve_converter.cxx
 //:
 // \file
 
