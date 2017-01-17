@@ -73,13 +73,49 @@ set(VXD_ROOT_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR})
 set(VXD_CMAKE_DIR ${CMAKE_CURRENT_LIST_DIR}/config/cmake/Modules)
 
 include(${VXD_CMAKE_DIR}/VXDStandardOptions.cmake)
-# include(${VXD_CMAKE_DIR}/VXDGenerateExportHeader.cmake)
-# include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/config/vxd_utils.cmake)
-# include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/doxygen/doxygen.cmake)
+# Only include these if we have vxd-specific cmake utilities. We currently use VXL's:
+#include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/config/vxd_utils.cmake)
 
 # Location of VXD's FindXXX.cmake CMake modules.
 # This is identical to VXD_CMAKE_DIR.  Perhaps we should eliminate MODULE_PATH?
 set( MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/config/cmake/Modules CACHE STATIC "VXD module path" )
+
+# Options to add extra compiler and linker flags
+#
+# These options allow you to specify additional flags without
+# affecting the default flags for a particular platform or build type.
+# This is especially useful for adding extra warning flags.
+set( VXD_EXTRA_CMAKE_C_FLAGS             CACHE STRING "Extra flags appended to CMAKE_C_FLAGS" )
+set( VXD_EXTRA_CMAKE_CXX_FLAGS           CACHE STRING "Extra flags appended to CMAKE_CXX_FLAGS" )
+set( VXD_EXTRA_CMAKE_EXE_LINKER_FLAGS    CACHE STRING "Extra flags appended to CMAKE_EXE_LINKER_FLAGS" )
+set( VXD_EXTRA_CMAKE_MODULE_LINKER_FLAGS CACHE STRING "Extra flags appended to CMAKE_MODULE_LINKER_FLAGS" )
+set( VXD_EXTRA_CMAKE_SHARED_LINKER_FLAGS CACHE STRING "Extra flags appended to CMAKE_SHARED_LINKER_FLAGS" )
+set( CMAKE_C_FLAGS             "${CMAKE_C_FLAGS} ${VXD_EXTRA_CMAKE_C_FLAGS}" )
+set( CMAKE_CXX_FLAGS           "${CMAKE_CXX_FLAGS} ${VXD_EXTRA_CMAKE_CXX_FLAGS}" )
+set( CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS} ${VXD_EXTRA_CMAKE_EXE_LINKER_FLAGS}" )
+set( CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${VXD_EXTRA_CMAKE_MODULE_LINKER_FLAGS}" )
+set( CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${VXD_EXTRA_CMAKE_SHARED_LINKER_FLAGS}" )
+
+#-------------------------------------------------------------------
+#-- BUILD CONFIG OPTIONS
+
+# In order to be able to link vxl libraries into shared libraries on 64 bit linux, the -fPIC
+# compiler flag must be added.  Only do this if we are on a x86_64 *nix platform, we're building
+# static libraries, and the user has not explicitly requested position dependent code.
+if(UNIX)
+  if(NOT VXL_BUILD_SHARED_LIBS AND CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
+    option(BUILD_POSITION_DEPENDENT_CODE "Generate position dependent code (i.e. code cannot be used in shared library)" OFF)
+    mark_as_advanced(BUILD_POSITION_DEPENDENT_CODE)
+    if(NOT BUILD_POSITION_DEPENDENT_CODE)
+      message(STATUS "Adding -fPIC compiler flag to generate position independent code.")
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+    endif()
+  endif()
+endif()
+
+
+
 
 # Some types of path names can cause havoc with regular expressions,
 # so avoid those.
