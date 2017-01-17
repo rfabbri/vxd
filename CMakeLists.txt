@@ -44,7 +44,6 @@ if(NOT COMMAND SETIFEMPTY)
   endmacro()
 endif()
 
-
 #-----------------------------------------------------------------------------
 SETIFEMPTY(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
 SETIFEMPTY(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
