@@ -33,7 +33,71 @@ endif()
 
 project(vxd)
 
-set (LIBRARY_OUTPUT_PATH ${vxd_BINARY_DIR}/lib CACHE PATH "Single output directory for building all libraries.")
+#-----------------------------------------------------------------------------
+if(NOT COMMAND SETIFEMPTY)
+  macro(SETIFEMPTY)
+    set(KEY ${ARGV0})
+    set(VALUE ${ARGV1})
+    if(NOT ${KEY})
+      set(${ARGV})
+    endif()
+  endmacro()
+endif()
+
+
+#-----------------------------------------------------------------------------
+SETIFEMPTY(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+SETIFEMPTY(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+SETIFEMPTY(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+
+#-----------------------------------------------------------------------------
+SETIFEMPTY(CMAKE_INSTALL_LIBRARY_DESTINATION lib)
+SETIFEMPTY(CMAKE_INSTALL_ARCHIVE_DESTINATION lib)
+SETIFEMPTY(CMAKE_INSTALL_RUNTIME_DESTINATION bin)
+
+# Allow external project to override the export target
+if(NOT VXD_NO_EXPORT)
+  SETIFEMPTY(VXD_INSTALL_EXPORT_NAME VXDTargets)
+endif()
+
+SETIFEMPTY(VXD_INSTALL_RUNTIME_DIR bin)
+SETIFEMPTY(VXD_INSTALL_LIBRARY_DIR lib)
+SETIFEMPTY(VXD_INSTALL_ARCHIVE_DIR lib)
+SETIFEMPTY(VXD_INSTALL_INCLUDE_DIR include/vxd)
+if(NOT VXD_LIB_PREFIX)
+  set( VXD_LIB_PREFIX "") # This is typically empty
+endif()
+
+# CMake support directory.
+set(VXD_ROOT_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR})
+set(VXD_CMAKE_DIR ${CMAKE_CURRENT_LIST_DIR}/config/cmake/Modules)
+
+include(${VXD_CMAKE_DIR}/VXDStandardOptions.cmake)
+# include(${VXD_CMAKE_DIR}/VXDGenerateExportHeader.cmake)
+# include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/config/vxd_utils.cmake)
+# include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/doxygen/doxygen.cmake)
+
+# Location of VXD's FindXXX.cmake CMake modules.
+# This is identical to VXD_CMAKE_DIR.  Perhaps we should eliminate MODULE_PATH?
+set( MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/config/cmake/Modules CACHE STATIC "VXD module path" )
+
+# Some types of path names can cause havoc with regular expressions,
+# so avoid those.
+if( ${PROJECT_BINARY_DIR} MATCHES  \\+ )
+  message(SEND_ERROR "You cannot have a + in your binary path")
+endif()
+if( ${CMAKE_CURRENT_LIST_DIR} MATCHES  \\+ )
+  message(SEND_ERROR "You cannot have a + in your source path")
+endif()
+
+# include CMakeListsLocal.txt from source directory if it exists
+# also include it from the binary dir if different from source dir
+if( ${PROJECT_BINARY_DIR} MATCHES ${CMAKE_CURRENT_LIST_DIR} )
+  include( ${CMAKE_CURRENT_LIST_DIR}/CMakeListsLocal.txt OPTIONAL )
+else()
+  include( ${CMAKE_CURRENT_LIST_DIR}/CMakeListsLocal.txt OPTIONAL )
+  include( ${PROJECT_BINARY_DIR}/CMakeListsLocal.txt OPTIONAL )
+endif()
 
 find_package(VXL PATHS "../vxl-bin")
 if (VXL_FOUND)
@@ -46,9 +110,6 @@ else (VXL_FOUND)
     message( "Use preferred VXL_DIR in place of VXL_BINARY_PATH" )
   endif( VXL_BINARY_PATH )
 endif(VXL_FOUND)
-
-# CMake support directory.
-set(VXD_CMAKE_DIR ${vxd_SOURCE_DIR}/config/cmake)
 
 add_subdirectory(contrib) 
 
@@ -69,3 +130,12 @@ endif(VXL_FOUND)
 # adds a test for Endianness and a global variable that should be useful for file format programming -MM
 include(TestBigEndian)
 TEST_BIG_ENDIAN(MY_BIG_ENDIAN)
+
+# Copy the UseVXD.cmake file to the binary directory so that client
+# projects don't need to find the source directory first. They can run
+# the UseVXD.cmake from the vxd binary directory, and determine the
+# vxd source directory by loading the cache.
+configure_file( ${VXD_CMAKE_DIR}/UseVXD.cmake
+                ${vxd_BINARY_DIR}/UseVXD.cmake COPYONLY )
+# For use in client projects that call UseVXD.cmake
+set(VXD_LIBRARY_PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} CACHE STATIC "Where all the vxd libraries are, for clients to use." )
