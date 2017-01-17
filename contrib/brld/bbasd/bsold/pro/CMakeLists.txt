@@ -1,8 +1,6 @@
 # bbasd/bsold/pro/CMakeLists.txt
 # Development Brown Spatial Object Processing Library
 
-include_directories( ${lems_SOURCE_DIR}/breye1 )
-
 set(bsold_pro_sources
    bsold_curve_sampling_process.cxx    bsold_curve_sampling_process.h
    bsold_translate_2d_process.cxx      bsold_translate_2d_process.h
