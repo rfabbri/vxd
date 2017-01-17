@@ -111,58 +111,6 @@ bgld_compute_curvature(
                       inv);
 }
 
-<<<<<<< HEAD:lemsvxl/basic/dbgl/algo/dbgl_diffgeom.cxx
-void 
-dbgl_compute_curvature(
-    const dbdet_edgel_chain &c, 
-    vnl_vector<double> *k
-    )
-{
-
-  dbdet_edgel_list vertices = c.edgels;
-  int size = vertices.size();
-  assert(size >= 2);
-
-  k->set_size(size);
-
-  double inv[3][3];
-  double xa, x, xb, ya, y, yb, ta, tb;
-
-  xb = vertices[0]->pt.x(); x = vertices[1]->pt.x(); xa = vertices[2]->pt.x();
-  yb = vertices[0]->pt.y(); y = vertices[1]->pt.y(); ya = vertices[2]->pt.y();
-  
-  ta = compute_dist(xb, x, yb, y);
-  tb = compute_dist(xa, xb, ya, yb);
-
-  inverse3(-ta, -tb, inv);
-  (*k)[0] = compute_k(vertices[1]->pt.x(), vertices[0]->pt.x(), vertices[2]->pt.x(),
-                      vertices[1]->pt.y(), vertices[0]->pt.y(), vertices[2]->pt.y(),
-                      inv);
-
-  for (int i = 1; i < size - 1; ++i)
-  {
-      xa = vertices[i+1]->pt.x();
-      ya = vertices[i+1]->pt.y();
-      
-      tb = ta;
-      ta = compute_dist(xa, x, ya, y);
-
-      inverse3(-ta, tb, inv);
-      (*k)[i] = compute_k(vertices[i+1]->pt.x(), vertices[i]->pt.x(), vertices[i-1]->pt.x(),
-                          vertices[i+1]->pt.y(), vertices[i]->pt.y(), vertices[i-1]->pt.y(),
-                          inv);
-      x = xa; y = ya;
-  }
-  
-  tb = ta;
-  ta = compute_dist(x, vertices[size-3]->pt.x(), y, vertices[size-3]->pt.y());
-
-  inverse3(ta, tb, inv);
-  (*k)[size-1] = compute_k(vertices[size-3]->pt.x(), vertices[size-1]->pt.x(), vertices[size-2]->pt.x(),
-                      vertices[size-3]->pt.y(), vertices[size-1]->pt.y(), vertices[size-2]->pt.y(),
-                      inv);
-}
-
 void bgld_compute_normals(
     const vcl_vector< vgl_point_2d<double> > &vertices, 
     vcl_vector< vnl_vector_fixed<double, 2> > *n
@@ -180,55 +128,6 @@ void bgld_compute_normals(
   for (unsigned i = 0; i + 1 < size; ++i) {
     double vxp1 = vertices[i+1].x();
     double vyp1 = vertices[i+1].y();
-
-    double x = vx - vxp1;
-    double y = vy - vyp1;
-
-    vx = vxp1;
-    vy = vyp1;
-
-    double norm2 = (x * x + y * y);
-    norm2 = (norm2 > DIFFGEOM_EPS) ? norm2 : DIFFGEOM_EPS;
-    
-    double xx = lastx;
-    double yy = lasty;
-
-    lastx = x / norm2;
-    lasty = y / norm2;
-
-    xx += lastx;
-    yy += lasty;
-
-    double norm = vcl_sqrt(xx * xx + yy * yy);
-    (*n)[i][0] = -yy / norm;
-    (*n)[i][1] = xx / norm;
-  }
-
-  double norm = vcl_sqrt(lastx * lastx + lasty * lasty);
-  (*n)[size - 1][0] = -lasty / norm;
-  (*n)[size - 1][1] = lastx / norm;
-}
-
-void dbgl_compute_normals(
-    const dbdet_edgel_chain &c, 
-    vcl_vector< vnl_vector_fixed<double, 2> > *n
-    )
-{
-
-  dbdet_edgel_list vertices = c.edgels;
-
-  unsigned size = vertices.size();
-  assert(size);
-  n->resize(size);
-
-  double lastx = 0.0;
-  double lasty = 0.0;
-  double vx = vertices[0]->pt.x();
-  double vy = vertices[0]->pt.y();
-
-  for (unsigned i = 0; i + 1 < size; ++i) {
-    double vxp1 = vertices[i+1]->pt.x();
-    double vyp1 = vertices[i+1]->pt.y();
 
     double x = vx - vxp1;
     double y = vy - vyp1;

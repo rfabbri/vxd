@@ -11,7 +11,6 @@
 #include <vcl_vector.h>
 #include <vgl/vgl_point_2d.h>
 #include <vnl/vnl_vector_fixed.h>
-#include <dbdet/sel/dbdet_edgel.h>
 
 // Curvature estimation by D. Kroons's approach
 //
@@ -46,12 +45,6 @@ bgld_compute_curvature(
     vnl_vector<double> *k
     );
 
-void 
-dbgl_compute_curvature(
-    const dbdet_edgel_chain &c, 
-    vnl_vector<double> *k
-    );
-
 // This function calculates the normals, of the line points
 // using the neighbouring points of each contour point, and 
 // forward an backward differences on the end points
@@ -63,13 +56,6 @@ bgld_compute_normals(
     const vcl_vector< vgl_point_2d<double> > &vertices, 
     vcl_vector< vnl_vector_fixed<double, 2> > *n
     );
-
-void 
-dbgl_compute_normals(
-    const dbdet_edgel_chain &c, 
-    vcl_vector< vnl_vector_fixed<double, 2> > *n
-    );
-#define DIFFGEOM_EPS 2.2204e-16
 
 #endif // bgld_diffgeom_h
 
