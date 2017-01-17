@@ -1,3 +1,4 @@
+#include <limits>
 #include "becld_epiline_interceptor.h"
 #include <bgld/algo/bgld_intersect.h>
 #include <vgl/vgl_distance.h>
@@ -58,7 +59,7 @@ curve_line_intersection_simple(
 
   { // determine point of this iset minimizing epipolar distance (assume accurate calib)
     // this is just to get the segment with which to intersect.
-    double cost_min = vcl_numeric_limits<double>::infinity(); 
+    double cost_min = std::numeric_limits<double>::infinity(); 
     double cost;
 
     for (unsigned ls=0; ls< crv.size(); ++ls) {
