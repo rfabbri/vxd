@@ -9,7 +9,7 @@ sdetd_load_edg.cxx sdetd_load_edg.h
 
 add_library(sdetd_io ${sdetd_io_sources})
 
-target_link_libraries(sdetd_io sdetd)
+target_link_libraries(sdetd_io sdet)
 
 if( BUILD_TESTING )
 #  add_subdirectory(tests)

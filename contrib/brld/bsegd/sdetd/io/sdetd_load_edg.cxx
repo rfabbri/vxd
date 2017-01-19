@@ -6,9 +6,8 @@
 #include <vsol/vsol_line_2d.h>
 #include <vsol/vsol_point_2d.h>
 #include <vsol/vsol_line_2d_sptr.h>
-#include <sdet/sdetd_edgemap.h>
-#include <sdetd/sdetd_config.h>
-#include <sdet/sdetd_sel_utils.h>
+#include <sdet/sdet_edgemap.h>
+#include <sdet/sdet_sel_utils.h>
 
 #ifdef HAS_BOOST
 #include <boost/iostreams/filtering_stream.hpp>
@@ -140,15 +139,15 @@ bool sdetd_load_edg(vcl_string input_file, bool bSubPixel, bool blines, double s
 }
 
 #ifdef HAS_BOOST
-static bool sdetd_load_edg_gzip(vcl_string input_file, bool bSubPixel, double scale, sdetd_edgemap_sptr &edge_map);
-static bool sdetd_save_edg_gzip(vcl_string filename, sdetd_edgemap_sptr edgemap);
+static bool sdetd_load_edg_gzip(vcl_string input_file, bool bSubPixel, double scale, sdet_edgemap_sptr &edge_map);
+static bool sdetd_save_edg_gzip(vcl_string filename, sdet_edgemap_sptr edgemap);
 #endif
 
-static bool sdetd_load_edg_ascii(vcl_string input_file, bool bSubPixel, double scale, sdetd_edgemap_sptr &edge_map);
+static bool sdetd_load_edg_ascii(vcl_string input_file, bool bSubPixel, double scale, sdet_edgemap_sptr &edge_map);
 
-static bool sdetd_save_edg_ascii(vcl_string filename, sdetd_edgemap_sptr edgemap);
+static bool sdetd_save_edg_ascii(vcl_string filename, sdet_edgemap_sptr edgemap);
 
-bool sdetd_load_edg(vcl_string input_file, bool bSubPixel, double scale, sdetd_edgemap_sptr &edge_map)
+bool sdetd_load_edg(vcl_string input_file, bool bSubPixel, double scale, sdet_edgemap_sptr &edge_map)
 {
   vcl_string ext = vul_file::extension(input_file);
   bool ret;
@@ -173,7 +172,7 @@ bool sdetd_load_edg(vcl_string input_file, bool bSubPixel, double scale, sdetd_e
   return ret;
 }
 
-bool sdetd_save_edg(vcl_string filename, sdetd_edgemap_sptr edgemap)
+bool sdetd_save_edg(vcl_string filename, sdet_edgemap_sptr edgemap)
 {
   vcl_string ext = vul_file::extension(filename);
   bool ret;
@@ -198,7 +197,7 @@ bool sdetd_save_edg(vcl_string filename, sdetd_edgemap_sptr edgemap)
   return ret;
 }
 
-bool sdetd_load_edg_ascii(vcl_string input_file, bool bSubPixel, double scale, sdetd_edgemap_sptr &edge_map)
+bool sdetd_load_edg_ascii(vcl_string input_file, bool bSubPixel, double scale, sdet_edgemap_sptr &edge_map)
 {
   double x, y;
   char lineBuffer[1024];
@@ -285,7 +284,7 @@ bool sdetd_load_edg_ascii(vcl_string input_file, bool bSubPixel, double scale, s
   if (w==0 && h==0) { w=1000; h=1000; }
 
   // edge_map 
-  edge_map = new sdetd_edgemap(static_cast<int>(w*scale), static_cast<int>(h*scale));
+  edge_map = new sdet_edgemap(static_cast<int>(w*scale), static_cast<int>(h*scale));
 
   edge_map->edgels.reserve(numGeometry);
 
@@ -324,13 +323,13 @@ bool sdetd_load_edg_ascii(vcl_string input_file, bool bSubPixel, double scale, s
     if (bSubPixel){
       //create an edgel token
 //      if (ix !=0 && iy !=0) //trustworthy coordinates
-//        edge_map->insert(new sdetd_edgel(vgl_point_2d<double>(x, y), dir, conf, 0.0, uncer), ix, iy);
+//        edge_map->insert(new sdet_edgel(vgl_point_2d<double>(x, y), dir, conf, 0.0, uncer), ix, iy);
 //      else
-        edge_map->insert(new sdetd_edgel(vgl_point_2d<double>(x, y), dir, conf, 0.0, uncer));
+        edge_map->insert(new sdet_edgel(vgl_point_2d<double>(x, y), dir, conf, 0.0, uncer));
     }
     else { //pixel edges  
       //create an edgel token
-      edge_map->insert(new sdetd_edgel(vgl_point_2d<double>(ix, iy), idir, iconf, 0.0, uncer));
+      edge_map->insert(new sdet_edgel(vgl_point_2d<double>(ix, iy), idir, iconf, 0.0, uncer));
     }
   }
   infp.close();
@@ -342,7 +341,7 @@ bool sdetd_load_edg_ascii(vcl_string input_file, bool bSubPixel, double scale, s
 //: Load .edg.gz file compressed with zlib, gzip style.
 // TODO: use templating and/or istream inheritance to avoid duplicating almost
 // identical code to bsold_load_cem_ascii
-bool sdetd_load_edg_gzip(vcl_string input_file, bool bSubPixel, double scale, sdetd_edgemap_sptr &edge_map)
+bool sdetd_load_edg_gzip(vcl_string input_file, bool bSubPixel, double scale, sdet_edgemap_sptr &edge_map)
 {
   double x, y;
   char lineBuffer[1024];
@@ -433,7 +432,7 @@ bool sdetd_load_edg_gzip(vcl_string input_file, bool bSubPixel, double scale, sd
   if (w==0 && h==0) { w=1000; h=1000; }
 
   // edge_map 
-  edge_map = new sdetd_edgemap(static_cast<int>(w*scale), static_cast<int>(h*scale));
+  edge_map = new sdet_edgemap(static_cast<int>(w*scale), static_cast<int>(h*scale));
 
   edge_map->edgels.reserve(numGeometry);
 
@@ -481,13 +480,13 @@ bool sdetd_load_edg_gzip(vcl_string input_file, bool bSubPixel, double scale, sd
     if (bSubPixel){
       //create an edgel token
 //      if (ix !=0 && iy !=0) //trustworthy coordinates
-//        edge_map->insert(new sdetd_edgel(vgl_point_2d<double>(x, y), dir, conf, 0.0, uncer), ix, iy);
+//        edge_map->insert(new sdet_edgel(vgl_point_2d<double>(x, y), dir, conf, 0.0, uncer), ix, iy);
 //      else
-        edge_map->insert(new sdetd_edgel(vgl_point_2d<double>(x, y), dir, conf, 0.0, uncer));
+        edge_map->insert(new sdet_edgel(vgl_point_2d<double>(x, y), dir, conf, 0.0, uncer));
     }
     else { //pixel edges  
       //create an edgel token
-      edge_map->insert(new sdetd_edgel(vgl_point_2d<double>(ix, iy), idir, iconf, 0.0, uncer));
+      edge_map->insert(new sdet_edgel(vgl_point_2d<double>(ix, iy), idir, iconf, 0.0, uncer));
     }
   }
   return true;
@@ -495,7 +494,7 @@ bool sdetd_load_edg_gzip(vcl_string input_file, bool bSubPixel, double scale, sd
 #endif
 
 
-bool sdetd_save_edg_ascii(vcl_string filename, sdetd_edgemap_sptr edgemap)
+bool sdetd_save_edg_ascii(vcl_string filename, sdet_edgemap_sptr edgemap)
 {
   //1) If file open fails, return.
   vcl_ofstream outfp(filename.c_str(), vcl_ios::out);
@@ -519,7 +518,7 @@ bool sdetd_save_edg_ascii(vcl_string filename, sdetd_edgemap_sptr edgemap)
     for (unsigned col=0; col<edgemap->edge_cells.cols(); col++){
       for (unsigned k=0; k<edgemap->edge_cells(row, col).size(); k++){
 
-        sdetd_edgel* edgel = edgemap->edge_cells(row, col)[k];
+        sdet_edgel* edgel = edgemap->edge_cells(row, col)[k];
 
         double x = edgel->pt.x();
         double y = edgel->pt.y();
@@ -543,7 +542,7 @@ bool sdetd_save_edg_ascii(vcl_string filename, sdetd_edgemap_sptr edgemap)
 }
 
 #ifdef HAS_BOOST
-bool sdetd_save_edg_gzip(vcl_string filename, sdetd_edgemap_sptr edgemap)
+bool sdetd_save_edg_gzip(vcl_string filename, sdet_edgemap_sptr edgemap)
 {
   //1) If file open fails, return.
   vcl_ofstream outfp_orig(filename.c_str(), vcl_ios::out  | vcl_ios::binary);
@@ -571,7 +570,7 @@ bool sdetd_save_edg_gzip(vcl_string filename, sdetd_edgemap_sptr edgemap)
     for (unsigned col=0; col<edgemap->edge_cells.cols(); col++){
       for (unsigned k=0; k<edgemap->edge_cells(row, col).size(); k++){
 
-        sdetd_edgel* edgel = edgemap->edge_cells(row, col)[k];
+        sdet_edgel* edgel = edgemap->edge_cells(row, col)[k];
 
         double x = edgel->pt.x();
         double y = edgel->pt.y();
