@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief bprod source for loading edgemaps
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 08/28/2009 03:54:41 PM PDT
 //
 

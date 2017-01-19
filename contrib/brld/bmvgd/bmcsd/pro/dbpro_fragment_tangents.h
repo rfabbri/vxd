@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Process to compute tangents at each point of a curve fragment
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 08/31/2009 10:38:47 PM PDT
 //
 

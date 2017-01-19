@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Source process to load cam from file.
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 08/28/2009 02:59:27 PM PDT
 //
 

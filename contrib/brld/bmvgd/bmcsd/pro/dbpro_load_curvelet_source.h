@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief 
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 07/24/10 15:53:48 EDT
 //
 

@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Source process associated with binary vsol file
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 08/28/2009 04:12:36 PM PDT
 //
 
