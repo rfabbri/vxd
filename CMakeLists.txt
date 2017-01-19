@@ -147,7 +147,7 @@ else (VXL_FOUND)
 endif(VXL_FOUND)
 
 add_subdirectory(contrib) 
-add_subdirectory(old) 
+#add_subdirectory(old) 
 
 if(VXL_FOUND)
   # This is required on some platforms because various libraries
