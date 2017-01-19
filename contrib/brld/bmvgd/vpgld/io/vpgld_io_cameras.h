@@ -2,9 +2,8 @@
 #define vpgld_io_proj_camera_h_
 //:
 // \file
-// \brief the vpgld development utilities for binary I/O. Contains legacy and
-// experimental I/O
-// \author Ricardo Fabbri
+// \brief vpgld utilities for I/O, also legacy and experimental
+// \author Ricardo Fabbri (rfabbri.github.io)
 // \date  April 2 2015
 //
 // vpgl_io_proj_camera is identical to the old one, so we don't have a _vpgld
