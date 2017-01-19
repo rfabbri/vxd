@@ -1,6 +1,6 @@
-// This is bprod_load_camera_source.h
-#ifndef bprod_load_camera_source_h
-#define bprod_load_camera_source_h
+// This is bmcsd_load_camera_source.h
+#ifndef bmcsd_load_camera_source_h
+#define bmcsd_load_camera_source_h
 //:
 //\file
 //\brief Source process to load cam from file.
@@ -16,7 +16,7 @@
 //
 // \todo support other types of cameras.
 template <class T>
-class bprod_load_camera_source : public bprod_source {
+class bmcsd_load_camera_source : public bprod_source {
 public:
 
   //: Constructs from a given file name prefix and camera type. This fname_prefix must be
@@ -33,7 +33,7 @@ public:
   // /lib/data/frame_0001.camera
   //
   // is used.
-  bprod_load_camera_source(vcl_string fname_prefix, bmcsd_util::camera_file_type type) 
+  bmcsd_load_camera_source(vcl_string fname_prefix, bmcsd_util::camera_file_type type) 
     : name_prefix_(fname_prefix), ftype_(type) {}
 
   //: Execute the process
@@ -53,4 +53,4 @@ public:
 };
 
 
-#endif // bprod_load_camera_source_h
+#endif // bmcsd_load_camera_source_h

@@ -1,6 +1,6 @@
-// This is bprod_load_curvelet_source.h
-#ifndef bprod_load_curvelet_source_h
-#define bprod_load_curvelet_source_h
+// This is bmcsd_load_curvelet_source.h
+#ifndef bmcsd_load_curvelet_source_h
+#define bmcsd_load_curvelet_source_h
 //:
 //\file
 //\brief 
@@ -18,9 +18,9 @@
 
 
 //: Reads .cvlet files into curvelet maps
-class bprod_load_curvelet_source : public bprod_source {
+class bmcsd_load_curvelet_source : public bprod_source {
 public:
-  bprod_load_curvelet_source(vcl_string fname)
+  bmcsd_load_curvelet_source(vcl_string fname)
     : fname_(fname)
       {}
 
@@ -49,4 +49,4 @@ private:
   vcl_string fname_;
 };
 
-#endif // bprod_load_curvelet_source_h
+#endif // bmcsd_load_curvelet_source_h

@@ -1,6 +1,6 @@
-// This is bprod_load_edg_source.h
-#ifndef bprod_load_edg_source_h
-#define bprod_load_edg_source_h
+// This is bmcsd_load_edg_source.h
+#ifndef bmcsd_load_edg_source_h
+#define bmcsd_load_edg_source_h
 //:
 //\file
 //\brief bprod source for loading edgemaps
@@ -18,9 +18,9 @@
 //
 // \todo support for converting edges into vsol. Currently we only output
 // dbdet_edgemaps.
-class bprod_load_edg_source : public bprod_source {
+class bmcsd_load_edg_source : public bprod_source {
 public:
-  bprod_load_edg_source(vcl_string fname, bool bSubPixel, double scale) 
+  bmcsd_load_edg_source(vcl_string fname, bool bSubPixel, double scale) 
     : fname_(fname),
       bSubPixel_(bSubPixel),
       scale_(scale) {};
@@ -81,5 +81,5 @@ public:
   }
 };
 
-#endif // bprod_load_edg_source_h
+#endif // bmcsd_load_edg_source_h
 

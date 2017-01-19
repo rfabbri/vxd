@@ -1,6 +1,6 @@
-// This is bprod_load_cemv_source.h
-#ifndef bprod_load_cemv_source_h
-#define bprod_load_cemv_source_h
+// This is bmcsd_load_cemv_source.h
+#ifndef bmcsd_load_cemv_source_h
+#define bmcsd_load_cemv_source_h
 //:
 //\file
 //\brief Source process associated with binary vsol file
@@ -15,10 +15,10 @@
 
 //: bprod souce process to load vsol storage from a binary file.
 //
-class bprod_load_cemv_source : public bprod_source {
+class bmcsd_load_cemv_source : public bprod_source {
 public:
 
-  bprod_load_cemv_source( vcl_string fname ) 
+  bmcsd_load_cemv_source( vcl_string fname ) 
     : fname_(fname),
       min_samples_(0)
   {
@@ -65,4 +65,4 @@ private:
   unsigned min_samples_;
 };
 
-#endif // bprod_load_cemv_source_h
+#endif // bmcsd_load_cemv_source_h
