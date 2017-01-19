@@ -1,5 +1,5 @@
-#ifndef vpgld_io_proj_camera_h_
-#define vpgld_io_proj_camera_h_
+#ifndef vpgld_io_cameras_h_
+#define vpgld_io_cameras_h_
 //:
 // \file
 // \brief vpgld utilities for I/O, also legacy and experimental
