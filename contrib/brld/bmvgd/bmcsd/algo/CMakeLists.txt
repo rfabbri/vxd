@@ -8,6 +8,7 @@ set(bmcsd_algo_sources
   bmcsd_odt_curve_stereo.cxx bmcsd_odt_curve_stereo.h
   bmcsd_algo_util.cxx bmcsd_algo_util.h
   bmcsd_discrete_corresp_algo_defs.cxx bmcsd_discrete_corresp_algo.hxx bmcsd_discrete_corresp_algo.h
+  bmcs_data.cxx bmcs_data.h
 )
 
 add_library(bmcsd_algo ${bmcsd_algo_sources})
