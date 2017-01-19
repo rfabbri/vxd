@@ -1,7 +1,7 @@
-// This is vidpro1/process/vpgld_load_camera_process_h_
+// This is vidpro1/process/bmcsd_load_camera_process_h_
 
-#ifndef vpgld_load_camera_process_h_
-#define vpgld_load_camera_process_h_
+#ifndef bmcsd_load_camera_process_h_
+#define bmcsd_load_camera_process_h_
 
 //:
 //\file
@@ -21,11 +21,11 @@
 // TODO: for now its just loading according to the .intrinsic/.extrinsic
 // convention I did for myself.
 // \seealso new methods in vpgl to do this.
-class vpgld_load_camera_process : public bpro1_process
+class bmcsd_load_camera_process : public bpro1_process
 {
 public:
-  vpgld_load_camera_process();
-  ~vpgld_load_camera_process() {}
+  bmcsd_load_camera_process();
+  ~bmcsd_load_camera_process() {}
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -50,4 +50,4 @@ public:
   }
 };
 
-#endif // vpgld_load_camera_process_h_
+#endif // bmcsd_load_camera_process_h_
