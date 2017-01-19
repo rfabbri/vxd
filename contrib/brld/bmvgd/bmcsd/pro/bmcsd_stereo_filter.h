@@ -12,10 +12,10 @@
 #include <bmcsd/bmcsd_curve_3d_attributes.h>
 #include <bmcsd/bmcsd_stereo_views_sptr.h>
 #include <bmcsd/algo/bmcsd_odt_curve_stereo.h>
-#include <mw/pro/bprod_load_camera_source.h>
-#include <mw/pro/bprod_load_edg_source.h>
-#include <mw/pro/bprod_load_vsol_polyline_source.h>
-#include <mw/pro/bprod_fragment_tangents.h>
+#include <bmcsd/pro/bmcsd_load_camera_source.h>
+#include <bmcsd/pro/bmcsd_load_edg_source.h>
+#include <bmcsd/pro/bmcsd_load_vsol_polyline_source.h>
+#include <mw/pro/bprod_fragment_tangents_filter.h>
 
 //: This process takes matches 2 views using a number of confirmation views.
 // Inputs:
