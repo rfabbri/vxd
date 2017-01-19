@@ -26,3 +26,4 @@ if( BUILD_TESTING )
 endif( BUILD_TESTING )
 
 add_subdirectory(algo)
+add_subdirectory(pro)
