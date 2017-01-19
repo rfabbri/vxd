@@ -3,20 +3,20 @@
 
 # Set up bgld_where_brld_lib_dir.h to have a macro set to $LIBRARY_OUTPUT_PATH
 configure_file(
-  ${BRLD_SOURCE_DIR}/bbasd/bgld/algo/bgld_where_brld_lib_dir.h.in
-  ${BRLD_BINARY_DIR}/bbasd/bgld/algo/bgld_where_brld_lib_dir.h ESCAPE_QUOTES
+  ${brld_SOURCE_DIR}/bbasd/bgld/algo/bgld_where_brld_lib_dir.h.in
+  ${brld_BINARY_DIR}/bbasd/bgld/algo/bgld_where_brld_lib_dir.h ESCAPE_QUOTES
 )
 
 # Copy the Eulerspiral lookup-table file to the BRLD library folder
 configure_file(
-  ${BRLD_SOURCE_DIR}/bbasd/bgld/algo/bgld_eulerspiral_lookup_table.bvl
-  ${LIBRARY_OUTPUT_PATH}/bgld_eulerspiral_lookup_table.bvl COPYONLY
+  ${CMAKE_CURRENT_SOURCE_DIR}/bgld_eulerspiral_lookup_table.bvl
+  ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bgld_eulerspiral_lookup_table.bvl COPYONLY
 )
 
 add_definitions(-BGLDD_WHERE_BRLD_LIB_DIR_H_EXISTS)
 
-include_directories( ${BRLD_BINARY_DIR}/bbasd/bgld/algo/ )
-include_directories( ${BRLD_BINARY_DIR}/bbasd/bgld/ )
+include_directories( ${brld_BINARY_DIR}/bbasd/bgld/algo/ )
+include_directories( ${brld_BINARY_DIR}/bbasd/bgld/ )
 include_directories(${B3PD_INCLUDE_DIR})
 
 set( bgld_algo_sources
