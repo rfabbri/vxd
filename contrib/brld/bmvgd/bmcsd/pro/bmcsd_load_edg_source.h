@@ -8,8 +8,8 @@
 //\date 08/28/2009 03:54:41 PM PDT
 //
 
-#include <dbdet/algo/dbdet_load_edg.h>
-#include <dbdet/algo/dbdet_convert_edgemap.h>
+#include <sdetd/io/sdetd_load_edg.h>
+#include <sdetd/algo/sdetd_convert_edgemap.h>
 #include <bprod/bprod_process.h>
 #include <bild/algo/bild_exact_distance_transform.h>
 
@@ -17,7 +17,7 @@
 //: Reads .EDG files into edgemaps.
 //
 // \todo support for converting edges into vsol. Currently we only output
-// dbdet_edgemaps.
+// sdet_edgemaps.
 class bmcsd_load_edg_source : public bprod_source {
 public:
   bmcsd_load_edg_source(vcl_string fname, bool bSubPixel, double scale) 
@@ -26,9 +26,9 @@ public:
       scale_(scale) {};
 
   bprod_signal execute() {
-    dbdet_edgemap_sptr edge_map;
+    sdet_edgemap_sptr edge_map;
 
-    bool retval = dbdet_load_edg(fname_, bSubPixel_, scale_, edge_map);
+    bool retval = sdetd_load_edg(fname_, bSubPixel_, scale_, edge_map);
     if (!retval)
       return BPROD_INVALID;
 
@@ -52,13 +52,13 @@ class bprod_edg_dt : public bprod_filter {
 public:
   bprod_edg_dt () {}
 
-  //: Assumes input pin 0 has a dbdet_edgemap.
+  //: Assumes input pin 0 has a sdet_edgemap.
   bprod_signal execute() {
     vil_image_view<vxl_byte > bw_image;
 
-    assert(input_type_id(0) == typeid(dbdet_edgemap_sptr));
+    assert(input_type_id(0) == typeid(sdet_edgemap_sptr));
     //: Assumes the conversion maps edges to 255 and others to 0.
-    bool retval = dbdet_convert_edgemap_to_image(*(input<dbdet_edgemap_sptr>(0)), bw_image);
+    bool retval = sdetd_convert_edgemap_to_image(*(input<sdet_edgemap_sptr>(0)), bw_image);
     
     if (!retval)
       return BPROD_INVALID;

@@ -9,6 +9,7 @@
 //
 
 #include <bprod/bprod_process.h>
+#include <sdet/sdet_edgel.h>
 #include <bmcsd/algo/bmcsd_algo_util.h>
 
 class bprod_fragment_tangents_filter : public bprod_filter {
@@ -26,7 +27,7 @@ public:
 
     tangents.resize(crvs.size());
     for (unsigned c=0; c < crvs.size(); ++c) {
-      dbdet_edgel_chain ec;
+      sdet_edgel_chain ec;
       bmcsd_algo_util::extract_edgel_chain(*crvs[c], &ec);
 
       tangents[c].resize(ec.edgels.size());

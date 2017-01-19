@@ -84,14 +84,14 @@ get_cameras()
 void bmcsd_stereo_filter::
 get_edgemaps()
 {
-  vcl_vector<dbdet_edgemap_sptr> em(s_.nviews());
+  vcl_vector<sdet_edgemap_sptr> em(s_.nviews());
   
   for (unsigned i=0; i < v_->num_confirmation_views(); ++i) {
     unsigned offset = confirmation_view_input_offset_ 
                     + i*sources_per_confirmation_view_;
-    assert( input_type_id(offset + EDG_ID) == typeid(dbdet_edgemap_sptr) );
+    assert( input_type_id(offset + EDG_ID) == typeid(sdet_edgemap_sptr) );
 
-    em[i+2] = input< dbdet_edgemap_sptr >(offset + EDG_ID);
+    em[i+2] = input< sdet_edgemap_sptr >(offset + EDG_ID);
   }
   s_.set_all_edgemaps(em);
 }
@@ -99,14 +99,14 @@ get_edgemaps()
 void bmcsd_stereo_filter::
 get_curvelets()
 {
-  vcl_vector<dbdet_sel_storage_sptr> sels(s_.nviews());
+  vcl_vector<sdetd_sel_storage_sptr> sels(s_.nviews());
   
   for (unsigned i=0; i < v_->num_confirmation_views(); ++i) {
     unsigned offset = confirmation_view_input_offset_ 
                     + i*sources_per_confirmation_view_;
-    assert( input_type_id(offset + CVLET_ID) == typeid(dbdet_sel_storage_sptr) );
+    assert( input_type_id(offset + CVLET_ID) == typeid(sdetd_sel_storage_sptr) );
 
-    sels[i+2] = input< dbdet_sel_storage_sptr >(offset + CVLET_ID);
+    sels[i+2] = input< sdetd_sel_storage_sptr >(offset + CVLET_ID);
   }
   s_.set_all_sels(sels);
 }
