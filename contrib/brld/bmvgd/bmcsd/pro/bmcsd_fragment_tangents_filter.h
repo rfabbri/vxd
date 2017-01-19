@@ -1,4 +1,4 @@
-// This is bprod_fragment_tangents.h
+// This is bprod_fragment_tangents_filter.h
 #ifndef bprod_fragment_tangents_h
 #define bprod_fragment_tangents_h
 //:
@@ -11,7 +11,7 @@
 #include <bprod/bprod_process.h>
 #include <bmcsd/algo/bmcsd_algo_util.h>
 
-class bprod_fragment_tangents : public bprod_filter {
+class bprod_fragment_tangents_filter : public bprod_filter {
 public:
   //: Assumes input pin 0 has a a vcl_vector< vsol_polyline_2d_sptr > curves
   bprod_signal execute() {
