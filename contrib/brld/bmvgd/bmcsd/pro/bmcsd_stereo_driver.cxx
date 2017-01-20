@@ -1,7 +1,7 @@
 #include "bmcsd_stereo_driver.h"
-#include <mw/pro/bprod_fragment_tangents.h>
-#include <mw/pro/bprod_load_curvelet_source.h>
-#include <mw/pro/bmcsd_stereo_filter.h>
+#include <mw/pro/bprod_fragment_tangents_filter.h>
+#include <bmcsd/pro/bmcsd_load_curvelet_source.h>
+#include <bmcsd/pro/bmcsd_stereo_filter.h>
 #include <vcl_algorithm.h>
 
 bool bmcsd_concurrent_stereo_driver::
@@ -60,26 +60,26 @@ init()
 
     // 1 Cam loader
     bprod_process_sptr 
-      p = new bprod_load_camera_source<double>(
+      p = new bmcsd_load_camera_source<double>(
           dpath_[v].cam_full_path(), dpath_[v].cam_file_type());
     cam_src_.push_back(p);
  
     // 1 Edge map loader
     static const bool my_bSubPixel = true;
     static const double my_scale=1.0;
-    p = new bprod_load_edg_source(dpath_[v].edg_full_path(), my_bSubPixel, my_scale);
+    p = new bmcsd_load_edg_source(dpath_[v].edg_full_path(), my_bSubPixel, my_scale);
     edg_src_.push_back(p);
 
     // 1 curve fragment loader
-    bprod_load_vsol_polyline_source 
-      *p_curve_src = new bprod_load_vsol_polyline_source(dpath_[v].frag_full_path());
+    bmcsd_load_vsol_polyline_source 
+      *p_curve_src = new bmcsd_load_vsol_polyline_source(dpath_[v].frag_full_path());
 
     frag_src_.push_back(p_curve_src);
 
     // 1 curvelet map loader
     if (use_curvelets_)  {
-      bprod_load_curvelet_source
-        *p_curvelet_src = new bprod_load_curvelet_source(dpath_[v].cvlet_full_path());
+      bmcsd_load_curvelet_source
+        *p_curvelet_src = new bmcsd_load_curvelet_source(dpath_[v].cvlet_full_path());
       cvlet_src_.push_back(p_curvelet_src);
     }
 
@@ -90,7 +90,7 @@ init()
 
 
     // 1 curve fragment tangent interpolator
-    p = new bprod_fragment_tangents();
+    p = new bprod_fragment_tangents_filter();
     frag_tangents_.push_back(p);
     p->connect_input(0, frag_src_[v], 0);
   }
@@ -167,8 +167,8 @@ void bmcsd_concurrent_stereo_driver::
 update_stereo_params()
 {
   for (unsigned i=0; i < frag_src_.size(); ++i) {
-    bprod_load_vsol_polyline_source *p = 
-      dynamic_cast<bprod_load_vsol_polyline_source *>(frag_src_[i].ptr());
+    bmcsd_load_vsol_polyline_source *p = 
+      dynamic_cast<bmcsd_load_vsol_polyline_source *>(frag_src_[i].ptr());
     if (prune_by_length_)
       p->set_min_length(tau_min_length_per_curve_frag_);
     else
