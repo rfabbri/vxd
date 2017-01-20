@@ -1,19 +1,13 @@
-# Brown Multiview Curve Stereo Lib (Curve Sketch System Algorithms, VXD version)
-
+# Multiview Curve Photogrammetry Algorithms
 include_directories(${VXL_BRL_INCLUDE_DIR})
 
-set(bmcsd_algo_sources
-  bmcsd_curve_stereo.cxx bmcsd_curve_stereo.h
-  bmcsd_dt_curve_stereo.cxx bmcsd_dt_curve_stereo.h
-  bmcsd_odt_curve_stereo.cxx bmcsd_odt_curve_stereo.h
-  bmcsd_algo_util.cxx bmcsd_algo_util.h
-  bmcsd_discrete_corresp_algo_defs.cxx bmcsd_discrete_corresp_algo.hxx bmcsd_discrete_corresp_algo.h
-  bmcsd_data.cxx bmcsd_data.h
+set(vcpld_algo_sources
+  vcpld_distmap_bundle_adjust.cxx vcpld_distmap_bundle_adjust.h
 )
 
-add_library(bmcsd_algo ${bmcsd_algo_sources})
+add_library(vcpld_algo ${vcpld_algo_sources})
 
-target_link_libraries(bmcsd_algo bmcsd vpgld_algo becld bdifd bspid bcsid bpro1 sdet)
+target_link_libraries(vcpld_algo sdet vpgl)
 
 # if( BUILD_TESTING )
 #   add_subdirectory(tests)

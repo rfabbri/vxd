@@ -18,7 +18,7 @@ vcpld_distmap_bundle_adj_lsqr(
   const vcl_vector<vpgl_calibration_matrix<double> > &K,
   const vcl_vector<vil_image_view<vxl_uint_32> > &dt,
   const vcl_vector<vil_image_view<unsigned> > &label,
-  const vcl_vector<sdetd_edgemap_sptr> &em,
+  const vcl_vector<sdet_edgemap_sptr> &em,
   const vcl_vector<vcl_vector<bool> > &mask
   )
  : 
@@ -128,7 +128,7 @@ optimize(vcl_vector<vpgl_perspective_camera<double> > &cameras,
          vcl_vector< point_set > &world_objects,
          const vcl_vector<vil_image_view<vxl_uint_32> > &dt,
          const vcl_vector<vil_image_view<unsigned> > &label,
-         const vcl_vector<sdetd_edgemap_sptr> &em,
+         const vcl_vector<sdet_edgemap_sptr> &em,
          const vcl_vector<vcl_vector<bool> > &mask)
 {
   // Extract the camera and point parameters

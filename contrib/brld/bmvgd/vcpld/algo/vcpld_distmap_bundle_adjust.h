@@ -19,8 +19,8 @@
 #include <vgl/algo/vgl_rotation_3d.h>
 #include <vil/vil_image_view.h>
 #include <vpgl/vpgl_perspective_camera.h>
-#include <sdet/sdetd_edgemap.h>
-#include <sdet/sdetd_edgemap_sptr.h>
+#include <sdet/sdet_edgemap.h>
+#include <sdet/sdet_edgemap_sptr.h>
 
 
 //: Computes the residuals for bundle adjustment similarly to vpgl_distmap_bundle_adj.
@@ -61,7 +61,7 @@ public:
       const vcl_vector<vpgl_calibration_matrix<double> >& K,
       const vcl_vector<vil_image_view<vxl_uint_32> > &dt,
       const vcl_vector<vil_image_view<unsigned> > &label,
-      const vcl_vector<sdetd_edgemap_sptr> &em,
+      const vcl_vector<sdet_edgemap_sptr> &em,
       const vcl_vector<vcl_vector<bool> >& mask);
 
   //: Compute the residuals from the ith component of a and the jth component of b.
@@ -198,7 +198,7 @@ private:
   vcl_vector<vil_image_view<unsigned> > label_;
 
   //: The subpixel edge maps for each view.
-  const vcl_vector<sdetd_edgemap_sptr> em_;
+  const vcl_vector<sdet_edgemap_sptr> em_;
 
   unsigned iteration_count_;
 
@@ -222,7 +222,7 @@ private:
 
     double min_d = vcl_numeric_limits<double>::infinity();
     unsigned l = label_[v](p_i, p_j);
-    const vcl_vector<sdetd_edgel*> &ev = em_[v]->edge_cells.begin()[l];
+    const vcl_vector<sdet_edgel*> &ev = em_[v]->edge_cells.begin()[l];
     for (unsigned i=0; i < ev.size(); ++i) {
       // form a vector d betwen pt and ev
       // project this vcl_vector onto the normal; this is our residual
@@ -269,7 +269,7 @@ class vcpld_distmap_bundle_adjust
                 vcl_vector< point_set > &world_objects,
                 const vcl_vector<vil_image_view<vxl_uint_32> > &dt,
                 const vcl_vector<vil_image_view<unsigned> > &label,
-                const vcl_vector<sdetd_edgemap_sptr> &em,
+                const vcl_vector<sdet_edgemap_sptr> &em,
                 const vcl_vector<vcl_vector<bool> > &mask);
 
  private:

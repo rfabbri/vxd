@@ -13,3 +13,6 @@ add_subdirectory(becld)
 
 # Photogrametry Library (VXD version of VXL/core/vpgl additions).
 add_subdirectory(vpgld)
+
+# Multiview Curve Photogrammetry (VXD development version)
+add_subdirectory(vcpld)
