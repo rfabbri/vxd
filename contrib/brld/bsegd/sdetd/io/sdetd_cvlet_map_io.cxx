@@ -1,6 +1,5 @@
-#include "dbdet_cvlet_map_io.h"
+#include "sdetd_cvlet_map_io.h"
 #include <vcl_cstring.h>
-#include <dbdet/dbdet_config.h>
 #include <vul/vul_file.h>
 
 #ifdef HAS_BOOST
@@ -11,46 +10,46 @@
 
 
 #ifdef HAS_BOOST
-static bool dbdet_load_cvlet_map_gzip(vcl_string filename, dbdet_edgemap_sptr &edge_map, dbdet_curvelet_map &cvlet_map);
-static bool dbdet_save_cvlet_map_gzip(vcl_string filename, dbdet_curvelet_map &cvlet_map);
+static bool sdetd_load_cvlet_map_gzip(vcl_string filename, sdet_edgemap_sptr &edge_map, sdet_curvelet_map &cvlet_map);
+static bool sdetd_save_cvlet_map_gzip(vcl_string filename, sdet_curvelet_map &cvlet_map);
 #endif
 
-static bool dbdet_load_cvlet_map_ascii(vcl_string filename, dbdet_edgemap_sptr &edge_map, dbdet_curvelet_map &cvlet_map);
+static bool sdetd_load_cvlet_map_ascii(vcl_string filename, sdet_edgemap_sptr &edge_map, sdet_curvelet_map &cvlet_map);
 
-static bool dbdet_save_cvlet_map_ascii(vcl_string filename, dbdet_curvelet_map &cvlet_map);
+static bool sdetd_save_cvlet_map_ascii(vcl_string filename, sdet_curvelet_map &cvlet_map);
 
-bool dbdet_load_cvlet_map(vcl_string filename, dbdet_edgemap_sptr &edge_map, dbdet_curvelet_map &cvlet_map)
+bool sdetd_load_cvlet_map(vcl_string filename, sdet_edgemap_sptr &edge_map, sdet_curvelet_map &cvlet_map)
 {
   vcl_string ext = vul_file::extension(filename);
 
   if (ext == ".gz") {
 #ifdef HAS_BOOST
-    return dbdet_load_cvlet_map_gzip(filename, edge_map, cvlet_map);
+    return sdetd_load_cvlet_map_gzip(filename, edge_map, cvlet_map);
 #else
     vcl_cerr << "Error: .gz compressed cvlet file was provided, but boost wasn't found\n";
     return false;
 #endif
   } else
-    return dbdet_load_cvlet_map_ascii(filename, edge_map, cvlet_map);
+    return sdetd_load_cvlet_map_ascii(filename, edge_map, cvlet_map);
 }
 
-bool dbdet_save_cvlet_map(vcl_string filename, dbdet_curvelet_map &cvlet_map)
+bool sdetd_save_cvlet_map(vcl_string filename, sdet_curvelet_map &cvlet_map)
 {
   vcl_string ext = vul_file::extension(filename);
 
   if (ext == ".gz") {
 #ifdef HAS_BOOST
-    return dbdet_save_cvlet_map_gzip(filename, cvlet_map);
+    return sdetd_save_cvlet_map_gzip(filename, cvlet_map);
 #else
     vcl_cerr << "Error: .gz compressed output cvlet file requested, but boost wasn't found\n";
     return false;
 #endif
   } else
-    return dbdet_save_cvlet_map_ascii(filename, cvlet_map);
+    return sdetd_save_cvlet_map_ascii(filename, cvlet_map);
 }
 
 //: Save a curvelet map as a .cvlet file
-bool dbdet_save_cvlet_map_ascii(vcl_string filename, dbdet_curvelet_map &cvlet_map)
+bool sdetd_save_cvlet_map_ascii(vcl_string filename, sdet_curvelet_map &cvlet_map)
 {
   //1) If file open fails, return.
   vcl_ofstream outfp(filename.c_str(), vcl_ios::out);
@@ -83,7 +82,7 @@ bool dbdet_save_cvlet_map_ascii(vcl_string filename, dbdet_curvelet_map &cvlet_m
   outfp << "# Format :  [EID] [Sub_Pixel_Pos] Sub_Pixel_Dir Strength" << vcl_endl;
   
   for (unsigned i=0; i<cvlet_map.EM_->edgels.size(); i++){
-    dbdet_edgel* e = cvlet_map.EM_->edgels[i];
+    sdet_edgel* e = cvlet_map.EM_->edgels[i];
     outfp << "[" << e->id << "] " << "[" << e->pt.x() << ", " << e->pt.y() << "]   " << e->tangent << " " << e->strength << " " << vcl_endl;
   }
   outfp << "[END EDGEMAP]" << vcl_endl;
@@ -98,10 +97,10 @@ bool dbdet_save_cvlet_map_ascii(vcl_string filename, dbdet_curvelet_map &cvlet_m
     outfp << "[" << i << "] ";
 
     //get the list curvelets anchored at this edge
-    cvlet_list& cvlets = cvlet_map.curvelets(i);
+    sdet_curvelet_list& cvlets = cvlet_map.curvelets(i);
     outfp << "(" << cvlets.size() << ")" << vcl_endl;
 
-    cvlet_list_iter cvit = cvlets.begin();
+    sdet_curvelet_list_iter cvit = cvlets.begin();
     for (; cvit != cvlets.end(); cvit++){
       (*cvit)->print(outfp); 
     }
@@ -114,7 +113,7 @@ bool dbdet_save_cvlet_map_ascii(vcl_string filename, dbdet_curvelet_map &cvlet_m
 
 #ifdef HAS_BOOST
 //: Save a curvelet map as a .cvlet file
-bool dbdet_save_cvlet_map_gzip(vcl_string filename, dbdet_curvelet_map &cvlet_map)
+bool sdetd_save_cvlet_map_gzip(vcl_string filename, sdet_curvelet_map &cvlet_map)
 {
   //1) If file open fails, return.
   vcl_ofstream outfp_orig(filename.c_str(), vcl_ios::out | vcl_ios::binary);
@@ -151,7 +150,7 @@ bool dbdet_save_cvlet_map_gzip(vcl_string filename, dbdet_curvelet_map &cvlet_ma
   outfp << "# Format :  [EID] [Sub_Pixel_Pos] Sub_Pixel_Dir Strength" << vcl_endl;
   
   for (unsigned i=0; i<cvlet_map.EM_->edgels.size(); i++){
-    dbdet_edgel* e = cvlet_map.EM_->edgels[i];
+    sdet_edgel* e = cvlet_map.EM_->edgels[i];
     outfp << "[" << e->id << "] " << "[" << e->pt.x() << ", " << e->pt.y() << "]   " << e->tangent << " " << e->strength << " " << vcl_endl;
   }
   outfp << "[END EDGEMAP]" << vcl_endl;
@@ -166,10 +165,10 @@ bool dbdet_save_cvlet_map_gzip(vcl_string filename, dbdet_curvelet_map &cvlet_ma
     outfp << "[" << i << "] ";
 
     //get the list curvelets anchored at this edge
-    cvlet_list& cvlets = cvlet_map.curvelets(i);
+    sdet_curvelet_list& cvlets = cvlet_map.curvelets(i);
     outfp << "(" << cvlets.size() << ")" << vcl_endl;
 
-    cvlet_list_iter cvit = cvlets.begin();
+    sdet_curvelet_list_iter cvit = cvlets.begin();
     for (; cvit != cvlets.end(); cvit++){
       (*cvit)->print(outfp); 
     }
@@ -182,7 +181,7 @@ bool dbdet_save_cvlet_map_gzip(vcl_string filename, dbdet_curvelet_map &cvlet_ma
 #endif
 
 //: Loads an ascii file containing a curvelet map as well as the edgemap on which it is defined.
-bool dbdet_load_cvlet_map_ascii(vcl_string filename, dbdet_edgemap_sptr &edge_map, dbdet_curvelet_map &cvlet_map)
+bool sdetd_load_cvlet_map_ascii(vcl_string filename, sdet_edgemap_sptr &edge_map, sdet_curvelet_map &cvlet_map)
 {
   //Note: The cvlet map is defined on an existing edgemap so the cvlet map also contains the edgemap
   char buffer[2048];
@@ -246,13 +245,13 @@ bool dbdet_load_cvlet_map_ascii(vcl_string filename, dbdet_edgemap_sptr &edge_ma
   if (w==0 && h==0) { w=1000; h=1000; } // make sure w and h are reasonable
 
   // instantiate a new edge_map 
-  edge_map = new dbdet_edgemap(w, h);
+  edge_map = new sdet_edgemap(w, h);
 
   //add it to the curvelet map
   cvlet_map.set_edgemap(edge_map);
 
   //also set the right paramters to the curvelet map
-  cvlet_map.set_parameters(dbdet_curvelet_params(dbdet_curve_model::CC2, rad, dtheta, dpos, adap_uncer, token_len, max_k, max_gamma));
+  cvlet_map.set_parameters(sdet_curvelet_params(sdet_curve_model::CC2, rad, dtheta, dpos, adap_uncer, token_len, max_k, max_gamma));
 
   //3) read the edge map
   int id;
@@ -279,7 +278,7 @@ bool dbdet_load_cvlet_map_ascii(vcl_string filename, dbdet_edgemap_sptr &edge_ma
     sscanf(buffer,"[%d] [%lf, %lf]  %lf %lf", &(id), &(x), &(y), &(dir), &(conf));
 
     //create an edgel token and insert it into the edgemap (the order of insertion should take care of the ids)
-    edge_map->insert(new dbdet_edgel(vgl_point_2d<double>(x, y), dir, conf));
+    edge_map->insert(new sdet_edgel(vgl_point_2d<double>(x, y), dir, conf));
   }
 
   //make sure we have all the edges
@@ -314,8 +313,8 @@ bool dbdet_load_cvlet_map_ascii(vcl_string filename, dbdet_edgemap_sptr &edge_ma
 
       //read all the curvelets anchored at this edgel
       for (unsigned i=0; i<num_cvlets; i++){
-        dbdet_edgel* e = edge_map->edgels[id];
-        dbdet_curvelet* cvlet = new dbdet_curvelet(e);
+        sdet_edgel* e = edge_map->edgels[id];
+        sdet_curvelet* cvlet = new sdet_curvelet(e);
 
         //read the edgel chain
         infp >> dummy;  // '['
@@ -337,7 +336,7 @@ bool dbdet_load_cvlet_map_ascii(vcl_string filename, dbdet_edgemap_sptr &edge_ma
 
         //now read the curve model
         //temp: assume CC3 curve model
-        dbdet_CC_curve_model_3d* cm = new dbdet_CC_curve_model_3d();
+        sdet_CC_curve_model_3d* cm = new sdet_CC_curve_model_3d();
         cm->read(infp);
         cm->compute_best_fit();//cvlet->edgel_chain
         cvlet->curve_model = cm;
@@ -370,7 +369,7 @@ bool dbdet_load_cvlet_map_ascii(vcl_string filename, dbdet_edgemap_sptr &edge_ma
 
 #ifdef HAS_BOOST
 //: Loads an ascii file containing a curvelet map as well as the edgemap on which it is defined.
-bool dbdet_load_cvlet_map_gzip(vcl_string filename, dbdet_edgemap_sptr &edge_map, dbdet_curvelet_map &cvlet_map)
+bool sdetd_load_cvlet_map_gzip(vcl_string filename, sdet_edgemap_sptr &edge_map, sdet_curvelet_map &cvlet_map)
 {
   //Note: The cvlet map is defined on an existing edgemap so the cvlet map also contains the edgemap
   char buffer[2048];
@@ -438,13 +437,13 @@ bool dbdet_load_cvlet_map_gzip(vcl_string filename, dbdet_edgemap_sptr &edge_map
   if (w==0 && h==0) { w=1000; h=1000; } // make sure w and h are reasonable
 
   // instantiate a new edge_map 
-  edge_map = new dbdet_edgemap(w, h);
+  edge_map = new sdet_edgemap(w, h);
 
   //add it to the curvelet map
   cvlet_map.set_edgemap(edge_map);
 
   //also set the right paramters to the curvelet map
-  cvlet_map.set_parameters(dbdet_curvelet_params(dbdet_curve_model::CC2, rad, dtheta, dpos, adap_uncer, token_len, max_k, max_gamma));
+  cvlet_map.set_parameters(sdet_curvelet_params(sdet_curve_model::CC2, rad, dtheta, dpos, adap_uncer, token_len, max_k, max_gamma));
 
   //3) read the edge map
   int id;
@@ -471,7 +470,7 @@ bool dbdet_load_cvlet_map_gzip(vcl_string filename, dbdet_edgemap_sptr &edge_map
     sscanf(buffer,"[%d] [%lf, %lf]  %lf %lf", &(id), &(x), &(y), &(dir), &(conf));
 
     //create an edgel token and insert it into the edgemap (the order of insertion should take care of the ids)
-    edge_map->insert(new dbdet_edgel(vgl_point_2d<double>(x, y), dir, conf));
+    edge_map->insert(new sdet_edgel(vgl_point_2d<double>(x, y), dir, conf));
   }
 
   //make sure we have all the edges
@@ -506,8 +505,8 @@ bool dbdet_load_cvlet_map_gzip(vcl_string filename, dbdet_edgemap_sptr &edge_map
 
       //read all the curvelets anchored at this edgel
       for (unsigned i=0; i<num_cvlets; i++){
-        dbdet_edgel* e = edge_map->edgels[id];
-        dbdet_curvelet* cvlet = new dbdet_curvelet(e);
+        sdet_edgel* e = edge_map->edgels[id];
+        sdet_curvelet* cvlet = new sdet_curvelet(e);
 
         //read the edgel chain
         infp >> dummy;  // '['
@@ -529,7 +528,7 @@ bool dbdet_load_cvlet_map_gzip(vcl_string filename, dbdet_edgemap_sptr &edge_map
 
         //now read the curve model
         //temp: assume CC3 curve model
-        dbdet_CC_curve_model_3d* cm = new dbdet_CC_curve_model_3d();
+        sdet_CC_curve_model_3d* cm = new sdet_CC_curve_model_3d();
         cm->read(infp);
         cm->compute_best_fit();//cvlet->edgel_chain
         cvlet->curve_model = cm;
