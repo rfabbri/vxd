@@ -1,6 +1,6 @@
 #include "vcpld_bundle_adjust_driver.h"
-#include <mw/pro/bprod_fragment_tangents_filter.h>
-#include <mw/pro/vcpld_bundle_adjust_sink.h>
+#include <bmcsd/pro/bprod_fragment_tangents_filter.h>
+#include <vcpld/pro/vcpld_bundle_adjust_sink.h>
 #include <vcl_set.h>
 #include <vcl_algorithm.h>
 

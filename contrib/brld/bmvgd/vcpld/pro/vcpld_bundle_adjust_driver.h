@@ -8,10 +8,10 @@
 //\date Fri Nov 13 18:03:26 EST 2009
 //
 
-#include <mw/pro/vcpld_bundle_adjust_sink.h>
+#include <vcpld/pro/vcpld_bundle_adjust_sink.h>
 #include <bmcsd/bmcsd_curve_3d_sketch.h>
-#include <mw/algo/vcpld_distmap_bundle_adjust.h>
-#include <mw/algo/bmcsd_data.h>
+#include <vcpld/algo/vcpld_distmap_bundle_adjust.h>
+#include <bmcsd/algo/bmcsd_data.h>
 
 class vcpld_bundle_adjust_driver {
 public: 

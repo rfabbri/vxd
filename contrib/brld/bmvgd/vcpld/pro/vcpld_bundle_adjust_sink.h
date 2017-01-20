@@ -7,8 +7,8 @@
 //\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //
 #include <bprod/bprod_process.h>
-#include <mw/algo/vcpld_distmap_bundle_adjust.h>
-#include <mw/algo/vcpld_distmap_optimize_camera.h>
+#include <vcpld/algo/vcpld_distmap_bundle_adjust.h>
+#include <vcpld/algo/vcpld_distmap_optimize_camera.h>
 #include <bmcsd/pro/bmcsd_load_camera_source.h>
 #include <bmcsd/pro/bmcsd_load_edg_source.h>
 
