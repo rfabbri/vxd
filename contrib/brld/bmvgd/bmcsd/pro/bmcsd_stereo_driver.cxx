@@ -1,5 +1,5 @@
 #include "bmcsd_stereo_driver.h"
-#include <mw/pro/bprod_fragment_tangents_filter.h>
+#include <bmcsd/pro/bmcsd_fragment_tangents_filter.h>
 #include <bmcsd/pro/bmcsd_load_curvelet_source.h>
 #include <bmcsd/pro/bmcsd_stereo_filter.h>
 #include <vcl_algorithm.h>

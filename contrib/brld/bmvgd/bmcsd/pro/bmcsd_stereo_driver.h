@@ -12,7 +12,7 @@
 #include <bmcsd/bmcsd_curve_3d_attributes.h>
 #include <bmcsd/bmcsd_curve_3d_sketch.h>
 #include <bmcsd/algo/bmcsd_odt_curve_stereo.h>
-#include <mw/algo/bmcsd_data.h>
+#include <bmcsd/algo/bmcsd_data.h>
 #include <bmcsd/pro/bmcsd_stereo_filter.h>
 
 //: Performs multiview stereo on a video sequence, by running many instances of
