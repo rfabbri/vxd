@@ -10,5 +10,5 @@ set(bmcsd_pro_sources
 
 add_library(bmcsd_pro ${bmcsd_pro_sources})
 
-target_link_libraries(bmcsd_pro bmcsd_algo bpro1 bprod vpgld_pro vpgld_io bdifd_algo vsl)
+target_link_libraries(bmcsd_pro bmcsd_algo bpro1 bprod vpgld_pro vpgld_io bdifd_algo sdetd_io sdetd_pro sdetd_algo bild_algo vsl)
 

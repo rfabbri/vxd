@@ -12,7 +12,7 @@
 #include <sdet/sdet_edgemap.h>
 #include <sdet/sdet_edgemap_sptr.h>
 #include <sdet/sdet_curvelet_map.h>
-#include <sdet/algo/sdet_cvlet_map_io.h>
+#include <sdetd/io/sdetd_cvlet_map_io.h>
 #include <sdetd/pro/sdetd_sel_storage.h>
 #include <sdetd/pro/sdetd_sel_storage_sptr.h>
 
