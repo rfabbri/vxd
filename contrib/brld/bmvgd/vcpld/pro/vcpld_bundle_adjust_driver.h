@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Class to run dvcpl_*bundle_adjust using a 3D curve sketch
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date Fri Nov 13 18:03:26 EST 2009
 //
 

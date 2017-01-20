@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Bundle adjustment from curves and edge maps.
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Based on original code by  Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 11/05/2009 09:52:56 PM PST
 //
 
