@@ -3,8 +3,8 @@
 #define bmcsd_stereo_driver_h
 //:
 //\file
-//\brief Class to run mw_*_curve_stereo in a multiview sequence
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\brief Class to run bmcsd_*_curve_stereo in a multiview sequence
+//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri.github.io)
 //\date 08/12/2009 02:19:28 PM PDT
 //
 
