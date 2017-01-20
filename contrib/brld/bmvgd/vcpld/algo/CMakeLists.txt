@@ -3,6 +3,7 @@ include_directories(${VXL_BRL_INCLUDE_DIR})
 
 set(vcpld_algo_sources
   vcpld_distmap_bundle_adjust.cxx vcpld_distmap_bundle_adjust.h
+  vcpld_distmap_optimize_camera.cxx vcpld_distmap_optimize_camera.h
 )
 
 add_library(vcpld_algo ${vcpld_algo_sources})
