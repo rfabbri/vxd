@@ -1,3 +1,8 @@
+//:
+//\file
+//\brief Multiview Curve sketch Attributes (mca) command
+//\author Ricardo Fabbri, Brown & Rio de Janeiro State U. (rfabbri.github.io)
+//
 #include <vul/vul_arg.h>
 #include <vul/vul_file.h>
 #include <buld/buld_arg.h>

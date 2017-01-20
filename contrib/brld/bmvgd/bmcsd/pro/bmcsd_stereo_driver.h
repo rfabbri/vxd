@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Class to run bmcsd_*_curve_stereo in a multiview sequence
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri.github.io)
+//\author Ricardo Fabbri, Brown University and Rio de Janeiro State U. (rfabbri.github.io)
 //\date 08/12/2009 02:19:28 PM PDT
 //
 

@@ -1,3 +1,8 @@
+//:
+//\file
+//\brief Multiview Curve Sketch (mcs) main command
+//\author Ricardo Fabbri, Brown & Rio de Janeiro State U. (rfabbri.github.io)
+//
 #include <vul/vul_arg.h>
 #include <buld/buld_arg.h>
 #include <bmcsd/bmcsd_util.h>
