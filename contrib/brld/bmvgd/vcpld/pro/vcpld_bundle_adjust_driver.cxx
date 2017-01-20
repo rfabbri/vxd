@@ -1,11 +1,11 @@
-#include "dvcpl_bundle_adjust_driver.h"
-#include <mw/pro/bprod_fragment_tangents.h>
-#include <mw/pro/dvcpl_bundle_adjust_sink.h>
+#include "vcpld_bundle_adjust_driver.h"
+#include <mw/pro/bprod_fragment_tangents_filter.h>
+#include <mw/pro/vcpld_bundle_adjust_sink.h>
 #include <vcl_set.h>
 #include <vcl_algorithm.h>
 
 
-void dvcpl_bundle_adjust_driver::
+void vcpld_bundle_adjust_driver::
 get_curve_visibility_using_reference_views(
     vcl_vector<vcl_vector<bool> > *mask_ptr )
 {
@@ -68,7 +68,7 @@ get_curve_visibility_using_reference_views(
 //  }
 }
 
-bool dvcpl_bundle_adjust_driver::
+bool vcpld_bundle_adjust_driver::
 get_views_to_optimize(
     const vcl_set<unsigned> &viewset,
     vcl_vector<unsigned> *views_ptr
@@ -114,17 +114,17 @@ get_views_to_optimize(
 //    if (is_participating[c].size() == 1) {
 //      num_endpoint_views++;
 //      if (num_endpoint_views > 2) {
-//        vcl_cerr << "dvcpl_bundle_adjust_driver: error: input views are not chained.\n";
+//        vcl_cerr << "vcpld_bundle_adjust_driver: error: input views are not chained.\n";
 //        return false;
 //      }
 //    }
   }
 
-  vcl_cout << "dvcpl_bundle_adjust_driver: views successfully chained\n";
+  vcl_cout << "vcpld_bundle_adjust_driver: views successfully chained\n";
   return true;
 }
 
-bool dvcpl_bundle_adjust_driver::
+bool vcpld_bundle_adjust_driver::
 init()
 {
   //: For each view, setup the following processes:
@@ -159,7 +159,7 @@ init()
 
   nviews_ = views_.size();
 
-  dvcpl_bundle_adjust_sink *cb = new dvcpl_bundle_adjust_sink(optimize_one_view_, curve_ransac_);
+  vcpld_bundle_adjust_sink *cb = new vcpld_bundle_adjust_sink(optimize_one_view_, curve_ransac_);
   curve_bundler_ = cb;
   get_curve_visibility_using_reference_views(&cb->mask_);
 
@@ -177,14 +177,14 @@ init()
 
     // 1 Cam loader
     bprod_process_sptr 
-      p = new bprod_load_camera_source<double>(
+      p = new bmcsd_load_camera_source<double>(
           dpath_[v].cam_full_path(), dpath_[v].cam_file_type());
     cam_src_.push_back(p);
 
     // 1 Edge map loader
     static const bool my_bSubPixel = true;
     static const double my_scale=1.0;
-    p = new bprod_load_edg_source(dpath_[v].edg_full_path(), my_bSubPixel, my_scale);
+    p = new bmcsd_load_edg_source(dpath_[v].edg_full_path(), my_bSubPixel, my_scale);
     edg_src_.push_back(p);
 
     // 1 dt and label loader
@@ -209,7 +209,7 @@ init()
   return true;
 }
 
-bool dvcpl_bundle_adjust_driver::
+bool vcpld_bundle_adjust_driver::
 run(unsigned long timestamp)
 {
   vcl_cout << "Running stereo driver.\n";
@@ -219,8 +219,8 @@ run(unsigned long timestamp)
   if (retval == BPROD_INVALID)
     return false;
 
-  dvcpl_bundle_adjust_sink *cb = 
-    static_cast<dvcpl_bundle_adjust_sink *>(curve_bundler_.ptr());
+  vcpld_bundle_adjust_sink *cb = 
+    static_cast<vcpld_bundle_adjust_sink *>(curve_bundler_.ptr());
 
   optimized_cam_ = &cb->cam_;
   optimized_pts3d_ =  &cb->pts3d_;

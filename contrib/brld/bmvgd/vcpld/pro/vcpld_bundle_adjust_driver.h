@@ -1,26 +1,26 @@
-// This is dvcpl_bundle_adjust_driver.h
-#ifndef dvcpl_bundle_adjust_driver_h
-#define dvcpl_bundle_adjust_driver_h
+// This is vcpld_bundle_adjust_driver.h
+#ifndef vcpld_bundle_adjust_driver_h
+#define vcpld_bundle_adjust_driver_h
 //:
 //\file
-//\brief Class to run dvcpl_*bundle_adjust using a 3D curve sketch
+//\brief Class to run vcpld_*bundle_adjust using a 3D curve sketch
 //\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date Fri Nov 13 18:03:26 EST 2009
 //
 
-#include <mw/pro/dvcpl_bundle_adjust_sink.h>
+#include <mw/pro/vcpld_bundle_adjust_sink.h>
 #include <bmcsd/bmcsd_curve_3d_sketch.h>
-#include <mw/algo/dvcpl_distmap_bundle_adjust.h>
-#include <mw/algo/mw_data.h>
+#include <mw/algo/vcpld_distmap_bundle_adjust.h>
+#include <mw/algo/bmcsd_data.h>
 
-class dvcpl_bundle_adjust_driver {
+class vcpld_bundle_adjust_driver {
 public: 
 
   // The caller is responsible for managing csk memory, deleting csk only after
   // this class has been used.
   // \param[in] optimize_one_view: optimizes every view independently, without
   // optimizing the 3D structure.
-  dvcpl_bundle_adjust_driver(
+  vcpld_bundle_adjust_driver(
       const bmcsd_curve_stereo_data_path &dpath, 
       bmcsd_curve_3d_sketch *csk,
       const vcl_set<unsigned> &viewset,
@@ -36,7 +36,7 @@ public:
       initialized_(false)
   { }
 
-  ~dvcpl_bundle_adjust_driver() {}
+  ~vcpld_bundle_adjust_driver() {}
 
   //: Initializes the processing, e.g. setting up a processing graph, computing
   // loading frame data, etc.
@@ -90,4 +90,4 @@ protected:
       vcl_vector<vcl_vector<bool> > *mask_ptr );
 };
 
-#endif // dvcpl_bundle_adjust_driver_h
+#endif // vcpld_bundle_adjust_driver_h

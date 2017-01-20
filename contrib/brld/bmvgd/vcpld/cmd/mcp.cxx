@@ -3,8 +3,8 @@
 #include <vul/vul_file.h>
 #include <buld/buld_arg.h>
 #include <bmcsd/bmcsd_util.h>
-#include <mw/algo/dvcpl_distmap_bundle_adjust.h>
-#include <mw/pro/dvcpl_bundle_adjust_driver.h>
+#include <mw/algo/vcpld_distmap_bundle_adjust.h>
+#include <mw/pro/vcpld_bundle_adjust_driver.h>
 
 
 #define MW_ASSERT(msg, a, b) if ((a) != (b)) { vcl_cerr << (msg) << vcl_endl; abort(); }
@@ -72,7 +72,7 @@ main(int argc, char **argv)
 
   bmcsd_curve_stereo_data_path dpath;
   bool retval = 
-    mw_data::read_frame_data_list_txt(a_prefix(), &dpath, cam_type);
+    bmcsd_data::read_frame_data_list_txt(a_prefix(), &dpath, cam_type);
   if (!retval) return 1;
   vcl_cout << "Dpath:\n" << dpath << vcl_endl;
 
@@ -91,8 +91,8 @@ main(int argc, char **argv)
   // Trim all curves in CSK that have no inlier views within the given range
   keep_only_curves_with_sufficient_inlier_views(viewset, csk);
 
-  // Now define dvcpl_bundle_adjust_driver.
-  dvcpl_bundle_adjust_driver b(dpath, csk, viewset, a_optimize_1cam(), a_curve_ransac());
+  // Now define vcpld_bundle_adjust_driver.
+  vcpld_bundle_adjust_driver b(dpath, csk, viewset, a_optimize_1cam(), a_curve_ransac());
 
   retval = b.init();
   MW_ASSERT("Bundle adjustment driver init() return value", retval, true);

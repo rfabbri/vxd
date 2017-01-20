@@ -1,6 +1,6 @@
-#include "dvcpl_bundle_adjust_sink.h"
+#include "vcpld_bundle_adjust_sink.h"
 
-void dvcpl_bundle_adjust_sink::
+void vcpld_bundle_adjust_sink::
 setup_inputs(
       vcl_vector<bprod_process_sptr> &cam_src, 
       vcl_vector<bprod_process_sptr> &edg_src, 
@@ -22,7 +22,7 @@ setup_inputs(
   }
 }
 
-void dvcpl_bundle_adjust_sink::
+void vcpld_bundle_adjust_sink::
 get_cameras()
 {
   cam_.resize(nviews());
@@ -36,20 +36,20 @@ get_cameras()
   }
 }
 
-void dvcpl_bundle_adjust_sink::
+void vcpld_bundle_adjust_sink::
 get_edgemaps()
 {
   em_.resize(nviews());
   
   for (unsigned i=0; i < nviews(); ++i) {
     unsigned offset = i*inputs_per_view_;
-    assert( input_type_id(offset + EDG_ID) == typeid(dbdet_edgemap_sptr) );
+    assert( input_type_id(offset + EDG_ID) == typeid(sdetd_edgemap_sptr) );
 
-    em_[i] = input< dbdet_edgemap_sptr >(offset + EDG_ID);
+    em_[i] = input< sdetd_edgemap_sptr >(offset + EDG_ID);
   }
 }
 
-void dvcpl_bundle_adjust_sink::
+void vcpld_bundle_adjust_sink::
 get_dt_label()
 {
   dt_.resize(nviews());

@@ -1,4 +1,4 @@
-#include "dvcpl_distmap_bundle_adjust.h"
+#include "vcpld_distmap_bundle_adjust.h"
 
 #include <vnl/vnl_vector_ref.h>
 #include <vnl/vnl_double_3.h>
@@ -13,12 +13,12 @@
 #include <vcl_cassert.h>
 
 //: Constructor
-dvcpl_distmap_bundle_adj_lsqr::
-dvcpl_distmap_bundle_adj_lsqr(
+vcpld_distmap_bundle_adj_lsqr::
+vcpld_distmap_bundle_adj_lsqr(
   const vcl_vector<vpgl_calibration_matrix<double> > &K,
   const vcl_vector<vil_image_view<vxl_uint_32> > &dt,
   const vcl_vector<vil_image_view<unsigned> > &label,
-  const vcl_vector<dbdet_edgemap_sptr> &em,
+  const vcl_vector<sdetd_edgemap_sptr> &em,
   const vcl_vector<vcl_vector<bool> > &mask
   )
  : 
@@ -57,7 +57,7 @@ dvcpl_distmap_bundle_adj_lsqr(
     Km_.push_back(K_[i].get_matrix());
 }
 
-void dvcpl_distmap_bundle_adj_lsqr::
+void vcpld_distmap_bundle_adj_lsqr::
 f(vnl_vector<double> const& a,
   vnl_vector<double> const& b,
   vnl_vector<double>& e)
@@ -87,7 +87,7 @@ f(vnl_vector<double> const& a,
   }
 }
 
-void dvcpl_distmap_bundle_adj_lsqr::
+void vcpld_distmap_bundle_adj_lsqr::
 fij(int i, int /*j*/, vnl_vector<double> const& ai,
     vnl_vector<double> const& bj, vnl_vector<double>& fij)
 {
@@ -106,8 +106,8 @@ fij(int i, int /*j*/, vnl_vector<double> const& ai,
 }
 
 
-dvcpl_distmap_bundle_adjust::
-dvcpl_distmap_bundle_adjust()
+vcpld_distmap_bundle_adjust::
+vcpld_distmap_bundle_adjust()
   : 
     ba_func_(NULL),
     start_error_(0.0),
@@ -115,25 +115,25 @@ dvcpl_distmap_bundle_adjust()
 {
 }
 
-dvcpl_distmap_bundle_adjust::
-~dvcpl_distmap_bundle_adjust()
+vcpld_distmap_bundle_adjust::
+~vcpld_distmap_bundle_adjust()
 {
   if (!ba_func_)
     delete ba_func_;
 }
 
 //: Bundle Adjust
-bool dvcpl_distmap_bundle_adjust::
+bool vcpld_distmap_bundle_adjust::
 optimize(vcl_vector<vpgl_perspective_camera<double> > &cameras,
          vcl_vector< point_set > &world_objects,
          const vcl_vector<vil_image_view<vxl_uint_32> > &dt,
          const vcl_vector<vil_image_view<unsigned> > &label,
-         const vcl_vector<dbdet_edgemap_sptr> &em,
+         const vcl_vector<sdetd_edgemap_sptr> &em,
          const vcl_vector<vcl_vector<bool> > &mask)
 {
   // Extract the camera and point parameters
   vcl_vector<vpgl_calibration_matrix<double> > K;
-  a_ = dvcpl_distmap_bundle_adj_lsqr::create_param_vector(cameras);
+  a_ = vcpld_distmap_bundle_adj_lsqr::create_param_vector(cameras);
 
   vcl_vector< vgl_point_3d<double> > world_points;
 
@@ -146,14 +146,14 @@ optimize(vcl_vector<vpgl_perspective_camera<double> > &cameras,
     for (unsigned ip=0; ip < world_objects[c].size(); ++ip)
       world_points.push_back(world_objects[c][ip]);
 
-  b_ = dvcpl_distmap_bundle_adj_lsqr::create_param_vector(world_points);
+  b_ = vcpld_distmap_bundle_adj_lsqr::create_param_vector(world_points);
   for (unsigned int i=0; i < cameras.size(); ++i) {
     K.push_back(cameras[i].get_calibration());
   }
 
   // do the bundle adjustment
   delete ba_func_;
-  ba_func_ = new dvcpl_distmap_bundle_adj_lsqr(K, dt, label, em, mask);
+  ba_func_ = new vcpld_distmap_bundle_adj_lsqr(K, dt, label, em, mask);
   vnl_sparse_lm lm(*ba_func_);
   lm.set_max_function_evals(1000);
   lm.set_trace(true);

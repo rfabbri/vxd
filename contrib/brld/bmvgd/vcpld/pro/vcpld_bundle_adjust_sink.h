@@ -1,18 +1,18 @@
-// This is dvcpl_bundle_adjust_sink.h
-#ifndef dvcpl_bundle_adjust_sink_h
-#define dvcpl_bundle_adjust_sink_h
+// This is vcpld_bundle_adjust_sink.h
+#ifndef vcpld_bundle_adjust_sink_h
+#define vcpld_bundle_adjust_sink_h
 //:
 //\file
 //\brief Dbpro process for curve bundle adjustment
 //\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //
 #include <bprod/bprod_process.h>
-#include <mw/algo/dvcpl_distmap_bundle_adjust.h>
-#include <mw/algo/dvcpl_distmap_optimize_camera.h>
-#include <mw/pro/bprod_load_camera_source.h>
-#include <mw/pro/bprod_load_edg_source.h>
+#include <mw/algo/vcpld_distmap_bundle_adjust.h>
+#include <mw/algo/vcpld_distmap_optimize_camera.h>
+#include <bmcsd/pro/bmcsd_load_camera_source.h>
+#include <bmcsd/pro/bmcsd_load_edg_source.h>
 
-class dvcpl_bundle_adjust_sink : public bprod_sink {
+class vcpld_bundle_adjust_sink : public bprod_sink {
 public:
   typedef vcl_vector<vgl_point_3d<double> > single_3d_curve;
 
@@ -20,7 +20,7 @@ public:
 
   //\param[in] optimize_one_view: do optimization of each view's 6DOF
   //separately, instead of a full bundle adjustment.
-  dvcpl_bundle_adjust_sink  (bool optimize_one_view,
+  vcpld_bundle_adjust_sink  (bool optimize_one_view,
                              bool curve_ransac) 
     :
     optimize_one_view_(optimize_one_view),
@@ -68,14 +68,14 @@ public:
 
         vpgl_perspective_camera<double> opt;
         if (curve_ransac_) {
-          opt = dvcpl_distmap_optimize_camera::opt_orient_pos_subset(
+          opt = vcpld_distmap_optimize_camera::opt_orient_pos_subset(
               cam_[v],
               pts3d_v,
               dt_[v],
               label_[v],
               em_[v]);
         } else {
-          opt = dvcpl_distmap_optimize_camera::opt_orient_pos(
+          opt = vcpld_distmap_optimize_camera::opt_orient_pos(
               cam_[v],
               pts3d_v,
               dt_[v],
@@ -109,12 +109,12 @@ private:
   bool optimize_one_view_;
   bool curve_ransac_;
 
-  vcl_vector<dbdet_edgemap_sptr> em_;
+  vcl_vector<sdetd_edgemap_sptr> em_;
   typedef vil_image_view<vxl_uint_32> dt_t;
   typedef vil_image_view<unsigned> label_t;
   vcl_vector<vil_image_view<vxl_uint_32> > dt_;
   vcl_vector<vil_image_view<unsigned> > label_;
-  dvcpl_distmap_bundle_adjust b_;
+  vcpld_distmap_bundle_adjust b_;
 
   void get_cameras();
   void get_edgemaps();
@@ -122,4 +122,4 @@ private:
 };
 
 
-#endif // dvcpl_bundle_adjust_sink_h
+#endif // vcpld_bundle_adjust_sink_h

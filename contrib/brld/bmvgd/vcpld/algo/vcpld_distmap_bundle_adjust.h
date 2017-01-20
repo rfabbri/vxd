@@ -1,6 +1,6 @@
-// This is dvcpl_distmap_bundle_adjust.h
-#ifndef dvcpl_distmap_bundle_adjust_h
-#define dvcpl_distmap_bundle_adjust_h
+// This is vcpld_distmap_bundle_adjust.h
+#ifndef vcpld_distmap_bundle_adjust_h
+#define vcpld_distmap_bundle_adjust_h
 //:
 //\file
 //\brief Bundle adjustment from curves and edge maps.
@@ -19,8 +19,8 @@
 #include <vgl/algo/vgl_rotation_3d.h>
 #include <vil/vil_image_view.h>
 #include <vpgl/vpgl_perspective_camera.h>
-#include <dbdet/edge/dbdet_edgemap.h>
-#include <dbdet/edge/dbdet_edgemap_sptr.h>
+#include <sdet/sdetd_edgemap.h>
+#include <sdet/sdetd_edgemap_sptr.h>
 
 
 //: Computes the residuals for bundle adjustment similarly to vpgl_distmap_bundle_adj.
@@ -49,7 +49,7 @@
 // their position is updated.
 //
 // \remarks Specifying covariance for each point is not yet supported.
-class dvcpl_distmap_bundle_adj_lsqr : public vnl_sparse_lst_sqr_function
+class vcpld_distmap_bundle_adj_lsqr : public vnl_sparse_lst_sqr_function
 {
 public:
   //: Constructor
@@ -57,11 +57,11 @@ public:
   // \remarks We may want to smooth the distance map a little and convert to a
   // floating point version, so that the Jacobian can make more sense near
   // Voronoi boundaries.
-  dvcpl_distmap_bundle_adj_lsqr(
+  vcpld_distmap_bundle_adj_lsqr(
       const vcl_vector<vpgl_calibration_matrix<double> >& K,
       const vcl_vector<vil_image_view<vxl_uint_32> > &dt,
       const vcl_vector<vil_image_view<unsigned> > &label,
-      const vcl_vector<dbdet_edgemap_sptr> &em,
+      const vcl_vector<sdetd_edgemap_sptr> &em,
       const vcl_vector<vcl_vector<bool> >& mask);
 
   //: Compute the residuals from the ith component of a and the jth component of b.
@@ -198,7 +198,7 @@ private:
   vcl_vector<vil_image_view<unsigned> > label_;
 
   //: The subpixel edge maps for each view.
-  const vcl_vector<dbdet_edgemap_sptr> em_;
+  const vcl_vector<sdetd_edgemap_sptr> em_;
 
   unsigned iteration_count_;
 
@@ -222,7 +222,7 @@ private:
 
     double min_d = vcl_numeric_limits<double>::infinity();
     unsigned l = label_[v](p_i, p_j);
-    const vcl_vector<dbdet_edgel*> &ev = em_[v]->edge_cells.begin()[l];
+    const vcl_vector<sdetd_edgel*> &ev = em_[v]->edge_cells.begin()[l];
     for (unsigned i=0; i < ev.size(); ++i) {
       // form a vector d betwen pt and ev
       // project this vcl_vector onto the normal; this is our residual
@@ -242,15 +242,15 @@ private:
 };
 
 //: Static functions for bundle adjustment
-class dvcpl_distmap_bundle_adjust
+class vcpld_distmap_bundle_adjust
 {
   typedef vcl_vector<vgl_point_3d<double> > point_set;
 
  public:
   //: Constructor
-  dvcpl_distmap_bundle_adjust();
+  vcpld_distmap_bundle_adjust();
   //: Destructor
-  ~dvcpl_distmap_bundle_adjust();
+  ~vcpld_distmap_bundle_adjust();
 
   //: Return the ending error
   double end_error() const { return end_error_; }
@@ -269,12 +269,12 @@ class dvcpl_distmap_bundle_adjust
                 vcl_vector< point_set > &world_objects,
                 const vcl_vector<vil_image_view<vxl_uint_32> > &dt,
                 const vcl_vector<vil_image_view<unsigned> > &label,
-                const vcl_vector<dbdet_edgemap_sptr> &em,
+                const vcl_vector<sdetd_edgemap_sptr> &em,
                 const vcl_vector<vcl_vector<bool> > &mask);
 
  private:
   //: The bundle adjustment error function
-  dvcpl_distmap_bundle_adj_lsqr* ba_func_;
+  vcpld_distmap_bundle_adj_lsqr* ba_func_;
   //: The last camera parameters
   vnl_vector<double> a_;
   //: The last point parameters
@@ -285,4 +285,4 @@ class dvcpl_distmap_bundle_adjust
   int num_iterations_;
 };
 
-#endif // dvcpl_distmap_bundle_adjust_h
+#endif // vcpld_distmap_bundle_adjust_h
