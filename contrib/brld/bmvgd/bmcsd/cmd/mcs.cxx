@@ -6,6 +6,7 @@
 #include <vul/vul_arg.h>
 #include <buld/buld_arg.h>
 #include <bmcsd/bmcsd_util.h>
+#include <bmcsd/algo/bmcsd_data.h>
 #include <bmcsd/pro/bmcsd_stereo_driver.h>
 
 
@@ -64,10 +65,10 @@ main(int argc, char **argv)
   bmcsd_util::camera_file_type cam_type;
 
   if (a_cam_type() == "intrinsic_extrinsic") {
-    cam_type = bmcsd_util::MW_INTRINSIC_EXTRINSIC;
+    cam_type = bmcsd_util::BMCS_INTRINSIC_EXTRINSIC;
   } else {
     if (a_cam_type() == "projcamera")
-      cam_type = bmcsd_util::MW_3X4;
+      cam_type = bmcsd_util::BMCS_3X4;
     else  {
       vcl_cerr << "Error: invalid camera type " << a_cam_type() << vcl_endl;
       return 1;

@@ -2,7 +2,7 @@
 #include <buld/buld_parse_simple_file.h>
 #include <vul/vul_file.h>
 
-void mw_data::
+void bmcsd_data::
 get_capitol_building_subset(bmcsd_curve_stereo_data_path *d)
 {
   vcl_string path("/usr/local/moredata/subset/");
@@ -99,7 +99,7 @@ set_curvelets(const vcl_vector<vcl_string> &cvlet_fnames)
   return true;
 }
 
-bool mw_data::
+bool bmcsd_data::
 read_frame_data_list_txt(
     const vcl_string &path,
     bmcsd_curve_stereo_data_path *dataset,

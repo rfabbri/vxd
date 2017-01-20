@@ -28,8 +28,8 @@ set(mca_stereo_sources
 #    vox_mcs_eval_params_sptr.h vbl_smart_ptr+vox_eval_mcs_params-.cxx
 # )
 
-# add_executable(mcs ${mcs_stereo_sources})
-# target_link_libraries(mcs bmcsd_pro)
+add_executable(mcs ${mcs_stereo_sources})
+target_link_libraries(mcs bmcsd_pro)
 
 add_executable(mca ${mca_stereo_sources})
 target_link_libraries(mca bmcsd)

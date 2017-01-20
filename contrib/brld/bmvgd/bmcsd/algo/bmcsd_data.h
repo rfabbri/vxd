@@ -1,6 +1,6 @@
-// This is mw_data.h
-#ifndef mw_data_h
-#define mw_data_h
+// This is bmcsd_data.h
+#ifndef bmcsd_data_h
+#define bmcsd_data_h
 //:
 //\file
 //\brief Dataset handling for multiview stereo
@@ -121,7 +121,7 @@ vcl_ostream&  operator<<(vcl_ostream& s, const bmcsd_curve_stereo_data_path& p);
 // \relates bmcsd_curve_stereo_frame_data_path
 vcl_ostream&  operator<<(vcl_ostream& s, const bmcsd_curve_stereo_frame_data_path& p);
 
-struct mw_data {
+struct bmcsd_data {
   // Commmon datasets I use, hardcoded.
   static void
   get_capitol_building_subset(bmcsd_curve_stereo_data_path *dataset);
@@ -134,4 +134,4 @@ struct mw_data {
       bmcsd_util::camera_file_type cam_type);
 };
 
-#endif // mw_data_h
+#endif // bmcsd_data_h

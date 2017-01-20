@@ -2,7 +2,7 @@
 
 include_directories(${VXL_GEL_INCLUDE_DIR} )
 include_directories(${VXL_GEL_INCLUDE_DIR}/mrc )
-
+include_directories(${VXL_BRL_INCLUDE_DIR})
 
 set( bmcsd_sources
    bmcsd_util.hxx       bmcsd_util_defs.cxx bmcsd_util.h
