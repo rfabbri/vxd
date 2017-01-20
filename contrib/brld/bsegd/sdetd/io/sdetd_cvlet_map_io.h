@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Utility function for loading and saving a contourlet map
-//\author Amir Tamrakar
+//\author Based on original code by  Amir Tamrakar
 //\date 03/15/08
 //
 //\verbatim
@@ -19,11 +19,11 @@
 #include <dbdet/sel/dbdet_curvelet_map.h>
 
 //: Loads an ascii file containing a curvelet map as well as the edgemap on which it is defined.
-//\author Amir Tamrakar
+//\author Based on original code by  Amir Tamrakar
 bool dbdet_load_cvlet_map(vcl_string filename, dbdet_edgemap_sptr &edge_map, dbdet_curvelet_map &cvlet_map);
 
 //: Save a curvelet map as a .cvlet file
-//\author Amir Tamrakar
+//\author Based on original code by  Amir Tamrakar
 bool dbdet_save_cvlet_map(vcl_string filename, dbdet_curvelet_map &cvlet_map);
 
 #endif // dbdet_cvlet_map_io_h
