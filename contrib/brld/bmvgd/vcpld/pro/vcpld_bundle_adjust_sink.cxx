@@ -43,9 +43,9 @@ get_edgemaps()
   
   for (unsigned i=0; i < nviews(); ++i) {
     unsigned offset = i*inputs_per_view_;
-    assert( input_type_id(offset + EDG_ID) == typeid(sdetd_edgemap_sptr) );
+    assert( input_type_id(offset + EDG_ID) == typeid(sdet_edgemap_sptr) );
 
-    em_[i] = input< sdetd_edgemap_sptr >(offset + EDG_ID);
+    em_[i] = input< sdet_edgemap_sptr >(offset + EDG_ID);
   }
 }
 

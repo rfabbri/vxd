@@ -1,4 +1,6 @@
 include_directories(${VXL_BRL_INCLUDE_DIR})
+include_directories(${VXL_GEL_INCLUDE_DIR} )
+include_directories(${VXL_GEL_INCLUDE_DIR}/mrc )
 
 set(vcpld_pro_sources
   vcpld_bundle_adjust_driver.cxx vcpld_bundle_adjust_driver.h

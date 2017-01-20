@@ -1,5 +1,7 @@
 # Multiview Curve Photogrammetry Algorithms
 include_directories(${VXL_BRL_INCLUDE_DIR})
+include_directories(${VXL_GEL_INCLUDE_DIR} )
+include_directories(${VXL_GEL_INCLUDE_DIR}/mrc )
 
 set(vcpld_algo_sources
   vcpld_distmap_bundle_adjust.cxx vcpld_distmap_bundle_adjust.h

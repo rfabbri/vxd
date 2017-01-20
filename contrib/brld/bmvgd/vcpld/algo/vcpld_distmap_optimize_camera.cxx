@@ -29,7 +29,7 @@ vcpld_distmap_optimize_camera_lsqr(
       vcl_vector< vgl_homg_point_3d<double>  > &world_points,
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<unsigned> &label,
-      const sdetd_edgemap_sptr &em)
+      const sdet_edgemap_sptr &em)
 :
   vnl_least_squares_function(6,2*world_points.size(),no_gradient),
   K_(K),
@@ -67,7 +67,7 @@ opt_orient_pos(const vpgl_perspective_camera<double>& camera,
                vcl_vector< point_set > &world_objects,
                const vil_image_view<vxl_uint_32> &dt,
                const vil_image_view<unsigned> &label,
-               const sdetd_edgemap_sptr &em,
+               const sdet_edgemap_sptr &em,
                double *avg_err_ptr)
 {
   const vpgl_calibration_matrix<double>& K = camera.get_calibration();
@@ -134,7 +134,7 @@ opt_orient_pos_subset(const vpgl_perspective_camera<double>& camera,
                vcl_vector< point_set > &world_objects,
                const vil_image_view<vxl_uint_32> &dt,
                const vil_image_view<unsigned> &label,
-               const sdetd_edgemap_sptr &em)
+               const sdet_edgemap_sptr &em)
 {
   // do optimization on all curves
   double best_err;

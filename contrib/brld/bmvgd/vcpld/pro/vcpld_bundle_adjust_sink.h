@@ -109,7 +109,7 @@ private:
   bool optimize_one_view_;
   bool curve_ransac_;
 
-  vcl_vector<sdetd_edgemap_sptr> em_;
+  vcl_vector<sdet_edgemap_sptr> em_;
   typedef vil_image_view<vxl_uint_32> dt_t;
   typedef vil_image_view<unsigned> label_t;
   vcl_vector<vil_image_view<vxl_uint_32> > dt_;

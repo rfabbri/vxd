@@ -18,8 +18,8 @@
 #include <vgl/algo/vgl_rotation_3d.h>
 #include <vil/vil_image_view.h>
 #include <vpgl/vpgl_perspective_camera.h>
-#include <sdet/sdetd_edgemap.h>
-#include <sdet/sdetd_edgemap_sptr.h>
+#include <sdet/sdet_edgemap.h>
+#include <sdet/sdet_edgemap_sptr.h>
 
 #include <vnl/vnl_least_squares_function.h>
 #include <vgl/vgl_point_2d.h>
@@ -53,7 +53,7 @@ class vcpld_distmap_optimize_camera_lsqr : public vnl_least_squares_function
       vcl_vector<  vgl_homg_point_3d<double> > &world_points,
       const vil_image_view<vxl_uint_32> &dt,
       const vil_image_view<unsigned> &label,
-      const sdetd_edgemap_sptr &em);
+      const sdet_edgemap_sptr &em);
 
   //: The main function.
   //  Given the parameter vector x, compute the vector of residuals fx.
@@ -81,7 +81,7 @@ class vcpld_distmap_optimize_camera_lsqr : public vnl_least_squares_function
 
     double min_d = vcl_numeric_limits<double>::infinity();
     unsigned l = label_(p_i, p_j);
-    const vcl_vector<sdetd_edgel*> &ev = em_->edge_cells.begin()[l];
+    const vcl_vector<sdet_edgel*> &ev = em_->edge_cells.begin()[l];
 #ifndef NDEBUG
     if (ev.size() == 0) {
       vcl_cout << "label: " << l 
@@ -90,7 +90,7 @@ class vcpld_distmap_optimize_camera_lsqr : public vnl_least_squares_function
       vcl_cout << "label_: " << label_.top_left_ptr()[l] << vcl_endl;
       vcl_cout << "DT: "<< dt_(p_i,p_j) << vcl_endl;
       vcl_cout << "DT(label): "<< dt_.top_left_ptr()[l] << vcl_endl;
-      // const vcl_vector<sdetd_edgel*> &ev = em_->edge_cells.begin()[l];
+      // const vcl_vector<sdet_edgel*> &ev = em_->edge_cells.begin()[l];
     }
     assert(ev.size());
 #endif
@@ -148,7 +148,7 @@ class vcpld_distmap_optimize_camera_lsqr : public vnl_least_squares_function
   // view being optimized. This is fixed throughout.
   vil_image_view<unsigned> label_;
   //: The subpixel edge maps for each view.
-  const sdetd_edgemap_sptr em_;
+  const sdet_edgemap_sptr em_;
 };
 
 
@@ -167,7 +167,7 @@ class vcpld_distmap_optimize_camera
                   vcl_vector< point_set > &world_objects,
                   const vil_image_view<vxl_uint_32> &dt,
                   const vil_image_view<unsigned> &label,
-                  const sdetd_edgemap_sptr &em)
+                  const sdet_edgemap_sptr &em)
     {
       double dummy;
       return opt_orient_pos(camera, world_objects, dt, label, em, &dummy);
@@ -178,7 +178,7 @@ class vcpld_distmap_optimize_camera
                  vcl_vector< point_set > &world_objects,
                  const vil_image_view<vxl_uint_32> &dt,
                  const vil_image_view<unsigned> &label,
-                 const sdetd_edgemap_sptr &em,
+                 const sdet_edgemap_sptr &em,
                  double *avg_err_ptr);
 
   static vpgl_perspective_camera<double> 
@@ -186,7 +186,7 @@ class vcpld_distmap_optimize_camera
                  vcl_vector< point_set > &world_objects,
                  const vil_image_view<vxl_uint_32> &dt,
                  const vil_image_view<unsigned> &label,
-                 const sdetd_edgemap_sptr &em);
+                 const sdet_edgemap_sptr &em);
 };
 
 
