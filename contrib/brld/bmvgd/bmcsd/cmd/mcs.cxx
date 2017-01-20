@@ -6,7 +6,7 @@
 #include <vul/vul_arg.h>
 #include <buld/buld_arg.h>
 #include <bmcsd/bmcsd_util.h>
-#include <mw/pro/bmcsd_stereo_driver.h>
+#include <bmcsd/pro/bmcsd_stereo_driver.h>
 
 
 #define MW_ASSERT(msg, a, b) if ((a) != (b)) { vcl_cerr << (msg) << vcl_endl; exit(1); }
@@ -76,7 +76,7 @@ main(int argc, char **argv)
 
   bmcsd_curve_stereo_data_path dpath;
   bool retval = 
-    mw_data::read_frame_data_list_txt(a_prefix(), &dpath, cam_type);
+    bmcsd_data::read_frame_data_list_txt(a_prefix(), &dpath, cam_type);
   if (!retval) return 1;
   vcl_cout << "Dpath:\n" << dpath << vcl_endl;
 
