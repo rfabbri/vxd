@@ -2,7 +2,7 @@
 // \file
 // \brief Evaluation tools like a class that holds experiment statistics
 //
-// \author Ozge C Ozcanli (ozge@lems.brown.edu)
+// \author Based on original code by  Ozge C Ozcanli (@lems.brown.edu)
 // \date 11/15/07
 //      
 // \verbatim

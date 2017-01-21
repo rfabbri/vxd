@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Smart pointer to a dborl_exp_stat
-// \author Ozge Can Ozcanli, (ozge@lems.brown.edu)
+// \author Based on original code by  Ozge Can Ozcanli, (@lems.brown.edu)
 // \date 10/03/07
 //
 
