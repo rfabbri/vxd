@@ -1,5 +1,5 @@
-#ifndef mw_save_discrete_corresp_process_h_
-#define mw_save_discrete_corresp_process_h_
+#ifndef bmcsd_save_discrete_corresp_process_h_
+#define bmcsd_save_discrete_corresp_process_h_
 
 //:
 //\file
@@ -14,11 +14,11 @@
 
 
 //: This process loads bmcsd_discrete_corresp binary file into a storage class
-class mw_save_discrete_corresp_process : public bpro1_process
+class bmcsd_save_discrete_corresp_process : public bpro1_process
 {
 public:
-  mw_save_discrete_corresp_process();
-  ~mw_save_discrete_corresp_process() {}
+  bmcsd_save_discrete_corresp_process();
+  ~bmcsd_save_discrete_corresp_process() {}
 
   //: Clone the process
   virtual bpro1_process* clone() const;
@@ -43,4 +43,4 @@ public:
   }
 };
 
-#endif // mw_save_discrete_corresp_process_h_
+#endif // bmcsd_save_discrete_corresp_process_h_
