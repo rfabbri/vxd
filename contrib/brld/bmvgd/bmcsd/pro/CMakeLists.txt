@@ -3,7 +3,6 @@ include_directories(${VXL_BRL_INCLUDE_DIR})
 set(bmcsd_pro_sources
   # bpro1 ------------------------------------------------------
   bmcsd_load_camera_process.cxx bmcsd_load_camera_process.h
-
   bmcsd_discrete_corresp_storage.cxx bmcsd_discrete_corresp_storage.h bmcsd_discrete_corresp_storage_sptr.h
   bmcsd_discrete_corresp_storage_3.cxx bmcsd_discrete_corresp_storage_3.h bmcsd_discrete_corresp_storage_3_sptr.h
   bmcsd_load_discrete_corresp_process.cxx bmcsd_load_discrete_corresp_process.h
