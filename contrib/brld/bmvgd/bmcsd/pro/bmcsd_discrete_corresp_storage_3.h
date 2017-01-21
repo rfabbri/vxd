@@ -4,7 +4,7 @@
 //:
 //\file
 //\brief Stores point correspondences
-//\author Ricardo Fabbri (rfabbri), Brown University  (rfabbri@gmail.com)
+//\author Ricardo Fabbri (rfabbri), Brown University  (@gmail.com)
 //\date 04/24/2006 02:32:22 PM EDT
 //
 
