@@ -13,6 +13,7 @@ static const double tolerance=vcl_numeric_limits<double>::epsilon()*100;
 
 static void test_discrete_corresp_n();
 static void test_discrete_corresp();
+static void test_discrete_corresp_stats();
 
 
 

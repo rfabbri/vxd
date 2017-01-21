@@ -17,8 +17,6 @@
 #include <vcl_algorithm.h>
 #include <vsl/vsl_binary_io.h>
 
-class dborl_exp_stat;
-
 struct bmcsd_match_attribute {
 public:
    bmcsd_match_attribute(bool isnull=false, double cost=0)
