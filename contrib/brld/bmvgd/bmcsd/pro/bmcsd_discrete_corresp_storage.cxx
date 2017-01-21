@@ -1,16 +1,16 @@
-#include "mw_discrete_corresp_storage.h"
+#include "bmcsd_discrete_corresp_storage.h"
 
 
 //: Constructor
-mw_discrete_corresp_storage::
-mw_discrete_corresp_storage()
+bmcsd_discrete_corresp_storage::
+bmcsd_discrete_corresp_storage()
   : c_(0)
 {
 }
 
 //: Destructor
-mw_discrete_corresp_storage::
-~mw_discrete_corresp_storage()
+bmcsd_discrete_corresp_storage::
+~bmcsd_discrete_corresp_storage()
 {
   if (c_) delete c_;
 }
@@ -18,15 +18,15 @@ mw_discrete_corresp_storage::
 //: Create a copy of the object on the heap.
 // The caller is responsible for deletion
 bpro1_storage* 
-mw_discrete_corresp_storage::clone() const
+bmcsd_discrete_corresp_storage::clone() const
 {
-  return new mw_discrete_corresp_storage(*this);
+  return new bmcsd_discrete_corresp_storage(*this);
 }
 
 
 //: Binary save self to stream.
 void 
-mw_discrete_corresp_storage::
+bmcsd_discrete_corresp_storage::
 b_write(vsl_b_ostream &os) const
 {
   vsl_b_write(os, version());
@@ -40,7 +40,7 @@ b_write(vsl_b_ostream &os) const
 
 //: Binary load self from stream.
 void 
-mw_discrete_corresp_storage::
+bmcsd_discrete_corresp_storage::
 b_read(vsl_b_istream &is)
 {
   if (!is) return;
@@ -70,7 +70,7 @@ b_read(vsl_b_istream &is)
   }
 
   default:
-    vcl_cerr << "I/O ERROR: mw_discrete_corresp_storage::b_read(vsl_b_istream&)\n"
+    vcl_cerr << "I/O ERROR: bmcsd_discrete_corresp_storage::b_read(vsl_b_istream&)\n"
              << "           Unknown version number "<< ver << '\n';
     is.is().clear(vcl_ios::badbit); // Set an unrecoverable IO error on stream
     return;
