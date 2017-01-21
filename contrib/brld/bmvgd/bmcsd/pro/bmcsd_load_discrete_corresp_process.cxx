@@ -1,16 +1,16 @@
 #include <vcl_iostream.h>
 #include <vcl_fstream.h>
 
-#include "mw_load_discrete_corresp_process.h"
+#include "bmcsd_load_discrete_corresp_process.h"
 
 #include <vcl_cstring.h>
 #include <vcl_string.h>
 #include <vcl_fstream.h>
-#include <mw/pro/bmcsd_discrete_corresp_storage.h>
-#include <mw/pro/bmcsd_discrete_corresp_storage_3.h>
+#include <bmcsd/pro/bmcsd_discrete_corresp_storage.h>
+#include <bmcsd/pro/bmcsd_discrete_corresp_storage_3.h>
 
 
-mw_load_discrete_corresp_process::mw_load_discrete_corresp_process() : bpro1_process()
+bmcsd_load_discrete_corresp_process::bmcsd_load_discrete_corresp_process() : bpro1_process()
 {
   if( 
       !parameters()->add( "Input filename" , "-nameprefix" , bpro1_filepath("","*.*") ) ||
@@ -25,18 +25,18 @@ mw_load_discrete_corresp_process::mw_load_discrete_corresp_process() : bpro1_pro
 
 //: Clone the process
 bpro1_process*
-mw_load_discrete_corresp_process::clone() const
+bmcsd_load_discrete_corresp_process::clone() const
 {
-  return new mw_load_discrete_corresp_process(*this);
+  return new bmcsd_load_discrete_corresp_process(*this);
 }
 
-vcl_vector< vcl_string > mw_load_discrete_corresp_process::get_input_type() 
+vcl_vector< vcl_string > bmcsd_load_discrete_corresp_process::get_input_type() 
 {
   vcl_vector< vcl_string > to_return;
   return to_return;
 }
 
-vcl_vector< vcl_string > mw_load_discrete_corresp_process::get_output_type() 
+vcl_vector< vcl_string > bmcsd_load_discrete_corresp_process::get_output_type() 
 {
   vcl_vector< vcl_string > to_return;
 
@@ -51,7 +51,7 @@ vcl_vector< vcl_string > mw_load_discrete_corresp_process::get_output_type()
 }
 
 //: Loads a _full_ perspective camera (not a pure vpgl_proj_camera)
-bool mw_load_discrete_corresp_process::execute()
+bool bmcsd_load_discrete_corresp_process::execute()
 {
   bpro1_filepath input;
   parameters()->get_value( "-nameprefix" , input);
