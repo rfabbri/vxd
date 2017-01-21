@@ -5,10 +5,7 @@ add_executable ( bmcsd_algo_test_all
    test_driver.cxx
 
    # The tests
-   test_bmcsd_algo_util.cxx
-   test_bmcsd_algo_discrete_corresp_io.cxx
-   test_bmcsd_algo_discrete_corresp_n_io.cxx
-   test_bmcsd_algo_curve_3d_sketch_io.cxx
+   test_bmcsd_algo_discrete_corresp_n_algo.cxx
 )
 
 add_test( bmcsd_algo_test_discrete_corresp_n_algo bmcsd_algo_test_all test_discrete_corresp_n_algo )
