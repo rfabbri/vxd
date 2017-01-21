@@ -1,12 +1,12 @@
-// This is file rec/dborl/dborl_evaluation.cxx
+// This is file rec/borld/borld_evaluation.cxx
 
 //:
 // \file
 
 
-#include "dborl_evaluation.h"
+#include "borld_evaluation.h"
 
-#include <dborl/dborl_image_description_utils.h>
+#include <borld/borld_image_description_utils.h>
 #include <bsol/bsol_algs.h>
 #include <bdgl/bdgl_curve_algs.h>
 #include <vsol/vsol_box_2d.h>
@@ -14,10 +14,10 @@
 #include <vdgl/vdgl_edgel_chain.h>
 #include <vdgl/vdgl_digital_curve.h>
 #include <vdgl/vdgl_interpolator_linear.h>
-#include <dborl/dborl_category_info.h>
+#include <borld/borld_category_info.h>
 #include <vul/vul_awk.h>
 
-void dborl_exp_stat::print_stats()
+void borld_exp_stat::print_stats()
 {
   vcl_cout << "N+: " << positive_cnt_ << " N-: " << negative_cnt_ << " TP: " << TP_ << " FP: " << FP_ << " TN: " << TN_ << " FN: " << FN_ << vcl_endl;
   if (all_done())
@@ -26,12 +26,12 @@ void dborl_exp_stat::print_stats()
     vcl_cout << "problem! exp not finished! N+ does not equal TP + FN or N- does not equal FP + TN\n";
   vcl_cout << "TPR: " << TPR() << " FPR: " << FPR() << " recall: " << recall() << " precision: " << precision() << vcl_endl;
 }
-void dborl_exp_stat::print_only_stats()
+void borld_exp_stat::print_only_stats()
 {
   vcl_cout << "N+: " << positive_cnt_ << " N-: " << negative_cnt_ << " TP: " << TP_ << " FP: " << FP_ << " TN: " << TN_ << " FN: " << FN_ << vcl_endl;
 }
 
-void dborl_exp_stat::print_stats(vcl_ofstream& of)
+void borld_exp_stat::print_stats(vcl_ofstream& of)
 {
   of << "N+: " << positive_cnt_ << " N-: " << negative_cnt_ << " TP: " << TP_ << " FP: " << FP_ << " TN: " << TN_ << " FN: " << FN_ << vcl_endl;
   if (all_done())
@@ -42,7 +42,7 @@ void dborl_exp_stat::print_stats(vcl_ofstream& of)
 }
 //: on the first line, assumes the format, e.g.: 
 //  N+: 21 N-: 0 TP: 6 FP: 15 TN: 0 FN: 0
-void dborl_exp_stat::read_stats(vcl_ifstream& ifs)
+void borld_exp_stat::read_stats(vcl_ifstream& ifs)
 {
   vul_awk awk(ifs);
   for( ; awk ; ++awk ) {
@@ -58,7 +58,7 @@ void dborl_exp_stat::read_stats(vcl_ifstream& ifs)
 }
 
 //: for some applications it is not possible to find number of true negatives properly, in that case TN is not printed.
-void dborl_exp_stat::print_stats(vcl_string name, vcl_ofstream& of, bool print_FN)
+void borld_exp_stat::print_stats(vcl_string name, vcl_ofstream& of, bool print_FN)
 {
   if (print_FN)
     of << "<statistics name=\"" << name << "\" TP=\"" << TP_ << "\" FP=\"" << FP_ << "\" TN=\"" << TN_ << "\" FN=\"" << FN_ << "\"></statistics>\n";
@@ -69,7 +69,7 @@ void dborl_exp_stat::print_stats(vcl_string name, vcl_ofstream& of, bool print_F
 // =============================================================================
 
 //: 
-bool dborl_evaluation_evaluate_detection(dborl_exp_stat& exp_stat, vsol_box_2d_sptr gt_box, vsol_box_2d_sptr det_box, float overlap_ratio_threshold)
+bool borld_evaluation_evaluate_detection(borld_exp_stat& exp_stat, vsol_box_2d_sptr gt_box, vsol_box_2d_sptr det_box, float overlap_ratio_threshold)
 {
   if (!gt_box && !det_box)
     exp_stat.increment_TN();
@@ -95,7 +95,7 @@ bool dborl_evaluation_evaluate_detection(dborl_exp_stat& exp_stat, vsol_box_2d_s
 }
 
 //: is there an overlap between the ground truth and the detection box more than the overlap_ratio_threshold
-bool dborl_evaluation_overlap(vsol_box_2d_sptr gt_box, vsol_box_2d_sptr det_box, float overlap_ratio_threshold, float& ratio)
+bool borld_evaluation_overlap(vsol_box_2d_sptr gt_box, vsol_box_2d_sptr det_box, float overlap_ratio_threshold, float& ratio)
 {
   vsol_box_2d_sptr inters;
   if (bsol_algs::intersection(det_box, gt_box, inters)) {
@@ -115,19 +115,19 @@ bool dborl_evaluation_overlap(vsol_box_2d_sptr gt_box, vsol_box_2d_sptr det_box,
 // -----------------------------------------------------------------------------
 //: check each gt_box of the model_category in this query image
 //  return the overlapping ground truth box if there is a detection and a ground truth bounding box that overlaps it sufficiently
-vsol_box_2d_sptr dborl_evaluation_evaluate_detection(dborl_exp_stat& exp_stat, 
+vsol_box_2d_sptr borld_evaluation_evaluate_detection(borld_exp_stat& exp_stat, 
                         vcl_string model_category, 
-                        dborl_image_description_sptr query_desc, 
+                        borld_image_description_sptr query_desc, 
                         vsol_box_2d_sptr detection_box, 
                         float overlap_ratio_threshold)
 {
   vcl_vector<vsol_box_2d_sptr> boxes;
 
-  if (!dborl_get_boxes(boxes, query_desc, model_category)) 
+  if (!borld_get_boxes(boxes, query_desc, model_category)) 
     return 0;
     
   if (!boxes.size()) {
-    dborl_evaluation_evaluate_detection(exp_stat, 0, detection_box, overlap_ratio_threshold);
+    borld_evaluation_evaluate_detection(exp_stat, 0, detection_box, overlap_ratio_threshold);
     return 0;
   } else {  
     if (!detection_box) {  // there is a ground truth box but there is no detection --> FN
@@ -139,7 +139,7 @@ vsol_box_2d_sptr dborl_evaluation_evaluate_detection(dborl_exp_stat& exp_stat,
   // there is a detection check if there is at least one ground truth box overlaps
   for (unsigned i = 0; i < boxes.size(); i++) {
     float dummy;
-    if (dborl_evaluation_overlap(boxes[i], detection_box, overlap_ratio_threshold, dummy)) {
+    if (borld_evaluation_overlap(boxes[i], detection_box, overlap_ratio_threshold, dummy)) {
       exp_stat.increment_TP();
       return boxes[i];
     }
@@ -151,9 +151,9 @@ vsol_box_2d_sptr dborl_evaluation_evaluate_detection(dborl_exp_stat& exp_stat,
 }
 
 //: check the assignment between detection boxes and the prototype boxes
-vsol_box_2d_sptr dborl_evaluation_evaluate_detection(dborl_exp_stat& exp_stat, 
+vsol_box_2d_sptr borld_evaluation_evaluate_detection(borld_exp_stat& exp_stat, 
                                                      vcl_string model_category, 
-                                                     dborl_image_description_sptr query_desc, 
+                                                     borld_image_description_sptr query_desc, 
                                                      vcl_vector<vsol_box_2d_sptr> detection_boxes, 
                                                      float overlap_ratio_threshold)
 {
@@ -176,7 +176,7 @@ vsol_box_2d_sptr dborl_evaluation_evaluate_detection(dborl_exp_stat& exp_stat,
     int best_j = -1;
     for (unsigned j = 0; j < boxes.size(); j++) {
       float ratio;
-      if (!dborl_evaluation_overlap(boxes[i], detection_box, overlap_ratio_threshold, ratio))
+      if (!borld_evaluation_overlap(boxes[i], detection_box, overlap_ratio_threshold, ratio))
         continue;
       if (best_ratio < ratio) {
         best_ratio = ratio;
@@ -194,7 +194,7 @@ vsol_box_2d_sptr dborl_evaluation_evaluate_detection(dborl_exp_stat& exp_stat,
 
 //: ROC is TPR vs FPR plot
 //  x axis is FPR and y axis is TPR so print one line of x values and the second line as y values
-void dborl_evaluation_print_ROC_data(vcl_vector<dborl_exp_stat_sptr>& stats)
+void borld_evaluation_print_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     vcl_cout << stats[i]->FPR() << "\t";  // x1 x2 ..
@@ -205,7 +205,7 @@ void dborl_evaluation_print_ROC_data(vcl_vector<dborl_exp_stat_sptr>& stats)
   }
   vcl_cout << vcl_endl;
 }
-void dborl_evaluation_print_ROC_data(vcl_vector<dborl_exp_stat_sptr>& stats, vcl_ofstream& of)
+void borld_evaluation_print_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_ofstream& of)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     of << stats[i]->FPR() << "\t";  // x1 x2 ..
@@ -216,7 +216,7 @@ void dborl_evaluation_print_ROC_data(vcl_vector<dborl_exp_stat_sptr>& stats, vcl
   }
   of << vcl_endl;
 }
-void dborl_evaluation_get_ROC_data(vcl_vector<dborl_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys)
+void borld_evaluation_get_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys)
 {
   xs.clear();  ys.clear();
   for (unsigned i = 0; i < stats.size(); i++) {
@@ -229,7 +229,7 @@ void dborl_evaluation_get_ROC_data(vcl_vector<dborl_exp_stat_sptr>& stats, vcl_v
 
 //: RPC is recall vs 1 - precision plot
 //  x axis is (1-precision) and y axis is recall so print one line of x values and the second line as y values
-void dborl_evaluation_print_RPC_data(vcl_vector<dborl_exp_stat_sptr>& stats)
+void borld_evaluation_print_RPC_data(vcl_vector<borld_exp_stat_sptr>& stats)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     vcl_cout << (1.0f - stats[i]->precision()) << "\t";  // x1 x2 ..
@@ -240,7 +240,7 @@ void dborl_evaluation_print_RPC_data(vcl_vector<dborl_exp_stat_sptr>& stats)
   }
   vcl_cout << vcl_endl;
 }
-void dborl_evaluation_print_RPC_data(vcl_vector<dborl_exp_stat_sptr>& stats, vcl_ofstream& of)
+void borld_evaluation_print_RPC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_ofstream& of)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     of << (1.0f - stats[i]->precision()) << "\t";  // x1 x2 ..
@@ -254,7 +254,7 @@ void dborl_evaluation_print_RPC_data(vcl_vector<dborl_exp_stat_sptr>& stats, vcl
 
 //: PRC is precision vs recall plot
 //  x axis is (recall) and y axis is precision so print one line of x values and the second line as y values
-void dborl_evaluation_print_PRC_data(vcl_vector<dborl_exp_stat_sptr>& stats)
+void borld_evaluation_print_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     vcl_cout << stats[i]->recall() << "\t";  // x1 x2 ..
@@ -265,7 +265,7 @@ void dborl_evaluation_print_PRC_data(vcl_vector<dborl_exp_stat_sptr>& stats)
   }
   vcl_cout << vcl_endl;
 }
-void dborl_evaluation_print_PRC_data(vcl_vector<dborl_exp_stat_sptr>& stats, vcl_ofstream& of)
+void borld_evaluation_print_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_ofstream& of)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     of << stats[i]->recall() << "\t";  // x1 x2 ..
@@ -276,7 +276,7 @@ void dborl_evaluation_print_PRC_data(vcl_vector<dborl_exp_stat_sptr>& stats, vcl
   }
   of << vcl_endl;
 }
-void dborl_evaluation_get_PRC_data(vcl_vector<dborl_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys)
+void borld_evaluation_get_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys)
 {
   xs.clear();  ys.clear();
   for (unsigned i = 0; i < stats.size(); i++) {
@@ -288,7 +288,7 @@ void dborl_evaluation_get_PRC_data(vcl_vector<dborl_exp_stat_sptr>& stats, vcl_v
 }
 
 //: intersect the (0,1) - (1,0) line on the ROC plot with the ROC curve given by the stats
-float dborl_evaluation_ROC_EER(vcl_vector<dborl_exp_stat_sptr>& stats)
+float borld_evaluation_ROC_EER(vcl_vector<borld_exp_stat_sptr>& stats)
 {
   vdgl_edgel_chain_sptr chain = new vdgl_edgel_chain();
   for (unsigned i = 0; i<stats.size(); i++) {
@@ -319,7 +319,7 @@ float dborl_evaluation_ROC_EER(vcl_vector<dborl_exp_stat_sptr>& stats)
 }
 
 //: intersect the (0,1) - (1,0) line on the RPC plot with the RPC curve given by the stats
-float dborl_evaluation_RPC_EER(vcl_vector<dborl_exp_stat_sptr>& stats)
+float borld_evaluation_RPC_EER(vcl_vector<borld_exp_stat_sptr>& stats)
 {
   vdgl_edgel_chain_sptr chain = new vdgl_edgel_chain();
   for (unsigned i = 0; i<stats.size(); i++) {
@@ -350,7 +350,7 @@ float dborl_evaluation_RPC_EER(vcl_vector<dborl_exp_stat_sptr>& stats)
 }
 
 //: intersect the (0,1) - (1,0) line on the PRC plot with the PRC curve given by the stats
-float dborl_evaluation_PRC_EER(vcl_vector<dborl_exp_stat_sptr>& stats)
+float borld_evaluation_PRC_EER(vcl_vector<borld_exp_stat_sptr>& stats)
 {
   vdgl_edgel_chain_sptr chain = new vdgl_edgel_chain();
   for (unsigned i = 0; i<stats.size(); i++) {
@@ -381,7 +381,7 @@ float dborl_evaluation_PRC_EER(vcl_vector<dborl_exp_stat_sptr>& stats)
 }
 
 
-void dborl_evaluation_evaluate_classification(dborl_exp_stat_sptr exp_stat, 
+void borld_evaluation_evaluate_classification(borld_exp_stat_sptr exp_stat, 
                                               const vcl_string& gt_class, 
                                               const vcl_string& output_class)
 {
@@ -391,15 +391,15 @@ void dborl_evaluation_evaluate_classification(dborl_exp_stat_sptr exp_stat,
     exp_stat->increment_FP();
 }
 
-void dborl_evaluation_evaluate_classification(dborl_exp_stat_sptr exp_stat, 
-                                              dborl_category_info_set_sptr cis,
+void borld_evaluation_evaluate_classification(borld_exp_stat_sptr exp_stat, 
+                                              borld_category_info_set_sptr cis,
                                               const vcl_string& gt_class, 
                                               int output_class_id)
 {
   //first find the class of the gt_class
-  dborl_category_info_sptr cat = cis->find_category(gt_class);
+  borld_category_info_sptr cat = cis->find_category(gt_class);
   if (!cat) {
-    vcl_cerr << "In dborl_evaluation_evaluate_classification() -- cannot find the class: " << gt_class << " in the available classes list!\n";
+    vcl_cerr << "In borld_evaluation_evaluate_classification() -- cannot find the class: " << gt_class << " in the available classes list!\n";
     throw 0;
   }
   if (cat->id_ == output_class_id)
@@ -410,34 +410,34 @@ void dborl_evaluation_evaluate_classification(dborl_exp_stat_sptr exp_stat,
 
 
 
-//: Binary io, NOT IMPLEMENTED, signatures defined to use dborl_exp_stat as a brdb_value
-void vsl_b_write(vsl_b_ostream & os, dborl_exp_stat const &ph)
+//: Binary io, NOT IMPLEMENTED, signatures defined to use borld_exp_stat as a brdb_value
+void vsl_b_write(vsl_b_ostream & os, borld_exp_stat const &ph)
 {
-  vcl_cerr << "vsl_b_write() -- Binary io, NOT IMPLEMENTED, signatures defined to use dborl_exp_stat as a brdb_value\n";
+  vcl_cerr << "vsl_b_write() -- Binary io, NOT IMPLEMENTED, signatures defined to use borld_exp_stat as a brdb_value\n";
   return;
 }
 
-void vsl_b_read(vsl_b_istream & is, dborl_exp_stat &ph)
+void vsl_b_read(vsl_b_istream & is, borld_exp_stat &ph)
 {
-  vcl_cerr << "vsl_b_read() -- Binary io, NOT IMPLEMENTED, signatures defined to use dborl_exp_stat as a brdb_value\n";
+  vcl_cerr << "vsl_b_read() -- Binary io, NOT IMPLEMENTED, signatures defined to use borld_exp_stat as a brdb_value\n";
   return;
 }
 
-void vsl_b_read(vsl_b_istream& is, dborl_exp_stat* ph)
+void vsl_b_read(vsl_b_istream& is, borld_exp_stat* ph)
 {
   delete ph;
   bool not_null_ptr;
   vsl_b_read(is, not_null_ptr);
   if (not_null_ptr)
   {
-    ph = new dborl_exp_stat();
+    ph = new borld_exp_stat();
     vsl_b_read(is, *ph);
   }
   else
     ph = 0;
 }
 
-void vsl_b_write(vsl_b_ostream& os, const dborl_exp_stat* &ph)
+void vsl_b_write(vsl_b_ostream& os, const borld_exp_stat* &ph)
 {
   if (ph==0)
   {
