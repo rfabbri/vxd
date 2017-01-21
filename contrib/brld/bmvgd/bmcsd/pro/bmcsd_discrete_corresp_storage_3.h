@@ -9,7 +9,7 @@
 //
 
 #include <bpro1/bpro1_storage.h>
-#include <mw/pro/bmcsd_discrete_corresp_storage_3_sptr.h>
+#include <bmcsd/pro/bmcsd_discrete_corresp_storage_3_sptr.h>
 #include <bmcsd/bmcsd_discrete_corresp_3.h>
 
 

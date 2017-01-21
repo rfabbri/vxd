@@ -1,4 +1,5 @@
 #include "bmcsd_discrete_corresp_storage_3.h"
+#include <vcl_iostream.h>
 
 
 //: Constructor
