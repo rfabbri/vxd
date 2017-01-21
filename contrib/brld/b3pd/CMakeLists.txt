@@ -10,7 +10,7 @@
 
 project(b3pd)
 
-set(B3PD_INCLUDE_DIR ${b3pd_SOURCE_DIR} CACHE STATIC "b3pd include files")
+set(B3PD_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR};${CMAKE_CURRENT_BINARY_DIR}" CACHE STATIC "b3pd include files" FORCE)
 
 add_subdirectory(ray_tri)
 add_subdirectory(brent)

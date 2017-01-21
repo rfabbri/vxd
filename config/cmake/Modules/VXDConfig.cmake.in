@@ -71,6 +71,7 @@ set(VXD_CONTRIB_FOUND "@BUILD_CONTRIB@")
 
 set(VXD_BRLD_FOUND "@BUILD_BRLD@")
 set(VXD_BRLD_INCLUDE_DIR "@BRLD_INCLUDE_DIR@")
+set(VXD_B3PD_INCLUDE_DIR "@B3PD_INCLUDE_DIR@")
 # VXD BRL has many libraries
 
 # Tell UseVXD.cmake that VXDConfig.cmake has been included.
