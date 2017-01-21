@@ -6,11 +6,11 @@ set(borld_sources
   borld_exp_stat.cxx borld_exp_stat.h borld_exp_stat_sptr.h
 )
 
-# aux_source_directory(Templates borld_sources)
+aux_source_directory(Templates borld_sources)
 
 add_library(borld  ${borld_sources})
 
-target_link_libraries(borld bspid sdet brip)
+target_link_libraries(borld vsol vsl)
 
 # algorithms library
 #add_subdirectory(algo)
