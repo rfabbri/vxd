@@ -7,6 +7,7 @@ set(bmcsd_pro_sources
   bmcsd_discrete_corresp_storage.cxx bmcsd_discrete_corresp_storage.h bmcsd_discrete_corresp_storage_sptr.h
   bmcsd_discrete_corresp_storage_3.cxx bmcsd_discrete_corresp_storage_3.h bmcsd_discrete_corresp_storage_3_sptr.h
   bmcsd_load_discrete_corresp_process.cxx bmcsd_load_discrete_corresp_process.h
+  bmcsd_save_discrete_corresp_process.cxx bmcsd_save_discrete_corresp_process.h
 
   # bprod ------------------------------------------------------
   bmcsd_stereo_filter.cxx bmcsd_load_camera_source.h bmcsd_load_cemv_source.h bmcsd_load_curvelet_source.h bmcsd_load_edg_source.h bmcsd_load_vsol_polyline_source.h bmcsd_fragment_tangents_filter.h bmcsd_stereo_filter.h
