@@ -90,7 +90,7 @@ init()
 
 
     // 1 curve fragment tangent interpolator
-    p = new bprod_fragment_tangents_filter();
+    p = new bmcsd_fragment_tangents_filter();
     frag_tangents_.push_back(p);
     p->connect_input(0, frag_src_[v], 0);
   }

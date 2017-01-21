@@ -12,7 +12,7 @@
 #include <sdet/sdet_edgel.h>
 #include <bmcsd/algo/bmcsd_algo_util.h>
 
-class bprod_fragment_tangents_filter : public bprod_filter {
+class bmcsd_fragment_tangents_filter : public bprod_filter {
 public:
   //: Assumes input pin 0 has a a vcl_vector< vsol_polyline_2d_sptr > curves
   bprod_signal execute() {
