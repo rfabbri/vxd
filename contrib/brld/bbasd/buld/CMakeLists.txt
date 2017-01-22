@@ -9,6 +9,7 @@ set(buld_sources
     buld_arg.h buld_arg.cxx
     buld_handle_files_embedded_in_vxl_source.h buld_handle_files_embedded_in_vxl_source.cxx
     buld_random.h    buld_random.cxx
+    buld_exp_stat.cxx buld_exp_stat.h buld_exp_stat_sptr.h
    )
 
 if(OCTAVE_FOUND)
@@ -22,7 +23,7 @@ endif(OCTAVE_FOUND)
 
 add_library(buld  ${buld_sources})
 
-target_link_libraries(buld vul vpl)
+target_link_libraries(buld vul vpl vsl)
 
 if(OCTAVE_FOUND)
     target_link_libraries(buld octinterp bxml dbxml)
