@@ -20,7 +20,7 @@
 #include <vcl_string.h>
 #include <vcl_iostream.h>
 
-class dborl_image_data_description_type
+class borld_image_data_description_type
 {
 public:
   enum type {
@@ -30,11 +30,11 @@ public:
   };
 };
 
-class dborl_image_bbox_description;
-class dborl_image_mask_description;
-class dborl_image_polygon_description;
+class borld_image_bbox_description;
+class borld_image_mask_description;
+class borld_image_polygon_description;
 
-class dborl_image_data_description_base : public vbl_ref_count
+class borld_image_data_description_base : public vbl_ref_count
 {
 public: 
   virtual unsigned get_type() = 0;
@@ -44,10 +44,10 @@ public:
   virtual void b_write() = 0;
   virtual void write_xml(vcl_ostream& os) = 0;
 
-  virtual dborl_image_data_description_base* cast_to_image_data_description_base() { return this; }
-  virtual dborl_image_bbox_description* cast_to_image_bbox_description() = 0;
-  virtual dborl_image_mask_description* cast_to_image_mask_description() = 0;
-  virtual dborl_image_polygon_description* cast_to_image_polygon_description() = 0;
+  virtual borld_image_data_description_base* cast_to_image_data_description_base() { return this; }
+  virtual borld_image_bbox_description* cast_to_image_bbox_description() = 0;
+  virtual borld_image_mask_description* cast_to_image_mask_description() = 0;
+  virtual borld_image_polygon_description* cast_to_image_polygon_description() = 0;
 };
 
 #endif  //_DBORL_IMAGE_DATA_DESCRIPTION_BASE_H

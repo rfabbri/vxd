@@ -3,14 +3,14 @@
 // \brief 
 // \author     Ozge Can Ozcanli (ozge@lems.brown.edu)
 // \date        10/03/07
-#include "dborl_image_polygon_description.h"
+#include "borld_image_polygon_description.h"
 
 #include <vsol/vsol_polygon_2d.h>
 #include <vsol/vsol_point_2d.h>
 
 #include <vcl_iostream.h>
 
-void dborl_image_polygon_description::add_polygon(vcl_string cat, vsol_polygon_2d_sptr p)
+void borld_image_polygon_description::add_polygon(vcl_string cat, vsol_polygon_2d_sptr p)
 {
   vcl_map<vcl_string, vcl_vector<vsol_polygon_2d_sptr> >::iterator iter = data_.find(cat);
   if (iter == data_.end()) {
@@ -21,28 +21,28 @@ void dborl_image_polygon_description::add_polygon(vcl_string cat, vsol_polygon_2
   }
 }
 
-vcl_vector<vsol_polygon_2d_sptr>& dborl_image_polygon_description::get_polygon_vector(vcl_string cat)
+vcl_vector<vsol_polygon_2d_sptr>& borld_image_polygon_description::get_polygon_vector(vcl_string cat)
 {
   vcl_map<vcl_string, vcl_vector<vsol_polygon_2d_sptr> >::iterator iter = data_.find(cat);
   return iter->second;
 }
 
-unsigned dborl_image_polygon_description::version()
+unsigned borld_image_polygon_description::version()
 {
   return 0;
 }
 
-void dborl_image_polygon_description::b_read()
+void borld_image_polygon_description::b_read()
 {
-  vcl_cout << "IMPLEMENT: dborl_image_polygon_description::b_read()\n";
+  vcl_cout << "IMPLEMENT: borld_image_polygon_description::b_read()\n";
 }
 
-void dborl_image_polygon_description::b_write()
+void borld_image_polygon_description::b_write()
 {
-  vcl_cout << "IMPLEMENT: dborl_image_polygon_description::b_write()\n";
+  vcl_cout << "IMPLEMENT: borld_image_polygon_description::b_write()\n";
 }
 
-void dborl_image_polygon_description::write_xml(vcl_ostream& os)
+void borld_image_polygon_description::write_xml(vcl_ostream& os)
 {
   for (vcl_map<vcl_string, vcl_vector<vsol_polygon_2d_sptr> >::iterator iter = data_.begin(); iter != data_.end(); iter++) {
     for (unsigned i = 0; i < (iter->second).size(); i++) {

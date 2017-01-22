@@ -3,13 +3,13 @@
 // \brief 
 // \author     Ozge Can Ozcanli (ozge@lems.brown.edu)
 // \date        10/03/07
-#include "dborl_image_bbox_description.h"
+#include "borld_image_bbox_description.h"
 
 #include <vsol/vsol_box_2d.h>
 
 #include <vcl_iostream.h>
 
-void dborl_image_bbox_description::add_box(vcl_string cat, vsol_box_2d_sptr b)
+void borld_image_bbox_description::add_box(vcl_string cat, vsol_box_2d_sptr b)
 {
   vcl_map<vcl_string, vcl_vector<vsol_box_2d_sptr> >::iterator iter = data_.find(cat);
   if (iter == data_.end()) {
@@ -21,28 +21,28 @@ void dborl_image_bbox_description::add_box(vcl_string cat, vsol_box_2d_sptr b)
 }
 
 //: CAUTION: assumes that cat exists!! check with category_exists() before using
-vcl_vector<vsol_box_2d_sptr>& dborl_image_bbox_description::get_box_vector(vcl_string cat)
+vcl_vector<vsol_box_2d_sptr>& borld_image_bbox_description::get_box_vector(vcl_string cat)
 {
   vcl_map<vcl_string, vcl_vector<vsol_box_2d_sptr> >::iterator iter = data_.find(cat);
   return iter->second;
 }
 
-unsigned dborl_image_bbox_description::version()
+unsigned borld_image_bbox_description::version()
 {
   return 0;
 }
 
-void dborl_image_bbox_description::b_read()
+void borld_image_bbox_description::b_read()
 {
-  vcl_cout << "IMPLEMENT: dborl_image_bbox_description::b_read()\n";
+  vcl_cout << "IMPLEMENT: borld_image_bbox_description::b_read()\n";
 }
 
-void dborl_image_bbox_description::b_write()
+void borld_image_bbox_description::b_write()
 {
-  vcl_cout << "IMPLEMENT: dborl_image_bbox_description::b_write()\n";
+  vcl_cout << "IMPLEMENT: borld_image_bbox_description::b_write()\n";
 }
 
-void dborl_image_bbox_description::write_xml(vcl_ostream& os)
+void borld_image_bbox_description::write_xml(vcl_ostream& os)
 {
   for (vcl_map<vcl_string, vcl_vector<vsol_box_2d_sptr> >::iterator iter = data_.begin(); iter != data_.end(); iter++) {
     for (unsigned i = 0; i < (iter->second).size(); i++) {

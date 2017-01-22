@@ -21,7 +21,7 @@
 #include <vbl/vbl_ref_count.h>
 #include <vcl_iostream.h>
 
-class dborl_object_type
+class borld_object_type
 {
 public:
   enum type {
@@ -32,9 +32,9 @@ public:
   };
 };
 
-class dborl_image_description;
+class borld_image_description;
 
-class dborl_description_base : public vbl_ref_count
+class borld_description_base : public vbl_ref_count
 {
 public:
   vcl_map<vcl_string, int> category_list_;
@@ -53,8 +53,8 @@ public:
   inline vcl_string get_first_category() { return category_list_.begin()->first; }
   inline int get_category_cnt(vcl_string cat) { return category_list_[cat]; }  // be careful if this entry does not exist, then adds it to the map
 
-  virtual dborl_description_base* cast_to_description_base() { return this; }
-  virtual dborl_image_description* cast_to_image_description() = 0;
+  virtual borld_description_base* cast_to_description_base() { return this; }
+  virtual borld_image_description* cast_to_image_description() = 0;
 };
 
 #endif  //_DBORL_DESCRIPTION_BASE_H
