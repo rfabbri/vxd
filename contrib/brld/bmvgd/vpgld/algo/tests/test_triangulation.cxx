@@ -63,7 +63,7 @@ test_two_view_triangulation_on_gt_data(
     corresp_pts.push_back(vnl_double_2(gt_image_pts[0][ip].x(), gt_image_pts[0][ip].y()));
     corresp_pts.push_back(vnl_double_2(gt_image_pts[1][ip].x(), gt_image_pts[1][ip].y()));
 
-    linear_world_pts[ip] = reconstruct_3d_points_nviews_linear(corresp_pts, projs);
+    linear_world_pts[ip] = vpgld_reconstruct_3d_points_nviews_linear(corresp_pts, projs);
   }
   }
 
@@ -79,7 +79,7 @@ test_two_view_triangulation_on_gt_data(
 
   {
   for (unsigned ip=0; ip < gt_world_pts.size(); ++ip) {
-    kanatani_world_pts[ip] = triangulate_3d_point_optimal_kanatani_fast(
+    kanatani_world_pts[ip] = vpgld_triangulate_3d_point_optimal_kanatani_fast(
         gt_image_pts[0][ip], gt_image_pts[1][ip],
         gt_cams[0], gt_cams[1]);
   }

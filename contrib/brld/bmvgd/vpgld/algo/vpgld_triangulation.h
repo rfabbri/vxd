@@ -22,7 +22,7 @@
 // svd approach is more significant for cameras in projective reconstructions, as well as in cases
 // where one camera is closer to the 3D point than the other.
 vgl_point_3d<double>
-triangulate_3d_point_optimal_kanatani_fast(
+vpgld_triangulate_3d_point_optimal_kanatani_fast(
     const vgl_point_2d<double> &pt_img0,
     const vgl_point_2d<double> &pt_img1,
     const vpgl_proj_camera<double> &cam0,
@@ -31,7 +31,7 @@ triangulate_3d_point_optimal_kanatani_fast(
 // This one gives exaclty the same result as the _fast version above in our experiments, but is much
 // slower
 vgl_point_3d<double>
-triangulate_3d_point_optimal_kanatani(
+vpgld_triangulate_3d_point_optimal_kanatani(
     const vgl_point_2d<double> &pt_img0,
     const vgl_point_2d<double> &pt_img1,
     const vpgl_proj_camera<double> &cam0,
@@ -40,7 +40,7 @@ triangulate_3d_point_optimal_kanatani(
 // Given a set of perspective views of a point reconstruct the point according to least squares (SVD).
 // The cameras for each view are given.
 vgl_point_3d<double> 
-reconstruct_3d_points_nviews_linear(const vcl_vector<vnl_double_2> &pts, const vcl_vector<vnl_double_3x4> &Ps);
+vpgld_reconstruct_3d_points_nviews_linear(const vcl_vector<vnl_double_2> &pts, const vcl_vector<vnl_double_3x4> &Ps);
 
 #endif // vpgld_triangulation_h
 

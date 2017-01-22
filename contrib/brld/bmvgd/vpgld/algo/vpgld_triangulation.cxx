@@ -7,13 +7,10 @@
 #include <vnl/vnl_double_3x4.h>
 #include <vnl/algo/vnl_svd.h>
 #include <vpgl/vpgl_fundamental_matrix.h>
-
-
 #include <triangulation_kanatani/twoview_triangulation.h>
 
-
 vgl_point_3d<double>
-triangulate_3d_point_optimal_kanatani_fast(
+vpgld_triangulate_3d_point_optimal_kanatani_fast(
     const vgl_point_2d<double> &pt_img0,
     const vgl_point_2d<double> &pt_img1,
     const vpgl_proj_camera<double> &cam0,
@@ -60,7 +57,7 @@ triangulate_3d_point_optimal_kanatani_fast(
 }
 
 vgl_point_3d<double>
-triangulate_3d_point_optimal_kanatani(
+vpgld_triangulate_3d_point_optimal_kanatani(
     const vgl_point_2d<double> &pt_img0,
     const vgl_point_2d<double> &pt_img1,
     const vpgl_proj_camera<double> &cam0,
@@ -110,7 +107,7 @@ triangulate_3d_point_optimal_kanatani(
 
 // Based on code by Kongbin Kang 2003 (@Brown.edu) from bmvl/brct
 vgl_point_3d<double> 
-reconstruct_3d_points_nviews_linear(const vcl_vector<vnl_double_2> &pts, const vcl_vector<vnl_double_3x4> &Ps)
+vpgld_reconstruct_3d_points_nviews_linear(const vcl_vector<vnl_double_2> &pts, const vcl_vector<vnl_double_3x4> &Ps)
 {
   assert(pts.size() == Ps.size());
   unsigned int nviews = pts.size();
