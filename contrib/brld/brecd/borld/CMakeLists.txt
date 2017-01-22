@@ -6,21 +6,21 @@ include_directories(${VXL_BRL_INCLUDE_DIR})
 
 set(borld_sources
   borld_category_info.cxx borld_category_info.h borld_category_info_sptr.h
-  #   borld_evaluation.cxx borld_evaluation.h
+  borld_evaluation.cxx borld_evaluation.h
   borld_exp_stat.cxx borld_exp_stat.h borld_exp_stat_sptr.h
   borld_image_bbox_description.cxx borld_image_bbox_description.h borld_image_bbox_description_sptr.h
   borld_image_data_description_base.cxx borld_image_data_description_base.h borld_image_data_description_base_sptr.h
   borld_image_description.cxx borld_image_description.h borld_image_description_sptr.h borld_description_base.h borld_description_base_sptr.h
   borld_image_mask_description.cxx borld_image_mask_description.h borld_image_mask_description_sptr.h
   borld_image_polygon_description.cxx borld_image_polygon_description.h borld_image_polygon_description_sptr.h
-  #   borld_image_description_utils.cxx borld_image_description_utils.h
+  borld_image_description_utils.cxx borld_image_description_utils.h
 )
 
 aux_source_directory(Templates borld_sources)
 
 add_library(borld  ${borld_sources})
 
-target_link_libraries(borld vsol vil vul vbl vsl)
+target_link_libraries(borld bsol bdgl vsol vdgl vil vul vbl vsl)
 
 # algorithms library
 #add_subdirectory(algo)
