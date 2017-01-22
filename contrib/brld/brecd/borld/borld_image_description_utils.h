@@ -1,7 +1,7 @@
-// This is file dborl/dborl_image_description_utils.h
+// This is file borld/borld_image_description_utils.h
 
-#ifndef dborl_image_description_utils_h_
-#define dborl_image_description_utils_h_
+#ifndef borld_image_description_utils_h_
+#define borld_image_description_utils_h_
 
 //:
 // \file
@@ -17,7 +17,7 @@
 
 
 
-#include <dborl/dborl_image_description_sptr.h>
+#include <borld/borld_image_description_sptr.h>
 #include <vsol/vsol_box_2d_sptr.h>
 #include <vcl_string.h>
 #include <vcl_vector.h>
@@ -25,8 +25,8 @@
 //------------------------------------------------------------------------------
 //: extract bounding boxes of objects belong to a particular category from an 
 // image description. Return false if image description is not defined.
-bool dborl_get_boxes(vcl_vector<vsol_box_2d_sptr>& boxes, 
-                     const dborl_image_description_sptr& desc, const vcl_string& model_category);
+bool borld_get_boxes(vcl_vector<vsol_box_2d_sptr>& boxes, 
+                     const borld_image_description_sptr& desc, const vcl_string& model_category);
 
 
-#endif  //dborl_image_description_utils_h_
+#endif  //borld_image_description_utils_h_
