@@ -1,4 +1,4 @@
-// This is borld_exp_stat.h
+// This is buld_exp_stat.h
 #ifndef borld_exp_stat_h
 #define borld_exp_stat_h
 //:
@@ -17,12 +17,12 @@
 #include <vcl_iostream.h>
 #include <vsl/vsl_binary_io.h>
 
-class borld_exp_stat : public vbl_ref_count
+class buld_exp_stat : public vbl_ref_count
 {
 public:
-  borld_exp_stat() : positive_cnt_(0), negative_cnt_(0), TP_(0), FP_(0), TN_(0), FN_(0) {}
+  buld_exp_stat() : positive_cnt_(0), negative_cnt_(0), TP_(0), FP_(0), TN_(0), FN_(0) {}
 
-  borld_exp_stat(int positive_cnt, int negative_cnt) : positive_cnt_(positive_cnt), negative_cnt_(negative_cnt),
+  buld_exp_stat(int positive_cnt, int negative_cnt) : positive_cnt_(positive_cnt), negative_cnt_(negative_cnt),
                                                        TP_(0), FP_(0), TN_(0), FN_(0) {}
 
   int positive_cnt_; // number of positive examplers in the test set
@@ -70,11 +70,11 @@ public:
 };
 
 //
-// Binary io, NOT IMPLEMENTED, signatures defined to use borld_exp_stat as a brdb_value
-void vsl_b_write(vsl_b_ostream & os, borld_exp_stat const &ph);
-void vsl_b_read(vsl_b_istream & is, borld_exp_stat &ph);
-void vsl_b_read(vsl_b_istream& is, borld_exp_stat* ph);
-void vsl_b_write(vsl_b_ostream& os, const borld_exp_stat* &ph);
+// Binary io, NOT IMPLEMENTED, signatures defined to use buld_exp_stat as a brdb_value
+void vsl_b_write(vsl_b_ostream & os, buld_exp_stat const &ph);
+void vsl_b_read(vsl_b_istream & is, buld_exp_stat &ph);
+void vsl_b_read(vsl_b_istream& is, buld_exp_stat* ph);
+void vsl_b_write(vsl_b_ostream& os, const buld_exp_stat* &ph);
 
 #endif // borld_exp_stat_h
 
