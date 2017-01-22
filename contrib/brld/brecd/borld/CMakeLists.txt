@@ -13,7 +13,7 @@ aux_source_directory(Templates borld_sources)
 
 add_library(borld  ${borld_sources})
 
-target_link_libraries(borld vsol vsl)
+target_link_libraries(borld vsol vbl vsl)
 
 # algorithms library
 #add_subdirectory(algo)

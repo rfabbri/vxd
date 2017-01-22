@@ -15,6 +15,7 @@
 
 #include <vbl/vbl_ref_count.h>
 #include <vcl_iostream.h>
+#include <vsl/vsl_binary_io.h>
 
 class borld_exp_stat : public vbl_ref_count
 {
@@ -67,6 +68,14 @@ public:
   void print_stats(vcl_string name, vcl_ofstream& of, bool print_FN);
   
 };
+
+//
+// Binary io, NOT IMPLEMENTED, signatures defined to use borld_exp_stat as a brdb_value
+void vsl_b_write(vsl_b_ostream & os, borld_exp_stat const &ph);
+void vsl_b_read(vsl_b_istream & is, borld_exp_stat &ph);
+void vsl_b_read(vsl_b_istream& is, borld_exp_stat* ph);
+void vsl_b_write(vsl_b_ostream& os, const borld_exp_stat* &ph);
+
 
 
 #endif // borld_exp_stat_h
