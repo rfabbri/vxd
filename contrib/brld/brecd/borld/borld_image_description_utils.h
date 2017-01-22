@@ -7,7 +7,7 @@
 // \file
 // \brief Collection of useful functions to apply to image description
 //
-// \author Nhon Trinh (ntrinh@lems.brown.edu)
+// \author Based on original code by  Nhon Trinh (@lems.brown.edu)
 // \date Nov 6, 2008
 //      
 // \verbatim
