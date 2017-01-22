@@ -43,7 +43,8 @@ void borld_exp_stat::read_stats(vcl_ifstream& ifs)
   }
 }
 
-//: for some applications it is not possible to find number of true negatives properly, in that case TN is not printed.
+//: for some applications it is not possible to find number of true negatives
+//properly, in that case TN is not printed.
 void borld_exp_stat::print_stats(vcl_string name, vcl_ofstream& of, bool print_FN)
 {
   if (print_FN)

@@ -64,9 +64,9 @@ public:
   void print_stats(vcl_ofstream& of);
   void read_stats(vcl_ifstream& ifs);
 
-  //: for some applications it is not possible to find number of true negatives properly, in that case TN is not printed.
+  //: for some applications it is not possible to find number of true negatives
+  // properly, in that case TN is not printed.
   void print_stats(vcl_string name, vcl_ofstream& of, bool print_FN);
-  
 };
 
 //
@@ -75,8 +75,6 @@ void vsl_b_write(vsl_b_ostream & os, borld_exp_stat const &ph);
 void vsl_b_read(vsl_b_istream & is, borld_exp_stat &ph);
 void vsl_b_read(vsl_b_istream& is, borld_exp_stat* ph);
 void vsl_b_write(vsl_b_ostream& os, const borld_exp_stat* &ph);
-
-
 
 #endif // borld_exp_stat_h
 
