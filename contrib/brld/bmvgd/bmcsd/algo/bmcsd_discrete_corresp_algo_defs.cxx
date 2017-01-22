@@ -99,7 +99,7 @@ compute_checksum(
 /* XXX Wait for DBORL to VXD
 void 
 bmcsd_discrete_corresp_algo::
-exp_stats(const bmcsd_discrete_corresp *cp, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr)
+exp_stats(const bmcsd_discrete_corresp *cp, buld_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr)
 {
   assert(cp->size() == gt_ptr->size());
 
@@ -129,7 +129,7 @@ exp_stats(const bmcsd_discrete_corresp *cp, dborl_exp_stat &s, const bmcsd_discr
 /*
 void 
 bmcsd_discrete_corresp_algo::
-exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr) const
+exp_stats_hitmiss(const bmcsd_discrete_corresp *c, buld_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr) const
 {
   assert(this->size() == gt_ptr->size());
 
@@ -171,7 +171,7 @@ exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcs
 /* XXX wait for DBORL to VXD
 void 
 bmcsd_discrete_corresp_algo::
-exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr)
+exp_stats_hitmiss(const bmcsd_discrete_corresp *c, buld_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr)
 {
 #ifndef NDEBUG
   vcl_cout << "This corresp size: " << this->size() << " gt size: " << gt_ptr->size() << vcl_endl;

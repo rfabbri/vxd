@@ -384,7 +384,7 @@ test_discrete_corresp_stats()
   }
 
   {
-  dborl_exp_stat s;
+  buld_exp_stat s;
   bmcsd_discrete_corresp_algo::exp_stats(&gt, s, &gt);
   s.print_stats();
   TEST("consistent FP/FN/TP/TN", s.all_done(), true);
@@ -397,7 +397,7 @@ test_discrete_corresp_stats()
   }
 
   {
-  dborl_exp_stat s;
+  buld_exp_stat s;
   bmcsd_discrete_corresp_algo::exp_stats(&cp, s, &gt);
   s.print_stats();
   TEST("consistent FP/FN/TP/TN", s.all_done(), true);
@@ -408,7 +408,7 @@ test_discrete_corresp_stats()
   }
 
   {
-  dborl_exp_stat s;
+  buld_exp_stat s;
   bmcsd_discrete_corresp_algo::exp_stats_hitmiss(&gt, s, &gt);
   s.print_stats();
   TEST("consistent FP/FN/TP/TN", s.all_done(), true);
@@ -419,7 +419,7 @@ test_discrete_corresp_stats()
   }
 
   {
-  dborl_exp_stat s;
+  buld_exp_stat s;
   bmcsd_discrete_corresp_algo::exp_stats_hitmiss(&cp, s, &gt);
   vcl_cout << vcl_endl;
   s.print_stats();

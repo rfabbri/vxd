@@ -8,6 +8,7 @@
 //\date Mon Nov 6  2006
 //
 #include <vcl_algorithm.h>
+#include <buld/buld_exp_stat.h>
 #include <bmcsd/bmcsd_discrete_corresp.h>
 #include <bmcsd/bmcsd_discrete_corresp_n.h>
 #include <bmcsd/bmcsd_util.h>
@@ -132,7 +133,7 @@ class bmcsd_discrete_corresp_algo {
   // if (i,k) not in c[i] and in gt[i], it is a false negative.
   //
   // \remarks we treat infinite correspondence as non-existent.
-  static void exp_stats(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt);
+  static void exp_stats(const bmcsd_discrete_corresp *c, buld_exp_stat &s, const bmcsd_discrete_corresp *gt);
 
 
   //: This is a variant of exp_stats where, if c[i] contained in gt[i], then it
@@ -148,7 +149,7 @@ class bmcsd_discrete_corresp_algo {
   // times.
   //
   // \remarks We treat infinite cost correspondences as non-existent
-  static void exp_stats_hitmiss(const bmcsd_discrete_corresp *c, dborl_exp_stat &s, const bmcsd_discrete_corresp *gt);
+  static void exp_stats_hitmiss(const bmcsd_discrete_corresp *c, buld_exp_stat &s, const bmcsd_discrete_corresp *gt);
 };
 
 #define BMCSD_DISCRETE_CORRESP_ALGO_INSTANTIATE(T) extern "please include bmcsd_discrete_corresp_algo.hxx first"
