@@ -17,7 +17,7 @@
 #if !defined(_DBORL_IMAGE_MASK_DESCRIPTION_H)
 #define _DBORL_IMAGE_MASK_DESCRIPTION_H
 
-#include "borld_image_data_description_base.h"
+#include <borld/borld_image_data_description_base.h>
 
 #include <vil/vil_image_resource_sptr.h>
 
