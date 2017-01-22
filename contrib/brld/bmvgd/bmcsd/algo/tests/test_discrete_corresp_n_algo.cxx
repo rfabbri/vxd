@@ -1,13 +1,13 @@
 #include <testlib/testlib_test.h>
-#include <bmcsd/bmcsd_discrete_corresp_3.h>
-#include <bmcsd/bmcsd_discrete_corresp_n.h>
-#include <bmcsd/algo/bmcsd_discrete_corresp_algo.h>
 #include <vcl_limits.h>
 #include <vcl_set.h>
 #include <vnl/vnl_math.h>
-
 #include <vcl_iterator.h>
 #include <vcl_algorithm.h>
+#include <buld/buld_exp_stat.h>
+#include <bmcsd/bmcsd_discrete_corresp_3.h>
+#include <bmcsd/bmcsd_discrete_corresp_n.h>
+#include <bmcsd/algo/bmcsd_discrete_corresp_algo.h>
 
 static const double tolerance=vcl_numeric_limits<double>::epsilon()*100;
 
