@@ -8,12 +8,14 @@
 //\date Mon Nov 6  2006
 //
 #include <vcl_algorithm.h>
-#include <buld/buld_exp_stat.h>
 #include <bmcsd/bmcsd_discrete_corresp.h>
 #include <bmcsd/bmcsd_discrete_corresp_n.h>
 #include <bmcsd/bmcsd_util.h>
 
+
+
 class bmcsd_curve_stereo;
+class buld_exp_stat;
 
 class bmcsd_discrete_corresp_algo {
   public:

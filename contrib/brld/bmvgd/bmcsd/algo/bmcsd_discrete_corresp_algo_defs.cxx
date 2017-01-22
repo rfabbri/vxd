@@ -1,9 +1,10 @@
 #include "bmcsd_discrete_corresp_algo.h"
 #include "bmcsd_discrete_corresp_algo.hxx"
 
+#include <vsol/vsol_polyline_2d_sptr.h>
+#include <buld/buld_exp_stat.h>
 #include <bmcsd/bmcsd_util.h>
 #include <bmcsd/algo/bmcsd_curve_stereo.h>
-#include <vsol/vsol_polyline_2d_sptr.h>
 
 //: ***beta version***
 void bmcsd_discrete_corresp_algo::
@@ -96,7 +97,6 @@ compute_checksum(
   return cksum;
 }
 
-/* XXX Wait for DBORL to VXD
 void 
 bmcsd_discrete_corresp_algo::
 exp_stats(const bmcsd_discrete_corresp *cp, buld_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr)
@@ -109,11 +109,11 @@ exp_stats(const bmcsd_discrete_corresp *cp, buld_exp_stat &s, const bmcsd_discre
   s.positive_cnt_ = gt.num_corresps();
   s.negative_cnt_ = gt.n0()*gt.n1() - s.positive_cnt_;
 
-  for (unsigned i=0; i < size() + 1; ++i) {
-    for (one_corresp_list_const_iter itr = c[i].begin(); itr != c[i].end(); ++itr) {
+  for (unsigned i=0; i < cp->size() + 1; ++i) {
+    for (bmcsd_discrete_corresp::one_corresp_list_const_iter itr = c[i].begin(); itr != c[i].end(); ++itr) {
       if (!vnl_math_isfinite(itr->cost_))  // infinite cost equals no correspondence.
         continue;
-      one_corresp_list_const_iter
+      bmcsd_discrete_corresp::one_corresp_list_const_iter
         result = find_if(gt[i].begin(), gt[i].end(), bmcsd_attributed_object_eq(itr->obj_)); 
       if (result == gt[i].end() || !vnl_math_isfinite(itr->cost_))
         s.increment_FP();
@@ -124,22 +124,20 @@ exp_stats(const bmcsd_discrete_corresp *cp, buld_exp_stat &s, const bmcsd_discre
   s.increment_FN_by(s.positive_cnt_ - s.TP_);
   s.increment_TN_by(s.negative_cnt_ - s.FP_);
 }
-*/
 
 /*
-void 
-bmcsd_discrete_corresp_algo::
-exp_stats_hitmiss(const bmcsd_discrete_corresp *c, buld_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr) const
+void bmcsd_discrete_corresp_algo::
+exp_stats_hitmiss(const bmcsd_discrete_corresp *cp, buld_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr)
 {
-  assert(this->size() == gt_ptr->size());
+  assert(cp->size() == gt_ptr->size());
 
   const bmcsd_discrete_corresp &gt = *gt_ptr;
-  const bmcsd_discrete_corresp &c = *this;
+  const bmcsd_discrete_corresp &c = *cp;
 
   s.negative_cnt_ = gt.count_empty();
   s.positive_cnt_ = gt.n0() - s.negative_cnt_;
 
-  for (unsigned i=0; i < n0(); ++i) {
+  for (unsigned i=0; i < c.n0(); ++i) {
     if (c[i].empty()) {
       if (gt[i].empty())
         s.increment_TN();
@@ -150,10 +148,10 @@ exp_stats_hitmiss(const bmcsd_discrete_corresp *c, buld_exp_stat &s, const bmcsd
       if (c[i].size() > gt[i].size())
         c_contained_in_gt = false;
 
-      for (one_corresp_list_const_iter itr = c[i].begin(); 
+      for (bmcsd_discrete_corresp::one_corresp_list_const_iter itr = c[i].begin(); 
           itr != c[i].end() && c_contained_in_gt; 
           ++itr) {
-        one_corresp_list_const_iter
+          bmcsd_discrete_corresp::one_corresp_list_const_iter
           result = find_if(gt[i].begin(), gt[i].end(), bmcsd_attributed_object_eq(itr->obj_)); 
         if (result == gt[i].end())
           c_contained_in_gt = false;
@@ -168,34 +166,32 @@ exp_stats_hitmiss(const bmcsd_discrete_corresp *c, buld_exp_stat &s, const bmcsd
 }
 */
 
-/* XXX wait for DBORL to VXD
-void 
-bmcsd_discrete_corresp_algo::
-exp_stats_hitmiss(const bmcsd_discrete_corresp *c, buld_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr)
+void bmcsd_discrete_corresp_algo::
+exp_stats_hitmiss(const bmcsd_discrete_corresp *cp, buld_exp_stat &s, const bmcsd_discrete_corresp *gt_ptr)
 {
-#ifndef NDEBUG
-  vcl_cout << "This corresp size: " << this->size() << " gt size: " << gt_ptr->size() << vcl_endl;
-  assert(this->size() == gt_ptr->size());
-#endif
-
   const bmcsd_discrete_corresp &gt = *gt_ptr;
-  const bmcsd_discrete_corresp &c = *c;
+  const bmcsd_discrete_corresp &c = *cp;
+
+#ifndef NDEBUG
+  vcl_cout << "corresp c size: " << c.size() << " gt size: " << gt.size() << vcl_endl;
+  assert(c.size() == gt.size());
+#endif
 
   s.positive_cnt_ = gt.num_corresps();
 
   assert (gt.n0()*gt.n1() >= static_cast<unsigned>(s.positive_cnt_));
   s.negative_cnt_ = static_cast<int>(gt.n0()*gt.n1()) - static_cast<int>(s.positive_cnt_);
 
-  for (unsigned i=0; i < size() + 1; ++i) {
+  for (unsigned i=0; i < c.size() + 1; ++i) {
     bool c_contained_in_gt = true;
     bool c_empty = true;
-    for (one_corresp_list_const_iter itr = c[i].begin(); 
+    for (bmcsd_discrete_corresp::one_corresp_list_const_iter itr = c[i].begin(); 
         itr != c[i].end() && c_contained_in_gt; 
         ++itr) {
       if (!vnl_math_isfinite(itr->cost_))  // infinite cost equals no correspondence.
         continue;
       c_empty = false;
-      one_corresp_list_const_iter
+      bmcsd_discrete_corresp::one_corresp_list_const_iter
         result = find_if(gt[i].begin(), gt[i].end(), bmcsd_attributed_object_eq(itr->obj_)); 
       if (result == gt[i].end() || !vnl_math_isfinite(itr->cost_)) {
         c_contained_in_gt = false;
@@ -206,14 +202,14 @@ exp_stats_hitmiss(const bmcsd_discrete_corresp *c, buld_exp_stat &s, const bmcsd
     if (c_empty)
       continue;
     if (c_contained_in_gt) {
-      for (one_corresp_list_const_iter itr = gt[i].begin(); 
+      for (bmcsd_discrete_corresp::one_corresp_list_const_iter itr = gt[i].begin(); 
           itr != gt[i].end(); ++itr) {
         if (!vnl_math_isfinite(itr->cost_))  // infinite cost equals no correspondence.
           continue;
         s.increment_TP();
       }
     } else {
-      for (one_corresp_list_const_iter itr = c[i].begin(); 
+      for (bmcsd_discrete_corresp::one_corresp_list_const_iter itr = c[i].begin(); 
           itr != c[i].end(); ++itr) {
         if (!vnl_math_isfinite(itr->cost_))  // infinite cost equals no correspondence.
           continue;
@@ -224,6 +220,5 @@ exp_stats_hitmiss(const bmcsd_discrete_corresp *c, buld_exp_stat &s, const bmcsd
   s.increment_FN_by(s.positive_cnt_ - s.TP_);
   s.increment_TN_by(s.negative_cnt_ - s.FP_);
 }
-*/
 
 BMCSD_DISCRETE_CORRESP_ALGO_INSTANTIATE(vsol_polyline_2d_sptr);
