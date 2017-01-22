@@ -15,7 +15,6 @@
 #include <vdgl/vdgl_digital_curve.h>
 #include <vdgl/vdgl_interpolator_linear.h>
 #include <borld/borld_category_info.h>
-#include <vul/vul_awk.h>
 
 // =============================================================================
 

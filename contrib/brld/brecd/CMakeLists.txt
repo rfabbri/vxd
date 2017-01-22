@@ -5,4 +5,4 @@
 add_subdirectory(bcsid)
 
 # Brown Object Recognition Evaluation Library (vxd development version)
-add_subdirectory(bcsid)
+add_subdirectory(borld)

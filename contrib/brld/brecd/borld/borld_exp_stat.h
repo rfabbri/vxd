@@ -13,6 +13,9 @@
 // \endverbatim
 //
 
+#include <vbl/vbl_ref_count.h>
+#include <vcl_iostream.h>
+
 class borld_exp_stat : public vbl_ref_count
 {
 public:

@@ -1,8 +1,11 @@
 # Brown Object Recognition Evaluation Library
 # brld/recd/borld/CMakeLists.txt
 
+include_directories(${VXL_GEL_INCLUDE_DIR})
+include_directories(${VXL_BRL_INCLUDE_DIR})
+
 set(borld_sources
-  borld_evaluation.cxx borld_evaluation.h
+  #  borld_evaluation.cxx borld_evaluation.h
   borld_exp_stat.cxx borld_exp_stat.h borld_exp_stat_sptr.h
 )
 
@@ -21,9 +24,9 @@ target_link_libraries(borld vsol vsl)
 # Visualization Library
 #add_subdirectory(vis)
 
-if(BUILD_TESTING)
-  add_subdirectory(tests)
-endif(BUILD_TESTING)
+# if(BUILD_TESTING)
+#   add_subdirectory(tests)
+# endif(BUILD_TESTING)
 
 # Executables
 #add_subdirectory(bin)

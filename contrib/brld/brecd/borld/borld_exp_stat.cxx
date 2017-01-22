@@ -1,5 +1,7 @@
 #include "borld_exp_stat.h"
-
+#include <vcl_fstream.h>
+#include <vcl_sstream.h>
+#include <vul/vul_awk.h>
 
 void borld_exp_stat::print_stats()
 {
