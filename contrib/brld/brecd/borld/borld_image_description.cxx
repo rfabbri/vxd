@@ -3,15 +3,15 @@
 // \brief 
 // \author     Ozge Can Ozcanli (ozge@lems.brown.edu)
 // \date        010/03/07
-#include "dborl_image_description.h"
-#include <dborl/dborl_image_data_description_base.h>
-#include <dborl/dborl_image_bbox_description.h>
-#include <dborl/dborl_image_polygon_description.h>
-#include <dborl/dborl_image_mask_description.h>
+#include "borld_image_description.h"
+#include <borld/borld_image_data_description_base.h>
+#include <borld/borld_image_bbox_description.h>
+#include <borld/borld_image_polygon_description.h>
+#include <borld/borld_image_mask_description.h>
 
 #include <vcl_iostream.h>
 
-dborl_image_description::dborl_image_description(dborl_image_bbox_description_sptr box_data)
+borld_image_description::borld_image_description(borld_image_bbox_description_sptr box_data)
 {
   vcl_map<vcl_string, vcl_vector<vsol_box_2d_sptr> >& map = box_data->get_category_map();
 
@@ -21,7 +21,7 @@ dborl_image_description::dborl_image_description(dborl_image_bbox_description_sp
 
   category_data_ = box_data->cast_to_image_data_description_base();
 }
-dborl_image_description::dborl_image_description(dborl_image_polygon_description_sptr poly_data)
+borld_image_description::borld_image_description(borld_image_polygon_description_sptr poly_data)
 {
   vcl_map<vcl_string, vcl_vector<vsol_polygon_2d_sptr> >& map = poly_data->get_category_map();
 
@@ -34,7 +34,7 @@ dborl_image_description::dborl_image_description(dborl_image_polygon_description
 
 //: assuming the names in the vector are names of categories for corresponding indices 
 //  (the vector may contain way more cats than that exists in the mask)
-dborl_image_description::dborl_image_description(dborl_image_mask_description_sptr mask_data, vcl_vector<vcl_string>& cats)
+borld_image_description::borld_image_description(borld_image_mask_description_sptr mask_data, vcl_vector<vcl_string>& cats)
 {
   category_data_ = mask_data->cast_to_image_data_description_base();
   for (unsigned i = 0; i < cats.size(); i++) {
@@ -45,27 +45,27 @@ dborl_image_description::dborl_image_description(dborl_image_mask_description_sp
   }
 }
 
-unsigned dborl_image_description::version()
+unsigned borld_image_description::version()
 {
   return 0;
 }
 
-void dborl_image_description::b_read()
+void borld_image_description::b_read()
 {
-  vcl_cout << "IMPLEMENT: dborl_image_description::b_read()\n";
+  vcl_cout << "IMPLEMENT: borld_image_description::b_read()\n";
 }
 
-void dborl_image_description::b_write()
+void borld_image_description::b_write()
 {
-  vcl_cout << "IMPLEMENT: dborl_image_description::b_write()\n";
+  vcl_cout << "IMPLEMENT: borld_image_description::b_write()\n";
 }
 
-unsigned dborl_image_description::get_object_type()
+unsigned borld_image_description::get_object_type()
 {
-  return dborl_object_type::image;
+  return borld_object_type::image;
 }
 
-void dborl_image_description::write_xml(vcl_ostream& os)
+void borld_image_description::write_xml(vcl_ostream& os)
 {
   os << "<type name = \"image\">\n";
   os << "\t<description>\n";
