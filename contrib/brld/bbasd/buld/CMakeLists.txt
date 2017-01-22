@@ -19,7 +19,7 @@ if(OCTAVE_FOUND)
     )
 endif(OCTAVE_FOUND)
 
-#aux_source_directory(Templates buld_sources)
+aux_source_directory(Templates buld_sources)
 
 add_library(buld  ${buld_sources})
 
