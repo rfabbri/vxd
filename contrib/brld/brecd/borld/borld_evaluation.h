@@ -21,7 +21,7 @@
 #include <vcl_utility.h>
 #include <vcl_string.h>
 #include <vsol/vsol_box_2d_sptr.h>
-#include <borld/borld_exp_stat.h>
+#include <buld/buld_exp_stat.h>
 #include <borld/borld_exp_stat_sptr.h>
 #include <borld/borld_image_description_sptr.h>
 #include <borld/borld_category_info_sptr.h>
@@ -48,20 +48,20 @@ public:
   }
 };
 
-bool borld_evaluation_evaluate_detection(borld_exp_stat& exp_stat, 
+bool borld_evaluation_evaluate_detection(buld_exp_stat& exp_stat, 
                                          vsol_box_2d_sptr ground_truth_box, 
                                          vsol_box_2d_sptr detection_box, 
                                          float overlap_ratio_threshold);
 
 //: check each gt_box of the model_category in this query image
-vsol_box_2d_sptr borld_evaluation_evaluate_detection(borld_exp_stat& exp_stat, 
+vsol_box_2d_sptr borld_evaluation_evaluate_detection(buld_exp_stat& exp_stat, 
                                                      vcl_string model_category, 
                                                      borld_image_description_sptr query_desc, 
                                                      vsol_box_2d_sptr detection_box, 
                                                      float overlap_ratio_threshold);
 
 //: check the assignment between detection boxes and the prototype boxes
-vsol_box_2d_sptr borld_evaluation_evaluate_detection(borld_exp_stat& exp_stat, 
+vsol_box_2d_sptr borld_evaluation_evaluate_detection(buld_exp_stat& exp_stat, 
                                                      vcl_string model_category, 
                                                      borld_image_description_sptr query_desc, 
                                                      vcl_vector<vsol_box_2d_sptr> detection_boxes, 

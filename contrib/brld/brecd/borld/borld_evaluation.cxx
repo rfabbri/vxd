@@ -19,7 +19,7 @@
 // =============================================================================
 
 //: 
-bool borld_evaluation_evaluate_detection(borld_exp_stat& exp_stat, vsol_box_2d_sptr gt_box, vsol_box_2d_sptr det_box, float overlap_ratio_threshold)
+bool borld_evaluation_evaluate_detection(buld_exp_stat& exp_stat, vsol_box_2d_sptr gt_box, vsol_box_2d_sptr det_box, float overlap_ratio_threshold)
 {
   if (!gt_box && !det_box)
     exp_stat.increment_TN();
@@ -65,7 +65,7 @@ bool borld_evaluation_overlap(vsol_box_2d_sptr gt_box, vsol_box_2d_sptr det_box,
 // -----------------------------------------------------------------------------
 //: check each gt_box of the model_category in this query image
 //  return the overlapping ground truth box if there is a detection and a ground truth bounding box that overlaps it sufficiently
-vsol_box_2d_sptr borld_evaluation_evaluate_detection(borld_exp_stat& exp_stat, 
+vsol_box_2d_sptr borld_evaluation_evaluate_detection(buld_exp_stat& exp_stat, 
                         vcl_string model_category, 
                         borld_image_description_sptr query_desc, 
                         vsol_box_2d_sptr detection_box, 
@@ -101,7 +101,7 @@ vsol_box_2d_sptr borld_evaluation_evaluate_detection(borld_exp_stat& exp_stat,
 }
 
 //: check the assignment between detection boxes and the prototype boxes
-vsol_box_2d_sptr borld_evaluation_evaluate_detection(borld_exp_stat& exp_stat, 
+vsol_box_2d_sptr borld_evaluation_evaluate_detection(buld_exp_stat& exp_stat, 
                                                      vcl_string model_category, 
                                                      borld_image_description_sptr query_desc, 
                                                      vcl_vector<vsol_box_2d_sptr> detection_boxes, 
