@@ -22,7 +22,7 @@
 #include <vil/vil_rgb.h>
 #include <vxl_config.h>
 #include <vsl/vsl_binary_io.h>
-#include "borld_category_info_sptr.h"
+#include <borld/borld_category_info_sptr.h>
 
 class borld_category_info : public vbl_ref_count
 {

@@ -6,7 +6,7 @@ include_directories(${VXL_BRL_INCLUDE_DIR})
 
 set(borld_sources
   #  borld_evaluation.cxx borld_evaluation.h
-  #  borld_category_info.cxx borld_category_info.h
+  borld_category_info.cxx borld_category_info.h
   borld_exp_stat.cxx borld_exp_stat.h borld_exp_stat_sptr.h
 )
 
