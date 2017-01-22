@@ -4,7 +4,7 @@
 //:
 // \file
 // \brief Smart pointer to a borld_category_info
-// \author Ozge Can Ozcanli, (ozge@lems.brown.edu)
+// \author Based on original code by  Ozge Can Ozcanli, (@lems.brown.edu)
 // \date 10/15/07
 //
 

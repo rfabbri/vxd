@@ -2,7 +2,7 @@
 // \file
 // \brief Base class for image description data
 //
-// \author Ozge C Ozcanli (ozge@lems.brown.edu)
+// \author Based on original code by  Ozge C Ozcanli (@lems.brown.edu)
 // \date 10/03/07
 //      
 // \verbatim

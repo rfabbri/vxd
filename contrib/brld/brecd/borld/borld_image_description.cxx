@@ -1,7 +1,7 @@
 //:
 // \file
 // \brief 
-// \author     Ozge Can Ozcanli (ozge@lems.brown.edu)
+// \author Based on original code by      Ozge Can Ozcanli (@lems.brown.edu)
 // \date        010/03/07
 #include "borld_image_description.h"
 #include <borld/borld_image_data_description_base.h>

@@ -2,7 +2,7 @@
 // \file
 // \brief Class that holds category information
 //
-// \author Ozge C Ozcanli (ozge@lems.brown.edu)
+// \author Based on original code by  Ozge C Ozcanli (@lems.brown.edu)
 // \date 10/15/07
 //      
 // \verbatim

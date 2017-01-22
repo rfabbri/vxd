@@ -4,7 +4,7 @@
 //        Ground Truth files are generated using these classes,
 //        If ground truth is not available for an object, then the file should be empty but appropriately formatted 
 //
-// \author Ozge C Ozcanli (ozge@lems.brown.edu)
+// \author Based on original code by  Ozge C Ozcanli (@lems.brown.edu)
 // \date 10/03/07
 //      
 // \verbatim
