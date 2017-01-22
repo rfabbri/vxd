@@ -22,7 +22,7 @@
 #include <vcl_string.h>
 #include <vsol/vsol_box_2d_sptr.h>
 #include <buld/buld_exp_stat.h>
-#include <borld/borld_exp_stat_sptr.h>
+#include <buld/buld_exp_stat_sptr.h>
 #include <borld/borld_image_description_sptr.h>
 #include <borld/borld_category_info_sptr.h>
 
@@ -67,11 +67,11 @@ vsol_box_2d_sptr borld_evaluation_evaluate_detection(buld_exp_stat& exp_stat,
                                                      vcl_vector<vsol_box_2d_sptr> detection_boxes, 
                                                      float overlap_ratio_threshold);
 
-void borld_evaluation_evaluate_classification(borld_exp_stat_sptr exp_stat, 
+void borld_evaluation_evaluate_classification(buld_exp_stat_sptr exp_stat, 
                                               const vcl_string& gt_class, 
                                               const vcl_string& output_class);
 
-void borld_evaluation_evaluate_classification(borld_exp_stat_sptr exp_stat, 
+void borld_evaluation_evaluate_classification(buld_exp_stat_sptr exp_stat, 
                                               borld_category_info_set_sptr cis,
                                               const vcl_string& gt_class, 
                                               int output_class_id);
@@ -80,30 +80,30 @@ void borld_evaluation_evaluate_classification(borld_exp_stat_sptr exp_stat,
 
 //: ROC is TPR vs FPR plot
 //  x axis is FPR and y axis is TPR so print one line of x values and the second line as y values
-void borld_evaluation_print_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats);
-void borld_evaluation_get_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys);
+void borld_evaluation_print_ROC_data(vcl_vector<buld_exp_stat_sptr>& stats);
+void borld_evaluation_get_ROC_data(vcl_vector<buld_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys);
 
 //: RPC is recall vs 1 - precision plot
 //  x axis is (1-precision) and y axis is recall so print one line of x values and the second line as y values
-void borld_evaluation_print_RPC_data(vcl_vector<borld_exp_stat_sptr>& stats);
+void borld_evaluation_print_RPC_data(vcl_vector<buld_exp_stat_sptr>& stats);
 
 //: PRC is precision vs recall plot
 //  x axis is (recall) and y axis is precision so print one line of x values and the second line as y values
-void borld_evaluation_print_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats);
+void borld_evaluation_print_PRC_data(vcl_vector<buld_exp_stat_sptr>& stats);
 
-void borld_evaluation_print_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_ofstream& of);
-void borld_evaluation_print_RPC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_ofstream& of);
-void borld_evaluation_print_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_ofstream& of);
-void borld_evaluation_get_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys);
+void borld_evaluation_print_ROC_data(vcl_vector<buld_exp_stat_sptr>& stats, vcl_ofstream& of);
+void borld_evaluation_print_RPC_data(vcl_vector<buld_exp_stat_sptr>& stats, vcl_ofstream& of);
+void borld_evaluation_print_PRC_data(vcl_vector<buld_exp_stat_sptr>& stats, vcl_ofstream& of);
+void borld_evaluation_get_PRC_data(vcl_vector<buld_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys);
 
 //: intersect the (0,1) - (1,0) line on the ROC plot with the ROC curve given by the stats
-float borld_evaluation_ROC_EER(vcl_vector<borld_exp_stat_sptr>& stats);
+float borld_evaluation_ROC_EER(vcl_vector<buld_exp_stat_sptr>& stats);
 
 //: intersect the (0,1) - (1,0) line on the RPC plot with the RPC curve given by the stats
-float borld_evaluation_RPC_EER(vcl_vector<borld_exp_stat_sptr>& stats);
+float borld_evaluation_RPC_EER(vcl_vector<buld_exp_stat_sptr>& stats);
 
 //: intersect the (0,1) - (1,0) line on the PRC plot with the PRC curve given by the stats
-float borld_evaluation_PRC_EER(vcl_vector<borld_exp_stat_sptr>& stats);
+float borld_evaluation_PRC_EER(vcl_vector<buld_exp_stat_sptr>& stats);
 
 
 #endif  //_DBORL_EVALUATION_H

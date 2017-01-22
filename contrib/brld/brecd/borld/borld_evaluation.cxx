@@ -144,7 +144,7 @@ vsol_box_2d_sptr borld_evaluation_evaluate_detection(buld_exp_stat& exp_stat,
 
 //: ROC is TPR vs FPR plot
 //  x axis is FPR and y axis is TPR so print one line of x values and the second line as y values
-void borld_evaluation_print_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats)
+void borld_evaluation_print_ROC_data(vcl_vector<buld_exp_stat_sptr>& stats)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     vcl_cout << stats[i]->FPR() << "\t";  // x1 x2 ..
@@ -155,7 +155,7 @@ void borld_evaluation_print_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats)
   }
   vcl_cout << vcl_endl;
 }
-void borld_evaluation_print_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_ofstream& of)
+void borld_evaluation_print_ROC_data(vcl_vector<buld_exp_stat_sptr>& stats, vcl_ofstream& of)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     of << stats[i]->FPR() << "\t";  // x1 x2 ..
@@ -166,7 +166,7 @@ void borld_evaluation_print_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl
   }
   of << vcl_endl;
 }
-void borld_evaluation_get_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys)
+void borld_evaluation_get_ROC_data(vcl_vector<buld_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys)
 {
   xs.clear();  ys.clear();
   for (unsigned i = 0; i < stats.size(); i++) {
@@ -179,7 +179,7 @@ void borld_evaluation_get_ROC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_v
 
 //: RPC is recall vs 1 - precision plot
 //  x axis is (1-precision) and y axis is recall so print one line of x values and the second line as y values
-void borld_evaluation_print_RPC_data(vcl_vector<borld_exp_stat_sptr>& stats)
+void borld_evaluation_print_RPC_data(vcl_vector<buld_exp_stat_sptr>& stats)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     vcl_cout << (1.0f - stats[i]->precision()) << "\t";  // x1 x2 ..
@@ -190,7 +190,7 @@ void borld_evaluation_print_RPC_data(vcl_vector<borld_exp_stat_sptr>& stats)
   }
   vcl_cout << vcl_endl;
 }
-void borld_evaluation_print_RPC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_ofstream& of)
+void borld_evaluation_print_RPC_data(vcl_vector<buld_exp_stat_sptr>& stats, vcl_ofstream& of)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     of << (1.0f - stats[i]->precision()) << "\t";  // x1 x2 ..
@@ -204,7 +204,7 @@ void borld_evaluation_print_RPC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl
 
 //: PRC is precision vs recall plot
 //  x axis is (recall) and y axis is precision so print one line of x values and the second line as y values
-void borld_evaluation_print_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats)
+void borld_evaluation_print_PRC_data(vcl_vector<buld_exp_stat_sptr>& stats)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     vcl_cout << stats[i]->recall() << "\t";  // x1 x2 ..
@@ -215,7 +215,7 @@ void borld_evaluation_print_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats)
   }
   vcl_cout << vcl_endl;
 }
-void borld_evaluation_print_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_ofstream& of)
+void borld_evaluation_print_PRC_data(vcl_vector<buld_exp_stat_sptr>& stats, vcl_ofstream& of)
 {
   for (unsigned i = 0; i < stats.size(); i++) {
     of << stats[i]->recall() << "\t";  // x1 x2 ..
@@ -226,7 +226,7 @@ void borld_evaluation_print_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl
   }
   of << vcl_endl;
 }
-void borld_evaluation_get_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys)
+void borld_evaluation_get_PRC_data(vcl_vector<buld_exp_stat_sptr>& stats, vcl_vector<float>& xs, vcl_vector<float>& ys)
 {
   xs.clear();  ys.clear();
   for (unsigned i = 0; i < stats.size(); i++) {
@@ -238,7 +238,7 @@ void borld_evaluation_get_PRC_data(vcl_vector<borld_exp_stat_sptr>& stats, vcl_v
 }
 
 //: intersect the (0,1) - (1,0) line on the ROC plot with the ROC curve given by the stats
-float borld_evaluation_ROC_EER(vcl_vector<borld_exp_stat_sptr>& stats)
+float borld_evaluation_ROC_EER(vcl_vector<buld_exp_stat_sptr>& stats)
 {
   vdgl_edgel_chain_sptr chain = new vdgl_edgel_chain();
   for (unsigned i = 0; i<stats.size(); i++) {
@@ -269,7 +269,7 @@ float borld_evaluation_ROC_EER(vcl_vector<borld_exp_stat_sptr>& stats)
 }
 
 //: intersect the (0,1) - (1,0) line on the RPC plot with the RPC curve given by the stats
-float borld_evaluation_RPC_EER(vcl_vector<borld_exp_stat_sptr>& stats)
+float borld_evaluation_RPC_EER(vcl_vector<buld_exp_stat_sptr>& stats)
 {
   vdgl_edgel_chain_sptr chain = new vdgl_edgel_chain();
   for (unsigned i = 0; i<stats.size(); i++) {
@@ -300,7 +300,7 @@ float borld_evaluation_RPC_EER(vcl_vector<borld_exp_stat_sptr>& stats)
 }
 
 //: intersect the (0,1) - (1,0) line on the PRC plot with the PRC curve given by the stats
-float borld_evaluation_PRC_EER(vcl_vector<borld_exp_stat_sptr>& stats)
+float borld_evaluation_PRC_EER(vcl_vector<buld_exp_stat_sptr>& stats)
 {
   vdgl_edgel_chain_sptr chain = new vdgl_edgel_chain();
   for (unsigned i = 0; i<stats.size(); i++) {
@@ -331,7 +331,7 @@ float borld_evaluation_PRC_EER(vcl_vector<borld_exp_stat_sptr>& stats)
 }
 
 
-void borld_evaluation_evaluate_classification(borld_exp_stat_sptr exp_stat, 
+void borld_evaluation_evaluate_classification(buld_exp_stat_sptr exp_stat, 
                                               const vcl_string& gt_class, 
                                               const vcl_string& output_class)
 {
@@ -341,7 +341,7 @@ void borld_evaluation_evaluate_classification(borld_exp_stat_sptr exp_stat,
     exp_stat->increment_FP();
 }
 
-void borld_evaluation_evaluate_classification(borld_exp_stat_sptr exp_stat, 
+void borld_evaluation_evaluate_classification(buld_exp_stat_sptr exp_stat, 
                                               borld_category_info_set_sptr cis,
                                               const vcl_string& gt_class, 
                                               int output_class_id)
