@@ -196,7 +196,7 @@ linearly_reconstruct_pts(
     pts.push_back(vnl_double_2(pt_img[v+1]->x(), pt_img[v+1]->y()));
     projs.push_back(cam_[other_views[v]].Pr_.get_matrix());
   }
-  *pt_3D = reconstruct_3d_points_nviews_linear(pts, projs);
+  *pt_3D = vpgld_reconstruct_3d_points_nviews_linear(pts, projs);
 }
 
 void bmcsd_curve_stereo::
@@ -296,7 +296,7 @@ reconstruct_curve_point_kanatani(
   vgl_point_3d<double> pt_3D_vgl;
 
   // Kanatani
-  pt_3D_vgl = triangulate_3d_point_optimal_kanatani_fast(
+  pt_3D_vgl = vpgld_triangulate_3d_point_optimal_kanatani_fast(
       p_0, p_v, cam_[v0()].Pr_, cam_[v].Pr_);
 
   *pt_3D = bmcsd_util::vgl_to_vnl(pt_3D_vgl);
@@ -404,7 +404,7 @@ reconstruct_one_candidate(
     // ---- Reconstruct ---
     vgl_point_3d<double> pt_3D_vgl;
 
-    pt_3D_vgl = triangulate_3d_point_optimal_kanatani_fast(
+    pt_3D_vgl = vpgld_triangulate_3d_point_optimal_kanatani_fast(
         pt_img1->get_p(), pt_img2->get_p(), rig.cam[v0()].Pr_, rig.cam[v1()].Pr_);
 
     crv3d[i] = bmcsd_util::vgl_to_vnl(pt_3D_vgl);
