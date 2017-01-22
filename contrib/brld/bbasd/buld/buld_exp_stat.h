@@ -1,6 +1,6 @@
 // This is buld_exp_stat.h
-#ifndef borld_exp_stat_h
-#define borld_exp_stat_h
+#ifndef buld_exp_stat_h
+#define buld_exp_stat_h
 //:
 //\file
 //\brief  Basic class to hold experiment statistics
@@ -76,5 +76,5 @@ void vsl_b_read(vsl_b_istream & is, buld_exp_stat &ph);
 void vsl_b_read(vsl_b_istream& is, buld_exp_stat* ph);
 void vsl_b_write(vsl_b_ostream& os, const buld_exp_stat* &ph);
 
-#endif // borld_exp_stat_h
+#endif // buld_exp_stat_h
 
