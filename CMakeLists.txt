@@ -113,7 +113,10 @@ if(UNIX)
   endif()
 endif()
 
-
+# Options to build no longer maintained libraries.
+# It is still useful to have the dashboard check that they are correct,
+# but no-one is likely to work on improving test coverage or fixing memory leaks.
+option(BUILD_UNMAINTAINED_LIBRARIES "Build libraries that are no longer actively maintained?" NO)
 
 
 # Some types of path names can cause havoc with regular expressions,
@@ -139,15 +142,18 @@ if (VXL_FOUND)
   # include the standard stuff, such as Dart test
   set(VXL_PROVIDE_STANDARD_OPTIONS 1)
   include(${VXL_CMAKE_DIR}/UseVXL.cmake)
-else (VXL_FOUND)
+else ()
   if (VXL_BINARY_PATH)
     set(VXL_DIR ${VXL_BINARY_PATH})
     message( "Use preferred VXL_DIR in place of VXL_BINARY_PATH" )
   endif( VXL_BINARY_PATH )
-endif(VXL_FOUND)
+endif()
 
 add_subdirectory(contrib) 
-#add_subdirectory(old) 
+
+if(BUILD_UNMAINTAINED_LIBRARIES)
+  add_subdirectory(old) 
+endif()
 
 if(VXL_FOUND)
   # This is required on some platforms because various libraries
@@ -161,7 +167,7 @@ if(VXL_FOUND)
   else ( USE_Boost )
     set( Boost_FOUND FALSE )
   endif( USE_Boost )
-endif(VXL_FOUND)
+endif()
 
 # adds a test for Endianness and a global variable that should be useful for file format programming -MM
 include(TestBigEndian)
