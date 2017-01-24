@@ -2,7 +2,7 @@
 #define vipl_accessors_vil1_image_txx_
 
 #include "vipl_accessors_vil1_image.h"
-#include <vipl/section/vipl_filterable_section_container_generator_vil1_image.txx>
+#include "../section/vipl_filterable_section_container_generator_vil1_image.txx"
 
 template <class DataType>
 DataType fgetpixel(vil1_image const& i, int x, int y, DataType /* dummy */)

@@ -6,6 +6,7 @@
 ##   DESCRIPTION "Easy Image Processing Library using vil1 (deprecated)"
 ## )
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 set(vepl1_sources
  vepl1_threshold.cxx            vepl1_threshold.h
