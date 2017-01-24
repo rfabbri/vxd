@@ -41,6 +41,7 @@ if (VXL_VGUI_FOUND)
   vsrl_menus.h vsrl_menus.cxx
  )
  include_directories(${VXL_TBL_INCLUDE_DIR})
+ include_directories(${UNMAINTAINED_TBL_INCLUDE_DIR})
  include_directories(${VXL_BRL_INCLUDE_DIR}/bseg)
  include_directories(${VXL_RPL_INCLUDE_DIR}) # rsdl is in rpl
  set(vsrl_sources ${vsrl_sources}
@@ -65,7 +66,7 @@ if (VXL_VGUI_FOUND)
  endif ()
 endif ()
 
-target_link_libraries(vsrl vtol vdgl vgl vil1 vnl vgel)
+target_link_libraries(vsrl vtol vdgl sdet vepl1 rsdl vgl vil1 vnl vgel)
 
 # vgel uses mvl from oxl
 include_directories(${VXL_OXL_INCLUDE_DIR})
