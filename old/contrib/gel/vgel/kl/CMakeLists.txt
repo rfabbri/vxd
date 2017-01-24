@@ -15,8 +15,6 @@ set(vgel_kl_sources
 )
 
 add_library(vgel_kl ${vgel_kl_sources})
-install_targets(/lib vgel_kl)
-INSTALL_NOBASE_HEADER_FILES(/include/vxl/contrib/gel/vgel/kl ${vgel_kl_sources})
 
 if(UNIX)
   TARGET_link_libraries(vgel_kl m)

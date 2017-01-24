@@ -12,9 +12,6 @@
 #   DESCRIPTION "Dense image matcher"
 # )
 
-include_directories(${VXL_GEL_INCLUDE_DIR})
-include_directories(${UNMAINTAINED_GEL_INCLUDE_DIR})
-
 set(vsrl_sources
  vsrl_3d_output.cxx             vsrl_3d_output.h
                                 vsrl_dense_matcher.h
@@ -46,9 +43,9 @@ if (VXL_VGUI_FOUND)
  if (VXL_BUILD_TBL)
  if (VXL_BUILD_BRL)
  if (VXL_BUILD_RPL)
-   include_directories(${TBL_INCLUDE_DIR})
-   include_directories(${BRL_INCLUDE_DIR}/bseg)
-   include_directories(${RPL_INCLUDE_DIR}) # rsdl is in rpl
+   include_directories(${VXL_TBL_INCLUDE_DIR})
+   include_directories(${VXL_BRL_INCLUDE_DIR}/bseg)
+   include_directories(${VXL_RPL_INCLUDE_DIR}) # rsdl is in rpl
    set(vsrl_sources ${vsrl_sources}
     vsrl_manager.cxx              vsrl_manager.h
    )
@@ -77,7 +74,7 @@ endif ()
 target_link_libraries(vsrl vtol vdgl vgl vil1 vnl vgel)
 
 # vgel uses mvl from oxl
-include_directories(${OXL_INCLUDE_DIR})
+include_directories(${VXL_OXL_INCLUDE_DIR})
 
 if( BUILD_TESTING )
   add_subdirectory(tests)
