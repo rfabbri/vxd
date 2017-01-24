@@ -16,7 +16,7 @@ aux_source_directory(Templates vgel_sources)
 
 if(VXL_BUILD_OXL)
 set(vgel_sources ${vgel_sources}
- vgel_multi_view_data.txx vgel_multi_view_data.h
+ vgel_multi_view_data.hxx vgel_multi_view_data.h
  vgel_multi_view_data_vertex_sptr.h
 )
 endif()
