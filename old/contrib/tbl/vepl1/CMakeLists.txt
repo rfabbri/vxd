@@ -25,6 +25,7 @@ set(vepl1_sources
  vepl1_histogram.cxx            vepl1_histogram.h
 
  vepl1_convert.txx              vepl1_convert.h
+ vipl/accessors/vipl_accessors_vil1_image.hxx vipl/accessors/vipl_accessors_vil1_image.h
 )
 
 add_definitions(-DINSTANTIATE_TEMPLATES)
