@@ -1,18 +1,19 @@
 # gel/vsrl/CMakeLists.txt
 
-doxygen_add_library(contrib/gel/vsrl
-  DEPENDS
-    contrib/brl/bseg/sdet
-    contrib/gel/vgel
-    contrib/tbl/vepl1
-    core/vgui
-    core/vil1
-    contrib/rpl/rsdl
-  PACKAGE contrib/gel
-  DESCRIPTION "Dense image matcher"
-)
+# doxygen_add_library(contrib/gel/vsrl
+#   DEPENDS
+#     contrib/brl/bseg/sdet
+#     contrib/gel/vgel
+#     contrib/tbl/vepl1
+#     core/vgui
+#     core/vil1
+#     contrib/rpl/rsdl
+#   PACKAGE contrib/gel
+#   DESCRIPTION "Dense image matcher"
+# )
 
-include_directories(${GEL_INCLUDE_DIR})
+include_directories(${VXL_GEL_INCLUDE_DIR})
+include_directories(${UNMAINTAINED_GEL_INCLUDE_DIR})
 
 set(vsrl_sources
  vsrl_3d_output.cxx             vsrl_3d_output.h
@@ -34,20 +35,17 @@ set(vsrl_sources
  vsrl_region_disparity.cxx      vsrl_region_disparity.h
 )
 
-# vsrl_manager depends on vgui, on tbl/vepl1 and on brl/bseg/sdet
-# vsrl_menus and vsrl_point_picker depend on vgui
-include( ${VXL_CMAKE_DIR}/UseVGUI.cmake )
-
-if (HAS_VGUI)
- include_directories(${VXLCORE_INCLUDE_DIR})
+if (VXL_VGUI_FOUND)
+ include_directories(${VXL_VGUI_INCLUDE_DIR})
+  
 
  set(vsrl_sources ${vsrl_sources}
   vsrl_point_picker.cxx         vsrl_point_picker.h    vsrl_point_picker_sptr.h
   vsrl_menus.h vsrl_menus.cxx
  )
- if (BUILD_TBL)
- if (BUILD_BRL)
- if (BUILD_RPL)
+ if (VXL_BUILD_TBL)
+ if (VXL_BUILD_BRL)
+ if (VXL_BUILD_RPL)
    include_directories(${TBL_INCLUDE_DIR})
    include_directories(${BRL_INCLUDE_DIR}/bseg)
    include_directories(${RPL_INCLUDE_DIR}) # rsdl is in rpl
@@ -60,25 +58,23 @@ if (HAS_VGUI)
 endif ()
 
 add_library(vsrl ${vsrl_sources})
-install_targets(/lib vsrl)
-INSTALL_NOBASE_HEADER_FILES(/include/vxl/contrib/gel/vsrl ${vsrl_sources})
 
-if (HAS_VGUI)
- if (BUILD_BRL)
-#  TARGET_link_libraries(vsrl sdet jseg)
+if (VXL_VGUI_FOUND)
+ if (VXL_BUILD_BRL)
+#  target_link_libraries(vsrl sdet jseg)
 # remove missing jseg error
-  TARGET_link_libraries(vsrl sdet)
+  target_link_libraries(vsrl sdet)
  endif ()
- TARGET_link_libraries(vsrl vgui)
- if (BUILD_TBL)
-  TARGET_link_libraries(vsrl vepl1)
+ target_link_libraries(vsrl vgui)
+ if (VXL_BUILD_TBL)
+  target_link_libraries(vsrl vepl1)
  endif ()
- if (BUILD_RPL)
-  TARGET_link_libraries(vsrl rsdl)
+ if (VXL_BUILD_RPL)
+  target_link_libraries(vsrl rsdl)
  endif ()
 endif ()
 
-TARGET_link_libraries(vsrl vtol vdgl vgl vil1 vnl vgel)
+target_link_libraries(vsrl vtol vdgl vgl vil1 vnl vgel)
 
 # vgel uses mvl from oxl
 include_directories(${OXL_INCLUDE_DIR})
