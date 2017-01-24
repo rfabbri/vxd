@@ -11,13 +11,24 @@
 //   Matt Leotta  Mar 22, 2005  Adapted from codec by Amitha Perera
 // \endverbatim
 
+// we use VXL's current video lib (vidl) config.
+// we introduce a dependency here, but since vidl1 is deprecated, its fine
+#include <vidl/vidl_config.h>
 extern "C" {
-#ifdef  HAS_FFMPEG_SEVERAL
+#if FFMPEG_IN_SEVERAL_DIRECTORIES
+# include <libavcodec/version.h>
+# if LIBAVCODEC_VERSION_MAJOR >= 56
+#   include <libavutil/pixfmt.h>
+# else 
+#   ifndef __STDC_CONSTANT_MACROS
+#     define __STDC_CONSTANT_MACROS
+#   endif
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
+# endif
 #else
-#include <ffmpeg/avcodec.h>
-#include <ffmpeg/avformat.h>
+# include <ffmpeg/avcodec.h>
+# include <ffmpeg/avformat.h>
 #endif
 }
 

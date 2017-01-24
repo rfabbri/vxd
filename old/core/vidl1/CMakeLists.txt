@@ -12,7 +12,6 @@ include( ${VXL_CMAKE_DIR}/NewCMake/FindFFMPEG.cmake )
 
 if( FFMPEG_FOUND )
   include_directories(${FFMPEG_INCLUDE_DIR})
-  add_definitions(-DHAS_FFMPEG)
 # some versions of FFMPEG require this definition before including
 # the headers for C++ compatibility
 #  add_definitions(-D__STDC_CONSTANT_MACROS )
