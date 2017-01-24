@@ -6,7 +6,7 @@ doxygen_add_library(contrib/tbl/vepl1
   DESCRIPTION "Easy Image Processing Library using vil1 (deprecated)"
 )
 
-SET(vepl1_sources
+set(vepl1_sources
  vepl1_threshold.cxx            vepl1_threshold.h
  vepl1_add_random_noise.cxx     vepl1_add_random_noise.h
  vepl1_monadic.cxx              vepl1_monadic.h
@@ -26,33 +26,33 @@ SET(vepl1_sources
  vepl1_convert.txx              vepl1_convert.h
 )
 
-ADD_DEFINITIONS(-DINSTANTIATE_TEMPLATES)
+add_definitions(-DINSTANTIATE_TEMPLATES)
 # [only when INSTANTIATE_TEMPLATES not defined:]
-# AUX_SOURCE_DIRECTORY(Templates vepl1_sources)
+# aux_source_directory(Templates vepl1_sources)
 
-IF(CMAKE_COMPILER_IS_GNUCXX)
-  SET_SOURCE_FILES_PROPERTIES(vepl1_threshold.cxx PROPERTIES COMPILE_FLAGS -O2)
-  SET_SOURCE_FILES_PROPERTIES(vepl1_add_random_noise.cxx PROPERTIES COMPILE_FLAGS -O1)
-  SET_SOURCE_FILES_PROPERTIES(vepl1_dyadic.cxx PROPERTIES COMPILE_FLAGS -O3)
-  SET_SOURCE_FILES_PROPERTIES(vepl1_dilate_disk.cxx PROPERTIES COMPILE_FLAGS -O1)
-  SET_SOURCE_FILES_PROPERTIES(vepl1_erode_disk.cxx PROPERTIES COMPILE_FLAGS -O1)
-  SET_SOURCE_FILES_PROPERTIES(vepl1_median.cxx PROPERTIES COMPILE_FLAGS -O3)
-  SET_SOURCE_FILES_PROPERTIES(vepl1_moment.cxx PROPERTIES COMPILE_FLAGS -O1)
-  SET_SOURCE_FILES_PROPERTIES(vepl1_histogram.cxx PROPERTIES COMPILE_FLAGS -O0)
-  SET_SOURCE_FILES_PROPERTIES(Templates/vepl1_convert+uchar-.cxx PROPERTIES COMPILE_FLAGS -O1)
-  SET_SOURCE_FILES_PROPERTIES(Templates/vepl1_convert+short-.cxx PROPERTIES COMPILE_FLAGS -O1)
-  SET_SOURCE_FILES_PROPERTIES(Templates/vepl1_convert+float-.cxx PROPERTIES COMPILE_FLAGS -O1)
-ENDIF(CMAKE_COMPILER_IS_GNUCXX)
+if(CMAKE_COMPILER_IS_GNUCXX)
+  set_source_files_properties(vepl1_threshold.cxx PROPERTIES COMPILE_FLAGS -O2)
+  set_source_files_properties(vepl1_add_random_noise.cxx PROPERTIES COMPILE_FLAGS -O1)
+  set_source_files_properties(vepl1_dyadic.cxx PROPERTIES COMPILE_FLAGS -O3)
+  set_source_files_properties(vepl1_dilate_disk.cxx PROPERTIES COMPILE_FLAGS -O1)
+  set_source_files_properties(vepl1_erode_disk.cxx PROPERTIES COMPILE_FLAGS -O1)
+  set_source_files_properties(vepl1_median.cxx PROPERTIES COMPILE_FLAGS -O3)
+  set_source_files_properties(vepl1_moment.cxx PROPERTIES COMPILE_FLAGS -O1)
+  set_source_files_properties(vepl1_histogram.cxx PROPERTIES COMPILE_FLAGS -O0)
+  set_source_files_properties(Templates/vepl1_convert+uchar-.cxx PROPERTIES COMPILE_FLAGS -O1)
+  set_source_files_properties(Templates/vepl1_convert+short-.cxx PROPERTIES COMPILE_FLAGS -O1)
+  set_source_files_properties(Templates/vepl1_convert+float-.cxx PROPERTIES COMPILE_FLAGS -O1)
+endif(CMAKE_COMPILER_IS_GNUCXX)
 
-ADD_LIBRARY(vepl1 ${vepl1_sources})
-INSTALL_TARGETS(/lib vepl1)
+add_library(vepl1 ${vepl1_sources})
+install_targets(/lib vepl1)
 INSTALL_NOBASE_HEADER_FILES(/include/vxl/contrib/tbl/vepl1 ${vepl1_sources})
-TARGET_LINK_LIBRARIES(vepl1 vipl vil1 ${CMAKE_THREAD_LIBS})
+TARGET_link_libraries(vepl1 vipl vil1 ${CMAKE_THREAD_LIBS})
 
-IF (BUILD_EXAMPLES)
+if (BUILD_EXAMPLES)
   add_subdirectory(examples)
-ENDIF (BUILD_EXAMPLES)
+endif (BUILD_EXAMPLES)
 
-IF (BUILD_TESTING)
+if (BUILD_TESTING)
   add_subdirectory(tests)
-ENDIF (BUILD_TESTING)
+endif (BUILD_TESTING)
