@@ -7,7 +7,7 @@ if( BUILD_RPL )
   add_executable( dense_matcher_full dense_matcher_full.cxx )
   add_executable( make_3d_output make_3d_output.cxx )
 
-endif( BUILD_RPL )
+endif()
 
 # Removed vsrl_viewer until old vidl dependency is removed.
 #if( HAS_VGUI )
@@ -18,7 +18,7 @@ endif( BUILD_RPL )
 #  add_executable( vsrl_viewer vsrl_viewer.cxx )
 #  TARGET_link_libraries(vsrl_viewer vgui)
 #
-#endif( BUILD_RPL )
-#endif( BUILD_BRL )
-#endif( BUILD_TBL )
-#endif( HAS_VGUI )
+#endif()
+#endif()
+#endif()
+#endif()

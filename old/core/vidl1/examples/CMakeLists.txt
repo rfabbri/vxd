@@ -22,4 +22,4 @@ set(vidl1_player_sources
 add_executable (vidl1_player ${vidl1_player_sources})
 target_link_libraries(vidl1_player vidl1 vgui)
 
-endif( HAS_VGUI )
+endif()

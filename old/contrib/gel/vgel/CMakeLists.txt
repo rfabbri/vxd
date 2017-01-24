@@ -17,7 +17,7 @@ set(vgel_sources ${vgel_sources}
  vgel_multi_view_data.txx vgel_multi_view_data.h
  vgel_multi_view_data_vertex_sptr.h
 )
-endif(BUILD_OXL)
+endif()
 
 add_library(vgel ${vgel_sources})
 install_targets(/lib vgel)
@@ -26,14 +26,14 @@ INSTALL_NOBASE_HEADER_FILES(/include/vxl/contrib/gel/vgel ${vgel_sources})
 if(BUILD_OXL)
  include_directories(${OXL_INCLUDE_DIR})
  TARGET_link_libraries(vgel mvl)
-endif(BUILD_OXL)
+endif()
 
 TARGET_link_libraries(vgel vgel_kl vtol vil vil1 vbl)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)
-endif( BUILD_TESTING )
+endif()
 
 if (BUILD_EXAMPLES)
   add_subdirectory(examples)
-endif (BUILD_EXAMPLES)
+endif ()

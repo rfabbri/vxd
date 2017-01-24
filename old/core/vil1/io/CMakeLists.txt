@@ -21,4 +21,4 @@ INSTALL_NOBASE_HEADER_FILES(/include/vxl/core/vil1/io ${vil1_io_sources})
 
 if( BUILD_TESTING)
   add_subdirectory(tests)
-endif( BUILD_TESTING)
+endif()

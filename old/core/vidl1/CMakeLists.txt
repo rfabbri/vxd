@@ -8,7 +8,7 @@ include( ${LEMS_CMAKE_DIR}/config/vxl_utils.cmake )
 if( MPEG2_FOUND )
   include_directories(${MPEG2_INCLUDE_DIR})
   add_definitions(-DHAS_MPEG2)
-endif( MPEG2_FOUND )
+endif()
 
 if( FFMPEG_FOUND )
   include_directories(${FFMPEG_INCLUDE_DIR})
@@ -16,11 +16,11 @@ if( FFMPEG_FOUND )
 # some versions of FFMPEG require this definition before including
 # the headers for C++ compatibility
   add_definitions(-D__STDC_CONSTANT_MACROS )
-endif( FFMPEG_FOUND )
+endif()
 
 if ( FFMPEG_FOUND_SEVERAL )
   add_definitions(-DHAS_FFMPEG_SEVERAL)
-endif ( FFMPEG_FOUND_SEVERAL )
+endif ()
 
 set(vidl1_sources
   dll.h
@@ -42,13 +42,13 @@ if( MPEG2_FOUND )
     vidl1_mpegcodec_helper.cxx vidl1_mpegcodec_helper.h
     vidl1_yuv_2_rgb.h
   )
-endif( MPEG2_FOUND )
+endif()
 
 if( FFMPEG_FOUND )
   set(vidl1_sources ${vidl1_sources}
     vidl1_ffmpeg_codec.cxx vidl1_ffmpeg_codec.h
   )
-endif( FFMPEG_FOUND )
+endif()
 
 aux_source_directory(Templates vidl1_sources)
 
@@ -58,8 +58,8 @@ if (NOT AVIFILE_FOUND)
   if(AVIFILE_FOUND)
     include_directories( ${AVIFILE_INCLUDE_DIR} )
     add_definitions (${AVIFILE_DEFINITIONS} )
-  endif(AVIFILE_FOUND)
-endif (NOT AVIFILE_FOUND)
+  endif()
+endif ()
 
 set(AVI_FOUND "NO")
 if (AVIFILE_FOUND)
@@ -70,7 +70,7 @@ if (AVIFILE_FOUND)
   set(AVI_LIBRARIES ${AVIFILE_LIBRARIES})
   set(AVI_FOUND "YES")
   add_definitions( -DHAS_AVI )
-else (AVIFILE_FOUND)
+else ()
   if (WIN32)
     if( NOT CYGWIN )
       set(vidl1_sources ${vidl1_sources}
@@ -85,9 +85,9 @@ else (AVIFILE_FOUND)
       set(AVI_LIBRARIES vfw32 gdi32)
       set(AVI_FOUND "YES")
       add_definitions( -DHAS_AVI )
-    endif( NOT CYGWIN )
-  endif (WIN32)
-endif (AVIFILE_FOUND)
+    endif()
+  endif ()
+endif ()
 
 
 add_library(vidl1 ${vidl1_sources})
@@ -97,18 +97,18 @@ INSTALL_NOBASE_HEADER_FILES(/include/vxl/core/vidl1 ${vidl1_sources})
 target_link_libraries( vidl1 vbl vul vil vcl )
 if( MPEG2_FOUND )
   target_link_libraries( vidl1 ${MPEG2_LIBRARIES} )
-endif( MPEG2_FOUND )
+endif()
 if( FFMPEG_FOUND )
   target_link_libraries( vidl1 ${FFMPEG_LIBRARIES} )
-endif( FFMPEG_FOUND )
+endif()
 if( AVI_FOUND )
   target_link_libraries( vidl1 ${AVI_LIBRARIES} )
-endif( AVI_FOUND )
+endif()
 
 if( BUILD_TESTING )
   add_subdirectory( tests )
-endif( BUILD_TESTING )
+endif()
 
 if( BUILD_EXAMPLES )
   add_subdirectory( examples )
-endif( BUILD_EXAMPLES )
+endif()

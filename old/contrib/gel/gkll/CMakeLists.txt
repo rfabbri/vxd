@@ -17,7 +17,7 @@ set(gkll_sources ${gkll_sources}
  gkll_multi_view_data.cxx gkll_multi_view_data.h
  gkll_multi_view_data_vertex_sptr.h
 )
-endif(BUILD_OXL)
+endif()
 
 add_library(gkll ${gkll_sources})
 install_targets(/lib gkll)
@@ -26,10 +26,10 @@ INSTALL_NOBASE_HEADER_FILES(/include/vxl/contrib/gel/gkll ${gkll_sources})
 if(BUILD_OXL)
  include_directories(${OXL_INCLUDE_DIR})
  TARGET_link_libraries(gkll mvl)
-endif(BUILD_OXL)
+endif()
 
 TARGET_link_libraries(gkll vgel_kl vtol vil1 vbl)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)
-endif( BUILD_TESTING )
+endif()

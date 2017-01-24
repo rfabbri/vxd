@@ -23,7 +23,7 @@ aux_source_directory(Templates vmal_sources)
 # vmal_kl.cxx                vmal_kl.h
 # vmal_kl_params.cxx         vmal_kl_params.h
 #)
-#endif (BUILD_UNMAINTAINED_LIBRARIES OR BUILD_FOR_VXL_DASHBOARD)
+#endif ()
 
 
  include_directories(${OXL_INCLUDE_DIR})
@@ -42,15 +42,15 @@ INSTALL_NOBASE_HEADER_FILES(/include/vxl/contrib/gel/vmal ${vmal_sources})
 
 if(BUILD_OXL)
  TARGET_link_libraries(vmal mvl osl vil)
-endif(BUILD_OXL)
+endif()
 
 if (BUILD_UNMAINTAINED_LIBRARIES OR BUILD_FOR_VXL_DASHBOARD)
  TARGET_link_libraries(vmal vgel_kl)
-endif (BUILD_UNMAINTAINED_LIBRARIES OR BUILD_FOR_VXL_DASHBOARD)
+endif ()
 
 TARGET_link_libraries(vmal vtol vnl_algo vil1 vnl vbl)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)
-endif( BUILD_TESTING )
-endif(BUILD_OXL)
+endif()
+endif()

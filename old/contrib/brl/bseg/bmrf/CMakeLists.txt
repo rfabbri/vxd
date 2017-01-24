@@ -30,4 +30,4 @@ TARGET_link_libraries(bmrf bugl vtol vdgl gevd vnl_algo vil vgl vnl vul vnl_io v
 
 if(BUILD_TESTING)
   add_subdirectory(tests)
-endif(BUILD_TESTING)
+endif()
