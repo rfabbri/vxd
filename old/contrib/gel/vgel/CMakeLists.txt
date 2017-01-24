@@ -6,34 +6,34 @@ doxygen_add_library(contrib/gel/vgel
   DESCRIPTION "Kanade-Lucas_Tomasi feature tracker"
   )
 
-SET(vgel_sources
+set(vgel_sources
  vgel_kl.cxx              vgel_kl.h
  vgel_kl_params.cxx       vgel_kl_params.h
 )
-AUX_SOURCE_DIRECTORY(Templates vgel_sources)
+aux_source_directory(Templates vgel_sources)
 
-IF(BUILD_OXL)
-SET(vgel_sources ${vgel_sources}
+if(BUILD_OXL)
+set(vgel_sources ${vgel_sources}
  vgel_multi_view_data.txx vgel_multi_view_data.h
  vgel_multi_view_data_vertex_sptr.h
 )
-ENDIF(BUILD_OXL)
+endif(BUILD_OXL)
 
-ADD_LIBRARY(vgel ${vgel_sources})
-INSTALL_TARGETS(/lib vgel)
+add_library(vgel ${vgel_sources})
+install_targets(/lib vgel)
 INSTALL_NOBASE_HEADER_FILES(/include/vxl/contrib/gel/vgel ${vgel_sources})
 
-IF(BUILD_OXL)
- INCLUDE_DIRECTORIES(${OXL_INCLUDE_DIR})
- TARGET_LINK_LIBRARIES(vgel mvl)
-ENDIF(BUILD_OXL)
+if(BUILD_OXL)
+ include_directories(${OXL_INCLUDE_DIR})
+ TARGET_link_libraries(vgel mvl)
+endif(BUILD_OXL)
 
-TARGET_LINK_LIBRARIES(vgel vgel_kl vtol vil vil1 vbl)
+TARGET_link_libraries(vgel vgel_kl vtol vil vil1 vbl)
 
-IF( BUILD_TESTING )
+if( BUILD_TESTING )
   add_subdirectory(tests)
-ENDIF( BUILD_TESTING )
+endif( BUILD_TESTING )
 
-IF (BUILD_EXAMPLES)
+if (BUILD_EXAMPLES)
   add_subdirectory(examples)
-ENDIF (BUILD_EXAMPLES)
+endif (BUILD_EXAMPLES)

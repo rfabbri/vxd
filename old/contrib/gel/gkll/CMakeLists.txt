@@ -6,30 +6,30 @@ doxygen_add_library(contrib/gel/gkll
   DESCRIPTION "Kanade-Lucas_Tomasi feature tracker"
   )
 
-SET(gkll_sources
+set(gkll_sources
  gkll_kl.cxx              gkll_kl.h
  gkll_kl_params.cxx       gkll_kl_params.h
 )
-AUX_SOURCE_DIRECTORY(Templates gkll_sources)
+aux_source_directory(Templates gkll_sources)
 
-IF(BUILD_OXL)
-SET(gkll_sources ${gkll_sources}
+if(BUILD_OXL)
+set(gkll_sources ${gkll_sources}
  gkll_multi_view_data.cxx gkll_multi_view_data.h
  gkll_multi_view_data_vertex_sptr.h
 )
-ENDIF(BUILD_OXL)
+endif(BUILD_OXL)
 
-ADD_LIBRARY(gkll ${gkll_sources})
-INSTALL_TARGETS(/lib gkll)
+add_library(gkll ${gkll_sources})
+install_targets(/lib gkll)
 INSTALL_NOBASE_HEADER_FILES(/include/vxl/contrib/gel/gkll ${gkll_sources})
 
-IF(BUILD_OXL)
- INCLUDE_DIRECTORIES(${OXL_INCLUDE_DIR})
- TARGET_LINK_LIBRARIES(gkll mvl)
-ENDIF(BUILD_OXL)
+if(BUILD_OXL)
+ include_directories(${OXL_INCLUDE_DIR})
+ TARGET_link_libraries(gkll mvl)
+endif(BUILD_OXL)
 
-TARGET_LINK_LIBRARIES(gkll vgel_kl vtol vil1 vbl)
+TARGET_link_libraries(gkll vgel_kl vtol vil1 vbl)
 
-IF( BUILD_TESTING )
+if( BUILD_TESTING )
   add_subdirectory(tests)
-ENDIF( BUILD_TESTING )
+endif( BUILD_TESTING )

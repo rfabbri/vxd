@@ -1,24 +1,24 @@
 # gel/vsrl/examples/CMakeLists.txt
 
-LINK_LIBRARIES( vsrl vil1 )
+link_libraries( vsrl vil1 )
 
-IF( BUILD_RPL )
+if( BUILD_RPL )
 
-  ADD_EXECUTABLE( dense_matcher_full dense_matcher_full.cxx )
-  ADD_EXECUTABLE( make_3d_output make_3d_output.cxx )
+  add_executable( dense_matcher_full dense_matcher_full.cxx )
+  add_executable( make_3d_output make_3d_output.cxx )
 
-ENDIF( BUILD_RPL )
+endif( BUILD_RPL )
 
 # Removed vsrl_viewer until old vidl dependency is removed.
-#IF( HAS_VGUI )
-#IF( BUILD_TBL )
-#IF( BUILD_BRL )
-#IF( BUILD_RPL )
+#if( HAS_VGUI )
+#if( BUILD_TBL )
+#if( BUILD_BRL )
+#if( BUILD_RPL )
 #
-#  ADD_EXECUTABLE( vsrl_viewer vsrl_viewer.cxx )
-#  TARGET_LINK_LIBRARIES(vsrl_viewer vgui)
+#  add_executable( vsrl_viewer vsrl_viewer.cxx )
+#  TARGET_link_libraries(vsrl_viewer vgui)
 #
-#ENDIF( BUILD_RPL )
-#ENDIF( BUILD_BRL )
-#ENDIF( BUILD_TBL )
-#ENDIF( HAS_VGUI )
+#endif( BUILD_RPL )
+#endif( BUILD_BRL )
+#endif( BUILD_TBL )
+#endif( HAS_VGUI )

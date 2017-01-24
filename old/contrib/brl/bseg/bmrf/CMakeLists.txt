@@ -1,10 +1,10 @@
 # Brown Markov Random Field library
 # brl/bseg/bmrf/CMakeLists.txt
-INCLUDE_DIRECTORIES(${BRL_INCLUDE_DIR} )
-INCLUDE_DIRECTORIES(${BRL_INCLUDE_DIR}/bseg )
-INCLUDE_DIRECTORIES(${GEL_INCLUDE_DIR} )
+include_directories(${BRL_INCLUDE_DIR} )
+include_directories(${BRL_INCLUDE_DIR}/bseg )
+include_directories(${GEL_INCLUDE_DIR} )
 
-SET(bmrf_sources
+set(bmrf_sources
     bmrf_epipole.cxx                bmrf_epipole.h
     bmrf_epi_point.cxx              bmrf_epi_point.h      bmrf_epi_point_sptr.h
     bmrf_epi_seg.cxx                bmrf_epi_seg.h        bmrf_epi_seg_sptr.h
@@ -20,14 +20,14 @@ SET(bmrf_sources
     bmrf_curve_3d.cxx               bmrf_curve_3d.h       bmrf_curve_3d_sptr.h
     bmrf_curve_3d_builder.cxx       bmrf_curve_3d_builder.h
 )
-AUX_SOURCE_DIRECTORY(Templates bmrf_sources)
+aux_source_directory(Templates bmrf_sources)
 
-ADD_LIBRARY(bmrf ${bmrf_sources})
-INSTALL_TARGETS(/lib bmrf)
+add_library(bmrf ${bmrf_sources})
+install_targets(/lib bmrf)
 INSTALL_NOBASE_HEADER_FILES(/include/vxl/contrib/brl/bseg/bmrf ${bmrf_sources})
 
-TARGET_LINK_LIBRARIES(bmrf bugl vtol vdgl gevd vnl_algo vil vgl vnl vul vnl_io vbl_io vsl vbl)
+TARGET_link_libraries(bmrf bugl vtol vdgl gevd vnl_algo vil vgl vnl vul vnl_io vbl_io vsl vbl)
 
-IF(BUILD_TESTING)
+if(BUILD_TESTING)
   add_subdirectory(tests)
-ENDIF(BUILD_TESTING)
+endif(BUILD_TESTING)
