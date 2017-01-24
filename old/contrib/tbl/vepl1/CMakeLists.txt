@@ -1,10 +1,10 @@
 # tbl/vepl1/CMakeLists.txt
 
-doxygen_add_library(contrib/tbl/vepl1
-  DEPENDS contrib/tbl/vipl core/vil1
-  PACKAGE contrib/tbl
-  DESCRIPTION "Easy Image Processing Library using vil1 (deprecated)"
-)
+## doxygen_add_library(contrib/tbl/vepl1
+##   DEPENDS contrib/tbl/vipl core/vil1
+##   PACKAGE contrib/tbl
+##   DESCRIPTION "Easy Image Processing Library using vil1 (deprecated)"
+## )
 
 set(vepl1_sources
  vepl1_threshold.cxx            vepl1_threshold.h
@@ -45,9 +45,9 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 add_library(vepl1 ${vepl1_sources})
-install_targets(/lib vepl1)
-INSTALL_NOBASE_HEADER_FILES(/include/vxl/contrib/tbl/vepl1 ${vepl1_sources})
-TARGET_link_libraries(vepl1 vipl vil1 ${CMAKE_THREAD_LIBS})
+# install_targets(/lib vepl1)
+# INSTALL_NOBASE_HEADER_FILES(/include/vxl/contrib/tbl/vepl1 ${vepl1_sources})
+target_link_libraries(vepl1 vipl vil1 ${CMAKE_THREAD_LIBS})
 
 if (BUILD_EXAMPLES)
   add_subdirectory(examples)
