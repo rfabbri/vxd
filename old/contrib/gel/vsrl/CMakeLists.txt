@@ -40,18 +40,12 @@ if (VXL_VGUI_FOUND)
   vsrl_point_picker.cxx         vsrl_point_picker.h    vsrl_point_picker_sptr.h
   vsrl_menus.h vsrl_menus.cxx
  )
- if (VXL_BUILD_TBL)
- if (VXL_BUILD_BRL)
- if (VXL_BUILD_RPL)
-   include_directories(${VXL_TBL_INCLUDE_DIR})
-   include_directories(${VXL_BRL_INCLUDE_DIR}/bseg)
-   include_directories(${VXL_RPL_INCLUDE_DIR}) # rsdl is in rpl
-   set(vsrl_sources ${vsrl_sources}
-    vsrl_manager.cxx              vsrl_manager.h
-   )
- endif ()
- endif ()
- endif ()
+ include_directories(${VXL_TBL_INCLUDE_DIR})
+ include_directories(${VXL_BRL_INCLUDE_DIR}/bseg)
+ include_directories(${VXL_RPL_INCLUDE_DIR}) # rsdl is in rpl
+ set(vsrl_sources ${vsrl_sources}
+  vsrl_manager.cxx              vsrl_manager.h
+ )
 endif ()
 
 add_library(vsrl ${vsrl_sources})
