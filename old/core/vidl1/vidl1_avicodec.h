@@ -6,10 +6,15 @@
 // \brief Includes the right avi codec header depending on the platform
 // \author Matt Leotta
 
+/*
+// FIXME Stubbed away: use vidl
 #if defined(_MSC_VER) || defined(__BORLANDC__) || defined(__MINGW32__)
 #include "vidl1_win_avicodec.h"
 #else
+*/
 #include "vidl1_avifile_avicodec.h"
+/*
 #endif
+*/
 
 #endif // vidl1_avicodec_h_

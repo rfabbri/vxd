@@ -11,7 +11,8 @@
 // \endverbatim
 
 #include <vcl_cstddef.h> // for size_t, used in some of the avifile #includes
-#include <avifile.h>
+// FIXME Stubbed away: use vidl
+// #include <avifile.h>
 #include <vidl1/vidl1_codec.h>
 
 //: Allows user to load an AVI video with avifile
@@ -50,8 +51,11 @@ class vidl1_avicodec : public vidl1_codec
 
   mutable int current_frame_;
   //vxl_byte* buffer_;
+  // FIXME Stubbed away: use vidl
+  /*
   IAviReadFile* moviefile_;
   IAviReadStream* moviestream_;
+  */
 };
 
 #endif // vidl1_avifile_avicodec_h

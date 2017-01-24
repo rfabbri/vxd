@@ -5,19 +5,19 @@
 #include <vil/vil_crop.h>
 #include <vul/vul_file.h>
 
-#if LIBAVCODEC_BUILD >= ((52<<16)+(0<<8)+0)
-extern "C" {
-#include <libswscale/swscale.h>
-}
-#endif
+//#if LIBAVCODEC_BUILD >= ((52<<16)+(0<<8)+0)
+//extern "C" {
+//#include <libswscale/swscale.h>
+//}
+//#endif
 
 // Constructor
 vidl1_ffmpeg_codec::vidl1_ffmpeg_codec()
-: fmt_cxt_( NULL ),
+:// fmt_cxt_( NULL ),
   vid_index_( -1 ),
-  vid_str_( NULL ),
+//  vid_str_( NULL ),
   last_dts( 0 ),
-  frame_( NULL ),
+//  frame_( NULL ),
   deinterlace_( false ),
   frame_number_offset_( 0 )
 {
@@ -37,8 +37,11 @@ vidl1_ffmpeg_codec::initialize()
 {
   static bool initialized = false;
   if ( ! initialized ) {
+  // FIXME Stubbed away: use vidl
+  /*
     av_register_all();
     av_log_set_level(AV_LOG_ERROR);
+    */
     initialized = true;
   }
 }
@@ -49,6 +52,9 @@ vidl1_ffmpeg_codec::initialize()
 
 bool vidl1_ffmpeg_codec::probe(vcl_string const& fname)
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+  /*
   // Close any currently opened file
   close();
 
@@ -99,6 +105,7 @@ bool vidl1_ffmpeg_codec::probe(vcl_string const& fname)
   dump_format( fmt_cxt_, 0, fname.c_str(), 0 );
   close();
 
+  */
   return true;
 }
 
@@ -125,6 +132,10 @@ vidl1_ffmpeg_codec::load(vcl_string const& fname, char mode)
 bool
 vidl1_ffmpeg_codec::open(vcl_string const& fname, char mode )
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+
+  /*
   // Close any currently opened file
   close();
 
@@ -191,6 +202,7 @@ vidl1_ffmpeg_codec::open(vcl_string const& fname, char mode )
   //frame_rate_=(double)moviestream_->GetLength()/moviestream_->GetLengthTime();
 
   advance();
+  */
 
   return true;
 }
@@ -199,6 +211,8 @@ vidl1_ffmpeg_codec::open(vcl_string const& fname, char mode )
 void
 vidl1_ffmpeg_codec::close()
 {
+// FIXME Stubbed away: use vidl
+  /*
   if ( frame_ ) {
     av_free( frame_ );
     frame_ = 0;
@@ -217,6 +231,7 @@ vidl1_ffmpeg_codec::close()
     av_close_input_file( fmt_cxt_ );
     fmt_cxt_ = 0;
   }
+  */
 }
 
 
@@ -241,6 +256,11 @@ vidl1_ffmpeg_codec::get_view( int position,
 vil_image_view<vxl_byte>
 vidl1_ffmpeg_codec::cur_frame() const
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+
+  // FIXME Stubbed away: use vidl
+  /*
 #if LIBAVFORMAT_BUILD <= 4628
   AVCodecContext* enc = &fmt_cxt_->streams[vid_index_]->codec;
 #else
@@ -291,6 +311,7 @@ vidl1_ffmpeg_codec::cur_frame() const
   }
 
   return cur_img_;
+  */
 }
 
 
@@ -310,6 +331,11 @@ vidl1_ffmpeg_codec::put_view( int /*position*/,
 int
 vidl1_ffmpeg_codec::cur_frame_num() const
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+
+  // FIXME Stubbed away: use vidl
+  /*
   return ((last_dts - vid_str_->start_time)
 #if LIBAVFORMAT_BUILD <= 4623
           * vid_str_->r_frame_rate / vid_str_->r_frame_rate_base
@@ -320,6 +346,7 @@ vidl1_ffmpeg_codec::cur_frame_num() const
           / vid_str_->time_base.den
 #endif
           - int(frame_number_offset_);
+  */
 }
 
 
@@ -328,6 +355,11 @@ vidl1_ffmpeg_codec::cur_frame_num() const
 int
 vidl1_ffmpeg_codec::count_frames() const
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+
+  // FIXME Stubbed away: use vidl
+  /*
   // seek back to the first frame
 #if LIBAVFORMAT_BUILD <= 4616
   av_seek_frame( fmt_cxt_, vid_index_, 0);
@@ -398,6 +430,7 @@ vidl1_ffmpeg_codec::count_frames() const
 #endif
 
   return frame_count;
+  */
 }
 
 
@@ -406,6 +439,11 @@ vidl1_ffmpeg_codec::count_frames() const
 bool
 vidl1_ffmpeg_codec::advance() const
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+
+  // FIXME Stubbed away: use vidl
+  /*
   // Quick return if the file isn't open.
   if ( !frame_ ) {
     return false;
@@ -470,6 +508,7 @@ vidl1_ffmpeg_codec::advance() const
   }
 
   return got_picture != 0;
+  */
 }
 
 
@@ -481,6 +520,11 @@ vidl1_ffmpeg_codec::advance() const
 bool
 vidl1_ffmpeg_codec::seek( unsigned frame ) const
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+
+  // FIXME Stubbed away: use vidl
+  /*
 #if LIBAVFORMAT_BUILD <= 4623
   int64_t frame_size = int64_t(AV_TIME_BASE) * vid_str_->r_frame_rate_base
                      / vid_str_->r_frame_rate;
@@ -523,5 +567,6 @@ vidl1_ffmpeg_codec::seek( unsigned frame ) const
       return true;
     }
   }
+  */
 }
 

@@ -2,12 +2,15 @@
 //:
 // \file
 
+// FIXME Stubbed away: use vidl
+/*
 #include <avifile.h>
 #include <videodecoder.h>
 #include <infotypes.h>
 #include <version.h>
 #include <avm_default.h>
 #include <avm_fourcc.h>
+*/
 
 #include <vil/vil_image_view.h>
 #include <vul/vul_file.h>
@@ -18,7 +21,10 @@
 
 //: Constructor
 vidl1_avicodec::vidl1_avicodec()
-: current_frame_(0), moviefile_(NULL), moviestream_(NULL)
+: 
+// FIXME Stubbed away: use vidl
+//  moviefile_(NULL), moviestream_(NULL),
+  current_frame_(0)
 {
 }
 
@@ -26,11 +32,14 @@ vidl1_avicodec::vidl1_avicodec()
 //: Destructor
 vidl1_avicodec::~vidl1_avicodec()
 {
+// FIXME Stubbed away: use vidl
+  /*
   if (moviestream_) {
     moviestream_->StopStreaming();
   }
   if (moviefile_) delete moviefile_;
   //if (buffer_) delete buffer_;
+  */
 }
 
 
@@ -39,6 +48,11 @@ vidl1_avicodec::~vidl1_avicodec()
 
 bool vidl1_avicodec::probe(vcl_string const& fname)
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+
+  // FIXME Stubbed away: use vidl
+  /*
   IAviReadFile* avi_file;
   IAviReadStream* avi_stream;
   avi_file = CreateIAviReadFile(fname.c_str());
@@ -51,6 +65,7 @@ bool vidl1_avicodec::probe(vcl_string const& fname)
     delete avi_file;
   }
   return false;
+  */
 }
 
 
@@ -76,6 +91,11 @@ vidl1_avicodec::load(vcl_string const& fname, char mode)
 bool
 vidl1_avicodec::load_avi(vcl_string const& fname, char mode )
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+
+  // FIXME Stubbed away: use vidl
+  /*
   current_frame_=-1;
 
   moviefile_ = CreateIAviReadFile(fname.c_str());
@@ -109,6 +129,7 @@ vidl1_avicodec::load_avi(vcl_string const& fname, char mode )
   moviestream_->StartStreaming();
 
   return true;
+  */
 }
 
 
@@ -117,6 +138,11 @@ vidl1_avicodec::get_view( int position,
                           int x0, int xs,
                           int y0, int ys ) const
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+
+  // FIXME Stubbed away: use vidl
+  /*
   assert (moviestream_);
   if (!moviestream_) return NULL;
 
@@ -151,6 +177,7 @@ vidl1_avicodec::get_view( int position,
   if (cim->Depth()!=24) delete im24;
 
   return image;
+  */
 }
 
 
@@ -167,6 +194,11 @@ vidl1_avicodec::put_view( int /*position*/,
 int
 vidl1_avicodec::seek(int frame_number) const
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+
+  // FIXME Stubbed away: use vidl
+  /*
   assert (moviestream_);
   assert ((unsigned int)frame_number <= moviestream_->GetLength());
   if (!moviestream_ || (unsigned int)frame_number > moviestream_->GetLength())
@@ -203,12 +235,18 @@ vidl1_avicodec::seek(int frame_number) const
   if (current_frame_ == 0)
     current_frame_ = frame_number;
   return current_frame_;
+  */
 }
 
 
 int
 vidl1_avicodec::next_frame() const
 {
+  std::cerr << "ERROR: VIDL1 stubbed out, use vidl instead\n";
+  abort();
+
+  // FIXME Stubbed away: use vidl
+  /*
   assert (moviestream_);
   if (!moviestream_) return -1;
 
@@ -216,4 +254,5 @@ vidl1_avicodec::next_frame() const
 
   // hack for GetPos bug with MJPG codec
   return moviestream_->GetPos()==0 ? current_frame_+1 : moviestream_->GetPos();
+  */
 }

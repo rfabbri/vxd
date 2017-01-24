@@ -1,4 +1,12 @@
 # vxl/vidl1/CMakeLists.txt
+# FIXME use the newer vidl in your code FIXME
+# codecs are here STUBBED AWAY: abort() will be called upon
+# using any method that uses codecs.
+# It is impossible to maintain the configuration for codecs
+# up to date for an old lib like this.
+# It is easier for you to switch your original code to use vidl,
+# which is maintained by a large community, than to make vidl1 work
+# with codecs and complicated dependencies.
 
 
 # include( ${VXL_CMAKE_DIR}/FindMPEG2.cmake )
@@ -43,11 +51,12 @@ set(vidl1_sources
 #   )
 # endif()
 
-if( FFMPEG_FOUND )
+# if( FFMPEG_FOUND )
+# STUBBED AWAY: use vidl!
   set(vidl1_sources ${vidl1_sources}
     vidl1_ffmpeg_codec.cxx vidl1_ffmpeg_codec.h
   )
-endif()
+#endif()
 
 aux_source_directory(Templates vidl1_sources)
 
@@ -60,12 +69,14 @@ aux_source_directory(Templates vidl1_sources)
 #   endif()
 # endif ()
 
+# STUBBED AWAY: use vidl!
 # set(AVI_FOUND "NO")
 # if (AVIFILE_FOUND)
-#   set(vidl1_sources ${vidl1_sources}
-#       vidl1_avicodec.h
-#       vidl1_avifile_avicodec.h vidl1_avifile_avicodec.cxx
-#      )
+   set(vidl1_sources ${vidl1_sources}
+       vidl1_avicodec.h
+       vidl1_avifile_avicodec.h vidl1_avifile_avicodec.cxx
+      )
+# STUBBED AWAY: if on windows, use vidl!
 #   set(AVI_LIBRARIES ${AVIFILE_LIBRARIES})
 #   set(AVI_FOUND "YES")
 #   add_definitions( -DHAS_AVI )
@@ -97,9 +108,9 @@ target_link_libraries( vidl1 vbl vul vil vcl )
 # if( MPEG2_FOUND )
 #   target_link_libraries( vidl1 ${MPEG2_LIBRARIES} )
 # endif()
-if( FFMPEG_FOUND )
-  target_link_libraries( vidl1 ${FFMPEG_LIBRARIES} )
-endif()
+#if( FFMPEG_FOUND )
+#  target_link_libraries( vidl1 ${FFMPEG_LIBRARIES} )
+#endif()
 # if( AVI_FOUND )
 #   target_link_libraries( vidl1 ${AVI_LIBRARIES} )
 # endif()

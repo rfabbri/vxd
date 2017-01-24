@@ -11,8 +11,12 @@
 //   Matt Leotta  Mar 22, 2005  Adapted from codec by Amitha Perera
 // \endverbatim
 
-// we use VXL's current video lib (vidl) config.
-// we introduce a dependency here, but since vidl1 is deprecated, its fine
+
+// FIXME Stubbed away: use vidl
+/* FIXME Stubbed away: use vidl
+
+// using VXL's current video lib (vidl) config.
+// this introduces a dependency here, but since vidl1 is deprecated, its fine
 #include <vidl/vidl_config.h>
 extern "C" {
 #if FFMPEG_IN_SEVERAL_DIRECTORIES
@@ -31,6 +35,7 @@ extern "C" {
 # include <ffmpeg/avformat.h>
 #endif
 }
+*/
 
 #include <vidl1/vidl1_codec.h>
 #include <vil/vil_image_view.h>
@@ -90,9 +95,10 @@ class vidl1_ffmpeg_codec : public vidl1_codec
   //: count the number of frames in the video
   int count_frames() const;
  
-  AVFormatContext* fmt_cxt_;
+// FIXME Stubbed away: use vidl
+//  AVFormatContext* fmt_cxt_;
   int vid_index_;
-  AVStream* vid_str_;
+//  AVStream* vid_str_;
 
   //: Decode time of last frame.
   mutable int64_t last_dts;
@@ -102,7 +108,8 @@ class vidl1_ffmpeg_codec : public vidl1_codec
   //  If frame_->data[0] is not NULL, then the frame corresponds to
   //  the codec state, so that codec.width and so on apply to the
   //  frame data.
-  mutable AVFrame* frame_;
+// FIXME Stubbed away: use vidl
+//  mutable AVFrame* frame_;
 
   //: The last successfully decoded frame.
   //
