@@ -54,7 +54,7 @@ void vgel_kl::match_sequence(
     vgel_multi_view_data_vertex_sptr matches,
     bool                             use_persistent_features)
 {
-  VXL_DEPRECATED( "vgel_kl::match_sequence(vil1_image&, vil1_image&, vgel_multi_view_data_vertex_sptr,  bool)" );
+  VXL_DEPRECATED_MACRO( "vgel_kl::match_sequence(vil1_image&, vil1_image&, vgel_multi_view_data_vertex_sptr,  bool)" );
 
   // Get the current image width & height.  (The KLT code
   // assumes these are constant for the duration of a
@@ -216,7 +216,7 @@ void vgel_kl::match_sequence(
     vcl_vector<vil1_image> &         image_list,
     vgel_multi_view_data_vertex_sptr matches)
 {
-  VXL_DEPRECATED( "vgel_kl::match_sequence(vcl_vector<vil1_image> &, vgel_multi_view_data_vertex_sptr)" );
+  VXL_DEPRECATED_MACRO( "vgel_kl::match_sequence(vcl_vector<vil1_image> &, vgel_multi_view_data_vertex_sptr)" );
 
   vcl_vector<KLT_PixelType *> image_list_gs(image_list.size());
   int width = image_list[0].width();
@@ -382,7 +382,7 @@ void vgel_kl::matches_from_feature_table(KLT_FeatureTable                 ft,
 
 vcl_vector<vtol_vertex_2d_sptr>* vgel_kl::extract_points(vil1_image & image)
 {
-  VXL_DEPRECATED( "vgel_kl::extract_points(vil1_image &)" );
+  VXL_DEPRECATED_MACRO( "vgel_kl::extract_points(vil1_image &)" );
 
   int width=image.width();
   int height=image.height();
