@@ -12,6 +12,7 @@
 #include <avm_fourcc.h>
 */
 
+#include <stdlib.h>
 #include <vil/vil_image_view.h>
 #include <vul/vul_file.h>
 

@@ -1,6 +1,7 @@
 //:
 // \file
 
+#include <stdlib.h>
 #include "vidl1_ffmpeg_codec.h"
 #include <vil/vil_crop.h>
 #include <vul/vul_file.h>
@@ -16,7 +17,7 @@ vidl1_ffmpeg_codec::vidl1_ffmpeg_codec()
 :// fmt_cxt_( NULL ),
   vid_index_( -1 ),
 //  vid_str_( NULL ),
-  last_dts( 0 ),
+//  last_dts( 0 ),
 //  frame_( NULL ),
   deinterlace_( false ),
   frame_number_offset_( 0 )

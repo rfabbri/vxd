@@ -101,7 +101,7 @@ class vidl1_ffmpeg_codec : public vidl1_codec
 //  AVStream* vid_str_;
 
   //: Decode time of last frame.
-  mutable int64_t last_dts;
+//  mutable int64_t last_dts;
 
   //: The last successfully read frame.
   //
