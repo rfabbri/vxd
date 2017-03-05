@@ -1,19 +1,11 @@
 <img src="vxd-logo.gif" width="215" height="84" />
 
-
 ## Introduction: What is VXD?
 
 VXD (the Vision-something-Development libraries) is a collection of development/experimental
 C++ libraries for computer vision based on [VXL](http://vxl.sourceforge.net).
 
 VXD is a collection of code that builds against VXL but doesn't contain VXL.
-However, a higher level repository is maintained alongside this project, called
-[VPE](http://github.com/rfabbri/vpe) (Vision Programming Environment), which
-comes with reference copies of VXL and VXD, making things simpler for
-common use cases, such as distributing your project codebase and for tracking changes
-across VXL and VXD simultaneously. The average user can just work off VPE as a toplevel
-project, but one can always use VXD and VXL as separate git repositories.
-
 VXL (the Vision-something-Libraries) is a collection of C++ libraries designed
 for computer vision research and implementation.  VXL is kept lean and stable by
 the community, to be used by several companies, universities, and other libraries, so VXD has
@@ -39,13 +31,19 @@ least basic libraries conforming to the latest vxl at all times. VXD is easier
 to contribute to, and is less strict (thus messier) than VXL in terms of code
 stability.
 
-
 ## Developer Workflows
 
 A typical setup will have three VXL codebases:  VXL, VXD and an internal
-version, which we refer to as "Internal" in this discussion (e.g., LEMSVXL at Brown).
+codebase, which we refer to as "Internal" in this discussion (e.g., LEMSVXL at Brown).
 The workflow and organization of these libraries follow from the basic layering
 principles of VXL, reviewed below. 
+
+A higher level repository is maintained alongside this project, called
+[VPE](http://github.com/rfabbri/vpe) (Vision Programming Environment), which
+comes with reference copies of VXL and VXD, making things simpler for
+common use cases, such as distributing your project codebase and for tracking changes
+across VXL and VXD simultaneously. The average user can just work off VPE as a toplevel
+project, but one can always use VXD and VXL as separate git repositories.
 
 This section is not required to compile and use VXD.
 Only developers, contributors and maintainers should read this.
