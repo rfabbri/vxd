@@ -31,6 +31,15 @@ least basic libraries conforming to the latest vxl at all times. VXD is easier
 to contribute to, and is less strict (thus messier) than VXL in terms of code
 stability.
 
+### Contents
+The main systems currently in VXD include:
+* 3D Curve Sketch system (http://multiview-3d-drawing.sf.net), a multithreaded system for multiview curve-based stereo and camera optimization (see the bmcsd library). The curves come from edge detection from `VXL/sdet`.
+* Multiple view geometry of curves (reconstruction of tangents, curvatures, etc), as in the paper [Multiview Differential Geometry of Curves](http://multiview-3d-drawing.sf.net) by R. Fabbri and B. Kimia, IJCV, 2016.
+* Digital curve utilities: subpixel curve-based distance transform/chanfer matching, curve models, 3rd order ENO/GENO interpolation, etc.
+* A dataflow-based processing library with multithreading support (bprod)
+* Linear-time Exact Euclidean distance transforms
+* Basic utilities such as custom graph/hypergraph classes.
+
 ## Developer Workflows
 
 A typical setup will have three VXL codebases:  VXL, VXD and an internal
