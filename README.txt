@@ -33,7 +33,7 @@ stability.
 
 ### Contents
 The main systems currently in VXD include:
-* [3D Curve Sketch multiview stereo](http://multiview-3d-drawing.sf.net) system for multiview curve-based stereo and camera optimization, multithreaded. It is located in the [Brown Multiview Curve Stereo development library](contrib/brld/bmvgd/bmcsd/cmd)). The curves come from edge detection from [VXL/sdet](https://github.com/vxl/vxl/tree/master/contrib/brl/bseg/sdet).
+* [3D Curve Sketch multiview stereo](http://multiview-3d-drawing.sf.net) system for multiview curve-based stereo and camera optimization, multithreaded. It is located in the [Brown Multiview Curve Stereo development library](contrib/brld/bmvgd/bmcsd/cmd). The input curves come from the subpixel edge detector from [VXL/sdet](https://github.com/vxl/vxl/tree/master/contrib/brl/bseg/sdet).
 * [Multiple view geometry of curves](contrib/brld/bmvgd/bdifd): reconstruction and reprojection of tangents,
   curvatures, torsion, etc, as in the paper [Multiview Differential Geometry of
   Curves](http://multiview-3d-drawing.sf.net) by R. Fabbri and B. Kimia, IJCV,
