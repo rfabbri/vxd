@@ -40,7 +40,7 @@ The main systems currently in VXD include:
   2016.
 * Digital curve utilities: subpixel curve-based distance transform/chanfer
   matching, curve models, 3rd order ENO/GENO interpolation of signals/curves, etc.
-* A dataflow-based processing library with multithreading support (bprod)
+* A dataflow-based processing library with multithreading support [BPRO](contrib/brld/bbasd/bprod)
 * Linear-time Exact Euclidean distance transforms
 * Basic utilities such as custom graph/hypergraph classes.
 
