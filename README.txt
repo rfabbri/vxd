@@ -33,9 +33,13 @@ stability.
 
 ### Contents
 The main systems currently in VXD include:
-* 3D Curve Sketch system (http://multiview-3d-drawing.sf.net), a multithreaded system for multiview curve-based stereo and camera optimization (see the bmcsd library). The curves come from edge detection from `VXL/sdet`.
-* Multiple view geometry of curves (reconstruction of tangents, curvatures, etc), as in the paper [Multiview Differential Geometry of Curves](http://multiview-3d-drawing.sf.net) by R. Fabbri and B. Kimia, IJCV, 2016.
-* Digital curve utilities: subpixel curve-based distance transform/chanfer matching, curve models, 3rd order ENO/GENO interpolation, etc.
+* [3D Curve Sketch multiview stereo](http://multiview-3d-drawing.sf.net) system for multiview curve-based stereo and camera optimization, multithreaded. It is located in the [Brown Multiview Curve Stereo development library](contrib/brld/bmvgd/bmcsd/cmd)). The curves come from edge detection from [VXL/sdet](https://github.com/vxl/vxl/tree/master/contrib/brl/bseg/sdet).
+* [Multiple view geometry of curves](contrib/brld/bmvgd/bdifd): reconstruction and reprojection of tangents,
+  curvatures, torsion, etc, as in the paper [Multiview Differential Geometry of
+  Curves](http://multiview-3d-drawing.sf.net) by R. Fabbri and B. Kimia, IJCV,
+  2016.
+* Digital curve utilities: subpixel curve-based distance transform/chanfer
+  matching, curve models, 3rd order ENO/GENO interpolation of signals/curves, etc.
 * A dataflow-based processing library with multithreading support (bprod)
 * Linear-time Exact Euclidean distance transforms
 * Basic utilities such as custom graph/hypergraph classes.
